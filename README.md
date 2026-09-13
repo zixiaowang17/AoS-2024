@@ -59,7 +59,10 @@ A starting request for your agent:
 > $statistical-census-html for the report. Preserve source statements and record unresolved
 > questions. Keep PDFs private and write artifacts in English.
 
-## Try the synthetic demo
+## Try the software demo
+
+The two-paper review and the 113-paper experiment use real research papers. This separate
+demo uses invented data so the tools can be run without PDFs.
 
 ```sh
 python3 scripts/build_demo.py
