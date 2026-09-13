@@ -3,7 +3,7 @@
 AoS-2024 is a fresh repository containing the previously prepared release and the public
 intermediate research archive. It does not import the research workspace's Git history.
 
-It includes the three reusable skills, synthetic demo, complete 113-paper report, final
+It includes the three reusable skills, complete 113-paper report, final
 scientific data, per-paper intermediate records, grouping and audit stages, review histories,
 library evidence, historical scripts and the current blog draft with its dashboard image.
 

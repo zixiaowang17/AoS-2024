@@ -72,8 +72,8 @@ The [three skills](../README.md#reusable-skills) cover separate stages:
 - `ranked-mathlib-audit` searches a pinned mathlib revision and records matches and gaps.
 - `statistical-census-html` turns those records into the searchable report.
 
-The release includes a [runnable synthetic demo](../examples/synthetic/report.html), the
-full experiment, public review summaries and the underlying audit records. I have left
+The release includes the full experiment, public review summaries and the underlying audit
+records. I have left
 out the PDFs, private logs and local machine paths. Paper links and source hashes remain
 so readers can identify the versions used.
 

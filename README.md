@@ -15,7 +15,6 @@ Search by paper or API, read the source statements, and inspect the mathlib audi
 - `skills/`: the three skills, their validators and the HTML generator.
 - `experiments/aos-2024/`: the report and saved census and audit data.
 - `intermediates/`: extractions, checkpoints, grouping decisions, review history and mathlib evidence. [Browse the records](intermediates/index.html).
-- `examples/synthetic/`: a software demo with invented data.
 - `docs/blog-post.md`: the editable blog post, alongside its HTML and screenshot.
 
 PDFs are not included. See [export details](docs/intermediate-artifacts.md) for what was
@@ -53,18 +52,6 @@ A starting request for your agent:
 > these local papers. Then use $ranked-mathlib-audit for the library comparisons and
 > $statistical-census-html for the report. Preserve source statements and record unresolved
 > questions. Keep PDFs private and write artifacts in English.
-
-## Try the software demo
-
-The two-paper review and the 113-paper experiment use real research papers. This separate
-demo uses invented data so the tools can be run without PDFs.
-
-```sh
-python3 scripts/build_demo.py
-```
-
-Open `examples/synthetic/report.html` locally. Its statements and status labels are examples;
-the source links are placeholders.
 
 ## Reproduce the experiment report
 
