@@ -1,0 +1,85 @@
+[
+  {
+    "interface_id": "local-43c2deb364e5c8950674",
+    "status": "composable",
+    "names": [
+      "Matrix.vecMulVec",
+      "Matrix.mul_apply"
+    ],
+    "comparison": "Compute each group mean using its own n_m observations, then sum self outer products of the separately centered residual vectors across both groups and divide by n_1+n_2-2. vecMulVec gives each real residual outer product and matrix multiplication expands entrywise as required. Do not center the pooled data around one grand mean, use denominator n_1+n_2, or treat means and covariance as computed on independent samples. For the ordinary covariance definition require nonzero group sizes and a positive residual denominator; total real division by zero is not a source convention. The expression is symmetric positive semidefinite on that domain but may be singular, especially when p exceeds the residual degrees of freedom; no inverse or positive definiteness follows just from the construction.",
+    "gap": "Finite sums and outer products express the pooled covariance with the stated group centering and denominator; inverse availability requires separate conditions.",
+    "searches": [
+      [
+        "Inspect Matrix.vecMulVec and mul_apply against the separately centered two-group covariance formula",
+        "The primitives give the exact entrywise outer products; the normalization and sample-domain conditions belong to the paper definition."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-77d8c262f5e6b99f5955",
+    "status": "composable",
+    "names": [
+      "CFC.rpow",
+      "Matrix.mulVec",
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib"
+    ],
+    "comparison": "Construct independent identically distributed real coordinates with zero mean and finite unit variance, then apply the positive-semidefinite covariance square root by Matrix.mulVec. CFC.rpow Sigma_n (1/2) can represent that root under the positive self-adjoint matrix interpretation; a total CFC value at an inappropriate matrix is not an arbitrary algebraic square-root convention. With those moment conditions, the input second-moment matrix is the identity and the transformed covariance is Sigma_n after the usual finite-sum calculation. The transformed coordinates need not remain independent or identically distributed, and the standardized input need not be Gaussian. Preserve the dimension/n-dependent covariance and both bold/plain source typography. Do not confuse this covariance matrix with the distinct auxiliary Theta_n whose square-root conditions are separately flagged.",
+    "gap": "Matrix powers, matrix-vector products and iid predicates support the model after the covariance square-root and finite-moment identities are established.",
+    "searches": [
+      [
+        "Inspect CFC.rpow section parameters/body, Matrix.mulVec and the independent/identically-distributed definitions",
+        "The components express the linear population model but do not transfer coordinate independence through a general covariance square root."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-eafaa753b9ade769669a",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.bernoulliMeasure",
+      "ProbabilityTheory.iIndepFun"
+    ],
+    "comparison": "Assign each indicator d_j the two-point law bernoulliMeasure 1 0 p_j, because this constructor puts mass p_j at its FIRST argument; impose mutual coordinate independence as printed and multiply each y_j by d_j. Then p_j is the observation probability and 1-p_j the missing probability, despite the source prose. Coordinate probabilities may vary and there is no copied uniform positive lower bound. This definition does not itself assert independence between d and y; that is a separate full-matrix Assumption B. Do not substitute a general covariate-conditional missing-at-random mechanism or infer equal marginal distributions for all indicators. The n observed masked vectors retain the source sample setup; any cross-sample independence must come from the full model rather than just coordinate independence within a single d.",
+    "gap": "Bernoulli laws and coordinatewise products express the masked population; data-mask independence remains the separate source assumption.",
+    "searches": [
+      [
+        "Inspect bernoulliMeasure:42-54 and iIndepFun against the coordinate observation indicators",
+        "The Bernoulli constructor assigns p to its first point, fixing the observation probability orientation; it does not impose independence from the data."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-8089896165178a268b12",
+    "status": "composable",
+    "names": [
+      "Matrix.hadamard",
+      "Matrix.diagonal",
+      "Matrix.vecMulVec",
+      "Matrix.mul_apply"
+    ],
+    "comparison": "Put sample vectors in columns so Z is p by n and S_n=(1/n)*Z*Z^T is p by p. The jth diagonal mask acts on y_j, and the whole rectangular mask D_n multiplies Sigma_n^(1/2)*X_n entrywise, not by ordinary matrix multiplication or by commuting the mask through the covariance square root. The inspected Hadamard, diagonal and outer-product definitions verify these identities by expanding entries. Keep denominator n with n>0, no subtraction of empirical means and no division by pairwise observed counts. D_j is a p by p diagonal matrix and D_n is p by n; do not conflate them. This algebraic identity holds for the masked samples without independence assumptions, but any expectation/eigenvalue limit needs the separate stochastic assumptions; it is not an unbiased covariance correction for missing data.",
+    "gap": "The matrix primitives express all displayed Gram identities directly once sample orientation and the positive sample-size domain are fixed.",
+    "searches": [
+      [
+        "Inspect Matrix.hadamard, diagonal, vecMulVec and mul_apply against all four Gram representations",
+        "The definitions establish the entrywise masking and outer-product identities without changing n normalization or inserting sample centering."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-eaf3d8e64a3bd24fca5e",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.IndepFun"
+    ],
+    "comparison": "Treat the complete data matrix X_n and entire observation-mask matrix D_n as random variables on the same probability space and apply IndepFun to those matrix-valued variables. This is independence of the full matrices, stronger than merely each d_j being independent of x_j or independent mask coordinates. Combined with the separate model it supports unconditional data-independent missingness, not a general conditional MAR assumption. Represent Theta_n as a fixed matrix parameter with no sample argument, allowing deterministic n dependence. Nonrandomness alone does not impose positive semidefiniteness, invertibility or the square-root convention later used in Assumption D; preserve that recorded source qualification and do not import it into B.",
+    "gap": "IndepFun and a deterministic matrix parameter express Assumption B; the later auxiliary-matrix square-root requirements are separate.",
+    "searches": [
+      [
+        "Inspect IndepFun:140-146 against the full-matrix independence and nonrandom auxiliary matrix statement",
+        "The predicate applies to matrix-valued random variables and does not imply any positivity or invertibility property of the deterministic auxiliary matrix."
+      ]
+    ]
+  }
+]

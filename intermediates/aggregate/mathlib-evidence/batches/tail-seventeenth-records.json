@@ -1,0 +1,506 @@
+[
+  {
+    "interface_id": "local-b181950a52d9daf35054",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "4ac5f15680b3be7996e42bdfc31e99c3dd2e9b1a0689f3140529ef903b56a9c3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2059",
+        "local_id": "D7",
+        "comparison": "Use EuclideanSpace with its 2-norm, not the ordinary Pi-space sup norm. Keep T_original paired with the span of (x_pi,Z,Z_pi) and T_perm with (x,Z,Z_pi), exactly as equation (3) prints. Both are residual sums of squares, not the earlier F-statistic ratios. The columns can be dependent: their span still admits projection. This comparison establishes the geometric expression only and does not establish exchangeability, p-value validity or an identity between the two statistics.",
+        "statement_sha256": "7f14e602a2c079fb7517b9153bf99ed2719999c706979cf9a1b8bf7c64bee2e6"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched orthogonal projection and residual squared-norm infrastructure; inspected Submodule.span, starProjection and its HasOrthogonalProjection requirement, the complete-subspace instance, and finite-dimensional span infrastructure.",
+          "result": "The span of the supplied finite columns in Euclidean space is finite-dimensional and admits orthogonal projection, without a full-column-rank assumption. Subtracting that projection from y and squaring the Euclidean norm gives either residual statistic. The construction does not require a Gram inverse or a permutation-law theorem."
+        }
+      ],
+      "gap": "The two residual statistics are directly expressible using the specified column spans, orthogonal projections and squared Euclidean norms."
+    }
+  },
+  {
+    "interface_id": "local-61d4d2f804368f563e96",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "3e314affc3c8ce3b23bc87a15883e5385d6902f43c21a4ffa11cbec6ec788ea6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0491",
+        "local_id": "D12",
+        "comparison": "The ambient measure is P_X1, not the empirical design measure. MemLp.toLp handles almost-everywhere equivalence classes and requires measurability as well as finite second moment. Finite spans are complete over the reals; no covariance inverse is needed merely to define Pi_J. At each realized OMP support, fit membership in that span yields the orthogonal split. Keep B_m^2 and S_m as the squared norms in (1.9), not expectations over training samples, and retain the malformed source assignment 'B_m^2: a =' without altering its transcription.",
+        "statement_sha256": "63e01e3677ee4b16f05f79415ac0b0c14906a2e773b74d16e1fc8ee31bb0099c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.MemLp.toLp",
+          "type": "{α : Type u} → {E : Type v} → {m : MeasurableSpace α} → {p : ℝ≥0∞} → {μ : MeasureTheory.Measure α} → [NormedAddCommGroup E] → (f : α → E) → MeasureTheory.MemLp f p μ → MeasureTheory.Lp E p μ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+          "provides": "The Lp equivalence class of a function with an explicit finite-moment and measurability witness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSpace/Basic.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.norm_sq_eq_add_norm_sq_starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (x : E) → (S : Submodule 𝕜 E) → [S.HasOrthogonalProjection] → ‖x‖ ^ 2 = ‖S.starProjection x‖ ^ 2 + ‖Sᗮ.starProjection x‖ ^ 2",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Splits the squared norm into its orthogonal projection and orthogonal-complement parts.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L565-L568",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected LpSpace.Basic MemLp.toLp, L2Space.innerProductSpace, Submodule.span, finite-dimensional spans and the complete-subspace projection instance; inspected the full norm_sq_eq_add_norm_sq_starProjection proof and its underlying orthogonal split.",
+          "result": "Square-integrable covariates define elements of real L2 under the population design law. Their finite span admits projection. For a fitted function g in that span, apply the squared-norm projection identity to g-f-star: its span component is g-Pi f-star and its orthogonal component is minus (I-Pi)f-star. Norm symmetry and addition commutativity give the displayed decomposition. This is a pathwise geometric statement even when J is selected from the data."
+        }
+      ],
+      "gap": "With the functions represented in population L2 and the fitted function in the selected span, the projection and Pythagorean declarations give the displayed risk decomposition."
+    }
+  },
+  {
+    "interface_id": "local-7d2bff45342f4196d52d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "acb7cecd252ddad7b6304a0515389762484a1147d7397e1a91fd793d38cc7279",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0491",
+        "local_id": "D14",
+        "comparison": "For s-sparsity the target is S subset J-hat_m, not exact equality or a bias threshold; for gamma-sparsity it is the displayed population squared-bias bound with G>0 and the original exponent. The first admissible m includes 0. A WithTop Nat representation gives the usual inf-empty-as-infinity interpretation explicitly; finite-valued use requires eventual entry. The event tau < m-tilde is a comparison with a full-path oracle index, not automatically a computable stopping rule or an adapted hitting time.",
+        "statement_sha256": "9592b10223ad4a73a50b62167efbeaaa95ec6d3cbbf9f0015fae4102500c1683"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.hittingAfter",
+          "type": "{Ω : Type u} → {β : Type v} → {ι : Type w} → [Preorder ι] → [InfSet ι] → (ι → Ω → β) → Set β → ι → Ω → WithTop ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.HittingTime",
+          "provides": "First entry into a target set at or after the initial index, with infinity assigned when no entry occurs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/HittingTime.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched orthogonal matching pursuit, hitting times and first-entry definitions; inspected hittingAfter, its no-hit branch and natural-index interpretation, plus the population orthogonal-projection definition.",
+          "result": "With natural iteration indices and start 0, hittingAfter expresses either entry of the support path into sets containing S or entry of the squared-bias path into the non-strict threshold interval. It returns infinity on no entry. The generic definition proves no relation to the actual stopping rule tau and does not itself make the oracle process measurable or adapted."
+        }
+      ],
+      "gap": "The two oracle indices can use first-entry infrastructure, but their relation to the OMP path and the no-early-stopping guarantee remain to be proved."
+    }
+  },
+  {
+    "interface_id": "local-b810c2a7d9848201c8bd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "313f1fcced5638b1321835bf01e42cb5a29f7547f60f8ae54ce35ed27b5a80d4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1152",
+        "local_id": "D20",
+        "comparison": "Use every start index i=1 through n-b+1 at the same full-data fitted theta-hat_n; the target entries are the spectral statistics D19, not raw time-series blocks. Map an index multiset without converting the resulting values to a Finset, so coincident values keep their window multiplicities. The empirical law requires 1 <= b <= n; construction of each spectral statistic and the fitted parameter is upstream.",
+        "statement_sha256": "bac48ee89d08c153a1b9420095ce234d274064feea539ab637a8d43998a1d00d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Multiset.map",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Multiset α → Multiset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Multiset.MapFold",
+          "provides": "Maps each element of a multiset while preserving and combining multiplicities of equal outputs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Multiset/MapFold.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.ofMultiset",
+          "type": "{α : Type u} → (s : Multiset α) → s ≠ 0 → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Equal-weight empirical distribution of a nonempty multiset, with multiplicities preserved.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L315-L329",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched overlapping-block and empirical resampling infrastructure; inspected Multiset.map's quotient-of-list definition and PMF.ofMultiset's count/card mass and normalization proof.",
+          "result": "Map the n-b+1 start indices to their supplied spectral statistics as a multiset. Equal statistic values retain the sum of their multiplicities, and ofMultiset gives the equal-window empirical distribution when at least one window exists. Neither the map nor the empirical distribution asserts independence of overlapping windows."
+        }
+      ],
+      "gap": "A multiset of the indexed window statistics and its equal-weight empirical law are directly expressible while preserving duplicate values."
+    }
+  },
+  {
+    "interface_id": "local-450304d8511b53333ce0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "74df6cf6d3b547435c558c0bc6e395f08a543247dac29f0e01fc1f99a873eede",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1152",
+        "local_id": "D21",
+        "comparison": "Independence is conditional on the data and theta-hat_n, not an assertion that original overlapping statistics are independent. Use the same block length b as SEL and N draws with replacement from all OL start indices, preserving multiplicities. Each draw is a spectral average used as a counterpart of a nonoverlapping statistic; no reconstructed series or concatenation is specified. The product-law construction does not by itself prove bootstrap approximation or unconditional independence after mixing over the observed sample.",
+        "statement_sha256": "a85fe7c68668fd99f59d68b71aa786c143583eb5035d8111f66574004edd11e3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PMF.ofMultiset",
+          "type": "{α : Type u} → (s : Multiset α) → s ≠ 0 → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Equal-weight empirical distribution of a nonempty multiset, with multiplicities preserved.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L315-L329",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched overlapping-block bootstrap, empirical distributions and product measures; inspected ofMultiset, infinitePi's probability-measure branch and cylinder product formula, and the iIndepFun comap-independence definition.",
+          "result": "For each fixed observed data set, the empirical multiset law is a probability measure. Its product over Fin N supplies N independent coordinates with the same empirical law, including repeated values and repeated selections. iIndepFun records joint independence under that fixed bootstrap measure. The family indexed by random observed data still requires measurable-kernel treatment to become a conditional bootstrap construction."
+        }
+      ],
+      "gap": "The fixed-data product law supplies the resampling step, while a measurable data-dependent bootstrap law and its spectral-EL validity still require construction and proof."
+    }
+  },
+  {
+    "interface_id": "local-8561662bdb58b801aada",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "3e6f4e898e22eef0d82ca5f620bdea78ac185cb4ac6196a5886a7a777eda7953",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1152",
+        "local_id": "D22",
+        "comparison": "Weights index N bootstrap draws, so duplicate draw values still receive separate coordinates. Add sum_i p_i T_i,OL-star(theta-hat_n)=M_theta-hat_n with M_theta-hat_n=T_n(theta-hat_n), not a target recomputed as the bootstrap sample average. The objective is the product of all N coordinates; finite-support storage must still include the zero factors when forming that product. Preserve the -2 and N^N normalization. The original ell_n(theta_0) is a comparison baseline and is not a random numeric input to this bootstrap definition; source stars on L/ell are superscripts.",
+        "statement_sha256": "a4452cf50c94fb294a69815c0e6c7660939f6da4cf4e7f4401425dfd29e1fb2e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Convexity.StdSimplex",
+          "type": "(R : Type u) → [LE R] → [AddCommMonoid R] → [One R] → (X : Type v) → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Geometry.Convex.ConvexSpace.Defs",
+          "provides": "Finitely supported nonnegative weights on an index type with total mass one; finite indices give ordinary probability-simplex weights.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Geometry/Convex/ConvexSpace/Defs.lean#L56-L62",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched empirical likelihood and probability-simplex infrastructure; inspected Convexity.StdSimplex weights/nonneg/total, the deprecated set-valued simplex for comparison, csSup_le_iff with nonempty/bounded assumptions, and Real.log's nonpositive extension.",
+          "result": "StdSimplex over Fin N supplies nonnegative weights summing to one, including zero weights. Restricting them by the spectral moment equation and taking the supremum of their finite coordinate products expresses the optimization target. Supremum identities over the reals require a nonempty bounded objective set, and a finite log-ratio additionally needs positive likelihood; Real.log maps zero to zero and is not the extended statistical convention at zero likelihood."
+        }
+      ],
+      "gap": "The fitted spectral-moment constraint and likelihood optimization need feasibility and positivity treatment before the real logarithm represents the intended bootstrap log-ratio."
+    }
+  },
+  {
+    "interface_id": "local-fe568f20b2b208ac5c62",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "3b341f38e478196e9f006b91824310e61745bad5361c77ceb6da76da639aa09c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2913",
+        "local_id": "D10",
+        "comparison": "Require k>0 and k<=s<=n for a full observed-data window. The symbol R_(s/k) labels a window ending at s; it is not integer division or a restriction to multiples of k. For s=jk the window agrees with the earlier nonoverlapping block j. Empty sums or truncated natural subtraction must not silently extend the source to invalid windows, and overlap implies no independence.",
+        "statement_sha256": "6c54bdff7c5068a19bec2787c8bdfbbaae2507590a5c2dc77880dfd6da605047"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched overlapping-block averages and finite normalized sums; inspected Finset.sum_div, the generated additive sum_range_succ theorem and the natural-number Finset interval implementation.",
+          "result": "The interval s-k+1 through s can be represented by k terms X_(s-k+1+j) for j in range k, with the common denominator k handled by sum_div. This representation keeps the source's endpoint and does not need the label s/k to be an integer."
+        }
+      ],
+      "gap": "Finite sums and division directly express the sliding average for valid window endpoints and positive block length."
+    }
+  },
+  {
+    "interface_id": "local-645ccc0985d4f76ef7d0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "e9922fe35d3fbeeeee5b957d7ca86a8518e7cccdc2104366c6690afc653ee9f7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2913",
+        "local_id": "D11",
+        "comparison": "Keep every integer endpoint s=k,...,ell-hat, giving ell-hat-k+1 overlapping windows, and use the full-prefix mu-hat_0 from D9 for every deviation. Preserve the outside factor k, with no Bessel correction or substitution of a block-sample mean. Both ell-hat and mu-hat_0 are data-selected inputs. It is the optional specific estimator (8), not an automatic replacement for every occurrence of a generic consistent long-run variance estimator; the definition comparison does not certify Theorem 3.2.",
+        "statement_sha256": "b1685e891225d95e336679747d4b0cbc446efee2c27d1fe697f1bab3b98c817a"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched overlapping-block long-run variance estimates and inspected finite interval indexing, Finset.sum_div and sum_range_succ as the normalization and summation ingredients.",
+          "result": "For supplied ell-hat, mu-hat_0 and overlapping block means, the expression is a finite sum of centered squares multiplied by k and divided by ell-hat-k+1. A valid selected block gives ell-hat>=k when k>0. These operations express the statistic but carry no long-run variance consistency theorem."
+        }
+      ],
+      "gap": "The displayed estimator is directly expressible by finite sums, squared deviations and its stated normalization once the selected endpoint and centering estimate are supplied."
+    }
+  },
+  {
+    "interface_id": "local-5d40df6dedd09508eb6f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "c69aacc4453c7428cda08e88295a80b3ca01dba6747041fd1c9b9bd908b190e4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0233",
+        "local_id": "D10",
+        "comparison": "Use max over actions separately at each state, then multiply the transition row by this V vector. The classical map uses P; the pessimistic map uses P-hat and subtracts the value-dependent penalty before clipping below at zero. There is no additional upper clipping or previous-iterate maximum in the printed map. The input Q is arbitrary, not already a fixed point. This algebraic expression assumes the supplied penalty is defined and establishes neither monotonicity, contraction nor pessimistic accuracy; the positive-over-zero convention in upstream penalty (28) remains explicit.",
+        "statement_sha256": "7db0f7b31ea165bdb9fecb50f70f9c27067a06e78a2aae3518868b3dece6ec12"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Bellman and value-iteration declarations in the pinned Mathlib tree; inspected Matrix.mulVec's finite dot-product body and Finset.max' with its nonempty finite-set requirement.",
+          "result": "For nonempty finite actions, max' of the row's action values defines V(s). Matrix.mulVec supplies the transition-row expectation. Addition, scaling, subtraction of a supplied b(s,a;V), and scalar max with zero then express equations (26)-(27). No specialized Bellman operator was found by the name/semantic searches."
+        }
+      ],
+      "gap": "With the kernels, reward, discount and penalty function supplied, matrix-vector multiplication and finite maxima directly express both displayed Bellman updates."
+    }
+  },
+  {
+    "interface_id": "local-d1c0f0fe8c202e60ef49",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:44:29.404523+00:00",
+    "source_interface_sha256": "919653c217a52f6af4c210f3203082ce31850230925eda0e5be71705c2b20668",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0233",
+        "local_id": "D12",
+        "comparison": "Reuse the same data and P-hat for all iterations; do not resample transitions or recompute Q_tau using partially updated V_tau. Every state/action update uses V_(tau-1), then every value row is maximized. Start Q_0=V_0=0 and run exactly tau_max rounds. The output is any maximizing action at the final Q, with no tie-breaking rule supplied; IsMaxOn alone lacks membership and selection. Retain the empirical uniform fallback at zero counts from (25), the exact capped Bernstein penalty including 5/N from (28), and its unresolved positive-over-zero convention rather than silently inheriting Lean's totalized real division.",
+        "statement_sha256": "119fb043d79f8b394ca02a19b99b07a4ff0315544363b2438d3e13b091ecbbe7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.iterate_succ_apply'",
+          "type": "{α : Type u} → (f : α → α) → (n : ℕ) → (x : α) → f^[n.succ] x = f (f^[n] x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Logic.Function.Iterate",
+          "provides": "One more iteration of a self-map applies the same map to the previous iterate; the map can encode a sequential update on a pair of parameters.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Function/Iterate.lean#L174-L175",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched offline value iteration, Bellman and finite greedy selection; inspected iterate_succ_apply' and its iterate-composition proof, Matrix.mulVec, Finset.max' and IsMaxOn's principal-filter definition.",
+          "result": "A self-map on Q/V pairs can encode one simultaneous iteration, and iterate_succ_apply' gives repeated application from zero initialization with a fixed data-derived kernel. Finite maxima give the value update, while membership plus IsMaxOn characterizes a greedy action. These declarations do not supply the full empirical-kernel/penalty algorithm, its choices at exceptional counts or its policy guarantee."
+        }
+      ],
+      "gap": "The empirical-kernel and penalty construction, exceptional-count conventions and greedy policy selection must be assembled and verified around the generic iteration machinery."
+    }
+  }
+]

@@ -1,0 +1,123 @@
+{
+  "scope": "Manual comparison of eleven remaining interfaces and thirteen variants from aos-2024-v52-i06-p2879, preserving finite/infinite-dimensional scope and positive-ridge/ridgeless domains.",
+  "rows": [
+    {
+      "interface_id": "local-fc94914c9e1eb065ca69",
+      "related": ["Matrix.trace", "ContinuousLinearMap.inverse", "ContinuousLinearMap.IsPositive"],
+      "query": "Modified population resolvent trace weighted by a positive semidefinite operator; inspected finite trace and bounded inverse/positivity and searched trace-class operator interfaces in Analysis and LinearAlgebra.",
+      "result": "Finite matrices can express the displayed trace directly. For the separable-Hilbert-space case, bounded operator composition is available but a trace-class product and basis-independent trace must be established separately.",
+      "gap": "The remaining full-scope interface supplies covariance square roots, inverse-domain proofs and a trace-class operator trace, beyond the finite-matrix trace ingredient.",
+      "comparisons": {
+        "D21": "Preserve the order Sigma^(1/2)*Q*Sigma^(1/2)*(zeta*I+mu*Sigma)^(-1), with Q positive semidefinite and the inherited trace-class covariance. This is a scalar resolvent trace, not the inverse operator itself or the effective prediction risk. Positive zeta and nonnegative mu in the later resolvent setting support invertibility; arbitrary parameter values in the abbreviated notation do not. ContinuousLinearMap.inverse returns zero outside invertibility and cannot be used as a domain convention. Matrix.trace covers only the finite-dimensional specialization, not every trace-class Hilbert-space operator allowed by the paper."
+      }
+    },
+    {
+      "interface_id": "ridge-signal-population-resolvent-ratio",
+      "related": ["InnerProductSpace.rankOne_apply", "Filter.Tendsto", "ContinuousLinearMap.inverse", "Matrix.trace"],
+      "query": "Directional-to-total population resolvent ratio at positive ridge and at the zero-ridge limit; inspected normalized rank-one operators, inverse domains and one-sided limits.",
+      "result": "The directional weight is a normalized rank-one operator, and dividing its resolvent trace by the identity-weighted trace defines the ratio on a valid nonzero domain. The zero-ridge variant additionally needs the limiting root and continuity or a separate limit argument.",
+      "gap": "The remaining ratio interface establishes nonzero signal and trace denominators, the claimed positive range and the ridgeless limit, including the infinite-dimensional trace construction.",
+      "comparisons": {
+        "D22": "Write beta=Sigma^(1/2)*theta and Q=rankOne(theta,theta)/||theta||^2, then divide R0(lambda_star,1;Q) by R0(lambda_star,1;I). Finiteness of ||theta|| alone allows theta=0, for which the printed normalization is undefined; a kernel component also affects the strict positivity claim unless the inverse-covariance signal convention is specified. Keep the claimed (0,1] range separate from merely forming the quotient, and do not treat rho as a covariance correlation or statistical risk ratio.",
+        "D24": "The zero-ridge variant uses lambda_star(0) in the same normalized directional trace and is asserted to equal the lambda-downarrow-zero limit of rho(lambda). Preserve that limiting construction rather than substituting a singular ordinary inverse. The overparameterized support-rank assumptions may be needed for lambda_star(0)>0, while underparameterized limits can reach zero; the source's zero-signal and covariance-nullspace conventions remain unresolved. This is not an independent choice of a new rho parameter."
+      }
+    },
+    {
+      "interface_id": "effective-dimension-regularization-ratio",
+      "related": ["Int.floor", "Real.log"],
+      "status": "composable",
+      "query": "Effective-dimension envelope ratios for positive ridge and the ridgeless free-kappa replacement; inspected floor indexing and real logarithm domains.",
+      "result": "Both ratios are scalar arithmetic using a sampled covariance eigenvalue and the chosen effective-dimension envelope, with different denominator parameters.",
+      "gap": "The formulas are expressible once valid eigenvalue indices and positive denominator parameters are supplied, preserving the distinct meanings of kappa in the two regimes.",
+      "comparisons": {
+        "D19": "Use chi_n(lambda)=1+sigma_floor(eta*n)*d_Sigma*log(d_Sigma)^2/(n*lambda), with eta depending only on C_x as stated. d_Sigma is a chosen admissible envelope at least n, not an automatically minimized effective rank. Retain lambda>0 and the source's unresolved eigenvalue-zero/out-of-range indexing conventions for finite dimension or small n; floor conversion cannot invent a sigma_0 value.",
+        "D23": "Replace the denominator by kappa*n*lambda_star(0), preserving the same numerator and the prime on chi. Here kappa is a free positive theorem parameter subject to its ridgeless constraints, not min(lambda/lambda_star,1-lambda/lambda_star), which degenerates as lambda approaches zero. A positive finite lambda_star(0) needs its support-rank domain; do not recover this variant by literal evaluation of chi_n at lambda=0."
+      }
+    },
+    {
+      "interface_id": "local-589d67507c96b3a40da6",
+      "related": ["Filter.Tendsto", "IsMinOn", "Submodule.orthogonalProjectionOnto"],
+      "query": "Ridgeless regression as the positive-regularization limit and minimum-norm interpolation; bounded pseudoinverse search and inspection of one-sided limits and minimizing/projection predicates.",
+      "result": "The positive-lambda limit can be stated in the coefficient Hilbert-space topology, and the minimum-norm solution can be characterized by constrained minimization when interpolation is feasible. A singular ordinary inverse is not this limit.",
+      "gap": "The remaining construction proves convergence of the ridge estimates to the minimum-norm least-squares solution and identifies interpolation under the necessary design-rank conditions.",
+      "comparisons": {
+        "D11": "Take lambda tending to zero through positive values in the ridge estimator, retaining the n*lambda normalization of its inverse formula. In an overparameterized design, exact interpolation additionally requires feasibility or the appropriate row rank; d>n alone does not guarantee that every response is interpolated. In rank-deficient or underparameterized cases the limit concerns the minimum-norm least-squares solution. Do not call the totalized matrix inverse at lambda=0 a pseudoinverse or infer the source's zero-bias conclusion without its rank(X)=d qualification."
+      }
+    },
+    {
+      "interface_id": "local-94ad7e106973136c503b",
+      "related": ["MeasureTheory.measure_iUnion_fintype_le", "Set.indicator"],
+      "status": "composable",
+      "query": "Probability guarantee on an event defined through intersected failure probability; inspected event operations and finite union bound.",
+      "result": "The definition is a bound on P(A complement intersect E). Splitting the full failure event into its part in E and its part outside E gives the stated unconditional consequence.",
+      "gap": "Event operations and the union bound express this guarantee and its unconditional consequence without a conditional-probability denominator.",
+      "comparisons": {
+        "D26": "Retain P(A^c intersect E)<=Delta as the meaning of 'A happens on E with probability at least 1-Delta'. It is not P(A|E)>=1-Delta and does not divide Delta by P(E); E need not have positive probability for the displayed definition. For measurable events in a probability space, the union bound yields P(A)>=1-Delta-P(E^c). Keep this convention when reading the ridgeless theorem's event-qualified conclusions."
+      }
+    },
+    {
+      "interface_id": "local-b8da31f51feb9fe0575b",
+      "related": ["Set.Icc"],
+      "status": "composable",
+      "query": "Interior ratio of ridge regularization to effective regularization; inspected real interval constraints and the source parameter definition.",
+      "result": "Real division and minimum define the ratio once lambda_star is nonzero, with positivity corresponding to lambda/lambda_star lying strictly between zero and one.",
+      "gap": "Real arithmetic defines kappa on the positive-ridge interior domain, while the required effective-root inequalities remain separate conditions.",
+      "comparisons": {
+        "D20": "Set kappa=min(lambda/lambda_star,1-lambda/lambda_star)>0, so on a positive-root domain it is at most one half. Preserve both complementary ratios; kappa is neither lambda_star/lambda nor an arbitrary tuning constant here. Do not propagate this definition to the free kappa used in the ridgeless theorem or identify it with other reused nu symbols. At a zero ridge/root endpoint the formula needs the source's limiting treatment rather than totalized division."
+      }
+    },
+    {
+      "interface_id": "local-7378620c9ecd57310ac5",
+      "related": ["Int.floor", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Regular variation of sorted eigenvalue sequences through proportional-index ratios; bounded regular-variation search and inspection of floor-indexed filter limits.",
+      "result": "For every positive dilation, a floor-indexed ratio sequence and its positive finite limit express the source condition directly. No inspected declaration packages the spectral regular-variation result or its implication for Assumption 3.",
+      "gap": "The sequence condition is expressible by floor indexing and convergence, while its spectral consequences and power-law characterization require separate arguments.",
+      "comparisons": {
+        "D27": "For every delta>0 require sigma_floor(delta*i)/sigma_i to tend to psi(delta) in (0,infinity) as i tends to infinity. Specify the tail domain where indices are at least one and denominators are positive; a finite-rank sequence eventually equal to zero cannot use an unexamined 0/0 convention to satisfy this condition. Preserve sorted eigenvalues and proportional-index limits rather than assuming an exact power law or a fixed slowly varying multiplier. The source's assertion that this implies Assumption 3 is not supplied by Filter.Tendsto."
+      }
+    },
+    {
+      "interface_id": "local-246bb6ddc5cd5424c067",
+      "related": ["InnerProductSpace.rankOne_apply", "ContinuousLinearMap.inverse", "Matrix.trace"],
+      "query": "Partial-sample covariance resolvent and zeta-scaled functional; inspected rank-one Gram contributions, bounded inverse and finite trace, with bounded trace-class search.",
+      "result": "A finite sum of sample rank-one operators gives X_k transpose X_k, and bounded operator composition gives the resolvent on the positive-zeta domain. The full infinite-dimensional trace still requires a trace-class construction.",
+      "gap": "The remaining full-scope interface supplies inverse and trace-class proofs for the sample resolvent and retains the exact k=0 and scaling conventions.",
+      "comparisons": {
+        "D30": "Use zeta>0, mu>=0 and positive semidefinite Q with bounded operator norm. Add the unnormalized sum of the first k sample outer products X_k^T X_k to zeta*I+mu*Sigma inside the inverse, then trace after Sigma^(1/2)*Q*Sigma^(1/2). Set X_0^T X_0=0 explicitly and F_k=zeta*R_k with no 1/k or 1/n sample-covariance factor inserted. These design-only quantities do not require responses, noise variance or the ridge bias/variance assumptions. Matrix.trace handles finite dimension; the permitted Hilbert-space setting still needs a legitimate operator trace rather than a finite truncation declared exact."
+      }
+    },
+    {
+      "interface_id": "local-598dc55993fa4d5455f6",
+      "related": ["Filter.Tendsto", "ContinuousLinearMap.inverse", "Matrix.trace"],
+      "query": "Unique effective population parameter solving a scalar resolvent fixed-point equation above mu; inspected inverse/trace ingredients and the source ridge special-case relation.",
+      "result": "The displayed scalar equation can characterize a candidate parameter using R0, but existence, uniqueness and the strict interval restriction need a monotonicity or fixed-point argument under the covariance assumptions.",
+      "gap": "The remaining interface proves a unique solution in (mu,infinity) for the supplied resolvent and selects it without a default-root convention.",
+      "comparisons": {
+        "D31": "Require mu_star>mu and mu_star=mu+n/(1+R0(zeta,mu_star;I)), with the unknown appearing inside the population resolvent. Do not replace n by the partial-sample index k or define an arbitrary fixed-point iteration as the source estimator. The source special case zeta=n*lambda, mu=0 relates mu_star=n*lambda/lambda_star to the effective-ridge equation, but the general parameter does not inherit the positive-ridge kappa or signal rho assumptions. Keep the infinite-dimensional trace requirements and the source's repeated 'on' typo outside any silent mathematical repair."
+      }
+    },
+    {
+      "interface_id": "local-6231ba9b59251b4e18bb",
+      "related": ["MeasureTheory.Measure.sum", "MeasureTheory.Measure.dirac", "MeasureTheory.lintegral", "Int.floor", "Asymptotics.IsBigOWith"],
+      "status": "composable",
+      "query": "Polynomial-branch coefficient spectral measure and weighted-moment comparison; inspected atomic measures, nonnegative integration, floor indexing and the source's uniform-constant big-O convention.",
+      "result": "The cumulative coefficient weights define an n-dependent atomic measure with atoms at k/n, so the two integrals become weighted spectral sums. Their comparison can be stated with an explicit constant on the intended parameter domain.",
+      "gap": "The coefficient predicate is expressible by atomic measures and weighted moments, retaining its branch-specific scale and source constant convention rather than inferring a bias rate.",
+      "comparisons": {
+        "D28": "Use masses |inner(beta,v_k)|^2 at k/n so that F_beta(x)=sum_{k<=floor(n*x)} inner(beta,v_k)^2, and compare the x^alpha moment to n^(1-theta) times the x^alpha/(1+c_star*x^alpha) moment for some scalar 0<theta<=1. This theta is not the bold inverse-covariance signal theta. The measure depends on n and is not normalized to a probability law. Keep the polynomial branch's c_star and alpha, finite-moment/denominator domains and its all-parameter big-O convention; an eventual-atTop IsBigO statement alone would weaken that convention. The recorded slowly varying eigenvalue-scale issue in the later theorem is not resolved by this predicate."
+      }
+    },
+    {
+      "interface_id": "local-43a7ab179e2e06ebbb76",
+      "related": ["MeasureTheory.Measure.sum", "MeasureTheory.Measure.dirac", "MeasureTheory.lintegral", "Int.floor", "Asymptotics.IsBigOWith"],
+      "status": "composable",
+      "query": "Rapid-decay branch coefficient spectral measure with n/log(n) scaling and weighted first-moment comparison; inspected atomic-measure and uniform big-O ingredients.",
+      "result": "This branch places coefficient masses at k*log(n)/n, yielding the displayed cumulative count and weighted first moments with its own c_star.",
+      "gap": "The rapid-decay predicate is supported by its atomic measure and scalar comparison once n>1 and the branch's parameter and finite-moment domains are specified.",
+      "comparisons": {
+        "D29": "Use F_beta(x)=sum_{k<=floor((n/log(n))*x)} inner(beta,v_k)^2, distinct from the polynomial branch's floor(n*x). Compare integral x dF_beta to n^(1-theta)*integral x/(1+c_star*x) dF_beta for a scalar 0<theta<=1, retaining this branch's c_star. n>1 is needed for a positive n/log(n) scale; no value at n=1 is invented. Keep the measure's n dependence, unnormalized coefficient mass and the source's uniform multiplicative-constant convention rather than silently turning it into an ordinary probability moment or a statement about exact coefficient decay at every index."
+      }
+    }
+  ]
+}

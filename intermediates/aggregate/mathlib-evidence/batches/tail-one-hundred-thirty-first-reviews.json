@@ -1,0 +1,216 @@
+{
+  "scope": "Manual comparison of all twenty-six remaining p2931 interfaces against pinned mathlib declarations, preserving the reviewed source's dimensional, sampling, regularity and finite-index ambiguities.",
+  "rows": [
+    {
+      "interface_id": "local-679d7a070d0a85cde251",
+      "related": ["Matrix.vecMulVec"],
+      "query": "Inspected Matrix.vecMulVec body in Data/Matrix/Mul and compared D8 with the frozen D12 and D20 dimensions.",
+      "result": "The outer product of constant-one vectors scaled by the reciprocal dimension constructs the displayed J; the source's d-dimensional J cannot right-multiply a d by K iterate matrix unless dimensions agree.",
+      "gap": "Define the identity and averaging matrix with an explicit positive dimension and resolve the source's d-versus-K centering convention before using it in the client recursion.",
+      "comparisons": {"D8": "Use Fin d coordinates with ones i = 1 and J = (d:real) inverse times vecMulVec ones ones; vecMulVec has entries ones i times ones j and identity is the ordinary square matrix identity, not the all-ones matrix. The literal source dimension is d, whereas right centering of Theta requires K; retain the reviewed discrepancy rather than changing the quoted definition, and require positive dimension for averaging."}
+    },
+    {
+      "interface_id": "local-5858883b2616b88ba0c1",
+      "related": ["Real.rpow"],
+      "query": "Inspected Real.rpow positive-base convention and compared all branches of the frozen segment definition (31) and its source note.",
+      "result": "Real powers represent the sublinear alpha=1 first segment, but neither real arithmetic nor a power API supplies integer boundaries or reconciles fixed linear second and third segments with the exact total.",
+      "gap": "Specify integer segment boundaries and reconcile the fixed-constant alpha=1 formulas with the requirement that the three lengths sum exactly to T.",
+      "comparisons": {"D36": "For positive T and zeta in (0,1/2), rpow T (1-zeta) matches the real exponent in r1; retain r1=T/C1 for alpha<1, r1=T^(1-zeta)/C2 for alpha=1, and r2=T/C3, r3=T/C4 with each Cj>1. In the alpha=1 branch, division by T makes the sum constraint require T^(-zeta)/C2+1/C3+1/C4=1 for all T, incompatible with fixed constants; no rounding or T-dependent repair is licensed by this source."}
+    },
+    {
+      "interface_id": "local-e8578a57eb798aefe20b",
+      "related": ["gradient", "MeasureTheory.MemLp", "MeasureTheory.integral"],
+      "query": "Searched Analysis and Probability for federated gradient-noise moment assumptions; inspected gradient, MemLp and Bochner integral bodies.",
+      "result": "Gradients and finite norm moments are available, but the uniform client/parameter family of moment-growth inequalities remains a paper-specific assumption.",
+      "gap": "Define the client gradient-noise family with measurable finite moments and impose the displayed common moment bounds for every positive integer s at most v.",
+      "comparisons": {"D17": "Define epsilon_k as gradient of stochastic f_k minus gradient of population F_k, retaining the Euclidean norm and all theta in Phi and clients. MemLp epsilon (2*s) represents genuine finite moments with measurability; an inequality involving the totalized real integral alone could pass on a nonintegrable function because its integral is zero. Preserve sigma^(2*s)+L_xi times the population-gradient norm^(2*s), nonnegative constants and v-dependent range; do not infer differentiation under expectation or zero-mean noise solely from this definition."}
+    },
+    {
+      "interface_id": "local-6d37ba3dbb1a14d094f9",
+      "related": ["Finset.sum_apply", "MeasureTheory.integral"],
+      "query": "Inspected generated Finset.sum_apply and Bochner integral; compared frozen D1-D3 weighted population-risk definitions.",
+      "result": "Finite function sums and expectations provide the expression, with heterogeneous client laws and positive normalized weights supplied by the paper.",
+      "gap": "Assemble the heterogeneous client risks and normalized weights into the federated objective while establishing integrability wherever the expectations are used analytically.",
+      "comparisons": {"D3": "F theta is the finite sum of w_k times F_k theta for k=1..K; sum_apply identifies a function sum with its pointwise scalar sum. F_k integrates f_k against its own P_k, so no identical distributions or equal weights are assumed; D2's balanced positive weights summing to one are separate data. A finite weighted sum is not itself a proof that gradients commute with the risk integrals."}
+    },
+    {
+      "interface_id": "local-8ef0ddc50b606ed92a62",
+      "related": ["IsMinOn"],
+      "query": "Inspected IsMinOn definition and membership warning; compared the frozen constrained target definition and source-19.",
+      "result": "IsMinOn represents the objective comparison but neither includes membership nor selects a unique minimizer; constrained minimization does not automatically imply a vanishing gradient.",
+      "gap": "Supply a minimizer in Phi with existence and any required uniqueness, keeping constrained optimality separate from an unstated interior or zero-gradient condition.",
+      "comparisons": {"D4": "Represent a chosen theta_K_star by theta_K_star in Phi and IsMinOn F Phi theta_K_star, preserving K dependence of the weights, client laws and target. The library predicate alone permits a point outside Phi and does not construct an argmin; closed convex Phi alone does not ensure attainment for arbitrary F on an unbounded domain. Later normality arguments cannot obtain unconstrained stationarity from this definition without additional justification."}
+    },
+    {
+      "interface_id": "local-37c29caaff2b0ec49c1d",
+      "related": ["gradient", "Finset.sum_apply"],
+      "query": "Searched for federated heterogeneity assumptions; inspected gradient and finite function sums and compared D19 with D2-D4.",
+      "result": "The weighted finite gradient-disagreement expression is representable, but the common global heterogeneity and target-gradient bounds are independent assumptions.",
+      "gap": "State both uniform bounds on the heterogeneous population gradients using the paper's weights, domain and constrained target.",
+      "comparisons": {"D19": "The first inequality is a weighted sum of squared Euclidean distances between gradient F and gradient F_k for each theta in Phi, bounded by kappa squared; the second is an individual norm bound by B at theta_K_star for every k. Neither is a stochastic-gradient variance condition, and the second does not say that any local gradient is zero; preserve nonnegative kappa and B and do not replace the first weighted sum with an unweighted client average."}
+    },
+    {
+      "interface_id": "local-d165d132abf4d8014d03",
+      "related": ["gradient"],
+      "query": "Inspected gradient's inner-product-space type and compared the columns and timing of the frozen matrix formula (6).",
+      "result": "Euclidean gradients supply the columns, while the d by K estimate/gradient matrices and their K-scaled weights require a bespoke definition.",
+      "gap": "Define the client-column iterate and gradient matrices with the exact K weight factor and previous-iterate/current-observation indexing.",
+      "comparisons": {"D12": "Theta_t i k is coordinate i of theta_hat_t^k, while G_t i k is K*w_k times coordinate i of gradient f_k at theta_hat_(t-1)^k with xi_t^k fixed. This is a d by K matrix, not a square Hessian; retain the leading K even though the weights sum to one. Differentiability must justify the gradient, whose library value defaults to zero when no derivative exists."}
+    },
+    {
+      "interface_id": "local-c9bac3cc0cf7d330c924",
+      "related": ["gradient", "exists_norm_eq_iInf_of_complete_convex", "ProbabilityTheory.iIndepFun"],
+      "query": "Searched Analysis and Probability for federated or consensus recursions; inspected gradient, Hilbert projection existence and iIndepFun and the frozen D5-D13 definitions.",
+      "result": "Gradient, convex projection existence and independence primitives are available; the periodic right-mixing projected recursion and its exact sampling law are not supplied by them.",
+      "gap": "Build the measurable projected DFL recursion with periodic right multiplication, a well-defined projection onto Phi and an explicit joint sampling law without inventing cross-client independence.",
+      "comparisons": {"D13": "For t=1..T use M_Phi((Theta_(t-1)-eta_t G_t) C) if tau divides t and M_Phi(Theta_(t-1)-eta_t G_t) otherwise; projection acts columnwise after mixing. C is the symmetric stochastic K by K connection matrix and initialization repeats the same theta_0 across clients. The projection theorem requires nonempty complete convex Phi and returns minimizers, not this full stochastic recursion or its measurability. The stated i.i.d. streams are within each client; iIndepFun over all client/time pairs would impose an additional joint independence assumption."}
+    },
+    {
+      "interface_id": "federated-estimate-axis-average",
+      "related": ["Finset.sum_apply", "Finset.sum_div"],
+      "query": "Inspected Finset.sum_apply and sum_div and compared both frozen members' client/time indexing and normalizations.",
+      "result": "Finite coordinate sums support either axis average; the two variants have distinct index sets and neither uses the federated weights.",
+      "gap": "Define the two vector averages over their respective positive client or time index sets and preserve their distinct normalizations and outputs.",
+      "comparisons": {
+        "D14": "At fixed t average the K client vectors with coefficient 1/K; this is unweighted despite weighted gradients in the recursion. Finset.sum_apply works coordinatewise and scalar sum_div supports normalization per coordinate, with K>0 required for an average; the output still depends on t.",
+        "D15": "At fixed client k average theta_hat_t^k for t=1..T with coefficient 1/T; exclude theta_0 and require T>0. The same finite-sum primitives apply coordinatewise, but this returns a local temporal average, not D14's cross-client average, and does not introduce the weights w_k."
+      }
+    },
+    {
+      "interface_id": "local-ab80b6ec13f24a546469",
+      "related": ["gradient", "ConvexOn"],
+      "query": "Inspected gradient and ConvexOn; searched convex analysis for derivative/strong-convexity interfaces and compared (11).",
+      "result": "Differential and Jensen-convexity primitives are available, but ConvexOn alone does not encode the two-sided gradient remainder with constant L.",
+      "gap": "Connect differentiability and convexity to the displayed population-risk remainder and separately impose its uniform L/2 quadratic upper bound on Phi.",
+      "comparisons": {"D18": "Retain every client, both theta_1 and theta_2 in Phi, gradient evaluated at theta_2, and lower zero/upper L/2 times squared Euclidean distance with L>0. ConvexOn is defined by convex combinations, so the first-order inequality needs a derivative bridge and domain care. This condition is on F_k, not on each stochastic f_k or a same-sample expected gradient difference as in D24."}
+    },
+    {
+      "interface_id": "local-1fc8d9b3fda11e3cc5b9",
+      "related": ["StrongConvexOn", "gradient", "iteratedFDeriv", "Matrix.PosSemidef"],
+      "query": "Searched self-concordance and strong-convexity names; inspected all of Convex/Strong, iteratedFDeriv and PosSemidef and compared source-05/06.",
+      "result": "StrongConvexOn uses the quadratic Jensen modulus with factor mu/2 but does not include a maximal modulus or derivative equivalence; the alternative self-concordance clause remains source-ambiguous.",
+      "gap": "Prove the gradient characterization and specify the largest common modulus, then resolve the printed self-concordance variables while keeping the positive-mu and zero-mu cases separate.",
+      "comparisons": {"D22": "StrongConvexOn univ mu F_k is related to the all-R^d lower remainder with coefficient mu/2; its type permits any real mu and does not assert mu is the largest common nonnegative value. For mu>0 the domain may be unbounded. Only the mu=0 branch adds bounded Phi, three differentiations, Hessian at theta_K_star at least mu_star I, and uniform gradient bound B_G. iteratedFDeriv supplies orders two and three, and PosSemidef of a matrix difference expresses the Hessian order after a coordinate bridge. The printed phi'''(t) <= B_G*norm(theta_1-theta_2)*phi''(u) lacks a t/u relation and absolute value; preserve it as unresolved rather than substitute standard self-concordance or add both cases' assumptions jointly."}
+    },
+    {
+      "interface_id": "local-effef5f4729fee26ae13",
+      "related": ["gradient", "MeasureTheory.MemLp", "MeasureTheory.integral"],
+      "query": "Searched average-smoothness/federated assumptions and inspected gradient, MemLp and integral for same-observation gradient differences.",
+      "result": "The library represents an L2 difference of random gradients but does not provide this uniformly parameterized mean-square smoothness assumption.",
+      "gap": "Define the same-sample gradient-difference random variable with finite second moments and impose the exact L_a bound uniformly over clients and pairs in Phi.",
+      "comparisons": {"D24": "Both gradients use the same xi^k, evaluated at theta_1 and theta_2; replacing them by independent observations changes the quantity. Retain expectation of squared Euclidean norm <= L_a times squared parameter distance, with L_a positive rather than L_a squared. This is a mean-square stochastic-loss condition, distinct from deterministic population L-smoothness, and integrability must prevent the real integral's nonintegrable-zero fallback."}
+    },
+    {
+      "interface_id": "local-942f7637eb23925277d4",
+      "related": ["iteratedFDeriv"],
+      "query": "Searched Hessian names and inspected iteratedFDeriv's recursive continuous-multilinear-map body and frozen D27.",
+      "result": "The second Fréchet derivative is available as a bilinear map; a Euclidean basis conversion yields the population Hessian matrix, without automatically proving its existence or positivity.",
+      "gap": "Convert the second derivative of the population federated risk at theta_K_star to a coordinate matrix under the paper's differentiability assumptions.",
+      "comparisons": {"D27": "Use iteratedFDeriv real 2 F theta_K_star evaluated on coordinate basis vectors, checking argument order and Hessian symmetry with appropriate regularity. This differentiates the weighted population F, not a single stochastic loss or the plug-in estimate, and totalized derivatives do not by themselves certify twice differentiability, nonsingularity or interchange with expectation."}
+    },
+    {
+      "interface_id": "local-a7ae282263238629f2e2",
+      "related": ["Finset.sum_apply", "Finset.sum_div"],
+      "query": "Inspected finite-sum evaluation/division and compared the frozen double-average formula with D14-D15.",
+      "result": "Finite sums can express the spatial-temporal average and prove the two finite averaging orders agree coordinatewise; no convergence statement follows from that algebra.",
+      "gap": "Assemble the unweighted client-and-time vector average with denominator TK over positive index sets and connect it to the DFL iterates.",
+      "comparisons": {"D16": "Sum theta_hat_t^k over t=1..T and k=1..K with common coefficient 1/(T*K), retaining positive T and K and excluding time zero. Despite w_k in the objective and K*w_k in gradients, the reported spatial-temporal average is unweighted; finite index sums preserve duplicate-valued iterates and do not require probabilistic independence."}
+    },
+    {
+      "interface_id": "local-2cc729ec9cb440f03cf2",
+      "related": ["Matrix.vecMulVec", "Matrix.PosSemidef", "MeasureTheory.MemLp", "MeasureTheory.integral"],
+      "query": "Inspected outer products, PSD order, MemLp and integral; compared frozen Assumption 4.2 with source-09/10 on joint law and aggregate-noise binding.",
+      "result": "Second-moment matrices, positive lower bounds and higher norm moments are expressible, but the source leaves the aggregate-noise observation argument and joint sampling law unresolved.",
+      "gap": "Define the joint aggregated noise and genuine higher moments, preserving each local covariance lower bound and clarifying the printed observation binding before using uniformity in K.",
+      "comparisons": {"D25": "S_k integrates vecMulVec epsilon_k epsilon_k at theta_K_star and the lower bound is PosSemidef(S_k-ell_cov I) with ell_cov>0. Aggregated epsilon(theta) is sqrt(K) times sum w_k epsilon_k(theta;xi^k); its 2+delta norm moment has a strict common bound C_e for K>=1, distinct from a separate local moment bound. The printed epsilon(theta_K_star;xi^k) mixes an aggregate with a single-client argument, which remains unresolved. MemLp with exponent 2+delta ensures meaningful finite moments, but neither it nor within-client independence supplies absent cross-client independence."}
+    },
+    {
+      "interface_id": "local-33beea38ce9fa09023b9",
+      "related": ["Matrix.vecMulVec", "MeasureTheory.integral", "ProbabilityTheory.covarianceOperator_apply"],
+      "query": "Inspected outer product, Bochner integral and covarianceOperator_apply including its MemLp premise and uncentered convention.",
+      "result": "The uncentered covariance operator and outer-product integral match the displayed second moment after a coordinate/law bridge; calling it centered covariance needs zero-mean noise.",
+      "gap": "Construct the aggregate-noise law with finite second moments and justify any zero-mean or cross-client covariance simplification separately.",
+      "comparisons": {"D28": "S is E[epsilon epsilon^T] for epsilon=sqrt(K) sum w_k epsilon_k at the population target. covarianceOperator_apply integrates inner(x,y) times y under a law with MemLp id 2, which gives the same uncentered second-moment operator in real Euclidean coordinates. No mean subtraction occurs in the printed formula; equality to centered covariance requires a justified mean-zero result, and expansion retains cross-client terms unless their disappearance is established from a joint-law premise."}
+    },
+    {
+      "interface_id": "local-cadc7e3222d714ca5cb8",
+      "related": ["iteratedFDeriv", "Matrix.l2_opNorm_def"],
+      "query": "Inspected second Fréchet derivative and scoped L2 matrix norm; compared the exact anchor quantifiers in frozen Assumption 4.3.",
+      "result": "Derivative matrices and Euclidean operator norms are available; the stated bound compares each parameter only to the target and is weaker than a two-point Lipschitz condition.",
+      "gap": "Build the population Hessian and impose its target-anchored operator-norm bound uniformly over Phi and K with the printed constant L_H.",
+      "comparisons": {"D26": "Represent Hess F via iteratedFDeriv order two and use Matrix.Norms.L2Operator for the displayed spectral norm, avoiding the default matrix norm. The inequality is norm(Hess F theta-Hess F theta_K_star)<=L_H*norm(theta-theta_K_star) for all theta in Phi and K>=1; it does not compare arbitrary theta_1,theta_2. Population twice differentiability here does not make individual stochastic f_k twice differentiable, which is separately assumed in D32."}
+    },
+    {
+      "interface_id": "local-e4dbf0b293a4b895ad7d",
+      "related": ["iteratedFDeriv", "Matrix.l2_opNorm_def", "MeasureTheory.MemLp", "MeasureTheory.integral"],
+      "query": "Inspected iteratedFDeriv, operator norm and finite norm moments; compared both inequalities of frozen Assumption 4.4.",
+      "result": "Random Hessian matrices and L2 norms are supported as ingredients, but the target-anchored smoothness and target-noise variance assumptions require their own definitions and integrability.",
+      "gap": "State both same-sample stochastic-Hessian bounds with spectral norms, genuine second moments and the paper's distinct positive constants.",
+      "comparisons": {"D32": "For each client, the first quantity is the square root of E[norm(Hess f_k theta xi-Hess f_k theta_K_star xi)^2], using the same xi, bounded by ell_H times target distance. The second compares Hess f_k theta_K_star xi to Hess F_k theta_K_star with expected squared spectral norm <= scalar H squared. Keep scalar H distinct from the bold population matrix H, and do not replace spectral norm by Frobenius norm, anchored continuity by all-pairs continuity, or the population Hessian by an unproved expectation of stochastic Hessians."}
+    },
+    {
+      "interface_id": "local-c751cc82761aea40663e",
+      "related": ["MeasureTheory.integral", "Finset.sum_div", "Matrix.frobeniusNormedAddCommGroup"],
+      "query": "Inspected expected squared norms and Frobenius matrix norm; compared frozen D21 and its relation to the source's d/K centering discrepancy.",
+      "result": "The mean squared client deviation is an ordinary finite average of expectations; converting it to a centered Frobenius matrix formula requires a correctly sized K-dimensional centering matrix.",
+      "gap": "Define the expected unweighted squared consensus deviation with finite moments and prove any matrix-centering identity using the client dimension K.",
+      "comparisons": {"D21": "At fixed t the center is the spatial average theta_bar_t and the expression is (1/K) sum_k E[norm(theta_t^k-theta_bar_t)^2]. This measures client dispersion, not estimation error around theta_K_star, and w_k are absent. With K>0 and the Frobenius norm it equals K^-1 E[norm(Theta_t(I-J_K))_F^2] after finite integral linearity; J_K must have K by K shape, unlike the literal d-indexed J in D8, and each expectation needs its finite-moment justification."}
+    },
+    {
+      "interface_id": "local-a7ed485ff7bbbbfda0d6",
+      "related": ["iteratedFDeriv", "Finset.sum_apply"],
+      "query": "Inspected second derivatives and finite matrix sums; compared all indices of frozen (24) with source-12.",
+      "result": "Finite weighted Hessian averaging is expressible, but the stated window function alone does not make all referenced temporal averages and observations defined.",
+      "gap": "Specify valid window endpoints and the temporal-mean boundary convention before assembling the local trailing Hessian averages and their weighted aggregate.",
+      "comparisons": {"D31": "For s=0..a(T)-1 evaluate Hess f_k at the local temporal average with index T-s-1 and observation xi_(T-s), then divide by a(T); aggregate with w_k, without a leading K. a is positive integer-valued and nondecreasing, but the displayed definition does not impose a(T)<=T; equality reaches a temporal average at zero, and larger windows create further invalid indices. Preserve these source issues instead of using truncated natural subtraction or silently declaring an initial temporal mean, and keep this smooth Hessian estimator distinct from the later regression estimator."}
+    },
+    {
+      "interface_id": "local-2f1f2ee2d7e32ee04aef",
+      "related": ["MeasureTheory.integral", "Matrix.frobeniusNormedAddCommGroup"],
+      "query": "Searched consensus/federated error bounds; inspected integral and Frobenius norm and compared the complete frozen uniform-bound passage (12).",
+      "result": "The two expected-error quantities can be represented, but no inspected library result establishes the paper's uniform-in-client-count and time DFL bounds.",
+      "gap": "Prove the two strict uniform moment bounds under the stated DFL assumptions after resolving the centering dimension and integrability obligations.",
+      "comparisons": {"D20": "Retain existential positive B_MSE and B_CE preceding all 1<=t<=T and K>=1, and the strict inequalities for spatial-average target error and K^-1 expected squared Frobenius centered-iterate norm. The alternatives are Phi of finite diameter or Phi=R^d, under 2.1-2.2, 3.1 with v=1 and 3.2-3.3, not automatically stronger later curvature assumptions. Constants cannot be selected separately for each t or K; totalized expectations do not establish finite moments, and right centering still needs the reviewed d/K clarification."}
+    },
+    {
+      "interface_id": "local-2fecb4e9b998aee1f398",
+      "related": ["StrongConvexOn"],
+      "query": "Inspected StrongConvexOn's modulus normalization and compared both rational expressions in the frozen curvature constant (17).",
+      "result": "Strong convexity supplies the meaning of a modulus but does not define this derived piecewise rate constant or prove its role in the DFL rate.",
+      "gap": "Define the two branches of mu_Rd with their positive-denominator assumptions and prove its claimed curvature role from the corresponding source hypotheses.",
+      "comparisons": {"D23": "For mu>0 preserve (mu/(2L)+1/2)*mu; for mu=0 preserve mu_star^2 divided by 2L*(4+16 B_G^2 R_d^2/9), using L>0 and the positive mu_star/B_G of the zero-mu branch. This derived quantity is not the original strong-convexity modulus or a later tilded constant; retain the source's dangling 'and' as a textual issue rather than adding an invented condition. StrongConvexOn alone provides neither the self-concordance branch nor the convergence estimate."}
+    },
+    {
+      "interface_id": "local-6e6ee669714456ba1bea",
+      "related": ["gradient", "Matrix.mul_nonsing_inv", "Finset.sum_apply"],
+      "query": "Inspected gradient, nonsingular matrix inverse cancellation and finite sums; compared every factor and index of frozen (33).",
+      "result": "The Newton-like correction is algebraically expressible, but it uses stored gradients along local trajectories and needs a well-defined invertible plug-in Hessian.",
+      "gap": "Construct the alpha=1 corrected estimator with the specified smooth Hessian inverse and stored weighted gradients, resolving its window and nonsingularity requirements.",
+      "comparisons": {"D39": "Subtract H_hat inverse times (1/T) sum_(t=1..T) sum_k w_k gradient f_k(theta_hat_(t-1)^k;xi_t^k) from the spatial-temporal preliminary estimate. These gradients are evaluated at local previous iterates, not at the preliminary average; the normalizer is T, not TK, because the client weights already sum to one. H_hat is specifically (24), with its recorded window-boundary issue; Matrix.mul_nonsing_inv requires a unit determinant, so the totalized singular inverse is not a supplied fallback or proof of asymptotic efficiency."}
+    },
+    {
+      "interface_id": "local-c878ef21bf8e54935bc6",
+      "related": ["Matrix.vecMulVec", "ProbabilityTheory.covariance", "Finset.sum_apply"],
+      "query": "Inspected outer products and centered scalar covariance; compared the full frozen estimator (22) with the update's indexing and source-11.",
+      "result": "The displayed empirical centered second-moment matrix can be assembled from finite outer-product sums, but the sampled gradient sequence retains unresolved time-zero and data-reuse conventions.",
+      "gap": "Specify the gradient sequence at the printed indices and construct its denominator-T centered empirical second-moment matrix without silently shifting observations or using an unbiased normalization.",
+      "comparisons": {"D29": "Let g_t^k be the printed gradient f_k(theta_hat_t^k;xi_t^k), t=0..T-1, and use T^-1 sum vecMulVec g_t g_t minus T^-2 vecMulVec(sum g_t)(sum g_t). This corresponds coordinatewise to covariance under the uniform empirical index law for positive T; it is not the T-1 sample covariance. xi_0 is not introduced by the t>=1 sampling stream and theta_t uses same-time data differently from the update gradient at theta_(t-1); preserve both issues rather than treating g_t as independent observations or reindexing it."}
+    },
+    {
+      "interface_id": "local-efc72ad5b4c5d8b9fbb2",
+      "related": ["Finset.sum_apply", "ProbabilityTheory.covariance"],
+      "query": "Inspected finite matrix sums and centered covariance and compared frozen (23) with aggregate epsilon and source-09.",
+      "result": "The K-weighted sum of local estimated covariances is representable, but its identification with the full aggregate-noise covariance needs control of cross-client terms.",
+      "gap": "Assemble K times the sum of squared-weight local covariance estimates and justify the missing cross-client terms before claiming consistency for S.",
+      "comparisons": {"D30": "Each local S_hat_k is multiplied by K*w_k^2, not K*w_k or w_k alone, reflecting epsilon=sqrt(K) sum w_k epsilon_k. This estimator omits all distinct-client cross products. Within-client i.i.d. sampling does not establish their zero covariance, and no cross-client joint independence is added; D29's finite-index issues also remain dependencies of the estimator."}
+    },
+    {
+      "interface_id": "local-92e8cb0d77ec08f1221a",
+      "related": ["Matrix.mul_nonsing_inv", "Matrix.PosSemidef", "ProbabilityTheory.cdf"],
+      "query": "Searched Probability/Distributions and CDF for chi-square and quantile declarations; inspected matrix inverse cancellation and PSD definition and compared frozen (26) and source-15.",
+      "result": "Matrix algebra, positivity and scalar distribution functions provide ingredients, but no inspected declaration supplies this studentized DFL confidence region or its chi-square upper-tail quantile and coverage theorem.",
+      "gap": "Define the chi-square upper-tail critical value and studentized region, proving valid inverses, the requisite symmetry/positivity and asymptotic coverage under the precise source assumptions.",
+      "comparisons": {"D33": "Preserve Sigma_hat=H_hat^-1 S_hat H_hat^-1 with no transpose on the last factor, and the region TK*(theta_PR-theta)^T Sigma_hat^-1*(theta_PR-theta)<=chi^2_(d,beta), where beta denotes the upper tail for coverage 1-beta. The inverse lemma requires nonsingularity and PosSemidef is a condition rather than a proof that the estimate satisfies it. A smooth Hessian and a regression estimate Z V^-1 have different symmetry obligations; the latter need not be symmetric at finite T, so do not silently transpose the sandwich or assume an ellipsoid from the formula alone. CDF is only a scalar-law ingredient, not a verified chi-square quantile construction or calibration result."}
+    }
+  ]
+}

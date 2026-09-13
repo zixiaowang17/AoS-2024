@@ -1,0 +1,94 @@
+[
+  {
+    "interface_id": "local-a07d00366a3349ef9c0f",
+    "status": "partial_match",
+    "names": [
+      "ProbabilityTheory.Kernel.deterministic",
+      "ProbabilityTheory.Kernel.comp",
+      "ProbabilityTheory.CondIndepFun",
+      "ProbabilityTheory.condDistrib"
+    ],
+    "comparison": "For a measurable statistic T, the deterministic kernel from X to T supplies the theta-X-T direction. The theta-T-X direction requires one conditional reconstruction kernel for X given T that is independent of theta and gives the correct JOINT disintegration under every P_theta; matching a single marginal law is insufficient. When theta is a fixed model index, replacing it by a constant random variable makes conditional independence vacuous, so do not use that as a sufficiency proof. A randomized parameter formulation can use CondIndepFun under a specified joint prior/model law, but one prior's almost-everywhere identity alone does not certify the required parameter-uniform family. condDistrib needs its regular conditional existence hypotheses and only selects versions under a given law; the saved arbitrary-space and cross-parameter version issues remain. No dedicated matching sufficient-statistic declaration was found in the searched Decision/Kernel modules.",
+    "gap": "Kernels and conditional independence support the representation, but a parameter-uniform conditional reconstruction with appropriate existence/version conditions remains to establish.",
+    "searches": [
+      [
+        "Search sufficient statistics/sufficiency in Probability/Decision and Kernel; inspect deterministic, composition, CondIndepFun and condDistrib",
+        "The primitives provide deterministic transitions and regular conditionals under their hypotheses, but do not supply a common conditional kernel across the whole indexed experiment."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-79ceb71bacbac85955a5",
+    "status": "composable",
+    "names": [
+      "Matrix.vecMulVec",
+      "Matrix.mul_apply",
+      "ProbabilityTheory.gaussianReal",
+      "ProbabilityTheory.iIndepFun"
+    ],
+    "comparison": "Construct Lambda with iid rows from mu_Lambda and use the n by n Gram matrix Lambda*Lambda^T scaled by q_Theta/n with q_Theta>0 and n>0. Generate GOE noise by independent upper-triangular real Gaussian entries with variance 1/n off diagonal and 2/n on the diagonal, then mirror off-diagonal entries, with independence from the signal as specified by the experiment. GaussianReal takes variance, not standard deviation. Do not impose independence on both mirrored orientations. No named GOE declaration was located in the previously searched Gaussian sources, but these Gaussian and matrix primitives construct it. q_Theta here is a scalar signal parameter; there is no second random Theta factor or need to import asymmetric-model prior conditions into this stand-alone symmetric experiment.",
+    "gap": "Independent Gaussian entries and matrix products construct the symmetric spiked experiment with its GOE normalization and signal-noise independence.",
+    "searches": [
+      [
+        "Inspect GaussianReal and matrix outer-product/multiplication definitions with the saved symmetric-model normalization",
+        "The building blocks implement upper-triangular GOE and the Lambda Gram signal without importing a Theta prior or changing q_Theta/n scaling."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-28417c7e2f2e50636184",
+    "status": "composable",
+    "names": [
+      "ContDiffOn",
+      "MeasureTheory.Measure.withDensity",
+      "MeasureTheory.lintegral"
+    ],
+    "comparison": "For the real C4 potential v, define the density proportional to exp(-n*v) relative to d-dimensional Lebesgue measure and normalize by its integral. withDensity and lintegral support this once the normalizer is strictly positive and finite; C4 smoothness alone does not guarantee integrability on all R^d. The later growth/coercivity conditions may supply it and must retain their own domains rather than being silently built into this bare definition. Allow v to depend on n and d as stated. The measure need not arise from an iid likelihood or posterior, and no sample-size factor other than n or Gaussian approximation is part of this target definition.",
+    "gap": "Density weighting and normalization represent the target after positivity and finiteness of the normalizing integral are justified.",
+    "searches": [
+      [
+        "Inspect withDensity, lintegral and C4 smoothness representation against the general target density",
+        "The constructors express normalized exponential potentials, but smoothness alone supplies neither a finite normalizer nor an iid statistical interpretation."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-06499cd178a0ebbf1684",
+    "status": "composable",
+    "names": [
+      "gradient",
+      "fderiv",
+      "ProbabilityTheory.stdGaussian",
+      "MeasureTheory.integral",
+      "CFC.rpow",
+      "Matrix.mul_nonsing_inv"
+    ],
+    "comparison": "Represent the gradient expectation as zero and the Hessian expectation as S^{-1}, both evaluated at m+S^(1/2)Z with the SAME standard Gaussian Z and V=n*v. The gradient and derivative-of-gradient give the Euclidean Hessian after a fixed basis identification; differentiability and Gaussian integrability of the derivative fields must be established before using the totalized derivative/integral objects. S is symmetric positive definite and its square root is the positive symmetric root, not an arbitrary factor such as a Cholesky matrix; use CFC on that domain and a genuine matrix inverse. These two equations define stationarity, not an attained global KL minimizer, uniqueness or selection of the canonical solution. The later restriction to R_V and its existence/uniqueness result are separate, and the cited external calculation is not imported as a proved local theorem.",
+    "gap": "Derivatives, Gaussian integration and positive matrix powers express the equations, while their integrability and canonical-solution claims require separate justification.",
+    "searches": [
+      [
+        "Inspect gradient, fderiv, stdGaussian, integral and positive matrix/inverse operations against (1.9) and the saved stationarity-versus-KL distinction",
+        "The components express the two expectations but do not turn stationarity into global optimality or an existence/uniqueness theorem."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-3d56ae4092db5e029e4f",
+    "status": "composable",
+    "names": [
+      "Matrix.PosDef",
+      "Matrix.PosSemidef",
+      "CFC.rpow",
+      "Matrix.l2_opNorm_def",
+      "EuclideanSpace.norm_eq"
+    ],
+    "comparison": "Require S positive definite, impose PosSemidef(2*H_V^{-1}-S), and bound the SUM of the squared matrix operator norm of H_V^(1/2)*S^(1/2) and the squared Euclidean norm of H_V^(1/2)*(m-m*) by 8. Use the source positive-definite H_v at its unique minimizer and positive n to justify H_V=n*H_v and its inverse/root domain. The product of the two roots need not be symmetric or commute; use the L2 matrix operator norm, not the signed symmetric-tensor formula (1.11), Frobenius norm or entrywise maximum. Preserve the factor 2 and the single combined bound, not separate bounds of 8 treated as equivalent. This defines a solution-selection region and does not assert every pair in it solves the first-order equations.",
+    "gap": "Positive matrix inequalities and L2 operator/vector norms express the region with the exact root order and combined bound.",
+    "searches": [
+      [
+        "Inspect PosDef/PosSemidef, CFC.rpow, matrix L2 operator norm and Euclidean norm against (2.2)",
+        "The generic matrix norm handles the nonsymmetric root product; it does not use or repair the paper's separate signed symmetric-tensor norm definition."
+      ]
+    ]
+  }
+]

@@ -1,0 +1,237 @@
+{
+  "scope": "Manual p0157 probability, oracle scoring and constrained-classification comparisons with printed source conventions preserved; shared FDP/FDR entry reviewed separately.",
+  "rows": [
+    {
+      "interface_id": "local-ca7eb88d0e632f810694",
+      "related": [
+        "ProbabilityTheory.iIndepFun",
+        "MeasureTheory.Measure.pi"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Joint independence and finite products express the combined training/calibration/test observation law.",
+      "gap": "These declarations directly express mutual independence with the original, potentially different, observation marginals.",
+      "comparisons": {
+        "D14": "Use a single indexed family containing Y1,...,Yn and X1,...,Xm and impose iIndepFun, or realize its joint law as the product of the corresponding marginal measures. Y observations and true-null X observations have common P0 in the ambient model, but alternative X observations may each have a different Pi. Mutual independence is stronger than pairwise independence and is not the earlier conditional-exchangeability assumption. It does not make the scores independent: a learned score uses the same combined data for multiple observations."
+      }
+    },
+    {
+      "interface_id": "local-33e205ee183d910b88b8",
+      "related": [
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The law of the finite mixed-score vector permits a probability-one injectivity event.",
+      "gap": "The no-tie assumption is directly expressible as almost-sure pairwise inequality across all mixed-score indices.",
+      "comparisons": {
+        "D11": "On the joint data probability space require that, almost surely, S_i!=S_j for every distinct i,j in {k+1,...,n+m}. This includes calibration-calibration, test-test and cross-group comparisons, including alternatives. It excludes the first k training-only indices. A measurable score-vector map lets this be stated as its law giving mass one to the finite-coordinate injectivity set. Atomless individual marginals alone do not imply this for dependent scores: two scores can be equal almost surely while each is continuous. No artificial jitter or tie-breaking is specified in this assumption."
+      }
+    },
+    {
+      "interface_id": "local-47a97c0f88043841193f",
+      "related": [
+        "MeasureTheory.Measure.withDensity",
+        "MeasureTheory.Measure.AbsolutelyContinuous"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "A density against one common reference measure and an explicit positive-density predicate express the model.",
+      "gap": "The common dominating measure, density normalization and source positivity requirement are the remaining supplied predicates.",
+      "comparisons": {
+        "D15": "For each i in {0} union H1 use the same reference measure nu and a measurable density f_i integrating to one, so P_i=nu.withDensity(f_i) after conversion to nonnegative extended values. Retain positivity in the source’s almost-everywhere density interpretation; mere absolute continuity permits density zero on sets of positive nu measure and is weaker. The reference measure is not required to be Lebesgue measure by this assumption, and the alternative densities need not coincide. It does not impose positive mixture proportions or ensure either null or alternative index set is nonempty."
+      }
+    },
+    {
+      "interface_id": "local-15cce3948564b07b309c",
+      "related": [
+        "MeasureTheory.Measure.withDensity",
+        "Finset.sum_div"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Finite averages and convex mixtures of densities give the displayed average laws.",
+      "gap": "The mixture formulas are expressible, with the average-alternative definition requiring a nonempty alternative group and positive denominators.",
+      "comparisons": {
+        "D16": "Set fbar1=(1/m1)*sum_(i in H1) f_i and f=pi0*f0+pi1*fbar1 with pi0=m0/m and pi1=m1/m. Then gamma=m1/(ell+m) and f_gamma=(1-gamma)*f0+gamma*fbar1=(ell/(ell+m))*f0+(m/(ell+m))*f. These are average marginal densities of heterogeneous observations, not a claim that every test or mixed observation is iid from the mixture. The division by m1 makes the displayed fbar1 undefined when H1 is empty; the source does not supply a convention, so do not set an empty average to a density via totalized division. Positive m and ell+m are likewise needed. Known mixture identities do not reveal these population densities to the learner."
+      }
+    },
+    {
+      "interface_id": "local-6870a7d4aa6e806fe501",
+      "related": [
+        "MeasureTheory.Measure.withDensity"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The likelihood-based score is a pointwise ratio of the alternative component density to the full average density.",
+      "gap": "The ratio requires a defined positive denominator, and its asserted open-unit-interval range needs nondegenerate mixture proportions absent from Assumption5 alone.",
+      "comparisons": {
+        "D17": "Use r(x)=pi1*fbar1(x)/f(x), with f from (15), not fbar1/f0 or the null posterior pi0*f0/f. Where f is positive and both mixture weights lie strictly between zero and one, positive component densities imply 0<r<1. Assumption5 by itself does not rule out m1=0 or m0=0; the first also makes fbar1 undefined and the second can make r=1. Preserve these domain gaps rather than relying on division-by-zero defaults or clipping r. Density functions are only determined nu-almost everywhere; any everywhere score used on data needs a measurable representative consistent with those laws. The definition is population-oracle information, not a known function available from the finite sample."
+      }
+    },
+    {
+      "interface_id": "local-090cdfb56c3bd528d716",
+      "related": [
+        "MeasureTheory.integral",
+        "Finset.sum_div",
+        "MeasureTheory.Measure.withDensity"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Finite indicator averages and population event probabilities express the three classification risks.",
+      "gap": "The risk formulas are directly expressible for a fixed measurable score with positive sample denominators and the supplied average densities.",
+      "comparisons": {
+        "D21": "For fixed g, Rhat0 averages 1{g(Z_i)>=0} over i=1,...,k, while Rhat_gamma averages 1{g(Z_i)<0} over i=k+1,...,n+m with denominator ell+m. Thus score zero counts as a null false positive and is excluded from the mixed negative event; the complement relation uses exactly these opposite inequalities. R0=P_f0(g>=0), R1=P_fbar1(g<0) and R_gamma=(1-gamma)*(1-R0)+gamma*R1 follow from the average marginal density even when alternatives have different densities. Use k>0, ell+m>0 and a defined fbar1. The identity R(g)=E Rhat(g) is for a fixed score; evaluating a data-trained ghat on the same sample does not justify replacing its empirical risk by an unbiased population risk without a separate argument."
+      }
+    },
+    {
+      "interface_id": "local-86e91d28429724c1da42",
+      "related": [
+        "PMF.ofFintype",
+        "MeasureTheory.Measure.pi",
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "A finite conditional mass function and conditional product law can represent the auxiliary p-value vector after sampling the uniform order statistics.",
+      "gap": "The discrete conditional law and its mixture over U must be constructed with the printed out-of-range index expression handled explicitly.",
+      "comparisons": {
+        "D13": "Fix null i, put alternative p-values at zero and p_i_prime=1/(ell+1), and draw the OTHER null coordinates iid CONDITIONAL on the common U. U has ell+1 iid Uniform(0,1) coordinates with descending order statistics, so the other p-values are generally dependent after U is integrated out. On 1/(ell+1)<=x<1 the displayed CDF uses 1-U_(floor(x*(ell+1))+1); below that interval it is zero and at x>=1 it is one in the intended indicator-restricted reading. For L=ell+1>=2 this gives mass 1-U_(2) at 1/L, masses U_(j)-U_(j+1) at j/L for 2<=j<L, and mass U_(L) at1, which telescope to one. For L=1 the intended law is concentrated at1. Preserve the original indicator expression and its out-of-range subscript issue: multiplication by zero is not a formal definition of an invalid indexed term. A justified piecewise construction is a comparison interpretation, not a replacement source transcription. The resulting law depends only on i,m,ell,H0, not the unknown observation densities."
+      }
+    },
+    {
+      "interface_id": "local-fb6702221051d2bc2b58",
+      "related": [
+        "MeasureTheory.integral"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Integrals of finite rejection counts express a ratio of expected counts, but do not identify it with the expectation of a random ratio.",
+      "gap": "The printed mFDR numerator uses calibration indices inconsistent with the stated rejection-set indexing and also lacks a zero-expectation convention.",
+      "comparisons": {
+        "D18": "Retain the source’s ratio E[|R(t) intersection {k+1,...,n}|]/E[|R(t)|] and its preceding approximate relation to m*P0(score>=t)/E[|R(t)|]. Earlier rejection sets index TEST hypotheses, while {k+1,...,n} indexes calibration observations; the correspondence is unresolved, so do not silently replace the numerator by true-null test discoveries. Even after choosing a coherent count, mFDR is a RATIO OF EXPECTATIONS, not FDR=E[V/(1 max R)]. The denominator must be positive for the stated ratio; no empty-rejection convention is provided. The approximate symbols and informal large-ell,m discussion are not exact finite-sample identities or a theorem that mFDR and FDR coincide."
+      }
+    },
+    {
+      "interface_id": "local-a77117594ca12ea110cc",
+      "related": [
+        "Finset.sum_apply"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The oracle substitutes the population score into the same finite rank-counting and BH construction already defined in the paper.",
+      "gap": "The AdaDetect p-value/ranking procedure must be supplied with the oracle density-ratio score and its source domain conventions.",
+      "comparisons": {
+        "D19": "Evaluate the population score r on both calibration observations and test observations, form each empirical p_j=(1+sum_calibration 1{r(Y_i)>r(X_j)})/(ell+1), and apply the same BH step at the chosen level alpha. The count uses strict > as in (10), and the paper’s no-tie premise is separate. Do not replace empirical calibration p-values by the population tail p_j_star=Gbar0(gstar(X_j)); the latter defines the distinct BH-star comparator later. Oracle here means knowledge of r, including its population densities and mixture proportions, while still using the calibration sample. Its existence/domain limitations from (16)-(18) remain rather than being settled by finite sums."
+      }
+    },
+    {
+      "interface_id": "local-a4fa36bb75e99107b1f5",
+      "related": [
+        "ProbabilityTheory.condDistrib",
+        "MonotoneOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Regular conditional distributions provide event-probability functions of a p-value, and on-set monotonicity expresses the PRDS condition.",
+      "gap": "A coherent conditional version at all specified p-value levels must be selected before imposing the pointwise monotonicity required by PRDS.",
+      "comparisons": {
+        "D12": "For every true-null index i and every measurable coordinatewise upper set D in [0,1]^m, require u↦P(p_vector in D | p_i=u) to be nondecreasing on [0,1]. Upper-set membership means x in D and y coordinatewise >=x within the cube imply y in D; this is not monotonicity in a total order on vectors. condDistrib for the finite real vector gives a regular conditional kernel with its meaning specified only almost everywhere under the law of p_i. These p-values can be discrete, so many u are unattained; the source does not choose an off-support version, and pointwise monotonicity over all u cannot be claimed from arbitrary a.e. conditional representatives. This condition is neither pairwise positive correlation nor mutual independence, and a definition alone does not prove that the empirical p-values satisfy it."
+      }
+    },
+    {
+      "interface_id": "local-5ccfdd382a0a9f4ffd2f",
+      "related": [
+        "StrictMono",
+        "MonotoneOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Function composition and order preservation express the score-transform family, with strict monotonicity preserving all rank comparisons.",
+      "gap": "The strictness and direction convention must be resolved because the prose and displayed transform condition differ.",
+      "comparisons": {
+        "D20": "Compose r with a continuous increasing Psi:(0,1)→R, allowing Psi to depend on unknown parameters. On a strictly increasing interpretation, comparisons of scores and equality patterns are preserved, so the strict rank counts used by AdaDetect agree; a strictly decreasing transform reverses the intended novelty ordering. The prose says strictly monotone, while (19) says increasing continuous; a merely nondecreasing continuous map can create ties and change the rank-based procedure. Retain both source phrasings instead of silently imposing StrictMono or accepting decreasing maps. The domain (0,1) also presupposes the nondegenerate-mixture range of r, whose endpoint issues are recorded separately. r need only be measurable, so continuity of the composition itself is not assumed."
+      }
+    },
+    {
+      "interface_id": "local-436600fc9ea4ea8166ed",
+      "related": [
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The pushforward null score law evaluated on a closed upper ray expresses the oracle survival probability.",
+      "gap": "The tail is directly expressible for a measurable oracle score, preserving its inclusive threshold and any atoms.",
+      "comparisons": {
+        "D25": "Let mu_score=map gstar P0 and set Gbar0(s)=mu_score([s,infinity)) as a real probability, with gstar the specified measurable oracle score. The inequality is >=, so this is not generally 1-cdf(mu_score)(s), which equals P(score>s) and drops mass at s; equivalently use 1-P(score<s). The definition alone permits atoms and flat regions. Continuity and strict decrease appear later as assumptions of Theorem5.4 and are not consequences of a generic measurable score or of a positive observation density. The inverse-tail construction is a separate interface."
+      }
+    },
+    {
+      "interface_id": "local-4581d57bb247b6deacef",
+      "related": [
+        "IsLeast",
+        "IsCompact.exists_isMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The value expression uses the inverse tail, and a greatest-value predicate or compact extreme-value theorem can encode the displayed maximum under additional well-definedness conditions.",
+      "gap": "The inverse-tail domain and attainment of the maximum must be established, with no generalized-inverse or endpoint-clipping convention invented.",
+      "comparisons": {
+        "D26": "For eta>0 and integer r in0,...,m, maximize (Gbar0(Gbar0_inverse(u)-2*eta)-u)/u over the CLOSED interval [alpha*max(r,1)/m,alpha]. With m>=1 and0<alpha<1 this interval is nonempty and bounded away from zero, including when r=0; r=0 and1 have the same lower endpoint. The shift is negative 2*eta in score space, not a shift of probability u. The printed inverse requires levels to lie in the tail range and a specified inverse; Theorem5.4’s continuous strictly decreasing tail can support that construction, whereas a general score tail may not. A compact interval alone does not guarantee the displayed maximum without continuity or another attainment proof. IsLeast on the order dual describes an attained greatest value, and the minimum theorem can apply to the negative objective once continuity is established. Retain the source maximum and inverse conventions instead of silently substituting supremum or a generalized quantile."
+      }
+    },
+    {
+      "interface_id": "local-db238923ea1638074243",
+      "related": [
+        "IsLeast"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "An attained maximum over a nonempty finite mixed-sample index set expresses the empirical score discrepancy.",
+      "gap": "The finite maximum is directly expressible after supplying the measurable learned and oracle scores with the required permutation symmetry.",
+      "comparisons": {
+        "D27": "For each data realization compute |ghat(Z_i;training tuple,mixed tuple)-gstar(Z_i)| over i=k+1,...,n+m, including calibration AND test observations but excluding the first k training-only observations. Take the maximum over this finite nonempty set under the section sample-size assumptions. This is empirical sup error on the realized mixed sample, not a global uniform norm over all x or an independent-validation error. The learned score depends on the whole mixed sample and must satisfy permutation-invariance condition(8); a finite maximum does not imply that property. Rejection procedures with ghat and gstar remain separately defined, and measurability of the data-dependent score is needed to treat eta_hat as a random variable."
+      }
+    },
+    {
+      "interface_id": "local-6c66673e029dcdb02d83",
+      "related": [
+        "Finset.Shatters",
+        "Finset.vcDim"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The library defines shattering and VC dimension for finite families of finite sets, which can analyze traces of a chosen score-induced class on finite samples.",
+      "gap": "A score-to-set-class convention and uniform finite-trace bound are needed to connect the library finite-family definition to the paper’s real-valued function class.",
+      "comparisons": {
+        "D22": "G is a class of measurable REAL-valued scores and the classifier is their sign. The risks in(25) suggest considering the sets {z:g(z)>=0}, but the main text does not explicitly distinguish this induced class from a VC-subgraph or all-threshold convention. Preserve that ambiguity. Given a chosen set-class interpretation and a finite set of observation points, form its finite family of distinct traces and use Finset.Shatters/vcDim to test which subsets are realized. An arbitrary possibly infinite G is not itself a Finset(Finset alpha); a global finite VC bound requires a uniform bound over all finite traces, not just the observed sample. The finite combinatorial declaration therefore is a partial building block, not an exact real-function-class VC interface or a proof of the statistical uniform convergence bounds."
+      }
+    },
+    {
+      "interface_id": "local-98e96b8fbea3212d9e79",
+      "related": [
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "Minimization on an explicitly constrained score set expresses the empirical risk optimizer predicate.",
+      "gap": "Feasibility, attainment and a measurable permutation-invariant selection among minimizers remain to be supplied.",
+      "comparisons": {
+        "D23": "Define the feasible set {g in G:Rhat0(g)<=beta+epsilon0} with epsilon0>0, then require ghat to belong to that set and satisfy IsMinOn Rhat_gamma on it. The constraint is the empirical null false-positive risk with slack, while the objective is the empirical MIXED negative-class risk, not Rhat1 or an unconstrained total loss. IsMinOn itself does not assert set membership, nonemptiness or attainment. Multiple minimizers require an appropriate selection; choosing based on original mixed-sample order can violate AdaDetect condition(8), so measurable permutation-invariant tie selection cannot be assumed merely from the objective’s symmetry. Keep source optimizer existence limitations explicit."
+      }
+    },
+    {
+      "interface_id": "local-2b4c3043fea7bd05bde5",
+      "related": [
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for PRDS, false discovery, Benjamini, knockoff and VC dimension; inspected finite-family Shatters/vcDim, probability measures, withDensity, independent products, conditional distributions, integral, finite sums, order predicates and minimum/maximum predicates; checked registered p0157 pages7-10,12-13,18-20 and saved unresolved source conventions.",
+      "result": "The population counterpart minimizes mixed population risk over the score class subject to its null population-risk constraint.",
+      "gap": "Feasibility and attainment must be supplied, and exact saturation of the constraint is a later theorem assumption rather than part of this definition.",
+      "comparisons": {
+        "D24": "Use the feasible set {g in G:R0(g)<=beta} and require gsharp_G membership plus IsMinOn R_gamma. There is no empirical slack epsilon0 in this population constraint. The paper allows an arbitrary class G, so it may be empty or fail to attain the infimum; generic IsMinOn does not solve these existence issues. Theorem5.1 separately assumes R0(gsharp_G)=beta, and the definition alone allows an optimum with strict inequality. This benchmark is the best score within the constrained class, not necessarily the unrestricted density-ratio oracle or a known data-computable estimator. Do not import the later rich-class/Lagrangian discussion as an unconditional optimizer formula."
+      }
+    }
+  ]
+}

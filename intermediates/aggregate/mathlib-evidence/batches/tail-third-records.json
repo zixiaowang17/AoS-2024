@@ -1,0 +1,560 @@
+[
+  {
+    "interface_id": "local-f5cb34df00510ddb302a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "8296659517b9540935aa89c4dab0e6b57a4b63c15181f559c6fcb4c9144f3077",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2913",
+        "local_id": "D16",
+        "comparison": "For a one-based observation sequence, use range(k*eta_hat) with observation i+1 and divide by the real cast of k*eta_hat. This is the improved mean based on eta_hat, not the earlier minimum-block index L_hat or the variance estimator's muhat0. The sum/division identities do not establish positivity of the selected prefix or provide tie selection for eta_hat, and total real division does not furnish a statistical zero-prefix convention.",
+        "statement_sha256": "4aa20c1873647b023e8a99261de3da2876d53d0a3a9541b42cc5b827956d7824"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched probability and analysis sources for change-point and preliminary-mean estimators; inspected finite-sum normalization and the one-step partial-sum identity against the source prefix formula.",
+          "result": "Finite sums and division express the prefix average, but no located declaration supplies this data-selected prefix or its preliminary change-location dependence."
+        }
+      ],
+      "gap": "The data-selected prefix length k*eta-hat and its finite-sample domain still need to be supplied around the finite-sum average."
+    }
+  },
+  {
+    "interface_id": "local-0aef07ba9b3d6889a17a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "e6930eb9edb770f18bacac42f99297f2b2fd99fada3e419affd10249a482d196",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2913",
+        "local_id": "D17",
+        "comparison": "Form all starts from k*(eta_hat+1)+1 through n-k+1 inclusive and average X_j-muhat1 over exactly k consecutive observations at each start, then take the minimum value. These are overlapping sliding windows, not only the original disjoint blocks. Finset.min' requires a nonempty image; eta_hat=m-1 can leave no admissible start, and high-probability asymptotics do not define that bad finite-sample output. The estimator targets the block-averaged gap d_star, which must remain distinct from the pointwise lower bound d.",
+        "statement_sha256": "5b45fcca1027dc30de2d89150150fbc0e08c736da091ce737ad340781342fe53"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for sliding-block/change-point estimates; inspected the generated finite minimum and finite-sum normalization against the exact sliding-window index range.",
+          "result": "The minimum of the finite set of block-average values can be represented after proving its index set nonempty. Finset.min' supplies no fallback for the source's possible empty range."
+        }
+      ],
+      "gap": "The sliding-window minimum needs its exact data-dependent range and a nonemptiness convention before the finite-minimum API applies."
+    }
+  },
+  {
+    "interface_id": "local-7391db1068a6a0a31b62",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "5b38b74bad3a5049116caeb8255b11b32df5f13d12608559e32ddbe9f2d83f37",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2913",
+        "local_id": "D18",
+        "comparison": "For each j in the inclusive integer interval [2,n], sum the centered and drift-corrected observations through j-1. A selected j must belong to this interval and satisfy IsMinOn; Finset.min' gives the attained value only, so selecting its index is a separate step. The location denotes the first changed observation, not the final pre-change observation. Keep arbitrary rho in (0,1), the source-defined muhat1 and d_hat, and the unresolved finite-sample/tie conventions; neither rho=1/2 nor an oracle true-gap replacement is justified by these primitives.",
+        "statement_sha256": "2599bb574da796a2e3439ca3a298e20977d2384ccf56b7f33719f828e9ea0f9f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for change-point locating estimators; inspected IsMinOn, finite minimum and prefix-sum recursion against the source's j=2,...,n criterion.",
+          "result": "The minimizer predicate and finite objective values are available, but a minimum value is not a selected location and IsMinOn alone does not require membership in the search set."
+        }
+      ],
+      "gap": "The prefix objective, admissible minimizer selection and source's unspecified tie convention still need to be formalized."
+    }
+  },
+  {
+    "interface_id": "local-f28ef7055f0b64201c93",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "24b6af32a661daf574e00b8ea22c9acf72e752b9a15ae4dafe908a4f796babfd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2931",
+        "local_id": "D35",
+        "comparison": "For the real symmetric PSD matrix, apply Matrix.IsHermitian.cfc with f(x)=min(max(x,delta),1/delta); the matrix API uses real eigenvalues and retains eigenspaces, so arbitrary orthogonal eigenbasis choices need not alter a scalar spectral function. The usual description as clipping to [delta,1/delta] presumes 0<delta<=1, whereas the source only says small positive delta. Keep the stated rule even outside that conventional interval and do not claim clipping becomes asymptotically inactive without a relation between delta and the limiting eigenvalues. The same construction is subsequently used on V.",
+        "statement_sha256": "6719b285e12996f3b939a6851c87662077b2a7e29933d65c7e3e9ab54b8f24e8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "cfc",
+          "type": "{R : Type u} → {A : Type v} → {p : A → Prop} → [CommSemiring R] → [StarRing R] → [MetricSpace R] → [IsTopologicalSemiring R] → [ContinuousStar R] → [TopologicalSpace A] → [Ring A] → [StarRing A] → [Algebra R A] → [ContinuousFunctionalCalculus R A p] → (R → R) → A → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Unital",
+          "provides": "Continuous functional calculus on elements satisfying its predicate and functions continuous on the spectrum; returns zero otherwise and is not by itself a Riesz–Dunford integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean#L307-L310",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Matrix.IsHermitian.cfc, its underlying spectral diagonalization and generic cfc, with matrix functional-calculus instances; compared the two-sided clipping function in equation (30).",
+          "result": "The matrix-specific functional calculus applies the scalar min(max(lambda,delta),1/delta) to each eigenvalue and reconstructs in the same eigenspaces; it does not establish the statistical clipping threshold's relation to the limiting spectrum."
+        }
+      ],
+      "gap": "The clipping formula is expressible by Hermitian functional calculus, while its threshold domain and relation to the limiting eigenvalues remain separate obligations."
+    }
+  },
+  {
+    "interface_id": "local-c46f18ad07071e18a93c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "edc42f0091f5bb762e0a1f86164c104969c4a28065ea602435de4f422072383f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2931",
+        "local_id": "D38",
+        "comparison": "Construct Vtilde with the same two-sided eigenvalue rule as equation (30), then multiply Z on the left by its matrix inverse on the right, preserving order. Positive clipped eigenvalues support an invertibility proof, but that proof is needed to use Matrix.mul_nonsing_inv rather than the singular zero-inverse convention. The product need not be symmetric at finite sample size, cannot be replaced by the smooth plug-in Hessian from (24), and does not justify inserting a transpose or symmetrization into later printed formulas.",
+        "statement_sha256": "c29ff4bc894f311f7e55973442e4abd359768de6eda1beb3c02f0e6170a16cc3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hermitian matrix spectral functional calculus and the determinant-unit hypothesis of Matrix.mul_nonsing_inv against the thresholded regression estimator Z*Vtilde-inverse.",
+          "result": "The clipped covariance can be constructed spectrally and a genuine inverse used after invertibility is established. The library inverse theorem does not make the product with Z symmetric or prove Hessian consistency."
+        }
+      ],
+      "gap": "The clipped-matrix invertibility proof and the source-specific construction and consistency of Z*Vtilde-inverse remain to be supplied."
+    }
+  },
+  {
+    "interface_id": "local-15aa0e65c31f30404d7d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "f48178e7e6fdc6f1e88697aa4d15040176a57c71a9873708198b4691b79e3b56",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D13",
+        "comparison": "At fixed n, compose the estimated drift with v mapped to v/a_n and multiply its value by sqrt(n*a_n). Keep sqrt of the product rather than sqrt(n)*a_n, and distinguish this transformed estimated drift from the deterministic target monomial and the uncorrected bootstrap drift. The transformation rule is deterministic while its input may be data-dependent. Real.sqrt supplies the scalar operation; ContinuousMap.comp is a possible representation only after continuity and compatible domains are established, and does not license an invented extension outside the localized source domain.",
+        "statement_sha256": "63f9c18815c5ed7e63f440edfe7090d90925ef3d0595ef06780550b237342e1c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousMap.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [TopologicalSpace α] → [TopologicalSpace β] → [TopologicalSpace γ] → C(β, γ) → C(α, β) → C(α, γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.ContinuousMap.Basic",
+          "provides": "Composition of bundled continuous maps; continuity of the component maps must be supplied and surjectivity is not asserted.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/Basic.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched probability/analysis sources for localized drift and bootstrap rescaling; inspected Real.sqrt and bundled continuous-map composition against sqrt(n*a_n)*Mtilde(v/a_n).",
+          "result": "Real arithmetic and function composition express the rescaling. Bundled continuous composition is available only when its input paths have the required continuity, which the missing localized extension conventions do not automatically establish."
+        }
+      ],
+      "gap": "The rescaling needs the source's localized function domains and extension conventions before a suitable process-space implementation can be fixed."
+    }
+  },
+  {
+    "interface_id": "local-69f032159463f8fd4997",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "52b29ab0403c8c3e7a922c56a3d4be7e4a881a39d40c7c16691a2670eed4876a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D14",
+        "comparison": "The first clause is conditional weak convergence in probability of the scaled estimated drift to the target process, not unconditional TendstoInDistribution of the observed scalar values. A compatible metric on conditional probability laws could permit a TendstoInMeasure formulation, but the process space, conditional laws and equivalence require construction. The second clause uses the unscaled drift, liminf of the event probabilities equal to one, one c>0 common to all fixed K>0, and the infimum outside |v|>1/K. Do not interchange the quantifiers, make a single uniform-in-K event, replace the bound by a local condition or fill appendix-deferred extension conventions.",
+        "statement_sha256": "e716bc316301742a3bbe4cf188d1d16a15db609f7a9ae32bcf265254a37126f7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.liminf",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit inferior of a function along a filter; finite probability sequences lie in a bounded interval so their usual real limit inferior is meaningful.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L64-L67",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected convergence-in-measure and convergence-in-distribution definitions, the weak topology on probability measures and Filter.liminf; compared Assumption C's conditional weak convergence and fixed-K probability bounds.",
+          "result": "The library separates convergence of random variables in measure from weak convergence of their laws. These are ingredients for conditional-law convergence, not a ready identification of the source's conditional process-space statement."
+        }
+      ],
+      "gap": "The conditional process laws and their weak topology, localized-domain conventions and common-c coercivity events still need to be specified."
+    }
+  },
+  {
+    "interface_id": "local-0c1e306e197b2eb5f4f5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "91142abb849fa90bb2336890014be753288fae20dec34a08bd0e8b0e1e3e6efb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2692",
+        "local_id": "D2",
+        "comparison": "Take the pole to be the last coordinate unit vector and identify its orthogonal hyperplane with the first d coordinates; the library's factor 2/(1-z_last) becomes the source's R/(1-z_last) after multiplication by R/2. Retain the excluded north pole. The proportional density pi(SP(z))*(R^2+norm(SP(z))^2)^d is relative to the appropriate sphere reference measure, with a normalization constant still to establish; withDensity alone neither proves the Jacobian nor normalizes the measure. This is the explicit transformed target used by SBPS, not a replacement for SPS's directly printed acceptance ratio.",
+        "statement_sha256": "a67801a3c422a5fe2689f66846db912c857c0fa795275c5d0272607a291a93aa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "stereographic",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → {v : E} → (‖v‖ = 1) → OpenPartialHomeomorph (Metric.sphere (0 : E) 1) (ℝ ∙ v)ᗮ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Geometry.Manifold.Instances.Sphere",
+          "provides": "Stereographic projection from a unit sphere with its chosen pole removed onto the pole's orthogonal complement; the forward coordinate scale is 2/(1-inner v x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Geometry/Manifold/Instances/Sphere.lean#L249-L269",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected sphere stereographic projection, its pole-excluded source and forward scale, plus withDensity; compared the paper's R-scaled projection and transformed-density formula.",
+          "result": "Mathlib supplies a stereographic partial homeomorphism and construction of a measure from a nonnegative density. Its stereographic scale is 2, so matching the paper's R requires an R/2 rescaling after identifying the pole-orthogonal hyperplane with R^d."
+        }
+      ],
+      "gap": "The R-scaled chart, surface-measure Jacobian and normalization of the transformed target still need to be connected to the existing projection and density APIs."
+    }
+  },
+  {
+    "interface_id": "local-55d46567a671fa73a270",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "3a657c87ad94dd0b440ab526ccabec68798083bb0f44adfd8e3c2f77b060b3ea",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2692",
+        "local_id": "D5",
+        "comparison": "The state is a unit position with a perpendicular unit velocity. Preserve the great-circle sin/cos flow and its transported velocity, the positive-part directional log-density bounce intensity, and the separate constant-rate exponential refreshment clock. Reflection in the hyperplane orthogonal to the projected tangent gradient matches the printed velocity formula when that gradient is nonzero; reflection in its span has the opposite geometric convention. The ambient gradient needs a differentiable representation of log pi_S, and expMeasure is a probability law at positive refreshment rate. None of these primitives supplies a uniform unit tangent-sphere draw, conditional event-time law, absence of explosion, or stationarity. Keep the source's unresolved zero tangent gradient, north pole, conflicting full-sphere velocity prose, and first-event-at-or-beyond-T exit; do not insert interpolation back to T or a tie rule.",
+        "statement_sha256": "1320cf68b7f9e4d8b99bd9a0e1761ecdee3074a9fd18d5fcc23c932910e64caa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.reflection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (K : Submodule 𝕜 E) → [K.HasOrthogonalProjection] → E ≃ₗᵢ[𝕜] E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Reflection",
+          "provides": "Linear isometric reflection in a subspace, acting as twice the orthogonal projection onto that subspace minus the identity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Reflection.lean#L48-L58",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.expMeasure",
+          "type": "ℝ → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Exponential",
+          "provides": "Exponential measure with the given rate, defined through the shape-one gamma measure; it is a probability measure for strictly positive rates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Exponential.lean#L94-L96",
+          "link_checked": true
+        },
+        {
+          "name": "stereographic",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → {v : E} → (‖v‖ = 1) → OpenPartialHomeomorph (Metric.sphere (0 : E) 1) (ℝ ∙ v)ᗮ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Geometry.Manifold.Instances.Sphere",
+          "provides": "Stereographic projection from a unit sphere with its chosen pole removed onto the pole's orthogonal complement; the forward coordinate scale is 2/(1-inner v x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Geometry/Manifold/Instances/Sphere.lean#L249-L269",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for bouncy-particle, Poisson-process and stereographic sampler names; inspected gradient, subspace reflection, exponential measure and stereographic chart bodies against every SBPS algorithm branch.",
+          "result": "The gradient, isometric reflection, positive-rate exponential law and chart are available components. No located declaration implements this coupled great-circle flow, inhomogeneous bounce hazard, tangent-sphere refreshment and event-time stopping algorithm."
+        }
+      ],
+      "gap": "The spherical piecewise-deterministic process and its event laws, tangent refreshment, domain conventions and stopping behavior still require construction."
+    }
+  },
+  {
+    "interface_id": "local-7b277548afba442622dc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "6f514d05fee111a2535f69143a04c35ee6e761f809bab2e995a3e1f51fcdc08f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D21",
+        "comparison": "Apply the real scalar function x mapped to min(x,L) to the Hermitian adjusted sample covariance. The resulting matrix has the same eigenspaces and retains zero modes; tau is only the source's superscript label. Do not add a positive lower clip or replace L by a data-dependent cutoff. For a PSD input and positive fixed L this yields bounded nonnegative spectral support, but neither the library definition nor this algebraic observation chooses how large L must be for the paper's later asymptotics.",
+        "statement_sha256": "a230af628b901d63031319d76584d88891c9052882824dfd9c548915480e036c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "cfc",
+          "type": "{R : Type u} → {A : Type v} → {p : A → Prop} → [CommSemiring R] → [StarRing R] → [MetricSpace R] → [IsTopologicalSemiring R] → [ContinuousStar R] → [TopologicalSpace A] → [Ring A] → [StarRing A] → [Algebra R A] → [ContinuousFunctionalCalculus R A p] → (R → R) → A → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.ContinuousFunctionalCalculus.Unital",
+          "provides": "Continuous functional calculus on elements satisfying its predicate and functions continuous on the spectrum; returns zero otherwise and is not by itself a Riesz–Dunford integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean#L307-L310",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hermitian matrix functional calculus and generic cfc against the covariance estimator's upper eigenvalue clipping at a fixed large L.",
+          "result": "Applying min(lambda,L) through the matrix spectral calculus retains the eigenvectors and implements upper clipping. The source provides no numerical choice of L and no lower clipping threshold."
+        }
+      ],
+      "gap": "The upper-clipping matrix is directly expressible by spectral functional calculus, with the source's unspecified large-L choice remaining external to that construction."
+    }
+  },
+  {
+    "interface_id": "local-15147a4a739460d97192",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "0196d48e8ac2017ef691f623884326e47522d276361896e56163cae66e605f7f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D23",
+        "comparison": "Retain the eigenvectors of the truncated adjusted covariance and the special zero-eigenvalue branch only when y>1, using the underlined companion law's boundary value at zero. The otherwise branch uses the displayed ordinary square, not squared complex modulus; possible complex boundary values make replacing it substantive. Keep the companion transform relation, unindexed boundary-value shorthand and the otherwise branch's unhandled y=1/zero case. Finite symmetric spectral APIs provide eigenvectors and real eigenvalues, not the source's limiting law F, Stieltjes limits, their nonzero denominators or oracle optimality. Do not replace the coefficient by a corrected standard oracle formula.",
+        "statement_sha256": "f1e2dd6372f9235670a1dde577317f2d8f358aff24fa8f9b7f509c2a0f17b299"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvalues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → Fin n → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Real eigenvalues of a symmetric finite-dimensional operator, sorted in decreasing order and indexed with multiplicity; extrema are meaningful for a nonempty dimension.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L279-L281",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for Ledoit, nonlinear shrinkage and oracle covariance; inspected symmetric eigenbasis/eigenvalue APIs and Hermitian functional calculus against the exact piecewise oracle coefficient.",
+          "result": "Spectral decomposition supplies the reconstruction basis, but no located declaration implements these population Stieltjes boundary-value coefficients. The real scalar matrix calculus does not resolve the source's potentially complex ordinary-square denominator."
+        }
+      ],
+      "gap": "The population boundary values, their existence and nonvanishing, and the printed ordinary-square coefficient require separate specification before this oracle can be identified with a real covariance estimator."
+    }
+  },
+  {
+    "interface_id": "local-49c48bb92db89e4d16d4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:15:27.849282+00:00",
+    "source_interface_sha256": "4457ae85eb9631a927b60a56eb5fc83f05904ceb30bec1a487d97ab5778b272d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D22",
+        "comparison": "The definition first clips eigenvalues above L while retaining eigenvectors, then calls the Ledoit-Wolf (2015) nonlinear-shrinkage algorithm and names its output TV-adj NLS. Matrix.IsHermitian.cfc supplies the clipping component only. The admitted passage lacks the numerical construction of the external shrinkage map, so neither a guessed scalar multiplier nor the population-law-dependent oracle in equation (2.13) establishes an implementation. The associated theorem compares this output with the oracle in dimension-normalized Frobenius error, not directly with the unconditional population covariance.",
+        "statement_sha256": "c85979b901a64c668d206623090dc04913b365d4f6e3ae6fedd6f57348a0d564"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for Ledoit, Wolf and nonlinear shrinkage; inspected Hermitian spectral calculus and the retained source's external-algorithm limitation.",
+          "result": "The source-defined upper truncation can be represented spectrally, but the full Ledoit-Wolf algorithm is only referenced in the admitted main text, and no corresponding named library implementation was located."
+        }
+      ],
+      "gap": "The externally referenced nonlinear-shrinkage algorithm is still needed after the source-defined spectral truncation; the displayed population oracle cannot substitute for it."
+    }
+  }
+]

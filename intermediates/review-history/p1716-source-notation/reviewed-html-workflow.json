@@ -1,0 +1,338 @@
+{
+  "schema_version": "aos-reviewed-html-workflow-v1",
+  "objective": "Complete a reviewed, searchable HTML census of all 113 Annals of Statistics 2024 research papers, including reviewed paper censuses, source-preserving equivalence consolidation, global rankings, inspected mathlib comparisons and verified HTML.",
+  "updated_at": "2026-09-11T19:20:43.142294+00:00",
+  "status": "in_progress",
+  "current_phase": "mathlib_audit",
+  "requirements": {
+    "paper_count": 113,
+    "language": "English",
+    "processing_order": "one_paper_at_a_time",
+    "sources": "Registered local PDFs resolved by scripts/resolve_paper_pdf.py",
+    "theorem_scope": "All main-text results labeled Theorem; appendices excluded",
+    "preserve_validated_work": true,
+    "unresolved_items": "Record explicitly; do not count incomplete work as complete.",
+    "html_style": "Preserve the tested two-paper report style and interaction standard; see tooling/renderer-review/approved-two-paper-baseline.json."
+  },
+  "phases": [
+    {
+      "id": "paper_review",
+      "status": "complete",
+      "skill": "statistical-paper-census",
+      "completion": "Review the existing audit records and evidence for every paper, finish pending extraction/source review, validate each census and its independent inventory, and resolve recorded reproduction follow-ups.",
+      "existing_progress": {
+        "complete": 113
+      },
+      "paper_review_ledger": "audit-record-review.json",
+      "evidence": "audit-record-review.json",
+      "review_scope": "Reviewed existing audit provenance, registered sources, inventories, artifacts and reproduced outputs; retained source issues for corpus-level semantic and library review."
+    },
+    {
+      "id": "consolidation",
+      "status": "complete",
+      "completion": "Reconcile all 113 pinned inventories; review equivalent-definition groups and distinct variants; preserve paper-local dependencies, source text, keywords and selectors; finalize and independently validate aggregate counts, ranks and dependency closure.",
+      "artifacts": [
+        "aggregate/theorem-inventory.json",
+        "aggregate/grouping-review.json",
+        "aggregate/ranked-interfaces.json",
+        "aggregate/validation.json"
+      ],
+      "working_directory": "aggregate/working",
+      "inventory_counts": {
+        "papers": 113,
+        "theorems": 637,
+        "source_members": 2655,
+        "input_interfaces": 2636
+      },
+      "grouping_review": "aggregate/grouping-review.json",
+      "progress": {
+        "reviewed_input_interfaces": 2636,
+        "pending_input_interfaces": 0,
+        "reviewed_merge_groups": 101,
+        "working_aggregate_interfaces": 2486,
+        "last_complete_paper": "aos-2024-v52-i06-p2956",
+        "next_paper": null
+      },
+      "relationship_preservation": "aggregate/source-relationships.json",
+      "source_note_triage": {
+        "path": "aggregate/source-note-triage.json",
+        "total_items": 441,
+        "triaged_items": 441,
+        "pending_items": 0,
+        "fully_triaged_papers": 113,
+        "next_paper": null
+      },
+      "evidence": "aggregate/validation.json",
+      "final_directory": "aggregate"
+    },
+    {
+      "id": "mathlib_audit",
+      "status": "in_progress",
+      "skill": "ranked-mathlib-audit",
+      "completion": "Pin census hash, mathlib revision and Lean version; search and inspect all interfaces, open actual declaration links, record variant-aware comparisons, and pass validate_audit.py.",
+      "artifacts": [
+        "aggregate/mathlib-search-progress.json",
+        "aggregate/audited.json",
+        "aggregate/mathlib-validation.json"
+      ],
+      "progress": {
+        "total": 2486,
+        "reviewed": 804,
+        "pending": 1682
+      },
+      "mathlib_revision": "4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09",
+      "lean_version": "leanprover/lean4:v4.34.0-rc2",
+      "source_manifest": "aggregate/mathlib-source-manifest.json",
+      "source_census_sha256": "235e518065b9beeabb38558b6bd0de27f71211b6da2e1852fce5570973dc130f",
+      "checkpoint_validation": "aggregate/mathlib-checkpoint-validation.json",
+      "next_interface": "convex-extrema-confidence-classes",
+      "source_census": "aggregate/ranked-interfaces.json"
+    },
+    {
+      "id": "html",
+      "status": "pending",
+      "skill": "statistical-census-html",
+      "completion": "Generate all readers from the exact census/audit pair; pass build_report.py --check and test_workflow.py; inspect desktop/mobile search, navigation, standalone pages, source headings, math, highlighting and links. Preserve the approved two-paper reference style and verify desktop/mobile appearance and interactions against its pinned assets.",
+      "artifacts": [
+        "aggregate/report.html",
+        "aggregate/report-pages/",
+        "aggregate/html-verification.json"
+      ],
+      "appearance_reference": "tooling/renderer-review/approved-two-paper-baseline.json",
+      "baseline_recheck": "tooling/renderer-review/approved-baseline-recheck.json"
+    }
+  ],
+  "completion_rule": "All four phases must have authoritative passing evidence covering all 113 papers and every aggregate interface. A passed schema check alone is not source review or mathlib research.",
+  "next_action": "Continue inspected mathlib comparisons against the finalized aggregate census. All interfaces containing p0335 or p1433 are now reviewed, including shared posterior and binary-regression groups (tail-twenty-fifth through tail-twenty-seventh). Preserve the approved two-paper HTML style; full audit and final HTML validation remain pending.",
+  "blockers": [],
+  "required_repairs": [
+    {
+      "paper_id": "aos-2024-v52-i06-p2913",
+      "local_id": "D14",
+      "issue": "The math selector contains an unclosed cases environment; replace with the source-backed complete symbol and rerun finalization, reproduction and frozen annotation review.",
+      "status": "complete",
+      "evidence": "papers/aos-2024-v52-i06-p2913/evidence/rendering-amendment-review.json"
+    },
+    {
+      "component": "statistical-census-html/scripts/build_report.py",
+      "issue": "Review MathML matching of scripted atoms and display/inline operator limits. The current visitor may match a base inside a differently subscripted symbol, and an identical sum selector can fail across display styles. Add meaningful regression coverage before the final report.",
+      "status": "complete",
+      "evidence": "tooling/renderer-review/change-record.json"
+    },
+    {
+      "component": "Corpus annotation review",
+      "status": "complete",
+      "issue": "The installed complete-atom highlighter exposes remaining source selectors that were incomplete or previously matched only part of a scripted symbol. Resolve these against each paper and revalidate frozen artifacts.",
+      "evidence": "audit-record-review.json"
+    }
+  ],
+  "active_checks": [],
+  "preflight_summary": {
+    "counts": {
+      "passed": 113,
+      "needs_repair": 0,
+      "pending_paper_census": 0
+    },
+    "evidence": "audit-record-review.json",
+    "sha256": "9babcc2987ebde1c87ef03adab52696974997bb464ceda0b5193b0425ed86fbf",
+    "limits": "Checks preserve the existing independent source reviews; they do not certify proofs or resolve printed ambiguities."
+  },
+  "rendering_amendments": [
+    {
+      "paper_id": "aos-2024-v52-i01-p0311",
+      "review_path": "papers/aos-2024-v52-i01-p0311/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0335",
+      "review_path": "papers/aos-2024-v52-i01-p0335/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0364",
+      "review_path": "papers/aos-2024-v52-i01-p0364/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0466",
+      "review_path": "papers/aos-2024-v52-i02-p0466/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0550",
+      "review_path": "papers/aos-2024-v52-i02-p0550/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0580",
+      "review_path": "papers/aos-2024-v52-i02-p0580/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0602",
+      "review_path": "papers/aos-2024-v52-i02-p0602/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0679",
+      "review_path": "papers/aos-2024-v52-i02-p0679/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0757",
+      "review_path": "papers/aos-2024-v52-i02-p0757/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i02-p0842",
+      "review_path": "papers/aos-2024-v52-i02-p0842/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i03-p0869",
+      "review_path": "papers/aos-2024-v52-i03-p0869/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i03-p0922",
+      "review_path": "papers/aos-2024-v52-i03-p0922/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i03-p1102",
+      "review_path": "papers/aos-2024-v52-i03-p1102/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i03-p1201",
+      "review_path": "papers/aos-2024-v52-i03-p1201/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i03-p1227",
+      "review_path": "papers/aos-2024-v52-i03-p1227/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1360",
+      "review_path": "papers/aos-2024-v52-i04-p1360/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1534",
+      "review_path": "papers/aos-2024-v52-i04-p1534/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1741",
+      "review_path": "papers/aos-2024-v52-i04-p1741/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1774",
+      "review_path": "papers/aos-2024-v52-i04-p1774/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1796",
+      "review_path": "papers/aos-2024-v52-i04-p1796/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i04-p1845",
+      "review_path": "papers/aos-2024-v52-i04-p1845/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p1953",
+      "review_path": "papers/aos-2024-v52-i05-p1953/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2081",
+      "review_path": "papers/aos-2024-v52-i05-p2081/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2139",
+      "review_path": "papers/aos-2024-v52-i05-p2139/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2167",
+      "review_path": "papers/aos-2024-v52-i05-p2167/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2217",
+      "review_path": "papers/aos-2024-v52-i05-p2217/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2318",
+      "review_path": "papers/aos-2024-v52-i05-p2318/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2349",
+      "review_path": "papers/aos-2024-v52-i05-p2349/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i05-p2431",
+      "review_path": "papers/aos-2024-v52-i05-p2431/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2557",
+      "review_path": "papers/aos-2024-v52-i06-p2557/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2668",
+      "review_path": "papers/aos-2024-v52-i06-p2668/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2692",
+      "review_path": "papers/aos-2024-v52-i06-p2692/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2714",
+      "review_path": "papers/aos-2024-v52-i06-p2714/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2767",
+      "review_path": "papers/aos-2024-v52-i06-p2767/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2791",
+      "review_path": "papers/aos-2024-v52-i06-p2791/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "review_path": "papers/aos-2024-v52-i06-p2851/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2879",
+      "review_path": "papers/aos-2024-v52-i06-p2879/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2913",
+      "review_path": "papers/aos-2024-v52-i06-p2913/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2931",
+      "review_path": "papers/aos-2024-v52-i06-p2931/evidence/rendering-amendment-review.json",
+      "status": "passed"
+    }
+  ],
+  "source_followups": "aggregate/working/source-followups.json"
+}

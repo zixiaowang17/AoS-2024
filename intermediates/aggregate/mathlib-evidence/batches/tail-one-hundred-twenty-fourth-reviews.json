@@ -1,0 +1,120 @@
+{
+  "scope": "Manual comparison of eleven remaining p2506 interfaces using frozen tensor definitions and retained source-note limits; inspected pinned tensor maps, coordinate bases, orthogonal group, moment generators and derivative primitives.",
+  "rows": [
+    {
+      "interface_id": "local-3951bc72874a136b6453",
+      "related": ["Set.indicator", "Matrix.diagonal"],
+      "status": "composable",
+      "query": "Searched Probability and LinearAlgebra for diagonal tensors and inspected the zero-outside-set indicator and Matrix.diagonal bodies; compared the symmetric coordinate-tensor convention in D2.",
+      "result": "The higher-order zero-pattern is directly expressible as support on constant index tuples, with Matrix.diagonal giving the exact order-two specialization.",
+      "gap": "Define the symmetric tensor subspace supported on constant coordinate tuples and identify its order-two specialization with diagonal matrices.",
+      "comparisons": {
+        "D11": "Represent tensor entries as functions on Fin r to Fin d, with the source's permutation symmetry imposed separately. Let C be the tuples that are constant at some coordinate label; the predicate T=C.indicator T says exactly that every nonconstant-tuple entry is zero. For r=2 this is precisely Matrix.diagonal, whose body zeros unequal indices. No nonzero diagonal value or distinctness condition is part of this definition; the order-dependent genericity conditions in later theorems remain separate. In particular, diagonal raw moments or cumulants at one chosen order do not imply independence of latent coordinates. The definition is algebraic and does not require the tensor to arise from any probability law."
+      }
+    },
+    {
+      "interface_id": "local-abd9aaa77c57a73d33c1",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "ProbabilityTheory.covariance"],
+      "status": "composable",
+      "query": "Inspected matrix-vector multiplication, nonsingular inverse and coordinate covariance definitions; compared the literal linear system and the separately imposed covariance normalization.",
+      "result": "The unmixing equation, mean-zero conditions and zero cross-covariances can be assembled with finite-dimensional matrix and expectation primitives.",
+      "gap": "Define the invertible unmixing matrix and latent vector with finite second moments, zero means and zero off-diagonal covariances.",
+      "comparisons": {
+        "D1": "Matrix.mulVec expresses A*Y=epsilon in the stated direction: A maps observations to latent components. Require A invertible, or its determinant a nonzero real, for the inverse reconstruction Y=A^-1 epsilon; the totalized matrix inverse alone does not assert this. Coordinate covariances are the integrals of centered products, so use genuine finite second moments when imposing that cross-covariances vanish and coordinate means are zero, rather than accepting the integral's nonintegrable zero fallback. The definition imposes uncorrelated components, not independence and not a Gaussian law. Unit covariance is an additional hypothesis of the statistical identification statements and is not silently added to this initial model. Left multiplication by a later ambiguity matrix acts on A's rows."
+      }
+    },
+    {
+      "interface_id": "local-306983f5fb71b912274b",
+      "related": ["Matrix.orthogonalGroup", "ProbabilityTheory.covariance", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected orthogonalGroup and its transpose-inverse membership characterizations, coordinate covariance and nonsingular inverse; compared the normalized model and full candidate-orbit passage.",
+      "result": "Orthogonal matrices and covariance algebra provide the candidate orbit ingredients, but the covariance factorization, converse characterization and compactness argument remain to be established.",
+      "gap": "Prove that covariance-normalized unmixing representations of the same observed law are exactly the orthogonal left orbit of A and that this orbit is compact.",
+      "comparisons": {
+        "D8": "With finite second moments, invertible A, centered epsilon and Cov(epsilon)=I, covariance transport gives Cov(Y)=A^-1(A^-1) transpose=(A transpose A)^-1. For any alternative normalized unmixing B of the same Y law, Q=B A^-1 satisfies Q Q transpose=I, fitting Matrix.orthogonalGroup, and B=Q A. Conversely Q epsilon remains centered with identity covariance. These statements use normalization, beyond the original uncorrelated-components model. The candidate set Omega contains matrices Q A, not Q alone, and compactness follows from compactness of the finite-dimensional real orthogonal group and continuity of Q maps to Q A after those facts are supplied. Additional tensor restrictions narrow this population observational ambiguity; this does not imply finite-sample recovery, a rate, unique row orientation or latent independence."
+      }
+    },
+    {
+      "interface_id": "local-5f70205998391bca5bb7",
+      "related": ["Finset.filter", "Finset.card", "Set.indicator"],
+      "status": "composable",
+      "query": "Searched for reflectionally invariant tensors and inspected finite filtering/cardinality and set-indicator definitions against the source multiplicity condition.",
+      "result": "Counting each label among the tensor slots gives the exact support predicate; its relation to coordinate sign flips and the odd-order zero conclusion can be proved from parity.",
+      "gap": "Define the even-multiplicity index support, impose vanishing outside it and prove the stated parity consequences for symmetric tensors.",
+      "comparisons": {
+        "D12": "For an index tuple i:Fin r to Fin d, use Finset.filter on the slot set and Finset.card to count positions with label j. Permit a nonzero entry only if every such count is even, including the zero counts of absent labels; apply Set.indicator to this permitted support. If r is odd, the sum of all label counts is odd, so no tuple can have all counts even and the tensor is zero. At higher even order the condition permits mixed entries such as T_iijj and is weaker than diagonality. It characterizes invariance under coordinate sign reflections after proving their action, not invariance under every orthogonal transformation. Repeated-pair contraction distinctness is a separate genericity condition and is not part of this support definition."
+      }
+    },
+    {
+      "interface_id": "local-62befac331772e890a4b",
+      "related": ["PiTensorProduct.map", "Module.Basis.piTensorProduct_repr_tprod_apply"],
+      "query": "Inspected PiTensorProduct.map's lift/compLinearMap body and map_tprod result, and the full tensor-product coordinate-basis coefficient proof; compared each factor and index orientation in the source action.",
+      "result": "Applying the same linear map in every tensor factor and expanding in the standard product basis supplies the action, with a remaining coordinate and symmetry identification.",
+      "gap": "Identify the source coordinate tensors with tensor-product coordinates and prove that the repeated-factor map gives the displayed action and preserves index symmetry.",
+      "comparisons": {
+        "D7": "Use r copies of R^d and PiTensorProduct.map with the same matrix-induced linear map A in each slot. The basis coefficient rule multiplies the coordinate contributions from all slots; expansion of a general tensor then gives sum over j1,...,jr of A_i1j1 times ... times A_irjr times T_j1...jr, with no factorial or symmetrization multiplier. All slots transform in the same direction, so at r=2 the result is A T A transpose, not A transpose T A. The source's symmetric tensors are invariant coordinate arrays; a quotient symmetric tensor-power construction is not automatically the same representation without an equivalence. The operation itself accepts every square A, including singular matrices; orthogonality is a later restriction in identification. No observed distribution or unmixing model is needed to define the action."
+      }
+    },
+    {
+      "interface_id": "local-2479e1923917dabc49b5",
+      "related": ["Matrix.orthogonalGroup", "PiTensorProduct.map"],
+      "status": "composable",
+      "query": "Inspected orthogonalGroup and the repeated tensor-factor map; compared the source target-set condition, identity assertion and retained Q-versus-QA discrepancy.",
+      "result": "After constructing the tensor action, the admissible transformations form its preimage of the allowed tensor subset within the orthogonal group; no subgroup or stabilizer structure follows in general.",
+      "gap": "Define the set of orthogonal Q with Q acting on T in V, retaining the distinction between transformations Q and candidate parameters Q A.",
+      "comparisons": {
+        "D9": "Given T in V, form the set of elements Q of Matrix.orthogonalGroup for which the repeated-factor action sends T into V. Identity belongs because its action fixes T. The membership test is Q*T in V, not Q*T=T, so it is not in general the stabilizer of T and need not be closed under composition or inversion. The source's following sentence calls this a subset of Omega, but Omega was defined as matrices Q A; the correct types remain transformation Q versus parameter Q A without silently changing either formula. The definition is meaningful for an arbitrary subset V of symmetric tensors and a fixed T, independently of a statistical observation model."
+      }
+    },
+    {
+      "interface_id": "local-6c2356924b66671eb1ae",
+      "related": ["ProbabilityTheory.mgf", "ProbabilityTheory.cgf", "MeasureTheory.lintegral", "ENNReal.log"],
+      "query": "Searched moment and cumulant generating functions; inspected mgf, cgf, real integral/log totalization and the analytic CGF theorem's interior-integrableExpSet condition, along with nonnegative integral and extended-log evidence.",
+      "result": "Scalar mgf/cgf applied to the inner product t dot X at scalar argument one reproduce the finite vector generating functions; they are not faithful infinite-value extensions when exponential moments fail.",
+      "gap": "Define the vector-parameter generators and state their exponential-integrability domain before using real logarithms or derivative identities.",
+      "comparisons": {
+        "D3": "For a fixed vector t, set Z_t(omega)=inner(t,X(omega)); mgf Z_t P 1 is the printed M_X(t), and cgf Z_t P 1 is its logarithm wherever the exponential is integrable. For a probability law a finite expectation of the strictly positive exponential is positive, legitimizing the real logarithm. If it is not integrable, the library's real integral becomes zero and cgf uses log zero=zero, which does not represent an infinite source MGF; lintegral and ENNReal.log offer extended-value bookkeeping without granting differentiability. Neither the definition nor finite selected-order moments guarantees an open neighborhood of finite exponential moments. The inspected analytic CGF statements explicitly require the argument in the interior of the exponential-integrability set, so those hypotheses cannot be silently inferred from the paper's tensor-existence convention."
+      }
+    },
+    {
+      "interface_id": "local-3363e4ccc6de9d6d95cb",
+      "related": ["ProbabilityTheory.cgf", "iteratedFDeriv"],
+      "query": "Searched Probability for cumulant tensors and inspected cgf, the analytic domain conditions and iteratedFDeriv's recursive multilinear derivative body; compared the literal source mixed derivative definition.",
+      "result": "The log-MGF and iterated derivative primitives provide a route to classical joint cumulant entries, but a multivariate differentiability and coordinate-derivative identification is still required.",
+      "gap": "Establish a valid differentiable log-MGF near zero and identify its order-r multilinear derivative on coordinate directions with the source joint cumulant tensor.",
+      "comparisons": {
+        "D5": "Construct K_X(t)=cgf(inner(t,X)) P 1 on its finite domain and evaluate iteratedFDeriv R r K_X at zero on the ordered coordinate unit vectors indexed by i1,...,ir. Once sufficient smoothness is proved, this realizes the printed mixed partials and their permutation symmetry. The derivative primitive is totalized outside differentiability, and scalar CGF analyticity results do not by themselves prove the required vector-neighborhood statement. Finite moments of order r alone do not justify this derivative-of-log-MGF representation; a partition-based extension of cumulants would require a separate equivalence and is not substituted for the source definition. Under zero mean the third cumulant agrees with the third raw moment, but fourth and higher cumulants remain distinct from raw moments."
+      }
+    },
+    {
+      "interface_id": "local-6e90746043fe74125555",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.mgf", "iteratedFDeriv"],
+      "query": "Inspected the integral, scalar MGF and iterated multilinear derivative definitions, and compared both equalities in the source raw moment entry formula with its explicit analytic-domain limitation.",
+      "result": "Integrals of finite coordinate products directly represent existing raw moments; their equality to mixed MGF derivatives needs extra interchange and neighborhood assumptions.",
+      "gap": "Define the coordinate-product expectations with sufficient moment integrability and prove the displayed MGF mixed-derivative identity on a valid exponential-moment domain.",
+      "comparisons": {
+        "D4": "For each tuple i1,...,ir integrate the product X_i1 ... X_ir under the law, assuming this signed product is integrable; moment finiteness can be established from appropriate order-r bounds. The result is a raw moment tensor, with no coordinate centering inserted. Commutativity of the scalar product gives permutation symmetry of existing entries. An iterated derivative at zero of t maps to mgf(inner(t,X)) P 1, evaluated on coordinate directions, matches only after justifying smoothness and differentiation through expectation. The integral's nonintegrable zero and derivative's default value cannot certify existence or that equality. The statistical restrictions concern a selected fixed order; they are not a requirement that all moment orders exist or have the same zero pattern."
+      }
+    },
+    {
+      "interface_id": "local-7c02ec2e2e2649bb35e5",
+      "related": ["ProbabilityTheory.mgf", "ProbabilityTheory.cgf", "iteratedFDeriv"],
+      "query": "Inspected the separate mgf and cgf definitions and the common derivative primitive; compared the source h_r convention and its two frozen dependency branches.",
+      "result": "Both tensor alternatives can share the coordinate-tensor codomain, while their generators and existence obligations remain different; h_r is source shorthand for a selected alternative.",
+      "gap": "Introduce an explicit choice of the moment or cumulant construction and keep the selected branch's existence and transformation obligations attached to h_r.",
+      "comparisons": {
+        "D6": "The moment branch uses raw coordinate-product expectations, with an MGF derivative identity only on its justified domain; the cumulant branch uses mixed derivatives of the log MGF on its justified domain. The inspected mgf/cgf and iteratedFDeriv supply ingredients for these two constructions, not a new hybrid tensor. Define h_r with a branch parameter or as an abstract selected tensor construction whose required properties are later supplied. A statement h_r(epsilon) in V concerns the chosen branch and does not demand both mu_r(epsilon) and kappa_r(epsilon) lie in V. Likewise, shared transformation formulas need to be established for each valid branch rather than assuming all moment/cumulant objects coincide or exist to every order."
+      }
+    },
+    {
+      "interface_id": "local-6d7b29f8817c47404165",
+      "related": ["Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected the finite-sum evaluation theorem generated from Finset.prod_apply and compared the repeated-slot contraction and all-pairs inequality in equation (14), including its order-two boundary.",
+      "result": "Finite function-valued sums encode the contracted coordinate vector; the genericity predicate is pairwise inequality of its values and requires no distributional assumption to define.",
+      "gap": "Define the repeated-pair contraction vector for r=2*l+2 and require distinct values at every pair of distinct remaining labels.",
+      "comparisons": {
+        "D13": "For even r>=2, write r=2*l+2 and sum over every l-tuple of labels in [d], repeating each chosen label twice and appending j,j. Finset.sum_apply justifies evaluating this finite sum of coordinate functions at j as the displayed sum of T entries. Require c_j(T) not equal c_k(T) for all j not equal k. Repetitions among the summation labels are allowed; these are not injective tuples or unordered combinations, and no combinatorial multiplicity factor is added. At l=0 the indexing function type has one empty tuple, so the contraction is T_jj, not an empty sum equal to zero. At higher order it involves mixed paired entries and is not merely distinct full diagonal entries. The differences c_j-c_k are linear in T, explaining the excluded hyperplanes once that linearity is proved. For a normalized statistical second-order moment/cumulant tensor the matrix is identity, so the distinctness condition fails when d>1; the source's algebraic condition is retained rather than silently removing r=2."
+      }
+    }
+  ]
+}

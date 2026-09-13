@@ -1,0 +1,280 @@
+[
+  {
+    "local_id": "D1",
+    "original_tex": "As in Section \\ref{sec:setting}, we let $Y = (Y_1, \\ldots, Y_n)$ denote the null training sample (NTS) with a common marginal distribution $P_0$, $X = (X_1, \\ldots, X_m)$ the test sample with $X_i\\sim P_i$ ($1\\leq i\\leq m$), $Z = (Z_1, \\ldots, Z_{n+m}) =(Y_1, \\ldots, Y_n, X_1, \\ldots, X_m)$  the full sample, $\\cH_0=\\{1\\leq i\\leq m\\::\\: P_i = P_0\\}$ the set of nulls in the test sample  with $m_0 = |\\cH_0|, \\pi_0 = m_0 / m$, and $\\cH_1=\\{1,\\dots,m\\}\\setminus \\cH_0$ the set of novelties  with $m_1 = |\\cH_1|, \\pi_1 = m_1 / m$. \nFor notational convenience, we write $n+\\cH_0$ for the set $\\{n+i,i\\in \\cH_0\\}$.\nFurthermore, we denote by $P$ the joint distribution of $Z$, which belongs to a family of distributions $\\mathcal{P}$ (model).",
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — null training sample, test sample and model"
+      }
+    ]
+  },
+  {
+    "local_id": "D2",
+    "original_tex": "Given a procedure $R$, the false discovery rate (FDR) is defined as the expectation of the false discovery proportion (FDP) with respect to the distribution $P\\in \\mathcal{P}$:\n\\begin{align}\n\\FDR(P,R)&= \\E_{Z\\sim P}[\\FDP(P,R)],\\:\\:\\: \\FDP(P,R)=\\frac{\\sum_{i\\in \\cH_0} \\ind{i\\in R}}{1\\vee |R|}.\\label{equFDRFDP}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.2 — false discovery rate and false discovery proportion, equation (2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D3",
+    "original_tex": "Suppose a set of $p$-values $(p_i,1\\leq i\\leq m)$ is available, the BH algorithm \\citep{BH1995} returns\n$\nR = \\{i\\in \\{1,\\dots,m\\}\\::\\:p_i\\leq \\alpha \\hat{k}/m\\},\n$ where $\\alpha$ is the target FDR level and \n\\begin{equation}\\label{equkchapeau}\n\\hat{k} = \\max\\left\\{k\\in \\{0,\\dots,m\\}\\::\\: \\sum_{i=1}^m \\ind{p_i\\leq \\alpha k/m}\\geq k\\right\\}.\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.3 — BH algorithm, equation (4)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4",
+    "original_tex": "It starts by splitting the null sample $(Y_1,\\dots,Y_n)$  in two samples $(Y_1,\\dots,Y_k)$ and $(Y_{k+1},\\dots,Y_{n})$ with $k\\geq 0$. To avoid cluttering our notation, we define $\\ell$ as the size of the second null sample, i.e.,\n$\\ell=n - k.$",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.4 — split of the null sample"
+      }
+    ]
+  },
+  {
+    "local_id": "D5",
+    "original_tex": "Compute a data-driven score function of form\n\\begin{equation}\\label{scorefunction}\ng(z)=g(z,(Z_{1},\\dots,Z_{k}), (Z_{k+1},\\dots,Z_{n +m})),\\:\\:\\: z\\in \\mathcal{Z},\n\\end{equation}\nwhich satisfies the following invariance property: for any permutation $\\pi$ of $\\{k+1,\\dots,n+m\\}$ and $z,z_1,\\dots,z_{n+m}\\in \\mathcal{Z}$, we have\n\\begin{equation}\\label{constrainedg}\ng(z,(z_{1},\\dots,z_{k}), (z_{\\pi(k+1)},\\dots,z_{\\pi(n +m)}))=g(z,(z_{1},\\dots,z_{k}), (z_{k+1},\\dots,z_{n +m})).\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.4 — data-driven score function, equations (7) and (8)"
+      }
+    ]
+  },
+  {
+    "local_id": "D6",
+    "original_tex": "Transform the raw data into univariate scores\n\\begin{equation}\\label{equscores}\nS_i = g(Z_i; (Z_1,\\dots,Z_k) , (Z_{k+1},\\dots,Z_{n+m})), \\quad i \\in \\{ k+1, \\ldots,n+m\\}.\n\\end{equation}  \nHere, we assume that novelties typically have large scores.",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.4 — univariate scores, equation (9)"
+      }
+    ]
+  },
+  {
+    "local_id": "D7",
+    "original_tex": "For each test point $X_j$, generate the empirical $p$-value by comparing $S_i$ with the scores in the NTS: \n\\begin{equation}\\label{emppvalues}\np_j = \\frac{1}{\\ell+1}\\left(1+\\sum_{i=k+1}^{n}\\ind{S_i>S_{n+j}}\\right), \\:\\:j\\in\\{1,\\dots,m\\}.\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.4 — empirical p-values, equation (10)"
+      }
+    ]
+  },
+  {
+    "local_id": "D8",
+    "original_tex": "In this paper, we propose a method called AdaDetect. It is an adaptive novelty detection procedure that extends the  existing strategies described in \\cite{weinstein2017power}, \\cite{yang2021bonus}, \\cite{mary2021semisupervised}, and \\cite{bates2021testing}. It starts by splitting the null sample $(Y_1,\\dots,Y_n)$  in two samples $(Y_1,\\dots,Y_k)$ and $(Y_{k+1},\\dots,Y_{n})$ with $k\\geq 0$. To avoid cluttering our notation, we define $\\ell$ as the size of the second null sample, i.e.,\n$\\ell=n - k.$\nIt proceeds with the following steps.\n\\begin{enumerate}\n\\item Compute a data-driven score function of form\n\\begin{equation}\\label{scorefunction}\ng(z)=g(z,(Z_{1},\\dots,Z_{k}), (Z_{k+1},\\dots,Z_{n +m})),\\:\\:\\: z\\in \\mathcal{Z},\n\\end{equation}\nwhich satisfies the following invariance property: for any permutation $\\pi$ of $\\{k+1,\\dots,n+m\\}$ and $z,z_1,\\dots,z_{n+m}\\in \\mathcal{Z}$, we have\n\\begin{equation}\\label{constrainedg}\ng(z,(z_{1},\\dots,z_{k}), (z_{\\pi(k+1)},\\dots,z_{\\pi(n +m)}))=g(z,(z_{1},\\dots,z_{k}), (z_{k+1},\\dots,z_{n +m})).\n\\end{equation}\n\\item Transform the raw data into univariate scores\n\\begin{equation}\\label{equscores}\nS_i = g(Z_i; (Z_1,\\dots,Z_k) , (Z_{k+1},\\dots,Z_{n+m})), \\quad i \\in \\{ k+1, \\ldots,n+m\\}.\n\\end{equation}  \nHere, we assume that novelties typically have large scores.\n\\item For each test point $X_j$, generate the empirical $p$-value by comparing $S_i$ with the scores in the NTS: \n\\begin{equation}\\label{emppvalues}\np_j = \\frac{1}{\\ell+1}\\left(1+\\sum_{i=k+1}^{n}\\ind{S_i>S_{n+j}}\\right), \\:\\:j\\in\\{1,\\dots,m\\}.\n\\end{equation}\n\\item Apply the BH algorithm to $(p_1,\\dots,p_m)$ at the target level $\\alpha$.\n\\end{enumerate}\n\nWe will call this procedure $\\mbox{AdaDetect}_\\alpha$ in the sequel to emphasize the target level.",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.4 — AdaDetect procedure"
+      },
+      {
+        "page": 7,
+        "location": "Section 2.4 — AdaDetect procedure"
+      }
+    ]
+  },
+  {
+    "local_id": "D9",
+    "original_tex": "\\mbox{$(Y_1,\\dots,Y_{n},X_i,i\\in \\cH_0)$ are exchangeable conditional on $(X_i,i\\in \\cH_1)$.} \\footnote{Note that such an assumption implicitly assumes that such a conditional distribution exists, which is always the case for instance when $\\mathcal{Z}=\\R^d$ or $\\mathcal{Z}$ is discrete.}",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Assumption 1 — exchangeability of the raw measurements"
+      }
+    ]
+  },
+  {
+    "local_id": "D10",
+    "original_tex": "\\mbox{$(S_{k+1}, \\ldots, S_{n}, S_{n+i},i\\in \\cH_0)$ is exchangeable conditionally on $(S_{n+i},i\\in \\cH_1)$.}",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Assumption 2 — exchangeability of the scores"
+      }
+    ]
+  },
+  {
+    "local_id": "D11",
+    "original_tex": "\\mbox{$(S_{k+1}, \\ldots, S_{n+m})$ have no ties almost surely.}",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Assumption 3 — no ties"
+      }
+    ]
+  },
+  {
+    "local_id": "D12",
+    "original_tex": "Following \\cite{BY2001}, we say a family of $p$-values $(p_i,1\\leq i\\leq m)$ is PRDS on $\\cH_0$ if, for any $i\\in \\cH_0$ and nondecreasing\\footnote{A set $D\\subset [0,1]^m$ is said to be nondecreasing if for any $x\\in D$ and $y\\in [0,1]^m$, we have $y\\in D$ provided that $y_i\\geq x_i$ for all $i$.  } measurable set $D\\subset [0,1]^m$, the function $u\\in [0,1]\\mapsto \\P((p_j,1\\leq j\\leq m)\\in D\\:|\\: p_i= u)$ is nondecreasing.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 3.2 — PRDS"
+      }
+    ]
+  },
+  {
+    "local_id": "D13",
+    "original_tex": "For each $i\\in \\cH_0$, let $\\mathcal{D}_{i}$ be the distribution of $(p'_j,1\\leq j\\leq m)$, where\n\\rev{\\[\n\\left\\{\\begin{array}{l}\np'_j=0,\\ j\\in\\cH_1,\\ p'_i=1/(\\ell+1);\\\\\np'_j,\\ j\\in\\cH_0\\backslash\\{i\\}\\ \\text{are i.i.d. conditionally on }U\\text{ with a common c.d.f. }F^U;\\\\\nU=(U_1,\\dots,U_{\\ell+1})\\text{ has i.i.d. }U(0,1)\\text{ components,}\n\\end{array}\\right.\\tag{13}\n\\]\n}\nwhere $F^U$ denotes the discrete c.d.f. $F^U(x)=(1-U_{(\\lfloor x(\\ell+1)\\rfloor+1)} )\\ind{1/(\\ell+1)\\leq x<1 }+\\ind{x\\geq 1}$, $x\\in \\R$, and $U_{(1)}>\\dots> U_{(\\ell+1)}$ denote the order statistics of the vector $U$.\nNote that the distribution $\\mathcal{D}_{i}$ only depends on $i$, $m$, $\\ell$ and $\\cH_0$. The following general result holds.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.4 — distribution D_i, equation (13)"
+      }
+    ]
+  },
+  {
+    "local_id": "D14",
+    "original_tex": "$Y_1,\\dots,Y_{n},X_1,\\dots,X_m$ are mutually independent.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Assumption 4 — mutual independence"
+      }
+    ]
+  },
+  {
+    "local_id": "D15",
+    "original_tex": "For each $i\\in \\{0\\}\\cup \\cH_1$, $P_i$ has a positive density $f_i$ w.r.t. a measure $\\nu$.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Assumption 5 — positive densities"
+      }
+    ]
+  },
+  {
+    "local_id": "D16",
+    "original_tex": "Let \n\\begin{align}\nf&=\\pi_0 f_0+ \\pi_1 \\bar f_1,\\label{equ:f}\\\\\n \\bar f_1&= m_1^{-1}\\sum_{i\\in \\cH_1} f_i.\\label{equ:f1bar}\n\\end{align}\nUnder Assumptions~\\ref{as:indep} and~\\ref{equ-marg}, $f_0$ is the average density of $(Z_1,\\dots,Z_k)$, $\\bar{f}_1$ is the average alternative density, $f$ is the average density of the test sample $(X_1,\\dots,X_m)$. Similarly the average density of $(Z_{k+1},\\dots,Z_{n+m})$ is $f_\\gamma$ where\n\n\n\n\n\\begin{align}\n\\gamma=\\frac{m_1}{\\ell+m};\\:\\:\\:\\:\\:\\:\nf_\\gamma=(1-\\gamma) f_0 + \\gamma \\bar{f}_1 =\\frac{\\ell}{\\ell+m} f_0+ \\frac{m}{\\ell+m} f.\\label{equfgamma}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 4.1 — average densities and gamma, equations (15)-(17)"
+      }
+    ]
+  },
+  {
+    "local_id": "D17",
+    "original_tex": "Lastly, we define the density ratio\n\\begin{equation}\\label{equLR}\n\\lrt(x)= \\frac{\\pi_1 \\bar f_1(x)}{ f(x)}, \\quad x\\in \\mathcal{Z}.\n\\end{equation}\nNote that $\\lrt(x)\\in (0,1)$ for $\\nu$-almost every $x\\in \\mathcal{Z}$ by Assumption~\\ref{equ-marg}.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 4.1 — density ratio, equation (18)"
+      }
+    ]
+  },
+  {
+    "local_id": "D18",
+    "original_tex": "\\rev{Recall that AdaDetect is equivalent to applying the counting knockoff on the scores which relies on an estimator $\\widehat{\\mathrm{FDP}}$ (Section \\ref{sec:adaptiveteststat}). For each given $t$, when $\\ell$ and $m$ is large, \n$\\widehat{\\mathrm{FDP}}(t)\\approx m \\:\\P_{S_i\\sim P_0}(S_i \\ge t)/\\E[|R(t)|] \\approx \\E[|R(t)\\cap \\{k+1, \\ldots, n\\}|]/\\E[|R(t)|],$\nwhere $R(t)$ is set of rejections at threshold $t$. The RHS is called the marginal FDR (mFDR), an error metric that is close to FDR when $|R(t)|$ is large and often used for asymptotic power analysis of FDR-controlling procedures \\citep[e.g.][]{SC2007, lei2018adapt}. The following theorem derives the optimal score function among all procedures that reject hypotheses with $S_i$ above some thresholds subject to mFDR control (see \\citealp{weinstein2021permutation, rosset2022optimal} for results for FDR instead of mFDR). }",
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Section 4.2 — marginal FDR (mFDR)"
+      }
+    ]
+  },
+  {
+    "local_id": "D19",
+    "original_tex": "The oracle AdaDetect procedure, denoted by AdaDetect$^*$, is defined as the AdaDetect procedure with the score function $\\lrt(\\cdot)$ defined in \\eqref{equLR}.",
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Definition 4.2 — oracle AdaDetect procedure"
+      }
+    ]
+  },
+  {
+    "local_id": "D20",
+    "original_tex": "Since AdaDetect is invariant under any strictly monotone transformation of the score function (see Remark~\\ref{rem:invariance}), AdaDetect$^*$ can be realized as any AdaDetect procedure with a score function of the form\n\\begin{equation}\\label{equoraclescore}\ng^*= \\Psi \\circ \\lrt, \\mbox{ for some increasing continuous $\\Psi:(0,1)\\to {\\R}$},\n\\end{equation}\nwhere $\\Psi$ could depend on unknown parameters. This is a crucial property of AdaDetect that enables flexible classification methods to construct score functions without concerning about the composition of nulls and novelties that may change the oracle score $\\lrt$.",
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Section 4.2 — oracle score function, equation (19)"
+      }
+    ]
+  },
+  {
+    "local_id": "D21",
+    "original_tex": "\\begin{align}\n\\hat{R}_0(g)&=   k^{-1} \\sum_{i=1}^{k} \\ind{g(Z_i)\\geq 0}, \\:\\:\\:\\:R_0(g)=\\E \\hat{R}_0(g) =\\P_{Z\\sim f_0} (g(Z)\\geq 0)\\label{NPexactRgamma},\\\\ \n\\hat{R}_\\gamma(g)& =(m+\\ell)^{-1} \\sum_{i=k+1}^{n+m} \\ind{g(Z_i)<  0}, \\:\\:\\:\\:R_\\gamma(g)=\\E \\hat{R}_\\gamma(g) = (1-\\gamma) (1-R_0(g))+ \\gamma R_1(g),\\nonumber\\\\\nR_1(g)& =\\P_{Z\\sim \\bar{f}_1} (g(Z)< 0),\\nonumber\n\\end{align}\nwhere $\\gamma$, $f_0$, and $\\bar{f}_1$ are defined in \\eqref{equfgamma}.",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Section 5.1 — empirical and population risks, equation (25)"
+      }
+    ]
+  },
+  {
+    "local_id": "D22",
+    "original_tex": "We consider a function class $\\cG$ with a finite Vapnik-Chervonenkis (VC) dimension $V(\\cG)$ (\\citealp{vapnik1998statistical})",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Section 5.1 — finite Vapnik-Chervonenkis (VC) dimension"
+      }
+    ]
+  },
+  {
+    "local_id": "D23",
+    "original_tex": "\\begin{align}\n  \\hat{g}&\\in \\argmin_{g \\in \\cG}\\left\\{\\hat{R}_\\gamma(g)\\::\\: \\hat{R}_0(g)\\leq \\beta + \\epsilon_0\\right\\},\\label{defghat}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Section 5.1 — constrained ERM score function, equation (26)"
+      }
+    ]
+  },
+  {
+    "local_id": "D24",
+    "original_tex": "for some $\\epsilon_0 > 0$, as well as its population version\n\\begin{align}\ng^\\sharp_\\cG&\\in \\argmin_{g \\in \\cG}\\left\\{ R_\\gamma(g)\\::\\:  R_0(g)\\leq \\beta \\right\\}.\\label{equNP}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Section 5.1 — population version, equation (27)"
+      }
+    ]
+  },
+  {
+    "local_id": "D25",
+    "original_tex": "Now we move to general score functions. Let $g^*$ be any measurable function $\\R^d\\to \\R$ in the form of \\eqref{equoraclescore} and\n\\begin{equation}\n\\ol{G}_0(s) &= \\P_{X\\sim P_0}(g^*(X) \\geq s),\\quad s\\in \\R\\label{equGbar};\\end{equation}",
+    "evidence": [
+      {
+        "page": 19,
+        "location": "Section 5.2 — oracle score tail, equation (33)"
+      }
+    ]
+  },
+  {
+    "local_id": "D26",
+    "original_tex": "\\begin{equation}\n\\zeta_{r}(\\eta)&=\\max_{u\\in [\\alpha (r\\vee 1)/m,\\alpha]} \\left\\{\\frac{\\ol{G}_0(\\ol{G}_0^{-1}(u)-2\\eta) - u}{u }\\right\\},\\quad \\eta>0, r\\in \\{0,\\dots,m\\}.\\label{funcdelta}\n\\end{equation}\nHere, $\\zeta_r(\\cdot)$ measures the local fluctuation of $\\ol{G}_0$. We suppress the dependence on $\\alpha$ and $m$ to ease notation.",
+    "evidence": [
+      {
+        "page": 19,
+        "location": "Section 5.2 — local fluctuation, equation (34)"
+      }
+    ]
+  },
+  {
+    "local_id": "D27",
+    "original_tex": "Furthermore, consider any data-driven score function $\\hat{g}$ satisfying the condition \\eqref{constrainedg} and let\n\\begin{align}\n\\hat{\\eta}&=\\max_{k+1\\leq i\\leq n+m} |\\hat{g}(Z_i; (Z_1,\\dots,Z_k) , (Z_{k+1},\\dots,Z_{n+m}))- g^*(Z_i) |,\\label{diffscore}\n\\end{align}\nwhich measures the maximal discrepancy of scores in the mixed sample. In the following, $\\mbox{AdaDetect}_{\\alpha}$ denotes the procedure with score function $\\hat{g}$ and $\\mbox{AdaDetect}_{\\alpha}^{*}$ denotes the procedure with score function $g^{*}$.",
+    "evidence": [
+      {
+        "page": 19,
+        "location": "Section 5.2 — maximal discrepancy, equation (35)"
+      },
+      {
+        "page": 20,
+        "location": "Section 5.2 — maximal discrepancy, equation (35)"
+      }
+    ]
+  }
+]

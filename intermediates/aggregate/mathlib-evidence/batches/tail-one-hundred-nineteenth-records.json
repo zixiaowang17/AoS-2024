@@ -1,0 +1,497 @@
+[
+  {
+    "interface_id": "local-6f6f171194c5952aa78f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "71cf4efd97c58e6ab3e8938a7dfbc0970c31f3846285a3a9e5415012fe16a0bd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D19",
+        "comparison": "The relevant norm is the induced Euclidean operator norm of the POPULATION R, implemented with Matrix.Norms.L2Operator, not entrywise maximum or Frobenius norm. For growing dimensions the requirement is a bounded norm sequence, not the trivial finite norm of each individual finite matrix. Asymptotics.IsBigO relative to one represents eventual boundedness with the source uniformity convention specified. This upper bound does not imply a uniform lower eigenvalue bound. The Discussion explicitly assigns this requirement to Theorems 2.3-2.4 although their displayed statements omit it; preserve the source passage separately rather than rewriting the transcriptions. The suggested extension following another paper is future work, not an established unbounded-spectrum version.",
+        "statement_sha256": "bea5a26128d5334eea8404f494db5aee5fcf8bf6fb3cb7c96f6091f3347d666e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.l2_opNorm_def",
+          "type": "{𝕜 m n : Type*} → [RCLike 𝕜] → [Fintype m] → [Fintype n] → [DecidableEq n] → (A : Matrix m n 𝕜) → ‖A‖ = ‖(Matrix.toEuclideanLin (𝕜 := 𝕜) (m := m) (n := n)).trans LinearMap.toContinuousLinearMap A‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "provides": "With Matrix.Norms.L2Operator scoped instances, the matrix norm is the operator norm of its map between Euclidean spaces, including rectangular matrices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/Matrix.lean#L198-L199",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the Euclidean matrix operator norm and deterministic sequence bounds; compared the Discussion requirement with the printed test theorem hypotheses.",
+          "result": "A bounded population-correlation spectral-norm sequence is expressible, but relaxing that condition is explicitly outside the paper's proved scope."
+        }
+      ],
+      "gap": "Record a dimension-uniform population-correlation operator-norm bound as the Discussion's stated requirement, retaining the unbounded-norm case as future work."
+    }
+  },
+  {
+    "interface_id": "local-e4eef6e0d50a80795a49",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "c857276c222a229a7feb5162d109fac306c1f4143472c031ecbab510b9c708c2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D16",
+        "comparison": "sigma0^2 starts with 2p n^2/n1^2+2p n^2/n2^2+4n^2 p/(n1 n2), then adds (n/n1^2+n/n2^2)[4 tr(R^2)+2 sum_h (R^2)_hh (R^-1)_hh]. Both diagonal factors and the matrix-square trace matter. mu0=np(1/n1+1/n2)+n(n-1)/(4(n-2)^2)(1/n1+1/n2) tr(R^-1 A0). A0 has ENTRYWISE cubes 2 R_hl^3, not the matrix cube 2R^3 and not the fourth-moment-corrected D0. No beta_w term is printed in these null formulas and none is added from the coefficient CLT. Use n=n1+n2, positive sample sizes, n>2 and a genuine population inverse; real totalized inverse/division are not substitute domains. These are population normalizers, with fitted versions defined separately.",
+        "statement_sha256": "1bc4c73c981edee54eed4147d998b5c0ac6df4ae60b83add0e66f41983f736cf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite traces, ordered products and inverse identities; compared all null centering/variance terms and the elementwise A0 definition with D0.",
+          "result": "The scalar normalizers and cubic-entry matrix can be assembled from valid population R, but their role in null asymptotics is not supplied by generic matrix arithmetic."
+        }
+      ],
+      "gap": "Construct the exact null mu0 and sigma0-squared formulas with A0_ij=2 R_ij^3, retaining both trace corrections and their sample-size factors."
+    }
+  },
+  {
+    "interface_id": "local-0739ae9120862b6e7d29",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "dbc28c46ad7f7cb61eebba20693244844a410711c824dc57dd3840c7ba6206fe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D14",
+        "comparison": "R-hat_L^-1=sum_k theta-hat_k A_k is the directly fitted inverse correlation. Omega-hat=diag(S)^-1/2 R-hat_L^-1 diag(S)^-1/2 uses the pooled sample covariance's diagonal, not a full matrix inverse square root of S. The diagonal entries must be positive for genuine marginal standardization; population positive definiteness does not make every finite-sample diagonal positive. Symmetric known bases make the combination symmetric but do not guarantee positive definiteness. The source reuses theta-hat for raw B^-1 b, a multiplicative bias correction and penalized fits, while the test theorems retain raw shrinkage c=(1+y)^-1. Preserve this scope conflict; no corrected or regularized estimate is silently substituted into the stated tests or their normalizers.",
+        "statement_sha256": "536679443d8e475db7e72a299acd5a04df131aafdfa0f6fffccaeefb51f5dc2c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected diagonal construction, matrix multiplication and positive matrix powers; compared fitted inverse-correlation scaling with raw, corrected and penalized coefficient usages.",
+          "result": "Diagonal marginal rescaling of the fitted inverse-correlation combination is expressible, but valid sample scales and estimator-scope qualifications must be supplied."
+        }
+      ],
+      "gap": "Construct the precision estimate from the fitted basis combination and inverse square roots of sample marginal variances, preserving the raw-estimator theorem scope."
+    }
+  },
+  {
+    "interface_id": "local-ee6539d012dc85d6ba6f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "c61efee001927324fa8af607fd11097947ba172079bcf0d67a5b1eb0ca49c376",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D15",
+        "comparison": "T_n=(x-bar1-x-bar2)^T Omega-hat (x-bar1-x-bar2) in (7). The earlier T in (2) is n times such a quadratic form, despite the substitution wording, so T and T_n are not identified without that scaling. Matrix.mulVec and a finite dot product give the stated scalar; no factor n, n1*n2/n, or studentization is inserted into its definition. A symmetric fitted matrix need not be positive definite, so nonnegativity and test behavior require additional domain/estimator facts. Theorem normalizations involving n T_n are preserved literally, and data-dependent Omega-hat is not treated as independent of the same-sample means by construction.",
+        "statement_sha256": "2361d3d12b151997b9bf49223924a2a324e9341bc8a46a18686f8866bbada078"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected quadratic matrix action and compared equation (7) with the motivating n-multiplied statistic (2) and theorem normalizations.",
+          "result": "The quadratic form of the sample-mean difference is directly expressible, retaining the missing n factor as a substantive source distinction."
+        }
+      ],
+      "gap": "Construct T_n as the unmultiplied fitted-precision quadratic form and preserve n T_n only where the theorem explicitly uses it."
+    }
+  },
+  {
+    "interface_id": "local-e1589ba4309223451e97",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "d07a4c28be1a80ffec3ae7cd0a8d451590391ef711453ad3d2fe63d08f1c1cfd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D18",
+        "comparison": "mu_d=mu1-mu2 and delta_n=mu_d^T Sigma^-1 mu_d is a POPULATION squared Mahalanobis signal, not a fitted quadratic form or Euclidean squared norm. Common positive-definite Sigma makes the inverse genuine and delta_n positive under nonzero mu_d, by the appropriate quadratic-form proof. c=(1+y)^-1 uses the limiting aspect ratio. Theorem 2.4 imports common conditions from 2.3 while replacing equal means by H1:mu1!=mu2; imposing both would make the theorem vacuous. No delta_n=o(1), fixed sample proportion or later trace restriction is printed in this full alternative passage; the later local-power discussion does not silently add them.",
+        "statement_sha256": "291be1a5c9273bd32fa09f8eb77e92160074e7695091378e8116e4a5a73eb0dc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected population inverse quadratic forms; compared the alternative hypothesis and delta_n definition with the later local-power restrictions.",
+          "result": "The Mahalanobis squared mean difference is expressible under positive-definite population covariance, while the theorem's alternative and local-comparison scopes remain distinct."
+        }
+      ],
+      "gap": "Construct delta_n from the population inverse covariance and mean difference, retaining H1 as a replacement for H0 and leaving later local-signal restrictions separate."
+    }
+  },
+  {
+    "interface_id": "local-51edc323d222719ac820",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "b989ef77a257ca3b7e5d0dbb6f8b9566092efa6aa7902a96e4fe35ee4e1e93fd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D10",
+        "comparison": "B_kl=p^-1 tr(R A_k R A_l)+y_(n-2) p^-2 tr(R A_k) tr(R A_l). The second term is a product of traces and an aspect-ratio rank-one matrix; it is not another trace of the four-factor product. All R factors here are population correlation, and y_(n-2)=p/(n-2) is the finite-sample aspect ratio rather than its limit y. The earlier sample B lacks this correction and uses R-hat. Known symmetric bases and bounded entries/traces do not by themselves establish nonsingularity of the K-by-K population B; dependent bases can make it singular. Preserve its separate identity before forming the contrast weights.",
+        "statement_sha256": "e2996de9f32cd6b82873c3f1772a84bb32cbb5ee40a1bb845a088e40f6926cd5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected traces and ordered matrix products; compared the population B with the earlier sample B and the aspect-ratio outer-product correction.",
+          "result": "The population trace matrix and its rank-one correction can be constructed exactly, but invertibility is an additional condition."
+        }
+      ],
+      "gap": "Construct the population B with its y_(n-2) trace-product correction, keeping it distinct from the empirical trace matrix in (4)."
+    }
+  },
+  {
+    "interface_id": "local-9eef557ae63e4075742b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "ca2a066de275f933d95ca1653d9a24e896858692f4feba1036026156bb0403dc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D17",
+        "comparison": "First invert R-hat_L^-1=sum theta-hat_k A_k to obtain R-hat_L. Then use diag(R-hat_L)^-1/2 on BOTH sides to form R-tilde. This is not the ordinary sample correlation diag(S)^-1/2 S diag(S)^-1/2. The fitted combination must be invertible and the inverted matrix's diagonal positive for the intended normalization; symmetric bases alone do not guarantee either. Replace R consistently in mu0 and sigma0^2, including inverse, matrix squares, diagonal factors and the entrywise cubic A0 generated from the replacement. Keeping population A0 or mixing fitted and sample correlations would change the estimator. No nearest-positive-definite projection or regularization fallback is supplied by the source.",
+        "statement_sha256": "2ec90263072714df2fd3efd5ba301ab8afa5b8cdf1d83e68abf5f258148baaed"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected matrix inverse, diagonal powers and trace substitution; compared the fitted R-tilde construction with the sample correlation and the population A0 normalizers.",
+          "result": "The plug-in normalizers can be formed by a complete substitution of the restandardized fitted correlation, provided its inverse and diagonal scales are valid."
+        }
+      ],
+      "gap": "Construct R-tilde from the inverse fitted precision-basis combination and its own diagonal, then substitute it throughout both null normalizers."
+    }
+  },
+  {
+    "interface_id": "local-41711833471eb41f8bf1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "4e75698d0e1ae85a9520466812aa5801ba0104893148b53cf351f9890557cf9d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D11",
+        "comparison": "Let s_ij=sum_l (R^1/2)_li^2 (R^1/2)_lj^2. Then D0_ij=2 R_ij^3+beta_w R_ij s_ij and g(i,j,beta_w,R)=2 R_ij^2+beta_w s_ij, retaining the source entry positions. These are elementwise powers, not matrix powers of R, and g differs from D0 by a factor R_ij in each term. beta_w=kappa-3 uses the standardized iid-coordinate fourth moment from D8 and is not assumed zero. R^1/2 is the positive symmetric matrix square root represented by CFC on the proper matrix algebra, not entrywise square roots or an arbitrary covariance factor. D0 is distinct from A0=2 entrywise R^3 used in the null normalizer; no beta_w correction is silently transferred between those source definitions.",
+        "statement_sha256": "44e243e79e2edea2f0eaff0777658ceb9199bdd5c92fbd916c32668b7acc58ab"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite matrix-entry products and positive square roots; compared the fourth-moment corrections in D0 and g with the cubic A0 null matrix.",
+          "result": "The entrywise polynomial expressions in R and its positive square root are constructible, retaining the non-Gaussian fourth-moment parameter."
+        }
+      ],
+      "gap": "Construct D0 and g with their exact shared square-root-entry sums and beta_w=kappa-3 correction, without substituting the Gaussian or A0 special case."
+    }
+  },
+  {
+    "interface_id": "local-cc4d150b17bd70ada2ec",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "d2d88087a58208906eac8880d997b2739e40c688032663bbefae7c70cdff9810",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D12",
+        "comparison": "The row vector eta=(pi1,...,piK) B^-1 uses the POPULATION B from Theorem 2.2, including its aspect-ratio correction. D1=sum_k eta_k A_k is p-by-p, while B is K-by-K. Preserve row multiplication order rather than replacing it by B^-1 times a column without proving symmetry/transposition equivalence. The inverse identity requires a unit determinant; known bases alone need not make B nonsingular. D1 is not the diagonal variance matrix D from the covariance decomposition and not D0. Arbitrary contrast constants include all zeros, in which case D1=0 and the later variance scale vanishes; that possibility is not excluded by this definition.",
+        "statement_sha256": "c67968f5cbfce0a123b32836363a764fd5d51d455d4684236fd12c649ab5cb22"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected row-vector matrix multiplication and inverse identities; compared contrast weights with the population B and the separate diagonal covariance D.",
+          "result": "The contrast-weighted symmetric basis combination is expressible when the population B inverse exists."
+        }
+      ],
+      "gap": "Construct eta as the row contrast times population B inverse and D1 as its weighted basis sum, retaining the distinct matrix identities and inverse domain."
+    }
+  },
+  {
+    "interface_id": "local-542a7e222f1384be050c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:11:21.861519+00:00",
+    "source_interface_sha256": "bc793cdb1893c5ce76f7dc0b8769c6c367a370695c1136178cb12a89b5bb2b2a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2217",
+        "local_id": "D13",
+        "comparison": "Retain all eleven nu terms: tr(R D1); the n(n-1)/(4(n-2)^3) tr(D0 D1) correction; the positive n(2n-1)/((n-2)^2(n-2+p)) bracket; the negative tr(R D1)/(1+y_(n-2)) bracket with all five sample-size/kurtosis summands; the positive R D1 R trace and R^-1/2 entry correction; the positive tr(R D1)[2p+beta_w cubic-entry sum] term; its distinct negative 3n(n-1) fourth-entry-power correction; the negative 5n(n-1) bracket with diagonal R D1; and the three separate g-weighted double sums with R^-1 and R D1 R, with tr(R D1) R^-1 and R, and with D1 and R, respectively. Keep each denominator and the final 3n-6+p factor literally as archived. For sigma^2 retain the first three terms sharing ((1+2y)/(1-y))^2, including their positive quadratic forms and negative cross term, followed by five terms with (1+y)^-2: squared normalized trace times (2-2y-beta_w y), 2y times n^-1 tr(R D1)^2, squared normalized trace times [2n^-1 tr(R^2)+beta_w y], the negative product involving tr(R^2 D1), and the final diagonal-weighted sum. In particular tr[(R D1)^2], tr(R D1)^2 and [n^-1 tr(R D1)]^2 have different matrix/scalar powers and n factors. nu uses finite y_(n-2), while sigma^2 uses limiting y; no substitution is implicit. Fractional matrix powers need positive-definite population R, the contrast uses a genuine B inverse, n>2 is required, and y=1 makes the printed variance formula singular despite not being explicitly excluded by the preceding finite-y hypothesis. A zero contrast gives zero scale despite the source's arbitrary-contrast wording. Generic scalar totalization or cancellations do not establish a valid positive CLT normalizer or justify dropping terms.",
+        "statement_sha256": "5454cbcd888314aaea93984b0fc7fb4165e4ecd56c3a70a9af1b4b716f0bf1ca"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected matrix trace/products, inverse and fractional powers; manually compared all eleven centering terms and all eight additive variance terms with the frozen Theorem 2.2 formulas.",
+          "result": "The complete finite formulas have matrix-arithmetic ingredients, but their normalizing role, nonzero variance and excluded singular aspect ratios require additional assumptions and a central-limit proof."
+        }
+      ],
+      "gap": "Construct the literal eleven-term nu and eight-term sigma-squared formulas, preserving finite versus limiting aspect ratios, trace-power placement and all inverse/nonzero-scale qualifications."
+    }
+  }
+]

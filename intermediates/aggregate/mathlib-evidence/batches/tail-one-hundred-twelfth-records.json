@@ -1,0 +1,767 @@
+[
+  {
+    "interface_id": "local-7e13aba410388ea389bc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "c39e24e7379ba7adc52a5812ff8240f85a747903f49d46e05f69c4a59cdb7c54",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D10",
+        "comparison": "The objective is n^-1 sum_i (-y_i) H((x_i+z_i^T beta)/h), and SMSE minimizes it over all real p-vectors. Preserve the negative response sign and the normalized +1 coefficient of x_i; the binary response uses {-1,+1}. IsMinOn expresses the global comparison but supplies no attainment, uniqueness or sample-measurable choice on this noncompact domain. Smoothness of H does not guarantee convexity, and higher-order H' is allowed to be signed. The supplied h and H are construction inputs; this definition does not itself fix an optimal bandwidth or import all later numbered assumptions. A zero gradient is not a replacement for this global argmin.",
+        "statement_sha256": "327a1cb4530fab4ff65635ba4dadd83535494ba7f7ac9295c5d652e7a0715c0b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched smoothed maximum score and inspected the global minimum predicate against the sign, normalization and parameter domain in (4).",
+          "result": "The empirical minimization condition is expressible, but a selected measurable minimizer and its existence are not provided by generic order predicates."
+        }
+      ],
+      "gap": "Construct the smoothed empirical score objective and justify a selected minimizer over R^p for the supplied bandwidth and smoother."
+    }
+  },
+  {
+    "interface_id": "local-b24469d00932f412a5f9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "c2dc5fe8e47097cde2ecfffd02c1b64a23744ebb964150e8a7367d5eadddd293",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D14",
+        "comparison": "The marginal joint covariate laws of (X,Z) may differ across machines while beta-star stays common. Local sample counts m_l satisfy sum_l m_l=n and are no longer required equal. IdentDistrib expresses equal laws when an actual within-machine sampling condition is supplied; it must not be imposed across machines in this section. The source does not restate a full triangular-array independence specification, so one is not invented. Despite the covariate-shift name, Assumption 7 also permits machine-specific noise CDFs F_l; the model is not silently restricted to a single common conditional response/noise law. This section replaces the homogeneous distribution/partition assumptions and remains distinct from the later coefficient-shift experiment.",
+        "statement_sha256": "3fbfca461238e7b13ae878bd178cc880f93dbe4ae908a4bab47f68524a53980c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched covariate-shift models and compared indexed laws and batch cardinalities with the homogeneous iid baseline.",
+          "result": "Machine-indexed covariate laws and batch sizes can be specified, but the common-coefficient heterogeneous model and its sampling law require explicit assembly."
+        }
+      ],
+      "gap": "Construct the machine-specific covariate laws with a common coefficient and sizes summing to n, without imposing the superseded global identical-distribution assumption."
+    }
+  },
+  {
+    "interface_id": "local-a259a9fcc3c01b0f266a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "ae68123bff61a2363287bf034a71eaeff82744b11a43e258698895d6276a760b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D16",
+        "comparison": "F_l is the conditional CDF of epsilon given Z on machine l, and epsilon is independent of X conditional on Z. CondIndepFun uses the sigma-algebra generated by measurable Z and the corresponding finite machine law; its standard-Borel ambient-space requirements must be met. For each k=1,...,alpha+1 a positive M_F,k bounds sup over epsilon AND l of |F_l^(k)(epsilon|Z)| for almost every Z in the source's machine-law interpretation. Ordinary iteratedDeriv is totalized and therefore requires separate derivative-existence witnesses; a bound on its default values is not smoothness. Conditional kernels give laws only up to null-set versions, so version and almost-everywhere statements must be coordinated across machines. Median zero means the two median tail inequalities; with the imposed continuity it can be related to F_l(0)=1/2, but median is not replaced by mean zero. No single shared F is imposed.",
+        "statement_sha256": "6a6f2a7aab8aaddcb8f0e5f4b1aadc7ddfdc90080ccae4bf6bf5f301fba62d48"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.CondIndepFun",
+          "type": "{Ω : Type u} → (m' : MeasurableSpace Ω) → {mΩ : MeasurableSpace Ω} → [StandardBorelSpace Ω] → (hm' : m' ≤ mΩ) → {β : Type v} → {γ : Type w} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → (μ : MeasureTheory.Measure Ω) → [MeasureTheory.IsFiniteMeasure μ] → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Conditional",
+          "provides": "Conditional independence of two random variables given a sub-sigma-algebra, using a conditional-expectation kernel on a standard Borel underlying space with a finite measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Conditional.lean#L155-L157",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional kernels, real CDFs, conditional independence and iterated derivatives; searched conditional median interfaces and compared machine-uniform derivative quantifiers.",
+          "result": "Each conditional CDF and independence predicate has ingredients, but derivative existence, uniform bounds and conditional median zero are additional source assumptions."
+        }
+      ],
+      "gap": "Construct the machine-specific conditional noise CDFs and their bounded derivatives through order alpha+1, with conditional independence and median zero under each machine law."
+    }
+  },
+  {
+    "interface_id": "local-66ba4f74fbf5ddac6431",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "07c95ce4bb2dd941a765bf97982ef069352137afaaa06967b5025c84404caca8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D15",
+        "comparison": "For each machine define zeta=X+Z^T beta-star and represent its conditional law given Z by rho_l against real Lebesgue measure. withDensity needs a nonnegative density representation and normalization to make a probability law; simply constructing a weighted measure does not prove it equals the conditional kernel. For almost every Z the source requires rho_l positive and uniformly bounded, and for each k=1,...,alpha explicitly bounds sup over zeta,l of |rho_l^(k)(zeta|Z)| by a common positive M_rho,k. Preserve the exact zeroth-order wording rather than inferring a numerical positive lower bound or importing the homogeneous assumption's wording. Derivatives need actual existence, not totalized iteratedDeriv values. The smooth positive density is a chosen version; arbitrary almost-everywhere modifications of a Radon-Nikodym derivative need not retain those pointwise properties.",
+        "statement_sha256": "fddbbb89700fc7b15f06a7ad1a11fa194c5d3d75bf8cfb18c6080ad5d78c6d72"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional distribution and density constructions with ordinary derivatives; compared machine-indexed index-density positivity and uniform derivative bounds in Assumption 6.",
+          "result": "A conditional law represented by a density and its derivative functions can be specified, but positivity, boundedness and uniform-in-machine regularity need explicit hypotheses."
+        }
+      ],
+      "gap": "Specify positive conditional density versions for X+Z-transpose beta-star and impose the source's machine-uniform derivative bounds through order alpha."
+    }
+  },
+  {
+    "interface_id": "local-da981e18921c2e3e0f94",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "e274823abe7718c6cc1e033087a20c322ca25de5821eae94715117da19804978",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D17",
+        "comparison": "V_l=2 E_l[rho_l(0|Z) F_l'(0|Z) Z Z^T] and V_s,l=pi_V E_l[rho_l(0|Z) Z Z^T]; E_l is expectation under the machine law, not an empirical average indexed by its observations. The outer product and entrywise/Bochner integral need finite moments for genuine matrix expectations, after which symmetry permits Hermitian eigenvalues. The same c1>1 satisfies c1^-1<lambda_min(V_l)<lambda_max(V_l)<c1 and the analogous V_s,l chain for every l. In particular min<max excludes scalar matrices and p=1; preserve that stronger source condition instead of weakening it to positive definiteness. pi_V is the integral of (H')^2 from Assumption 1, and the subscript s is a score-moment label, not sparsity. These population bounds do not automatically make each empirical Hessian invertible.",
+        "statement_sha256": "da1094636bfe32d424cc415c0a3684e2e072524e0092e68e640679318e4520f4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite outer products, population integrals and Hermitian eigenvalues; compared every strict inequality in Assumption 8 with the source's scalar-matrix qualification.",
+          "result": "The two population matrices and their eigenvalues are representable after integrability and symmetry, but the full strict spectral constraints remain assumptions."
+        }
+      ],
+      "gap": "Construct the machine-specific population matrices and impose the literal common strict spectral bounds, including minimum eigenvalue strictly below maximum."
+    }
+  },
+  {
+    "interface_id": "local-fb8f101c80daaceaabf0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "b3b63738d2a796fee285eefad7a830c8364928b44830519ee960075f46b99f9a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D25",
+        "comparison": "At round t minimize ||beta||_1 subject to ||V_m,1^(t) beta-(V_m,1^(t) beta-hat^(t-1)-U_n^(t))||_infinity<=lambda_n^(t). The Hessian is from machine ONE, while U_n is global. This is not the dense inverse of a global Hessian and does not require substituting a Newton solution. PiLp 1 realizes the sum of absolute coordinates; the residual uses the coordinate maximum norm, not the Euclidean norm or a matrix row norm. IsMinOn must be accompanied by feasible-set membership, existence and a tie/measurable-selection convention. The source's linear-programming remark describes computation, not a general proof that every supplied tuple has a feasible minimizer. Main-text tuning and appendix-deferred details remain separate from this definition.",
+        "statement_sha256": "8bbd0a9f20e916103a65ee4c4d41260509d8dbca6904c69018b90b0b0b080292"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "PiLp.norm_eq_of_L1",
+          "type": "{ι : Type u} → [Fintype ι] → {β : ι → Type v} → [∀ i, SeminormedAddCommGroup (β i)] → (x : PiLp 1 β) → ‖x‖ = ∑ i : ι, ‖x i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.PiLp",
+          "provides": "The finite L1 product norm equals the sum of coordinate norms, giving the full sum-of-absolute-coefficients penalty for real vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/PiLp.lean#L759-L760",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Dantzig and sparse maximum-score estimators; inspected constrained minimization, finite L1 norm and matrix-vector action against (26).",
+          "result": "The linear feasibility constraint and L1 objective can be represented, but an admissible selected optimizer and the sparse iterative estimator are not provided as a library procedure."
+        }
+      ],
+      "gap": "Construct the L1-minimizing sparse update with the single-machine Hessian and global gradient, preserving the exact infinity-norm constraint and optimizer qualifications."
+    }
+  },
+  {
+    "interface_id": "local-e539c0b0acffc116fcc8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "2c3af6b96665e09fc8ef106bebfc9211ea219aa8e72186ba5d26bbff229de7f4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D13",
+        "comparison": "U_n^(t) and V_n^(t) both average their local counterparts equally over L machines, then beta-hat^(t)=beta-hat^(t-1)-(V_n^(t))^-1 U_n^(t). This is the homogeneous equal-batch construction, not the unequal-size weighted update or the sparse single-machine-Hessian update. Matrix.mul_nonsing_inv certifies an inverse only when the determinant is a unit; a totalized matrix inverse gives no justified singular-Hessian fallback. Iterating for T rounds requires a supplied initial estimate and bandwidths plus valid denominators and inverses along the path. The theorem accepts any initialization satisfying its stated error rate; Algorithm 1's optional estimator construction, including its argmax/minimizing wording issue, is not a new mandatory dependency.",
+        "statement_sha256": "b6e8231ba2d2d0874980f214136f1d59782d893b24d571e1778d4f57b1d02975"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched multiround Newton maximum-score updates; inspected matrix action and inverse identity under its determinant-unit hypothesis.",
+          "result": "The supplied finite-dimensional Newton step is expressible, but invertibility at every empirical iteration and its convergence need separate arguments."
+        }
+      ],
+      "gap": "Construct the finite iteration from global gradient and Hessian averages with valid inverse steps and the supplied initialization and bandwidth sequence."
+    }
+  },
+  {
+    "interface_id": "local-a2fa9e9ba0ad23e28429",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "8b76cffd543476507ac2e9caa0d8aaf0db99b8da4d9c280acfce2850d229c5e4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D24",
+        "comparison": "The vector beta-star is real p-dimensional and has s nonzero elements, so its support cardinality is s as printed, not merely at most s unless an equivalence or alternate convention is specified. The informal high-dimensional description says p is much larger than n; precise sequence restrictions are in Theorem 5.1 and are not replaced here by a fixed dimension or an invented numerical inequality. A finite support predicate with classical real equality and Finset.card gives the deterministic parameter sparsity, not sparsity of every intermediate estimator or a random support-selection guarantee.",
+        "statement_sha256": "bcb178f7867c6cbec8fda78310c4cb52dd4fbaa69eae0396e9b601256fd6abd3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected exact finite support counting and compared the sparse-vector passage with the separately stated high-dimensional growth conditions.",
+          "result": "Filtering the coordinate indices by nonzero coefficient and taking cardinality represents the stated sparsity exactly."
+        }
+      ],
+      "gap": "Assemble the exact nonzero-support count s for beta-star; the later sequence-level dimension and sparsity rates remain separate assumptions."
+    }
+  },
+  {
+    "interface_id": "local-d636d81bd4893f9aa740",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "d784a3254e45649e6ee4d9f070d865a70b8b1bbaabe18f48dcd24604fb118694",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D18",
+        "comparison": "The norm is the induced Euclidean operator norm from the ambient convention, implemented through Matrix.Norms.L2Operator, not entrywise maximum or Frobenius norm. The source declares c_w,C_W>0 but writes c_W m_l/n<=||W_l||_2<=C_W m_l/n, leaving the lower constant's casing unresolved. Also sum_l W_l=I and n=sum_l m_l. A lower bound on operator norm bounds the largest singular value, not the smallest; W_l can be singular, nonsymmetric or indefinite. No scalar nonnegative-weight restriction is stated. These conditions therefore do not by themselves certify that sum_l W_l V_l, or an empirical weighted Hessian, is invertible. Preserve that mathematical limitation rather than adding positive-definite weights.",
+        "statement_sha256": "f0763a9e2fc0242f81af1dc3f7ab430f409cd227b2a0f61d4388de843a47918d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.l2_opNorm_def",
+          "type": "{𝕜 m n : Type*} → [RCLike 𝕜] → [Fintype m] → [Fintype n] → [DecidableEq n] → (A : Matrix m n 𝕜) → ‖A‖ = ‖(Matrix.toEuclideanLin (𝕜 := 𝕜) (m := m) (n := n)).trans LinearMap.toContinuousLinearMap A‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "provides": "With Matrix.Norms.L2Operator scoped instances, the matrix norm is the operator norm of its map between Euclidean spaces, including rectangular matrices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/Matrix.lean#L198-L199",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the Euclidean matrix operator-norm scope and finite matrix identities; compared Assumption 9's norm bounds with positive-definiteness and invertibility requirements.",
+          "result": "Operator-norm bounds and the matrix identity sum are expressible, but they do not imply positivity, symmetry or an invertible weighted Hessian."
+        }
+      ],
+      "gap": "Impose the exact operator-norm weight bounds and identity sum, retaining the c_w/c_W spelling issue and the absence of spectral lower bounds."
+    }
+  },
+  {
+    "interface_id": "local-d192e7914c9c48f3f26e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "ac2944a5ef4420d4e9fc5315a102edf04439abb891350593338eb307b8ed754e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D19",
+        "comparison": "F_h,l(beta)=m_l^-1 sum over i in H_l of (-y_i) H((x_i+z_i^T beta)/h). Matrix-vector action or a finite dot product represents the index with coefficient of x_i fixed at +1. The denominator is the local m_l, not n or a common m in the unequal-batch section; m_l>0 and h>0 are needed for the intended average and smoothing. This is an empirical scalar objective, not a machine-law expectation. Its construction neither includes weight matrices nor states density, kernel or identifiability assumptions, and its derivatives require the actual differentiability of H and the corresponding h^-1/h^-2 chain-rule factors.",
+        "statement_sha256": "f6bc2741b0d0c36388268b6dd5d135fddfc26cae3952cb188854389efd722a8f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched machine-local maximum-score objectives; inspected finite linear index evaluation and compared local-size and bandwidth normalization in (17).",
+          "result": "The local empirical objective is a finite average of the supplied smoother evaluated at a linear index, with source-specific sign and scaling."
+        }
+      ],
+      "gap": "Construct each local score average with its own m_l and supplied positive bandwidth and smoother, preserving the negative response factor."
+    }
+  },
+  {
+    "interface_id": "local-1496ccb59016d26feff0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "a067d3d75424288a5353a647197bad121a3e9822a06e27128a4198b3a097b872",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D11",
+        "comparison": "Each bracket is an argmin over R^p of the local m^-1 smoothed score, and the final estimator is L^-1 times their vector sum. This is not an argmin of a pooled objective and need not equal the global SMSE. Local minimizer attainment, ties and sample-measurable choices remain unspecified by the source and by IsMinOn. All batches use the supplied same h; the formula does not set h to a local-optimal rate or make Assumption 1 part of the estimator definition. It uses equal m and equal scalar averaging, unlike wAvg-SMSE with arbitrary matrix weights and unequal batch sizes. Positive L,m,h give the intended numerical domains.",
+        "statement_sha256": "bf04beea2db8f926a2d49875dd6bfe8b3e8671fe3d651427d8ad87ba11f559dd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched averaged smoothed maximum-score estimators; inspected local global-minimum predicates and compared equal averaging with pooled optimization.",
+          "result": "An arithmetic average of selected local minimizers is expressible, but selecting each minimizer and its statistical properties need separate justification."
+        }
+      ],
+      "gap": "Construct one local SMSE per equal-size batch using the common supplied bandwidth, then average the selected vectors equally."
+    }
+  },
+  {
+    "interface_id": "local-83fd5ef7f2809448b7a7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "8191e0681a6fdcb2362bdd892ecb65050bbfb70867aa557108ff8918d8935468",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D22",
+        "comparison": "On machine l, y_i=sign(x_i+z_i^T beta-star_l+epsilon_i), and the target is beta-star_1. A-star is the set of ALL l with beta-star_l=beta-star_1, includes machine 1, and has cardinality (1-epsilon)L with 0<epsilon<1. The real proportion therefore must be compatible with an integer count; a rounding convention is not supplied. The remaining coefficients differ but no minimum separation is imposed. This section explicitly assumes no covariate shift and equal local m, overriding globally common coefficients without reintroducing global identical distribution of responses. Exact equality filtering is a population definition, not a computable oracle input to Algorithm 2. The sign-at-zero convention remains that of the audited binary model.",
+        "statement_sha256": "d95c07c085d2a24ab1cf5e40da2df6cf43c6cbfb014d0cb9ad62c45558907786"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched coefficient/conditional-shift models; inspected finite equality subsets and linear index representation against the exact target-machine model.",
+          "result": "The indexed response model and exact target-equal machine set are representable, but the full heterogeneous sampling specification remains supplied model data."
+        }
+      ],
+      "gap": "Construct the machine-specific coefficients and exact target-equal subset of size (1-epsilon)L, retaining common covariate laws and equal batch sizes in this section."
+    }
+  },
+  {
+    "interface_id": "local-5a4d42255f383f7b71c5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "e6344504c3dbd272a37a6cc41dcc9b52f94797d675b08581a50a8bbbd244fc13",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D23",
+        "comparison": "Select floor(omega m) observations on each machine, compute its subset SMSE at h0, and retain l when its Euclidean distance from the first subset SMSE is at most C0(p log L/(omega m))^(alpha/(2alpha+1)). The true A-star is not an input, and without coefficient separation A need not equal A-star by definition. The random-subset law and local argmin selection need specification; a uniform law is not inserted merely from the word randomly. Each subsequent derivative uses complementary observations but divides by (1-omega)m h_t or (1-omega)m h_t^2, not the exact remaining count m-floor(omega m). Preserve that finite-sample difference. Average both derivatives by |A| and apply the inverse averaged Hessian to the averaged gradient. Machine 1 belongs to A when the nonnegative finite threshold is valid, but positive split sizes/bandwidths and invertibility still need justification. Supplied initial constants, loop and bandwidth context are retained, and no oracle selection or singular-inverse fallback is invented.",
+        "statement_sha256": "30b4842453c5db36d5f80e0a248dc4c03a8a040f1d9b939a74def9378f4d749e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched distributed sample-splitting Newton selection; inspected finite subset/cardinality, floor, matrix outer products and inverse identities against every Algorithm 2 step.",
+          "result": "The finite selection and Newton arithmetic have ingredients, but random splitting, selected local optimizers and valid empirical inverse steps need a complete algorithm construction."
+        }
+      ],
+      "gap": "Construct Algorithm 2 with its estimated machine set and complementary observations, preserving the floor-versus-normalization discrepancy and valid inverse domains."
+    }
+  },
+  {
+    "interface_id": "local-33b18c035b0f60b43d91",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "729d513e2aa14ac663e00734d58f9ca5b7cdbcda549e0e1c9ce7fbb39ac9f4d7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D21",
+        "comparison": "At the current beta, form A=sum_l W_l nabla^2 F_h,l(beta) and b=sum_l W_l nabla F_h,l(beta), then update beta to beta-A^-1 b. Keep W_l on the LEFT; general matrix weights do not commute with Hessians and can make A nonsymmetric. The inverse identity requires a unit determinant, not merely the Assumption 9 norm bounds and sum W_l=I. The preceding sum W_l F_h,l(beta) is matrix-valued because F_h,l is scalar, so no usual scalar argmin or potential-function gradient is supplied by that prose. The operative definition is the explicit vector iteration. It is distinct from weighted averaging of independently optimized local estimators, and contains no source fallback when A is singular.",
+        "statement_sha256": "340bf54202eb0561d44b6ca42d74fd11423df93f68fd6743bcec6c5b0eb8bc4d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected ordered matrix products and inverse identities; compared weighted gradient/Hessian update (18) with the preceding matrix-valued objective prose.",
+          "result": "The displayed weighted vector iteration is well typed after invertibility, but the general matrix weights do not define an ordinary scalar weighted minimization objective."
+        }
+      ],
+      "gap": "Construct the ordered matrix-weighted update (18) with a valid weighted Hessian inverse, without treating the preceding matrix-valued expression as a scalar risk."
+    }
+  },
+  {
+    "interface_id": "local-fad4d21d54e1c0cbbd59",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:49:03.187442+00:00",
+    "source_interface_sha256": "cd8f4aafc8c03afde8de7f3df678d133f44710298e9a60b6bf6103a6e04c167c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0922",
+        "local_id": "D20",
+        "comparison": "wAvg-SMSE=sum_l W_l beta-hat_SMSE,l, with sum_l W_l=I_p. Use matrix-vector products in the given order. The identity sum preserves a common coefficient under aggregation but does not make the weights positive scalars, symmetric matrices or a convex combination. The formula does not itself impose Assumption 9's norm bounds; those remain theorem hypotheses. Each local SMSE uses its own machine objective/sample size and a selected global minimizer, for which attainment, ties and measurability need justification. This is not the minimizer of sum W_l F_h,l, nor the matrix-weighted multiround Newton update.",
+        "statement_sha256": "aa4f822de34c4edd24e920bde1add13d7d64673b4d4809c656c3b0fc30d63d25"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched matrix-weighted estimator aggregation; inspected matrix action and local minimum predicates against (16) and its identity-sum condition.",
+          "result": "The linear aggregation of selected local SMSE vectors is directly expressible, while existence and selection of its inputs remain source qualifications."
+        }
+      ],
+      "gap": "Construct the matrix-weighted sum of local SMSEs with weights summing to identity, retaining optimizer selection and the separate scope of Assumption 9."
+    }
+  }
+]

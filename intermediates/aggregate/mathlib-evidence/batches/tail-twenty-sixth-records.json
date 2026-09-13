@@ -1,0 +1,569 @@
+[
+  {
+    "interface_id": "local-3707cae81fb27f9b25e0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "d11ed75a42913f528da75da3cad5b384bbf2fb9231ac59f24b4ae45390f4e3ad",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D21",
+        "comparison": "Fix 0<rho≤1 and weight the prior by p_f^(n)(X)^rho, then normalize by its prior integral for each sample. This is an update from the prior and original likelihood; it does not require computing the ordinary posterior first. Treat the underlying likelihood as nonnegative and establish measurability and positive finite evidence before normalization; rpow and measure arithmetic fallback values do not resolve missing denominator conventions. Theorems 8–10 restrict rho<1 within the ambient positive range, and the rho=1 comparison does not prove their claims at that endpoint.",
+        "statement_sha256": "8520b0dd1e0559e7233645a843d8a43a9307f5f882a277d9f3bf6dd41a448bea"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "withDensity constructs the weighted prior and lintegral gives its total mass; positive real powers encode likelihood tempering. These do not supply an ordinary sampling kernel for the powered likelihood or prove posterior contraction."
+        }
+      ],
+      "gap": "Define and normalize the measurable powered-likelihood update on its positive finite evidence domain, retaining the source range of rho."
+    }
+  },
+  {
+    "interface_id": "local-297d4541951944bdad99",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "e5e4877a0fabd28b3f7529bee029d77823c7170ca308a856faa8943d2dd02d09",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D4",
+        "comparison": "Use exp(-a*(log k)^(1+delta)) with k≥1 and a,delta>0. At k=1 the scale is one, since log 1=0 and 1+delta>0; no index-zero convention should be imported. This is the general second branch of Theorem 6 and its reference in Theorem 9, not universally the special exp(-(log k)^2) choice. Keep delta in the corresponding rate rather than identifying the two scale alternatives.",
+        "statement_sha256": "5993b12f6f4d9983d474378d45f1d82fcf23d0edc1f14e5e5c0047837b52d59d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "The three inspected real functions directly express the exponential of a negative powered logarithm on positive integer indices. No special probability object or optimizer is involved."
+        }
+      ],
+      "gap": "Package the scale sequence with its positive index and parameter domains and preserve its theorem-specific rate dependence."
+    }
+  },
+  {
+    "interface_id": "local-e0d15a80490680e20b13",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "f5354a05692dfbf449257a332a173a70819039d127804ac9be80143ea8176165",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D14",
+        "comparison": "For k≥1 use mean kappa_k*f_k and variance 1/n, with n>0, and take the countable product over k. Preserve nu≥0 including the direct case nu=0. The source kappa_k asymp k^(-nu) is two-sided order, so one IsBigO bound is insufficient; norm comparisons must also retain the intended singular-value sign/domain. No SVD for a particular forward operator, Volterra operator or sequence prior follows from these components, and no finiteness truncation of observations is imposed.",
+        "statement_sha256": "32aebc7e93d5c8e5a56820974b0467f6039aa607405996c23f6de40a0f9e8f9d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "gaussianReal supplies each observation law, infinitePi supplies a countable independent array of probability components, and paired asymptotic bounds can represent the stated singular-value order."
+        }
+      ],
+      "gap": "Construct the Gaussian inverse sequence experiment with positive sample size and the source two-sided singular-value comparison."
+    }
+  },
+  {
+    "interface_id": "local-be8cb15f07c1ff890c91",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "f03248f22d1f73818bb25ebf76fc3dbff906d6122f07fc0379373527151c92da",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D19",
+        "comparison": "For a fixed observed X^(n), map posterior draws f by tau(f)=sqrt(n)*(f-X^(n)) into the separable M0. In Pi composed with tau inverse, inverse means set preimage rather than a separately estimated inverse function. Membership and measurability in M0 must follow from the stated weights and almost-sure source conditions; do not substitute the whole bounded sequence space M. The map API does not prove the Bernstein–von Mises limit or resolve the level-zero weight discrepancy.",
+        "statement_sha256": "755b2b4ac71486cf13b873b6286d46eb0ad55bc9926709c057c2f3a5a4a8daae"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "The measurable branch of Measure.map is exactly a pushforward by preimages. Its arbitrary-Dirac fallback for a nonmeasurable map is not an intended posterior transformation."
+        }
+      ],
+      "gap": "Prove the data-dependent centering map is measurable into M0 on the relevant domain and define its posterior pushforward."
+    }
+  },
+  {
+    "interface_id": "local-17961bfb8a25e9612175",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "22fb336a508bd53bfe7daaede412288ba49ae35c59d6d402a25ee323b5a4bffc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D22",
+        "comparison": "For bounded measurable f on [0,1], exp(f) is positive with finite positive Lebesgue integral on the unit interval, so the displayed g_f is a normalized density after proving those bounds. A Bochner integral outside integrability would not give this interpretation; boundedness supplies the intended domain. For a prior, prove measurability of f↦g_f in the chosen density space before Measure.map. The map accepts the theorem-selected prior branch; its introductory (4),(5) example does not eliminate Theorem 8’s other branch.",
+        "statement_sha256": "e40b49f82e6f971aa77b1246b0fc68c41752818c4a1b0016922cfd9e4417ca48"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "The real exponential and integral construct the positive normalization constant, withDensity constructs a measure with the resulting density, and map pushes an input prior through the density-valued transformation."
+        }
+      ],
+      "gap": "Construct the normalized exponential density map, prove its positive finite integral and measurable dependence on the input function, and push forward the selected prior."
+    }
+  },
+  {
+    "interface_id": "local-9fd7f60f3cfaec8841f1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "ee8a5a5ffc791c634c1ea4d3930a74ffb51d691449e20acd493b9020cd6e85ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D25",
+        "comparison": "Use h_f(x)=Real.sigmoid(f(x)), with values in (0,1), and map the input function prior through this pointwise transform. Scalar continuity does not by itself choose a measurable structure on arbitrary function spaces; specify it and prove the needed map measurability. Preserve Theorem 9’s prior selection through Theorem 6 and the recorded difference from the preceding wavelet-prior prose, including the unresolved multivariate domain convention. The pushforward does not fix an extra scale or infer posterior contraction.",
+        "statement_sha256": "86a3f86f321b441f00f4f5d34402d65e32614a7acda78a42f679d11ecb98129f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sigmoid",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+          "provides": "Exactly the standard scalar logistic function (1 + exp(-x))⁻¹.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Sigmoid.lean#L63-L63",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "Real.sigmoid has exactly the scalar formula (1+exp(-u)) inverse, and Measure.map supplies a prior pushforward through its pointwise composition with an input function."
+        }
+      ],
+      "gap": "Prove the pointwise logistic map is measurable between the chosen function spaces and push forward the theorem-selected prior."
+    }
+  },
+  {
+    "interface_id": "local-c58e1642175bc6edc63c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "74c4f769b2c3c896169816aa0d6f92041d419a25685c8da148f0adabfe0c8afe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D26",
+        "comparison": "Keep y in {0,1}, the covariate marginal density g(x), and h_f(x)^y*(1-h_f(x))^(1-y). The Bernoulli probability argument is h_f(x) in [0,1], with point 1 first to obtain the correct success mass. Multiplying by g is a joint density against the covariate reference measure times counting measure on the two labels; do not square g or remove it from this definition merely because it cancels in inference on f. The theorem’s G,1 norm is described on covariates only while its integrand is a joint density difference; retain that discrepancy rather than replacing p_f with h_f.",
+        "statement_sha256": "f651b4b65ce70f88f6cca7bb6d1791e0ef09da6af998a56af3476e3da5386af0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "bernoulliMeasure with first point 1 and second point 0 assigns masses h_f(x) and 1-h_f(x), respectively. A joint withDensity measure can express its product with the marginal covariate density after measurability and normalization."
+        }
+      ],
+      "gap": "Construct the conditional Bernoulli joint data density on the covariate–response product and retain the source’s unresolved norm-domain use."
+    }
+  },
+  {
+    "interface_id": "local-2991e418896fbd1dbcf0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "f8b6cfb676a3471de78e51c805207535285b5c66e193e3e1437565ba88c03bcd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D16",
+        "comparison": "Index coordinates by pairs (l,k) and map x_lk to x_lk/w_l; with w_l≥1 and finite nonempty level index sets, the sup over all scaled coordinates equals sup_l max_k |x_lk|/w_l. Memℓp at infinity certifies boundedness, avoiding an unjustified real supremum for unbounded sequences. Retain monotone increasing weights and l≥0. Theorem 5’s printed power weights vanish at l=0, contrary to the definition; do not silently shift l or use totalized division by zero to reconcile them. The full M is not asserted separable.",
+        "statement_sha256": "7c3d17c8174c7da5495dd5546386030164af17d90d2425497202257ea0548b53"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Memℓp",
+          "type": "{α : Type u} → {E : α → Type v} → [∀ i, NormedAddCommGroup (E i)] → (∀ i, E i) → ℝ≥0∞ → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Sequence membership: finite support for p=0, bounded coordinate norms for p=infinity, and summability of norm powers for positive finite p.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L78-L81",
+          "link_checked": true
+        },
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "At exponent infinity, Memℓp requires bounded coordinate norms and the inspected norm theorem identifies the supremum. Flattening the finite wavelet levels and scaling each coefficient by its level weight gives a candidate isometric representation."
+        }
+      ],
+      "gap": "Construct the weighted coefficient-to-lp isometry and prove the level-maximum norm identity while preserving the source weight convention."
+    }
+  },
+  {
+    "interface_id": "local-0a1292b7f19a900b3955",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "2a38e15675018a5c4c8746f64a044f368151a3e056b5076ff46379d9b6006f54",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D17",
+        "comparison": "Flatten the scaled coordinates x_lk/w_l on the discrete union of finite wavelet levels. Because each initial finite collection of levels has finitely many coordinates, vanishing outside finite sets corresponds to max_k |x_lk|/w_l tending to zero as l→infinity; this equivalence and its norm compatibility need proof. Retain membership in M and its norm, then derive the claimed closed separable subspace using the countable finite-level structure. The generic C0 structure alone neither proves these identifications nor resolves the printed zero-level weight discrepancy.",
+        "statement_sha256": "b1d4d981103ffb07af0805cf771d5b2c1f8ffae570f0861a644d1212e3525182"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ZeroAtInftyContinuousMap",
+          "type": "(α : Type u) → (β : Type v) → [TopologicalSpace α] → [Zero β] → [TopologicalSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Topology.ContinuousMap.ZeroAtInfty",
+          "provides": "Continuous maps tending to zero along the domain’s cocompact filter; on a discrete countable index space this expresses coordinate vanishing outside finite sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/ZeroAtInfty.lean#L45-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Memℓp",
+          "type": "{α : Type u} → {E : α → Type v} → [∀ i, NormedAddCommGroup (E i)] → (∀ i, E i) → ℝ≥0∞ → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Sequence membership: finite support for p=0, bounded coordinate norms for p=infinity, and summability of norm powers for positive finite p.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L78-L81",
+          "link_checked": true
+        },
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "ZeroAtInftyContinuousMap requires continuity and cocompact convergence to zero; on a discrete coefficient index type this is coordinate vanishing outside finite sets. The weighted lp infinity representation supplies the ambient norm."
+        }
+      ],
+      "gap": "Identify the weighted vanishing-level space with the corresponding c0 space and prove its closedness and separability for the paper’s coefficient indexing."
+    }
+  },
+  {
+    "interface_id": "local-a5b0dfdcf4f24be868d8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "f954da63830303da323bd2a5e0b0b9cb7218ae19d1ee7fcd3f15b11b2df8e6c4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D10",
+        "comparison": "For 1≤r≤2, beta,L>0, scale f_lk by 2^(l*(beta+1/2-1/r)); its r-power sum gives the source weight 2^(r*l*(beta+1/2-1/r)) after positive-base power algebra. Use summability or an extended nonnegative sum before a real tsum so divergence cannot become zero. Preserve the strict bound <L^r, rather than ≤, and equal inner/outer summability exponent r. Identification with classical Besov functions needs the appropriate basis regularity, and the extra beta>1/r-1/2 condition belongs to the consuming theorems, not this definition.",
+        "statement_sha256": "ed0d17fe54a7a4f87e2c64fd838c8e071dfd6445885011e0424f5c9569b52839"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Memℓp",
+          "type": "{α : Type u} → {E : α → Type v} → [∀ i, NormedAddCommGroup (E i)] → (∀ i, E i) → ℝ≥0∞ → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Sequence membership: finite support for p=0, bounded coordinate norms for p=infinity, and summability of norm powers for positive finite p.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L78-L81",
+          "link_checked": true
+        },
+        {
+          "name": "lp.norm_eq_tsum_rpow",
+          "type": "{α : Type u} → {E : α → Type v} → [∀ i, NormedAddCommGroup (E i)] → {p : ℝ≥0∞} → 0 < p.toReal → (f : lp E p) → ‖f‖ = (∑' i, ‖f i‖ ^ p.toReal) ^ (1 / p.toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "The norm of an lp element for positive finite exponent is the power-sum norm; lp membership supplies the required summability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L458-L459",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "Weighted coefficients can be represented in lp at p=r, where Memℓp provides convergence of the power sum and norm_eq_tsum_rpow identifies its root. The searched sequence APIs do not establish a classical Besov-space wavelet characterization."
+        }
+      ],
+      "gap": "Define the weighted coefficient lp ball with its strict radius and prove equivalence to the printed nested sum under the chosen wavelet indexing."
+    }
+  },
+  {
+    "interface_id": "local-7068e9c5c4feca669d5e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:19:26.421500+00:00",
+    "source_interface_sha256": "0daea8ab5dfc4c1bf7ecab6e005f7445dd8222d43bcc9392cca43d404670df99",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D20",
+        "comparison": "The paper names beta_S but does not provide its test-function normalization; retain this absence rather than inventing a unit-ball formula. The library theorem applies to probability measures on a pseudoemetric measurable space with measurable opens and a countably generated convergence filter, and gives a test-integral characterization. To identify the paper’s metric one still needs a normalized test class and uniform-supremum argument; pointwise convergence of all these integrals is not itself a numerical metric definition. Its use in Theorem 5 is on the separable M0 and also involves a data expectation, neither supplied by the generic theorem.",
+        "statement_sha256": "cc1883e85d8e1e9af596822e19e8e4aa28473e714fbb7fe9b2e187302cc93d94"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.tendsto_iff_forall_lipschitz_integral_tendsto",
+          "type": "{γ : Type u} → {Ω : Type v} → {mΩ : MeasurableSpace Ω} → [PseudoEMetricSpace Ω] → [OpensMeasurableSpace Ω] → {F : Filter γ} → [F.IsCountablyGenerated] → {μs : γ → MeasureTheory.ProbabilityMeasure Ω} → {μ : MeasureTheory.ProbabilityMeasure Ω} → (Filter.Tendsto μs F (𝓝 μ) ↔ ∀ f : Ω → ℝ, (∃ C : ℝ, ∀ x y, dist (f x) (f y) ≤ C) → (∃ L, LipschitzWith L f) → Filter.Tendsto (fun i ↦ ∫ ω, f ω ∂(μs i)) F (𝓝 (∫ ω, f ω ∂μ)))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Portmanteau",
+          "provides": "Weak convergence along a countably generated filter is equivalent to convergence of integrals for every bounded Lipschitz real test function; it does not define a normalized bounded-Lipschitz metric.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Portmanteau.lean#L688-L693",
+          "link_checked": true
+        },
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+          "result": "The inspected Portmanteau theorem characterizes weak convergence by integrals of every bounded Lipschitz function along countably generated filters. It neither defines a normalized supremum metric nor chooses between common bounded-Lipschitz norm conventions."
+        }
+      ],
+      "gap": "Specify the intended bounded-Lipschitz normalization and prove the corresponding probability metric and weak-convergence equivalence on M0."
+    }
+  }
+]

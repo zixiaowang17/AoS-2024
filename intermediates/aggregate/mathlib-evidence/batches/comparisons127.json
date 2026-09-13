@@ -1,0 +1,85 @@
+[
+  {
+    "interface_id": "local-05efa6ed256a2826727c",
+    "status": "partial_match",
+    "names": [
+      "Function.support",
+      "MeasureTheory.integral",
+      "Metric.externalCoveringNumber"
+    ],
+    "comparison": "The density requirement means a real nonnegative continuous even function integrating to one against Lebesgue measure and vanishing outside [-1,1]; support containment does not require nonzero values at every interior point. Function.support and integral supply these components with the continuity and symmetry predicates. The entropy class consists of K((x-a)/h) for arbitrary real a and h>0, without the additional 1/h density-normalization factor. Its covering bound is an extra condition, not a consequence supplied by density continuity or compact support. Preserve its reference to equation (2.8), including the recorded all-tau>0 issue for a nonempty class; no Epanechnikov or other simulation-specific kernel is substituted. External covering numbers require identification of the source centers and L2 convention.",
+    "gap": "Density and covering primitives express the kernel conditions, but the stated entropy bound retains the unresolved radius-range issue from equation (2.8).",
+    "searches": [
+      [
+        "Inspect Function.support, integral and externalCoveringNumber with p1592 D22 and equation (2.8)",
+        "The density components are available; the unnormalized translate/dilate class has a separate entropy assumption whose printed radius range remains problematic."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-4bb3132999a79dfb9296",
+    "status": "partial_match",
+    "names": [
+      "HilbertBasis.tsum_inner_mul_inner",
+      "MeasureTheory.MemLp.toLp"
+    ],
+    "comparison": "An infinite orthonormal complete wavelet family belongs in a HilbertBasis of the appropriate real L2 space, rather than a finite-dimensional OrthonormalBasis. The registered HilbertBasis identity applies only after such a basis is constructed and completeness and orthogonality are proved; MemLp.toLp embeds measurable square-integrable representatives into the almost-everywhere quotient. No Daubechies or wavelet construction was located in the inspected Analysis/Probability search. Retain the Euclidean scaling functions, dyadic normalization, translations and detail indices 1 through 2^p-1 separately from the periodized family and its explicit constant mode. Compact support can make the periodizing sum locally finite, but it does not by itself prove the full wavelet basis claim. The source reverses the phi/psi scaling roles between passages and prints the periodic orientation range through 2^d; these discrepancies remain unresolved rather than corrected or certified by generic Hilbert-space identities.",
+    "gap": "L2 and abstract Hilbert-basis infrastructure are available, while the stated Daubechies and periodized basis constructions and their source index conventions remain to establish.",
+    "searches": [
+      [
+        "rg -i 'besov|daubechies|wavelet' Mathlib/Analysis Mathlib/Probability; inspect HilbertBasis and its tsum_inner_mul_inner theorem",
+        "No specialized construction found in those trees; the generic basis is a linear isometric equivalence with l2 and does not prove the source families form a basis."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-98d11f16002bd69838a3",
+    "status": "partial_match",
+    "names": [
+      "lp.norm_eq_tsum_rpow",
+      "lp.norm_eq_ciSup",
+      "MeasureTheory.MemLp.toLp"
+    ],
+    "comparison": "The finite-q formula combines an unweighted scaling-coefficient sequence with detail coefficients weighted by 2^(j(s+p/2-p/q1)) and (1+j)^b; the source sums orientation contributions outside each translation lq1 block at outer exponent q2. Nested sequence-space norms can express this expression once coefficient extraction from a verified wavelet family and index grouping are defined. Preserve b>=0, the wavelet regularity restriction floor(beta)+3>s and the initial L2 expansion requirement for positive s. The later radius-C set in tempered distributions is a separate extension, not identical to the full vector space or to the initial L2-only domain. Generic real tsum has a fallback when not summable, so finite membership must not be inferred from a totalized real formula. The finite-exponent lp identity cannot be applied by setting q1 or q2 to infinity: supremum versions require a separately specified convention. The source invokes those endpoints and periodic/vector extensions without fully writing them out; retain this limitation and the wavelet-role issues.",
+    "gap": "Sequence-space norms support the weighted coefficient expression, but the Besov coefficient construction, distributional extension and unwritten endpoint conventions remain to define.",
+    "searches": [
+      [
+        "rg -i 'besov|daubechies|wavelet' Mathlib/Analysis Mathlib/Probability; inspect lp.norm_eq_tsum_rpow and lp.norm_eq_ciSup",
+        "No named Besov space found in those trees; finite-exponent and infinity sequence norms are separate declarations and do not resolve the source's unwritten extensions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-cf60aac5cf907878a93c",
+    "status": "partial_match",
+    "names": [
+      "MeasureTheory.MemLp.toLp",
+      "lp.norm_eq_ciSup"
+    ],
+    "comparison": "Represent a set of vector-valued periodic L2 functions with finitely many resolution/orientation/translation terms and the printed coordinatewise coefficient decay. A bounded weighted coefficient sequence can express the constraint; this does not automatically supply the stated Holder approximation norm or exact membership in a Holder ball. The resolution cutoff log2(delta^-1) needs a positive delta and an integer convention when not integral; neither floor nor ceiling should be silently chosen. Preserve the coefficient w in the summand versus z in the bound, the orientation endpoint 2^d and the absence of an explicit constant mode. The main text gives an approximation bound for the scaling function and references appendix formula (A.10) for neural hat-wavelets; that excluded construction is not recovered by generic L2 or sequence primitives. No tanh/ReQU approximation theorem or verified network architecture for these wavelets was found in the searched library trees. Treat the hat functions as source-referenced inputs until their admissible specification is resolved.",
+    "gap": "L2 and coefficient-bound primitives represent a conditional function class, while its appendix-only neural wavelets and printed cutoff/index conventions remain unresolved.",
+    "searches": [
+      [
+        "Inspect MemLp.toLp and lp.norm_eq_ciSup against p2167 D16 and saved appendix-network, wavelet and Holder/Besov qualifications; search Analysis/Probability for wavelet constructions",
+        "Generic function and sequence spaces do not supply formula (A.10), fix the unbound coefficient index or prove the neural approximation/regularity bounds."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c6af18ed021b5cebc04a",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.covariance",
+      "MeasureTheory.MemLp",
+      "lp.norm_eq_tsum_rpow"
+    ],
+    "comparison": "Use an integer-indexed family of measurable real random variables with finite second moments, constant finite mean and centered covariance depending only on the lag. ProbabilityTheory.covariance is centered, and MemLp at exponent two supplies the integrability domain that its total real-integral definition otherwise does not enforce. Absolute summability of the lag covariance sequence is l1 membership, not summability without absolute values or a finite list of lags. The corresponding nonnegative spectral density on [-pi,pi] requires its Fourier-series relationship to that sequence and the paper's normalization convention; mere nonnegativity of an arbitrary function is insufficient. Theta is a finite-dimensional spectral parameter in a subset of R^p, not necessarily a complete parametric specification of the process law. Do not add zero mean, Gaussianity, linearity, strict stationarity, mixing or fourth-order stationarity from later stronger assumptions.",
+    "gap": "Moment, centered-covariance and sequence-summability primitives express weak stationarity, with the lag invariance and normalized spectral-density relationship to be assembled.",
+    "searches": [
+      [
+        "rg -i 'weaklystationary|weakly_stationary|spectraldensity|spectral_density' Mathlib/Analysis Mathlib/Probability; inspect covariance, MemLp and lp norms",
+        "No dedicated match found in those searches; the inspected primitives support a second-order process specification without replacing it by strict stationarity or zero mean."
+      ]
+    ]
+  }
+]

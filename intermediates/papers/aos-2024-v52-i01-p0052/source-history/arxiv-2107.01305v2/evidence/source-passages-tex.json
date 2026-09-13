@@ -1,0 +1,429 @@
+[
+  {
+    "local_id": "D1",
+    "original_tex": "Let $\\theta_* \\in \\R^d$ be an unknown signal of interest.\nLet $\\G \\subseteq \\O(d)$ be a known compact subgroup of the orthogonal group of\ndimension $d$. We denote by $\\Lambda$ the unique Haar probability measure on\n$\\G$, satisfying\n\\[\\Lambda(\\G)=1, \\qquad \\Lambda(g \\cdot S)=\\Lambda(S \\cdot g)=\\Lambda(S),\\]\nfor any $g \\in \\G$ and Borel measurable subset $S \\subseteq \\G$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — Haar probability measure"
+      }
+    ]
+  },
+  {
+    "local_id": "D2",
+    "original_tex": "In the \\emph{unprojected orbit recovery model}, we observe $n$ noisy and\nrotated samples of $\\theta_*$, given by\n\\begin{equation}\\label{eq:unprojectedmodel}\nY_i=g_i \\cdot \\theta_*+\\sigma \\eps_i \\in \\R^d, \\qquad i=1,\\ldots,n\n\\end{equation}\nwhere $g_1,\\ldots,g_n \\overset{iid}{\\sim} \\Lambda$ are Haar-uniform random\nelements of $\\G$, and $\\eps_1,\\ldots,\\eps_n \\overset{iid}{\\sim} \\N(0,\\Id_{d\n\\times d})$ are Gaussian noise vectors independent of $g_1,\\ldots,g_n$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — unprojected orbit recovery model, equation (2.1)"
+      }
+    ]
+  },
+  {
+    "local_id": "D3",
+    "original_tex": "In the \\emph{projected orbit recovery model}, we consider an additional known\nlinear map $\\Pi:\\R^d \\to \\R^{\\td}$.  (Note that $\\Pi$ may not necessarily be an\northogonal projection; our terminology is borrowed from the example of tomographic\nprojection in cryo-EM.) We observe $n$ samples\n\\begin{equation}\\label{eq:projectedmodel}\nY_i=\\Pi(g_i \\cdot \\theta_*)+\\sigma \\eps_i \\in \\R^{\\td}, \\qquad i=1,\\ldots,n\n\\end{equation}\nwhere $g_1,\\ldots,g_n \\overset{iid}{\\sim} \\Lambda$ as before, and\n$\\eps_1,\\ldots,\\eps_n \\overset{iid}{\\sim} \\N(0,\\Id_{\\td \\times \\td})$ are\nGaussian noise vectors in the projected dimension $\\td$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — projected orbit recovery model, equation (2.2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4",
+    "original_tex": "The signal $\\theta_*$ is identifiable only up to an arbitrary\nrotation in $\\G$, i.e.\\ it is identifiable up to its orbit\n\\[\\orbit_{\\theta_*}=\\{g \\cdot \\theta_*:\\,g \\in \\G\\}.\\]",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — orbit"
+      }
+    ]
+  },
+  {
+    "local_id": "D5",
+    "original_tex": "We use the equivalence notation\n\\[\\Pi(\\orbit_\\theta) \\equiv \\Pi(\\orbit_{\\theta_*})\\]\nto mean that $\\Pi(\\orbit_\\theta)=\\Pi(\\orbit_{\\theta_*})$ as subsets of\n$\\R^{\\td}$, and in addition,\n$\\Pi(g \\cdot \\theta) \\overset{L}{=} \\Pi(g \\cdot \\theta_*)$ under\nthe Haar-uniform law $g \\sim \\Lambda$. Thus $\\theta_*$ is\nidentifiable up to this equivalence.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — equivalence notation"
+      }
+    ]
+  },
+  {
+    "local_id": "D6",
+    "original_tex": "\\label{def:generic}\nA subset $S \\subseteq \\R^d$ is \\emph{generic} if $\\R^d \\setminus S$ is contained\nin the zero set of some non-zero analytic function $\\psi:\\R^d \\to \\R^k$,\nfor some $k \\geq 1$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Definition 2.3"
+      }
+    ]
+  },
+  {
+    "local_id": "D7",
+    "original_tex": "We will restrict attention to projected models where  \n\\begin{equation}\\label{eq:losslessPi}\n\\text{there are a finite number of orbits }\n\\orbit_{\\theta} \\text{ such that }\n\\Pi(\\orbit_{\\theta}) \\equiv\n\\Pi(\\orbit_{\\theta_*}), \\text{ for generic } \\theta_* \\in \\R^d.\n\\end{equation}",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — condition (2.4)"
+      }
+    ]
+  },
+  {
+    "local_id": "D8",
+    "original_tex": "In both models, we denote the negative sample log-likelihood as\n\\[\nR_n(\\theta)=-\\frac{1}{n}\\sum_{i=1}^n \\log p_\\theta(Y_i),\n\\]\nwhere $p_\\theta(Y_i)$ is the Gaussian mixture density for $Y_i$,\nmarginalizing over the unknown rotation $g_i \\sim \\Lambda$. This density is\ngiven in the projected setting by\n\\begin{equation}\\label{eq:likelihood}\np_\\theta(y)=\\int_{\\G} \\frac{1}{(2\\pi\\sigma^2)^{\\td/2}}\n\\exp\\left(-\\frac{\\|y-\\Pi(g \\cdot \\theta)\\|^2}{2\\sigma^2}\\right)\\der\n\\Lambda(g),\n\\end{equation}\nand in the unprojected setting by the same expression with\n$\\Pi=\\Id$ and $\\td=d$.\n\nWe denote the negative \\emph{population} log-likelihood function by\n\\begin{equation}\\label{eq:R}\nR(\\theta)=\\E[R_n(\\theta)]=-\\E[\\log p_\\theta(Y)],\n\\end{equation}\nwhere the expectation is taken under the true model\n$Y \\sim p_{\\theta_*}$. $R(\\theta)$ depends implicitly on $\\theta_*$,\nbut we will omit this dependence in the notation.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2.1 — likelihood, equations (2.3) and (2.5)"
+      },
+      {
+        "page": 6,
+        "location": "Section 2.1 — likelihood, equations (2.3) and (2.5)"
+      }
+    ]
+  },
+  {
+    "local_id": "D9",
+    "original_tex": "Let $\\cR^\\G$ be the (real) algebra of all $\\G$-invariant \npolynomial functions $p:\\R^d \\to \\R$. These are the polynomials $p$ that satisfy\n\\[p(\\theta)=p(g \\cdot \\theta) \\text{ for all }\n\\theta \\in \\R^d \\text{ and } g \\in \\G.\\]\nFor each integer $k \\geq 0$, let $\\cR_{\\leq k}^\\G$ be the\nsubalgebra generated by the $\\G$-invariant polynomials having\ntotal degree at most $k$. This subalgebra consists of the polynomials $p \\in \\cR^\\G$ that may be\nexpressed as $p(\\theta)=q(p_1(\\theta),\\ldots,p_j(\\theta))$ for some polynomial\n$q$ and some $p_1,\\ldots,p_j \\in \\cR^\\G$ each having degree $\\leq k$\n(where $p$ itself may have degree larger than $k$).",
+    "naming_tex": "Invariant polynomials and the high-noise expansion",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.2 — invariant polynomials"
+      }
+    ]
+  },
+  {
+    "local_id": "D10",
+    "original_tex": "symmetric moment tensors\n\\begin{equation}\\label{eq:Tk}\nT_k(\\theta)=\\int_\\G (g \\cdot \\theta)^{\\otimes k}\\,\\der \\Lambda(g)\n\\in \\R^{d \\times \\ldots \\times d}\n\\end{equation}\nwhere $T_k(\\theta)$ is a tensor of order $k$. The entries of\n$T_k(\\theta)$ are\nthe $k^\\text{th}$-order mixed moments of the distribution of Gaussian\nmixture centers $g \\cdot \\theta$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.2 — symmetric moment tensors, equation (2.6)"
+      }
+    ]
+  },
+  {
+    "local_id": "D11",
+    "original_tex": "For the projected model with projection $\\Pi$, we define analogously the\nprojected moment tensors\n\\[\\tT_k(\\theta)=\\int_\\G (\\Pi \\cdot g \\cdot \\theta)^{\\otimes k} \\der \\Lambda(g)\n\\in \\R^{\\td \\times \\ldots \\times \\td},\\]\nwhich are again the mixed moments of the Gaussian mixture centers $\\Pi \\cdot g\n\\cdot \\theta$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.2 — projected moment tensors"
+      }
+    ]
+  },
+  {
+    "local_id": "D12",
+    "original_tex": "We then define\n\\[\\tcR_{\\leq k}^\\G=\\text{subalgebra of } \\cR^\\G \\text{ generated by the\nentries of } \\tT_1,\\ldots,\\tT_k.\\]",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.2 — subalgebra generated by projected moments"
+      }
+    ]
+  },
+  {
+    "local_id": "D13a",
+    "original_tex": "\\begin{equation}\\label{eq:sk}\ns_k(\\theta)=\\frac{1}{2(k!)}\\|T_k(\\theta)-T_k(\\theta_*)\\|_\\HS^2.\n\\end{equation}",
+    "naming_tex": "Our arguments will only require the forms of\nthe ``leading'' terms $s_k(\\theta)$ and $\\tilde{s}_k(\\theta)$\ndefined in (\\ref{eq:sk}) and (\\ref{eq:tildesk}).",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Theorem 2.2(a) — equation (2.8)"
+      }
+    ]
+  },
+  {
+    "local_id": "D13b",
+    "original_tex": "\\begin{equation}\\label{eq:tildesk}\n\\ts_k(\\theta)=\\frac{1}{2(k!)}\\|\\tT_k(\\theta)-\\tT_k(\\theta_*)\\|_\\HS^2.\n\\end{equation}",
+    "naming_tex": "Our arguments will only require the forms of\nthe ``leading'' terms $s_k(\\theta)$ and $\\tilde{s}_k(\\theta)$\ndefined in (\\ref{eq:sk}) and (\\ref{eq:tildesk}).",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Theorem 2.2(b) — equation (2.11)"
+      }
+    ]
+  },
+  {
+    "local_id": "D15",
+    "original_tex": "Consider the Fisher information matrix\n\\[I(\\theta_*)=\\nabla^2 R(\\theta)\\big|_{\\theta=\\theta_*}.\\]",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.3 — Fisher information matrix"
+      }
+    ]
+  },
+  {
+    "local_id": "D16",
+    "original_tex": "Polynomials $p_1,\\ldots,p_k:\\R^d\\to\\R$ are \\emph{algebraically\nindependent} (over $\\R$) if there is no non-zero polynomial $q:\\R^k\\to\\R$ such\nthat $q(p_1(\\theta),\\ldots,p_k(\\theta))$ is identically $0$ for all $\\theta\\in\\R^d$.\n\nFor any $\\cA \\subseteq \\cR^\\G$, its \\emph{transcendence degree}\n$\\trdeg(\\cA)$ is the maximum cardinality of any algebraically independent\nsubset $A \\subseteq \\cA$. Any maximal such subset $A \\subseteq \\cA$\nis a \\emph{transcendence basis} for $\\cA$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Definition 2.4"
+      }
+    ]
+  },
+  {
+    "local_id": "D17a",
+    "original_tex": "For any compact subgroup $\\G \\subseteq \\O(d)$,\nThere is a smallest integer $K<\\infty$ for which\n$\\trdeg(\\cR_{\\leq K}^\\G)=\\trdeg(\\cR^\\G)$.",
+    "naming_tex": "More informally, the order of moments needed to ``locally''\nidentify the orbit of $\\theta_*$\ncoincides with the order of moments needed to capture all $\\trdeg(\\cR^\\G)$\ndegrees-of-freedom of the invariant algebra.\nThroughout this paper, we will denote this number as $K$ in the unprojected model\nand as $\\tK$ in the projected model, which are well-defined by the following\nproposition.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Proposition 2.6(a) — moment order"
+      }
+    ]
+  },
+  {
+    "local_id": "D17b",
+    "original_tex": "For any compact subgroup $\\G \\subseteq \\O(d)$,\n$\\Pi$ satisfies (\\ref{eq:losslessPi}) if and only if\nthere is a smallest integer $\\tK<\\infty$ for which\n$\\trdeg(\\tcR_{\\leq \\tK}^\\G)=\\trdeg(\\cR^\\G)$.",
+    "naming_tex": "More informally, the order of moments needed to ``locally''\nidentify the orbit of $\\theta_*$\ncoincides with the order of moments needed to capture all $\\trdeg(\\cR^\\G)$\ndegrees-of-freedom of the invariant algebra.\nThroughout this paper, we will denote this number as $K$ in the unprojected model\nand as $\\tK$ in the projected model, which are well-defined by the following\nproposition.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Proposition 2.6(b) — moment order"
+      }
+    ]
+  },
+  {
+    "local_id": "D18",
+    "original_tex": "\\[d_0=\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta)\\]",
+    "naming_tex": "Here, the maximum orbit dimension\n$\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta)$ is also the orbit dimension\nfor generic points $\\theta \\in \\R^d$.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Section 2.3 — maximum orbit dimension in equation (2.12)"
+      }
+    ]
+  },
+  {
+    "local_id": "D19a",
+    "original_tex": "\\begin{equation}\\label{eq:dk}\nd_0=\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta), \\qquad\nd_k=\\trdeg \\cR_{\\leq k}^\\G-\\trdeg \\cR_{\\leq k-1}^\\G \\text{ for } k=1,\\ldots,K\n\\end{equation}",
+    "naming_tex": "to decompose the total dimension of $\\theta_*$ as $d=d_0+d_1+\\ldots+d_K$.\nIn the projected model, assuming the condition (\\ref{eq:losslessPi}), let us \nsimilarly denote\n\\begin{equation}\\label{eq:tdk}\n\\td_0=\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta), \\qquad\n\\td_k=\\trdeg \\tcR_{\\leq k}^\\G-\\trdeg \\tcR_{\\leq k-1}^\\G \\text{ for }\nk=1,\\ldots,\\tK\n\\end{equation}\nto decompose the total dimension as $d=\\td_0+\\td_1+\\ldots+\\td_{\\tK}$.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Section 2.3 — equation (2.12)"
+      }
+    ]
+  },
+  {
+    "local_id": "D19b",
+    "original_tex": "\\begin{equation}\\label{eq:tdk}\n\\td_0=\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta), \\qquad\n\\td_k=\\trdeg \\tcR_{\\leq k}^\\G-\\trdeg \\tcR_{\\leq k-1}^\\G \\text{ for }\nk=1,\\ldots,\\tK\n\\end{equation}",
+    "naming_tex": "to decompose the total dimension of $\\theta_*$ as $d=d_0+d_1+\\ldots+d_K$.\nIn the projected model, assuming the condition (\\ref{eq:losslessPi}), let us \nsimilarly denote\n\\begin{equation}\\label{eq:tdk}\n\\td_0=\\max_{\\theta \\in \\R^d} \\dim(\\orbit_\\theta), \\qquad\n\\td_k=\\trdeg \\tcR_{\\leq k}^\\G-\\trdeg \\tcR_{\\leq k-1}^\\G \\text{ for }\nk=1,\\ldots,\\tK\n\\end{equation}\nto decompose the total dimension as $d=\\td_0+\\td_1+\\ldots+\\td_{\\tK}$.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Section 2.3 — equation (2.13)"
+      }
+    ]
+  },
+  {
+    "local_id": "D20",
+    "original_tex": "The problem of minimizing a twice-continuously differentiable function\n$f:\\cV \\to \\R$ over a smooth manifold $\\cV$ is \\emph{globally benign}\nif each point $x \\in \\cV$ where $\\nabla f(x)|_{\\cV}=0$ is either a\nglobal minimizer of $f$ over $\\cV$, or has a direction of strictly negative\ncurvature, $\\lambda_{\\min}(\\nabla^2 f(x)|_{\\cV})<0$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Definition 2.10"
+      }
+    ]
+  },
+  {
+    "local_id": "D21a",
+    "original_tex": "\\[M_k(\\theta)=\\vectorize\\Big(T_1(\\theta),\\ldots,T_k(\\theta)\\Big) \\in\n\\R^{d+d^2+\\ldots+d^k}\\tag{2.15}\\]",
+    "naming_tex": "To ease notation, let us collect the\nvectorized moment tensors up to order $k$ as",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 2.4 — equation (2.15)"
+      }
+    ]
+  },
+  {
+    "local_id": "D21b",
+    "original_tex": "\\[\\tM_k(\\theta)=\\vectorize\\Big(\\tT_1(\\theta),\\ldots,\\tT_k(\\theta)\\Big) \\in\n\\R^{\\td+\\td^2+\\ldots+\\td^k}.\\tag{2.16}\\]",
+    "naming_tex": "To ease notation, let us collect the\nvectorized moment tensors up to order $k$ as",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 2.4 — equation (2.16)"
+      }
+    ]
+  },
+  {
+    "local_id": "D22a",
+    "original_tex": "\\[\\cV_k(\\theta_*)=\\Big\\{\\theta \\in \\R^d:\\,M_k(\\theta)=M_k(\\theta_*)\\Big\\},\n\\qquad \\cV_0(\\theta_*)=\\R^d\\tag{2.17}\\]",
+    "naming_tex": "Fixing the true signal $\\theta_* \\in \\R^d$, we define the moment varieties",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 2.4 — equation (2.17)"
+      }
+    ]
+  },
+  {
+    "local_id": "D22b",
+    "original_tex": "\\[\\tcV_k(\\theta_*)=\\Big\\{\\theta \\in \\R^d:\\,\\tM_k(\\theta)=\\tM_k(\\theta_*)\\Big\\},\n\\qquad \\tcV_0(\\theta_*)=\\R^d.\\tag{2.18}\\]",
+    "naming_tex": "Fixing the true signal $\\theta_* \\in \\R^d$, we define the moment varieties",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 2.4 — equation (2.18)"
+      }
+    ]
+  },
+  {
+    "local_id": "D23",
+    "original_tex": "\\label{def:nondegenerate}\nSuppose $\\cV_{K-1}(\\theta_*)$ is a smooth manifold.\nA critical point $\\theta$ of\n$s_K(\\theta)|_{\\cV_{K-1}(\\theta_*)}$ is \\emph{non-degenerate up to orbit}\nif $\\orbit_\\theta$ is a smooth manifold of dimension $d_0$ in a local\nneighborhood of $\\theta$, and\n\\[\\rank\\big(\\nabla^2 s_K(\\theta)|_{\\cV_{K-1}(\\theta_*)}\\big)\n=\\dim(\\cV_{K-1}(\\theta_*))-d_0.\\]",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 11,
+        "location": "Definition 2.12"
+      }
+    ]
+  },
+  {
+    "local_id": "D24",
+    "original_tex": "To describe the model, let $f:\\sS^1 \\to \\R$ be a periodic function on\nthe unit circle $\\sS^1 \\cong [0,1)$. We identify the rotational group $\\SO(2)$\nalso with $[0,1)$, and represent the rotation of $f$ by an element\n$\\frakg \\in \\SO(2) \\cong [0,1)$ as $f_\\frakg(t)=f(t+\\frakg \\bmod 1)$.\nEach sample is an observation of the rotated function $f_\\frakg$\nwith additive white noise,\n\\[f_\\frakg(t)\\der t+\\sigma\\,\\der W(t)\\]\nwhere $\\frakg \\sim \\Unif([0,1))$ and\n$\\der W(t)$ denotes a standard Gaussian white noise process on $\\sS^1$.\nThis may be understood as observing a realization of the\nGaussian process $\\{F(h)\\}_{h \\in L_2(\\sS^1)}=\\{\\int h(t)[f_\\frakg(t)\\der t+\n\\sigma \\der W(t)]\\}_{h \\in L_2(\\sS^1)}$ with mean and covariance functions\n\\begin{equation}\\label{eq:GPwhitenoise}\n\\E[F(h)]=\\int_0^1 h(t)f_\\frakg(t)\\der t,\n\\qquad \\Cov[F(h_1),F(h_2)]=\\sigma^2 \\int_0^1 h_1(t)h_2(t)\\,\\der t,\n\\end{equation}\nor equivalently as observing all coefficients of $f_\\frakg$\nin a complete orthonormal\nbasis $\\{h_j(t)\\}_{j=1}^\\infty$ of $L_2(\\cS^1)$ with independent $\\N(0,\\sigma^2)$\nnoise for each basis coefficient.\n\nWe consider the real Fourier basis on $\\sS^1$, given by\n\\begin{equation}\\label{eq:Fourierbasis}\nh_0(t)=1, \\quad h_{l1}(t)=\\sqrt{2} \\cos 2\\pi lt, \\quad\nh_{l2}(t)=\\sqrt{2} \\sin 2\\pi lt \\quad \\text{for } l=1,2,3,\\ldots.\n\\end{equation}\nWe then restrict our model to the finite-dimensional space of functions\n$f:\\sS^1 \\to \\R$ that have finite bandlimit $L \\geq 1$ in this basis,\ni.e.\\ $f$ admits a representation\n\\begin{equation}\\label{eq:fourierbasis}\nf(t)=\\theta^{(0)}h_0(t)+\\sum_{l=1}^L \\theta_1^{(l)}h_{l1}(t)+\n\\sum_{l=1}^L\\theta_2^{(l)}h_{l2}(t).\n\\end{equation}\nImportantly, the space of such bandlimited functions is closed under rotations\nof $\\sS^1$. Writing\n\\[\\theta=(\\theta^{(0)},\\theta_1^{(1)},\\theta_2^{(1)},\\ldots,\n\\theta_1^{(L)},\\theta_2^{(L)}) \\in \\R^d, \\qquad d=2L+1\\]\nfor the vector of Fourier coefficients, the rotation $f \\mapsto f_\\frakg$\ncorresponds to $\\theta \\mapsto g \\cdot \\theta$, where $g$ belongs to\nthe block-diagonal representation\n\\begin{equation}\\label{eq:MRAG}\n\\G=\\left\\{\\diag\\left(1,\\begin{pmatrix} \\cos 2\\pi \\frakg & \\sin 2\\pi \\frakg \\\\\n-\\sin 2\\pi \\frakg & \\cos 2\\pi \\frakg \\end{pmatrix},\n\\ldots,\\begin{pmatrix} \\cos 2\\pi L\\frakg & \\sin 2\\pi L\\frakg \\\\\n-\\sin 2\\pi L\\frakg & \\cos 2\\pi L\\frakg \\end{pmatrix}\\right):\n\\;\\frakg \\in [0,1)\\right\\}\n\\end{equation}\nof $\\SO(2)$. The observation model for the Fourier coefficients of $f$\nthen takes the form of (\\ref{eq:unprojectedmodel}), where we observe\ncoordinates of $g \\cdot \\theta$ with entrywise i.i.d.\\ $\\N(0,\\sigma^2)$ noise.",
+    "naming_tex": "Continuous multi-reference alignment",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 3 — continuous multi-reference alignment"
+      }
+    ]
+  },
+  {
+    "local_id": "D25",
+    "original_tex": "Denote the Fourier coefficients of the true function $f$\nby $\\theta_* \\in \\R^d$. Define the complex Fourier coefficients\n\\[u^{(0)}(\\theta)=\\theta^{(0)} \\in \\R, \\qquad\nu^{(l)}(\\theta)=\\theta_1^{(l)}+\\i \\theta_2^{(l)}=r_l(\\theta)e^{\\i\n\\lambda_l(\\theta)} \\in \\C,\\]\nwhere $(r_l(\\theta),\\lambda_l(\\theta))$ for $l \\geq 1$\nare the magnitude and phase of $u^{(l)}(\\theta)$.\nWrite as shorthand\n\\[r_{l,l',l''}(\\theta)=r_l(\\theta)r_{l'}(\\theta)r_{l''}(\\theta),\n\\qquad \\lambda_{l,l',l''}(\\theta)=\\lambda_l(\\theta)-\\lambda_{l'}(\\theta)\n-\\lambda_{l''}(\\theta).\\]\nHere $\\lambda_{l,l',l''}(\\theta)$ are the elements of the Fourier bispectrum\nof $\\theta$.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Section 3 — complex Fourier coefficients and Fourier bispectrum"
+      }
+    ]
+  },
+  {
+    "local_id": "D26",
+    "original_tex": "Let $\\sS^2 \\subset \\R^3$ be the unit sphere, and let $f:\\sS^2 \\to \\R$ be a\nfunction on this sphere. We parametrize $\\sS^2$ by the latitude $\\phi_1 \\in\n[0,\\pi]$ and longitude $\\phi_2 \\in [0,2\\pi)$. Writing\n$f_\\frakg(\\phi_1,\\phi_2)=f(\\frakg^{-1} \\cdot\n(\\phi_1,\\phi_2))$ for the rotation of the function $f$, we\nconsider the observation model with samples\n\\[f_\\frakg(\\phi_1,\\phi_2)\\,\\der(\\phi_1,\\phi_2)+\\sigma\\,\\der W(\\phi_1,\\phi_2)\\]\nwhere $\\frakg \\in \\SO(3)$ is a uniform random rotation for each sample,\n$\\der(\\phi_1,\\phi_2)=\\sin\\phi_1\\,\\der \\phi_1\\,\\der \\phi_2$ denotes\nthe surface area measure on $\\sS^2$, and $\\der W(\\phi_1,\\phi_2)$ is\na standard Gaussian white noise process on $\\sS^2$. This observation model may\nbe understood as observing a realization of the Gaussian process\n$\\{\\int h(\\phi_1,\\phi_2)[f_\\frakg(\\phi_1,\\phi_2)\\der(\\phi_1,\\phi_2)\n+\\sigma\\,\\der W(\\phi_1,\\phi_2)]\\}_{h \\in L_2(\\cS^2)}$\ndefined analogously to (\\ref{eq:GPwhitenoise}),\nor equivalently, as observing each coefficient of $f_\\frakg$ in an\northonormal basis of $L_2(\\cS^2)$ with i.i.d.\\ $\\N(0,\\sigma^2)$ noise.\n\nWe choose as our orthonormal basis the real spherical harmonics\n\\[h_{lm}(\\phi_1, \\phi_2) \\quad \\text{ for } l=0,1,2,\\ldots \\text{ and }\nm=-l,-l+1,\\ldots,l-1,l.\\]\nWe assume that\n$f:\\sS^2 \\to \\R$ has a finite bandlimit $L \\geq 1$ in this basis, i.e.\\ it\ntakes the form\n\\begin{equation}\\label{eq:bandlimitedspherical}\nf(\\phi_1,\\phi_2)=\\sum_{l=0}^L \\sum_{m=-l}^l \\theta_m^{(l)}h_{lm}(\\phi_1,\\phi_2).\n\\end{equation}\nWe may then represent $f$ by its vector of real spherical harmonic coefficients\n\\[\\theta=(\\theta_m^{(l)}:\\,l=0,\\ldots,L \\text{ and } m=-l,\\ldots,l) \\in \\R^d,\n\\qquad d=(L+1)^2.\\]\nThis subspace of bandlimited functions is closed under\n$\\SO(3)$-rotations of $\\cS^2$, and we review the forms of $h_{lm}$ and\nof the rotational action on the basis coefficients in Appendix \\ref{sec:sr}.",
+    "naming_tex": "Spherical registration",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 4.1 — spherical registration"
+      }
+    ]
+  },
+  {
+    "local_id": "D27",
+    "original_tex": "We write as shorthand\n\\[u^{(l)}(\\theta)=(u_m^{(l)}(\\theta):m=-l,\\dots,l) \\in \\C^{2l+1}\\]\nfor the complex spherical harmonic coefficients at frequency $l$, which\nare defined from the real coefficients $(\\theta_m^{(l)}:m=-l,\\ldots,l)$ by a\nunitary transform described in (\\ref{eq:u-theta}).",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 4.1 — complex spherical harmonic coefficients"
+      },
+      {
+        "page": 15,
+        "location": "Section 4.1 — complex spherical harmonic coefficients"
+      }
+    ]
+  },
+  {
+    "local_id": "D28",
+    "original_tex": "\\begin{equation}\\label{eq:Bl}\nB_{l,l',l''}(\\theta)=\n\\mathop{\\sum_{m=-l}^l \\sum_{m'=-l'}^{l'}\n\\sum_{m''=-l''}^{l''}}_{m''=m+m'}\n\\langle l,m;l',m'|l'',m'' \\rangle\n\\overline{u_m^{(l)}(\\theta)u_{m'}^{(l')}(\\theta)} u_{m''}^{(l'')}(\\theta)\n\\end{equation}\nwhere $\\langle l,m;l',m'|l'',m'' \\rangle \\in \\R$ is the Clebsch-Gordan\ncoefficient.",
+    "naming_tex": "The functions\n$B_{l,l',l''}(\\theta)$ are analogous to the scaled components\n$r_{l,l',l''}(\\theta)\\lambda_{l,l',l''}(\\theta)$ of the Fourier bispectrum\nthat appeared in the 1-dimensional MRA example of Section \\ref{sec:func-est-so2}.\nThe minimizations of $s_1(\\theta)$, $s_2(\\theta)$, and $s_3(\\theta)$\ndescribed in Theorem \\ref{thm:landscape} may then\nbe analogously understood as minimizing the global function mean, the\npower in each spherical harmonic frequency, and certain ``bispectrum'' variables\nfor each frequency.",
+    "evidence": [
+      {
+        "page": 15,
+        "location": "Section 4.1 — equation (4.2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D29",
+    "original_tex": "Consider now a function $f:\\R^3 \\to \\R$, and the action of $\\SO(3)$ on \n$\\R^3$ given by rotation about the origin. Write \n$f_\\frakg(x)=f(\\frakg^{-1} \\cdot x)$ for the rotated function.\nWe consider the observation model with samples\n\\[f_\\frakg(x)\\,\\der x+\\sigma\\,\\der W(x)\\]\nwhere $\\frakg \\in \\SO(3)$ is uniformly random for each sample, and $\\der W(x)$\nis a standard Gaussian white noise process on $\\R^3$.\n\nWe parametrize the Fourier domain $\\R^3$ by\nspherical coordinates $(\\rho,\\phi_1,\\phi_2)$ with radius\n$\\rho\\geq 0$, latitude $\\phi_1\\in[0,\\pi]$ and longitude $\\phi_2\\in[0,2\\pi)$, and decompose\n$\\hat{f}(\\rho,\\phi_1,\\phi_2)$ in a complex basis $\\{\\hat{j}_{lsm}\\}$ given by\nthe product of the complex spherical harmonics $y_{lm}(\\phi_1,\\phi_2)$\n(reviewed in Appendix \\ref{sec:rc-harmonic})\nwith radial functions $z_s(\\rho)$:\n\\begin{equation}\\label{eq:C3basis}\n\\hat{j}_{lsm}(\\rho,\\phi_1,\\phi_2)=z_s(\\rho)y_{lm}(\\phi_1,\\phi_2)\n\\quad \\text{ for } s \\geq 1, \\quad l \\geq 0, \\quad m \\in \\{-l,\\ldots,l\\}.\n\\end{equation}\nHere $\\{z_s:s \\geq 1\\}$ may be any system of radial\nbasis functions $z_s:[0,\\infty) \\to \\R$ satisfying the orthogonality relation\n\\begin{equation}\\label{eq:zorthogonality}\n\\int_0^\\infty \\rho^2 z_s(\\rho) z_{s'}(\\rho)d\\rho=\\1\\{s=s'\\},\n\\end{equation}\nso that $\\{\\hat{j}_{lsm}\\}$ are orthonormal over $L_2(\\R^3,\\C)$.\nThe inverse Fourier\ntransforms $\\{j_{lsm}\\}$ of $\\{\\hat{j}_{lsm}\\}$ then provide\na complex orthonormal basis in the original signal domain of $f$.\n\nFixing integer bandlimits $L \\geq 1$ and $S_0,\\ldots,S_L \\geq 1$, we define the \nindex set\n\\begin{equation}\\label{eq:indices}\n\\cI=\\Big\\{(l,s,m):0 \\leq l \\leq L,\\; 1 \\leq s \\leq S_l,\\;-l \\leq m \\leq l\n\\Big\\}, \\qquad d=|\\cI|=\\sum_{l=0}^L (2l+1)S_l\n\\end{equation}\nand assume that $f$ is \\emph{$(L, S_0, \\ldots, S_L)$-bandlimited} in the sense\nof admitting the finite basis representation\n\\begin{equation}\\label{eq:bandlimitedS2}\nf=\\sum_{(l,s,m) \\in \\cI} u_m^{(ls)} \\cdot j_{lsm}, \\qquad\nu=\\big(u_m^{(ls)}:(l,s,m) \\in \\cI\\big) \\in \\C^d.\n\\end{equation}\nThis corresponds to modeling the Fourier transform $\\hat{f}$ up to the\nspherical frequency $L$, and up to the radial frequency $S_l$ for each spherical\ncomponent $l=0,1,\\ldots,L$. For real-valued functions $f$, writing\n$u=\\hat{V}^*\\theta$ for a\nunitary transform $\\hat{V} \\in \\C^{d \\times d}$ defined explicitly in\n(\\ref{eq:hatv-trans}), we then obtain a real sequence representation\n\\begin{equation}\\label{eq:cryoEMbandlimited}\nf=\\sum_{(l,s,m) \\in \\cI} \\theta_m^{(ls)} \\cdot h_{lsm}, \\qquad\n\\theta=\\big(\\theta_m^{(ls)}:(l,s,m) \\in \\cI\\big) \\in \\R^d\n\\end{equation}\nfor a real-valued orthonormal basis $\\{h_{lsm}\\}$.\nWe describe the forms of $h_{lsm}$ and the rotational action on the basis\ncoefficients $\\theta \\in \\R^d$ in Appendix \\ref{sec:unprojCEM}.",
+    "naming_tex": "Unprojected cryo-EM",
+    "evidence": [
+      {
+        "page": 15,
+        "location": "Section 4.2 — unprojected cryo-EM"
+      },
+      {
+        "page": 16,
+        "location": "Section 4.2 — unprojected cryo-EM"
+      }
+    ]
+  },
+  {
+    "local_id": "D30",
+    "original_tex": "Turning to the forms of $s_k(\\theta)$ that define the moment optimization\n(\\ref{eq:momentoptunprojected}), write $\\theta_* \\in \\R^d$ for the true\ncoefficients in the above real basis $\\{h_{lsm}\\}$. Let\n\\begin{equation}\\label{eq:uls}\nu^{(ls)}(\\theta)=(u_m^{(ls)}(\\theta):m=-l,\\ldots,l) \\in \\C^{2l+1}\n\\end{equation}\nbe the components of the \\emph{complex} coefficients $u=\\hat{V}^*\\theta$\nfor the frequency pair $(l,s)$, and define analogously to (\\ref{eq:Bl})\n\\begin{equation}\\label{eq:Bls}\nB_{(l,s),(l',s'),(l'',s'')}(\\theta)=\n\\mathop{\\sum_{m=-l}^l \\sum_{m'=-l'}^{l'} \\sum_{m''=-l''}^{l''}}_{m''=m+m'}\n\\langle l,m;l',m'|l'',m'' \\rangle\n\\overline{u_m^{(ls)}(\\theta)u_{m'}^{(l's')}(\\theta)}\nu_{m''}^{(l''s'')}(\\theta).\n\\end{equation}",
+    "naming_tex": "complex coefficients",
+    "evidence": [
+      {
+        "page": 16,
+        "location": "Section 4.2 — coefficients and contraction, equations (4.8) and (4.9)"
+      },
+      {
+        "page": 17,
+        "location": "Section 4.2 — coefficients and contraction, equations (4.8) and (4.9)"
+      }
+    ]
+  },
+  {
+    "local_id": "D31",
+    "original_tex": "We now extend the model of the preceding section to include the\ntomographic projection arising in cryo-EM. In this projected model, we\nobserve samples\n\\begin{equation}\\label{eq:projectedobservations}\n(\\Pi \\cdot f_\\frakg)(x)\\der x+\\sigma\\,\\der W(x)\n\\end{equation}\non $\\R^2$ where, for $x=(x_1,x_2) \\in \\R^2$, the tomographic projection $\\Pi$ is\ndefined by\n\\begin{equation}\\label{eq:cryoEMmodel}\n(\\Pi \\cdot f_\\frakg)(x_1,x_2)=\n\\int_{-\\infty}^\\infty f_{\\frakg}(x_1,x_2,x_3)\\der x_3,\n\\end{equation}\nand $\\der W(x)$ in (\\ref{eq:projectedobservations}) is a\nstandard Gaussian white noise process on the projected domain $\\R^2$.\n\nWe again model the Fourier transform of $f$ in a basis $\\{\\hat{j}_{lsm}\\}$\ngiven by the product of complex spherical harmonics with radial functions.\nWe restrict $f$ to a space of $(L,S_0,\\ldots,S_L)$-bandlimited functions\nwith representation\n\\begin{equation}\\label{eq:projcryoEMbandlimited}\nf=\\sum_{(l,s,m) \\in \\cI} u_m^{(ls)} \\cdot j_{lsm}\n=\\sum_{(l,s,m) \\in \\cI} \\theta_m^{(ls)} \\cdot h_{lsm}\n\\end{equation}\nfor the index set $\\cI$ defined in (\\ref{eq:indices}), where\n$\\{j_{lsm}\\}$ are the inverse Fourier transforms of $\\{\\hat{j}_{lsm}\\}$, and\nthe second equality describes a parametrization by an equivalent real\northonormal basis $\\{h_{lsm}\\}$ as before.\nIn Appendix \\ref{sec:projCEM}, we apply the Fourier slice theorem to derive\nbasis representations for the tomographic projection $\\Pi \\cdot f$. These take\nthe forms\n\\begin{equation}\\label{eq:projbandlimited}\n\\Pi \\cdot f=\\sum_{(s,m) \\in \\tcI} \\tu_m^{(s)} j_{sm}\n=\\sum_{(s,m) \\in \\tcI} \\ttheta_m^{(s)} h_{sm},\n\\end{equation}\nwhere $\\{j_{sm}\\}$ and $\\{h_{sm}\\}$ are (complex and real, resp.) basis\nfunctions over $\\R^2$, and $\\Pi \\cdot f$ is bandlimited to an index set\n\\begin{equation}\\label{eq:indicesproj}\n\\tcI=\\Big\\{(s,m):1 \\leq s \\leq S,\\; -L \\leq m \\leq L\\Big\\},\n\\qquad \\td=|\\tcI|=S(2L+1)\n\\end{equation}\nfor $S=\\max(S_0,\\ldots,S_L)$. This expresses $\\Pi$ as a linear map from\n$\\theta \\in \\R^d$ to $\\ttheta \\in \\R^{\\td}$, and we give its\nexplicit form in (\\ref{eq:cryoEMPi}).\nWe choose radial functions to ensure that the basis $\\{h_{sm}\\}$ is\northonormal in $L_2(\\R^2)$, so that\n(\\ref{eq:projectedobservations}) is equivalent to observing the\ncoefficients of $\\Pi \\cdot f$ in this basis\nwith i.i.d.\\ $\\N(0,\\sigma^2)$ noise.\nFurther details of the setup are described in Appendix~\\ref{sec:projCEM}.",
+    "naming_tex": "Projected cryo-EM",
+    "evidence": [
+      {
+        "page": 17,
+        "location": "Section 4.3 — projected cryo-EM"
+      },
+      {
+        "page": 18,
+        "location": "Section 4.3 — projected cryo-EM"
+      }
+    ]
+  },
+  {
+    "local_id": "D32",
+    "original_tex": "where $\\langle l,m;l',m'|l'',m'' \\rangle \\in \\R$ is the Clebsch-Gordan\ncoefficient. These quantities express the\nintegrals of three-fold products of spherical harmonics over $\\cS^2$ and\narise naturally in the computation of $3^\\text{rd}$-order\nmoments of $g \\cdot \\theta$.\nWe review their definition in Appendix \\ref{sec:rc-harmonic}.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 15,
+        "location": "Section 4.1 — Clebsch-Gordan coefficient convention"
+      }
+    ]
+  },
+  {
+    "local_id": "D33",
+    "original_tex": "We restrict attention to generic signals $\\theta_* \\in \\R^d$ in this work.\nThe specific condition for $\\theta_*$ that we use in\nTheorem \\ref{thm:FI}, and in Theorems \\ref{thm:benignlandscape}\nand \\ref{thm:landscape} to follow, is that the gradient vectors\n$\\{\\nabla p(\\theta_*):p \\in \\cR_{\\leq K}^\\G\\}$\nor $\\{\\nabla p(\\theta_*):p \\in \\tcR_{\\leq \\tK}^\\G\\}$ span a\nsubspace of dimension $\\trdeg(\\cR^\\G)$ or $\\trdeg(\\tcR^\\G)$,\nrespectively.",
+    "naming_tex": null,
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Remark 2.9 — generic signal condition"
+      }
+    ]
+  }
+]

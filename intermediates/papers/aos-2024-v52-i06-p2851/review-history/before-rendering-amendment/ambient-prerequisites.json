@@ -1,0 +1,471 @@
+{
+  "paper_id": "aos-2024-v52-i06-p2851",
+  "unranked_auxiliary_passages": [
+    {
+      "local_id": "A1",
+      "statement_original": "Throughout this paper, we adopt the convention that $0/0:=0$ and let $\\operatorname{sgn}(\\cdot)$ denote the sign function on $\\mathbb R$, with the convention that $\\operatorname{sgn}(0):=0$. We let $x\\wedge y:=\\min(x,y)$ and for $n\\in\\mathbb N$, let $[n]:=\\{1,\\ldots,n\\}$. For two sequences $(a_n)$ and $(b_n)$, we write $a_n\\asymp b_n$ and $a_n\\lesssim b_n$ to mean that there exist $c,C>0$ such that $0<c\\le|a_n/b_n|\\le C<\\infty$ for all $n$, and $a_n\\le Cb_n$ for all $n$ respectively.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original main-text context A1"
+        }
+      ],
+      "scope_note": "Original zero/sign and asymptotic comparison conventions. The zero convention matters for the test and normalized MSPE; no convention for every possible infinite or undefined correlation expression is supplied.",
+      "depends_on": [
+        "D10",
+        "D14",
+        "D16",
+        "D19"
+      ]
+    },
+    {
+      "local_id": "A2",
+      "statement_original": "For a vector $x\\in\\mathbb R^n$ and $p\\in[1,\\infty]$, we denote its $\\ell_p$ norm by $\\|x\\|_p$. The operator norm of a matrix $A\\in\\mathbb R^{n\\times m}$ is denoted by $\\|A\\|_{\\mathrm{op}}$ and the maximum and minimum eigenvalues of a symmetric matrix $B\\in\\mathbb R^{n\\times n}$ are denoted by $\\lambda_{\\max}(B)$ and $\\lambda_{\\min}(B)$, respectively.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original main-text context A2"
+        }
+      ],
+      "scope_note": "Ambient finite-dimensional norm conventions. The restricted minimum defined in Theorem 6 is a separate quantity.",
+      "depends_on": [
+        "D23"
+      ]
+    },
+    {
+      "local_id": "A3",
+      "statement_original": "Given that our approach involves sample splitting, it is convenient to assume here and also throughout Sections 3 and 4 that we have $2n$ independent and identically distributed observations $(X_i,Y_i,Z_i)_{i=1}^{2n}$ rather than the conventional $n$ observations.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Original main-text context A3"
+        }
+      ],
+      "scope_note": "Original IID sampling context. Algorithm 2 explicitly changes the total to 4n, with n observations per independent split.",
+      "depends_on": [
+        "D4",
+        "D10",
+        "D11"
+      ]
+    },
+    {
+      "local_id": "A4",
+      "statement_original": "Recall that the approach sketched in Section 1.1 involves first computing an estimate $\\hat f$ of the weighted projection\n\\[\nf(X,Z)=\\frac{h(X,Z)}{v(X,Z)}=\\frac{\\mathbb E(Y\\mid X,Z)-\\mathbb E(Y\\mid Z)}{\\operatorname{Var}(Y\\mid X,Z)}\n\\]\nusing one portion of the data, say $\\mathcal D_2:=(X_i,Y_i,Z_i)_{i=n+1}^{2n}$ (we refer to the remaining data as $\\mathcal D_1$).",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Original main-text context A4"
+        }
+      ],
+      "scope_note": "Original motivation for the learned projection. Theorems 4 and 5 impose prediction/correlation conditions, not consistency of the learned function for this ratio. Spline specialization sets the estimated variance to one.",
+      "depends_on": [
+        "D6",
+        "D7",
+        "D8",
+        "D10"
+      ]
+    },
+    {
+      "local_id": "A5",
+      "statement_original": "With the exception of Theorem 7 in Section 5, our results for Algorithm 2 remain valid if $\\mathcal D_3=\\mathcal D_4$ but we have omitted this special case for brevity.",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Original main-text context A5"
+        },
+        {
+          "page": 17,
+          "location": "Original main-text context A5"
+        }
+      ],
+      "scope_note": "Original permitted auxiliary-sample reuse explicitly excludes Theorem 7. Retain Algorithm 2’s exact step assignment: projection regression on D3, response regression on D4.",
+      "depends_on": [
+        "D11"
+      ]
+    },
+    {
+      "local_id": "A6",
+      "statement_original": "This stronger assumption still permits $\\hat f$ to be an inconsistent estimator of the true $f_P(X,Z)=h_P(X,Z)/\\operatorname{Var}_P(Y\\mid X,Z)$ in that it only requires them to be positively correlated, with probability approaching one.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Original main-text context A6"
+        }
+      ],
+      "scope_note": "Interpretation of a stronger sufficient condition discussed after Theorem 5. Its actual condition (d) concerns the population residual xi, with correlation bounded away from zero, not convergence to one.",
+      "depends_on": [
+        "D8",
+        "D13",
+        "D25"
+      ]
+    },
+    {
+      "local_id": "A7",
+      "statement_original": "Condition (14) can be regarded as a restricted minimum eigenvalue condition; for $x\\in\\mathbb R^{K_{XZ}}$ with $\\Pi x=0$, we have that $x^\\top\\Lambda_Px=0$, but it turns out that we are able to restrict attention to the orthogonal complement of this subspace.",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "Original main-text context A7"
+        }
+      ],
+      "scope_note": "Original interpretation of the restricted Rayleigh quotient. Full covariance can have a nullspace, so a full positive minimum eigenvalue is not the theorem condition.",
+      "depends_on": [
+        "D19",
+        "D23"
+      ]
+    },
+    {
+      "local_id": "A8",
+      "statement_original": "The proof of Theorem 6 amounts to the verification of the conditions of Theorem 4.",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "Original main-text context A8"
+        }
+      ],
+      "scope_note": "Proof reduction only: Assumption 3 and the general stability alternatives are not additional hypotheses of Theorems 6 and 7.",
+      "depends_on": [
+        "D17",
+        "D22"
+      ]
+    },
+    {
+      "local_id": "A9",
+      "statement_original": "We remark that in Theorem 7, we have operated in the context of a known smoothness parameter $s$ for theoretical purposes. It is possible to construct more involved tests that adapt to unknown smoothness levels following the strategy of Lepskiĭ (1991) and Ingster (2000), but we do not pursue this direction further.",
+      "evidence": [
+        {
+          "page": 23,
+          "location": "Original main-text context A9"
+        }
+      ],
+      "scope_note": "Theorem 7 is not an adaptive-smoothness result; retain the known-s parameter in the tuning rates.",
+      "depends_on": [
+        "D19",
+        "D21",
+        "D22"
+      ]
+    }
+  ],
+  "statement_local_bindings": {
+    "T4": "Null means conditional mean independence, with Assumption 3 over the same null class. Retain the high-probability nonzero random projection variance, conditional Lyapunov moment normalized by sigma^(2+delta), and conditional second moment lower bound for epsilon=Y-m_P(Z). Four alternatives are disjunctive: Algorithm 2; Algorithm 1 plus full conditional independence; Algorithm 1 plus a linear smoother; Algorithm 1 plus sufficient stability. Do not require all four simultaneously. The conclusion is uniform over both null distributions and thresholds.",
+    "T5": "Alternatives use the squared regression-difference signal tau_P and the separation subset P1(epsilon_n). Assumption 3, positive-scale equivariance of the fitted projection regression, the printed one-sided upper bound on h_P, epsilon_n*n tending to infinity and conditional correlation with xi_P bounded below with high probability are all retained. Algorithm 2 or Algorithm 1 with sufficient stability are alternatives. No consistency for h/v is required. The conclusion is uniform power tending to one for every fixed alpha in (0,1).",
+    "T6": "Spline OLS specialization overrides variance learning by vhat=1 and omits the sign correction. Assumption 4 specifies the response-on-Z residual moment, joint density bounds, conditional density smoothness in z, and m/g Holder norms. The projected coefficient contrast must be nonzero with high probability. Lambda is expected conditional covariance of the joint spline basis; its lower bound is restricted to Pi x=x and norm two equal to one. Preserve both rate conditions (15) and (16), including n*KXZ and squared braces in (15). Either algorithm is permitted. General Assumption 3 is a proof consequence, not an extra premise.",
+    "T7": "Same original spline and distributional definitions, but only Algorithm 2 with separately trained auxiliary regressions. The signal is squared L2 regression difference, separation epsilon_n*n^(4s/(4s+d)) tends to infinity, basis dimensions follow the printed powers of n, and r>=s>=3d/4. Alpha is the Algorithm 2 input in (0,1), although the theorem sentence does not restate its range. The rate uses known smoothness; Proposition 8 is a separate minimax lower-bound proposition and is excluded from the Theorem inventory."
+  },
+  "source_claim_references": [
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T4",
+      "target": "Algorithm 1 or 2 as specified in the theorem; Section 1.3 conventions; original regression targets",
+      "reference_kind": "definition_reference",
+      "note": "Follow the selected algorithm and its branch or spline overrides. Independent datasets contain n observations each."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T4",
+      "target": "Supplementary proofs in Section S1",
+      "reference_kind": "proof_only",
+      "note": "Supplementary bodies are excluded. Source statement fidelity does not certify proofs."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T5",
+      "target": "Algorithm 1 or 2 as specified in the theorem; Section 1.3 conventions; original regression targets",
+      "reference_kind": "definition_reference",
+      "note": "Follow the selected algorithm and its branch or spline overrides. Independent datasets contain n observations each."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T5",
+      "target": "Supplementary proofs in Section S1",
+      "reference_kind": "proof_only",
+      "note": "Supplementary bodies are excluded. Source statement fidelity does not certify proofs."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T6",
+      "target": "Algorithm 1 or 2 as specified in the theorem; Section 1.3 conventions; original regression targets",
+      "reference_kind": "definition_reference",
+      "note": "Follow the selected algorithm and its branch or spline overrides. Independent datasets contain n observations each."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T6",
+      "target": "Supplementary proofs in Section S1",
+      "reference_kind": "proof_only",
+      "note": "Supplementary bodies are excluded. Source statement fidelity does not certify proofs."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T7",
+      "target": "Algorithm 1 or 2 as specified in the theorem; Section 1.3 conventions; original regression targets",
+      "reference_kind": "definition_reference",
+      "note": "Follow the selected algorithm and its branch or spline overrides. Independent datasets contain n observations each."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T7",
+      "target": "Supplementary proofs in Section S1",
+      "reference_kind": "proof_only",
+      "note": "Supplementary bodies are excluded. Source statement fidelity does not certify proofs."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T4",
+      "target": "Proposition S15(ii),(iii), Section S2",
+      "reference_kind": "definition_reference",
+      "note": "The main-text phrase sufficiently stable refers to these excluded conditions; unresolved for the Algorithm 1 stability alternative."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T5",
+      "target": "Proposition S15(ii),(iii), Section S2",
+      "reference_kind": "definition_reference",
+      "note": "The main-text phrase sufficiently stable refers to these excluded conditions; unresolved for the Algorithm 1 stability alternative."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T6",
+      "target": "Definition S24 and Section S4 spline conventions",
+      "reference_kind": "definition_reference",
+      "note": "Main text supplies spaces, orders, basis counts and regression choices; precise supplemental Holder and spline conventions remain unresolved."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2851/T7",
+      "target": "Definition S24 and Section S4 spline conventions",
+      "reference_kind": "definition_reference",
+      "note": "Main text supplies spaces, orders, basis counts and regression choices; precise supplemental Holder and spline conventions remain unresolved."
+    }
+  ],
+  "source_issues": [
+    {
+      "issue_id": "registered-source",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Source issue registered-source"
+        },
+        {
+          "page": 29,
+          "location": "Source issue registered-source"
+        }
+      ],
+      "note": "Registered arXiv 2211.02039v4, 97 pages, stamp 7 May 2024 and title-page date May 8, 2024. Main text ends with acknowledgements before References on page 29. Only four actual Theorem environments, numbered 4–7, occur in the main text; Propositions 1–3 and 8 are not Theorems. All supplementary bodies are excluded."
+    },
+    {
+      "issue_id": "mean-versus-full-independence",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Source issue mean-versus-full-independence"
+        },
+        {
+          "page": 18,
+          "location": "Source issue mean-versus-full-independence"
+        }
+      ],
+      "note": "Conditional mean independence is the null of Theorems 4 and 6. Full conditional independence is stronger and is required only by alternative (ii) of Theorem 4. No parametric linear-model equivalence from the earlier proposition discussion is imported into this model-free null."
+    },
+    {
+      "issue_id": "training-split-assignment",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source issue training-split-assignment"
+        },
+        {
+          "page": 11,
+          "location": "Source issue training-split-assignment"
+        },
+        {
+          "page": 16,
+          "location": "Source issue training-split-assignment"
+        },
+        {
+          "page": 17,
+          "location": "Source issue training-split-assignment"
+        },
+        {
+          "page": 20,
+          "location": "Source issue training-split-assignment"
+        },
+        {
+          "page": 23,
+          "location": "Source issue training-split-assignment"
+        }
+      ],
+      "note": "The page 16 introductory prose lists mhat and mhatf then D3 and D4 without an explicit respectively. The operative Algorithm 2 assigns step 3(i), the projection regression, to D3 and step 3(ii), the response regression, to D4. D1 evaluates the statistic; D2 trains the projection. Theorem 7 excludes the D3=D4 relaxation. n is per split, not the total sample size."
+    },
+    {
+      "issue_id": "conditioning-and-residuals",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source issue conditioning-and-residuals"
+        },
+        {
+          "page": 17,
+          "location": "Source issue conditioning-and-residuals"
+        },
+        {
+          "page": 21,
+          "location": "Source issue conditioning-and-residuals"
+        }
+      ],
+      "note": "Conditioning on hatf includes the training sample and any algorithmic randomness. epsilon_P is Y-m_P(Z), even under alternatives; xi_P is hatf minus its population regression on Z, not the fitted regression. sigma_P² is the conditional variance of xi_P. Assumption 4(a) uses this response residual, not Y-g_P(X,Z)."
+    },
+    {
+      "issue_id": "zero-and-correlation-conventions",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Source issue zero-and-correlation-conventions"
+        },
+        {
+          "page": 11,
+          "location": "Source issue zero-and-correlation-conventions"
+        },
+        {
+          "page": 17,
+          "location": "Source issue zero-and-correlation-conventions"
+        },
+        {
+          "page": 18,
+          "location": "Source issue zero-and-correlation-conventions"
+        },
+        {
+          "page": 19,
+          "location": "Source issue zero-and-correlation-conventions"
+        }
+      ],
+      "note": "The source explicitly sets 0/0=0 and sgn(0)=0. Theorem 4(a) asymptotically excludes exact sigma_P²=0 but does not impose a fixed positive variance lower bound. Algorithm 1 can permit fitted variance zero. The source does not fully specify all nonzero-over-zero, infinite-product, or degenerate conditional correlation conventions; retain the formulas and do not silently supply a totalization beyond its stated zero rule."
+    },
+    {
+      "issue_id": "theorem5-one-sided-bound",
+      "evidence": [
+        {
+          "page": 19,
+          "location": "Source issue theorem5-one-sided-bound"
+        }
+      ],
+      "note": "Part (b) is printed as sup_P h_P(X,Z)<=C, without absolute values and without an explicit new quantifier for C. Preserve that one-sided condition rather than replacing it by a uniform absolute bound or claiming the proof has been checked. The conditional correlation lower bound in (d) is positive and need not tend to one."
+    },
+    {
+      "issue_id": "spline-overrides",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Source issue spline-overrides"
+        },
+        {
+          "page": 21,
+          "location": "Source issue spline-overrides"
+        },
+        {
+          "page": 22,
+          "location": "Source issue spline-overrides"
+        },
+        {
+          "page": 23,
+          "location": "Source issue spline-overrides"
+        }
+      ],
+      "note": "The spline results use vhat identically one, OLS on phi for ghat, phi^Z for mtilde and the higher-order psi for the two final regressions. The sign correction is omitted because rhohat is nonnegative. Algorithm 1 remains the base procedure; its general variance-estimation step is overridden, not a separate requirement of Theorems 6/7."
+    },
+    {
+      "issue_id": "spline-coordinate-conventions",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Source issue spline-coordinate-conventions"
+        },
+        {
+          "page": 21,
+          "location": "Source issue spline-coordinate-conventions"
+        }
+      ],
+      "note": "The source defines u tensor v as vec(uv transpose); preserve its block indexing and Pi subtraction. Pi removes within-X means separately for each Z-basis block. Theorem 6 restricts the covariance Rayleigh quotient to Pi x=x. Precise endpoint and repeated-knot conventions are in excluded Section S4; no arbitrary implementation is supplied."
+    },
+    {
+      "issue_id": "assumption4-quantifiers",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Source issue assumption4-quantifiers"
+        },
+        {
+          "page": 22,
+          "location": "Source issue assumption4-quantifiers"
+        }
+      ],
+      "note": "Assumption 4(a) says for each P, the conditional second moment lower bound holds and there exists delta in (0,2] giving the higher moment bound. Theorem 6 then uses delta from Assumption 4 in a single growth condition. Whether a common delta is intended is not explicitly resolved by this wording; retain the printed order and flag the uniformity issue. Conditional density smoothness is in z for each fixed x; g is smooth in all d coordinates."
+    },
+    {
+      "issue_id": "supplementary-definitions",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Source issue supplementary-definitions"
+        },
+        {
+          "page": 20,
+          "location": "Source issue supplementary-definitions"
+        },
+        {
+          "page": 21,
+          "location": "Source issue supplementary-definitions"
+        }
+      ],
+      "note": "Sufficient stability is defined by Proposition S15(ii),(iii), and precise Holder spaces/norms by Definition S24; detailed spline construction is in S4. These are definition references, not merely proof citations. Their main-text pointers are saved but the excluded bodies are not read or reconstructed."
+    },
+    {
+      "issue_id": "rates-and-branch-scope",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Source issue rates-and-branch-scope"
+        },
+        {
+          "page": 19,
+          "location": "Source issue rates-and-branch-scope"
+        },
+        {
+          "page": 21,
+          "location": "Source issue rates-and-branch-scope"
+        },
+        {
+          "page": 22,
+          "location": "Source issue rates-and-branch-scope"
+        },
+        {
+          "page": 23,
+          "location": "Source issue rates-and-branch-scope"
+        }
+      ],
+      "note": "Theorem 6 has two additional rate requirements and a nondegeneracy condition; Theorem 7 has different tuning/separation and needs separate auxiliary training. Do not propagate the generic Assumption 3 or sufficient-stability condition as added hypotheses of these spline theorems. Theorem 7 knows s; it does not prove adaptation, and its alpha range comes from Algorithm 2."
+    }
+  ],
+  "unresolved_external_prerequisites": [
+    {
+      "target": "Proposition S15(ii),(iii), Section S2",
+      "related_claim_ids": [
+        "aos-2024-v52-i06-p2851/T4",
+        "aos-2024-v52-i06-p2851/T5"
+      ],
+      "note": "Precise sufficiently stable conditions lie outside the permitted main text; applies only to the relevant Algorithm 1 alternatives."
+    },
+    {
+      "target": "Definition S24",
+      "related_claim_ids": [
+        "aos-2024-v52-i06-p2851/T6",
+        "aos-2024-v52-i06-p2851/T7"
+      ],
+      "note": "Precise Holder space and norm conventions are deferred to excluded supplementary material."
+    },
+    {
+      "target": "Section S4",
+      "related_claim_ids": [
+        "aos-2024-v52-i06-p2851/T6",
+        "aos-2024-v52-i06-p2851/T7"
+      ],
+      "note": "Main text records orders, knot counts and tensor bases; precise endpoint construction conventions are not supplied there."
+    }
+  ],
+  "ambient_prerequisites": [
+    "Conditional expectation, variance, covariance and correlation under a specified distribution; almost-sure equalities, conditional densities and Lebesgue measure.",
+    "Finite independent IID data splits; measurable fitted regression functions with training randomness; empirical means and variance with divisor n.",
+    "Uniform probabilistic orders over possibly n-dependent classes; one-sided normal quantiles, conditional moment bounds and uniform convergence in distribution or power.",
+    "Euclidean norms, matrix covariance, tensor vectorization, OLS, restricted Rayleigh quotients and block coefficient projections.",
+    "Original 0/0 and sign conventions are recorded explicitly. Sufficient stability and exact Holder/spline definitions retain unresolved supplementary references; no library audit or proof verdict is asserted."
+  ],
+  "validation_limits": "Main-text source fidelity, dependency scope and structural validation only. Supplementary definitions remain unresolved as recorded; source omissions or ambiguous quantifiers are not silently repaired and theorem truth is not certified."
+}

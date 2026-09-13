@@ -1,0 +1,1163 @@
+[
+  {
+    "interface_id": "local-1d1a58b29eca260b4a37",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "df859fb5335ff4d38ef414862c09eb4eaad5b6210fb1de179c57b1c53f841f54",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D18",
+        "comparison": "Apply convergence in measure under the sample probability to sup_x sup_u |w_hat_x(u)-w_x(u)| tending to zero; pointwise convergence in x or u is weaker. Use one C_w and one L_w for all anchors, with Lipschitz continuity in the radius variable. The printed assumption does not impose nonnegative weights, and no positivity is inserted to justify a later spectral law.",
+        "statement_sha256": "06015c2633adb2bd5e645e51841b403245d0dc39a29b74df7f6ca170e1b64a8a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched weight-profile and uniform stochastic convergence APIs; inspected TendstoInMeasure, LipschitzWith and the frozen application-context equation (25).",
+          "result": "Convergence in probability can be imposed on the scalar supremum error and a common Lipschitz constant on every population profile. These generic predicates do not give measurability or boundedness of an uncountable random supremum."
+        }
+      ],
+      "gap": "The double-supremum error must be well defined and measurable before imposing convergence in probability, alongside a uniform bound and a common profile Lipschitz constant."
+    }
+  },
+  {
+    "interface_id": "local-d048e94acc6826c543c4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "1216662d99bb24c51676af3b2fe5db4e71259f6a75aaec94670e5425267c3d99",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D4",
+        "comparison": "Integrate F_X inverse minus F_omega inverse, without absolute value or squaring, then average over the random anchor X and apply the increasing sigmoid. This defines a scalar rank, not a threshold-indexed quantity or a Wasserstein norm. Bounded distance support supplies finite quantile integrals; endpoint values at zero and one need not affect their Lebesgue integrals but are not invented as pointwise conventions. Retain the actual increasing expit rather than the prose's unrestricted monotone replacement.",
+        "statement_sha256": "a2b17f41c4e2f78d88274a686d3dc89bba736cff0a68adbe3e0cd1a8c3d77e67"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sigmoid",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+          "provides": "Exactly the standard scalar logistic function (1 + exp(-x))⁻¹.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Sigmoid.lean#L63-L63",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched transport-rank and quantile APIs, inspected sigmoid's formula and range, Bochner integral and real CDF, and compared the conditional-infimum characterization of a generalized inverse.",
+          "result": "Sigmoid equals the stated exp(x)/(1+exp(x)) by exponential identities; expectations and signed quantile integrals use real integration. The inspected CDF is a distribution function, not its generalized inverse, which still needs a threshold-infimum construction and domain checks."
+        }
+      ],
+      "gap": "The distance-profile generalized inverses and their signed, integrable difference must be assembled before applying the expectation and sigmoid."
+    }
+  },
+  {
+    "interface_id": "local-69881cde9eac57db508a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "cd439615f08f0bcb22fad16e90b64db6b6a735569c7abbf7431ce9e38310e619",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D15",
+        "comparison": "Keep H0 as equality of object-valued laws P1=P2 and H1 as inequality, not merely equality of one chosen distance CDF. The printed F_omega formulas use d(x,X) and d(x,Y); the usual fixed-anchor construction is available, but the mismatch is preserved rather than silently rebinding x. Closed events <=u determine the CDF convention.",
+        "statement_sha256": "88965a140b82a98c94348b41ed99b7f2863a3169f82c8af1e4abe179fa27c952"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched distance-profile and two-sample law formulations; inspected Measure.map's measurability branch and cdf_eq_real with its closed-half-line convention.",
+          "result": "Two Borel probability laws and equality or inequality between them are directly represented. Pushing each law through distance to a fixed anchor and taking its CDF gives the corresponding closed-ball probability, once the anchor is consistently identified."
+        }
+      ],
+      "gap": "The source's unbound x versus omega anchor in equation (22) must remain explicit when identifying the two distance pushforwards."
+    }
+  },
+  {
+    "interface_id": "local-80fdfcff21d3f3a3e709",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "13c3b175051ea488f2bd790ae77831e72282c62db9f3aa7dee2a4882018187f6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D19",
+        "comparison": "Use separate densities for the P1 and P2 distance profiles. Each anchor has its own strictly positive lower bound, while L_X and L_Y are uniform over all anchors and real t. Function.support is the nonzero set rather than its topological closure; do not silently select either convention or add the continuity explicitly required by the earlier Assumption 2 but absent here.",
+        "statement_sha256": "e7151ca53c4fd2692f13da6a4552a172b368a1f03afb0bec78df030d21e3bed8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected withDensity's nonnegative density construction, Function.support's nonzero-set convention and lower-infimum bounds; compared Assumption 5 with the already-reviewed distinct continuous-density assumption.",
+          "result": "Each distance law can be represented as a Lebesgue density measure with the stated pointwise bounds. The source's support meaning must be specified and density representatives matter for pointwise infima, whereas Radon-Nikodym densities are generally defined only almost everywhere."
+        }
+      ],
+      "gap": "The chosen density representatives and support convention must be fixed to express anchorwise positive lower bounds and the two separate uniform upper bounds."
+    }
+  },
+  {
+    "interface_id": "local-bba054fcb873f2f9f8ae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "180ae2574505d2623060db7aa552d6115660abd6be9cc208e629282723099369",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D20",
+        "comparison": "Use the product atTop filter on pairs or a sequence with both sample sizes tending to infinity, casting to reals before division. Preserve only first-order convergence here; no root-(n+m) rate or deterministic finite-sample balance is included.",
+        "statement_sha256": "f61d8d9a74cf4856fd5017387f33ab06771e0b52ae61be1864e20641c61e0749"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Filter.Tendsto's filter-map definition and searched balanced-sample proportion formulations; compared the first-order sample balance with the separately retained root-total-size theorem condition.",
+          "result": "The limit is expressed with real-cast n/(n+m) along simultaneous divergence of n and m, and the constraint 0<c<1 is a separate real inequality."
+        }
+      ],
+      "gap": "The condition is directly expressible as a real-valued filter limit with both sample sizes diverging and the limiting proportion strictly between zero and one."
+    }
+  },
+  {
+    "interface_id": "local-6d7844ca640efd5f9398",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "8dae01412f8259bd25d4db6c8cd0c159a643c608d5d4c6f24a513ba67cd3b8b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D23",
+        "comparison": "Retain L=2 sum_j Z_j squared times E_V(lambda_j^V), with V and V' having the common null law and the same V' in both covariance indicators. Do not replace averaged pointwise eigenvalues by eigenvalues of an averaged operator. Preserve sqrt(w_x(u)w_x(v)) as printed; Assumption 4 supplies no sign condition, and constant negative weights already make the nonnegative-square spectral representation problematic for the statistic. No operator space, base measure or convergence convention is inferred from an excluded proof.",
+        "statement_sha256": "1d057e89a00f2a23749d33075d94ca4602f3e1cc36f247abbc025ea9417c4f82"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched covariance-surface spectra, distance-profile limits and weighted chi-square series; inspected covariance, real square root, Gaussian laws and infinite product measures against the literal averaged-eigenvalue series.",
+          "result": "Indicator covariance and independent standard normal sequences are available. These do not specify the covariance operator's domain and integration measure, prove existence and measurability of ordered eigenvalues, or establish convergence of this series. Real.sqrt totalizes negative inputs to zero and cannot repair missing source sign conditions."
+        }
+      ],
+      "gap": "The covariance operator, admissible weight signs, measurable ordered eigenvalues and summability of the literal averaged-eigenvalue series remain to be specified or proved."
+    }
+  },
+  {
+    "interface_id": "local-d638af7b2e7491429b07",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "f1736ebbbadb629adee832894dac3727b3b12ad196447f9883e589dc32c33948",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D7",
+        "comparison": "Use every observation and denominator n, including the self-distance if the anchor happens to be a sample point. Initial anchors lie in the support and t>=0; the same expression on real t is zero at negative t. This is distinct from the random-anchor leave-one-out profile later used in the rank estimator.",
+        "statement_sha256": "21602b79fd4457b3154cfb92cc1f8fc5a8a3c4cd6413436093248a47e698894a"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.ofMultiset",
+          "type": "{α : Type u} → (s : Multiset α) → s ≠ 0 → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Equal-weight empirical distribution of a nonempty multiset, with multiplicities preserved.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L315-L329",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected indicator functions, finite-sum evaluation, empirical multiset PMFs and the closed-half-line CDF formula for the full-sample distance-profile estimate.",
+          "result": "The finite indicator average is directly expressible; equivalently, the nonempty multiset of anchor distances gives an empirical probability law whose CDF is this average, with repeated observations counted."
+        }
+      ],
+      "gap": "The estimator is directly assembled from finite indicator sums for n>0, with the full-sample denominator and the source's anchor and radius domain retained."
+    }
+  },
+  {
+    "interface_id": "local-7748a3bda42008b3654f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "3cfd5f95ace2d9574c9b1d802a8083fd52cda95500ee7009f8646d442d2c46fa",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D16",
+        "comparison": "Within X omit i and divide by n-1; within Y omit the fixed anchor j and divide by m-1; cross X-to-Y and Y-to-X use the entire other sample and denominators m and n. Require n,m>=2 for within-group empirical probabilities. The source writes sum_{j not equal i} for the Y_j anchor, where i is the intended summation variable; retain that source issue and do not collapse all four profiles to full-sample estimates.",
+        "statement_sha256": "3912c3bc90cbf41833603531719bf21952161275aa8ceae7c87f4353f17b4bb3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite indicator sums and searched leave-one-out distance-profile constructions; compared all four frozen in-sample and cross-sample formulas and their denominator/index conventions.",
+          "result": "The intended four finite averages can be assembled by filtering the within-group index set and using the full opposite group for cross profiles. The Y within-group summation index is inconsistent in the printed formula and is not repaired by generic sum APIs."
+        }
+      ],
+      "gap": "The four profile averages require their distinct index sets and denominators, while the printed Y-profile summation-index mismatch must remain explicit."
+    }
+  },
+  {
+    "interface_id": "local-d6ef57f13993aa765f65",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "89dccb1b6b13ea4d5ef22e10dc6bf8e620d5dffa47a3ffb96fe449b52415a1a6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D17",
+        "comparison": "Integrate each estimated weight times the squared difference of X-law and Y-law empirical profiles with respect to du; average over X anchors with 1/n and Y anchors with 1/m, then multiply their sum by nm/(n+m). There is no extra half, no integration against an empirical CDF and no assumed positivity in this bare definition; unit weights recover the unweighted statistic.",
+        "statement_sha256": "a53801d1bd902de2497150d4d6ce51eacc01f7b4257b57094b7b72af10b53635"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched weighted distance-profile testing and inspected Bochner integral and finite pointwise sums against the two group averages and harmonic-size prefactor.",
+          "result": "Real integrals and finite arithmetic express the statistic once the four profiles and data-adaptive weight functions are supplied. Integrability and the valid sample-size/index conventions are additional obligations."
+        }
+      ],
+      "gap": "The group-specific profile and weight functions must be supplied with integrability and valid denominators to assemble the two averages and their nm/(n+m) scaling."
+    }
+  },
+  {
+    "interface_id": "local-b940b8dc7dd833576d22",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "62b2b9e3b369e117a3447314cc6c8f4ff59ee14e2e8ad2b2c492dee42abd2c56",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D5",
+        "comparison": "Retain every rank maximizer in the support of P and explicitly include support membership, which IsMaxOn alone does not require. Total boundedness does not imply compactness or attainment, and the subsequent nonempty-median hypothesis must not be manufactured by the argmax definition.",
+        "statement_sha256": "3a8722c4c75d746b33a598ee679213e6a4c607c9b49308c6b559fa7a4c6945d5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.support",
+          "type": "{X : Type u} → [TopologicalSpace X] → [MeasurableSpace X] → MeasureTheory.Measure X → Set X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Support",
+          "provides": "Topological support: every neighborhood of a support point has positive measure; this preserves support containment rather than merely almost-sure membership.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Support.lean#L59-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsMaxOn, including its lack of a membership condition, and measure support against the population transport-median argmax.",
+          "result": "The set is represented by support membership conjoined with IsMaxOn for the supplied transport rank on that support. This does not assert attainment or choose a single maximizer."
+        }
+      ],
+      "gap": "The median set is directly expressible using support membership and IsMaxOn for the supplied rank; its nonemptiness remains a separate assumption or theorem."
+    }
+  },
+  {
+    "interface_id": "local-089865f3107d5485ab87",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "79285bc65ef36ba3036656eb04b4425af4ab2e62adfb24ac6165818762979112",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D24",
+        "comparison": "Use infimum over all real t such that Gamma_L(t)>=1-alpha, not only t>=0 and not a strict CDF inequality. This is the oracle null-law cutoff, distinct from permutation and mixture cutoffs; quantile continuity or rejection calibration is not part of the definition.",
+        "statement_sha256": "a72f4d8383e3ecbfed7dcbe0912ee5d036e8fc0de480b26f56da207ba2289803"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched quantile and generalized-inverse definitions and inspected real CDF tails and conditional-infimum bounds against the unrestricted threshold set in D24.",
+          "result": "The CDF of a specified real null law and the infimum of its threshold superlevel set are available ingredients. Interior probability levels yield a nonempty lower-bounded threshold set for a probability law; endpoints and an unspecified null law require separate treatment."
+        }
+      ],
+      "gap": "The null law and quantile level must be supplied with threshold-set nonemptiness and lower boundedness before its real infimum has the intended quantile meaning."
+    }
+  },
+  {
+    "interface_id": "local-8fa82a009400a5ece412",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "e9a6c15b8901bf7aa5a73e848e4ce5e0682ff848a2c23a5fb168108591238d86",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D8",
+        "comparison": "For each random anchor X_i use its n-1 observation profile, while F_hat_omega is the full n observation profile even when omega equals X_i. Integrate their inverse difference in that order, average with 1/n and apply sigmoid. Require n>=2 and preserve all ranks as scalar values without introducing a threshold argument or a common denominator for the overloaded notation.",
+        "statement_sha256": "032da3b502198c5ff168096d941f070b8889884a40c499d6f58a2901059e0967"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sigmoid",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+          "provides": "Exactly the standard scalar logistic function (1 + exp(-x))⁻¹.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Sigmoid.lean#L63-L63",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched empirical transport ranks and generalized-inverse constructions; inspected sigmoid, integrals and finite sums against the separately recorded full-sample and leave-one-out CDF roles.",
+          "result": "The finite average of signed quantile integrals and the final logistic transform can be represented. The two empirical CDF conventions need distinct functions before generalized inversion, particularly when the fixed anchor equals an observation."
+        }
+      ],
+      "gap": "Separate full-sample and leave-one-out empirical quantiles must be constructed with valid sample sizes and integrability before assembling the empirical transport rank."
+    }
+  },
+  {
+    "interface_id": "local-6467180f11817343f892",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "529a381d0bfe3f97e27dd7ae5c842ac10fddefba4ba31ef32e2f98115454f49e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D21",
+        "comparison": "Use one expectation over X'~P1 and one over Y'~P2, each integrating w_anchor(u) times (F^X_anchor(u)-F^Y_anchor(u)) squared against du. Preserve their sum without the finite-sample harmonic prefactor and without a half. Signed weights are not excluded by the bare definition, and positivity or strong-negative-type arguments discussed elsewhere are not inserted into it.",
+        "statement_sha256": "52122bb8eb3068f962a960dd72bdb6093563ff3cd84c36d85cd419ed4f87591a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched population distance-profile discrepancy definitions and inspected real integration, including the nonintegrable fallback, for the nested expectation/integral formula.",
+          "result": "The sum of two nested real integrals represents the stated population quantity with P1 and P2 as the respective anchor laws. Neither a norm interpretation nor identification of zero with equality of the object laws follows from the generic integral."
+        }
+      ],
+      "gap": "The profile and weight family needs measurability and integrability, with separate sign and identification assumptions for nonnegativity or equality-detection claims."
+    }
+  },
+  {
+    "interface_id": "local-30571158476a4c6eb8eb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "7ffbe4ff58b01f22dd744f392f4e26de7c7dc1c74b2fb32bd7da2d7f22c11026",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D22",
+        "comparison": "Require D^w_XY=a_nm, a_nm tending to zero and (nm/(n+m))*a_nm tending to positive infinity as both sizes diverge. Keep the source's term contiguous as terminology only; it does not by itself assert mutual or one-way Le Cam contiguity between sequences of sample laws.",
+        "statement_sha256": "5fd2165af601660d08e4259958d309f2bcfbc385ae571e2152bc7b63c3ed9afd"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched contiguity and shrinking-alternative formulations and inspected filter limits against the exact two-rate definition in equation (29).",
+          "result": "The alternatives are expressible by the discrepancy equality and two limits, one to zero and one to positive infinity. No Le Cam contiguity criterion is established by these conditions."
+        }
+      ],
+      "gap": "The alternative sets are directly expressible from the supplied discrepancy and its two specified rate limits, without an additional contiguity conclusion."
+    }
+  },
+  {
+    "interface_id": "local-d498dd38b51dc537a77e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "58d0c6b075ff8c481ca6b7a75c1cc7936547eeefd9cbb7d60d9192ae46ef5ce2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D9",
+        "comparison": "Optimize over observed objects, not the whole support or a multiset of indices counted as distinct medians; repeated identical observations produce the same candidate point. Preserve every tie and add no selection rule. Nonempty finite attainment applies after the rank is a real-valued function, which here requires at least two observations for the leave-one-out definition.",
+        "statement_sha256": "859daa180deec7a2edbc2268cc698539362951df85dbcc62916313584950b915"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsMaxOn and Finset.exists_max_image with nonempty finite candidate sets against the empirical transport-median argmax.",
+          "result": "Membership in the finite observed-object set together with IsMaxOn represents all empirical medians. A real-valued rank on a nonempty finite set attains its maximum by the inspected finite-image theorem."
+        }
+      ],
+      "gap": "The empirical median set is directly expressible as all observed rank maximizers once the leave-one-out rank is defined for the valid sample size."
+    }
+  },
+  {
+    "interface_id": "local-c91d3bb7b83de13f17d6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "2c6e52b416eec7952ef09efa698023e404456e986d037ad34867e18d2064c3ea",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D12",
+        "comparison": "Use all omega in Omega and all real t with <=t, taking indicator values zero and one in R. Do not restrict to positive radii or declare the class P-Donsker merely because its individual indicators are measurable.",
+        "statement_sha256": "73bcf9bd99afe994b3767d09775056245b3143990b8239328f6422a944daf30f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched ball-indicator and distance-profile function classes and inspected Set.indicator's value-on-set/zero-outside definition.",
+          "result": "The class is the range of the map from an anchor-radius pair to the real indicator of its closed metric ball. Negative radii give the empty event by distance nonnegativity."
+        }
+      ],
+      "gap": "The class is directly expressible as the family of real closed-ball indicators; Donsker convergence requires the separate entropy and empirical-process arguments."
+    }
+  },
+  {
+    "interface_id": "local-fc97183aa9410ef9ba46",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "c7176c149a125b3e060b8d0a534348cf6eae6ab4ef6b4456e27a6ca3bdadc101",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D13",
+        "comparison": "Retain both directed distances and their maximum. The source's nonempty population-median assumption, a nonempty finite empirical set and ambient total boundedness justify the finite setting; do not infer convergence of the second direction from only the first or use the library's zero fallback as meaningful distance to an empty median set.",
+        "statement_sha256": "5a4e5c605d61621ba833685f6fef234c67e0088d81aecc62d0f996f7843f6ea0"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Metric.hausdorffDist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → Set α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Symmetric Hausdorff distance obtained from the extended distance; its intended finite interpretation applies to nonempty bounded sets, while infinite extended distance is sent to zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L658-L659",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.infDist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Real-valued infimum distance to a set, obtained from the extended distance; for the empty set its toReal convention gives zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L463-L464",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected infDist and hausdorffDist, the underlying extended-distance maximum of directed suprema, and the nonempty-bounded-set finiteness theorem.",
+          "result": "For nonempty bounded median sets, the library's finite Hausdorff distance agrees with the maximum of the two directed point-to-set distances. Its real-valued totalization sends infinite extended distance, including one-empty-set cases, to zero."
+        }
+      ],
+      "gap": "The Hausdorff formula is available once both median sets are nonempty and bounded, with empty-set and infinite-distance conventions kept outside that finite interpretation."
+    }
+  },
+  {
+    "interface_id": "local-b84a2254cdc0be1f5b40",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "59f5d7135c4c1c389561d272b178c01d9cbc75e4d335f9b3ab8539af4821731b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D14",
+        "comparison": "Preserve some eta'>0 and every epsilon in (0,eta'), then infimize over each median and every omega farther than epsilon from that individual median. Two distinct medians make the gap zero when epsilon is smaller than their distance, since both have equal maximal rank. Retain this source consequence rather than changing the condition to distance from the median set; empty inner domains also require an explicit infimum convention.",
+        "statement_sha256": "881507b652a57c34800744c2d64a9a43fb27c8fe8370962beb6ec111c1af09f4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched separated-argmax and transport-median identifiability conditions; inspected conditional-infimum lower bounds and IsMaxOn against the literal nested-infimum formula.",
+          "result": "The nested rank-gap infima can be expressed, with nonempty lower-bounded domains needed for their real-infimum interpretation. The formula separates from each individual median's ball and is not the usual separation from the whole argmax set."
+        }
+      ],
+      "gap": "The literal nested-infimum condition needs domain conventions and cannot be replaced by whole-median-set separation to reconcile the source's conflicting multiple-median prose."
+    }
+  },
+  {
+    "interface_id": "local-e337fda50422411dd619",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "594098303d4683c3d99e169cab9d4f788780c92242b971217af27763a6b54822",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D26",
+        "comparison": "Use cP1+(1-c)P2 with 0<=c<=1 for the definition and independent observations from that same law in both groups. Preserve the later theorem's stricter c in (0,1) separately. The mixture cutoff infimum is restricted to t>=0, unlike the oracle and empirical permutation cutoffs, and no omitted supplement proof or exact limiting law is imported.",
+        "statement_sha256": "812e4d329b24c1b21e89b7e90e5f82b9fb143ba0d86b45fbeeba617121ab72c2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite product probability measures, CDF tails and conditional-infimum bounds; searched mixture-reference permutation limits and compared the frozen mixture law and nonnegative quantile domain.",
+          "result": "A convex combination of probability measures can be used as the common law for independent sample coordinates; CDF and infimum infrastructure describes a supplied limiting cutoff. These declarations do not establish the stated asymptotic distribution under the cited assumptions."
+        }
+      ],
+      "gap": "The common-mixture sample statistic and its limiting law need to be established before forming the specified nonnegative-domain quantile."
+    }
+  },
+  {
+    "interface_id": "local-5235c8a62a6f86693015",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "d5ec6b665e8e3e0604bbae6016a780455f7407af078c2aa7e573e59a6f9136be",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D28",
+        "comparison": "Use strict T^w_nm>q_alpha with the oracle cutoff from the null law, not >= and not the permutation cutoff. The measure must correspond to a chosen alternative pair or an expressly defined composite-law convention; the printed P_Hnm does not itself choose one or define minimax power.",
+        "statement_sha256": "28f1e78a2bae2cf20733160ef6c4fe5e2d051808fbbc0330472714e2d292a9e1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched rejection-probability and composite-alternative power formulations; inspected mapped statistic laws and closed-half-line CDF evaluation against equation (30).",
+          "result": "For a specified sampling law, power is the probability of the measurable strict upper-tail event, equivalently one minus the statistic CDF at a deterministic cutoff. The source does not define a unique sampling law indexed by the composite set H_nm."
+        }
+      ],
+      "gap": "A sampling-law sequence and its null reference cutoff must be specified without inventing an infimum, supremum or uniform-power interpretation of the composite alternative notation."
+    }
+  },
+  {
+    "interface_id": "local-0d5d38d692a9c9dc732d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "b88bbcf629f4f3fb55982f8c1bb736e959ddbef2c33c24d5d400a66b9c8a3db0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D25",
+        "comparison": "Use K independent uniform permutations of all n+m observation indices, independent of the data, then evaluate the same weighted statistic functional for each replicate and average I(T_Pi_j<=t) with 1/K. The source's Y_Pi_j second entry is V_Pi_j(2), overlapping the first group instead of the expected next element of the second group; preserve this conflict rather than silently substituting an algorithm. Data-adaptive weights are not automatically frozen across permutations. The cutoff uses >=1-alpha and all real t, with K>0.",
+        "statement_sha256": "908cb5a584a95fb1ae8f73930ab613ccc6e52ce1977a89c6875606e0af177ce7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fintypePerm",
+          "type": "{α : Type u} → [DecidableEq α] → [Fintype α] → Fintype (Equiv.Perm α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Fintype.Perm",
+          "provides": "Finite enumeration of all bijective relabelings of a finite label type, including the identity permutation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Fintype/Perm.lean#L136-L137",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched permutation-test and randomization-CDF APIs; inspected the finite permutation instance, uniform finite PMF, empirical indicator averaging and infimum cutoff construction against the printed split.",
+          "result": "Uniform independent permutations of a finite index set and their empirical statistic CDF can be assembled. These operations do not repair the source's second Y-group index or prove the permutation limit and calibration."
+        }
+      ],
+      "gap": "The printed inconsistent split must be resolved before a faithful executable permutation procedure can be claimed, together with statistic re-evaluation and quantile-domain obligations."
+    }
+  },
+  {
+    "interface_id": "local-b310d1d69e03cc2f5b32",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "9c4615cb8556131a01219058a3a5f3fb494626fa8906ba46fd9fd3e9050132ba",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D27",
+        "comparison": "Use the permutation-derived q_hat_alpha and include its dependence on the observations and Monte Carlo permutations in the same probability space as T^w_nm. Retain strict exceedance and the source's unspecified P_Hnm convention; do not substitute the oracle power, condition away cutoff randomness without justification or infer Le Cam contiguity from the alternative label.",
+        "statement_sha256": "8e855305fa792fcf25278902cb77c9ac3e0a405b43af281eddaedf7a478b6778"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected mapped laws for measurable functions of the joint data and permutation randomness; compared strict rejection with a random cutoff in equation (31) to the oracle-cutoff power.",
+          "result": "For a specified joint law, the strict event T(data)>q_hat(data,permutations) has a well-defined rejection probability. A marginal CDF at a deterministic value does not in general describe this dependent random-cutoff event."
+        }
+      ],
+      "gap": "The joint sampling and permutation law, valid random cutoff and composite-alternative interpretation must be supplied for the stated rejection probability."
+    }
+  },
+  {
+    "interface_id": "local-fdf58e7d53b10b14a146",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "d932f2f959608e871285709157c9ee4c69bac0ac33333a9e712733650e764bf2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D3",
+        "comparison": "Preserve K=d^theta with theta>0 and the two self-energy terms minus twice the cross term, equality only when P1=P2. The earlier all-measurable-h statement omits mean zero and integrability; for a point-mass law its zero-diagonal kernel gives equality for nonzero h, contradicting the stated equality condition. Do not assert equivalence or silently amend it, and do not replace Theorem 4.1(d)'s assumption on d itself by strong negative type of an arbitrary different power.",
+        "statement_sha256": "4cfce9e9ad09cd8acb5be775383885c78214d34cb0657c01a0e9e5dfd9f4eeae"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for strong negative type and energy-kernel formulations; inspected real powered distance and double-integral infrastructure against both literal source characterizations.",
+          "result": "Real distance powers and energy integrals can be represented under integrability assumptions. The search did not supply the requested strong-negative-type package, and the source's unrestricted-h characterization is inconsistent as printed rather than an equivalent usable predicate."
+        }
+      ],
+      "gap": "A consistent strong-negative-type predicate with the required integrability and mean-zero restrictions is needed, while the source's inequivalent unrestricted-h formulation must remain explicitly flagged."
+    }
+  },
+  {
+    "interface_id": "local-b6dded32fe30ace586aa",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:52:57.668928+00:00",
+    "source_interface_sha256": "434105dc409108cf47b1524bbe7230a1adb0fc05db287be3392abe77d4216969",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0757",
+        "local_id": "D6",
+        "comparison": "Require F_mode(u)>=F_omega(u) simultaneously for every omega and every u>=0; the larger CDF means stochastically smaller distances. This is not density maximization or minimization of only an expected distance, and the distinguished anchor's existence is not obtained merely by defining the predicate.",
+        "statement_sha256": "0766e136d8aa9ccbbccfda3217e3c2aa1ee92cf47d374544b6a6056decfd13c1"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched transport-mode and distance-law stochastic-order formulations; inspected CDF as closed-ball probability after the distance pushforward.",
+          "result": "A supplied distinguished anchor is a transport mode precisely when its distance-law CDF dominates every other anchored distance-law CDF at every nonnegative radius. This is an expressible predicate and does not assert that such an anchor exists."
+        }
+      ],
+      "gap": "The mode predicate is directly expressible through the anchored distance CDFs; existence of an anchor satisfying all radius inequalities remains separate."
+    }
+  }
+]

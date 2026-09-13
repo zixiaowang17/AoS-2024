@@ -1,0 +1,443 @@
+[
+  {
+    "interface_id": "local-2f55f718af9e14253932",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "9533e5e0dea574d4ecc0c008b18bafa7dad2bf65a4309a340f7fda246b90c3b7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D12",
+        "comparison": "I_4,k consists of ordered k-tuples of distinct indices; its pair, triple and quadruple counts are 12,24,24. Keep the kernel-weighted terms with coefficients 1/12,-1/12,1/24 and arguments kappa(Y_i,Y_j), kappa(Y_j,Y_k), kappa(Y_k,Y_l), respectively. The mu block uses f_i^2 f_j^2, f_i f_j^2 f_k, and f_i f_j f_k f_l with those same coefficients, followed by -2mu times [one-quarter sum_i f_i^2 minus one-twelfth ordered-pair sum f_i f_j], and finally +mu. Distinct observations do not prohibit repeated function factors within a term. A filtered finite function index set implements the ordered tuples; replacing them by combinations without adjusting coefficients changes the formula. Full symmetry and E h=L1 require proofs using joint iid copies and integrability. This is the first-direction kernel and includes no covariance-with-previous-directions term.",
+        "statement_sha256": "cd61b94fefbc685eb33c3e786d50656cad45ac40ec135573d48e8bf711d5d4ef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched U-statistic kernels and inspected finite distinct-index filtering and sums; compared all terms of the literal four-observation kernel.",
+          "result": "Finite filtered tuples and sums can construct the kernel exactly, but no inspected declaration supplies its symmetry, population expectation or estimator properties."
+        }
+      ],
+      "gap": "Construct the exact order-four kernel with ordered distinct tuples, repeated function arguments and every printed coefficient, then prove its symmetry and expectation identity."
+    }
+  },
+  {
+    "interface_id": "local-8fda01156bae5507be40",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "d80ea4502214a1620516defc141c65be125071dde87cde7dd4421f9aba7f1406",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D14",
+        "comparison": "L_1,n is binomial(n,4)^-1 times the sum of h_mu1,f1 over J_n,4, the INCREASING four-tuples. Finset.powersetCard and card_powersetCard provide the combination count; applying h to each subset requires a canonical increasing enumeration or a proved symmetry invariant. The ordered I_4,k sets remain internal to h and are not averaged again outside it. n>=4 is needed for the ordinary inverse normalization; real division by a zero binomial is not a source convention. f-hat_1,mu1 lies in F_n and satisfies a global minimum condition; IsMinOn alone gives neither membership, existence, uniqueness nor sample-measurable selection. This first estimator has no previous estimated or population direction, and a Hoeffding first-order approximation is not substituted for its actual objective.",
+        "statement_sha256": "d1427b411a79d45e2664f138adfab915a7a8c34e496a50490f543a1599c732c6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected four-element subsets, their binomial cardinality and global-minimum predicates; compared increasing-tuple averaging with the kernel's ordered inner sums.",
+          "result": "The order-four empirical average can be assembled from increasing four-tuples or canonically ordered four-subsets, but a selected global minimizer requires separate justification."
+        }
+      ],
+      "gap": "Construct the normalized first-direction U-statistic and a selected minimizer in F_n, preserving the n>=4 domain and the absence of previous-direction penalties."
+    }
+  },
+  {
+    "interface_id": "local-1c9c2e4385792bb930ef",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "68963d9f5d8bedf4915d0b9827dd2f856d66bd4956140484a259fcfce6531bc9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D21",
+        "comparison": "Hold z fixed and integrate the last three observations under independent copies of the joint law of Z=(X,Y). The first-order loss is FOUR times that integral minus THREE times population L1, not simply the conditional kernel expectation or a mean-zero projection. Under the proved E h=L1 and integrability, E ell_1=L1, so bar-v_1,n=v_1,n-L1 is centered. Both sample averages explicitly include 1/n. The separate proof display that omits this factor is not substituted, and v is not the same random objective as the original order-four U-statistic. Sample independence and measurable functions must be specified consistently; a generic product integral does not certify the paper's full sampling setup or its variance bound.",
+        "statement_sha256": "8bd20663fd5884bb30aabf5c6df3f71fda47237e7b7565c7284ef9553ecce9f3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Hoeffding projections and inspected product-measure integration and normalized sums against the exact first-order loss and centered target definitions.",
+          "result": "The one-observation projection and its empirical mean have integral/sum ingredients, but their relationship to the order-four objective requires the expectation identity and sampling conditions."
+        }
+      ],
+      "gap": "Construct ell_1=4 E h(z,Z2,Z3,Z4)-3 L1 and its sample average, retaining the explicit 1/n and centering by L1."
+    }
+  },
+  {
+    "interface_id": "local-6963957d4c01a6b147b6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "adbdad3f3f9cf7e112ea7c1ce11706ff190b24a54f2923399d40f54f6feb4d01",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D22",
+        "comparison": "rho^2(f,g)=C1 min{||f-g||_L2(PX)^2,||f+g||_L2(PX)^2}; rho itself is its nonnegative square root. MemLp conditions give finite L2 norms, and the expression vanishes for f=-g even when the functions differ, so it is not a separating metric on unquotiented functions. A sign quotient can address that identification only after proving the metric properties. The source requires Var(ell_1(mu1,f,Z)-ell_1(mu1,f-star,Z))<=rho^2(f,f-star); this is not automatic from either variance or norm definitions and C1's exact choice is deferred to an excluded proof. Actual square integrability is necessary because infinite real variance is totalized. Remark 3.3 imposes mean-zero functions while later biased networks are not explicitly centered; centered objectives are translation invariant but rho is not, so that source convention must be resolved rather than silently centering the estimator.",
+        "statement_sha256": "8ed33880c5458189303dcef674ad4bf9851181bef4e2878a7bff396f5210b2b4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected L2 difference norms and real variance; searched sign-quotient distances and compared the C1-scaled squared-distance definition with the separate variance domination (12).",
+          "result": "The minimum of the two squared L2 distances is expressible, but it identifies signs and the required variance domination is a further analytic bound."
+        }
+      ],
+      "gap": "Construct the sign-invariant L2 pseudodistance and establish a positive C1 satisfying the first-order-loss variance bound under the source's centering convention."
+    }
+  },
+  {
+    "interface_id": "local-fb121999cc6ebc719781",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "4262de66f1c1e2828a58ace7388d60db011383da23bd4efb36a8e85fb4295a57",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D10",
+        "comparison": "The first term integrates the inner product of centered f(X) and f(X-tilde), multiplied by kappa(Y,Y-tilde), under a joint independent copy of the entire observation pair. The covariance matrix has centered covariance entries, not the library's uncentered covarianceOperator applied directly to the uncentered law. The penalty is mu times ||Var(f(X))-I_d||_F, with no square on the Frobenius norm and no componentwise mu_j. The explicit Frobenius instance distinguishes it from operator or entrywise maximum norms. Finite second moments yield covariance, while the kernel-weighted cross expectation needs its own integrability. This is not equivalent by definition to summing the successive squared variance and covariance penalties. Theorem 3.8 is population-level; its separate empirical implementation is delegated to the supplement and is not imported here.",
+        "statement_sha256": "a7f56d38b15e0c09776f661599cb96fa3b77e6cedae9dcd2a2b3f58e2ce1fba4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected centered covariance entries, joint-copy expectation and the Frobenius matrix norm; compared the unsquared vector penalty with the successive scalar losses.",
+          "result": "The vector objective has expectation, covariance and Frobenius ingredients, but its exact population optimization and claimed recovery properties need separate construction and proof."
+        }
+      ],
+      "gap": "Construct the population vector objective with its single scalar mu and UNSQUARED Frobenius covariance penalty, retaining all centering and integrability requirements."
+    }
+  },
+  {
+    "interface_id": "local-8c6927140bc86a17bd71",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "1579508a4a87acf7c0ccb7d3da9c7fcda993557ff38229b716f2a8802d2e71c9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D7",
+        "comparison": "At step k maximize the NEGATIVE centered kernel expectation subject to Var(f(X))=1 and Cov(f(X),f_j-star(X))=0 for each j<k. The previous functions are actual maximizers of preceding constrained steps, not penalized population or empirical estimates. IsMaxOn must be paired with membership in the feasible L2 class; it gives no attainment or enough nonconstant directions. In the mean-zero convention covariance orthogonality becomes the corresponding L2 inner-product condition by proof, while without that convention additive constants remain unidentified. Square integrability supports the moment constraints, but integrability of the response-kernel expectation is additional. This internal recursion is distinct from the penalized objective and does not acquire its strict spectral-gap or tuning assumptions merely from nearby results.",
+        "statement_sha256": "5974d9bd8b8567519b478b31cc726767dc621cb14a2bd638d64bf5327fc6c2b6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched successive dimension-reduction directions and inspected constrained maximum, variance/covariance and joint-copy expectation predicates.",
+          "result": "Each constrained population maximization is expressible, but existence and selection of enough successive directions are not supplied by generic extrema."
+        }
+      ],
+      "gap": "Construct successive unit-variance population maximizers orthogonal in covariance to previously chosen directions, with justified existence and centering conventions."
+    }
+  },
+  {
+    "interface_id": "local-3abc219743299d0b73a4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "6e55a43fe48ca4403880d02c0af2ab88fcba1fbcb24fa420eba8ba3fa5cb8bcc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D18",
+        "comparison": "For a fixed beta in (0,1], require some finite zeta>0 such that |f(x)-f(y)|<=zeta||x-y||_2^beta for all cube points. HolderOnWith accepts nonnegative constant/exponent parameters and extended metric distances; on finite real Euclidean space these convert to the displayed real inequality. Use the Euclidean cube or its subtype, not the default coordinate-sup metric with the same constant. The wording calls f beta-Holder but also existentially mentions beta; the indexed class C^beta fixes the intended beta while preserving the original statement. No common zeta is imposed across the class, no derivative-based beta>1 extension is added, and the cube-domain definition by itself does not restrict the general law of X to that cube.",
+        "statement_sha256": "f699502530e5ff101b3fa2f817e6b93f4a650659ad1bd5e91c8c30a507a5dc99"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected HolderOnWith's metric, constant and exponent parameters against the source's scalar unit-cube definition and existential radius.",
+          "result": "HolderOnWith on a Euclidean cube represents the source inequality once the exponent is fixed and a positive function-dependent constant is supplied."
+        }
+      ],
+      "gap": "Assemble the unit-cube Holder class with beta in (0,1] and an existential positive constant for each function."
+    }
+  },
+  {
+    "interface_id": "local-c3715d4995f3bd4117b8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "3981869aaeefce4c013ff1832ef65eab428556664a042b92fb66dd8add09b5be",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D17",
+        "comparison": "A3 concerns f-star_j,mu_j for every j=1,...,d, the penalized POPULATION directions, not the unpenalized directions, all candidate networks or estimated functions. Each belongs to C^beta([0,1]^p) with beta in the source range (0,1] and an existential finite positive Holder constant. For finite fixed d one may take a maximum of chosen constants, but the source does not give a radius uniform over models, dimensions or sample-size-dependent targets. The condition is inherited through Corollary 4.5 for the final clause of Theorem 4.6; it is not an extra hypothesis of Theorems 4.2 or 4.4. Domain/support and the standing mean-zero convention remain separate qualifications.",
+        "statement_sha256": "e37074177f4e314011b224ed805e425381674fa98ee202d7a8701851ecfc1ec5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the Holder predicate and compared Assumption A3's targets and theorem inheritance with the original C^beta definition.",
+          "result": "A finite family of Holder conditions on the penalized population directions is expressible, retaining function-specific constants and the source exponent range."
+        }
+      ],
+      "gap": "Impose the same beta-Holder class membership on each penalized population direction, with the source's existential constants and theorem-local scope."
+    }
+  },
+  {
+    "interface_id": "local-0ee021d81de8912065ff",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:59:11.490267+00:00",
+    "source_interface_sha256": "382f082159381877e3f40e01565d5ceb3275a4e9a4ac3b5a4dfc797d077a80e5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1201",
+        "local_id": "D24",
+        "comparison": "Width is 3^(p+3) max{p floor(N^(1/p)),N+1} for arbitrary positive integer N. Depth is 12 n^(p/(2(p+2beta)))/log n+14+2p, which need not be an integer; no rounding is printed. The source counts hidden layers and uses one additional affine output map with scalar output. Retain A1,A2,A3 and n>=S L log S, where S is the actual full affine parameter count from the supplied layer sizes. N is not fixed to an invented optimal value. Positive p and a nonzero logarithm/sample domain are needed, and a typed network requires an explicit admissible depth interpretation. A2 separately bounds all candidate functions; architecture alone with unrestricted weights and biases does not imply that bound or mean-zero outputs. No bounded-weight restriction or centering operation is inserted. This records invoked corollary hypotheses, not a new inventoried theorem or a supplement-defined estimator.",
+        "statement_sha256": "c5524b46eedc86027f6ef09bc93cf14339e4aab2811de44d79d406b4ee6240af"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched scalar ReLU architecture and inspected floors, logarithms and affine-layer matrix action against the exact Corollary 4.5 hypotheses invoked by Theorem 4.6.",
+          "result": "The architecture formulas and affine ReLU layers have arithmetic ingredients, but the noninteger depth and bounded candidate-class requirements need a precise construction."
+        }
+      ],
+      "gap": "Construct the specified scalar ReLU class with its free N and exact sample-size condition, resolving depth integrality and the separate A2 uniform bound."
+    }
+  }
+]

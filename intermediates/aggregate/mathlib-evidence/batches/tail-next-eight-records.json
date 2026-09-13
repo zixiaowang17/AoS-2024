@@ -1,0 +1,386 @@
+[
+  {
+    "interface_id": "local-f307d9a13d29140db7c2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "baaf7bb1d5de9c67fd4ee1eb4bdb5c476be6cfb3a83ff29db61c9bab51806be5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2613",
+        "local_id": "D12",
+        "comparison": "Compose real logarithms, multiplication, division and square root with the variance estimate at m and m log(max(m,e)); rho_m is fixed from that starting time rather than recomputed at each t. Positive m and variance are needed for the intended denominator, and 0<alpha<1 alone does not automatically make the displayed numerator nonnegative. Mathlib's total logarithm, square root and division conventions cannot silently fill those missing statistical cases. The generic operations supply no sharp all-future-time coverage theorem.",
+        "statement_sha256": "5ce5fd06ef752d026937d497845e2c2ab0058a6dd65b4dffce488cf559888c9f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for confidence sequence, AsympCS and Gaussian mixture; inspected Real.log and Real.sqrt bodies and the source's first-peeking-time formula.",
+          "result": "No named implementation of this tuning rule was located. Real.log extends to negative inputs via absolute value and is zero at zero; Real.sqrt is zero on negative arguments, so their total Lean values do not resolve the paper's statistical domain."
+        }
+      ],
+      "gap": "The first-peeking-time tuning formula and its positive-denominator and nonnegative-radicand domain still need to be defined and related to the stated coverage result."
+    }
+  },
+  {
+    "interface_id": "local-724b2079c209189ade7f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "33a85c6b4f1851cb37709c521a5724415ac5c444a21c67a9fb90ecaa9185ffde",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2613",
+        "local_id": "D11",
+        "comparison": "The width uses t times the variance estimate inside t*sigmahat_t^2*rho_m^2+1, divides by t^2*rho_m^2 and takes the logarithm of its square root divided by alpha. Keep rho_m frozen from m, preserve both endpoint expressions, and do not replace this by variance times a fixed-rho boundary. Real.log and Real.sqrt allow an expression only after the intended domain is specified; they do not introduce the theorem's L1/L2/L3eta assumptions into the definition or prove its t>=m coverage.",
+        "statement_sha256": "01d02977561b0b96731ed8585acb91e0b8c7d6f9abe5e1560f7a9be446f39d37"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for Gaussian mixture, confidence sequence and AsympCS; inspected Real.log, Real.sqrt and the nearby Doob maximal_ineq statement in Probability/Martingale/OptionalStopping.",
+          "result": "The real-function primitives can express the displayed endpoints. The inspected Doob inequality bounds a finite-time maximum of a nonnegative submartingale and does not implement this estimated-variance Gaussian-mixture interval or its asymptotic simultaneous coverage."
+        }
+      ],
+      "gap": "The later-started interval with frozen rho_m, its domain conventions and its asymptotic simultaneous-coverage argument remain to be supplied."
+    }
+  },
+  {
+    "interface_id": "local-c13ce28c95761d2f2f85",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "0a1686f8b044ffce599698cfa3c359f8b547985591457d3eef88c5410cfc89ec",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D30",
+        "comparison": "Instantiate the predicate with Uhat_k(tau,B,D)<=2*Cbar_beta*|B|^betahat. Lean naturals already include zero; the minimum includes equality and is not a strictly positive first-crossing index. Nat.find requires proof that the set is nonempty and a decidability instance, which may be classical for real inequalities. Uhat's zero-pull branch uses ordinary log and the explicit 1/0=infinity convention; ordinary real division or log-plus would change the source. Do not import known beta, C_beta or the known-parameter confidence radius into this adaptive member.",
+        "statement_sha256": "53ed1bcb0650bebf9c5ababbf4bf2e8e22e7d7fe8e4ac21fe958108bc521f5e6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for contextual bandit and successive elimination; inspected Nat.find, find_spec, find_min and find_min' alongside the paper's adaptive radius (17) and threshold (18).",
+          "result": "Nat.find gives the least satisfying natural number, including zero, after a decidable predicate and an existence proof are supplied. It neither defines U-hat nor establishes its square-root domain, nonempty crossing set or statistical meaning."
+        }
+      ],
+      "gap": "The adaptive crossing predicate, its finite-witness proof and the source's zero-pull radius conventions are still required before Nat.find represents this threshold."
+    }
+  },
+  {
+    "interface_id": "local-5d91e78875b43c816b7a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "af4ab30c62e80f1e166ce61cbd94280274e15d5622a410d16ddb4b70c280068e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D21",
+        "comparison": "Use the nonnegative natural predicate U_k(tau,B,D)<=2*C_beta*|B|^beta, retaining the weak inequality and possible zero minimum. The referenced U takes the maximum with the smoothness floor, uses log-plus and explicitly sets 1/0=infinity, so a naive real-valued implementation would not match. Nat.find captures the least witness after existence and decidability are provided; it does not establish those premises or turn this source-data-defined count into a stopping-time theorem.",
+        "statement_sha256": "ba58b27b7dd3807bfcbb4b650a7134db5c6a23839eb730dbb4dd688ce40ad676"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for multi-armed bandit and successive elimination; inspected Nat.find and its satisfaction/minimality lemmas against confidence radius (9) and threshold (10).",
+          "result": "The natural-number minimum primitive matches the index and minimality structure only when a witness exists. It supplies neither the source-data radius with extended zero-denominator convention nor the bandit's threshold guarantees."
+        }
+      ],
+      "gap": "The known-parameter radius predicate and a proof that it reaches the stated threshold remain to be supplied for the Nat.find construction."
+    }
+  },
+  {
+    "interface_id": "local-b1a01e4542ff6b7fa753",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "760de95caa70ad034607d82a2bfc850b3a71a7dfd358b0ab73764c8d19c06eff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D22",
+        "comparison": "For the known-parameter invocation, retain source-data counts/means and equation (10) thresholds, the all-arms stopping test, arbitrary argmax tie breaking, and the separate exploitation versus sequential exploration updates. Finset.max' requires a nonempty finite score set and supplies its value, so selecting an arm needs an attaining witness; Finset.filter can encode eligibility but not automatically the changing lower bound inside the arm loop. Nat.find can represent thresholds only after their existence proof. No library result supplies active-set nonemptiness, policy measurability, reward-law construction or regret from these operations alone.",
+        "statement_sha256": "f4b137e501654adcc63f487585d7ae287adedee14917beb6c9a189a5644eedc4"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D22a",
+        "comparison": "The original Procedure 1 body is repeated verbatim, including its equation (10) initializer reference, but the archived adaptive invocation explicitly substitutes Uhat from (17), tauhat-star from (18) and the decision-making source-data subset. Preserve that recorded specialization rather than treating it as the known-parameter policy. Generic finite filtering, maxima and minimal indices leave the same state/selection invariants to implement and do not resolve the adaptive zero-pull logarithm or source initializer-reference mismatch.",
+        "statement_sha256": "f4b137e501654adcc63f487585d7ae287adedee14917beb6c9a189a5644eedc4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for bandit, multi-armed and successive elimination; inspected finite filter, nonempty finite maximum and natural minimum bodies, and both local Procedure 1 invocation contexts.",
+          "result": "Finite filtering, maxima and minimal pull thresholds provide individual state operations. No implementation of the paper's reward-updating, sequential elimination policy was located; max' returns a reward value rather than an arm argmax witness, and a one-shot filter is not the whole sequential procedure."
+        }
+      ],
+      "gap": "The stateful elimination policy, its reward sampling and update invariants, and its two distinct confidence-bound invocations still need implementation."
+    }
+  },
+  {
+    "interface_id": "local-c384911c330e713e5306",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "d3c2b2f58e2eb91cc1f6430367d768ef25b2ad100d806440427142a81ce7e220",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D31",
+        "comparison": "Algorithm 2 first runs Procedure 2, keeps its policy before s_Q and forms source data from s_P onward, then starts the bin policy at s_Q using betahat and the adaptive Uhat/tauhat-star. It can split several times before one target arm pull, inherits surviving arms into children and resets local clocks/counts. Finset operations support individual updates and Nat.find the threshold minimum under a witness, but none supply the history-dependent recursion, repeated-split termination, source-boundary ownership, policy sampling or regret. The ordinary-log adaptive radius and unchanged reference inside the original Procedure 1 remain recorded source limitations.",
+        "statement_sha256": "9928f03fe509810f4604b50235a33f0df7e84cff5204078ecbdedf227c7a08a1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for adaptive transfer learning, contextual bandit and successive elimination; inspected finite filter/max and Nat.find, then Algorithm 2 and Procedure 1's adaptive invocation context.",
+          "result": "The inspected declarations implement finite comparisons and least indices. They do not implement the smoothness-estimation exploration phase, data split, per-bin policy state, repeated child partition or adaptive confidence substitution of Algorithm 2."
+        }
+      ],
+      "gap": "The two-stage adaptive policy, source-data split, repeated partition updates and their termination and statistical invariants remain to be formalized."
+    }
+  },
+  {
+    "interface_id": "local-256936fb5d2a57bd5f2f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "4a0c0ed7ab1dd281f2771c7665737f5cfe7b2ed62e5cd91363f8583173ee42c5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D23",
+        "comparison": "Keep the known beta/C_beta/gamma/kappa inputs, original source data, equation (10) limits and U from equation (9). The while condition requires more than one active arm and every active count above its threshold; the zero-threshold branch filters arms before inheritance, then each child gets a fresh policy and local counts. One target context may trigger multiple splits before the local clock advances and one reward is sampled. Finset.filter/max' and Nat.find supply only components, not a proof of bin uniqueness, repeated-split termination, nonempty survivors, measurable adaptive policy or the theorem's regret bound.",
+        "statement_sha256": "531389197d8041e86e314e2f6c0bd75872b8dc8bafc5780421dfbf4b05a69890"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for transfer learning and contextual/multi-armed bandit; inspected finite filter/max and Nat.find, then Algorithm 1's full control hierarchy and confidence-bound dependency.",
+          "result": "The library provides elementary finite-state selection operations, but no located declaration implements this source-informed contextual partition policy or couples its per-bin successive-elimination states to sampled rewards."
+        }
+      ],
+      "gap": "The known-parameter contextual policy, nested splitting recursion and its bin-state and statistical invariants still need implementation beyond the finite-set primitives."
+    }
+  },
+  {
+    "interface_id": "local-6bee7991f4c7196dd2ea",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:08:56.940602+00:00",
+    "source_interface_sha256": "f1c1ffd73129197009c222902a4b72e7eedd4582ce21d80ea09a1e0378b719cb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D2",
+        "comparison": "Use a Dirac initial law at x and the stationary transition kernel applied to the latest history coordinate to instantiate trajMeasure. This represents a chain started at each x without choosing a conditional expectation on a potentially null event X0=x. With measurable bounded reward and a discount strictly below one, a geometric domination argument can justify the real infinite sum and its expectation; those proofs are not supplied by trajMeasure or the total Bochner integral, which returns zero outside integrability. The one-step Bellman identity and uniqueness on a specified bounded-function space require separate arguments. This true value is not the projected RKHS target except in the explicitly realizable source families.",
+        "statement_sha256": "e37f1370923b86e6216d526d5ba0da11f240da3f795d700bfd1319065199280d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.trajMeasure",
+          "type": "{X : ℕ → Type u} → [∀ n, MeasurableSpace (X n)] → MeasureTheory.Measure (X 0) → (κ : (n : ℕ) → ProbabilityTheory.Kernel (Π i : Finset.Iic n, X i) (X (n + 1))) → [∀ n, ProbabilityTheory.IsMarkovKernel (κ n)] → MeasureTheory.Measure (Π n, X n)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.IonescuTulcea.Traj",
+          "provides": "Law of the infinite trajectory with a given initial measure and successive history-dependent Markov kernels; discounting and rewards are separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/IonescuTulcea/Traj.lean#L762-L765",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Whole-Mathlib search for Bellman and discounted value; inspected Kernel.trajMeasure and its probability-measure instance, IsMarkovKernel, Bochner integral and nearby contracting-map fixed-point APIs.",
+          "result": "trajMeasure constructs the infinite path law from an initial measure and history-dependent Markov kernels, and the Bochner integral supplies expectation after integrability. Generic contraction infrastructure is available, but no located declaration specializes it to the discounted reward/Bellman value operator."
+        }
+      ],
+      "gap": "The discounted reward functional, its convergence and integrability, and its Bellman fixed-point characterization still need to be connected to the constructed trajectory law."
+    }
+  }
+]

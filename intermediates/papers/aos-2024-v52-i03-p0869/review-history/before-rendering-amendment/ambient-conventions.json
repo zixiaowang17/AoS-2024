@@ -1,0 +1,501 @@
+{
+  "paper_id": "aos-2024-v52-i03-p0869",
+  "auxiliary_passages": [
+    {
+      "auxiliary_id": "A1",
+      "statement_original": "Given $\\epsilon\\in(0,1)$, define the $\\epsilon$-total variation mixing time of $P_n$ with starting distribution $\\mu_n\\in\\mathcal P(\\mathcal X)$, where $\\mathcal P(\\mathcal X)$ denotes the set of probability distribution on $\\mathcal X$, as\n\\[\nt_{mix}^{(n)}(\\epsilon,\\mu_n)=\\inf\\{t\\geq0:\\|\\mu_nP_n^t-\\pi_n\\|_{TV}<\\epsilon\\},\\tag{4}\n\\]\nwhere $P^t$ denotes the $t$-th power of $P$, $\\mu_nP_n^t(A)=\\int_{\\mathcal X}P_n^t(x,A)\\mu_n(dx)$ for any $A\\subseteq\\mathcal X$ and $\\|\\cdot\\|_{TV}$ denotes the total variation norm.\n\nand the associated worst-case mixing times for $P_n$ targeting $\\pi_n$ are\n\\[\nt_{mix}^{(n)}(\\epsilon,M)=\\sup_{\\mu_n\\in\\mathcal N(\\pi_n,M)}t_{mix}^{(n)}(\\epsilon,\\mu_n).\\tag{6}\n\\]",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Section 2.1 — general mixing and kernel-action conventions"
+        }
+      ],
+      "resolution": "The generic formulas explain the notation specialized in Section 4. Their omission of an explicit integer restriction on t is interpreted through discrete kernel powers. They are not additional premises of Theorem 2.4, whose displayed conclusion is a fixed-time distance limit."
+    },
+    {
+      "auxiliary_id": "A2",
+      "statement_original": "Denote the mixing times of $\\widetilde P$ as\n\\[\n\\widetilde t_{mix}(\\epsilon,M)=\\sup_{\\widetilde\\mu\\in\\mathcal N(\\widetilde\\pi,M)}\\inf\\{t\\geq1:\\|\\widetilde\\mu\\widetilde P^t-\\widetilde\\pi\\|_{TV}<\\epsilon\\}.\n\\]",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 2.4 — limiting mixing-time convention"
+        }
+      ],
+      "resolution": "The limiting definition begins at t>=1, whereas (4) and the hierarchical definitions begin at t>=0. The original difference is retained; no corollary is added to the Theorem inventory."
+    },
+    {
+      "auxiliary_id": "A3",
+      "statement_original": "The results we develop below could be extended to more general versions of assumption (A1), including ones where the co-domain of $\\phi_n$ is not equal to the domain, i.e. $\\phi_n:\\mathcal X\\to\\mathcal Z$ for some $\\mathcal Z$, and where the limiting distribution $\\widetilde\\pi$ is random, i.e. allowed to depend on the sequence $(Y^{(n)})_n$. Since (A1) is enough for our purposes and motivating applications, we do not consider such extensions here to keep notation simple.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Section 2.2 — stated scope of A1"
+        }
+      ],
+      "resolution": "A1 in this paper uses a common domain/codomain and fixed limiting target. The mentioned random-limit extension is not silently included in Theorem 2.4."
+    },
+    {
+      "auxiliary_id": "A4",
+      "statement_original": "The proof, which can be found in Appendix C, relies on the coordinate-wise and bijective requirements of (A1).",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Before Lemma 2.1 — transformation terminology"
+        }
+      ],
+      "resolution": "This sentence says bijective, but A1 itself only says injective and measurable. The appendix proof is not read to resolve the discrepancy."
+    },
+    {
+      "auxiliary_id": "A5",
+      "statement_original": "The second set of regularity assumptions (B4)-(B6) are described and discussed in Appendix B. They deal with smoothness and regularity of the conditional distribution $\\widehat\\pi_J(\\mathbf T\\mid\\psi)$ and they allow to derive a suitable conditional Central Limit Theorem in total variation for $\\widehat\\pi_J(\\mathbf T\\mid\\psi)$ as $J\\to\\infty$.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Section 4.2 — reference to excluded assumptions"
+        }
+      ],
+      "resolution": "This is a main-text description, not the statements of B4-B6. Their exact quantifiers and conditions remain unresolved. This paragraph is retained as evidence of the reference and does not stand in for three invented assumptions."
+    },
+    {
+      "auxiliary_id": "A6",
+      "statement_original": "In particular, the conditional independence of $\\theta_1,\\ldots,\\theta_J$ given $Y_{1:J}$ and $\\psi$ implies that the sequence of updates from the low-dimensional distributions $\\mathcal L(d\\theta_j\\mid Y_{1:J},\\psi)$ for $j=1,\\ldots,J$ is equivalent to an exact joint update from the high-dimensional distribution $\\mathcal L(d\\boldsymbol\\theta\\mid Y_{1:J},\\psi)$. Also, since local parameters interact only with local data conditional on $\\psi$, i.e. $\\mathcal L(d\\theta_j\\mid Y_{1:J},\\psi)=\\mathcal L(d\\theta_j\\mid Y_j,\\psi)$, one iteration of the Gibbs sampler can typically be implemented with a computational cost that scales linearly with $J$.",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Section 1.1 — conditional factorization of local updates"
+        }
+      ],
+      "resolution": "This supplies the model interpretation behind the exact product of local posterior conditionals in the feasible start. The linear-cost statement is conditional on implementing exact local updates with the stated cost, not a theorem about arbitrary approximate samplers."
+    },
+    {
+      "auxiliary_id": "A7",
+      "statement_original": "The latter means that for every $\\delta>0$ there exist an integer $N_\\delta$ and a real constant $B_\\delta<\\infty$ such that $Q^{(n)}(t_{mix}^{(n)}(\\epsilon,M)\\leq B_\\delta)\\geq1-\\delta$ for every $n\\geq N_\\delta$, which holds by (10) taking $B_\\delta=\\widetilde t_{mix}(\\epsilon,M)$.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Remark — mixing times bounded in probability"
+        }
+      ],
+      "resolution": "The paper gives this definition of boundedness in probability, used for the O_P(1) consequence of Theorem 4.2. It does not assert a deterministic bound uniform over all datasets."
+    },
+    {
+      "auxiliary_id": "A8",
+      "statement_original": "Note that whether or not $\\mu_J$ is a feasible start in practice depends on whether the maximum likelihood estimate $\\widehat\\psi_J$ can be computed, using e.g. an Expectation-Maximization algorithm, up to a $\\mathcal O(1/\\sqrt J)$ error.",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "After Theorem 6.1 — computational qualification"
+        }
+      ],
+      "resolution": "The theorem defines its initialization using the exact MLE. This practical remark does not supply a separately quantified theorem for every approximate optimization algorithm."
+    },
+    {
+      "auxiliary_id": "A9",
+      "statement_original": "By its definition in (3), the Gibbs sampler does not depend on the starting point of the first block. Therefore Theorem 6.1 extends to any $\\mu_J\\in\\mathcal P(\\mathbb R^{lJ+D})$ such that\n\\[\n\\mu_J(\\mathbb R^{lJ}\\times A)=\\operatorname{Unif}(\\widehat\\psi_J,c/\\sqrt J)(A),\\qquad A\\subset\\mathbb R^D.\n\\]",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "Section 6 — first-block overwrite remark"
+        }
+      ],
+      "resolution": "The first exact update overwrites the local block, so the source discusses a broader class of starts with the same hyperparameter marginal. This unnumbered extension is archived as context and does not rewrite Theorem 6.1 or its specified initialization."
+    }
+  ],
+  "unresolved_source_conventions": [
+    {
+      "issue_id": "S1",
+      "description": "Theorems 4.2 and 6.1 require B4-B6, whose definitions are explicitly placed in Appendix B. The main text only describes their purpose. Their exact content remains unresolved because appendix mathematics is excluded; no synthesized assumption is substituted.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "unresolved_outside_main_text"
+    },
+    {
+      "issue_id": "S2",
+      "description": "A1 requires coordinatewise maps to be injective and measurable. The next page calls the requirements bijective. Surjectivity and measurable inverse on the image are not explicit in A1. The pushforward notation itself means preimage, but recovering the original Gibbs dynamics needs an appropriate measurable correspondence.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S3",
+      "description": "Section 2 starts with an unspecified common product space. Regular conditional distributions and a measurable inverse of an injective map are not automatic on arbitrary measurable spaces. The paper does not explicitly impose standard-Borel spaces here; the Euclidean applications have a more concrete framework.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S4",
+      "description": "The targets depend on data, and convergence in A1 is under Q^(n). The statement of A1 does not spell out measurability conventions for data-dependent transformations or the supremum over warm starts. The census retains the probability assertion without promoting it to a deterministic statement.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S5",
+      "description": "The coordinate-update display says i=1,...,n even though the immediately preceding text and product kernel use K coordinates. The original display is retained and the indexing discrepancy is recorded separately.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S6",
+      "description": "Theorem 2.4 holds for each fixed t and fixed M. It does not claim a bound uniform in time, convergence from every point mass, or convergence of spectral gaps. The source explicitly distinguishes these stronger claims.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S7",
+      "description": "The source calls the distance a total variation norm but does not give a normalization formula in the relevant main-text definitions. All literal inequalities and epsilon thresholds are retained. A future implementation should fix the normalization consistently rather than silently switching between variation norm and probability total variation distance.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S8",
+      "description": "The infimum in (4) and the hierarchical mixing definition begins at t>=0, whereas the limiting mixing definition on page 7 begins at t>=1. Iterations are discrete because they are powers of a Markov kernel. The empty infimum convention is infinity, and the threshold comparison is strictly less than epsilon.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S9",
+      "description": "Warm starts are measure domination on measurable events, not closeness in total variation. Theorem 4.2 uses a fixed M and worst-case initialization; Theorem 6.1 replaces it with the explicit data-dependent law (35) and does not state a fixed deterministic M-warm bound.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S10",
+      "description": "Theorem 3.1 assumes correct iid specification, injective likelihood parameterization, square-root density regularity, local prior absolute continuity and positivity, and two explicit testing limits. None of these is replaced by a generic invocation of Bernstein-von Mises. The Gaussian mean contains the random score term I^{-1}Delta and is not zero for its stated transformation.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S11",
+      "description": "In the f-model discussion the source prints X in R^K rather than a subset relation and misspells continously. Both are preserved in the original passages. The Fisher information symbol is calligraphic I, and the Gaussian law is ordinary N, not the calligraphic warm-start class N.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S12",
+      "description": "The hierarchical local prior is assumed exponential-family with the source’s linear-independence description of minimality. The likelihood is allowed to be arbitrary under domination and later B-conditions; no exponential-family likelihood or global prior is assumed.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S13",
+      "description": "B2 uses lower-case j in u_j while its domain and limiting index use upper-case J. It also writes dy integrals over R^(mJ), although Section 4 permits a counting or other sigma-finite dominating measure. These notational choices remain literal, with the reference-measure interpretation recorded separately.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S14",
+      "description": "The expectation defining marginal Fisher information has no parameter subscript. Its conventional interpretation is under g(.;psi). This matrix is distinct from the f-model information in Theorem 3.1 even though the same calligraphic symbol is used.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S15",
+      "description": "Theorem 6.1 literally writes liminf as J tends to infinity followed by an arrow to one as J tends to infinity. This redundant limiting syntax is preserved rather than changed to an equality or a single limit. The intended probability-one asymptotic assertion is explained separately.",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S16",
+      "description": "The feasible initialization assumes a well-defined marginal MLE and exact local conditional draws. The source does not specify tie-breaking, measurable selection, a procedure for failed maximization, or a global computational guarantee for finding the MLE.",
+      "evidence": [
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S17",
+      "description": "The uniform ball around the MLE is not explicitly intersected with a constrained hyperparameter domain. The model often uses R^D notation, while examples include positive precisions. Domain containment and valid conditional densities for every sampled point need attention when instantiating the source formula; no truncation is silently inserted.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 15,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S18",
+      "description": "The feasible-start section uses l in R^(lJ+D), whereas Section 4 uses ell for the local dimension. The symbols are recorded as printed, with their intended identification noted. The hierarchical dimension changes with J and is not placed directly in the fixed common-space setup of Section 2.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S19",
+      "description": "The exact two-block order updates local parameters first and hyperparameters second. The warm-start mixing theorem is not automatically a theorem for a different scan or for Metropolis-within-Gibbs approximations. The source discusses such extensions as future work.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 23,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S20",
+      "description": "The cached DOI-named file is arXiv:2304.06993v2 with an 80-page count, a 30 October 2023 margin stamp and a 31 October 2023 title date. Equality to the final 26-page journal article is not established. The restated Theorem 3.1 is included because it is an actual main-text Theorem.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 27,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    }
+  ],
+  "unresolved_statement_references": [
+    {
+      "reference": "(B4)",
+      "claim_ids": [
+        "aos-2024-v52-i03-p0869/T4.2",
+        "aos-2024-v52-i03-p0869/T6.1"
+      ],
+      "status": "unresolved_outside_main_text",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Reference to Appendix B"
+        }
+      ]
+    },
+    {
+      "reference": "(B5)",
+      "claim_ids": [
+        "aos-2024-v52-i03-p0869/T4.2",
+        "aos-2024-v52-i03-p0869/T6.1"
+      ],
+      "status": "unresolved_outside_main_text",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Reference to Appendix B"
+        }
+      ]
+    },
+    {
+      "reference": "(B6)",
+      "claim_ids": [
+        "aos-2024-v52-i03-p0869/T4.2",
+        "aos-2024-v52-i03-p0869/T6.1"
+      ],
+      "status": "unresolved_outside_main_text",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Reference to Appendix B"
+        }
+      ]
+    }
+  ],
+  "standard_ambient_resolution": {
+    "shared": "Probability measures, measurable events, pushforwards, kernel composition/powers and total variation are ambient. Product sampling laws are distinct from conditional posterior laws. D1-D4 belong to the common-space target-sequence theorem; D8-D19 concern the growing-dimensional hierarchy. Coordinate conditionals and data-dependent objects require suitable measurability. Source statements, metadata and known unresolved references remain separate from mathematical interpretation.",
+    "2.4": "D1 gives pi_n, its common product space and Q^(n). D2 defines the exact deterministic scan and its limiting counterpart; D4 supplies tilde-pi through A1. D3 supplies both warm-start suprema. t and M are bound in the theorem. The result is a fixed-time worst-error limit in data probability; no mixing-time or spectral-gap interface is required to state it.",
+    "3.1": "D5 supplies model (11), f, p_0, parameter and data spaces and finite/infinite product laws. D6 supplies the measurable randomized-test meaning; the particular compact set, testing limits, correct specification, one-to-one condition and prior regularity are bound explicitly in the original theorem. D7 preserves square-root likelihood regularity and Fisher information. The rescaled parameter and score Delta are defined inline, and the Gaussian law has random mean I^{-1}Delta. There is no Gibbs sampler premise.",
+    "4.2": "D9 with D8 gives the hierarchical model under its standing minimal exponential-family local prior. D10 is the exact ordered two-block sampler; D12 and D11 give the worst-case and specified-start mixing definitions, with D3 providing the warm-start class. D14,D15,D17 are B1-B3; D13,D16,D6 supply their marginal density, information and test definitions. B4-B6 remain explicit unresolved appendix references, evidenced by A5. T(psi*,epsilon,M) is existentially bound and O_P(1) uses the definition of boundedness in probability in A7. The proof-only sufficient-statistic reduction and conditional CLT are not extra hypotheses.",
+    "6.1": "The same setting retains the hierarchical model, exact sampler and B1-B6, including the unresolved B4-B6 references. D19 gives the specified initialization, D18 its assumed well-defined marginal MLE, and D13 its objective density. D11 gives mixing from that specified law. The statement replaces the earlier warm-start supremum, so D3/D12 are not imported as extra hypotheses. c is fixed in (35); the source’s duplicate limit syntax and l/ell notation remain preserved. Approximate optimization and the later arbitrary-first-block extension are source remarks, not modifications to this theorem."
+  }
+}

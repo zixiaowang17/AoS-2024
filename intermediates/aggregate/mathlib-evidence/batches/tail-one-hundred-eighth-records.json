@@ -1,0 +1,1142 @@
+[
+  {
+    "interface_id": "local-dcaaa57f9a84417c67e1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "aa7bcd1cad434593df2095115118cd0d4db1fe692e31b937bc163246ac15c4d1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D3",
+        "comparison": "rankOne R f g sends h in H_Theta to inner(g,h) times f in H_U, exactly the source orientation. TensorProduct.inner_tmul gives inner(f tensor g,f-prime tensor g-prime)=inner(f,f-prime)inner(g,g-prime); bilinearity yields the double finite sum on the algebraic tensor product. That space is not automatically complete, and completing the rank-one operator span in the ordinary operator norm would generally give a different space from the Hilbert-Schmidt completion. Preserve the second finite-sum endpoint's tilde-alpha-r with tilde-f-s mismatch rather than silently rewriting it. The later influence covariance Gamma acts on this entire completed tensor space, one Hilbert-space level above the base operator H_Theta -> H_U.",
+        "statement_sha256": "af3aaecc63cc218b8f8713161fdaa902652b0f712939f50f4d0a0d592a0750d4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "TensorProduct.inner_tmul",
+          "type": "(𝕜 : Type*) → {E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (x x' : E) → (y y' : F) → inner 𝕜 (x ⊗ₜ[𝕜] y) (x' ⊗ₜ[𝕜] y') = inner 𝕜 x x' * inner 𝕜 y y'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "Inner product of simple tensors in the algebraic tensor product; finite sums extend bilinearly, while Hilbert completion and operator identification are separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L70-L71",
+          "link_checked": true
+        },
+        {
+          "name": "TensorProduct.mkL",
+          "type": "(𝕜 E F : Type*) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →L[𝕜] F →L[𝕜] E ⊗[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "The continuous bilinear simple-tensor map into the algebraic inner-product tensor product, which can then be composed with an appropriate completion map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L204-L204",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched tensor, trace and Hilbert-Schmidt files; inspected rankOne, the full algebraic inner-product tensor construction and its continuous bilinear map.",
+          "result": "Rank-one operators and the product inner product on simple tensors are supplied, but the completed Hilbert tensor space and its isometric identification with Hilbert-Schmidt operators require assembly."
+        }
+      ],
+      "gap": "Complete the algebraic tensor space in its Hilbert norm and identify its elements with the stated operators, retaining the printed r/s coefficient mismatch."
+    }
+  },
+  {
+    "interface_id": "local-010a4756f950b0af7103",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "08b379d5b26ef1870909faaf6d7b16a0fda20d5536ee9282e0fd3e2391ac83b6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D11",
+        "comparison": "The centered feature is kappa_Theta(.,theta) minus its mean over a dummy angular variable under P0. The first theta remains the evaluation input; the bound integration variable is distinct despite the source's reuse of the symbol. This is a vector in H_Theta, not a scalar kernel minus its diagonal and not an empirical mean. Under alternatives the actual angular marginal may differ from P0, so centering under that marginal would alter the target. The Bochner integral's zero fallback when the feature is not integrable is not an admissible reference mean.",
+        "statement_sha256": "da82251009bc9638ebfca124276d20d0fd5ed101e55f0c998ffee48d72955187"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected RKHS kernel sections and Hilbert-valued Bochner integral, with its integrability and nonintegrable-zero conventions.",
+          "result": "Subtracting an integrable reference-law mean from the angular feature is available once its Hilbert-valued mean embedding is defined."
+        }
+      ],
+      "gap": "Define the angular feature mean under fixed P0 and subtract it, supplying feature measurability and integrability."
+    }
+  },
+  {
+    "interface_id": "local-4992f532cc0881435956",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "29eaea21382f0d60fde3ecf9c4b8ecbca4c3594a6a04448329a86aa6dbea77b1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D12",
+        "comparison": "The joint expectation uses the actual law of (U,Theta), while the second angular expectation is under the fixed P0; only the radial mean uses the actual radial law. The tensor map's bilinearity gives the centered-feature expectation when the required Bochner integrals and interchange with continuous linear maps are justified. This is not generally covariance with both actual marginals and tests reference-angular structure as well as dependence. An abstract covarianceOperator on one Hilbert space does not directly supply this cross-space fixed-reference expression. Neither integrability nor characteristicness follows merely from kernel positive definiteness.",
+        "statement_sha256": "6fee50181f01451a2b574610ec623a87e4889f357eff69abee420c492818034f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TensorProduct.mkL",
+          "type": "(𝕜 E F : Type*) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →L[𝕜] F →L[𝕜] E ⊗[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "The continuous bilinear simple-tensor map into the algebraic inner-product tensor product, which can then be composed with an appropriate completion map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L204-L204",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected continuous simple-tensor and rank-one maps and Bochner integration; compared both source formulas and the fixed-reference centering note.",
+          "result": "The difference of a joint feature mean and a radial mean tensor fixed-reference angular mean is constructible after completing the tensor space and proving integrability."
+        }
+      ],
+      "gap": "Build the fixed-reference discrepancy operator and justify its centered-feature identity, without substituting ordinary cross-covariance."
+    }
+  },
+  {
+    "interface_id": "local-6484da5cea3cd2320262",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "6e8ec9c71e01fcaf3f82f65ba1f3ce4b591c21460ad0c0471b762b34d89ff54d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D14",
+        "comparison": "For A:H_Theta -> H_U, A-star is the Hilbert adjoint and AA-star acts on H_U. The source squared norm is the nonnegative sum of eigenvalues of AA-star, requiring the relevant Hilbert-Schmidt/trace summability theory. The algebraic tensor inner product supports the intended completion norm but does not by itself prove this trace formula. The inspected trace theorems are finite-dimensional and cannot certify this general operator sum. The saved source review flags that the alleged equivalent supremum over simple unit tensors usually gives operator norm, not Hilbert-Schmidt norm. This norm definition applies to population and several estimated operators without selecting a particular estimator.",
+        "statement_sha256": "e4efa38ab5d7895f4d432cf827eaa4f47446a38c1c60bc19b0ab1f53ab043327"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "TensorProduct.inner_tmul",
+          "type": "(𝕜 : Type*) → {E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (x x' : E) → (y y' : F) → inner 𝕜 (x ⊗ₜ[𝕜] y) (x' ⊗ₜ[𝕜] y') = inner 𝕜 x x' * inner 𝕜 y y'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "Inner product of simple tensors in the algebraic tensor product; finite sums extend bilinearly, while Hilbert completion and operator identification are separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L70-L71",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all tensor/trace/Hilbert-Schmidt modules; inspected continuous adjoints, algebraic tensor Hilbert geometry and the finite-dimensional scope of InnerProductSpace.Trace.",
+          "result": "Adjoints and the tensor Hilbert geometry provide ingredients, but no verified infinite-dimensional trace-class/Hilbert-Schmidt norm declaration gives the full source definition."
+        }
+      ],
+      "gap": "Define the Hilbert-Schmidt norm and establish its trace-of-AA-star formula without replacing it by operator norm or finite matrix trace."
+    }
+  },
+  {
+    "interface_id": "centered-radial-angular-kernel-functional",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "5189314c22e500cb323b9d378b41309134b35670eafe0531c5e0f28a17cfef8f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D13",
+        "comparison": "The empirical law supplies both the outer average and the mean/covariance used in U-hat and Theta-hat, so all transformed sample terms depend on the same original data and are not iid transformed observations with known population parameters. The angular reference expectation remains E0 and is not fitted from the sample. Finite averaging preserves multiplicity and n^-1 normalization, and bilinearity yields the centered-feature formula. Invertibility of the sample covariance, positive radii and regular polar-coordinate conventions are required where these transforms are used; no ridge or pseudoinverse rule is printed. This is distinct from the known-parameter expression (7.1) with its different last expectation.",
+        "statement_sha256": "2de593d5d418360df55bdde8718d16d98fb0af6ac33233d3ee96c05669765056"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D17",
+        "comparison": "Both the transforms U(x,F),Theta(x,F) and the outer law dF vary with F, while P0 is held fixed. A single fixed integrand with only a changing measure would miss the location/scatter effect. The completed tensor Bochner expectation agrees with the centered expression under the required integrability and bilinear interchange conditions. The object is the discrepancy operator, not its squared norm. Identifying its empirical specialization requires the empirical moment convention used by the source and valid sample inverse/chart domains; it does not establish Frechet differentiability or a delta-method conclusion.",
+        "statement_sha256": "9997a80c82ef53a5cc4c8e162ee8c16f040a6082ed6aa675db8ab47c65d2c63a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TensorProduct.mkL",
+          "type": "(𝕜 E F : Type*) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →L[𝕜] F →L[𝕜] E ⊗[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "The continuous bilinear simple-tensor map into the algebraic inner-product tensor product, which can then be composed with an appropriate completion map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L204-L204",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected tensor feature operations, finite empirical averages and integrals, and compared the general F-functional with its empirical version and the separate known-parameter formula.",
+          "result": "The empirical feature average is a candidate evaluation of the distribution functional at the empirical law, but its fitted transforms, fixed reference and analytic domain must all be preserved."
+        }
+      ],
+      "gap": "Construct the completed-tensor functional and its empirical specialization with F-dependent whitening and fixed P0, proving the necessary integrability and valid inverse domains."
+    }
+  },
+  {
+    "interface_id": "local-24a0a47e55b58206efbe",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "32477a67758b96b20ddd997f47e3f195f9cf6e299204df3d14fb6cec95a3e29b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D30",
+        "comparison": "Require 0<=kappa_U(u,u-prime)<=M_U and 0<=kappa_Theta(theta,theta-prime)<=M_Theta for every pair, not just diagonal bounds. The radial feature map into H_U has Lipschitz constant L_U with absolute scalar distance; the angular feature composed with g(v) into H_Theta has constant L_V/d with Euclidean directional distance. The left norms are Hilbert feature norms, not pointwise absolute differences of scalar kernel values. These domain-restricted predicates need valid g values at the source's exceptional chart points; scalar smoothness or a Gaussian-kernel label does not prove them. Retain the dimension factor and separate theorem-specific usage rather than importing this assumption into all RKHS results.",
+        "statement_sha256": "9546788e4d36c6735f6f04855e352c1082c7aacae0e42924bdb1afde9436a7f6"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "LipschitzOnWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A Lipschitz bound on a specified subset for the chosen metric, without requiring a global bound outside that subset.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L64-L65",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected LipschitzOnWith and RKHS feature sections; compared the explicit angular d-inverse scaling and the separate scalar C2 assumption.",
+          "result": "Feature-map Lipschitz bounds in the RKHS norm can be expressed on the supplied radial/directional domains, alongside separate scalar kernel bounds."
+        }
+      ],
+      "gap": "State the two scalar bounds and both feature-space Lipschitz inequalities with the composed polar map and explicit 1/d factor."
+    }
+  },
+  {
+    "interface_id": "local-b066fa6fc25504a192a8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "eb6d0e86b7a654568d3d6864c2d118bdb054e6a39583ca002f9d5d899dba373d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D28",
+        "comparison": "For every Euclidean unit v, use the real random variable inner(v,X-mu) and the same nonnegative parameter sigma squared in HasSubgaussianMGF. The field mgf_le has exactly exp(sigma squared times lambda squared/2); the integrable_exp_mul field prevents a divergent exponential moment from becoming zero through totalized integration. The source names a sphere without its dimension and leaves lambda's quantifier implicit; its reviewed interpretation is all unit directions and all real lambda. The proxy is independent of d, not independently chosen for each coordinate or dimension; no independence among coordinates or whitening to identity covariance follows from this directional bound.",
+        "statement_sha256": "97ba1f109a09093f4c02ddd14a676061d853beb459b5691092c5e531e8838838"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.HasSubgaussianMGF",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → ℝ≥0 → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Moments.SubGaussian",
+          "provides": "Sub-Gaussian MGF predicate requiring integrability and the exp(c*t²/2) bound for every real t; it implies centering on a probability space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/SubGaussian.lean#L606-L608",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected HasSubgaussianMGF's all-real-parameter integrability and MGF fields and compared the source's implicit sphere/lambda conventions.",
+          "result": "The scalar projection onto each unit direction fits HasSubgaussianMGF, with a common variance proxy across dimensions and explicit moment-generating integrability."
+        }
+      ],
+      "gap": "Quantify one dimension-independent nonnegative proxy over all unit directions and all real lambda, documenting the source's omitted sphere dimension and lambda quantifier."
+    }
+  },
+  {
+    "interface_id": "local-683a9af5dd99866b70b6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "6706f2cd5bc634293c75a7c2f35a639202057c4fceb1eef96419526bad64a3d2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D26",
+        "comparison": "Absolute means no dependence on dimension d or sample size n. It does not necessarily mean a universal numerical value independent of every distribution or kernel parameter, nor does it say every occurrence of c1 or c2 is the same number. Positivity is imposed by the particular uses that state it, not by this sentence alone. Express the scope through quantifiers and named fixed parameters rather than assigning an unrelated boundedness or asymptotic-order declaration as a match.",
+        "statement_sha256": "4c83f57ce56661fd7d397c1c240fb748f6d2e2b33036018cfdaf7d4ae1a8d2cd"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the probability and asymptotic libraries for a specialized absolute-constant convention and compared ordinary fixed parameters with the source quantifier scope.",
+          "result": "This is a convention about permitted parameter dependence, not a specialized analytic library declaration; ordinary quantifier placement can express it."
+        }
+      ],
+      "gap": "Encode constants outside the d and n quantifiers while preserving permitted dependence on other fixed model or kernel parameters.",
+      "no_related_reason": "No distinct mathlib API is needed or verified for this source's convention that constants are independent of d and n."
+    }
+  },
+  {
+    "interface_id": "local-b38968b13e20e23f3942",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "45ac2f6058e60f69ae9af2b4ee7a7fc161b3c1a341e1d2b397dad2d0b6bbe8a1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D27",
+        "comparison": "The matrix is the population covariance Sigma, with all eigenvalues in the nonstrict interval [c1,c2], where c1,c2 are positive absolute constants. Sorted eigenvalues-zero give the extrema for positive dimension, and positive definiteness follows from a valid uniform lower bound. Nonsingularity alone is weaker and does not bound the inverse uniformly. This is not a finite-sample covariance event. The c1,c2 names reused in the later rate formulas need not denote these same constants.",
+        "statement_sha256": "24addb72af2c2465bafbccb6f6062b9d784b410a025debd38eff66150613187e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected sorted Hermitian eigenvalues and positive-definite quadratic forms, comparing pointwise nonsingularity with uniform spectral bounds.",
+          "result": "The finite covariance eigenvalues can be constrained between fixed positive constants across the dimension/sample-size family."
+        }
+      ],
+      "gap": "State the shared positive spectral bounds with symmetry and nonempty dimension, keeping the constants independent of d and n."
+    }
+  },
+  {
+    "interface_id": "local-4d15594be194d7a16526",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "48bd058865e2f424175dba1dfd11cf6ebbc889cb4c738a4bd1c1188549200322",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D29",
+        "comparison": "The bounded density belongs to W=Sigma^(-1/2)(X-mu), not X, U or the angular variable. It is bounded by c^d, not c*d or a dimension-free c. The original convention makes c independent of d and n. A Radon-Nikodym derivative only specifies a density almost everywhere, whereas a pointwise bound concerns a chosen version; do not silently certify every version from an almost-everywhere inequality. The whitening map needs the nonsingular covariance domain already recorded, and a density bound does not itself impose independence or a sub-Gaussian tail.",
+        "statement_sha256": "00fcb5f9d77329c698d87ef1cc363b2ccab0a8302a40ace2c6116eb1066aa8c2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.rnDeriv",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → (α → ℝ≥0∞)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue",
+          "provides": "Radon–Nikodym density of the absolutely continuous part; singular mass is separate and must not be lost when defining divergence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected density reconstruction under absolute continuity and compared the source's whitened-variable density bound with a generic Radon-Nikodym version.",
+          "result": "A specified Lebesgue density of the whitened law can be required to be bounded by a dimension-exponential constant."
+        }
+      ],
+      "gap": "Choose the valid whitened law and density version and enforce the c-to-the-d bound with a dimension-independent constant."
+    }
+  },
+  {
+    "interface_id": "local-32a54890a2d278114cb1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "e53c89d0521d2044e970259f1b22c3f4e2525b296146eb2f935f8bdbc3b5befa",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D15",
+        "comparison": "Probability distributions alone form no vector space containing F-F0, so the printed linear A:F->H cannot be interpreted literally as a linear map on that carrier. One needs an ambient space of signed directions or an equivalent distribution-function representation, a specified multivariate uniform metric/norm and an appropriate bounded linear extension A. HasFDerivWithinAt then expresses the small remainder as F approaches F0 through valid distributions, while IsLittleO compares remainder and perturbation norms. A total-variation signed-measure norm would be a different topology and cannot be silently substituted. This is the explicit regularity assumption in Theorem2, not a consequence of contamination derivatives or an unprinted assumption added to Theorem3.",
+        "statement_sha256": "5eb113c023851d8258f087be18d8a424bb29a13e6e9d36e787c78572a4a916ba"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasFDerivWithinAt",
+          "type": "{𝕜 E F : Type*} → [NontriviallyNormedField 𝕜] → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → (E →L[𝕜] F) → Set E → E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "A supplied continuous linear derivative along a subset of an ambient topological vector space; in normed spaces this is the usual small-remainder Frechet condition within that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L117-L118",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the within-set Frechet derivative and its continuous-linear-map/little-o definition, comparing the source's probability-distribution domain and uniform metric.",
+          "result": "A Frechet remainder condition on a subset of an ambient vector space is available, but the source has not specified the signed-direction space or the multivariate uniform norm needed to instantiate it exactly."
+        }
+      ],
+      "gap": "Specify a linear ambient space and uniform metric for distribution perturbations before identifying the printed derivative with a within-set Frechet derivative."
+    }
+  },
+  {
+    "interface_id": "local-ce033356ba7f2efd79be",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "2c29df1cb165673acb0b5378c86eddaec4080e34ec44cd4d2c217fd5e0415e10",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D18",
+        "comparison": "The curve is epsilon maps to G(x,(1-epsilon)F0+epsilon delta_z), with x fixed and z the inserted observation. Convex mixtures are probability laws for epsilon in [0,1], so HasDerivWithinAt on that interval is the natural admissible-direction ingredient; HasDerivAt would require a valid extension or a justified two-sided interpretation. The source does not spell out that distinction. The star is the influence derivative, not a Hilbert adjoint, and the existence of these individual contamination derivatives does not establish a uniform Frechet derivative in the distribution metric.",
+        "statement_sha256": "150c63266b3f353860254948628ec392788260fa35b4981755215e6c346b3e0d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasDerivWithinAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → Set 𝕜 → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified derivative relative to a subset, allowing an interval-endpoint convention to remain distinct from an unrestricted derivative.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L123-L124",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.dirac",
+          "type": "{α : Type u} → [MeasurableSpace α] → α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Dirac.Def",
+          "provides": "Unit point mass on a measurable space; finite normalized sums of observation-indexed point masses define empirical distributions and retain repeated observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Dirac/Def.lean#L29-L29",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected scalar-parameter vector-valued derivatives within a set and at a point, and the Dirac contamination construction.",
+          "result": "The derivative of the fixed-x contamination curve can be expressed, but its one-sided probability domain versus a two-sided extension must be resolved."
+        }
+      ],
+      "gap": "Define the contamination curve and its derivative at zero with the correct admissible epsilon domain, keeping fixed x and contamination point z distinct."
+    }
+  },
+  {
+    "interface_id": "local-0e414bea66db8925bfb0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "0412507f10d00c4ab12e7355c3d3c9666d0dad5ecc70e5022496dd02f0d0bf1e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D19",
+        "comparison": "Integrability gives the mean derivative z-mu; square integrability gives the centered outer product (z-mu)(z-mu)-transpose minus Sigma. At an invertible matrix, hasFDerivAt_ringInverse sends a perturbation H to -Sigma-inverse H Sigma-inverse after identifying algebra inversion with the matrix inverse. Matrix.vec uses column-first index pairs, matching the printed stacked columns, and Matrix.kronecker supplies Sigma^(1/2) tensor Sigma + Sigma tensor Sigma^(1/2). The negative inverse of that Kronecker sum applied to vec(Sigma-star) is an additional inverse-square-root derivative identity, not a consequence of CFC.rpow's mere definition. Positive-definite and moment domains, differentiability and Kronecker-sum invertibility must be justified; no singular-covariance fallback is specified.",
+        "statement_sha256": "727cd1e95d67d1e794d0f920f7b5d26438a7a47b06c0fabba12c408c68dc4da0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "hasFDerivAt_ringInverse",
+          "type": "{𝕜 R : Type*} → [NontriviallyNormedField 𝕜] → [NormedRing R] → [HasSummableGeomSeries R] → [NormedAlgebra 𝕜 R] → (x : Rˣ) → HasFDerivAt Ring.inverse (-ContinuousLinearMap.mulLeftRight 𝕜 R (↑x⁻¹) (↑x⁻¹)) (↑x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Mul",
+          "provides": "Derivative of algebra inversion at a unit, sending a perturbation H to -x-inverse H x-inverse; matrix inverse identification and other functional derivatives remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Mul.lean#L660-L665",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vec",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → Matrix m n R → (n × m → R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Vec",
+          "provides": "Column-stacking vectorization indexed by column then row, with entry at (j,i) equal to the original matrix entry at (i,j); numerical flattening requires an explicit finite-index equivalence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Vec.lean#L41-L42",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected algebra-inverse differentiation, column-first matrix vectorization, Kronecker products and operator powers; searched matrix square-root derivative results at the pinned revision.",
+          "result": "The inverse derivative is supplied and matrix ingredients express the formulas, but the covariance-contamination derivation and inverse-square-root Kronecker equation are not verified as a complete library result."
+        }
+      ],
+      "gap": "Derive the moment and inverse-square-root influence formulas on the positive-definite covariance domain, retaining columnwise vectorization and the exact Kronecker-sum inverse."
+    }
+  },
+  {
+    "interface_id": "local-c11eb199387bd98ca433",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "168ef3a6811c0b30c4fe76a6c32cd7bac07270f042f3547a747ee98360413791",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D20",
+        "comparison": "Keep the negative A1 row and A2 Kronecker row, each divided by the appropriate Mahalanobis radius; B1 and B2 retain both their radius-squared correction and their remaining inverse-root/Kronecker terms. C_i is the Jacobian of the archived inverse chart g at V(x) times B_i. The output influence functions combine the mean influence with column-vectorized covariance influence exactly as (5.7)-(5.9); B2 uses the Kronecker-sum inverse from (5.5), not a scalar inverse derivative. x=mu gives zero denominators and polar poles/branch cuts may invalidate the Jacobian, so totalized matrix division or fderiv zero is not a valid formula there. The source explicitly assumes Frechet differentiability of all three distribution transforms; do not derive it just from the displayed expressions or silently repair the illustrative Jacobian's index typos in Lemma3.",
+        "statement_sha256": "8daae52b7bef6d9f8b6d1a3df0c423c47b5c2ae02daf41adb44706114b11c39b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vec",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → Matrix m n R → (n × m → R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Vec",
+          "provides": "Column-stacking vectorization indexed by column then row, with entry at (j,i) equal to the original matrix entry at (i,j); numerical flattening requires an explicit finite-index equivalence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Vec.lean#L41-L42",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite matrix products, Kronecker/vectorization conventions and Frechet derivative/power ingredients, and compared every coefficient and saved polar-chart issue.",
+          "result": "The displayed coefficient matrices and their products are expressible, but their derivative identities depend on nonzero radius, covariance regularity and a regular polar chart."
+        }
+      ],
+      "gap": "Establish all A, B and C coefficient identities and their influence-function chain rules on the valid whitening and polar-coordinate domain."
+    }
+  },
+  {
+    "interface_id": "local-295d158630850744fc54",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "972673fa5a61362a630e95f7d9a6ac602b1a0aee29025e1fea6186a6b70ee55f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D21",
+        "comparison": "Only the second kernel argument varies; the dot remains the free function argument. For radial input the derivative is a Hilbert vector obtained by applying fderiv to the unit scalar direction; for angular input it is a linear map from the angular coordinate space, with a vector of feature partials matching the source contraction notation. Existence of pointwise scalar partials does not alone establish differentiation in the RKHS norm, and fderiv's zero fallback cannot fill that gap. This notation is not the separate bounded-Hessian assumption (5.11) or a feature-Lipschitz conclusion.",
+        "statement_sha256": "6204278fcddc6fb222ec6caeeff385fb5e6a6c895b339d9fb824d9512d97aa24"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Frechet derivative as a continuous linear map and RKHS feature sections, comparing scalar-coordinate and Hilbert-feature derivative meanings.",
+          "result": "The derivative of the feature map t maps to kappa(.,t) can be represented as a Hilbert-valued Frechet derivative with coordinate evaluation where needed."
+        }
+      ],
+      "gap": "Identify the second-argument derivative as a genuine RKHS-valued feature derivative, with the correct scalar or angular input dimension."
+    }
+  },
+  {
+    "interface_id": "local-b14f595002872ebc766f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "1b927c4e4fe6d266b284524ff5480fd9241a0e37b251b2f54aeb3467af4daa9e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D22",
+        "comparison": "The direct contamination term is radial feature at U(z) tensor reference-centered angular feature at Theta(z), followed by minus the population Sigma_UTheta. The first expectation differentiates the radial feature and multiplies U-star(X,z); the second differentiates the angular feature and contracts with Theta-star(X,z). Both account for estimating moments from F, while P0 is fixed and has no derivative. Keep the negative population term away from H0 and do not substitute a later empirically centered estimate. Bochner integrability, feature derivatives and differentiation/interchange conditions are needed for the calculation; the assumed Frechet regularity does not make totalized integrals or exceptional polar coordinates valid. This is the operator influence, not the derivative of its squared Hilbert-Schmidt norm.",
+        "statement_sha256": "d389103579486b162ac35822f0a5bcbc6fe0289ed7acbde37e90bd58ed13443f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasFDerivWithinAt",
+          "type": "{𝕜 E F : Type*} → [NontriviallyNormedField 𝕜] → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → (E →L[𝕜] F) → Set E → E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "A supplied continuous linear derivative along a subset of an ambient topological vector space; in normed spaces this is the usual small-remainder Frechet condition within that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L117-L118",
+          "link_checked": true
+        },
+        {
+          "name": "TensorProduct.mkL",
+          "type": "(𝕜 E F : Type*) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →L[𝕜] F →L[𝕜] E ⊗[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "The continuous bilinear simple-tensor map into the algebraic inner-product tensor product, which can then be composed with an appropriate completion map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L204-L204",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected within-set differentiation, tensor bilinearity and Bochner integration, comparing the full influence expression with null-only and empirically centered versions.",
+          "result": "Contamination, product-rule and integrand-variation ingredients explain the four terms, but differentiating the distributional Hilbert expectation requires additional domain and interchange justification."
+        }
+      ],
+      "gap": "Derive the full discrepancy influence function with both fitted-transform corrections and the negative population term under the assumed Frechet regularity."
+    }
+  },
+  {
+    "interface_id": "local-944c4932a48b1e11bbb3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "33076c35e37ccc0d1adbf23033ad069bab1af26b164b17eda6e37fffceda2eb3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D24",
+        "comparison": "Here E is the entire H_U tensor H_Theta Hilbert space, and Psi=Sigma_UTheta-star(X) is an E-valued element. rankOne R Psi Psi acts on E by h maps to inner(Psi,h)Psi; covarianceOperator_apply of its law agrees over R under MemLp id 2. The library operator is uncentered, which matches the printed raw second moment, but calling it covariance additionally needs mean Psi=0. Its zero fallback when second moments fail is not a valid Gamma. No infinite-dimensional trace-class property, eigenvalue positivity, local-alternative CLT or removal of zero-mode shifts follows from this definition alone.",
+        "statement_sha256": "92430e16f5f39fba1e24322920fc442bb1efef591d60332cd22e89fd14cb4ce9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covarianceOperator",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [MeasurableSpace E] → [BorelSpace E] → [CompleteSpace E] → MeasureTheory.Measure E → (E →L[ℝ] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "The uncentered second-moment operator of a real Hilbert-space measure; centering the feature-map law is necessary for the paper's covariance operator.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L192-L194",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected covarianceOperator including its uncentered definition and non-MemLp zero branch, its integral application theorem and rankOne orientation.",
+          "result": "For the law of a square-integrable influence element, the library's uncentered second-moment operator has the displayed expected rank-one action; centering and spectral/CLT properties remain separate."
+        }
+      ],
+      "gap": "Construct the square-integrable influence law on the completed tensor RKHS and identify its expected rank-one operator, proving centering when interpreting it as covariance."
+    }
+  },
+  {
+    "interface_id": "local-246ac6cc6f54cba20458",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "cea6d0a0812a3641a88b8fb885d57a33de2908e788c1bd0fd68e0ea18d61797f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D5",
+        "comparison": "The condition says equality of integral kappa(x,X) dP for every x implies equality of the probability measures. In a valid Bochner embedding, continuous RKHS evaluation and kerFun_inner connect this pointwise formulation to equality of Hilbert-valued means. The source quantifies over all probability measures without separately imposing feature measurability or integrability, so a totalized integral that returns zero outside its domain cannot be used as the intended map. Characteristicness is stronger than PSD and is not a synonym for strict finite Gram positivity. It is required only where the relevant theorem assumes it, not retroactively in the concentration results.",
+        "statement_sha256": "a26769b6061b3232289326e3bab9f3189d8992ef410e5d6c4abf45091444a34a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.ProbabilityMeasure",
+          "type": "(Ω : Type u) → [MeasurableSpace Ω] → Type u",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Measures bundled with total mass one, on an arbitrary supplied measurable space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L103-L104",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched characteristic-kernel mean embeddings and inspected RKHS evaluation, integrals and probability-measure carriers.",
+          "result": "Injectivity of a supplied mean-embedding map is directly stateable, but defining that map on every probability law and equating pointwise and Hilbert embeddings requires measurability/integrability work."
+        }
+      ],
+      "gap": "Define the valid probability mean embedding and require injectivity, retaining the source's all-probability scope and its implicit embedding-existence conditions."
+    }
+  },
+  {
+    "interface_id": "local-4a6022ba2bcc266603c9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "229cae706867998d18d1c62521976067454a4d3179f5c810aec7ce1e099fbe72",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D31",
+        "comparison": "Retain f1=c1 sqrt(d(log(2d)+u)/n); f2=c2 d max(((d+u)/n)^(1/4),((d+u)/n)^(1/2))+c3 sqrt d; f3=c4 d sqrt((d+u)/n); and f4(n,u)=c9 sqrt(u/n)+c10 sqrt(1/n), with no d argument in f4. The maximum and the additive c3 sqrt d term are substantive. Positive n,d and the intended nonnegative tail parameter avoid inappropriate logarithm/root extensions. Constants are positive and independent of n,d but repeated labels elsewhere are not necessarily identical. These are Theorem5 bound functions, not additional premises inherited by Theorem6, and do not themselves certify shrinking rates.",
+        "statement_sha256": "cb90d5697312be22629c09246fa26b40ef5f6dc6e687b8799320cdc4e316896f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real fractional powers and logarithm definitions and compared all four saved rate formulas and their parameter conventions.",
+          "result": "All four rates are explicit real expressions on their valid n,d,u domain; these definitions alone prove no concentration bound."
+        }
+      ],
+      "gap": "Define the four exact rate functions with positive absolute constants and the intended positive-size/nonnegative-tail domain."
+    }
+  },
+  {
+    "interface_id": "local-2f3b417e8978bca35258",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "4c0b9210d057ebed05d544edecf3e9fbde422a8d6bc4d8173aa9609430ba8ab3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D4",
+        "comparison": "Use ProbabilityMeasure on Omega_U times Omega_Theta with the product of their Borel sigma fields. A measure on that product need not be a product measure and may have dependent coordinates or a non-reference angular marginal. No particular elliptical data law, kernel, mean embedding or integrability condition is imposed by this carrier definition. Identifying the product sigma field with the Borel field of a product topology requires the corresponding standard topological assumptions; the source explicitly specifies the product field, so it can be used directly without that additional identification.",
+        "statement_sha256": "74317e1dc108935996b1a14b573ad19b67bc152a9e8e3421fd4c74589c66c339"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.ProbabilityMeasure",
+          "type": "(Ω : Type u) → [MeasurableSpace Ω] → Type u",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Measures bundled with total mass one, on an arbitrary supplied measurable space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L103-L104",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected bundled ProbabilityMeasure and the supplied radial/angular Borel product-space interpretation.",
+          "result": "The class of all probability measures on the supplied measurable product is directly represented by ProbabilityMeasure."
+        }
+      ],
+      "gap": "Instantiate the product of the two Borel measurable spaces on the named radial and angular domains."
+    }
+  },
+  {
+    "interface_id": "local-6ad0b89420104ea17a93",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "8fa73000e816f772efc8d800cc78266bdc5e57cc517271bb8f69978f9f0b2c6a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D25",
+        "comparison": "U and Theta use known population parameters instead of estimated moments, and the outer E_n terms are finite sample averages. The last angular expectation is literally E, not E0, so it uses the actual angular marginal; under an alternative this differs from the fixed reference centering in Sigma_UTheta. It is not fully empirical centering either, because that angular mean remains a population expectation. Do not repair E to E0 or impose H0 merely to align the theorem target. Tensor and integral primitives express the formula but do not prove the claimed concentration around the other target.",
+        "statement_sha256": "b3ada50b39416cbe0d1f40250196ec4b15e69f2cb9230e3e050bf0301187a1e4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TensorProduct.mkL",
+          "type": "(𝕜 E F : Type*) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →L[𝕜] F →L[𝕜] E ⊗[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "The continuous bilinear simple-tensor map into the algebraic inner-product tensor product, which can then be composed with an appropriate completion map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L204-L204",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected tensor bilinearity and empirical averaging and compared the known-parameter formula's final E with the E0 target in (3.1).",
+          "result": "The printed finite average minus radial empirical mean tensor actual angular mean is constructible, but generally has a different population target from the fixed-reference discrepancy."
+        }
+      ],
+      "gap": "Preserve the known-parameter statistic's actual-angular-law centering and its mismatch with the E0-centered target under alternatives."
+    }
+  },
+  {
+    "interface_id": "local-c6a6ca0665485b9e1d38",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:28:34.092302+00:00",
+    "source_interface_sha256": "9a619fe8c92f623fa06ca22edcad6028973715dd337db41a9a6d737d3e040d97",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D23",
+        "comparison": "The source explicitly describes C2(A times A) as twice differentiable real-valued functions with a bounded Hessian matrix. ContDiffOn R 2 is a useful stronger continuous-second-derivative predicate, but cannot be asserted an exact replacement if continuity of the Hessian is not part of that printed definition; conversely it alone supplies no global bounded-Hessian condition on a noncompact domain. Coordinate Hessians can be represented from iterated derivatives once the domain/extension and mixed-partial interpretation is justified, and boundedness needs a specified finite-dimensional norm convention. This is scalar kernel regularity on both arguments, distinct from RKHS feature Lipschitz bounds and explicitly invoked only in Theorem2.",
+        "statement_sha256": "d5e3a643fce625bc8e4f7febf363c0dae9413fd9131c8b8b7ab044ea0feed5b3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDerivWithin",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → Set E → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivative within a set, as a continuous multilinear map; coordinate partials and uniqueness on the domain require their own identifications.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L398-L400",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "Bornology.IsBounded",
+          "type": "{α : Type u} → [Bornology α] → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Bornology.Basic",
+          "provides": "Boundedness in the ambient bornology, giving metric boundedness under the Euclidean instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Bornology/Basic.lean#L99-L100",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected twice differentiable within-set derivatives, ContDiffOn and boundedness, comparing the source's explicit C2 definition with feature-Lipschitz control.",
+          "result": "Second derivatives and bounded Hessian images have library ingredients, but the source-specific C2 convention and domain interpretation require care."
+        }
+      ],
+      "gap": "State the two kernels' twice-differentiable bounded-Hessian condition on their product domains without silently adding a different smoothness or feature-norm assumption."
+    }
+  }
+]

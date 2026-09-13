@@ -1,0 +1,77 @@
+{
+  "scope": "Manual comparisons for sparse-mean quantization/DPVote and colorful weighted graph approximations; source definitions and algorithmic randomness inspected.",
+  "rows": [
+    {
+      "interface_id": "local-cf0234aeb1f2e5f6b5bd",
+      "related": [
+        "Real.sign",
+        "posPart_def",
+        "Set.piecewise_eq_of_mem"
+      ],
+      "query": "Search shrinkage, quantization and majority-vote estimation in Probability/Analysis; inspect Real.sign 34-35, the generated positive-part identity and piecewise branch evaluation.",
+      "result": "Sign, positive part and piecewise functions express both scalar formulas; no source-specific coordinatewise threshold quantizer interface was located.",
+      "gap": "Sign and positive-part operations suffice to assemble the quantizer; its equivalence to the displayed piecewise form and coordinatewise extension remain to be stated.",
+      "comparisons": {
+        "D10": "Compute sign(sign(x) times max(|x|-lambda,0)), or equivalently return sign(x) when |x|>lambda and zero otherwise. Equality at the threshold is zero, and a zero input stays zero; retaining only sign(x) or using >= would change boundary behavior. The output is ternary {-1,0,1}, not the soft-thresholded real magnitude that appears inside the outer sign. Real.sign has sign(0)=0 and the positive-part identity supplies the scalar maximum, so their elementary case analysis gives the stated form, including Q_0=sign. Apply the same operation independently to each coordinate; this is not vector-norm thresholding, stochastic rounding or a privacy mechanism by itself."
+      }
+    },
+    {
+      "interface_id": "local-74c6a6a8780d111f0c73",
+      "related": [
+        "Finset.sum_div",
+        "Real.sign",
+        "PMF.ofFintype"
+      ],
+      "query": "Search DPVote, majority vote, Laplace distribution, peeling and exponential mechanism in Probability; inspect finite sums, sign and PMF.ofFintype against Algorithm 3 and its full DPVote/Peeling dependencies.",
+      "result": "Finite means, ternary quantization and normalized finite output laws are available, but no matching private majority mechanism or machine-replacement privacy theorem was located.",
+      "gap": "Finite means and categorical laws are available, but the DPVote subroutine, indexed output reconstruction and machine-level privacy argument require development.",
+      "comparisons": {
+        "D11": "Each machine j computes its own mean with denominator n_j over H_j, applies the coordinatewise Q_lambdaN threshold and sends one ternary vector to the trusted server. Unequal machine sizes of comparable order are allowed; replacing n_j with a common N/m changes this recipe. Call the archived DPVote on the m vectors with the given selection count and privacy parameters. Its dependency first peels noisy stability maxima without replacement using epsilon/2 and delta/2, then samples selected signs with probabilities proportional to exp(epsilon-prime times the corresponding utility/4), where epsilon-prime has its separately specified factor 4 sqrt(2 s-tilde log(2/delta)). PMF.ofFintype can encode the three positive normalized sign masses but supplies neither the peeling noise nor privacy composition. Preserve the score/utility distinction, unresolved noise-independence/tie conventions, and coordinate association/zero extension needed to turn the returned support and sign set into a vector. Privacy is for replacing one entire machine dataset in the trusted-curator setting, not record-level protection or hiding the messages from that server. Population sign consistency needs the theorem's threshold/signal regime; the definition does not repair its missing upper-threshold restriction."
+      }
+    },
+    {
+      "interface_id": "local-7fa7f87cb4ebb8aaf388",
+      "related": [
+        "Set.InjOn",
+        "PMF.uniformOfFintype",
+        "Fintype.card_perm",
+        "ProbabilityTheory.iIndepFun"
+      ],
+      "query": "Search color coding/colorful graph sampling in Combinatorics/Probability; inspect InjOn 311-312, uniformOfFintype 275-276, card_perm 155-156 and indexed joint independence.",
+      "result": "Subset injectivity expresses colorfulness; uniform finite assignments and permutation cardinality provide the counting ingredients for r. No packaged color-coding sampling theorem was located.",
+      "gap": "Injectivity and finite counting are available, but the independent vertex-coloring law and its colorful-event probability must be connected for the specified vertex subset.",
+      "comparisons": {
+        "D12": "Color each of the n vertices independently and uniformly from K+1 colors, or use the uniform law on all functions Fin n→Fin(K+1) and prove its independent coordinate law. Colorfulness on V is InjOn mu V, requiring distinct colors for every pair of distinct vertices, including nonadjacent pairs. A graph's ordinary proper coloring only separates adjacent vertices and would be insufficient. For |V|=K+1, the favorable restricted assignments are bijections to the color set, counted by (K+1)! after identifying the two finite types; the total number is (K+1)^(K+1). This yields the displayed r, with K a nonnegative integer and a nonempty color set. The stated r is not the probability for arbitrary subset cardinalities. The coloring law is auxiliary algorithmic randomness independent of the graph data, not a coloring selected adaptively after observing edge weights."
+      }
+    },
+    {
+      "interface_id": "local-371f5823534163440e85",
+      "related": [
+        "SimpleGraph.copyCount",
+        "Set.InjOn",
+        "Set.indicator"
+      ],
+      "query": "Search weighted subgraph counts and color coding in Combinatorics/Probability; inspect SimpleGraph/Copy.lean 494-535, subset injectivity and indicator generation against the edge-copy convention.",
+      "result": "copyCount identifies distinct, not necessarily vertex-induced subgraphs isomorphic to a query; the source additionally needs a colorful indicator and signed product weight for each such copy.",
+      "gap": "Unlabelled copy indexing is available, but the colorful signed weighted sum must be built with the paper’s edge-set and no-isolated-vertex conventions.",
+      "comparisons": {
+        "D13": "For each distinct subgraph S isomorphic to H, multiply the indicator that mu is injective on V(S) by the product of M_ij over its edges, then sum once per copy. SimpleGraph.copyCount counts the appropriate unlabelled subgraphs, unlike a labeled injection count, but returns only an unweighted natural number; use its subgraph-indexing construction rather than that scalar as the weighted result. Source copies are edge-set subgraphs with no isolated vertices, so that restriction must be retained when applying the general graph API, especially if considering a query with isolated vertices. The copies are not necessarily vertex-induced. For centered adjacency inputs the weights can be negative and are multiplied edge by edge; this is not a probability mass or raw unsigned count minus its expectation. Enumerate each undirected edge once, preserve its weight, and do not insert an automorphism multiplier here—the outer approximation applies that factor separately."
+      }
+    },
+    {
+      "interface_id": "local-2f66866ca88b14599e04",
+      "related": [
+        "Int.ceil",
+        "Finset.sum_div",
+        "ProbabilityTheory.iIndepFun",
+        "SimpleGraph.copyCount"
+      ],
+      "query": "Search color-coding approximation and weighted subgraph statistics in Combinatorics/Probability; inspect ceiling, finite normalized sums, joint independence and copy-count definitions against (31)-(32).",
+      "result": "The finite averages, copy family and integer repetition count can be represented; no implementation or error/complexity theorem for this particular approximation was located.",
+      "gap": "Finite averaging and graph-copy primitives are available, but the two independent coloring arrays, signed normalization and approximation guarantees require the paper-specific construction.",
+      "comparisons": {
+        "D14": "Set t=ceil(1/r) and generate 2t independent colorings, with one array for A and a separate array for B, independent of the observed graphs. For each unrooted tree class H with K edges, use the product of the two t-sample averages, weighted by aut(H), and sum classes once; the same coloring arrays are shared across all tree classes. This is not the average of t paired products and does not use one common coloring array across both graphs. Feed the centered adjacency matrices into X_H, then multiply the full Y_T by beta/r^2. Both factors of r are needed because each colorful count has conditional expectation r times the full weighted count. Beta contains rho^K and can be negative, distinct from the expected statistic's rho^(2K). The graph laws under the alternative can be dependent while the auxiliary coloring arrays remain independent. The theorem's probability must include this randomness, not hold for every fixed coloring. Arithmetic assembly does not establish its variance bound, detection threshold or n^(2+o(1)) computation."
+      }
+    }
+  ]
+}

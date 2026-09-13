@@ -1,0 +1,800 @@
+[
+  {
+    "interface_id": "local-3db2a596d6316970f316",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "a4afa813f40cfe614513212553f36981698d0fa302ba17d36221405089e57fe4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D3",
+        "comparison": "For finite real M>=1, use the corresponding nonnegative extended scalar times pi and restrict candidates to probability measures. le_iff gives eventwise domination on measurable sets, with le_iff' also covering all sets in mathlib's outer-measure convention. This is not total-variation closeness, and no density or strictly positive target is required to state it; pi itself is a member, making the class nonempty.",
+        "statement_sha256": "026a99ff184545ae05218274ba9bf7f7966f4048a3c695f7feb22133761ec4cb"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.le_iff",
+          "type": "{α : Type*} → {mα : MeasurableSpace α} → {μ₁ μ₂ : MeasureTheory.Measure α} → (μ₁ ≤ μ₂ ↔ ∀ s, MeasurableSet s → μ₁ s ≤ μ₂ s)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.CompleteLattice",
+          "provides": "The ordinary partial order on measures is equivalent to comparison on every measurable set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/CompleteLattice.lean#L41-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search warm starts and bounded measure domination; inspect Measure.le_iff and its all-set equivalent immediately below.",
+          "result": "Measure order against an M-scaled target expresses exactly the warm-start domination condition on probability measures."
+        }
+      ],
+      "gap": "The warm-start class is directly expressible as probability measures dominated by M times the target, using the inspected measure-order equivalence."
+    }
+  },
+  {
+    "interface_id": "local-5e71ff81d1f4b850320c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "14ae526025fab8c1bb2a4d699f717527ce30cd5bc41472287635f198e6615d5d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D8",
+        "comparison": "Use h(theta) exp(sum_s eta_s(psi)T_s(theta)-A(psi)) relative to the local parameter reference measure, with A normalizing it where the model is defined. LinearIndependent can express independence of indexed eta_s and T_s as functions in suitable real function spaces, but do not silently replace the source wording with affine independence modulo constants or a different standard minimality condition. This assumption concerns only p(theta|psi), not the observation likelihood f or hyperprior p0.",
+        "statement_sha256": "9381c9002bc2b687b834e41cf20a39be0ed982cdd624c9fef06a41d8b7435074"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "LinearIndependent",
+          "type": "{ι M : Type*} → (R : Type*) → [Semiring R] → [AddCommMonoid M] → [Module R M] → (ι → M) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.LinearIndependent.Defs",
+          "provides": "Injectivity of the finitely supported linear-combination map for the indexed vector family; a finite family is independent exactly when no nontrivial coefficient combination is zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/LinearIndependent/Defs.lean#L98-L99",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search exponential family and inspect exponential tilting module description, withDensity and LinearIndependent function-family semantics.",
+          "result": "A base measure with the stated exponential density and linear-independence predicates provide ingredients; no minimal-family interface matching this statement was located."
+        }
+      ],
+      "gap": "The local exponential-family prior still needs normalization, measurability and the source's precise function-family interpretation of minimality."
+    }
+  },
+  {
+    "interface_id": "local-88c5d76e9abde08b1064",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "5f07f78abc4819992e4ee11076a9ad35a94fce77f47b58b1efa6455534464906",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D9",
+        "comparison": "First sample psi from p0, then independent theta_j given that psi and local observations from f(.|theta_j), using the source's local conditional factorization. The shared psi generally couples groups marginally; an unconditional product of group laws changes the hierarchy. Hyperparameter dimension D and local dimension ell are distinct, and total latent dimension grows with J; this is not automatically the common fixed product space of D1.",
+        "statement_sha256": "d49f2f8dc842c6dd650fa9e397cefdad5ad69cf453e9400ea44a5253bd9f9a5a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search hierarchical prior and conditionally independent group sampling; inspect conditional joint measure, finite product and measurable kernels.",
+          "result": "Sequential kernels and a product conditional on a shared hyperparameter support the hierarchical joint distribution."
+        }
+      ],
+      "gap": "The hierarchical model still needs its normalized prior and likelihood kernels and conditional product over groups."
+    }
+  },
+  {
+    "interface_id": "local-0e6023163cdd79ae6016",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "4123b8a6725b60c696afe97ae0410201b067571d15b1e57112591a84399640a3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D13",
+        "comparison": "Integrate f(y|theta)p(theta|psi) over theta in R^ell, keeping y and psi fixed; this does not integrate over the hyperprior or condition on all group data. The likelihood may be relative to a counting or other sigma-finite observation measure, while the displayed integral is over local parameters. Nonnegativity, measurability and normalization must justify a probability density; Bochner's nonintegrable-zero fallback cannot stand in for the marginal law.",
+        "statement_sha256": "0fca879f4ecea5e147bd5b5e971d1f2c5143d1bda8008ac43303326de6d12138"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search marginal likelihood and integrating out latent parameters; inspect density integral and sequential kernel composition.",
+          "result": "Integration computes the mixture density when dominated kernels are supplied; kernel composition represents the same observation law without choosing a density."
+        }
+      ],
+      "gap": "The marginal likelihood still needs a justified density representation of the latent-prior and observation-kernel composition."
+    }
+  },
+  {
+    "interface_id": "local-84033221f3b6b36bcac0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "ceecb731858458fbea13c0576c897889576409d29e01d94001408e13214c8145",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D17",
+        "comparison": "This is information for g(.|psi), distinct from f-model information in D7; the source expectation convention is under g at psi even though its subscript is omitted. ContDiffOn at zero can express continuity on the parameter domain; unit determinant supplies the real matrix inverse identity. The condition must prove nonsingularity rather than use the total inverse's singular fallback, and does not by itself establish score integrability or the excluded B4-B6 assumptions.",
+        "statement_sha256": "b4dc0d4a1d0ad4aae8950672efde26c01c8e1b40f03ddaee3e57c1e567b5fdb7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Fisher information regularity and nonsingular continuous matrix families; inspect determinant-based inverse identity and ContDiffOn at order zero.",
+          "result": "Continuity and matrix nonsingularity have generic representations, without a specialized Fisher-information regularity API."
+        }
+      ],
+      "gap": "The condition still needs the marginal-model Fisher matrix with continuous entries and a nonsingularity proof on the stated parameter domain."
+    }
+  },
+  {
+    "interface_id": "local-08f206c1a8a1e4eb4085",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "2ed43b6874471937c66bcf3a859c8d6884f4b9dff8cfdd05f347536ec529d89e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D14",
+        "comparison": "One fixed psi-star generates every group observation iid under density g(.|psi-star). The map psi to g(.|psi) is one-to-one as stated, with pointwise C1 of psi to sqrt(g(x|psi)) for every x; do not substitute differentiability in quadratic mean or joint smoothness in (x,psi). p0 is continuous and strictly positive only in a neighborhood of psi-star. These conditions do not silently imply the separate information or testing assumptions.",
+        "statement_sha256": "8d08c85d311947827944f38d7f923dadfd9556c31d53cf45553e87b2666f3215"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search correctly specified marginal model, identifiable densities and pointwise square-root differentiability; inspect independence/identical-law predicates and differentiability of real functions.",
+          "result": "The sampling, density and smoothness conditions can be expressed separately; no bundled posterior regularity theorem establishes them."
+        }
+      ],
+      "gap": "The assumption still needs correct iid specification, injective marginal-density parameterization and the exact pointwise smoothness and local prior positivity conditions."
+    }
+  },
+  {
+    "interface_id": "local-29ec6c0be6b946eaba81",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "e5229846a62f7e1fd03f41b112b5c24ebaa1d07f86b31dfe84ba25e4e7887a24",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D15",
+        "comparison": "Choose one compact neighborhood Psi of psi-star and tests taking values in [0,1]. Under the true law the expectation of u tends to zero; outside Psi the supremum of expectations of 1-u tends to zero. Preserve the source u_j versus limiting J notation and its dy integrals despite possible non-Lebesgue observation reference measures. Supremum is over alternative psi, not datasets, and pointwise power convergence does not suffice for the uniform condition; no attained supremum is needed.",
+        "statement_sha256": "0548a7262b5ef7fdc3c3d0fb7973bf4ff58b69f1c5767a1ed62e22da43e98c81"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search uniformly consistent tests outside compact neighborhoods; inspect product experiments, bounded test expectations and supremum inequalities.",
+          "result": "Finite product laws and bounded expectations support the two testing errors, while uniform existence of such tests is a separate statistical assumption."
+        }
+      ],
+      "gap": "The testing condition still needs a measurable sequence of tests and both vanishing errors, including uniform control outside the compact neighborhood."
+    }
+  },
+  {
+    "interface_id": "local-2a23c21d2318fbc57e06",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "b2879324b91914131fcd280e8dd2a9cd37a4911e9ab86904239c19e35cf910b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D5",
+        "comparison": "Given psi, the n observations are iid from f; the posterior is a conditional parameter law under that Bayesian experiment. The external law Q and Q^(n),Q^(infinity) describe repeated data sampling and need not coincide with the prior predictive law. The density theorem is only almost everywhere under the predictive law and requires its absolute-continuity hypotheses; it is not an all-data formula for arbitrary Q. Preserve the printed X in R^K notation instead of silently repairing the source.",
+        "statement_sha256": "56d2f6a448185e67e41cb01ebbf9aa35d7455bb25aaa0c8b11ffb10699ff2ead"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.posterior_eq_withDensity",
+          "type": "{Ω : Type u} → {𝓧 : Type v} → {mΩ : MeasurableSpace Ω} → {m𝓧 : MeasurableSpace 𝓧} → {κ : ProbabilityTheory.Kernel Ω 𝓧} → {μ : MeasureTheory.Measure Ω} → [MeasureTheory.IsFiniteMeasure μ] → [ProbabilityTheory.IsFiniteKernel κ] → [StandardBorelSpace Ω] → [Nonempty Ω] → [MeasurableSpace.CountableOrCountablyGenerated Ω 𝓧] → (∀ᵐ ω ∂μ, κ ω ≪ κ ∘ₘ μ) → ∀ᵐ x ∂(κ ∘ₘ μ), (ProbabilityTheory.posterior κ μ) x = μ.withDensity (fun ω ↦ κ.rnDeriv (ProbabilityTheory.Kernel.const Ω (κ ∘ₘ μ)) ω x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Kernel.Posterior",
+          "provides": "Almost-everywhere Bayes formula: posterior is the prior weighted by the sampling kernel’s density relative to the prior predictive law, under the stated absolute-continuity and measurable-space assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Posterior.lean#L287-L288",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search posterior iid model and Bayes kernels; inspect conditional distribution, posterior density theorem and product laws.",
+          "result": "Conditional laws and Bayes' density theorem provide posterior ingredients under their measurable-space and domination hypotheses."
+        }
+      ],
+      "gap": "The posterior sequence still needs the prior/likelihood experiment, admissible conditional versions and the separately indexed sampling product laws."
+    }
+  },
+  {
+    "interface_id": "local-24f80b528157f919eb5f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "499c06801dfb202af436a928b14572ba7a8e97a994a6b8b484d1d988e28c9fa3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D7",
+        "comparison": "For each y, require the parameter map sqrt(f(y|psi)) to be C1; do not replace it by C1 of f, differentiability of log f at density zeros, or L2 differentiability in quadratic mean. The information belongs to f rather than hierarchical marginal g, and its continuity/nonsingularity remain explicit hypotheses. Generic matrix inversion is valid only after nonsingularity, and these premises alone are not a Bernstein-von Mises result.",
+        "statement_sha256": "cbbb552c4a5d065e6e74dcfe5f0212d0362aac1d788a44f96847f1064f9cf1f0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Fisher information and square-root likelihood regularity; inspect C1 function predicate and nonsingular matrix inverse hypotheses.",
+          "result": "Pointwise parameter differentiability and nonsingularity can be expressed, without a theorem identifying them with stronger asymptotic regularity."
+        }
+      ],
+      "gap": "The f-model regularity condition still needs pointwise C1 square-root densities and a continuous nonsingular information matrix with justified moments."
+    }
+  },
+  {
+    "interface_id": "local-21b41a0fcf1c1e340114",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "862f0355f8b85b78075e9c69a1faadb0f2189818d194ed7b0cc3b9700c2a8840",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D1",
+        "comparison": "For each n the data space may differ, while X_1 times ... times X_K is common and K fixed. A kernel from that n's data space to X with IsMarkovKernel adds the measurable dependence needed for probability assertions; the source says targets may depend on data and applications are posterior laws, not that every sequence is a posterior. Do not directly identify the later growing ell J+D hierarchical space with this fixed space or force random targets to be deterministic.",
+        "statement_sha256": "6c49bc3f28408e884e8fb9a6287f13fdeade9c2056fc8eea5515207dbf26cee4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search data-dependent target distributions and conditional probability kernels; inspect Kernel and IsMarkovKernel domains.",
+          "result": "A normalized kernel from data to the common parameter product space represents a measurable target family, without requiring every target to come from a Bayesian model."
+        }
+      ],
+      "gap": "The target sequence still needs its data measurability and common product-space structure made explicit."
+    }
+  },
+  {
+    "interface_id": "deterministic-scan-gibbs",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "494051359e8d13cfd1f0e9999b10d7a564bf3875aa0c76ff5a60044fa6e89d30",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D2",
+        "comparison": "Each update samples only coordinate i conditional on all other current coordinates, retaining them unchanged; a deterministic insertion map can lift the conditional kernel. For state-law row action P1...PK updates 1 then 2 through K, whereas Kernel.comp takes the right kernel first, so translate composition order carefully. condDistrib requires a nonempty standard-Borel output and finite law, stronger structure than the unspecified general spaces in this passage. Preserve the printed i=1,...,n discrepancy with K and account for conditional versions on null complements.",
+        "statement_sha256": "8d860c8868be6ae7aa032981ae36c240cfba73267b9d6aec089462da8063183a"
+      },
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D10",
+        "comparison": "The two-block variant first draws the whole local theta block conditional on old psi and data, then draws new psi conditional on the newly sampled theta block and data. compProd retains the first draw while obtaining the second; independent local conditionals given psi/data implement the exact joint block. Reversing order, using old theta in the second draw or replacing exact updates with Metropolis steps changes the kernel. State dimension grows with J and Euclidean conditionals are better specified than the general-space variant.",
+        "statement_sha256": "1b6f6cfaa70be9bdb14c49d144a0795eee5334a45f4d5bb50d26b43cd39bd959"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.compProd",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel (α × β) γ → ProbabilityTheory.Kernel α (β × γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.CompProd",
+          "provides": "Composition-product retaining the first output and sampling the next conditionally on the input and history; Markov kernels meet its s-finiteness requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/CompProd.lean#L69-L72",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Gibbs and deterministic scan; inspect conditional distribution hypotheses, composition direction, joint composition-product and deterministic coordinate insertion.",
+          "result": "Regular conditional kernels, coordinate insertion and ordered composition support exact Gibbs updates, but no dedicated general-space scan implementation was located."
+        }
+      ],
+      "gap": "The Gibbs kernels still need admissible conditional versions, coordinate insertion and the exact ordered sweep on the stated measurable spaces."
+    }
+  },
+  {
+    "interface_id": "local-7beeafb6188d960b99ec",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "2b42bb2bed5169eb510a9891ddfdb25f019a53a334177a0c8a88ff8a11c95a66",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D11",
+        "comparison": "Iterate complete sweeps P_J for integer t>=0, evaluate distance from mu P_J^t to pi_J and use the strict inequality <epsilon. The empty hitting-time set gives infinity, so a bare natural or real sInf fallback is not faithful. SignedMeasure.totalVariation is a measure whose whole-space mass is the variation norm, twice the event-supremum distance for probability differences; the source does not state its normalization here, so retain that issue rather than rescale epsilon. The limiting auxiliary definition begins at t>=1 and must remain distinct.",
+        "statement_sha256": "a335a60db0ae2487cf61787fe2edbbabd484db53b4d337bd182070c4a5f273f3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search total-variation mixing times and Markov kernel powers; inspect composition and signed-measure total variation normalization.",
+          "result": "Kernel powers and variation of the difference of probability measures support the distance calculation; no matching mixing-time definition was located."
+        }
+      ],
+      "gap": "The mixing time still needs an extended discrete-time infimum and a fixed total-variation normalization for the exact two-block kernel."
+    }
+  },
+  {
+    "interface_id": "local-f3058f4149feb364aa67",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "da39c593aeb737617344f53772be16f8eb2f0105d4cd8b71b39758f41d56ffe8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D4",
+        "comparison": "Each phi_n acts coordinatewise and maps X to itself with injective measurable component maps; pi_n composed with phi_n inverse denotes pushforward via preimages, not an assumed inverse function. It does not assert surjectivity or measurable inverse, despite adjacent prose saying bijective. The limit tilde-pi is fixed, not random, and Q^(n)(distance>epsilon) tends to zero for every epsilon in (0,1), not a pathwise or deterministic limit. Data dependence of transforms and distance requires measurability; do not replace varying product experiments with a fixed-space convergence predicate without a bridge.",
+        "statement_sha256": "c9a52e1a7768d37cb17dcb1195b777758d5783db4d33ceb9fc96349042f51052"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search total-variation pushforward convergence and coordinate transformations; inspect measure map and variation definitions against A1.",
+          "result": "Measurable pushforwards and variation distance are available; the data-probability convergence and injective coordinate restrictions remain assumptions."
+        }
+      ],
+      "gap": "The transformed-target limit still needs data measurability, consistent variation normalization and the stated varying-experiment convergence in probability."
+    }
+  },
+  {
+    "interface_id": "local-134c71f9765e9483c352",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "1e85139468d21d019892cc4b63daca31cb10c1d024e61b7f99fd8c633f79d050",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D12",
+        "comparison": "The supremum ranges over probability mu with mu<=M pi_J at fixed M>=1, a nonempty class containing pi_J. It is not over all point starts and need not be attained or finite; a real conditional supremum cannot silently send an unbounded set to a default value. Each inner time begins at zero with a strict threshold and the same variation convention. The later explicit feasible start is not assumed to obey a deterministic fixed-M bound by this definition.",
+        "statement_sha256": "ed371f729fc9ce2fcdc8c669e6aa44efd6fdb53d56bc6f6486c750dcc135ee7c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.le_iff",
+          "type": "{α : Type*} → {mα : MeasurableSpace α} → {μ₁ μ₂ : MeasureTheory.Measure α} → (μ₁ ≤ μ₂ ↔ ∀ s, MeasurableSet s → μ₁ s ≤ μ₂ s)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.CompleteLattice",
+          "provides": "The ordinary partial order on measures is equivalent to comparison on every measurable set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/CompleteLattice.lean#L41-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search worst-case warm-start mixing time; inspect measure domination and the underlying variation measure.",
+          "result": "The warm-start class and distance have primitives, but the potentially infinite supremum of mixing times remains to be defined."
+        }
+      ],
+      "gap": "Worst-case mixing still needs an extended-valued supremum over all M-dominated starts and measurability of the resulting data-dependent quantity."
+    }
+  },
+  {
+    "interface_id": "local-f55b40eaf6caddf85c7c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "ab6dc368a2a56b97db97d7f39e781aa842dd112a688d97bad22907c4db6db1d8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D18",
+        "comparison": "Maximize the product over j=1,...,J of g(Y_j|psi), after integrating out each local parameter, not the full joint likelihood including theta or a hyperposterior with p0. The source assumes it is well-defined; IsMaxOn alone omits membership and existence. Preserve exact MLE in the initializer, without replacing it by an approximate EM output or adding an unstated uniqueness theorem.",
+        "statement_sha256": "74a7e7052f4806005e7608334cb56489344ab3fb64c983b87d868542c3d8135c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search marginal likelihood maximum estimator and inspect IsMaxOn membership/selection requirements.",
+          "result": "IsMaxOn can state optimality of the product marginal likelihood, but well-definedness and a measurable choice are additional requirements."
+        }
+      ],
+      "gap": "The marginal MLE still needs admissible membership, existence and a measurable selection from any ties."
+    }
+  },
+  {
+    "interface_id": "local-b6d81e88dd71370c3127",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:07:41.299689+00:00",
+    "source_interface_sha256": "d56ad55038fe504c3e58cd296477d6008770139636a7f0b5ceb56073cd21d31f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D19",
+        "comparison": "For J positive use radius c/sqrt(J), c fixed positive, center the closed Euclidean ball at the exact MLE and normalize Lebesgue volume; IsUniform is a law predicate, not proof of valid positive finite volume or an executable sampler. Then independently draw each theta_j from p(theta_j|Y_j,psi), sharing sampled psi, and reorder joint coordinates to (theta,psi) as printed. Do not intersect the ball with a constrained domain without source authority; a conditional version only defined predictively almost everywhere may need extension at sampled psi. Preserve l versus ell notation and growing dimension, without asserting a fixed deterministic warmness bound or arbitrary-first-block extension as the original formula.",
+        "statement_sha256": "13fd8d921ed7236900e3f1df6d2a6eb0fbe8407cc5628a1fb9c7b2095f881e2e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.pdf.IsUniform",
+          "type": "{E : Type u} → [MeasurableSpace E] → {Ω : Type v} → [MeasurableSpace Ω] → (Ω → E) → Set E → MeasureTheory.Measure Ω → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "A random element has the normalized restriction of a specified reference measure as its law; uniform volume sampling needs a set of positive finite volume.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L64-L65",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search uniform closed-ball initialization and hierarchical posterior conditionals; inspect uniform restricted measure, composition-product, finite products and conditional-distribution domains.",
+          "result": "Normalized volume on a positive-radius ball and a conditional product of local posterior laws support the specified initialization."
+        }
+      ],
+      "gap": "The feasible start still needs a measurable marginal MLE, a valid uniform ball and exact local conditional kernels at every sampled hyperparameter."
+    }
+  }
+]

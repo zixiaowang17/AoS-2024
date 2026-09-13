@@ -1,0 +1,142 @@
+[
+  {
+    "local_id": "D1",
+    "original_tex": "A \\emph{memory bounded estimation algorithm} with \\emph{resource profile} $(\\ssize, \\iters, \\state)$ computes an estimator by making $\\iters$ passes through a dataset of $\\ssize$ samples using a memory state of $\\state$ bits (initially all zeros).\n  Such an algorithm is specified by the \\emph{update functions} $f_{t,i}: \\{0,1\\}^\\state \\times \\dataspace \\rightarrow \\{0,1\\}^\\state$ and an \\emph{estimator function} $g: \\{0,1\\}^\\state \\rightarrow \\estimatespace$, which are used as follows.\n  In the $t$-th pass through the dataset, the algorithm considers each sample $\\bm x_i$ for $i \\in [\\ssize]$ in sequence, and it updates the memory state by applying the update function $f_{t,i}$ to the current memory state and the sample $\\bm x_i$ under consideration.\n  After all $\\iters$ passes are complete, the estimator is computed by applying the estimator function $g$ to the final memory state.\n%\n  A template for a general memory bounded algorithm is given in Figure \\ref{fig: memory-bounded-algorithm}.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Definition 1 (Memory bounded estimation algorithm with resource profile (N, T, s))"
+      }
+    ]
+  },
+  {
+    "local_id": "D2",
+    "original_tex": "In the symmetric order-$k$ Tensor PCA ($k$-TPCA) problem introduced by \\citet{montanari2014statistical}, one observes $\\ssize$ i.i.d.\\ tensors $\\bm X_{1:m} \\in \\tensor{\\R^d}{k}$ sampled\n%\nas follows:\n\\begin{align} \\label{eq: symmetric_tpca_setup}\n    \\bm X_i = \\frac{\\lambda \\bm V^{\\otimes k}}{\\sqrt{d^k}} + \\bm W_i, \\quad (W_i)_{j_1,j_2, \\dots j_k} \\explain{i.i.d.}{\\sim} \\gauss{0}{1}, \\quad \\forall \\; j_1,j_2, \\dots ,j_k \\in [d].\n\\end{align}\nIn the above display, $\\lambda > 0$ is the signal-to-noise ratio, and $\\bm V \\in \\paramspace$ is the unknown parameter one seeks to estimate.\nThe parameter space for this problem is $\\paramspace = \\{\\bm V \\in \\R^\\dim : \\|\\bm V\\| = \\sqrt{\\dim} \\}$.\nWe let the probability measure $\\dmu{\\bm V}$ denote the distribution of a single sample $\\bm X_i$ in \\eqref{eq: symmetric_tpca_setup}.",
+    "evidence": [
+      {
+        "page": 19,
+        "location": "Section 4.1 — Symmetric Tensor PCA, equation (6)"
+      }
+    ]
+  },
+  {
+    "local_id": "D3",
+    "original_tex": "In the asymmetric order-$k$ Tensor PCA ($k$-ATPCA) problem, one observes $\\ssize$ i.i.d.\\ tensors $\\bm X_{1:\\ssize} \\in \\tensor{\\R^\\dim}{k}$ sampled as follows:\n\\begin{align} \\label{eq: symmetric_atpca_setup}\n    \\bm X_i = \\frac{\\lambda \\bm V_1 \\otimes \\bm V_2 \\dotsb \\otimes \\bm V_k}{\\sqrt{\\dim^k}} + \\bm W_i, \\quad (W_i)_{j_1,j_2, \\cdots j_k} \\explain{i.i.d.}{\\sim} \\gauss{0}{1}, \\quad \\forall \\; j_1,j_2, \\dotsc, j_k \\in [\\dim].\n\\end{align}\n In the above display, $\\lambda > 0$ is the signal-to-noise ratio, and $\\bm V_1, \\bm V_2, \\dotsc, \\bm V_k$ are unknown vectors in $\\R^\\dim$ with $\\|\\bm V_i\\| = \\sqrt{\\dim}$.\n The goal is to estimate the rank-$1$ signal tensor $\\bm V \\explain{def}{=} \\bm V_1 \\otimes \\bm V_2 \\dotsb \\otimes \\bm V_k$.\n The parameter space for this problem is\n    $\\paramspace = \\{  \\bm V_1 \\otimes \\bm V_2 \\otimes \\dotsb \\otimes \\bm V_k: \\bm V_i \\in \\R^\\dim, \\; \\|\\bm V_i\\| = \\sqrt{\\dim} \\; \\forall i \\in [k] \\}$.\nWe let the probability measure $\\dmu{\\bm V}$ denote the distribution of a single sample $\\bm X_i$ in \\eqref{eq: symmetric_atpca_setup}.\n%",
+    "evidence": [
+      {
+        "page": 25,
+        "location": "Section 5.1 — Asymmetric Tensor PCA, equation (9)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4",
+    "original_tex": "In the Non-Gaussian Component Analysis (NGCA) problem, one seeks to estimate an unknown vector $\\bm V \\in \\R^\\dim$ with $\\|\\bm V\\| = \\sqrt{\\dim}$ from an i.i.d.\\ sample $\\bm x_{1:\\ssize}$ generated as follows:\n\\begin{subequations} \\label{eq: ngca-model}\n\\begin{align}\n  \\bm x_i  = \\eta_i \\frac1{\\sqrt{\\dim}} \\bm V + \\left( \\bm I_\\dim - \\frac1{\\dim} \\bm V \\bm V^\\UT \\right) \\bm z_i, \\;\n\\end{align}\nwhere $\\eta_i \\in \\R$ and $\\bm z_i \\in \\R^\\dim$ are independent random variables with distributions\n\\begin{align}\n    \\bm z_i \\sim \\gauss{\\bm 0}{\\bm I_\\dim}, \\quad \\eta_i \\sim \\nongauss .\n\\end{align}\n\\end{subequations}\nIn the above display, $\\nongauss$ is a non-Gaussian distribution on $\\R$.\nLet $\\dmu{\\bm V}$ denote the distribution of $\\bm x_i$ described by the above generating process \\eqref{eq: ngca-model}.",
+    "evidence": [
+      {
+        "page": 29,
+        "location": "Section 6.1 — Non-Gaussian Component Analysis, equations (14a) and (14b)"
+      }
+    ]
+  },
+  {
+    "local_id": "D5",
+    "original_tex": "The statistical and computational difficulty of estimating $\\bm V$ depends on how non-Gaussian $\\nongauss$ is.\nFor positive integer $k\\geq2$, order-$k$ NGCA ($k$-NGCA) refers to instances of NGCA in which the first $k-1$ moments of $\\nongauss$ are identical to a standard Gaussian random variable,\n\\begin{align*}\n    \\int x^i  \\nongauss(\\diff x) = \\E Z^i, \\quad Z \\sim \\gauss{0}{1}, \\quad \\forall i \\in [k-1] ,\n\\end{align*}\nbut the $k$-th moment differs from the corresponding standard Gaussian moment,\n\\begin{align*}\n    \\left|\\int x^k  \\nongauss(\\diff x) - \\E[Z^k] \\right| = \\lambda > 0, \\quad Z \\sim \\gauss{0}{1}.\n\\end{align*}\nThe parameter $\\lambda > 0$ is the signal-to-noise ratio for this problem.\n\n%\n\n%",
+    "evidence": [
+      {
+        "page": 29,
+        "location": "Section 6.1.1 — Degree of Non-Gaussianity"
+      }
+    ]
+  },
+  {
+    "local_id": "D6",
+    "original_tex": "The computational lower bounds we prove holds for a broad class of non-Gaussian distributions $\\nongauss$ that have a density with respect to the standard Gaussian measure $\\refmu = \\gauss{0}{1}$ on $\\R$, and that satisfy some additional assumptions.",
+    "evidence": [
+      {
+        "page": 30,
+        "location": "Section 6.1.2 — non-Gaussian distributions with a density"
+      }
+    ]
+  },
+  {
+    "local_id": "D7",
+    "original_tex": "We will make extensive use of the Hermite polynomials $\\{ H_i : i \\in \\W\\}$ which are the orthonormal polynomials for the Gaussian measure $\\gauss{0}{1}$ and their multivariate analogs $\\{H_{\\bm c}: \\bm c \\in \\W^\\dim\\}$, which are the orthornormal polynomials for the $\\dim$-dimensional Gaussian measure $\\gauss{\\bm 0}{\\bm I_{\\dim}}$. We provide the necessary background regarding Hermite polynomials and analysis on the Gaussian Hilbert space in Appendix \\ref{fourier_gauss_appendix}.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 2.1 — Hermite polynomials"
+      }
+    ]
+  },
+  {
+    "local_id": "D8",
+    "original_tex": "Before stating these assumptions, for any probability measure $\\nongauss$ on $\\R$, we define the coefficients $\\hat{\\nongauss}_i$ for any $i \\in \\W$ as follows:\n\\begin{align*}\n    \\hat{\\nongauss}_i \\explain{def}{=} \\E[H_i(\\eta)] , \\quad \\eta \\sim \\nongauss .\n\\end{align*}\n(Recall that $\\{ H_i \\}_{i \\in \\W}$ are the orthonormalized Hermite polynomials.)\nNote that since $H_0(z)= 1$, we have $\\hat{\\nongauss}_0 = 1$. Since we always assume that $\\nu$ has a density with respect to $\\refmu = \\gauss{0}{1}$, we can equivalently write\n\\begin{align*}\n    \\hat{\\nongauss}_i = \\refE\\left[ \\frac{\\diff \\nongauss}{\\diff \\refmu}(Z) H_i(Z) \\right], \\quad Z \\sim \\refmu = \\gauss{0}{1} .\n\\end{align*}\nHence, $\\hat{\\nongauss}_i$ is the $i$-th Hermite coefficient of the likelihood ratio function $\\diff \\nongauss/\\diff \\refmu$.\nBy Plancheral's identity,\n\\begin{align*}\n    \\refE\\left[\\left( \\frac{\\diff \\nongauss}{\\diff \\refmu}(Z) - 1\\right)^2\\right] = \\sum_{i=1}^\\infty \\hat{\\nongauss}_i^2.\n\\end{align*}",
+    "evidence": [
+      {
+        "page": 30,
+        "location": "Section 6.1.2 — Hermite coefficient"
+      }
+    ]
+  },
+  {
+    "local_id": "D9",
+    "original_tex": "Distribution $\\nongauss$ satisfies the \\emph{Moment Matching Assumption} with parameter $k \\in \\N$, $k \\geq 2$ if\n    \\begin{align*} %\n               \\hat{\\nongauss}_i = 0 , \\quad \\forall \\; i \\in [k-1] . %\n    \\end{align*}\n    Equivalently, %\n    \\begin{align*}\n         \\int z^i \\nongauss(\\diff z) = \\int z^i \\refmu(\\diff z) , \\quad \\forall \\; i \\in [k-1] .\n    \\end{align*}",
+    "evidence": [
+      {
+        "page": 30,
+        "location": "Assumption 1 (Moment Matching Assumption)"
+      }
+    ]
+  },
+  {
+    "local_id": "D10",
+    "original_tex": "Distribution $\\nongauss$ satisfies the \\emph{Bounded Signal Strength Assumption} with parameters $(\\lambda,K)$ for some $\\lambda \\geq 0$ and $K \\geq 0$ if\n\\begin{equation*}\n     \\sum_{i=1}^\\infty \\hat{\\nongauss}_i^2 \\leq K^2 \\lambda^2, \\quad Z \\sim \\gauss{0}{1}. \n\\end{equation*}",
+    "evidence": [
+      {
+        "page": 30,
+        "location": "Assumption 2 (Bounded Signal Strength Assumption)"
+      }
+    ]
+  },
+  {
+    "local_id": "D11",
+    "original_tex": "Distribution $\\nongauss$ satisfies the \\emph{Locally Bounded Likelihood Ratio Assumption} with parameters $(\\lambda,K,\\kappa)$ for some $\\lambda \\geq 0$, $K \\geq 0$, and $\\kappa \\geq 0$ if\n\\begin{align*}  \n        \\left| \\frac{\\diff \\nongauss}{\\diff \\refmu}(z) - 1\\right| & \\leq K\\lambda (1 + |z|)^\\kappa \\quad \\forall \\; z \\in \\R \\; \\text{s.t.} \\; K \\lambda (1 + |z|)^\\kappa \\leq 1. %\n    \\end{align*}",
+    "evidence": [
+      {
+        "page": 30,
+        "location": "Assumption 3 (Locally Bounded Likelihood Ratio Assumption)"
+      }
+    ]
+  },
+  {
+    "local_id": "D12",
+    "original_tex": "In the order-$k$ Canonical Correlation Analysis ($k$-CCA) problem, one observes a dataset of $\\ssize$ i.i.d.\\ samples $\\bm x_{1:\\ssize}$, in which\neach $\\bm x_i \\in \\R^{k\\dim}$ consists of $k$ ``views'' (or ``modes''):\n\\begin{equation*}\n  \\bm x_i = (\\mview{\\bm x_i}{1}, \\mview{\\bm x_i}{2}, \\dotsc, \\mview{\\bm x_i}{k})^{\\UT}.\n\\end{equation*}\nThe correlation structure between the different views is such that\n\\begin{align} \\label{eq:k-CCA-correlation}\n    \\E \\left[ \\mview{\\bm x_i}{1} \\otimes \\mview{\\bm x_i}{2} \\otimes \\dotsb \\otimes \\mview{\\bm x_i}{k} \\right] = \\frac{\\lambda}{\\sqrt{\\dim^k}} \\bm V,\n\\end{align}\nwhere $\\bm V \\in \\tensor{\\R^\\dim}{k}$ is the rank-$1$ cross-moment tensor:\n\\begin{align*}\n    \\bm V & = \\sqrt{\\dim^k} \\cdot  \\bm v_1 \\otimes \\bm v_2 \\otimes \\dotsb \\otimes \\bm v_k,\n\\end{align*}\nfor some unit vectors $\\bm v_1, \\bm v_2, \\dotsc, \\bm v_k \\in \\R^{\\dim}$.\nNote that $\\|\\bm V\\| = \\sqrt{\\dim^k}$.\nThe parameter $\\lambda > 0$ is the signal-to-noise ratio parameter.\nThe goal is to estimate the cross-moment tensor $\\bm V$.",
+    "evidence": [
+      {
+        "page": 38,
+        "location": "Section 7.1 — Canonical Correlation Analysis, equation (29)"
+      }
+    ]
+  },
+  {
+    "local_id": "D13",
+    "original_tex": "Note that we have not explicitly specified the probability measure $\\dmu{\\bm V}$ of $\\bm x_i$, as the goal of estimating correlation structure is often considered in a non-parametric setting.\nHowever, our lower bounds will consider a particular measure $\\dmu{\\bm V}$ specified by its likelihood ratio with respect to $\\refmu = \\gauss{\\bm 0}{\\bm I_{k\\dim}}$:\n\\begin{subequations} \\label{eq:kCCA-likelihood}\n \\begin{align}\n     \\frac{\\diff \\dmu{\\bm V}}{\\diff \\refmu}(\\bm x) \\explain{def}{=} 1 + \\frac{\\lambda}{\\lambda_k} \\cdot \\sgn\\left(\\frac{\\ip{\\mview{\\bm x}{1} \\otimes \\dotsb \\otimes \\mview{\\bm x}{k}}{\\bm V}}{\\sqrt{\\dim^k}}\\right),\n \\end{align}\n where\n \\begin{align}\n     \\lambda_k \\explain{def}{=} \\left(\\frac{2}{\\pi} \\right)^{\\frac{k}{2}} = (\\E |Z|)^{\\frac{k}{2}}, \\quad Z \\sim \\gauss{0}{1}.\n \\end{align}\n \\end{subequations}\nThis is a valid probability distribution that satisfies \\eqref{eq:k-CCA-correlation} as long as $0 \\leq \\lambda \\leq \\lambda_k$.",
+    "evidence": [
+      {
+        "page": 39,
+        "location": "Section 7.1 — likelihood ratio, equations (30a) and (30b)"
+      }
+    ]
+  },
+  {
+    "local_id": "D14",
+    "original_tex": "Finally, our computational lower bound for $k$-CCA will hold even under further restrictions on $\\bm V$, namely\n\\begin{align}\n  \\label{eq:kCCA-coordprior}\n  \\bm V = \\sqrt{d^k} \\cdot \\bm e_{i_1}\\otimes \\bm e_{i_2} \\dotsb \\otimes \\bm e_{i_k}\n\\end{align}\nfor some $\\{ i_1, i_2, \\dotsc, i_k \\} \\subseteq [\\dim]$, where $\\bm e_1, \\bm e_2, \\dotsc, \\bm e_{\\dim}$ are the standard basis vectors in $\\R^\\dim$.\nThis restriction is relevant to the connection between $k$-CCA and the parity learning problem.\n\n %",
+    "evidence": [
+      {
+        "page": 39,
+        "location": "Section 7.1 — cross-moment tensor restricted by equation (31)"
+      }
+    ]
+  }
+]

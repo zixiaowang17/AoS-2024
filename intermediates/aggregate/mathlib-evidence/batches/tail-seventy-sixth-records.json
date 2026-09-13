@@ -1,0 +1,1280 @@
+[
+  {
+    "interface_id": "local-2380bdc7faeb69cd77d6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "71fa5389afc7c688aef9c86aec615e3e5f9537982d654138498f25a37de8405d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D1",
+        "comparison": "Take n iid triples (X_i,Y_i,Z_i) from L_n, with sample arrays distinguished from bold population variables; iid across observations does not assert independence of X and Y within a triple, either conditionally or unconditionally, and is not an across-n coupling assumption.",
+        "statement_sha256": "876249d48a713a5933d83153717bd719c0a4777819504ccff2a0074a3c148950"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "IID triangular-array sample of triples from an n-dependent joint law; inspected finite product probability measures and independent identical distributions.",
+          "result": "For each n, use n copies of the joint law L_n to define the sample row; no common probability law across n or additional factorization inside each triple is required."
+        }
+      ],
+      "gap": "These declarations suffice to define each iid sample row while allowing the population law to vary with n."
+    }
+  },
+  {
+    "interface_id": "conditional-mean-regression",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "af490208a0ea29fe5b0f28375a106b58f7dd04e817a2d19edcbcb5548a7206c6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0466",
+        "local_id": "D1",
+        "comparison": "Condition the real response y on the p-dimensional x with the stated joint support Y times X; preserve 'random sample' as source wording, and use square integrability for the stated mean-squared prediction optimality rather than inferring finite risk from mere existence of a conditional mean.",
+        "statement_sha256": "35bdd2aa095b3d9c3adffe1aaae70d421cd5e1fb08ca13d960e3cddb16cf3c52"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1592",
+        "local_id": "D2",
+        "comparison": "Use the observed-law conditional mean mu_0(l,a)=E[Y|L=l,A=a], conditioning jointly on covariates and treatment; it is not itself a potential-outcome estimand or a causal-identification result.",
+        "statement_sha256": "315c61aecb5de3ca6d1d9c4b9d4afa136f053866e31c401199a78ba6c9cc9d07"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D4",
+        "comparison": "For each t=0,1 define r_t(x)=E[Y(t)|X=x] using the potential outcome as the response; no linearity, sparsity or identification with E[Y|T=t,X=x] follows without the source's separate assumptions.",
+        "statement_sha256": "fcd0f4baec328dc0115bba4297382256d1bb1f80e19d482e8fe366e96e43fe46"
+      },
+      {
+        "paper_id": "aos-2024-v52-i06-p2851",
+        "local_id": "D6",
+        "comparison": "The target is m(z)=E[Y|Z=z], while m-hat is a fitted nuisance function whose training data depend on the selected algorithm; the definition does not equate the fitted function with its target or with the full regression on (X,Z).",
+        "statement_sha256": "e3d10cc03f09a391cd4a856642a41bbb4d193f949b68301315190b1281a6f2c5"
+      },
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D3",
+        "comparison": "Under each n-dependent true law L_n, define both mu_n,x(Z)=E[X|Z] and mu_n,y(Z)=E[Y|Z], then evaluate their chosen versions at observed Z_i; fitted means are distinct data-dependent inputs and no regression algorithm or learned conditional law is prescribed here.",
+        "statement_sha256": "ae0af52126c4bf68b5be29394fcfbb1cc4d5c10499305e4e0288645890a65cee"
+      },
+      {
+        "paper_id": "aos-2024-v52-i06-p2851",
+        "local_id": "D7",
+        "comparison": "For each P use g_P(x,z)=E_P[Y|X=x,Z=z], retaining the full predictor block; equality with the response-on-Z function m_P is a conditional-mean null condition, not part of this definition.",
+        "statement_sha256": "65d2e7956f94324fe0ce715740e193ad7c4dd146570e3e0f54b5f6aa4deb2e0f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExpL2",
+          "type": "{α : Type u} → (E : Type v) → (𝕜 : Type w) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → {m m0 : MeasurableSpace α} → {μ : MeasureTheory.Measure α} → (m ≤ m0) → (α →₂[μ] E) →L[𝕜] MeasureTheory.lpMeas E 𝕜 m 2 μ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.CondexpL2",
+          "provides": "Continuous linear orthogonal projection of L2 equivalence classes onto the subspace measurable with respect to a smaller sigma-algebra.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/CondexpL2.lean#L68-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Conditional-mean regression functions for observed and potential responses with different predictor blocks; inspected generated conditioning sigma-algebras, conditional expectations, regular conditional kernels and the L2 projection.",
+          "result": "Conditional expectation relative to the predictor-generated sigma-algebra gives each target as a random variable, and factorization or conditional-kernel integration gives a measurable predictor function up to the predictor law's null sets. The L2 projection supports the mean-squared prediction interpretation when the response is square integrable."
+        }
+      ],
+      "gap": "These declarations suffice for the conditional means after specifying each response, predictor block, law and integrability domain, with pointwise representatives determined only almost everywhere."
+    }
+  },
+  {
+    "interface_id": "conditional-independence",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "273849f24d6f2bba41ece2d0b0bbb108fec5d373e73de14caf61591b1853c834",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D2",
+        "comparison": "Define the null-law class by L_n(X,Y|Z)=L_n(X|Z) times L_n(Y|Z), with the regularity class R_n intersected separately; membership does not assert that the true predictor conditional law is known or equal to its learned approximation.",
+        "statement_sha256": "664763d00833c43965fd2120a8e4303052ef4566c42042fdc91b78813769aade"
+      },
+      {
+        "paper_id": "aos-2024-v52-i06-p2851",
+        "local_id": "D27",
+        "comparison": "Require the entire conditional distribution of Y given (X,Z) to equal that given Z, not just their conditional means; retain its role only in the stated branch of Theorem 4 and do not import it into other mean-null or power claims.",
+        "statement_sha256": "19e9a0eb27ef92a43f314cb92d3896079884bdd7aeefb6e1ad69692b5fded7d7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.CondIndepFun",
+          "type": "{Ω : Type u} → (m' : MeasurableSpace Ω) → {mΩ : MeasurableSpace Ω} → [StandardBorelSpace Ω] → (hm' : m' ≤ mΩ) → {β : Type v} → {γ : Type w} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → (μ : MeasureTheory.Measure Ω) → [MeasureTheory.IsFiniteMeasure μ] → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Conditional",
+          "provides": "Conditional independence of two random variables given a sub-sigma-algebra, using a conditional-expectation kernel on a standard Borel underlying space with a finite measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Conditional.lean#L155-L157",
+          "link_checked": true
+        },
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Conditional product factorization and equality of full response conditional laws under predictor enlargement; inspected CondIndepFun and conditional-distribution kernels on standard Borel spaces.",
+          "result": "The conditional-independence predicate supplies the probability property, and regular conditional kernels represent its product-law or conditional-law invariance formulations up to almost-everywhere versions."
+        }
+      ],
+      "gap": "The existing conditional-independence infrastructure suffices after specifying the conditioning sigma-algebra and verifying the standard measurable-space hypotheses for the chosen law representation."
+    }
+  },
+  {
+    "interface_id": "local-0468699b0a5e403dcc6b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "735ad94f1cf38af9a2e04725fc858acde9f63e6204b5d81e5ad9de2bb1e80a8b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D5",
+        "comparison": "Use n^-1/2 sum_i(X_i-mu-hat_n,x(Z_i))(Y_i-mu-hat_n,y(Z_i)), with both fits treated as inputs; this raw numerator has no variance studentization and does not itself require resampled observations or a full predictor conditional kernel.",
+        "statement_sha256": "a2e4f5a7603a1b17d814bdd4b4827f2e24cac3980809d12dca78a321cddc8a72"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Raw fitted-residual product statistic normalized by sqrt n; inspected finite function sums and real square root.",
+          "result": "Evaluation of two fitted mean functions at each Z_i, multiplication of residuals and the normalized sum give the complete statistic as a data functional."
+        }
+      ],
+      "gap": "Existing finite arithmetic suffices to define the raw statistic once the fitted mean functions and positive sample size are supplied."
+    }
+  },
+  {
+    "interface_id": "local-5f5e0757d378c49303c1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "eab896e62d883bfa41b11dae6dadba325faae3cae7b46db894c2c28a8ab3f3c5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D7",
+        "comparison": "Studentize the raw n^-1/2 residual sum by the square root of the empirical variance of the residual products, then reject strictly above z_(1-alpha); retain the one-sided test, unspecified n-versus-n-1 empirical divisor, and absence of a resampling-kernel requirement.",
+        "statement_sha256": "63bcec9eaef66ba385f3be8251fb9567ccc85555b3674cdad2a0174767724171"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "GCM one-sided standardized residual-product test, empirical variance and Gaussian critical value; searched GCM and inspected variance, standard normal CDF, indicators and square roots.",
+          "result": "The residual-product sample and empirical variance can be expressed using finite arithmetic or an empirical measure, and an indicator of exceeding the normal quantile defines the decision. Empirical variance normalization and zero-denominator behavior remain source conventions not fixed by the generic variance operator."
+        }
+      ],
+      "gap": "The GCM test still needs its empirical-variance divisor and degenerate-denominator convention specified alongside the fitted means and normal threshold."
+    }
+  },
+  {
+    "interface_id": "local-1b8f04a51106924675e2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "eec901d972babf36da747ec07feb4d97cfae6ed438f0105f1136ba0ef62020e2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D4",
+        "comparison": "Learn the X-given-Z kernel from (X,Z) and the Y-given-Z mean from (Y,Z) using the observed sample, then draw each resampled predictor array under the product of the learned conditional laws given all original data; neither independent training nor an entire learned joint law of (X,Y,Z) is prescribed.",
+        "statement_sha256": "eb4cafd041367af48daf2467ac5e15cdafa012385c77da850b0b75eec360b108"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Learned conditional predictor kernel and conditionally independent in-sample resampling given data; inspected measurable Markov kernels and finite product measures.",
+          "result": "A data-dependent Markov kernel evaluated at the observed Z_i supplies each predictor draw law, and their product supplies conditional independence across observations once the training data are fixed. The response mean is another fitted input, not a response resampling law."
+        }
+      ],
+      "gap": "The resampling law is composable once the learning maps yield measurable probability kernels and fitted response means with the source's training inputs."
+    }
+  },
+  {
+    "interface_id": "local-6f1b9f38f6d1a43a3506",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "6431c41cde45422db71437a0cc5e7723cb54e537b7fa7060dc8e22b8ed444031",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D15",
+        "comparison": "Use the true centered product U_n=(X-mu_n,x(Z))(Y-mu_n,y(Z)), require inf_n E[U_n^2]>c_1 and sup_n E[|U_n|^(2+delta)]<c_2 with c_1,c_2,delta>0; this is not a learned-residual moment condition and does not automatically make the constants uniform over every regularity class of laws.",
+        "statement_sha256": "3f3d5798ab37f83e62d3b4ca78a7ed1d1983db77f4ac06ec6c3c531f80d35579"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Uniform-in-n second and 2+delta moments of true residual products; inspected nonnegative moments, real powers and bounded supremum/infimum conditions.",
+          "result": "Nonnegative integration expresses both moments and explicit quantification over n imposes common strict lower and upper bounds. Real infimum/supremum identities need their boundedness conditions; extended nonnegative moments retain infinite values during formulation."
+        }
+      ],
+      "gap": "These operations suffice to state the two uniform-in-n moment restrictions with the supplied positive constants."
+    }
+  },
+  {
+    "interface_id": "local-185f3a34596330333f06",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "ffe8eef20c0846ceb4e962e9dd7f70256e1e8b70ea7fa17dd12f7127908c9aae",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D12",
+        "comparison": "Require all three quantities in the comma-separated chain to lie strictly between zero and infinity: the learned predictor conditional variance, squared fitted-mean response residual and squared true-mean response residual; this is neither a uniform positive lower bound nor permission to add the separate NDG1 assumption to every theorem using NDG2.",
+        "statement_sha256": "215eb8a9561f37059b60eed81117c2315a0407a41b8f04317449256916ac0204"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Almost-sure positive finite learned conditional variance and two squared response residuals; inspected variance as centered second moment, learned kernels and extended nonnegative integration.",
+          "result": "Variance under each realized learned predictor kernel and the two data residual squares are definable quantities, with positivity and finiteness imposed as almost-sure assertions under the true sampling law. Real variance totalization does not prove finiteness."
+        }
+      ],
+      "gap": "The NDG2 predicate is composable once learned-kernel second moments and the common almost-sure interpretation are specified."
+    }
+  },
+  {
+    "interface_id": "local-ae7b90f3cffd07347b04",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "caedbf066f9a922a6bd83ea929c134f9cc8eb39511c5836d5dc0802c88197d8b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D9",
+        "comparison": "Retain inf{t:P[W<=t|F]>=alpha}, with a non-strict CDF event and non-strict level comparison, giving the lower quantile rather than any arbitrary quantile selection; the test uses an interior level 1-alpha, and conditional versions are only determined almost surely.",
+        "statement_sha256": "1dce25284f44c9975ec39e3abf38ef7724aea65059783ea4cc8bfaed75a3688e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Lower conditional quantile as infimum of conditional CDF level set; searched quantile/inverse CDF and inspected conditional kernels, cdf and infimum characterization.",
+          "result": "For a proper conditional probability kernel, evaluate its CDF at t and take the infimum of the set where it is at least alpha. A coherent conditional-law version and measurable dependence of this infimum are additional obligations; endpoint quantile levels can require extended values."
+        }
+      ],
+      "gap": "The conditional quantile construction still needs a coherent measurable conditional CDF and its level-set infimum with the intended probability-level domain."
+    }
+  },
+  {
+    "interface_id": "local-1fc2ae4f3bfad3fa8f5c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "88d14d9f659b5edc2561fd9f5d18022024cbb746119b0c3d7a0b371e4923f405",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D6",
+        "comparison": "Replace only X_i by the draw from resampling replicate m in n^-1/2 sum_i(X-tilde_i-mu-hat_n,x(Z_i))(Y_i-mu-hat_n,y(Z_i)); retain original X as a fitting input and do not refit either nuisance after resampling, while preserving the source's shorthand omission of m on individual components.",
+        "statement_sha256": "1cef5fee4670c1ddaf0f36415032c1535e0c102f5d795fca9cbeca2c2a831de7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resampled predictor residual statistic with original nuisance fits held fixed; inspected finite normalized sums and product resampling laws.",
+          "result": "The same residual-product formula can be evaluated with a resampled predictor vector and all other inputs fixed. Its data dependence is explicit in the four-argument formulation."
+        }
+      ],
+      "gap": "The resampled statistic is composable from the finite formula while keeping the original fitted functions fixed under resampling."
+    }
+  },
+  {
+    "interface_id": "local-1c7912fbf00422511c4e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "7d1aa5d25535e6c20115084bc912cef5a4fd530067de53c881ea316208c80d13",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D8",
+        "comparison": "Compute variance over resampled X conditional on original (X,Y,Z), leaving response residuals and fitted means fixed; the result uses Var_under_learned[X_i|Z_i](Y_i-mu-hat_n,y(Z_i))^2/n and is not the empirical variance of the observed residual products used by GCM.",
+        "statement_sha256": "ae3bf299d06ea710a6430f6b30fa8d7ac925759e39752352b40fa8c8fff44f18"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance_sum_pi",
+          "type": "{ι : Type u} → [Fintype ι] → {Ω : ι → Type v} → {mΩ : ∀ i, MeasurableSpace (Ω i)} → {μ : ∀ i, MeasureTheory.Measure (Ω i)} → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → {X : ∀ i, Ω i → ℝ} → (∀ i, MeasureTheory.MemLp (X i) 2 (μ i)) → ProbabilityTheory.variance (fun ω => ∑ i, X i (ω i)) (MeasureTheory.Measure.pi μ) = ∑ i, ProbabilityTheory.variance (X i) (μ i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Variance of a sum of separate coordinate functions under a finite product probability law equals the sum of component variances, assuming square integrability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L447-L460",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Variance of conditionally independent weighted predictor residuals under the learned product law; inspected variance_sum_pi, variance scaling/centering and finite product measures.",
+          "result": "For each fixed data set, the learned product law makes separate predictor coordinates independent; square-integrable variance additivity and constant scaling yield the sum of learned variances times squared observed response residuals with factor 1/n."
+        }
+      ],
+      "gap": "The displayed identity follows by assembling product-law variance additivity and scaling after verifying the learned conditional second moments."
+    }
+  },
+  {
+    "interface_id": "local-9226d15c00b2787b4308",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "5b1afe0bc080d6b1a530e7ad0b126eebbc1d0d447823db429f8475b3a9ea4bfd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D13",
+        "comparison": "Keep E_n,x and E_n,y as root mean squares on the same observed Z_i, E-prime_n,x weighted by true Var[Y|Z_i], and E-prime_n,y weighted by true Var[X|Z_i]; they are random in-sample quantities, not population risks, learned-variance errors, or quantities requiring a resampling kernel.",
+        "statement_sha256": "08f593d255a18d2cb5638198f62d04445dbbbc5f74839a995a11f68c33e61b6c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condVar",
+          "type": "{Ω : Type u} → {m₀ : MeasurableSpace Ω} → MeasurableSpace Ω → (Ω → ℝ) → MeasureTheory.Measure[m₀] Ω → Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CondVar",
+          "provides": "Conditional expectation of the squared residual after conditional centering; its statistical interpretation requires the sub-sigma-algebra, sigma-finiteness and integrability conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CondVar.lean#L40-L40",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "In-sample nuisance RMS errors with opposite-response conditional variance weights; inspected finite mean squares, square root, conditional variance and empirical L2 seminorm.",
+          "result": "The two unweighted errors are empirical L2 discrepancies at observed covariates; the weighted versions multiply each squared error by the other variable's true conditional variance before averaging and taking the square root."
+        }
+      ],
+      "gap": "These operations suffice to define the four error quantities once the true and fitted conditional means and true variance versions are supplied."
+    }
+  },
+  {
+    "interface_id": "local-c315433b57225f1a1eb9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "8bba953045aadb0c4305e17457a80df5385eca58fb4121c97adac245d46bb503",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D14",
+        "comparison": "Require sqrt(n) E_n,x E_n,y ->0 in probability and E-prime_n,x,E-prime_n,y ->0 in probability under the true row laws; the product rate is quantitative double robustness, not validity whenever one model is labeled correct regardless of the other's error.",
+        "statement_sha256": "d0a5256c1d02b15367494a7bdf1d09210c8cb187bdd75adf93aa9f6f6e8a75ce"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Stochastic little-o rates under changing triangular-array laws; inspected deviation-probability convergence and the fixed-measure scope of TendstoInMeasure.",
+          "result": "Vanishing tail probabilities for scaled errors express stochastic little-o under each row's true sample law. TendstoInMeasure covers a common-space fixed-law representation, but changing laws require explicit row-specific probabilities rather than deterministic IsLittleO."
+        }
+      ],
+      "gap": "The rates are composable by expressing deviation-probability limits under the correct n-dependent sampling laws."
+    }
+  },
+  {
+    "interface_id": "local-60ac99630515f652d61d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "e32a1510f2dfe8e29186780fbc567f906f665b77da0948268d22dbe6a664b379",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D11",
+        "comparison": "For each continuity point t of the law of W, require P[W_n<=t|F_n] -> P[W<=t] in probability; do not replace it by almost-sure conditional convergence, uniform convergence over all t, or unconditional weak convergence alone.",
+        "statement_sha256": "62e0a0adbef87342e5698108afac7926670c8c805ea24d374f986bbe440dda6d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Conditional CDF convergence in probability at limiting continuity points; inspected conditional laws, scalar CDF and convergence-in-measure definition with its fixed underlying measure.",
+          "result": "Each conditional CDF value is a data-dependent random quantity whose deviations from the fixed limiting CDF can be required to vanish in probability. For n-dependent experiments this is formulated through the corresponding sequence of outer sampling probabilities."
+        }
+      ],
+      "gap": "The conditional convergence relation still needs its coherent conditional CDF versions and pointwise-in-t probability limits assembled across the experiment sequence."
+    }
+  },
+  {
+    "interface_id": "local-fae9c4be4e8b0012fbb3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "ed7c08e228913fae9342f1b595e76df49d404d7036a27be96f663d0b11954dbc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D18",
+        "comparison": "Retain the product rate and both true-variance-weighted errors from SP1, plus E-hat-prime_n,y ->0, where its square averages (mu-hat_n,y(Z_i)-mu_n,y(Z_i))^2 times learned Var[X_i|Z_i]; this augmentation is used by Theorem 2 and must not be silently imposed on Theorem 3.",
+        "statement_sha256": "9e302dd416e058ad456466d9587c3959f07e42e83fe89ab0359a8eaecdec4954"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "SP1-prime nuisance rates with learned-variance-weighted response error; inspected probability limits, realized learned-law variance and empirical square roots.",
+          "result": "The original three stochastic rate conditions are supplemented by another RMS quantity using the learned predictor variance. Explicit tail probabilities handle the n-dependent true sampling laws."
+        }
+      ],
+      "gap": "The strengthened condition is composable from SP1 and the additional learned-variance-weighted RMS convergence requirement."
+    }
+  },
+  {
+    "interface_id": "local-bd64e40750dc87a1b630",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "7bc13101aa123a334603bfb78b3c9005e52fab2abf43a51d026c4552f5ba38bd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D20",
+        "comparison": "Keep L_(x,z) fixed, beta scalar, eta=X beta+g(Z) and g in the stated linear subspace of L2 of the Z marginal, without adding closedness; preserve the source L_(beta,eta) notation alongside paths parameterized by (beta,g), and do not require every conditional-independence null law to belong to this alternative family.",
+        "statement_sha256": "519a6d93b90b5a9693bf774375d81cd7a5da7d8d1cc0668e42af9d9fb02ad57a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.tilted",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Tilted",
+          "provides": "Exponentially tilted measure with density exp(f) divided by its integral; for nonzero base measure and integrable exp(f) it is a probability law, and nonintegrability gives the zero measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Tilted.lean#L42-L43",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.bind",
+          "type": "{α β : Type*} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → (α → MeasureTheory.Measure β) → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.GiryMonad",
+          "provides": "Integrate a measurable measure-valued transition against an input measure; bind_apply identifies its mass on measurable sets with the corresponding nonnegative integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/GiryMonad.lean#L228-L229",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp.toLp",
+          "type": "{α : Type u} → {E : Type v} → {m : MeasurableSpace α} → {p : ℝ≥0∞} → {μ : MeasureTheory.Measure α} → [NormedAddCommGroup E] → (f : α → E) → MeasureTheory.MemLp f p μ → MeasureTheory.Lp E p μ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+          "provides": "The Lp equivalence class of a function with an explicit finite-moment and measurability witness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSpace/Basic.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Semiparametric generalized partially linear canonical exponential-family alternatives with fixed predictor law; inspected exponential tilting, conditional kernels, integrated conditional laws and L2 representations.",
+          "result": "Tilting a response base measure by eta times its canonical statistic gives an exponential-family law when the normalizer is finite; a kernel indexed by eta=x beta+g(z) combines with the fixed (X,Z) law. The nuisance subspace and log-partition function remain model-specific data."
+        }
+      ],
+      "gap": "The GPLM family still needs its normalized response kernel, log-partition function and specified linear L2 nuisance space assembled with the fixed predictor law."
+    }
+  },
+  {
+    "interface_id": "local-c47cdeed8258ba83bfee",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "32c826805b6cbec5ea48ed5bea38d0e32c1bc79a70d711603b6cf7fe6536b7a1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D10",
+        "comparison": "Reject strictly above the conditional (1-alpha) quantile of the resampled statistic given all original data, or above its correspondingly standardized threshold when the resampling standard deviation is positive finite; this is the M->infinity test and supplies no arbitrary fixed-M Monte Carlo validity guarantee or invented zero-denominator rule.",
+        "statement_sha256": "a0ef2bbbac4a2dfe05d4210850cb6ef1da4756a3d35a0f797e4a9d32c2cb5fe2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Infinite-resamples dCRT decision above a lower conditional quantile and scale invariance; searched dCRT and inspected conditional distributions, CDF infima, variance and indicators.",
+          "result": "The raw decision compares the observed statistic with a quantile of its fixed-data resampling law. Equivalence after studentization uses a positive finite data-measurable scale and the corresponding conditional quantile scaling identity."
+        }
+      ],
+      "gap": "The theoretical test still needs the conditional-quantile construction and positive-scale equivalence, with degenerate scales treated only as specified by the source."
+    }
+  },
+  {
+    "interface_id": "local-15d55e182a082db93b4d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "21bab302890a46bdbd4fd4fe0680695f2364f853f1ec09106031a619f369c91e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D21",
+        "comparison": "Use theta_n(h)=(h_beta/sqrt(n),g_0+h_g/sqrt(n)) for h_beta>0 and h_g in H_g, preserving the one-sided alternative; the theorem separately evaluates the same formula at h_beta=0 for null-path inclusion, and s^2(theta_0) uses the expectation of the product of true conditional variances rather than learned or unconditional variances.",
+        "statement_sha256": "8aa8d230d6ca5bf3762408f8dfa37d03cca4a315852f5ac323c7a07c10c237aa"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condVar",
+          "type": "{Ω : Type u} → {m₀ : MeasurableSpace Ω} → MeasurableSpace Ω → (Ω → ℝ) → MeasureTheory.Measure[m₀] Ω → Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CondVar",
+          "provides": "Conditional expectation of the squared residual after conditional centering; its statistical interpretation requires the sub-sigma-algebra, sigma-finiteness and integrability conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CondVar.lean#L40-L40",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Root-n local coefficient/nuisance paths and conditional-variance product information scale; inspected real square root, conditional variance and integration.",
+          "result": "Scalar and function-space arithmetic defines the path about (0,g_0). The auxiliary scale is the integral of the product of the two true conditional variances under the base law, with its nonnegative square root used where needed."
+        }
+      ],
+      "gap": "These operations suffice for the local paths and auxiliary scale once the nuisance space, base point and finite variance domain are supplied."
+    }
+  },
+  {
+    "interface_id": "local-1486210bb39f1d3a8a9a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "182abcff5b3720c74cd3c4a53a029a0c3f49f3ce8cf1cd4a767d9e91d2a23371",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D16",
+        "comparison": "Retain n^-1 sum_i(learned Var[X_i|Z_i]-true Var[X_i|Z_i]) true Var[Y_i|Z_i] ->0 in probability, including its sign and possible cancellation; it is not pointwise variance consistency or convergence of an average absolute or squared variance error.",
+        "statement_sha256": "035552e73bf5e4a67d6924211f9fb6bc83887b9588982882ecdbd7b11ef4e596"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condVar",
+          "type": "{Ω : Type u} → {m₀ : MeasurableSpace Ω} → MeasurableSpace Ω → (Ω → ℝ) → MeasureTheory.Measure[m₀] Ω → Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CondVar",
+          "provides": "Conditional expectation of the squared residual after conditional centering; its statistical interpretation requires the sub-sigma-algebra, sigma-finiteness and integrability conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CondVar.lean#L40-L40",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Signed average learned-minus-true predictor conditional variance error weighted by true response variance, converging in probability; inspected conditional variance, realized kernel variance, averaging and probability-tail limits.",
+          "result": "The empirical weighted signed sum is a data-dependent scalar, and convergence of its deviation probabilities to zero states consistency under the true row law."
+        }
+      ],
+      "gap": "The condition is composable from the two variance versions, true response weights and the appropriate row-law probability limit."
+    }
+  },
+  {
+    "interface_id": "local-d6488e40667706a288d6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "472d10bda7500b93ed45bed3909ba7da169c4c14dcf526d887078d0a445bd6c9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D19",
+        "comparison": "Take sup over L_n in the conditional-independence null intersect R_n at each n before limsup, bounding it by alpha; allow randomized tests with values throughout [0,1], and do not replace uniform-over-laws control by a separate pointwise limit for each fixed law.",
+        "statement_sha256": "82447428372488eac87afbf28ade92a975951d6705a2165955d6c566ac2a276f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.limsup",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit superior along an explicit filter; real-valued use needs the appropriate boundedness, while extended nonnegative values can retain infinite limits.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Uniform asymptotic Type-I error with supremum over n-dependent null regularity classes before limsup; inspected bounded test expectations, real suprema and limit superior.",
+          "result": "Measurable [0,1]-valued tests have bounded expectations, enabling a per-n supremum followed by limsup. The correct law is the data experiment induced by each candidate joint law, with a convention needed if a null class is empty."
+        }
+      ],
+      "gap": "These order and integration operations suffice to state uniform asymptotic level once the null experiment classes and any empty-class convention are supplied."
+    }
+  },
+  {
+    "interface_id": "local-dcd6836b4d14db38854a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:54:56.205783+00:00",
+    "source_interface_sha256": "64c00a84a320982ca99345c7aa1f2dc5cad9fd1a590d6a7ea7a61fc736df5810",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0895",
+        "local_id": "D22",
+        "comparison": "For each fixed positive coefficient direction and nuisance direction, require the competitor's limsup power <= the proposed test's liminf power and require both to satisfy the separate null-level condition; LAUMP(g_0) then quantifies over every direction and LAUMP(S) over every g_0 in S, without moving a supremum over directions inside the limits.",
+        "statement_sha256": "f50adcb7f6e1bb40e69a8a8010132e382505155bdee217671cbe4c3640eca80b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.limsup",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit superior along an explicit filter; real-valued use needs the appropriate boundedness, while extended nonnegative values can retain infinite limits.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.liminf",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit inferior of a function along a filter; finite probability sequences lie in a bounded interval so their usual real limit inferior is meaningful.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L64-L67",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Locally asymptotically most powerful and LAUMP definitions with competitor-wise limsup/liminf power comparison; searched LAUMP and inspected bounded expectations and limit superior/inferior.",
+          "result": "Quantifying over all competing level-alpha test sequences and comparing their bounded power sequences expresses the directional definition. Subsequent universal quantification over directions and base nuisance functions gives the two stated uniform variants."
+        }
+      ],
+      "gap": "The definition is composable from the level-control predicate and power limits, while proving a particular test satisfies it is a separate statistical result."
+    }
+  }
+]

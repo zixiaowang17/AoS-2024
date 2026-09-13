@@ -1,0 +1,124 @@
+{
+  "scope": "Manual comparisons for eleven oracle-rate, prior-concentration, testing, threshold and model-space interfaces from the adaptive variational-Bayes paper, including all merged variants.",
+  "rows": [
+    {
+      "interface_id": "oracle-approximation-estimation-rate",
+      "related": ["Set.image", "csInf_le", "le_csInf_iff"],
+      "status": "composable",
+      "query": "Inspected Set.image and the order-dual generation of csInf_le and le_csInf_iff from conditional-supremum theorems; checked their boundedness and nonemptiness hypotheses.",
+      "result": "Take the image of the admissible model indices under the sum of the supplied errors, then its real infimum. The two order lemmas characterize the lower-bound properties for a nonempty bounded-below image, without requiring the infimum to be attained. Product indexing changes the index type, not the construction.",
+      "gap": "Both oracle rates are directly expressible as infima of approximation-plus-estimation errors over their respective nonempty admissible index sets.",
+      "comparisons": {
+        "D12": "Use the one-index model family M_n and eta_nm+zeta_nm as in (3.5). Nonnegative errors provide a lower bound, but nonemptiness still matters for the ordinary real infimum. This definition does not assume the testing/prior approximation conditions A1 or A2; it is reused with the errors of Assumption E without importing A.",
+        "D24": "Use the full pair index (m,S) in M_n times S_n, retaining eta_nmS+zeta_nmS as in (5.3). Do not replace the two-index oracle with the one-index rate or assume an attaining pair. A finite or nonnegative-real infimum needs its intended domain conventions; totalized sInf of an empty set is not a supplied oracle rate."
+      }
+    },
+    {
+      "interface_id": "prior-oracle-model-concentration",
+      "related": ["MeasureTheory.Measure.sum", "MeasureTheory.Measure.dirac", "Real.exp"],
+      "query": "Searched prior-model and contraction-rate interfaces; inspected indexed sums of measures, Dirac measures and the real exponential, and compared the two source assumption headers.",
+      "result": "A countable weighted sum of Dirac measures can represent normalized prior model masses, and the exponential gives the stated lower bound. These components do not provide a near-oracle model with enough prior mass or establish the existence uniformly in the stated indices. The two source variants use different constant names and assumptions despite their shared mathematical shape.",
+      "gap": "The near-oracle model witness and its exponential prior-mass lower bound still need to be established for the chosen model prior.",
+      "comparisons": {
+        "D15": "Require at least one m_n-star with eta+zeta <= (1+c5)*epsilon_n and alpha_nm-star >= exp(-c6*n*epsilon_n^2), with the Assumption B constants and eventual-n scope. It is not a lower bound on every model and does not itself impose a prior tail on other models.",
+        "D48": "Use the Assumption E names c4 and c5 in the approximation factor and mass exponent, and the same one-index oracle from (3.5). Preserve E's positive constants and rho, its truth/model/eventual-n header, and the recorded Lambda_n-star versus Theorem 7.1 Lambda_n mismatch. Do not append Assumption B cardinality or regularization-tail requirements to this quasi-posterior condition."
+      }
+    },
+    {
+      "interface_id": "local-8e8fdb3310bd0e2c3d7b",
+      "related": ["Set.encard", "Real.exp"],
+      "status": "composable",
+      "query": "Inspected extended set cardinality, its ENat.card body and real exponential; checked the source's countable-model versus finite-simplex note and Assumption B scope.",
+      "result": "Extended cardinality records an infinite model set as infinity, so an upper bound by the finite exponential forces finiteness. Alternatively, require finiteness before using a real coercion of the natural cardinal. These operations express the model-count assumption without making an infinite set count as zero.",
+      "gap": "The model-count bound is directly expressible with extended cardinality and the exponential oracle-rate bound.",
+      "comparisons": {
+        "D13": "Count all of M_n, not a low-complexity subset or the product M_n times S_n. Preserve c3*n*epsilon_n^2 and the eventual-n scope from B, with no H factor in this formula. The introduced model set is countable in general; this bound supplies finiteness where it is assumed, rather than justifying finite-cardinality conventions throughout the paper."
+      }
+    },
+    {
+      "interface_id": "exponentially-accurate-model-tests",
+      "related": ["MeasureTheory.integral", "MeasureTheory.lintegral", "csSup_le_iff", "Real.exp"],
+      "query": "Searched hypothesis tests, type-I/type-II errors and testing functions in Probability and InformationTheory; inspected real and extended nonnegative integration, csSup_le_iff with nonempty bounded alternatives, and Real.exp.",
+      "result": "A measurable [0,1]-valued test has bounded expectations under probability laws, supplying the type-I and complementary type-II errors. The supremum lemma handles the uniform alternative bound when that objective set is nonempty, while extended nonnegative suprema can express an explicit empty-alternative convention. These primitives do not construct a test achieving the exponential rate.",
+      "gap": "The model-specific uniformly exponentially accurate tests remain to be constructed, with measurability and the separated-alternative supremum conventions made explicit.",
+      "comparisons": {
+        "D10": "Keep one test phi_nm for the fixed truth/model in the header and the stated bound for every zeta>zeta_nm>=n^-1/2. The first expectation is under P_lambda-star^(n), and the second is of 1-phi under P_T(theta)^(n), uniformly over distance >= J0*zeta inside Theta_nm. Do not swap the two laws or turn the test into an indicator-only rule. The source's quantifier order is retained rather than silently allowing a fresh test for each zeta.",
+        "D22": "Use a cell-specific phi_nmS, parameter space Theta_nmS and cell rate zeta_nmS under Assumption D's common constants/truth/model/cell/eventual-n header. The same max of two errors and non-strict separation threshold is retained. No construction follows merely from bounded integrals, and a real empty-set supremum requires a convention; this cell test does not by itself provide the merged-model variational witness of (5.2)."
+      }
+    },
+    {
+      "interface_id": "local-6569f02d2714392f3053",
+      "related": ["Set.indicator", "MeasureTheory.lintegral", "Real.exp"],
+      "query": "Searched prior-model regularization and exponential tails; inspected indicator's zero-outside definition, extended nonnegative integration and real exponential.",
+      "result": "The prior mass of the model subset with estimation error at least H*epsilon_n is an indicator integral, equivalently the nonnegative weighted sum over the countable model family once the normalized prior is specified. The exponential is the requested bound; no generic declaration proves that bound for arbitrary priors.",
+      "gap": "The chosen model prior must satisfy the stated exponential tail bound on estimation complexity; generic indicator integration only expresses that requirement.",
+      "comparisons": {
+        "D14": "Keep zeta_nm >= H*epsilon_n, including equality, for every H>H0, and exponent -c4*n*(H*epsilon_n)^2. This is a tail bound on prior model probabilities alpha_n, not on the posterior or on ivB penalties. In the countable case preserve summability and normalization instead of treating the finite-dimensional simplex notation as a complete infinite-mixture convention. Do not impose this Assumption B requirement on the ivB or quasi-posterior theorems that omit it."
+      }
+    },
+    {
+      "interface_id": "local-91b942435517599d3da1",
+      "related": ["Set.preimage", "Finset.filter"],
+      "status": "composable",
+      "query": "Inspected Set.preimage and Finset.filter; compared the source definition of the ivB penalty and its recorded extended-KL subtraction ambiguity.",
+      "result": "For a supplied well-defined ordered penalty value, the over-penalty set is the preimage of the closed upper threshold ray, restricted to admissible models. A finite model list can be filtered by exactly the same predicate. These set operations do not resolve the upstream definition of Psi as a difference of extended KL quantities.",
+      "gap": "Once the ivB penalty is well-defined, its non-strict threshold set is directly expressible by a restricted preimage or finite filter.",
+      "comparisons": {
+        "D42": "Use Psi_nm >= A*n*epsilon_n^2, not zeta_nm >= H*epsilon_n. Preserve the n factor and square of epsilon_n. The source's upstream Psi may involve infinity-minus-infinity without a stated convention; this comparison is conditional on having a valid penalty value and does not silently resolve that issue. Filtering does not establish that the excluded models have small posterior mass."
+      }
+    },
+    {
+      "interface_id": "local-26ccba1acb23c5778f57",
+      "related": ["Set.diff", "Finset.filter", "Finset.max'", "IsMaxOn"],
+      "query": "Inspected Set.diff, finite filtering, max' with its nonempty requirement and maximum-membership proof, and IsMaxOn; reviewed the source's empty-sieve/nonattainment note.",
+      "result": "The set difference forms the regular sieve and the ordered complement of the non-strict over-penalty condition gives the strict threshold. Finset.max' provides an attained maximum for a nonempty finite set of complexity values; IsMaxOn plus membership can state attainment in a general sieve. Neither declaration supplies finiteness, nonemptiness or attainment for the source's general model family.",
+      "gap": "The regular sieve can be formed, but existence of the displayed maximal complexity requires nonemptiness and attainment conditions not supplied by the bare definition.",
+      "comparisons": {
+        "D43": "Use exactly Psi_nm < A_n*n*epsilon_n^2 and maximize zeta_nm over that same sieve. The complement identity requires a well-defined ordered Psi and retains the upstream extended-KL issue. The source prints max rather than sup, so do not replace nonattainment or an empty sieve with a totalized maximum. Finite max' applies only after a finite nonempty sieve has been established; Assumption B finiteness must not be imported into the ivB setting automatically. Retain the same A_n as the theorem threshold, not an independently chosen tuning sequence."
+      }
+    },
+    {
+      "interface_id": "local-0c80445798e558155e86",
+      "related": ["Set.preimage", "Finset.filter"],
+      "status": "composable",
+      "query": "Inspected Set.preimage and Finset.filter for restricted threshold sets; compared estimation-error and ivB-penalty source definitions.",
+      "result": "Restricting the preimage of the closed upper ray beginning at H*epsilon_n to M_n gives the defined overly complex models. For finite model indices the same non-strict predicate can be used in filter; no probabilistic or asymptotic claim is needed for this set construction.",
+      "gap": "The estimation-error threshold set is directly expressible as a restricted preimage, with a finite-filter implementation when the model family is finite.",
+      "comparisons": {
+        "D17": "Keep H>1 and zeta_nm >= H*epsilon_n, including equality. This definition uses estimation error only; it is distinct from both approximation separation in M_under and the ivB penalty set with threshold A*n*epsilon_n^2. The set expression by itself supplies neither prior nor posterior tail control."
+      }
+    },
+    {
+      "interface_id": "local-17b918d246c58956f561",
+      "related": ["Set.image", "le_csInf_iff", "Set.preimage"],
+      "status": "composable",
+      "query": "Inspected set images/preimages and the generated le_csInf_iff theorem, including its nonempty bounded-below domain hypotheses.",
+      "result": "For each model, take the infimum of the distances attained by its parameter space and threshold that value at eta-star. With a nonempty model parameter space and nonnegative distance, le_csInf_iff identifies the bound with separation of every candidate parameter. Empty parameter spaces require an explicit extended-infimum or exclusion convention.",
+      "gap": "For nonempty model parameter spaces, the under-expressive model set is directly expressible using distance infima and the stated separation threshold.",
+      "comparisons": {
+        "D18": "Keep the truth-dependent infimum over theta in Theta_nm of d_n(T(theta),lambda-star), its non-strict >= eta-star bound and eta-star>0. Do not identify this best approximation distance with the supplied upper error eta_nm without proof, add beta-min conditions, or threshold zeta_nm. A real sInf of an empty image is not a source convention for an impossible model; nonempty/bounded hypotheses are needed for the universal-separation reading."
+      }
+    },
+    {
+      "interface_id": "local-d377aeae84748418f15e",
+      "related": ["Set.pi", "Set.powerset"],
+      "status": "composable",
+      "query": "Inspected Set.pi's dependent-function membership and Set.powerset's subset predicate; compared the source's author-defined uses of nested and combinatorial.",
+      "result": "A finite natural-coordinate function space represents N^q, and an arbitrary subset gives the source's nested index family. Set.powerset represents all subsets of the supplied base subset of N. This construction does not impose monotonic inclusion of statistical models or finiteness of the base set.",
+      "gap": "The source's two model-index structures are directly expressible by finite natural-coordinate function spaces and set powersets.",
+      "comparisons": {
+        "D19": "Nested here means only M_n subset N^q for some natural q; it does not assert that parameter spaces or distributions are nested under coordinate order. Combinatorial means the full powerset of a subset S-bar of N, not only subsets of a fixed size or only finite subsets. If S-bar is infinite, its powerset may be uncountable; do not silently use Finset.powerset or infer the paper's general countability conventions from this definition alone."
+      }
+    },
+    {
+      "interface_id": "local-220ea787c17d7671bb98",
+      "related": ["Set.mem_iUnion₂"],
+      "query": "Inspected Set.mem_iUnion₂'s full statement and proof, taking its second index to be membership in the allowed combinatorial model set; compared the separate prior-decomposition passage.",
+      "result": "Membership in the merged parameter space is exactly existence of an allowed support-cell index whose parameter space contains the point. This union construction permits overlaps and arbitrary index sets. It proves no computational tractability, variational optimizer existence or conditional-mixture identity.",
+      "gap": "The merged parameter-space union is available directly, while variational optimization and the claimed adaptive posterior construction require their separate probabilistic and optimization conditions.",
+      "comparisons": {
+        "D20": "For each fixed m, union all Theta_nmS over S in S_n before optimizing within the merged model. Do not instead optimize independently over every pair and treat those outputs as automatically identical. Set.mem_iUnion₂ implements the exact allowed-index union without requiring disjointness. The phrase 'if computationally tractable' is retained as a qualification; the conditional prior decomposition, zero-mass conventions and adaptive-posterior formula are separate content, not consequences of set union alone."
+      }
+    }
+  ]
+}

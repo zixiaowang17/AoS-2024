@@ -1,0 +1,108 @@
+{
+  "scope": "Manual comparison of ten geometric, smoothness and Gaussian-operator interfaces from p2081, using frozen main-text A1, A3, A7, A10, A11 and A12 context; prior-family interfaces remain pending.",
+  "rows": [
+    {
+      "interface_id": "local-3af3c2d31c1791779fd2",
+      "related": ["Finset.sum_div"],
+      "status": "composable",
+      "query": "Searched harmonic-mean and anisotropic-regularity interfaces and inspected finite sum/division algebra; compared the source reciprocal average and tangent/normal specialization A1.",
+      "result": "The effective scalar and normalized coordinate weights are finite arithmetic constructions, with positivity and normalization following from positive input exponents and positive ambient dimension.",
+      "gap": "Define beta as the harmonic mean of the positive coordinate exponents and alpha_i=beta/beta_i, then prove their sum is D.",
+      "comparisons": {
+        "D3": "For D>0 and beta_i>0, set beta=D/(sum_i beta_i^-1), equivalent to the displayed reciprocal average. Then alpha_i=beta/beta_i is positive and at most D, consistent with the printed [0,D] range, and sum_i alpha_i=D by finite sum/division algebra. The scalar beta and input vector bold beta are different typed objects; neither an arithmetic average nor the minimum exponent is interchangeable. With d tangent and D-d normal coordinates, A1 gives beta^-1=(d/D)/beta0+((D-d)/D)/beta_perp and repeats the corresponding alpha0 and alpha_perp with those multiplicities. Keep both dimension weights; the normalization is not sum alpha_i=1."
+      }
+    },
+    {
+      "interface_id": "local-054aceacda7873040264",
+      "related": ["Metric.thickening", "Metric.infDist"],
+      "query": "Inspected open metric thickening and real distance-to-set definitions and compared the source prose, union-of-balls display and nonstrict distance display.",
+      "result": "Mathlib distinguishes the open thickening from the nonstrict distance sublevel, so it cannot validate the source's equality of both conventions without resolving its boundary mismatch.",
+      "gap": "Retain the source offset boundary discrepancy and choose an explicit open or closed predicate only when a downstream statement fixes which is intended.",
+      "comparisons": {
+        "D2": "For nonempty closed M and delta>0, Metric.thickening delta M is the strict-distance region and corresponds to the prose distance less than delta and a union of open balls. The printed rightmost set {z | d(z,M)<=delta} includes boundary points and is a closed distance sublevel; it is generally different. Metric.infDist supplies finite distance for nonempty M but its empty-set zero default must not be used as an offset convention. Preserve P0(M^delta)=1 with this recorded source ambiguity rather than assuming an open/closed boundary has zero P0 mass. The same issue matters when tau-offsets appear later, and does not follow away merely because M is closed."
+      }
+    },
+    {
+      "interface_id": "local-bdf517645f5f3c30206c",
+      "related": ["iteratedFDerivWithin", "HolderOnWith"],
+      "query": "Searched for anisotropic Holder classes and inspected iterated within-derivatives and HolderOnWith; compared the complete mixed-index definition and bounded-open-domain/envelope context A12.",
+      "result": "Derivative and Holder primitives are available, but the weighted mixed orders, coordinatewise powers and variable envelope require a custom class rather than one ordinary Holder predicate.",
+      "gap": "Define every weighted-order derivative bound and terminal-band increment inequality with the exact coordinate powers and local envelope L(x).",
+      "comparisons": {
+        "D4": "On the source's bounded open U, for each multi-index k with weighted order sum k_i alpha_i<beta require D^k f to exist and abs(D^k f(x))<=L(x), including k=0. For every k in the band beta-alpha_max<=weighted order<beta, impose the displayed difference bound with exponent min((beta-weighted order)/alpha_i,1) in coordinate i. The exponents are positive because alpha_i>0 and the upper inequality is strict. L is any nonnegative function, not a global finite constant chosen silently; the bound uses L(x) for each ordered pair x,y and must hold for all such pairs. iteratedFDerivWithin can represent the mixed partials after coordinate and differentiability identifications, but a totalized derivative value is not existence. HolderOnWith has one fixed constant and one metric exponent, so it does not directly equal this sum of coordinate powers with an x-dependent envelope. No higher integer boundary derivative or appendix extension to arbitrary open U is inserted."
+      }
+    },
+    {
+      "interface_id": "local-42cb43011786787c98a3",
+      "related": ["ProbabilityTheory.multivariateGaussian", "Matrix.mul_nonsing_inv", "Real.sqrt"],
+      "query": "Searched Gaussian density and covariance interfaces and inspected multivariateGaussian's pushforward construction, matrix inverse and real square root; compared the full normalization and source quadratic-form convention A10.",
+      "result": "The centered Gaussian law and invertible covariance ingredients are supported, but the explicit Lebesgue density formula requires a change-of-variables/normalization proof.",
+      "gap": "Prove the stated density for the centered multivariate Gaussian with positive-definite covariance, keeping its determinant and quadratic-form conventions.",
+      "comparisons": {
+        "D10": "For real symmetric positive-definite Sigma, multivariateGaussian zero Sigma gives the intended centered law; positive definiteness supplies a nonzero determinant and genuine inverse for the density expression. The denominator is sqrt(det(2*pi*Sigma))=(2*pi)^(D/2)*sqrt(det Sigma), not merely 2*pi*sqrt(det Sigma). By A10 the exponent uses inner(Sigma^-1 z,z), not norm(Sigma^-1 z)^2, which would square the precision matrix. The library law also allows singular PSD Sigma, but such a singular law does not have this ambient Lebesgue density and is outside the source definition. Its invalid-matrix Dirac fallback is likewise not an extension of the printed density. The inspected construction alone does not establish the explicit density or its integral normalization."
+      }
+    },
+    {
+      "interface_id": "local-2d9c1206efe0221b703a",
+      "related": ["iteratedFDerivWithin", "HolderOnWith"],
+      "query": "Inspected derivative and Holder predicates and compared the constant-exponent specialization with the coordinatewise vector-valued convention A11.",
+      "result": "Setting all coordinate exponents equal yields the source isotropic class, but its variable envelope and sum-of-coordinate powers are not literally a fixed-constant Euclidean HolderOnWith predicate.",
+      "gap": "Define the isotropic class by specialization of the paper's anisotropic predicate and prove any desired equivalence to a standard Holder interface with explicit constants.",
+      "comparisons": {
+        "D5": "When every beta_i equals beta>0, the harmonic-mean scalar is beta and every alpha_i equals one. Thus all mixed derivatives with total integer order |k|<beta are bounded by L(x), and those with beta-1<=|k|<beta satisfy the coordinate increment sum with exponent beta-|k|, at most one. At integer beta this reaches derivatives of order beta-1 with a Lipschitz difference condition, rather than demanding a bounded beta-th derivative. The exact sum over coordinate differences differs from a Euclidean-distance power up to dimension-dependent constants, which must be tracked together with L(x). A11 defines vector-valued membership coordinate by coordinate with the same envelope; it does not introduce an operator-norm Holder bound on the entire vector map. Preserve the specialization as the definition, not an unproved identification with a different textbook class."
+      }
+    },
+    {
+      "interface_id": "local-bb8fd1f39319d4640744",
+      "related": ["IsManifold", "ContDiffOn"],
+      "query": "Searched geometry for reach and Riemannian exponential-map constructions, inspected chart-based manifold and smoothness interfaces, and compared the full retained chart context A3.",
+      "result": "General manifold and smoothness infrastructure exists, but no verified reach-controlled exponential chart with the stated uniform Holder bounds was found.",
+      "gap": "Supply the main-text exponential charts on tangent balls of radius tau/8 and their uniform isotropic regularity without importing the excluded reach construction.",
+      "comparisons": {
+        "D6": "The source assumes a closed embedded M with reach at least tau>0 and chooses Psi_x0 to be the exponential map. Although A3 mentions a larger possible domain, the working domain is specifically V_x0=B_(T_x0 M)(0,tau/8). For every center x0 in M it asserts membership in the paper's coordinatewise H_iso^beta_M(V_x0,C_M), with one C_M and beta_M>1. IsManifold supplies a chart/groupoid framework, not the reach definition, exponential-map construction or these uniform quantitative bounds; ContDiffOn by itself does not supply the paper's fractional-order Holder envelope. Appendix A is excluded, so its existence and construction details remain unexpanded. Do not replace the chosen exponential map by an arbitrary chart or require different centers to share one coordinate map."
+      }
+    },
+    {
+      "interface_id": "local-fb2870f58c7d8a8aaedb",
+      "related": ["Isometry", "IsManifold", "Submodule.orthogonalProjectionOnto"],
+      "query": "Inspected distance-preserving maps, manifold and subspace-projection primitives and the generic diffeomorphism structure; compared each normal-chart, projection and regularity clause in the main-text construction.",
+      "result": "Fiber isometries and manifold structures are available ingredients, but their smoothly varying construction and the offset-chart diffeomorphism are not provided by these declarations.",
+      "gap": "Construct the varying normal-fiber isometries and prove the stated offset-chart projection, invertibility onto its image and uniform regularity assertions.",
+      "comparisons": {
+        "D7": "The map is barPsi_x0(v,eta)=Psi_x0(v)+N_x0(v,eta), with N_x0(v,.) mapping the fixed normal space at x0 isometrically to the normal space at Psi_x0(v). Isometry supplies distance preservation only; if an onto linear normal-space identification is used, its surjectivity, origin behavior and linearity need to be established rather than inferred from that predicate. Restrict normal inputs to the ball of radius tau/2 and retain V_x0 in the tangent variable. The source asserts nearest projection of barPsi to M equals Psi(v), that barPsi is a diffeomorphism onto its image, and that both the normal-map family and the chart have the stated beta_M-1 coordinatewise isotropic regularity with constants depending on the saved geometric quantities. Subspace orthogonalProjectionOnto does not itself implement nonlinear nearest projection onto M. These assertions do not follow just from each fiber map being an isometry, and the appendix-only construction and proof are not supplied or certified here."
+      }
+    },
+    {
+      "interface_id": "local-653ff5e915904ba6582f",
+      "related": ["Set.preimage"],
+      "status": "composable",
+      "query": "Inspected set preimage and compared the source normal-coordinate scaling map and ambiguous radius typography with the original chart domain.",
+      "result": "Composition with normal scaling and the preimage of the original domain provide the rescaled chart for positive delta.",
+      "gap": "Compose the chart with (v,eta) maps to (v,delta*eta) and record its induced normal radius tau/(2*delta) alongside the printed notation.",
+      "comparisons": {
+        "D8": "For delta>0 keep v unchanged and multiply only eta by delta before applying barPsi. The preimage of the original normal ball ||delta eta||<tau/2 is ||eta||<tau/(2 delta), giving the intended reading of the source's printed tau/2delta. This resolves the algebraic effect of the declared scaling without changing the quotation or claiming the text used unambiguous parentheses. Tangent coordinates are not scaled, and the image continues to be the original local chart image in M^(tau/2), not automatically all of that offset or only M^delta. The chart's existence, projection and regularity assertions remain separate prerequisites."
+      }
+    },
+    {
+      "interface_id": "local-8a6cdf01262f7225e009",
+      "related": ["Function.support", "Set.preimage"],
+      "status": "composable",
+      "query": "Inspected function support and preimage definitions and compared both clauses of Definition 2.2 with the exact tangent/normal exponent vector A1 and rescaled chart.",
+      "result": "Vanishing outside the offset and normalized chart pullbacks can be assembled as a class once the source-specific offset, chart and anisotropic predicates are supplied.",
+      "gap": "Define support in the selected source offset and require every delta^(D-d)-normalized chart pullback to belong to the stated anisotropic class with the correspondingly scaled envelope.",
+      "comparisons": {
+        "D9": "Function.support subset M^delta expresses that f vanishes off the offset, with the retained open/closed offset convention still relevant to boundary support. For every x0 in M, compose f with barPsi_(x0,delta) and multiply by delta^(D-d); do exactly the same composition and factor for L. The exponent D-d is the normal codimension, not D, d or its negative. Require the pullback on W_(x0,delta) in H_an with d copies of beta0 and D-d copies of beta_perp, using their harmonic-mean anisotropy from A1. This is a scalar normalization of functions, not a claim that the nonlinear chart has constant Jacobian or a complete density change-of-variables formula. The class contains arbitrary real functions; positivity and unit integral are added only in density/theorem settings. No global inverse chart is supplied by the universal local-chart condition."
+      }
+    },
+    {
+      "interface_id": "local-6fe2b1c5b67a7149e824",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.multivariateGaussian", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected ordinary integration and Gaussian covariance construction and compared D19 with the complete geometric covariance frame and squared-scale formula A7.",
+      "result": "The location-dependent Gaussian integral is expressible after constructing its covariance field and explicit densities; it is not a translation-invariant convolution and arbitrary inputs need integrability conditions.",
+      "gap": "Build the tangent/normal covariance field and integrate its density kernel over M^tau, proving the required measurability and integrability for the chosen input function.",
+      "comparisons": {
+        "D19": "For y in M^tau, A7 defines tangent and normal spaces at pr_M(y), an orthonormal coordinate matrix O_y, and Sigma(y)=O_y transpose Delta_(sigma,delta)^2 O_y. Delta contains tangent standard deviations sigma^alpha0 and normal standard deviations delta*sigma^alpha_perp; these must be squared in the covariance and positive when using the nonsingular Gaussian density. Basis independence relies on equal scaling within each subspace, not on choosing one global frame. The operator integrates phi_(Sigma(y))(x-y)*f(y) with respect to ambient Lebesgue measure restricted to M^tau. Covariance depends on y rather than x and generally changes with location, so this is not convolution with one fixed Gaussian. The source permits arbitrary real f; it does not assert that K_Sigma f is a probability density, and nonintegrable input cannot be handled by treating the library integral's zero fallback as a valid analytic value. The use of pr_M and the tau-offset requires the retained reach/boundary conventions; no appendix construction or zero-scale extension is inserted."
+      }
+    }
+  ]
+}

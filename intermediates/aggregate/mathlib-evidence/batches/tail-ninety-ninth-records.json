@@ -1,0 +1,686 @@
+[
+  {
+    "interface_id": "local-9bd64bc1bb6f8167f641",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "2b08163495a55eac8240a41aea0d731a8d949f20aaccef04ff6c69bf9f4bd4f1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D3",
+        "comparison": "Apply the positive-semidefinite square root of barred Sigma to the same z_t used in the dynamic return representation, rather than to a newly independent sample. A singular barred Sigma still permits its nonnegative square root. Mean-zero identity-covariance iid innovations yield the intended unconditional covariance after the linear-transformation argument, and a constant transformation preserves iid within the comparator sequence. It does not make the comparator independent of the original returns. The source specifies t=1,...,T here but sums its covariance through n later, without identifying those endpoints.",
+        "statement_sha256": "1bc9fa11d7da3c0c4d13ecf13a7fea40ee0bab41a30ca6c8a69cc580b332815e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect CFC.rpow with its positive-spectrum matrix instantiation, Matrix.mulVec and the iid-family declarations; compare the covariance model's frozen D2 and comparator D3",
+          "result": "The positive square root and vector multiplication can form the comparator, while iid primitives describe its innovation law; covariance preservation and preservation of iid under the fixed transformation require separate arguments."
+        }
+      ],
+      "gap": "Construct the coupled comparator from the same innovations and prove its iid law and unconditional covariance, explicitly resolving the source's T versus n observation range."
+    }
+  },
+  {
+    "interface_id": "local-5130dc5f7aec9030f1d5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "88530ac4e173e55b8e448d7fcc2fd805b2b873ac0c847dd796f4fdcfef10fe68",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D4",
+        "comparison": "S_n averages vecMulVec R_t R_t over t=1,...,n; S_n^0 separately averages the corresponding comparator outer products. Divide each by n, without subtracting a sample mean or replacing n by n-1. Real self outer products are symmetric, permitting eigenvalues₀ after the symmetry proof. Its Fin p index starts at zero, so the source's lambda_1 through lambda_p require a positional shift; repeated eigenvalues retain multiplicity. These are distinct random matrices coupled by z_t, not independent sample covariance estimators.",
+        "statement_sha256": "23d41a92b205bf277b99ad81f3a9811c9e0b573dacbff3c7792aab99b662a699"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Data/Matrix/Mul vecMulVec and Analysis/Matrix/Spectrum eigenvalues₀ together with its antitone property and finite ordinal indexing",
+          "result": "Outer products form the two second-moment matrices, and Hermitian eigenvalues₀ gives eigenvalues in decreasing order with multiplicity; the two sampled processes and normalization remain source-specific."
+        }
+      ],
+      "gap": "Assemble both n-normalized outer-product averages, establish symmetry and use the descending eigenvalue indexing while preserving their shared-innovation coupling."
+    }
+  },
+  {
+    "interface_id": "local-ab0c228e604220b5423f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "fbcbeb10115e6280dd4b5ee9295cacbed85e317ae9bb316c45c826584d8ab48f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D13",
+        "comparison": "At coordinate i, the diagonal of vecMulVec R_t R_t is R_it squared, giving sigma_{i,t+1} squared = (1-a_p-b_p) barred-sigma_i squared + a_p R_it squared + b_p sigma_{i,t} squared. Barred-sigma_i squared is the fixed unconditional diagonal of barred Sigma, whereas sigma_{i,t} squared is the dynamic conditional diagonal. The same dimension-dependent a_p,b_p apply to every coordinate; the scalar identity does not assert independent coordinates, specify initialization or establish existence of a stationary GARCH solution.",
+        "statement_sha256": "42728d8d78a23dd36ae60993dfdecd7b1d9b767a6cffdd19f12f7043916eb3bc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -n -i 'bekk|garch|quasi.?likelihood' Mathlib/Probability Mathlib/MeasureTheory Mathlib/Analysis; inspect vecMulVec entries and compare the diagonal of the frozen BEKK recursion",
+          "result": "The diagonal self outer product is the squared coordinate return, furnishing the matrix-to-scalar algebraic ingredient; no verified GARCH recursion or stationary solution API was located."
+        }
+      ],
+      "gap": "Derive and instantiate each scalar conditional variance recursion from the corresponding diagonal of the BEKK covariance model."
+    }
+  },
+  {
+    "interface_id": "local-a2feb2334a41e2f0e6ff",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "98ef3b1c9853a29978d003788fd4c8af0f6599e0cae840afecf5e7ddfdb13d6c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D14",
+        "comparison": "The source randomly selects one coordinate i_0 and uses argmax of n^(-1) sum(R_i0t squared / sigma_i0t squared + log(sigma_i0t squared)), with a positive sign; do not change this to the conventional minimizing contrast or pool coordinates. The domain has 0<=a,b<=1, a+b<=1-delta and delta<=barred-sigma squared<C, where delta,C>0. The upper variance constraint is strict, so compact attainment cannot simply be invoked. IsMaxOn also requires membership separately. Initial candidate variances, the selected coordinate's compliance with the positive unconditional variance constraint and a tie/measurability convention are not supplied here. Intended log and ratio values require strictly positive conditional variances rather than the totalized real operations.",
+        "statement_sha256": "e2cd65517d069bd137ab850895107e04810c054e47023f68dc3a2733563f1103"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/Analysis for GARCH and quasi-likelihood; inspect IsMaxOn and Real.log against the complete printed positive contrast and constrained parameter domain",
+          "result": "The positive logarithmic contrast and its maximizer relation can be expressed, but no verified QMLE construction, initialization, attainment or measurable selection for this model was found."
+        }
+      ],
+      "gap": "Define the candidate conditional-variance recursion and selected-coordinate constrained maximizer while explicitly retaining the printed sign and unresolved initialization and selection conventions."
+    }
+  },
+  {
+    "interface_id": "local-bac167222aa20e8597d0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "55325341472d4867fabf537390864a89268bdf8b0e0edee9426943205eadd32c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D15",
+        "comparison": "The identity coefficient is (1-a-hat-b-hat+a-hat b-hat^M_p)/(1-b-hat), and lag j=1,...,M_p has weight a-hat b-hat^(j-1) on R_{t-j} R_{t-j} transpose. Keep the finite natural power, including b-hat^0=1. On the stated QMLE domain the identity coefficient is positive and weights are nonnegative, which can prove PosDef; the word projection does not assert idempotence or orthogonality. M_p is an integer lag count growing with p and o(sqrt p), not a matrix dimension or fixed lag. Early times need presample returns not detailed by the main-text construction.",
+        "statement_sha256": "d1472a622a6a782fc74b54fe8e2b0fc70fad21c43323d288c00b7388cc2c0c95"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect vecMulVec, Matrix.PosDef, IsLittleO and Tendsto; compare all coefficients of the source lag-weighted P_t and its constrained estimated parameters",
+          "result": "The weighted self outer products and positive-definite predicate represent P_t, and the growth restrictions have filter encodings; no verified estimator-specific regularized lag matrix construction was located."
+        }
+      ],
+      "gap": "Assemble the exact lag-weighted matrix, prove positivity under the fitted parameter constraints and supply the required presample returns and lag-count growth."
+    }
+  },
+  {
+    "interface_id": "local-0f4ac35d29e606072eed",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "cc61587e60c4626a8678d6113c18dc29e2a43fbeefb4a85da81289c97bbb483d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D16",
+        "comparison": "The adjusted return is mulVec (CFC.rpow P_t (-1/2)) R_t with -1/2 interpreted in the reals. Establish that P_t is positive definite so the negative-power scalar function is evaluated away from zero and really gives an inverse square root. This is a full random matrix transformation using estimated coefficients and past returns, not coordinatewise scalar rescaling or an orthogonal projection. The formula alone does not make adjusted returns iid or exactly whiten their unconditional covariance.",
+        "statement_sha256": "383b84ed88f05cd8ba079cc0e411f2f314fbdcd6c9c2794bdc4bf2e1bbb20aae"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect CFC.rpow's nonnegative spectral functional calculus, Matrix.PosDef and Matrix.mulVec for the inverse square root of P_t",
+          "result": "Positive-definite finite matrices admit the intended inverse square-root spectral operation, and mulVec applies it to a return vector; the estimator-specific domain and statistical effect need proof."
+        }
+      ],
+      "gap": "Prove positivity of P_t on its construction domain and identify its negative one-half functional-calculus power with the source's inverse-square-root adjustment."
+    }
+  },
+  {
+    "interface_id": "local-65a089df41aaf508d474",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "a88f048a46128d0fb8355ce69f6546acd0015bc1febce464a92befa5e44661cf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D17",
+        "comparison": "Average vecMulVec R-tilde_t R-tilde_t over t=1,...,n and divide by n. Each adjusted return uses its own estimated lag matrix P_t from the same data construction. Do not subtract an estimated mean, use n-1, replace the finite average by a population expectation, or infer independence among the adjusted observations from the covariance formula. Nonnegative definiteness follows from the real self outer-product form after the usual finite-sum argument.",
+        "statement_sha256": "6a80e9a7f3a359040e3d1aa6484859a0e2e8382621a589791cb2fb9783a18fee"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.vecMulVec and compare the index and normalization of adjusted sample covariance (2.6)",
+          "result": "The checked outer-product definition supplies every summand; the random adjusted-return inputs and n-normalized sample construction must be assembled."
+        }
+      ],
+      "gap": "Construct the uncentered n-normalized second-moment matrix of the inverse-square-root-adjusted returns with their original dependence retained."
+    }
+  },
+  {
+    "interface_id": "local-5b6ab48fb7fb56a8adde",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "a7792051239de52aa151328b6f416cb60312cd8f1e1d4c270f9ecc75ae5b4640",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D9",
+        "comparison": "For every real x impose F_1(x-epsilon)-epsilon <= F_2(x) <= F_1(x+epsilon)+epsilon, then take the infimum over epsilon>0. A probability measure's cdf gives the intended right-continuous mass on (-infinity,x]. The same epsilon shifts the argument and the value; a uniform CDF difference or Wasserstein distance drops part of this structure. The admissible real set is nonempty and bounded below for CDFs, facts that should be established when using a conditionally complete real infimum. The located Levy-Prokhorov definition is not cited as exact reuse.",
+        "statement_sha256": "2f780aa5aa746330796bca47d6cd707081b39a6f46b0bde4d7dcaf5690e895c0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Levy/lévy distance names in Probability/MeasureTheory/Analysis; inspect Probability/CDF cdf and Measure/LevyProkhorovMetric levyProkhorovEDist, comparing its all-measurable-set condition with the source's shifted-CDF formula",
+          "result": "Real probability CDFs are available; the located Levy-Prokhorov metric uses thickened arbitrary measurable sets and is not the displayed one-dimensional Levy CDF definition without further comparison results."
+        }
+      ],
+      "gap": "Define the infimum of positive horizontal-and-vertical CDF shifts and establish its distance properties without substituting another probability metric."
+    }
+  },
+  {
+    "interface_id": "local-06650b435901e08acf8e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "d565cecc5f8341794126f7d6e61cd9b179bc404f26a403d071ba6fdc3e60a6d5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D24",
+        "comparison": "Require support H contained in [h_1,h_2] with 0<h_1<=h_2<infinity, and bounded image g([h_1,h_2]) together with finitely many discontinuity points on that interval. The source allows h_1=h_2 and does not require continuity everywhere or nonnegative g. This describes the limiting population law, not a uniform positive lower bound for every finite-p population eigenvalue. Applying g to eigenvalues outside the limiting interval needs values there; the source passage does not explicitly supply a global extension or assert all finite spectra stay inside the interval.",
+        "statement_sha256": "fffecc20f8f202827e0f238736309d94c585358967207ebe5684fa7701c9036f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.support",
+          "type": "{X : Type u} → [TopologicalSpace X] → [MeasurableSpace X] → MeasureTheory.Measure X → Set X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Support",
+          "provides": "Topological support: every neighborhood of a support point has positive measure; this preserves support containment rather than merely almost-sure membership.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Support.lean#L59-L59",
+          "link_checked": true
+        },
+        {
+          "name": "Bornology.IsBounded",
+          "type": "{α : Type u} → [Bornology α] → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Bornology.Basic",
+          "provides": "Boundedness in the ambient bornology, giving metric boundedness under the Euclidean instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Bornology/Basic.lean#L99-L100",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Measure/Support support and Topology/Bornology/Basic IsBounded; compare the limiting-law support and bounded finite-discontinuity restriction in the frozen source",
+          "result": "Topological support containment and boundedness of the image of g can be represented; the finite exceptional discontinuity condition and its finite-spectrum application need additional formulation."
+        }
+      ],
+      "gap": "Combine the limiting support containment with boundedness and finitely many discontinuities of g on the stated interval, specifying any values required outside it."
+    }
+  },
+  {
+    "interface_id": "local-a8cec91cd5ce66594d63",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "a747ac830a8d47c8a9a6c7c092da1c5303369976d0a08c306a575c0ddf7d22bd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D18",
+        "comparison": "With a real probability measure for F and Im z>0, resolventTransform F z is integral (lambda-z)^(-1) dF, matching (2.8) without a minus-sign adjustment. The nonreal z lies outside the real embedded support, so the inspected off-support integrability route applies after its standard hypotheses are instantiated. Equation (2.9) separately requires the integral of [tau(1-y(1+z m_F(z)))-z]^(-1) against H; retain y, not the y^(-1) printed later in Theorem 4. The generic transform definition neither proves this nonlinear equation nor selects its solution by itself. Preceding convergence prose remains context rather than an extra prerequisite theorem.",
+        "statement_sha256": "330031e15f4e034a78a080a9b70a666681017b17ccc2cb15f5903819d0367960"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.resolventTransform",
+          "type": "{𝕜 : Type u} → {A : Type v} → [NormedField 𝕜] → [NormedRing A] → [NormedAlgebra ℝ A] → [NormedAlgebra 𝕜 A] → {m𝕜 : MeasurableSpace 𝕜} → MeasureTheory.Measure 𝕜 → A → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ResolventTransform",
+          "provides": "Integral of the algebra resolvent; for a real measure and complex argument it is exactly the integral of (x-z) inverse, matching this Stieltjes sign convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ResolventTransform.lean#L108-L109",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -n -i 'stieltjes.?transform|marchenko' Mathlib/Probability Mathlib/MeasureTheory Mathlib/Analysis; inspect Measure/ResolventTransform definition and its real-to-complex specialization, including integrable_resolvent's off-support condition",
+          "result": "The real-measure, complex-valued resolventTransform exactly has the source sign (lambda-z) inverse; no verified Marchenko-Pastur fixed-point characterization was located."
+        }
+      ],
+      "gap": "Establish the source's Marchenko-Pastur fixed-point equation and its appropriate uniqueness characterization for the limiting spectral probability law."
+    }
+  },
+  {
+    "interface_id": "local-6483d3cb2b922b295cc2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "86371e26dd4715117fec57e5201a8928a1f2e8d20849d6384c18bc9bd111cdec",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D11",
+        "comparison": "Use eta(a,b,p)=a/(1-a-b) times min(sqrt(p(1-a-b)),1), with 1-a-b>0 from the BEKK domain. Bounded away from zero is a fixed positive lower bound along the asymptotic sequence; Theorem 2 specializes this to eta>c for a fixed positive c. Keep the denominator 1-a-b and the product inside the square root. Failure of eta to converge to zero need not itself be a uniform lower bound, and oscillating sequences are not automatically placed in this regime.",
+        "statement_sha256": "68251bd5782b073ab2c9658ccf4a3b952c98fce46d0708685aa260da11a01a1c"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -n -i 'bekk|garch|reducible' Mathlib/Probability Mathlib/MeasureTheory Mathlib/Analysis; compare the frozen ambient eta formula (2.1) with the non-reducible regime and its theorem specialization",
+          "result": "No verified statistical API was located for eta(a_p,b_p,p) bounded away from zero; the predicate can be written directly with a positive constant and the dimension sequence."
+        }
+      ],
+      "gap": "Define the non-reducible coefficient regime using the exact eta formula and preserve the positive lower-bound quantifiers used by each theorem.",
+      "no_related_reason": "The source names a model-specific lower-bound regime of a particular scalar coefficient formula; no BEKK regime declaration was found and generic ordered-field syntax is not a substantive verified match."
+    }
+  },
+  {
+    "interface_id": "local-ffe24afc8d1caeab0927",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "87d66567207fa8bc6181979853c8d0e7de52517862bbf5c7bb1c1614ab5de07e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D10",
+        "comparison": "As p tends to infinity, require a_p/(1-a_p-b_p) times min(sqrt(p(1-a_p-b_p)),1) to tend to zero. Coefficients can vary with p, and the positive denominator is 1-a_p-b_p, not its square root. The square-root argument is the full product p(1-a_p-b_p). This regime does not separately require a_p=0, a fixed b_p, or vanishing covariance entries; Tendsto supplies only the convergence predicate, not the Levy-distance conclusion of Theorem 1.",
+        "statement_sha256": "d95d044b216a8a118f35dc07a3a002eee7b7d4cd1914ba2c5fb7c9f0ea7f1d6c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search BEKK/GARCH regime names and inspect Tendsto and Real.sqrt against ambient formula (2.1) and the source's vanishing eta condition",
+          "result": "The real square root and deterministic convergence predicate express the stated regime; no verified theorem identifies its spectral consequences for the BEKK model."
+        }
+      ],
+      "gap": "Define the exact dimension-dependent eta sequence and assert its convergence to zero under the BEKK coefficient domain."
+    }
+  },
+  {
+    "interface_id": "local-3cf6ec997e35cf9ad0a4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "50af57664cfc271d29c384c6258e5f8415de6f9abfd0e91cea894c7ab78a2f56",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D12",
+        "comparison": "For each of S_n and S_n^0, sum its p eigenvalues squared and divide by p, equivalently trace of the matrix square divided by p. The power is matrix multiplication, not entrywise squaring before taking trace; symmetry and spectral diagonalization justify the displayed identity. The divisor is dimension p, not observation count n. M_2 and M_2^0 remain random quantities, whereas Theorem 2 compares their expectations. No samplewise ordering, stochastic dominance or Levy-distance separation follows from the definition or from that expected gap alone.",
+        "statement_sha256": "7bf7f2fb3a2ef87ee2d535397ec115753dcc5c991671539a598a154ff9961f34"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.trace, Hermitian eigenvalues₀ and the spectral-diagonalization body of Matrix.IsHermitian.cfc; search trace/eigenvalue identities in Analysis/Matrix and LinearAlgebra/Matrix",
+          "result": "Trace, eigenvalues and finite spectral functional calculus provide the ingredients for trace of the square as a sum of squared eigenvalues; the checked declarations do not supply the paper's expected-moment gap."
+        }
+      ],
+      "gap": "Establish the trace-square identities for the two random sample matrices and retain the p-normalized random moments separately from their expectations."
+    }
+  },
+  {
+    "interface_id": "local-2d297c5952afac22a968",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "e8c09ba62acccebcb312562809ba3490f114682fd47f42a4a91bb866d842dee9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D19",
+        "comparison": "For barred Sigma, hSigma.cfc g is U diagonal(g(lambda_i^H)) U transpose in the real case, equal to the sum of g(lambda_i^H) v_i v_i transpose for an orthonormal eigenbasis. Repeated eigenvalues receive the same scalar value, so basis choice within an eigenspace does not change the operator. Because the spectrum is finite, this declaration accepts a bare real function and does not impose global continuity; the paper's bounded or finitely discontinuous g fits when supplied on the entire needed domain. This is functional calculus on the population covariance, not the adjusted sample matrix or a normalized generalized ESD. It inserts neither nonnegative g nor a nonzero trace assumption.",
+        "statement_sha256": "f1c84d175112dd23b7d52d08ca72bd34490ff48132ab8e5e07f558e788e3c587"
+      }
+    ],
+    "library_audit": {
+      "status": "exact_reuse",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Analysis/Matrix/HermitianFunctionalCalculus Matrix.IsHermitian.cfc, its section parameters and the unitary-diagonal-unitary-adjoint body, with its finite-spectrum explanation for arbitrary scalar functions",
+          "result": "The checked finite Hermitian functional calculus applies a real scalar function to each population eigenvalue and preserves its eigenspaces, exactly matching the source's eigenvector outer-product sum after the usual matrix representation."
+        }
+      ],
+      "gap": "Instantiate the real Hermitian population covariance and the supplied scalar function, with values specified on every finite population eigenvalue."
+    }
+  },
+  {
+    "interface_id": "local-d9c25937b2ce622dba2d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:35:28.895036+00:00",
+    "source_interface_sha256": "eaa8f8708899eca74d94da94f413630a18fc3e5f10947e8626990a6aa90a5b76",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1027",
+        "local_id": "D20",
+        "comparison": "Complexify the real adjusted sample covariance and population weight, invert S-tilde_n - z I, multiply that inverse by g(barred Sigma) in the displayed order and divide its trace by p. Im z>0 and the real Hermitian spectrum justify nonsingularity after a spectral argument; the library totalized singular inverse is not a substitute for it. The denominator is p, not trace(g(barred Sigma)) from the preceding generalized ESD, so (2.11) need not be that normalized distribution's Stieltjes transform. Bounded g may change sign or have zero trace, which does not obstruct this p-normalized expression for positive p. No normalized positive spectral measure or uniform-in-z convergence is inferred.",
+        "statement_sha256": "89fd237c32727909a58d8d235bbecdf2944e86a0de9a1930d840ab2245e2927a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect LinearAlgebra/Matrix/NonsingularInverse mul_nonsing_inv and its determinant-unit requirement, Matrix.trace and Hermitian cfc; compare the source's weighted resolvent normalization",
+          "result": "The population spectral weight, genuine inverse criterion and complex finite trace supply the construction ingredients; invertibility of the upper-half-plane shifted Hermitian matrix and the statistical limit are separate arguments."
+        }
+      ],
+      "gap": "Build the complex shifted-matrix resolvent, prove it is nonsingular for upper-half-plane z and form the exact p-normalized population-weighted trace."
+    }
+  }
+]

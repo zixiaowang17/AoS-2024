@@ -1,0 +1,153 @@
+{
+  "scope": "Manual comparison of the 17 remaining interfaces of aos-2024-v52-i03-p1102 against the pinned mathlib source, preserving the frozen MARS grid, loss, noise, entropy and density-bound distinctions.",
+  "rows": [
+    {
+      "interface_id": "local-5c8977b1e8cb5fc3fe40",
+      "related": ["MeasureTheory.HasPDF", "MeasureTheory.Measure.withDensity", "MeasureTheory.eLpNorm", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "IID cube design with common bounded probability density; inspected HasPDF, withDensity, essential-supremum branch of eLpNorm and independent identically distributed random elements.",
+      "result": "The common design law can be specified as cube-restricted Lebesgue measure weighted by p_0, with mass one and an upper bound; HasPDF alone gives no bound and does not identify the chosen representative p_0. The family predicates express iid sampling.",
+      "gap": "These declarations can state the design assumption once the normalized cube density and its upper-bound convention are supplied.",
+      "comparisons": {"D16": "Require iid X^(1),...,X^(n) with one density p_0 on [0,1]^d and ||p_0||_infinity<=B for B>=1; eLpNorm at infinity gives the essential bound, while literal pointwise boundedness requires a representative condition, and neither interpretation introduces a positive lower density bound."}
+    },
+    {
+      "interface_id": "local-f29e7f9862ac4a476e70",
+      "related": ["MeasureTheory.Measure.withDensity", "MeasureTheory.lintegral", "MeasureTheory.eLpNorm"],
+      "status": "composable",
+      "query": "Squared population L2 prediction loss under design density; inspected weighted measures, nonnegative integration and the p=2 seminorm.",
+      "result": "The squared error is a nonnegative integral under the density-weighted design measure, equivalent to the squared extended L2 seminorm with its measurability hypotheses. The estimator's training sample remains an argument rather than being integrated out here.",
+      "gap": "The existing integration and L2 operations suffice to define this sample-dependent population loss under the specified design law.",
+      "comparisons": {"D18": "Integrate (f-hat_n(x)-f-star(x))^2 p_0(x) against cube Lebesgue measure, not against the empirical design distribution; for a fitted estimator this is a random loss, distinct from its expected value in the minimax definition and from the fixed-design risk."}
+    },
+    {
+      "interface_id": "local-4ea2f1649fcfad311057",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "ProbabilityTheory.IndepFun", "MeasureTheory.lintegral", "Real.rpow"],
+      "query": "Random-design regression with iid independent noise and Lorentz L5,1 tail-integral condition; searched Lorentz and inspected independence predicates, tail-event integration and real fractional powers.",
+      "result": "The regression identity and independence constraints are expressible, and the nonnegative integral of t -> P(|xi|>t)^(1/5) defines the displayed noise quantity. No Lorentz-norm implementation matching this tail integral was located in the pinned source search.",
+      "gap": "The model still needs its explicit Lorentz tail-integral finiteness predicate assembled with iid noise, mean zero and independence from the entire design block.",
+      "comparisons": {"D17": "Keep y_i=f-star(X^(i))+xi_i, iid mean-zero xi_i independent of all covariates, and the unweighted integral from zero to infinity of the strict tail probability raised to 1/5; finite ordinary fifth moment or a sub-Gaussian bound is not an equivalent replacement for this L^{5,1} condition."}
+    },
+    {
+      "interface_id": "local-853bacadc63804f8820e",
+      "related": ["Finset.image", "Set.pi", "MeasureTheory.SignedMeasure.totalVariation"],
+      "status": "composable",
+      "query": "Preset equispaced knot grid and signed measures supported on a product lattice; inspected finite image sets, dependent Cartesian products and variation measure.",
+      "result": "Mapping j in {0,...,N_k} to j/N_k gives each finite coordinate grid, and Cartesian products give the interaction lattices. Concentration of a signed measure can be imposed through zero variation mass outside the lattice.",
+      "gap": "The grid restriction is composable after choosing positive resolutions and imposing signed-measure concentration on the appropriate knot products.",
+      "comparisons": {"D8": "The N_k are positive integers selected before fitting and the displayed grid includes 0 and 1; the half-open signed-measure domain and later coefficient indices omit terminal knots because their hinges vanish on the unit cube, so these grids must not be replaced by observed-data knot sets."}
+    },
+    {
+      "interface_id": "local-aa7661a416a9db9fedd6",
+      "related": ["posPart_def", "MeasureTheory.VectorMeasure.integral", "MeasureTheory.SignedMeasure.totalVariation"],
+      "status": "composable",
+      "query": "Signed hinge-product integral class with total variation at most one; searched MARS and inspected positive parts, signed/vector integration and total variation.",
+      "result": "The product of positive-part hinges is a bounded measurable function on the closed unit knot cube, so finite variation supports its signed integral. The class is the image of the full variation unit ball under this integral transform.",
+      "gap": "These declarations suffice to define the hinge-integral class after supplying its finite product and closed-cube signed-measure domain.",
+      "comparisons": {"D15": "For m in [d], integrate the product over all m coordinates against a signed measure on [0,1]^m with variation at most one on the entire cube, including the zero atom; there is no free intercept or excluded-zero penalty, so this entropy class is not the original MARS feasible class with its unpenalized multilinear part."}
+    },
+    {
+      "interface_id": "local-6defb217dffb47228180",
+      "related": ["IsMinOn", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Constrained least-squares MARS function estimator as argmin membership; searched MARS and inspected IsMinOn and finite squared-residual sums.",
+      "result": "Membership in the supplied MARS complexity ball together with IsMinOn of the residual-sum objective expresses the estimator definition. These ingredients assert neither existence nor uniqueness or measurable selection.",
+      "gap": "The argmin relation is composable once the MARS class and complexity functional are supplied; choosing an estimator with the required probabilistic measurability remains separate.",
+      "comparisons": {"D6": "Use any feasible minimizer of sum_i(y_i-f(x^(i)))^2 with V_mars(f)<=V and V>0, on the original infinite-dimensional class; preserve the constraint form rather than a penalized objective, and do not infer uniqueness of the function away from the design points or import fixed/random sampling assumptions into the definition."}
+    },
+    {
+      "interface_id": "local-37c5a94c103f14b40dda",
+      "related": ["Set.pi", "StrictMono", "Finset.image"],
+      "status": "composable",
+      "query": "Finite Cartesian lattice design with strictly increasing coordinate knots and lower spacing; inspected Set.pi, StrictMono and finite images.",
+      "result": "Finite coordinate sequences, their image sets and a Cartesian product express the design lattice; strict monotonicity and adjacent-difference inequalities impose the geometry.",
+      "gap": "These operations suffice to state the lattice geometry and its uniform lower-spacing condition.",
+      "comparisons": {"D12": "For each k retain n_k>=2, exactly n_k coordinate values beginning at zero, last value <=1 and every adjacent spacing >=rho/n_k with common rho>0; the grid need not be equispaced or reach 1, and the source's equality of sets does not by itself rule out repeated observations in the indexed sample or establish n as the product of the n_k."}
+    },
+    {
+      "interface_id": "local-9c94e3458656a71aaa8a",
+      "related": ["ProbabilityTheory.HasSubgaussianMGF", "ProbabilityTheory.iIndepFun"],
+      "status": "composable",
+      "query": "Fixed-design regression with independent centered sub-Gaussian errors and common variance proxy; inspected HasSubgaussianMGF fields and indexed mutual independence.",
+      "result": "HasSubgaussianMGF with parameter c=sigma^2 expresses the all-real MGF bound and includes exponential integrability; the indexed independence predicate supplies independence without identical distributions.",
+      "gap": "The existing predicates suffice for the error assumption after translating the paper's sigma to the squared MGF parameter and adding the regression identity.",
+      "comparisons": {"D13": "Retain deterministic x^(i), y_i=f-star(x^(i))+xi_i, mean-zero independent errors and E exp(lambda xi_i)<=exp(sigma^2 lambda^2/2) for every real lambda and every i; the Lean parameter is sigma squared, the error laws need not be identical, and the lattice assumption remains separate."}
+    },
+    {
+      "interface_id": "local-f232d63f46d5953f2962",
+      "related": ["Finset.sum_div", "MeasureTheory.integral", "MeasureTheory.lintegral"],
+      "status": "composable",
+      "query": "Expected fixed-design squared empirical prediction loss; inspected finite averaging and real/extended nonnegative integration.",
+      "result": "A finite normalized sum expresses empirical squared error, and expectation over the response law gives risk. Nonnegative integration retains possible infinity; a real integral has the intended value when the loss is integrable.",
+      "gap": "These operations suffice to define the fixed-design risk once the response law and estimator are specified with the appropriate integrability convention.",
+      "comparisons": {"D14": "Average squared errors at the n fixed design points with factor 1/n and then integrate over y_1,...,y_n; retain n>0 for the empirical normalization, and do not integrate over new covariates or replace this expected empirical loss by the random population loss used in the other section."}
+    },
+    {
+      "interface_id": "local-23d617e6ab6d30531239",
+      "related": ["IsMinOn", "Matrix.mulVec", "EuclideanSpace.norm_eq", "Finset.filter"],
+      "status": "composable",
+      "query": "Constrained finite-dimensional lasso with unpenalized intercept and zero-knot coefficients; inspected minimum predicate, matrix-vector products, Euclidean norm and filtered index sums.",
+      "result": "The residual vector and its squared Euclidean norm are standard operations. A filtered absolute-value sum specifies the exact feasible coefficient set, and feasible membership plus IsMinOn specifies a solution.",
+      "gap": "These declarations suffice to state the coefficient optimization once its index set and design matrix are supplied, without asserting a unique or measurable solution.",
+      "comparisons": {"D7": "Optimize over a_0 and gamma with objective ||y-a_0 1-M gamma||_2^2, but sum the l1 constraint only over indices whose knot multi-index l is not the all-zero vector; the intercept and every all-zero interaction coefficient are unpenalized, and this generic formula is reused with different J and M for exact and approximate grids."}
+    },
+    {
+      "interface_id": "local-80fcdd47dcde0931c046",
+      "related": ["Finset.filter", "Set.pi", "posPart_def", "Matrix.mulVec", "IsMinOn"],
+      "status": "composable",
+      "query": "Approximate MARS finite design matrix with binary interaction support and preset grid knots; searched MARS and inspected finite filtering, Cartesian indices, positive parts and constrained matrix fitting.",
+      "result": "Finite binary interactions, dependent knot indices and products of positive parts define the columns. Substituting that matrix and index set into the coefficient optimization defines the approximate problem.",
+      "gap": "These operations can assemble the approximate problem with its preset resolutions, interaction cutoff and inherited selective l1 constraint.",
+      "comparisons": {"D9": "Use nonzero binary alpha with |alpha|<=s and l_k in {0,...,N_k-1} only for active coordinates, then M_i,(alpha,l)=product_k(x_k^(i)-l_k/N_k)_+; keep the terminal knot excluded, N_k distinct from either use of n_k, and the l!=0 selective penalty from (13)."}
+    },
+    {
+      "interface_id": "local-8663252d50af43bd315f",
+      "related": ["posPart_def", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Finite hinge-basis reconstruction from fitted coefficients and knot values; inspected positive-part identity and evaluation of finite function sums.",
+      "result": "A finite sum of coefficient-weighted hinge products plus an intercept directly defines the reconstructed function. Knot values are arguments, so the same expression accommodates the two source instantiations.",
+      "gap": "The existing finite function operations suffice for reconstruction from the chosen coefficients, interaction indices and knots.",
+      "comparisons": {"D10": "Retain a-hat_0 plus the sum over J of gamma-hat_(alpha,l) times product_{k in S(alpha)}(x_k-u_lk^(k))_+; use observed knots for Proposition 2.2 and l_k/N_k for the approximate problem, without treating the observed-grid construction as an additional approximate-estimator condition."}
+    },
+    {
+      "interface_id": "local-6b761f7782e7bb25fec6",
+      "related": ["IsMinOn", "Matrix.mulVec", "posPart_def", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Approximate MARS estimator from fixed-grid constrained coefficients and function reconstruction; inspected constrained minimization, fitted matrix values and positive-part finite sums.",
+      "result": "The approximate estimator is the composition of the preset-grid coefficient solution relation with the reconstruction formula. Its relation to the unrestricted optimum requires separate approximation arguments.",
+      "gap": "The estimator relation is composable from the fixed-grid optimization and reconstruction, with existence and measurable choice of a solution remaining separate.",
+      "comparisons": {"D11": "Construct f-tilde only from a solution to the approximate problem and formula (14) with approximate knots; the comparison name f-hat does not make it an optimizer over the unrestricted signed-measure class, and the fixed- and random-design theorems impose different grid-growth conditions later."}
+    },
+    {
+      "interface_id": "local-d6e371464334438831fd",
+      "related": ["Set.Icc", "MeasureTheory.eLpNorm"],
+      "query": "L2 bracketing number, order brackets and minimum cardinality bracket covers; searched bracketing across pinned mathlib and inspected order intervals and L2 seminorm.",
+      "result": "Order intervals in a function space represent pointwise lower/upper brackets, and eLpNorm measures their L2 width; an almost-everywhere formulation requires the corresponding order convention. No bracketing-number declaration was located, and metric balls do not enforce order brackets.",
+      "gap": "The bracketing-number construction still needs a minimum-cardinality bracket cover with explicitly chosen endpoint, order and width conventions absent from the source definition.",
+      "comparisons": {"D21": "The quantity is the epsilon-bracketing number of D_m under Lebesgue L2 on the unit cube, not an ordinary covering number; retain the source's lack of separate endpoint measurability, pointwise-versus-almost-everywhere and open-versus-closed width conventions instead of silently selecting one as a verified exact match."}
+    },
+    {
+      "interface_id": "local-620f1f7a2a24ffaeb327",
+      "related": ["ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun", "MeasureTheory.eLpNorm", "MeasureTheory.HasPDF"],
+      "query": "Gaussian random-design lower-bound submodel and positive density lower bound versus supremum-norm inequality; inspected Gaussian variance parameter, independence, PDF and essential-supremum norm.",
+      "result": "The Gaussian law and independent family are available, and either an upper essential-supremum statement or a pointwise/almost-everywhere lower bound can be written explicitly. The printed norm inequality is not equivalent to the prose assertion of a density bounded below.",
+      "gap": "The Gaussian restriction is expressible, but the source's positive-density prose and sup-norm inequality remain inconsistent and cannot be certified as one equivalent assumption.",
+      "comparisons": {"D20": "Use independent mean-zero Gaussian errors with variance sigma^2 within the random-design model and retain its existing covariate independence; preserve both the prose p_0 bounded below by b>0 and the printed ||p_0||_infinity>=b, without claiming the latter guarantees p_0(x)>=b or importing this lower-bound submodel into the upper-rate theorems."}
+    },
+    {
+      "interface_id": "local-06a44ec5a8e33c8a3e45",
+      "related": ["Metric.coveringNumber", "Metric.externalCoveringNumber", "MeasureTheory.eLpNorm", "Real.log"],
+      "query": "Metric entropy of a signed hinge-integral class in L2, internal/external covering numbers and logarithms; inspected both covering definitions and their closed-radius IsCover convention.",
+      "result": "The L2 image of the class can be given a metric through equivalence classes, and mathlib supplies internal and external closed-radius covering numbers with extended cardinalities. A finite positive covering number can be converted to a real logarithm; infinity must not be erased by conversion.",
+      "gap": "Metric entropy is composable after fixing the source-unspecified covering-center and radius conventions and handling any infinite covering number explicitly.",
+      "comparisons": {"D22": "Retain log N(epsilon,D_m,L2) with Lebesgue L2 distance, without assuming the text chose internal rather than external centers or a closed rather than open radius; this analytic quantity is independent of the regression and noise premises, and its mention as a proof ingredient does not add a statement dependency to Theorem 3.1."}
+    },
+    {
+      "interface_id": "local-63e1bedfb1d3b76ed040",
+      "related": ["MeasureTheory.lintegral", "MeasureTheory.eLpNorm", "csSup_le_iff", "le_csInf_iff"],
+      "query": "Minimax expected population L2 risk over all sample-based estimators and a MARS complexity ball; inspected nonnegative expectation, L2 seminorm and infimum/supremum characterization hypotheses.",
+      "result": "Expected nonnegative loss and nested order infima/suprema express the criterion after defining the full estimator domain and truth-indexed sample laws. The real conditional-completeness lemmas need nonempty bounded sets; extended nonnegative risks avoid silently totalizing unbounded suprema.",
+      "gap": "The minimax criterion still needs the all-estimator measurable domain and truth-indexed sampling laws assembled, with unbounded risks preserved in an appropriate value space.",
+      "comparisons": {"D19": "Take infimum over all estimators based on the complete random-design sample, then supremum over every f-star in the original MARS class with V_mars<=V of its expected density-weighted L2 loss; neither the exact MARS estimator, the approximate grid fit nor the realized unaveraged loss restricts this all-estimator minimax problem."}
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "scope": "Manual comparison of eight p2194 stratified-design, superpopulation and growth interfaces; preserve fixed/growing-H branches, source open-CDF-support convention and repeated-quantile positive-definiteness issue.",
+  "rows": [
+    {
+      "interface_id": "local-c1eb9d14c558349d4a01",
+      "related": ["Finset.powersetCard", "Finset.card_powersetCard", "PMF.uniformOfFintype", "MeasureTheory.Measure.pi", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected fixed-cardinality subsets and binomial counts, uniform finite laws and independent products against both stages and the exact inclusion probability.",
+      "result": "Uniform laws on fixed-size subsets construct SRSWOR at both levels; finite products and the population index map combine the design.",
+      "gap": "Construct the stratified two-stage subset law and prove its unit inclusion probability and weights with the stated independent sampling structure.",
+      "comparisons": {"D16": "In each stratum select an m_h-element subset of M_h cluster indices uniformly, then in each selected cluster select an r_h-element subset of its N_hj units uniformly. Use nonempty feasible subset types and independent draws across strata and within-stage cluster selections; drawing with replacement or independently retaining every unit is different. Map each triple (h,j,l) to the source's cumulative global population index and take the union. Combinatorial symmetry gives pi_i=(m_h/M_h)*(r_h/N_hj), hence the normalized inverse-inclusion weight M_h*N_hj/(N*m_h*r_h), once the counting proof and positive size conditions are supplied. Keep the superpopulation law separate: it is iid within a stratum even across its clusters, independent between strata, and can differ by stratum, rather than globally iid."}
+    },
+    {
+      "interface_id": "local-0665309eb88dbd7b8d66",
+      "related": ["ENNReal.summable_toReal", "Asymptotics.IsBigO", "Filter.Tendsto", "Finset.max'"],
+      "status": "composable",
+      "query": "Inspected finite nonnegative-series evidence, asymptotic boundedness, limits and finite maxima against each growing-H condition in Assumption 9.",
+      "result": "Scalar series, finite sums/maxima and sequence predicates express the growing-strata restrictions directly.",
+      "gap": "State all four growing-H sequence conditions with their exact normalizations and quantifiers, without importing the fixed-H sampling-fraction or stratum-share limits.",
+      "comparisons": {"D20": "For every K>0 require the real nonnegative series sum_nu exp(-K*H_nu) finite; an ENNReal encoding must require the sum not equal infinity, since extended summability alone is insufficient. Bound the maximum of n*M_h*N_hj/(m_h*N), bound the average sum_h M_h^4/H, and require the maximum across strata of the within-stratum average squared cluster-size deviation to tend to zero. Keep each n, N and H dependence and positive denominator domain explicit. An average fourth-power bound does not mean a uniform bound on every M_h, and finite exponential sums are stronger than merely declaring H tends to infinity. This replaces Assumption 6 in the growing-H branch and does not inherit its fixed-H positive limiting stratum proportions."}
+    },
+    {
+      "interface_id": "local-6e17d3806583a896b6ec",
+      "related": ["Filter.liminf", "Filter.limsup", "Filter.Tendsto", "Asymptotics.IsBigO", "ENNReal.summable_toReal"],
+      "status": "composable",
+      "query": "Inspected bounded-ratio liminf/limsup, sequence limits, fourth-moment bounds and finite nonnegative series against all of fixed-H Assumption 6.",
+      "result": "Existing scalar asymptotic predicates express each fixed-stratum requirement without asserting convergence of the sampling fractions.",
+      "gap": "Package the fixed-H conditions with their liminf/limsup, positive limiting shares, fourth-power bounds and vanishing cluster-size variation kept distinct.",
+      "comparisons": {"D17": "For each fixed h and every K>0 require summability of exp(-K*M_h(nu)). State 0<liminf m_h/M_h<=limsup m_h/M_h<1 and the corresponding positive liminf of the within-stratum minimum r_h/N_hj and upper limsup of its maximum below one. These bounds do not assert either fraction sequence has a limit. Separately require n_h/n tending to lambda_h>0 and N_h/N tending to Lambda_h>0, where n_h=m_h*r_h and N_h=sum_j N_hj. Retain the maximum over strata of average N_hj^4 as O(1) and average squared size deviation tending to zero. All ratios use feasible positive design sizes, so their bounded real liminf/limsup are meaningful. No corresponding fixed positive share for every stratum is transferred to a growing-H regime."}
+    },
+    {
+      "interface_id": "local-a2413b9b75c248695a9c",
+      "related": ["ProbabilityTheory.cdf", "HasDerivAt"],
+      "status": "composable",
+      "query": "Inspected probability CDF and scalar derivative predicates against the inherited source open-support convention and stratum-specific density conditions.",
+      "result": "Each stratum CDF can be paired with a positive continuous derivative on its common source support interval; equality of stratum distributions is unnecessary.",
+      "gap": "Define the common open CDF-support intervals using the source convention and impose continuity and positive continuous derivatives separately for every stratum and population index.",
+      "comparisons": {"D19": "The paper's univariate support means the open interval between the extended endpoints where its CDF leaves zero and reaches one, not mathlib's closed topological measure support. Reuse that convention for C_y in the reals and C_x in the positive reals, common across h and nu. Require each F_y,h and F_x,h continuous on the whole real line and differentiable with the specified positive continuous density only on its corresponding interval. HasDerivAt states the derivative relation; continuity and strict positivity must accompany it. Do not require endpoint differentiability, a globally uniform positive lower density bound, or identical distributions across strata."}
+    },
+    {
+      "interface_id": "local-4f7dae034f1a70de5a58",
+      "related": ["Collinear", "MeasureTheory.Measure.support", "MeasureTheory.MemLp"],
+      "status": "composable",
+      "query": "Inspected affine collinearity, planar measure support and vector L2 membership against the four-component moment condition of Assumption 7.",
+      "result": "Negated support collinearity and square integrability of the supplied four-vector express the two separate requirements.",
+      "gap": "Require noncollinearity of each stratum's joint support and L2 membership of its complete four-component moment vector.",
+      "comparisons": {"D18": "For each stratum negate Collinear real of the support of the joint (Y-prime,X-prime) law; this excludes affine lines, not just lines through the origin, and does not require an everywhere positive joint density. Separately put W-prime=(X-prime,Y-prime,X-prime*Y-prime,(X-prime)^2) in Euclidean four-space and require MemLp at two. Its squared norm includes X^2, Y^2, X^2*Y^2 and X^4, so second moments of X and Y alone do not suffice. The laws may differ by stratum and the source does not demand a dimension-uniform moment bound here. Referencing the same W vector in the growing-H Assumption 10 does not import this entire noncollinearity and finite-expectation assumption."}
+    },
+    {
+      "interface_id": "local-ad6ce8f6872bba26f44b",
+      "related": ["ProbabilityTheory.cdf", "le_csInf_iff", "HasDerivAt", "ProbabilityTheory.covariance", "Set.indicator"],
+      "status": "partial_match",
+      "query": "Inspected CDFs, generalized-inverse infima, derivatives and centered indicator covariance against the size-weighted mixture quantities and saved expectation-grouping caveat.",
+      "result": "Finite mixtures, their generalized inverses and coordinate covariance supply the intended statistical objects, with the source's covariance typography still requiring qualification.",
+      "gap": "Construct the population-size-weighted mixture CDFs, quantiles and indicator covariance while preserving the printed expectation-parenthesis ambiguity.",
+      "comparisons": {"D21": "Use weights N_h/N summing to one, not sample shares n_h/n or equal stratum weights, to define F_y,H and F_x,H. Their quantiles use the inherited infimum of {t:F(t)>=p} for 0<p<1, and the densities are their stated derivatives. Each G-prime has 2k indicators with thresholds at mixture quantiles, but its expectation and covariance are under the particular stratum law. A coordinatewise covariance matrix is the intended E[(G-EG)^T(G-EG)] for row vectors; the printed placement of expectation on the first factor alone remains a recorded ambiguity, not an exact identity certified by the covariance API. These are superpopulation mixture CDFs and stratum random vectors, not empirical distributions or independently generated indicator coordinates."}
+    },
+    {
+      "interface_id": "local-45a94355b3aa50f2ff74",
+      "related": ["ProbabilityTheory.cdf", "Filter.Tendsto", "TendstoUniformlyOn", "HasDerivAt"],
+      "status": "composable",
+      "query": "Inspected pointwise filter convergence and uniform convergence on arbitrary sets, plus derivative predicates, against Assumption 11's two distinct convergence modes.",
+      "result": "Pointwise CDF limits and uniform density limits over their full open intervals are expressible separately, including unbounded intervals.",
+      "gap": "Require pointwise convergence of each mixture CDF and uniform convergence of its density on the whole common source support, with the stated positive continuous limiting derivatives.",
+      "comparisons": {"D23": "For every real t impose F_y,H(t) tending to Ftilde_y(t) and F_x,H(t) tending to Ftilde_x(t). Separately use TendstoUniformlyOn for density convergence over all of C_y or C_x, not just each compact subset or each point. In the real metric setting this matches the stated sup-error-to-zero interpretation once supremum-domain conditions are respected and avoids arbitrary real supremum values for unbounded sets. The limits are distribution functions with the same source-defined open CDF supports and positive continuous derivatives there; the x support is positive. These growing-H mixture limits do not make all stratum CDFs converge to one common law or replace their separate Assumption 8 regularity."}
+    },
+    {
+      "interface_id": "local-af6230278f20542f02c6",
+      "related": ["Filter.Tendsto", "Matrix.PosDef", "Asymptotics.IsBigO", "MeasureTheory.MemLp"],
+      "status": "partial_match",
+      "query": "Inspected finite matrix convergence, strict positive definiteness, almost-sure scalar sequence bounds and moment-vector semantics against all clauses of Assumption 10.",
+      "result": "Matrix limits and almost-sure empirical vector bounds can be stated, but arbitrary repeated quantile indices make the demanded strict covariance definiteness inconsistent.",
+      "gap": "Preserve the two weighted covariance limits and almost-sure moment-vector conditions while flagging the repeated-quantile conflict with positive definiteness.",
+      "comparisons": {"D22": "For each k and grid p_1,...,p_k require convergence of sum_h N_h*(N_h-n_h)*Gamma_h/(n_h*N) and sum_h N_h*Gamma_h/N to the respective 2k-by-2k strictly positive definite matrices. The formula has no n/N^2 prefactor here; that belongs to the later covariance kernel. Duplicate probabilities duplicate indicator coordinates and give a nonzero null direction in both covariance sequences and their limits, conflicting with PosDef; do not add distinctness to the source quantifier. Separately, on a P-probability-one event, require the population average W-prime to tend to Theta and the average squared norm to be O(1), with Theta_1>0. These are pathwise empirical restrictions rather than an asserted common expectation or a uniform L2 bound, and use of W-prime's formula alone does not import Assumption 7."}
+    }
+  ]
+}

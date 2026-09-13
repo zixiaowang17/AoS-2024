@@ -1,0 +1,87 @@
+[
+  {
+    "interface_id": "local-5619ea8f672d337759e0",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.Measure.withDensity",
+      "Real.exp",
+      "Finset.max'",
+      "ProbabilityTheory.Kernel.comp"
+    ],
+    "comparison": "At each of s-tilde rounds add Laplace noise with the EXACT scale 4*sqrt(2*s-tilde*log(1/delta))/epsilon to the fixed signed scores, maximize only over the unselected coordinates, and insert the chosen coordinate so selection is without replacement. No dedicated Laplace declaration was found in the searched Probability sources; for a positive scale b the centered density exp(-abs(x)/b)/(2*b) can be represented by withDensity after normalization and measurability proofs. Positive epsilon, 0<delta<1 and enough remaining coordinates are needed in rounds that execute. Finset.max' returns a value, not the index or tie convention, and kernel composition only represents sequential randomization once each transition is defined. Preserve the source's implicit independence/fresh-noise and tie-handling conventions instead of treating a list of marginal Laplace laws as a specified joint mechanism; no differential-privacy theorem follows from these primitives.",
+    "gap": "Density measures, finite maxima and kernels support peeling after Laplace normalization, admissible round domains and randomization/selection conventions are supplied.",
+    "searches": [
+      [
+        "Search Laplace/double-exponential throughout Mathlib/Probability; inspect withDensity, finite max and kernel composition",
+        "No dedicated law was located in the searched modules; generic density construction and transition composition do not specify the noise joint law or prove privacy."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c4a7e388b07491a7316e",
+    "status": "composable",
+    "names": [
+      "PMF.ofFintype",
+      "PMF.bind",
+      "Real.exp"
+    ],
+    "comparison": "First call Peeling with epsilon/2 and delta/2 exactly, then for each selected coordinate normalize the three positive exponential weights exp(epsilon-prime*f_l(sign)/4), keeping epsilon-prime=epsilon/(4*sqrt(2*s-tilde*log(2/delta))). The factor 4 inside each exponent is ADDITIONAL to the factor in epsilon-prime; do not merge it away or use the peeling score in place of the sign-specific utilities, especially at sign zero. For finite valid parameters the three weights have positive total, so ofFintype constructs the conditional sign law and bind can compose finite outcomes after a valid first-stage law is supplied. Preserve output support plus indexed nonzero signs; reconstructing a full p-vector needs coordinate association and zero extension, which plain unlabelled sets do not provide. The returned support can be empty when all selected signs are zero. Source small-parameter domains, fresh-draw conventions and the unresolved peeling choices remain; neither a nonempty output nor privacy is certified by normalization.",
+    "gap": "Finite probability normalization and composition express the sign stage, with exact privacy-budget factors, indexed output and inherited peeling conventions retained.",
+    "searches": [
+      [
+        "Inspect PMF.ofFintype, bind and Real.exp against Algorithm 2 and saved output/budget issues",
+        "Finite normalization works on valid parameter inputs but does not supply the earlier transition law, full-vector output convention or a privacy guarantee."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-985a2d6c8c7e927c79b1",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.stdGaussian",
+      "MeasureTheory.integral",
+      "MeasureTheory.Measure.withDensity"
+    ],
+    "comparison": "Use stdGaussian on EuclideanSpace R (Fin d) for the standard multivariate law and integrate f against it for all three expectation notations, with the relevant integrability when a finite real expectation is intended. The source gamma denotes both the law and its Lebesgue density; retain that overloading in the original statement while distinguishing the measure from the density in the representation. stdGaussian constructs the law from independent N(0,1) coordinates in an orthonormal basis, not from arbitrary nonorthogonal coordinates or entrywise variance data alone. A density interpretation needs the corresponding Lebesgue-density identification; withDensity can represent it but is not that theorem. The real integral's zero fallback for nonintegrable f is not a statement that every source gamma(f) exists.",
+    "gap": "The standard Gaussian measure and integration are available; explicitly identify its Lebesgue density when interpreting the source's density notation.",
+    "searches": [
+      [
+        "Inspect stdGaussian:58-67, real integration and withDensity; search the multivariate Gaussian module for a density statement",
+        "The law is directly supplied via orthonormal independent coordinates; the inspected module does not itself give the density identity used to conflate gamma as function and measure."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-728027dd66a879484322",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.hittingAfter",
+      "Finset.min'",
+      "Finset.Icc"
+    ],
+    "comparison": "Use the remote block-sum contrasts with offsets +6,+5 and -6,-5, the variance scale 6*2^(J-j)*sigma^2, and the threshold T_j<=2*sigma-tilde_j. Represent a first hit on the finite level range 0,...,J using a level-restricted predicate in hittingAfter, with explicit infinity if no hit and final cap min(J,check-j); this preserves the no-trigger state separately from the finite output level J. The source minimum branch is interpreted on the levels where its block statistic is defined; do not search an unprovided extension beyond J. Retain the block-count and infinity-sentinel conventions inherited from D27/D28, and do not identify extended subtraction with the source remote-block convention without checking it. No almost-sure finite hit before J is needed for this capped definition; its final block uses size 2^(J-j-hat), not the white-noise interval length or an unbounded stopping rule.",
+    "gap": "A restricted hitting time and finite cap express the regression rule once the inherited block and sentinel arithmetic are made well defined.",
+    "searches": [
+      [
+        "Inspect hittingAfter:62-67, finite intervals and the source regression stopping formula",
+        "The generic hitting time supplies a no-hit infinity value; masking to the finite horizon and applying the explicit cap reproduces the source state transitions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-ceb2329ffc5f462cbc86",
+    "status": "partial_match",
+    "names": [
+      "MeasureTheory.hittingAfter",
+      "Finset.min'"
+    ],
+    "comparison": "Take Y_s increments, construct the two remote adjacent-increment contrasts and their minimum, then find the first dyadic scale with T_j/sigma_j<=2, where sigma_j^2=6*m_j*epsilon^2. The source explicitly declares +infinity-x=+infinity for EVERY extended x, including +infinity. Mathlib EReal subtraction instead has x-top=bottom, so top-top=bottom; directly using it would change the statistic and potentially the stopping scale. Implement the printed sentinel subtraction separately, retaining ordinary subtraction for finite increments and the stated min convention. hittingAfter can record a no-hit infinity state, but the original unbounded white-noise minimum supplies no such fallback: finite-hit existence must be shown or the source definition remains partial. Do not copy the finite regression cap J into this rule, or treat the fallback of an order infimum as a source stopping time.",
+    "gap": "Hitting-time primitives are related, but the source requires custom infinity arithmetic and a finite-hit argument or an explicit unresolved no-trigger domain.",
+    "searches": [
+      [
+        "Inspect hittingAfter and EReal.Operations:340-365 against the printed universal top-minus-x convention",
+        "The library's top-top subtraction is bottom, conflicting with the source top result; generic no-hit infinity is also an extension not stated for this white-noise rule."
+      ]
+    ]
+  }
+]

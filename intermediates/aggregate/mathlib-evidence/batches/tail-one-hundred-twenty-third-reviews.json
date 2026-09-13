@@ -1,0 +1,131 @@
+{
+  "scope": "Manual comparison of twelve remaining p0441 interfaces, preserving source independence and optimizer limits, the two dimensional regimes, shifted activation coefficients and matrix-versus-entrywise operations.",
+  "rows": [
+    {
+      "interface_id": "local-798ca32b2c6ff5633bef",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "ProbabilityTheory.stdGaussian", "ProbabilityTheory.gaussianReal"],
+      "status": "composable",
+      "query": "Inspected standard multivariate Gaussian construction, scalar Gaussian including its zero-variance branch, and independence and identical-law definitions; compared the frozen source model and noise-independence note.",
+      "result": "The iid pair model and its stated Gaussian marginals can be encoded directly, without imposing an unstated factorization of the covariate and residual law.",
+      "gap": "Define iid observation pairs with the stated covariate and residual marginals and the linear response identity, retaining the unspecified within-pair dependence.",
+      "comparisons": {
+        "D1": "Use stdGaussian on d-dimensional Euclidean space for x and gaussianReal 0 with nonnegative variance tau squared for xi=y-inner(x,beta); the latter includes the Dirac law at zero when tau=0. iIndepFun and IdentDistrib apply across the observed pairs. The displayed Gaussian marginals do not imply xi independent of x, joint Gaussianity of (x,xi), conditional mean zero given x, or a Gaussian regression response conditional on x. Because xi is a measurable function of its pair for a fixed beta, iid pairs can give iid residuals across observations, but cannot supply the missing within-pair independence. The conventional independent-noise model must not be inserted as if explicitly printed."
+      }
+    },
+    {
+      "interface_id": "local-19e59ea3af001782d9f1",
+      "related": ["MeasureTheory.Measure.toSphere", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IndepFun", "Matrix.mulVec"],
+      "query": "Searched the pinned library for random features and sphere distributions, located HaarToSphere by file search, and inspected its sphere measure, total mass, nonzero and finite-measure results plus Gaussian and matrix primitives.",
+      "result": "The finite feature sum and independent random rows can be assembled; normalized Euclidean sphere measure supplies a construction route for the row law, but the specialized random-feature class is not predefined.",
+      "gap": "Normalize Euclidean sphere measure, sample iid rows independently of data and define the fixed-W linear span of their activated inner products.",
+      "comparisons": {
+        "D2": "For d>0, take ambient Euclidean Haar measure, apply Measure.toSphere, and divide by its finite positive total mass to obtain the uniform sphere probability; raw toSphere is surface measure with mass d times the unit-ball volume, not already a probability. iIndepFun gives independent rows, as expressly recorded in Section 6, and IndepFun separates the row collection from the complete data sample. With W fixed during fitting, Matrix.mulVec gives W*x, sigma is applied componentwise and the feature function is the finite dot product with any theta in R^N. The class is a linear span of supplied feature functions, not necessarily an N-dimensional space of linearly independent functions. This definition admits a general activation; shifted ReLU is a later specialization. Training only theta does not resample W or fit its rows."
+      }
+    },
+    {
+      "interface_id": "local-ee1cc2e09ece8649b39f",
+      "related": ["posPart_def", "Real.sqrt"],
+      "status": "composable",
+      "query": "Inspected the generated positive-part identity and Real.sqrt's body and compared the scalar shifted-ReLU formula and retained activation-variance note.",
+      "result": "Positive part minus the given reciprocal square-root constant is directly expressible with the inspected real primitives.",
+      "gap": "Define sigma(x)=x-positive-part minus the reciprocal square root of 2*pi and apply it pointwise to feature coordinates.",
+      "comparisons": {
+        "D3": "On the reals, posPart_def identifies x-positive-part with max(x,0), and Real.sqrt supplies the square root of the strictly positive constant 2*pi. Subtract exactly 1/sqrt(2*pi); the source shifts the output and does not shift the input threshold. The definition needs neither a feature matrix nor a sampling law. Although this constant centers the activation under a standard Gaussian, centering does not make its variance one; do not add variance normalization or replace it with the normalized orthogonal residual sigma_perp."
+      }
+    },
+    {
+      "interface_id": "local-6d0b53ca93d83b928ae9",
+      "related": ["Matrix.hadamard", "Matrix.PosSemidef", "CFC.rpow"],
+      "query": "Searched the pinned library for Gaussian arccos sign-probability identities and random-feature adversarial effects; inspected Hadamard, positive-semidefinite and continuous-functional-calculus real-power definitions.",
+      "result": "Entrywise matrix products and a positive operator square root are supported, but the Gaussian orthant expectation and the source's J quadratic-form identity still need proofs.",
+      "gap": "Construct the fixed-W Gaussian indicator moment matrix, prove its Hadamard Gram product is positive semidefinite and evaluate the entrywise arccos formula before taking its operator square root.",
+      "comparisons": {
+        "D9": "Set H=W W transpose and M=E[1(Wx>0)1(Wx>0) transpose] with the expectation only over the standard Gaussian covariate and W fixed. Matrix.hadamard produces H entrywise-multiplied by M; the moment is a second moment, not a centered covariance. The unit row norms put each H_lk in [-1,1], and the displayed M_lk=(pi-arccos(H_lk))/(2*pi) is an entrywise Gaussian sign-probability identity, including correlation endpoints, rather than a matrix functional calculus arccos. After proving positive semidefiniteness, CFC.rpow at exponent 1/2 on the real matrix star algebra provides the operator square-root construction for J. This outer square root is spectral, not entrywise. Singular positive semidefinite matrices are allowed and no inverse or strict positivity is required. The intended squared norm identity is theta transpose J^2 theta; none of the inspected definitions proves the orthant formula or that identity from eta_i."
+      }
+    },
+    {
+      "interface_id": "local-64c79cb9e39d6502bc6b",
+      "related": ["IsCompact.exists_isMaxOn", "MeasureTheory.integral", "MeasureTheory.lintegral"],
+      "query": "Inspected compact maximum attainment and real/nonnegative integral definitions; compared both the general and shifted-ReLU risk displays and the source note on argmax totality.",
+      "result": "For the specialized continuous loss on a nonempty compact perturbation ball, a maximum is attained; the arbitrary-model definition has no such regularity guarantee, and expectation requires measurable risk values.",
+      "gap": "Define the pointwise adversarial maximum with its attainment and measurability conditions, then integrate over a test pair while holding the fitted model fixed.",
+      "comparisons": {
+        "D5": "For nonnegative epsilon_test in finite-dimensional Euclidean space, the closed perturbation ball is nonempty and compact. The shifted-ReLU squared residual is continuous in delta, so IsCompact.exists_isMaxOn supplies an attained maximum for each test pair and fixed theta,W. It does not establish maximum attainment for arbitrary f and arbitrary nonnegative loss, which are the general definition's only stated inputs, nor does it alone give a measurable selector or measurable maximum value. The expectation is outside the pointwise maximum and averages only over the test pair; it is not maximum of expected loss, and it does not average training or W randomness. Real integral needs finite integrable loss; lintegral can retain infinite nonnegative risk. Keep epsilon_test distinct from the training epsilon."
+      }
+    },
+    {
+      "interface_id": "local-b270ec3516f8008707b9",
+      "related": ["Filter.Tendsto"],
+      "status": "composable",
+      "query": "Inspected Filter.Tendsto's filter-map definition and compared Section 6's repeated proportional-growth convention with the separate Assumption 1 and frozen signal-scope note.",
+      "result": "The two positive finite real ratio limits are directly expressible as scalar sequence limits, without any signal assumption.",
+      "gap": "Specify integer sample and feature dimension sequences and their positive finite ratio limits as input dimension tends to infinity.",
+      "comparisons": {
+        "D12": "For integer sequences n(d),N(d), cast their ratios with d to the reals and impose Tendsto atTop to nhds psi2 and nhds psi1 respectively, with each limit positive and finite. Starting at positive d avoids literal division by zero; finite initial indices are immaterial to the limits. These conditions imply n and N diverge as d does, but do not require exact proportionality or prescribed rounding. They do not assert norm(beta_d) tends to one: Section 6 explicitly repeats the dimensional ratios alone, so importing Assumption 1(b) into Theorem 6.9 would strengthen the recorded source scope."
+      }
+    },
+    {
+      "interface_id": "local-1079ced541c7b9ff8f53",
+      "related": ["Filter.Tendsto"],
+      "status": "composable",
+      "query": "Inspected Filter.Tendsto and compared both clauses of the frozen Assumption 1 with the separate Section 6 dimension convention.",
+      "result": "The two ratio limits and scalar sequence of Euclidean signal norms can be combined directly as a conjunction of limits.",
+      "gap": "State both positive finite aspect-ratio limits and convergence of the Euclidean signal norm to one for the dimension-indexed model sequence.",
+      "comparisons": {
+        "D4": "Use the real sequences N(d)/d and n(d)/d with positive finite limits psi1 and psi2 and additionally the scalar sequence norm(beta_d) tending to one. beta_d lives in a different Euclidean space at each d, so the norm is taken first and its real-valued sequence is passed to Tendsto; this does not require embedding all beta_d in a single fixed space or specifying a limiting direction. The normalization is asymptotic, not norm(beta_d)=1 for every d. Both clauses are part of the explicit Theorem 4.2 hypothesis; the weaker repeated dimension convention is a separate interface."
+      }
+    },
+    {
+      "interface_id": "local-e8f5942003ba979cb8ea",
+      "related": ["Matrix.l2_opNorm_def"],
+      "status": "composable",
+      "query": "Inspected Matrix.l2_opNorm_def with its L2Operator scoped instances and Euclidean linear-map identification; compared both inequalities in the source event.",
+      "result": "The spectral norm and pairwise Euclidean row inner products give the event directly; a high-probability estimate under the random-row law remains a separate theorem.",
+      "gap": "Define the conjunction of the L2 operator-norm bound and all distinct-row correlation bounds under the random weight law.",
+      "comparisons": {
+        "D8": "With Matrix.Norms.L2Operator active, Matrix.l2_opNorm_def gives the correct norm of rectangular W:R^d to R^N. Require it at most sqrt(N/d)+C, and for every distinct row pair l,k require abs(inner(w_l,w_k)) at most log(d)/sqrt(d). Use Euclidean row inner products and positive d; the threshold is not a Frobenius norm bound and no factor of N is inserted. The source calls C sufficiently large but does not specify a numerical value. Diagonal row pairs are excluded, so this is an approximate off-diagonal orthogonality event, not exact orthogonality or a bound on the full Gram error by the same scalar. Defining the event does not establish its high-probability occurrence. The finite ratio N/d does not require signal normalization or a particular limiting ratio to write the event."
+      }
+    },
+    {
+      "interface_id": "local-9d48401e0f119df8e14e",
+      "related": ["IsMinOn", "IsCompact.exists_isMaxOn"],
+      "query": "Searched Probability and Analysis for specialized robust ERM and inspected IsMinOn plus compact maximum attainment; compared the exact source training objective and its optimizer-selection limitation.",
+      "result": "The inner perturbation maximum has compact-continuous attainment for shifted ReLU and squared loss, while a chosen outer minimizer requires its own existence and selection argument.",
+      "gap": "Define the robust empirical objective on the product of per-sample perturbation balls and establish or explicitly select an outer minimizer without adding regularization.",
+      "comparisons": {
+        "D6": "For n>0 and nonnegative epsilon, maximize the 1/(2n) sum of squared residuals over one delta_i in the Euclidean epsilon-ball for each sample; these are separate coordinates of a finite compact product, not one shared perturbation. For fixed theta,W the objective is continuous in this tuple, so the inspected compact maximum theorem applies after assembling that product. Its value can be described as the sum of the separate maxima because the constraints separate, but that identity still needs proof. IsMinOn over all theta in R^N expresses outer optimality, not existence, uniqueness or a tie-selection rule; compactness of the inner perturbation domain does not make the unbounded coefficient domain compact. Keep W fixed and add no ridge penalty. The training radius epsilon is distinct from epsilon_test, and the objective's factor 1/(2n) is retained even though positive rescaling leaves its minimizers unchanged."
+      }
+    },
+    {
+      "interface_id": "local-68529487fd6cc21a9415",
+      "related": ["Real.sqrt", "MeasureTheory.resolventTransform"],
+      "query": "Searched the full pinned library for Marchenko-Pastur and Stieltjes transforms, found the generic resolventTransform, and inspected its definition and real-to-complex sign convention plus Real.sqrt.",
+      "result": "The explicit real formula is composable from scalar arithmetic, but no Marchenko-Pastur evaluation was located and the generic resolvent transform has the opposite sign for a measure supported on nonnegative reals at negative z.",
+      "gap": "Define the literal negative-real branch and prove its range and any desired Marchenko-Pastur transform identification with the correct sign convention.",
+      "comparisons": {
+        "D7": "For psi1>0 and z<0, preserve numerator 1-psi1-z-sqrt((1-psi1-z)^2-4*psi1*z) and denominator -2*psi1*z. The denominator is positive, the radicand strictly exceeds (1-psi1-z)^2, and hence the numerator and S are strictly negative. Real.sqrt is therefore used on a genuinely positive input, not its negative-input zero fallback. The inspected resolventTransform integrates (x-z)^-1; for nonnegative x and negative z that is positive and cannot literally equal the source's negative S without a sign conversion and a specified Marchenko-Pastur measure. No specialized evaluation was verified. The complete main-text formula suffices as a definition; do not import the appendix integral convention or extend the domain to zero/positive z."
+      }
+    },
+    {
+      "interface_id": "local-8737df33135be93eca4e",
+      "related": ["ProbabilityTheory.gaussianReal", "MeasureTheory.integral", "Submodule.starProjection", "Real.sqrt"],
+      "query": "Inspected scalar Gaussian, integral, projection and square-root definitions and compared all three activation moments and the retained shifted-ReLU variance discrepancy.",
+      "result": "Projection in Gaussian L2 supplies the constant and linear decomposition structure; explicit shifted-ReLU integrals and handling a zero residual coefficient remain to be proved.",
+      "gap": "Prove the Gaussian activation moments and orthogonal-residual decomposition, with an explicit treatment of a vanishing residual coefficient for general activations.",
+      "comparisons": {
+        "D10": "Under gaussianReal 0 1, constant one and the identity function form an orthonormal pair in L2. For a square-integrable activation their projection coefficients are mu0=E sigma(G) and mu1=E G*sigma(G); the residual's squared norm is E sigma(G)^2-mu0^2-mu1^2, with the square root covering the entire difference. After proving this quantity nonnegative, Real.sqrt defines mu2 and the residual can be divided by mu2 when positive to define sigma_perp. Generic affine activations can have mu2=0, and the printed decomposition supplies no unique residual normalization there. For the specified shifted ReLU retain mu0=0, mu1=1/2 and mu2=sqrt(1/4-1/(2*pi)), whose explicit moment evaluations are not provided by the inspected primitives. Its full variance is 1/2-1/(2*pi), not one; the source's adjacent unit-variance assertion is not used to standardize sigma. Orthogonality here means the two stated Gaussian expectations vanish, not independence of residual features at different rows."
+      }
+    },
+    {
+      "interface_id": "local-1e60c9a10f894eb30b20",
+      "related": ["ProbabilityTheory.stdGaussian", "ProbabilityTheory.IndepFun", "Matrix.mulVec"],
+      "status": "composable",
+      "query": "Inspected standard multivariate Gaussian, IndepFun and matrix-vector definitions; compared the surrogate feature formula and frozen note on shared W and omitted noise independence.",
+      "result": "The affine Gaussian surrogate feature map is directly constructible for supplied joint randomness; the source does not assert equality in law with the nonlinear features or specify all independence relations.",
+      "gap": "Define the surrogate using a standard N-dimensional Gaussian independent of x while retaining the stated scope of all other randomness.",
+      "comparisons": {
+        "D11": "Take u with stdGaussian on R^N, which has independent standard Gaussian coordinates, impose the explicitly stated IndepFun relation between u and x, and define f=mu0*one+mu1*(W*x)+mu2*u using Matrix.mulVec. This replaces the nonlinear residual features with Gaussian coordinates as a surrogate, not an established exact equality of finite-sample feature laws. The defining sentence does not separately state that u is independent of response noise or W; do not infer either from u independent of x. All samples use the same W, and the later iid feature wording must retain that shared-W/conditional interpretation rather than asserting unconditional independence across feature vectors mixed over W. The mu coefficients remain those of the original activation decomposition, not a rescaled unit-variance activation."
+      }
+    }
+  ]
+}

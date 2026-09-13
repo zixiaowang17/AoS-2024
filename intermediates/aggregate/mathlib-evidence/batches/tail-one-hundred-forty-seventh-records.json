@@ -1,0 +1,479 @@
+[
+  {
+    "interface_id": "local-bc3a8dbfb7c125d2de49",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "c74a16e299c0fbbbefdeab7fafe2ad11d3e60a5bc89b278c796246073e6d86ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D5",
+        "comparison": "Use finite square real matrices and the orthogonalGroup convention where star is trivial on real entries, so adjoint is transpose. The two membership equivalences give U U-transpose=I and U-transpose U=I. The source assumes d positive, and imposes no determinant-one condition; specialOrthogonalGroup would change the alignment class.",
+        "statement_sha256": "ede7aacedffdc0c2a16f7268646b40b6b8c4041d4a0c83c355fe26a6d1fa3a33"
+      }
+    ],
+    "library_audit": {
+      "status": "exact_reuse",
+      "related_declarations": [
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.orthogonalGroup and both transpose-inverse membership equivalences.",
+          "result": "The real finite orthogonal group matches the displayed two transpose-inverse identities."
+        }
+      ],
+      "gap": "Matrix.orthogonalGroup on Fin d over the reals supplies the stated group, including reflections."
+    }
+  },
+  {
+    "interface_id": "local-8bf5d17c96bf5081ef57",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "af6a16340a62e3196398b4f1482c8192f1229e9e66709f7db5f57386c7a22f06",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D9",
+        "comparison": "Preserve literal min over one O in O(d) of n^-1 ||Zhat_j-Zstar_j O||_F^2, with free j and no sum. Adjacent stacked-matrix/phase-loss prose suggests a sum but does not supply a corrected display; do not silently insert it or optimize separate O_j. Use Frobenius norm rather than the default matrix norm, and allow reflections. A minimizer predicate does not resolve the missing aggregation or choose a measurable optimizer.",
+        "statement_sha256": "216e771a28fe5a7bbbc365ef116b82c869f073590d0d0728c11d36ae53f52527"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search orthogonal synchronization loss and inspect orthogonal alignment, Frobenius norm and minimizer predicate.",
+          "result": "The single-block expression can be written, but the source leaves a free block index and omits the summed aggregation described in prose."
+        }
+      ],
+      "gap": "The orthogonal loss still needs resolution of its free block index and missing sum before a global loss can be identified."
+    }
+  },
+  {
+    "interface_id": "local-e4cceca248280e7a832d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "8311eda2cc9b3785e32d70d7c4c93f363ccb15e3e8a8f88447093c1b9ccc3720",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D6",
+        "comparison": "For each j<k one Bernoulli mask multiplies the whole d-by-d block Z_j Z_k-transpose+sigma W_jk; do not sample a separate mask per block entry. Standard matrix-normal with identity row/column covariance means iid real N(0,1) entries, unlike phase complex noise's half variances. All upper-triangle noise blocks and masks are mutually independent; opposite blocks are transposes and diagonal blocks zero. Preserve the auxiliary complex ambient typo without adding imaginary noise or changing transpose to a different construction; both mask and observed blocks are available.",
+        "statement_sha256": "2985f1f7cf826d91d8cb700c47f06cf629fced7e5e5b6c0cf82212115257dea2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.stdGaussian",
+          "type": "(E : Type u) → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → MeasureTheory.Measure E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Standard Gaussian measure on a finite-dimensional real inner product space, constructed from independent standard normal coordinates; the probability-measure instance additionally uses BorelSpace.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search matrix-normal synchronization and inspect finite real standard Gaussian, Bernoulli law and joint independence.",
+          "result": "Independent standard real Gaussian matrix entries and Bernoulli masks can generate the upper-triangle blocks."
+        }
+      ],
+      "gap": "The observation law still needs upper-triangle block sampling and transpose completion with the exact shared edge masks."
+    }
+  },
+  {
+    "interface_id": "local-6cb725b121027fcb32db",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "01897b7a591ff75a60b7bdc56664dc7c6a3004675a3a3a9575c2c08e23e75ea1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D7",
+        "comparison": "The displayed total domain is followed by a formula assuming full rank; do not extend P to singular matrices on that basis. For nonsingular B the Gram matrix is positive definite and its spectral inverse half is meaningful, not entrywise inverse sqrt. Pair left/right singular vectors to obtain M V-transpose and preserve the full orthogonal group including reflections. The identity fallback belongs to D8's estimator, not this polar-factor definition.",
+        "statement_sha256": "bcac9245489799d0793692b336136b2e6e7a0ee6840e06d89b43fbf0fda06636"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search polar decomposition and truncated SVD; inspect inverse-half functional calculus, nonsingular inverse and orthogonal group.",
+          "result": "For full-rank B, B(B-transpose B)^-1/2 is a candidate polar factor from existing spectral operations, but no full matching polar API was verified."
+        }
+      ],
+      "gap": "The polar map still needs its full-rank factorization and proof that the inverse-half construction equals the SVD factor in O(d)."
+    }
+  },
+  {
+    "interface_id": "local-660525fe06fe3754506a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "31582f454aa6dab995f0ac4b90a0e9e7f28d5977f20882ea23bafa5e266a305d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D8",
+        "comparison": "Take largest algebraic eigenvalues of the real symmetric nd-by-nd block matrix, not largest absolute eigenvalues or singular vectors of X. Select d orthonormal eigenvectors and each consecutive d-row block U_j. If determinant is nonzero use the full-rank polar factor; otherwise output I_d exactly, without an arbitrary singular polar choice. No measurable tie-breaking/eigensolver is specified. The zero-block fallback is data-dependent and remains separate from the nonsingular polar map.",
+        "statement_sha256": "ae4f2b2f31aa10e1ffc1169590d035d3c0f262d58512459cb655483eaec9376c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.det",
+          "type": "{n : Type u} → [DecidableEq n] → [Fintype n] → {R : Type v} → [CommRing R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "provides": "Determinant of a finite square matrix over a commutative ring, with positivity and nonsingularity supplied separately when taking a real logarithm or inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect sorted symmetric eigenbasis and block selection; compare leading eigenspace estimator and determinant-conditioned polar rounding.",
+          "result": "A sorted eigenbasis and row-block extraction support the spectral step; the source-specific rounding still needs construction."
+        }
+      ],
+      "gap": "The block estimator still needs top-d eigenspace selection and the exact full-rank polar versus identity branch."
+    }
+  },
+  {
+    "interface_id": "local-6b065f9f7bf3b7c4e0b5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "d8200f51fb05156164457ca0d31bc0ebd6c1c571969430d1e7038d30801886a6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D1",
+        "comparison": "The source set binds x but writes |z|=1; Circle matches the accompanying prose's unit complex numbers, without rewriting that quotation. Complex argument reconstruction uses its principal argument convention, so a negative angle may need a 2pi shift to obtain the requested half-open [0,2pi) representative. No independent phase per comparison is implied; the later identifiability group is a single common phase.",
+        "statement_sha256": "c454564e331e5095816447dd42c80f9fd0b2638b002be5e0ee3755d57cf01506"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Circle",
+          "type": "Type",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Circle",
+          "provides": "The type of complex numbers on the unit circle, with norm-one coercion and its multiplicative group structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Circle.lean#L54-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.norm_mul_exp_arg_mul_I",
+          "type": "(x : ℂ) → (‖x‖ : ℂ) * Complex.exp ((Complex.arg x : ℂ) * Complex.I) = x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Polar reconstruction of every complex number from its norm and principal argument, including zero with the library's default argument.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L56-L60",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect complex Circle definition, norm-one coercion and exponential reconstruction by argument.",
+          "result": "Circle represents unit complex numbers, and argument reconstruction gives their phase representation after choosing the source's interval convention."
+        }
+      ],
+      "gap": "The unit-circle interpretation is available, with the source's x/z binder mismatch and conversion to phases in [0,2pi) kept explicit."
+    }
+  },
+  {
+    "interface_id": "local-a46cb76a9e45e5e865b3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "25f4fe52c5823456648ff0dea3afcd45cacb980a2ccb68212d7f02200a3df9dd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D4",
+        "comparison": "Minimize n^-1 sum_j |zhat_j-zstar_j a|^2 over one a in Circle, not separate phases a_j or arc distance. n is positive, and the squared absolute value is Euclidean complex distance. The inspected compact minimum theorem supports attainment without uniqueness; it does not itself supply a closed-form alignment or a measurable chosen phase.",
+        "statement_sha256": "a35dcd7ea0340b1ca1e9af7e4f17d670f88771ffabbdbb0978f350d5edabf6e7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Circle",
+          "type": "Type",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Circle",
+          "provides": "The type of complex numbers on the unit circle, with norm-one coercion and its multiplicative group structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Circle.lean#L54-L54",
+          "link_checked": true
+        },
+        {
+          "name": "IsCompact.exists_isMinOn",
+          "type": "{α β : Type*} → [LinearOrder α] → [TopologicalSpace α] → [TopologicalSpace β] → [ClosedIicTopology α] → {s : Set β} → IsCompact s → s.Nonempty → {f : β → α} → ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Order.Compact",
+          "provides": "A continuous function attains a minimum on a nonempty compact set; it supplies existence and membership but no unique or measurable choice.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Order/Compact.lean#L228-L229",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect compact Circle instance and continuous-function minimum theorem for the global phase-aligned finite loss.",
+          "result": "The compact unit circle and continuity of the finite squared-distance sum supply existence of a minimum after expressing the objective."
+        }
+      ],
+      "gap": "The loss still needs the finite normalized squared-distance objective and its continuity over a single global phase."
+    }
+  },
+  {
+    "interface_id": "local-76a718e48c079874139e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "78ba67aabe91c7fa0f1800b2fda8cb1b1da4d8a66711c8a100c8d9410393f3d5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D2",
+        "comparison": "Use W=X+iY with independent real components of variance 1/2, so the complex squared norm has mean 1; a real standard Gaussian on the two-dimensional complex plane without scaling would double it. For j<k masks/noises are mutually independent, X_jk is zero when missing, lower entries are conjugates and diagonal zero. Observed data include both A and X; do not center/divide by p or assume independence of mirrored entries. Signal is z_j conjugate(z_k), and p,sigma may vary with n.",
+        "statement_sha256": "a711c8cfe16c7e6bce137144a32de4796c06125d7738e7e264b54aecb670e09b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.prod",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → MeasureTheory.Measure α → MeasureTheory.Measure β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Prod",
+          "provides": "Binary product of measures on the product measurable space; standard product-measure properties apply in particular to probability measures, which are s-finite.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Prod.lean#L171-L172",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Gaussian real variance parameter, product laws and independent upper-triangle masked phase observations.",
+          "result": "Two independent N(0,1/2) variables form the specified complex Gaussian, and independent masks complete the raw edge model."
+        }
+      ],
+      "gap": "The phase observation law still needs complex Gaussian assembly, independent upper-triangle masks and Hermitian completion."
+    }
+  },
+  {
+    "interface_id": "local-34790eebf84eea1d5fc6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:15:56.833184+00:00",
+    "source_interface_sha256": "8cb8ee55c6227ec95873504ad4209bd98b7c0f3573f0cca4f4e0d7e890b9da0b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2112",
+        "local_id": "D3",
+        "comparison": "Choose the eigenvector for the largest algebraic eigenvalue of Hermitian X, not largest modulus; use the complex version of the symmetric linear-map spectral theorem. For each nonzero component return u_j/|u_j|, and for zero return 1. Plain complex division at zero gives zero and would violate Circle, so preserve the branch. The source does not specify measurable choices at eigenvalue ties; global phase ambiguity is handled by D4 rather than a silently fixed phase convention.",
+        "statement_sha256": "9acb5154ade5ee5be830636c5e302ea4bd3d362840c4dc84c519ba98be07b6a9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Circle",
+          "type": "Type",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Circle",
+          "provides": "The type of complex numbers on the unit circle, with norm-one coercion and its multiplicative group structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Circle.lean#L54-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search phase spectral normalization and inspect complex Hermitian eigenbasis plus unit-circle norm constraint.",
+          "result": "The leading eigenvector can be selected through Hermitian spectral infrastructure; coordinatewise phase rounding remains an explicit branch."
+        }
+      ],
+      "gap": "The phase estimator still needs a leading-eigenvector choice and coordinate normalization with the exact zero-coordinate fallback."
+    }
+  }
+]

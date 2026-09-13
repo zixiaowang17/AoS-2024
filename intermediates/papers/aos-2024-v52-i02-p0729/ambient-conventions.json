@@ -1,0 +1,491 @@
+{
+  "paper_id": "aos-2024-v52-i02-p0729",
+  "auxiliary_passages": [
+    {
+      "auxiliary_id": "A1",
+      "statement_original": "We let $f(n)\\lesssim g(n)$ or $f(n)=O(g(n))$ represent the condition that $|f(n)|\\leq Cg(n)$ for some constant $C>0$ when $n$ is sufficiently large; we use $f(n)\\gtrsim g(n)$ to denote $f(n)\\geq C|g(n)|$ for some constant $C>0$ when $n$ is sufficiently large; and we let $f(n)\\asymp g(n)$ indicate that $f(n)\\lesssim g(n)$ and $f(n)\\gtrsim g(n)$ hold simultaneously. The notation $f(n)\\gg g(n)$ (resp., $f(n)\\ll g(n)$) means that there exists some sufficiently large (resp., small) constant $c_1>0$ (resp., $c_2>0$) such that $f(n)\\geq c_1g(n)$ (resp., $f(n)\\leq c_2g(n)$). We also let $f(n)=o(g(n))$ indicate that $\\lim_{n\\to\\infty}f(n)/g(n)=0$. For any real number $a,b\\in\\mathbb R$, we shall define $a\\wedge b:=\\min\\{a,b\\}$ and $a\\vee b:=\\max\\{a,b\\}$.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Section 1.4 — asymptotic and scalar notation"
+        }
+      ],
+      "resolution": "Here << means a sufficiently small constant-factor inequality, not a vanishing ratio. This is critical for the zeta condition in Theorem 5. The o(1) probability errors are asymptotic as the problem grows, with n as the source asymptotic index."
+    },
+    {
+      "auxiliary_id": "A2",
+      "statement_original": "For any matrix $\\mathbf M=[M_{i,j}]_{1\\leq i\\leq n_1,1\\leq j\\leq n_2}$, we let $\\mathbf M_{i,\\cdot}$ and $\\mathbf M_{\\cdot,j}$ stand for the $i$th row and the $j$th column of $\\mathbf M$, respectively. We shall also let $\\|\\mathbf M\\|$, $\\|\\mathbf M\\|_{\\mathrm F}$, $\\|\\mathbf M\\|_{2,\\infty}$ and $\\|\\mathbf M\\|_\\infty$ denote the spectral norm, the Frobenius norm, the $\\ell_{2,\\infty}$ norm (i.e., $\\|\\mathbf M\\|_{2,\\infty}:=\\max_i\\|\\mathbf M_{i,\\cdot}\\|_2$) and the entrywise $\\ell_\\infty$ norm ($\\|\\mathbf M\\|_\\infty:=\\max_{i,j}|M_{i,j}|$) of $\\mathbf M$, respectively.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Section 1.4 — matrix norms and rows"
+        }
+      ],
+      "resolution": "This resolves the rowwise and uniform residual bounds in Theorem 5 and both incoherence definitions. The matrix infinity norm is entrywise maximum, not the induced row-sum norm."
+    },
+    {
+      "auxiliary_id": "A3",
+      "statement_original": "Finally, we denote by $\\mathscr C^d$ the set of all convex sets in $\\mathbb R^d$. For any Lebesgue measurable set $\\mathcal A\\subseteq\\mathbb R^d$, we adopt the shorthand notation $\\mathcal N(\\boldsymbol\\mu,\\mathbf\\Sigma)\\{\\mathcal A\\}:=\\mathbb P(\\mathbf z\\in\\mathcal A)$, where $\\mathbf z\\sim\\mathcal N(\\boldsymbol\\mu,\\mathbf\\Sigma)$. Throughout this paper, we let $\\Phi(\\cdot)$ (resp., $\\phi(\\cdot)$) represent the cumulative distribution function (resp., probability distribution function) of the standard Gaussian distribution. We also denote by $\\chi_k^2$ the chi-square distribution with $k$ degrees of freedom.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Section 1.4 — Gaussian probabilities and chi-square law"
+        }
+      ],
+      "resolution": "Theorem 1 uses the convex-set Gaussian probability metric in dimension r; Theorem 3 uses the standard normal CDF. Algorithm 3 uses the chi-square r quantile, while Algorithm 4 uses the normal 1-alpha/2 quantile. The source calls phi a probability distribution function; only Phi is used in these theorem statements."
+    },
+    {
+      "auxiliary_id": "A4",
+      "statement_original": "All results in this paper continue to hold if the sample vectors are generated such that $\\mathbf x_j=\\mathbf U^\\star(\\mathbf\\Lambda^\\star)^{1/2}\\mathbf f_j$, where $\\{\\mathbf f_j\\}_{j=1}^n$ are independent sub-Gaussian random vectors in $\\mathbb R^r$ satisfying $\\mathbb E[\\mathbf f_j]=\\mathbf0$, $\\mathbb E[\\mathbf f_j\\mathbf f_j^\\top]=\\mathbf I_r$ and $\\|\\mathbf f_j\\|_{\\psi_2}=O(1)$. Here, $\\|\\cdot\\|_{\\psi_2}$ denotes the sub-Gaussian norm (Vershynin (2018)).",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Footnote 1 — stated sub-Gaussian signal extension"
+        }
+      ],
+      "resolution": "The footnote is retained as source context, but the original Gaussian assumption in Theorem 1 is not rewritten. The covariance-entry variance formulas include signal fourth-moment contributions; the footnote does not give modified variance formulas or a fourth-moment matching restriction. Its blanket extension therefore remains an unresolved source claim."
+    },
+    {
+      "auxiliary_id": "A5",
+      "statement_original": "\\[\nt_0\\gtrsim\\log\\left[\\left(\\frac{\\log^2(n+d)}{\\sqrt{nd}\\,p}+\\frac{\\omega_{\\max}^2}{p\\sigma_r^{\\star2}}\\sqrt{\\frac dn}\\log(n+d)+\\frac{\\log(n+d)}{\\sqrt{np}}+\\frac{\\omega_{\\max}}{\\sigma_r^\\star}\\sqrt{\\frac{d\\log(n+d)}{np}}\\right)^{-1}\\right].\\tag{3.6}\n\\]",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Theorem 1 — iteration condition referenced by Theorem 3"
+        }
+      ],
+      "resolution": "This exact local hypothesis is repeated only to resolve the numbered reference in Theorem 3, and hence Theorem 4. It does not import Theorem 1’s separate log^9 sampling condition into Theorem 3. The first denominator is sqrt(nd) times p."
+    },
+    {
+      "auxiliary_id": "A6",
+      "statement_original": "It is also helpful to define the following quantities: for all $m\\in[n_1]$,\n\\[\n\\zeta_{\\mathrm{op}}:=\\sigma^2\\sqrt{n_1n_2}\\log n+\\sigma\\sigma_1^\\natural\\sqrt{n_1\\log n},\\tag{6.10a}\n\\]\n\\[\n\\zeta_{\\mathrm{op},m}:=\\sigma\\sigma_m\\sqrt{n_1n_2}\\log n+\\sigma_m\\sigma_1^\\natural\\sqrt{n_1\\log n}.\\tag{6.10b}\n\\]",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Section 6.2 — general-model rate abbreviations"
+        }
+      ],
+      "resolution": "These deterministic combinations use sigma and the row scale sigma_m from Assumption 3 and sigma_1-natural from the model SVD. In this section n=max(n_1,n_2), not the PCA sample size. They are local abbreviations, not additional probabilistic assumptions."
+    },
+    {
+      "auxiliary_id": "A7",
+      "statement_original": "This particular choice aligns $\\mathbf U$ and $\\mathbf U^\\star$ in the following sense:\n\\[\n\\operatorname{sgn}(\\mathbf U^\\top\\mathbf U^\\star)=\\operatorname*{argmin}_{\\mathbf R\\in\\mathcal O^{r\\times r}}\\|\\mathbf U\\mathbf R-\\mathbf U^\\star\\|_{\\mathrm F},\n\\]\nwhere $\\mathcal O^{r\\times r}$ indicates the set of all $r\\times r$ rotation matrices; see Ma et al. ((2020), Appendix D.2.1). This is often referred to as Whaba’s problem (Wahba (1965)) or the orthogonal Procrustes problem (Schönemann (1966)).",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Section 3.1 — PCA rotation characterization"
+        }
+      ],
+      "resolution": "The source characterizes its polar alignment as a minimizing orthogonal rotation. The orthonormal-matrix convention includes reflections; no determinant-one restriction is added. The external appendix reference was not followed."
+    },
+    {
+      "auxiliary_id": "A8",
+      "statement_original": "\\[\n\\frac1{p^2}\\mathbb E[\\mathbf Y\\mathbf Y^\\top\\mid\\mathbf X]=\\mathbf X\\mathbf X^\\top+\\left(\\frac1p-1\\right)\\mathcal P_{\\mathrm{diag}}(\\mathbf X\\mathbf X^\\top)+\\frac np\\operatorname{diag}\\big([\\omega_l^{\\star2}]_{1\\leq l\\leq d}\\big),\\tag{2.2}\n\\]\nwhere for any vector $\\mathbf z=[z_l]_{1\\leq l\\leq d}$ we denote by $\\operatorname{diag}(\\mathbf z)\\in\\mathbb R^{d\\times d}$ a diagonal matrix whose $(l,l)$-th entry equals $z_l$.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Section 2 — conditional Gram expectation and diagonal constructor"
+        }
+      ],
+      "resolution": "This source identity reveals the intended independence of signal, sampling and noise. It is supporting model context, not a new Theorem or a prerequisite that adds a proof expansion to the graph."
+    },
+    {
+      "auxiliary_id": "A9",
+      "statement_original": "\\[\n\\mathbb E[\\mathbf M\\mathbf M^\\top]=\\mathbf M^\\natural\\mathbf M^{\\natural\\top}+\\operatorname{diag}\\left\\{\\left[\\sum_{j=1}^{n_2}\\sigma_{i,j}^2\\right]_{1\\leq i\\leq n_1}\\right\\}.\\tag{6.7}\n\\]",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Section 6.1 — general-model Gram expectation"
+        }
+      ],
+      "resolution": "The formula treats sigma_ij squared as the variance of E_ij, conflicting with the printed var(E_ij squared) in Assumption 3. Both passages are retained, and the census does not decide a repaired theorem."
+    },
+    {
+      "auxiliary_id": "A10",
+      "statement_original": "in Algorithms 2, 3 and 4 with the following empirical estimate:\n\\[\n\\widehat p=\\frac{\\sum_{l=1}^d\\sum_{j=1}^n1\\{(l,j)\\in\\Omega\\}}{nd}.\n\\]\nIn view of the standard concentration results $\\widehat p=(1+o(1))p$, it is straightforward to verify that all of these inference procedure and the accompanying theory remain valid. We omit the details for the sake of brevity.",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Remark 4 continuation — optional empirical sampling probability"
+        }
+      ],
+      "resolution": "The preceding page says that if p is unknown, one plausible strategy is to replace it by this estimate. This is an unproved main-text extension in a Remark, not the printed algorithms’ original input convention or an additional Theorem. Its zero-count event is not separately handled."
+    }
+  ],
+  "unresolved_source_conventions": [
+    {
+      "issue_id": "S1",
+      "description": "Algorithm 4 retains omega_i^2 S-star_jj in its off-diagonal plug-in variance formula, while the paired term uses S_ii without a star. S-star_jj is not an available input. The printed procedure is therefore not fully data-driven in that branch; the census preserves this instead of substituting S_jj.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S2",
+      "description": "Assumption 3 prints var(E_ij^2)=sigma_ij^2 rather than var(E_ij). Equation (6.7) subsequently treats sigma_ij^2 as ordinary entry variance. This mismatch is retained without changing the assumption or certifying the resulting Theorem 5.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S3",
+      "description": "Theorem 5’s iteration count uses sigma_1 with a star superscript, even though the entire general-subspace model and all other singular values use natural superscripts. The source does not identify this starred quantity in Section 6; the likely typo is not repaired or used to import the PCA model.",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S4",
+      "description": "The general model prints E=[E_ij] with both indices in [n], but M and M-natural are n_1 by n_2, and Assumption 3 has the rectangular index range. The source dimensional mismatch is preserved; the intended rectangular perturbation is stated separately in the interpretation.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S5",
+      "description": "The Gaussian-signal footnote asserts that all results extend to isotropic sub-Gaussian factors without specifying fourth-moment matching or modified variances. Covariance-entry fluctuations generally depend on these fourth moments. The Gaussian theorem statements remain authoritative, with the broader footnote archived separately.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S6",
+      "description": "The model independently specifies Gaussian columns, sampling indicators and noise entries, without explicitly asserting joint independence of the three collections. The conditional Gram expectation (2.2) uses that intended independence. It is documented as implicit model context, not inserted into original quotations.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 2,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S7",
+      "description": "Assumption 1 uses omega_max squared divided by omega_min squared. A finite ratio excludes a zero minimum when some row noise is positive; the all-zero 0/0 case has no printed convention. The census does not silently add noiseless cases to the inferential theorems.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S8",
+      "description": "The matrix-sign function is defined only for nonsingular H. Theorems 1/2 use H=U^T U-star, with no explicit rule at singular outcomes or eigenvector ties. A high-probability nonsingularity argument does not supply a total finite-sample definition.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S9",
+      "description": "Algorithms 2 and 5 use a loop t=0,...,t_0 and output quantities at t_0, after also computing G at t_0+1. This indexing is preserved. Both algorithms leave eigenvalue tie breaking, rank-r spectral selection details and square roots of nonpositive eigenvalues unspecified.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S10",
+      "description": "Algorithms 3/4 divide by the number of observed entries in a row and subtract S_ll to estimate a variance. Empty rows and negative variance estimates have no stated fallback. Estimated covariance square roots, inverse Sigma and scalar variance square roots can therefore be undefined on some finite-sample outcomes.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S11",
+      "description": "Algorithm 3 adds a row U_l to Sigma_U,l^(1/2) z written as a column-vector transformation. The source implicitly identifies row and column representations of R^r; the original expression is retained.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S12",
+      "description": "Theorem 2 bounds the largest marginal rowwise coverage error. It does not assert that all d row regions simultaneously cover with probability 1-alpha. Theorem 4 is likewise an entrywise statement, not simultaneous coverage of all matrix entries.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S13",
+      "description": "Theorem 1 says for all l and gives an o(1) convex-set error, while Theorem 2 explicitly places a supremum over l outside the coverage error. These printed quantifier forms are preserved rather than replaced by a single simultaneous-event claim.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S14",
+      "description": "Theorem 3 assumes ndp^2 at least a log^7 scale; Theorem 4 increases this to log^8. Theorem 1’s distinct log^9 requirement is not inherited by Theorem 3, despite nearby interpretive prose referring to conditions of Theorem 1.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S15",
+      "description": "The paper defines << as a sufficiently small constant-factor inequality. It does not mean little-o. Theorem 5’s zeta_op condition must retain this source meaning, and the constants in the other comparison symbols are not assigned numerical values.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S16",
+      "description": "The covariance model’s kappa is a ratio of eigenvalues, while kappa-natural in Section 6 is a ratio of singular values. Likewise n is the PCA sample count in Sections 1-3 and max(n_1,n_2) in Section 6. The two meanings are not merged.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S17",
+      "description": "Definition 1 has one eigenspace row-norm condition. Assumption 2 has left and right singular-space row bounds plus an entrywise signal bound. Assumption 3 is bounded-noise and does not require PCA’s finite heteroskedasticity ratio. These distinct conditions are not transferred across models.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S18",
+      "description": "Section 6 prints sigma_r-natural>=0 although it describes an exact rank-r matrix and uses its reciprocal. Exact rank r is the intended positive-singular-value setting; zero-rank or zero-denominator conventions are not supplied.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S19",
+      "description": "Algorithms 3/4 use a coverage input 1-alpha and quantiles, but the theorem statements do not separately quantify alpha or uniformity over varying alpha. Ordinary fixed 0<alpha<1 confidence levels are the interpretation; uniform shrinking-tail coverage is not asserted.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S20",
+      "description": "Theorem 5 gives an existential pair Z,Psi on an event of probability exceeding 1-O(n^-10), followed by all-row bounds. Its explicit formula fixes Z and the decomposition fixes Psi. It is not a conditional Gaussian theorem and does not depend on the PCA Gaussian-column assumption.",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S21",
+      "description": "The orthogonal Procrustes argmin is written as a single matrix in (6.9), with no selection rule for multiple minimizers. The orthonormal matrix set includes reflections; no determinant-one constraint is stated.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S22",
+      "description": "Proof expansions in Section 3.3 and Appendix references do not become statement dependencies. The main-paper reference to Theorems 11-14 in the separate supplement does not create additional inventoried theorems. No supplement body was opened.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 13,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 25,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    }
+  ],
+  "standard_ambient_resolution": {
+    "shared": "Finite index sets, real Euclidean spaces, transpose, spectral/Frobenius/row norms, rank, eigendecomposition, SVD, diagonal matrices, real square roots, Gaussian probabilities and quantiles are resolved by the source notation and ordinary linear algebra/probability. Source << means a small fixed-factor inequality (A1). The sub-Gaussian norm is cited to Vershynin without an exact normalization, which is immaterial to the displayed O bounds but not silently assigned a numerical constant. All comparisons are along sequences satisfying the printed growth conditions.",
+    "1": "D1 and D4 supply Gaussian columns X and population S-star; D2 the sampling model; D3 through D9 the noise law. D6 supplies kappa, sigma_r-star and Sigma-star; D7 fixes mu-incoherence; D9 fixes kappa_omega, omega_max/min; D10 supplies Algorithm 2 and its t_0 output; D8 defines sgn. The theorem binds delta, the row l, R and the entire covariance Sigma_U,l-star with its d_li-star formula. Convex sets and Gaussian measure notation are in A3. The iteration condition is inline and archived as A5 for later numbered references.",
+    "2": "The reference to Theorem 1 supplies its model, noise, incoherence, sampling, comparability and iteration hypotheses. D11 defines the confidence regions from Algorithm 3, including noise/covariance estimates, chi-square quantile and ball. D8 defines the rotation; U-star is the target from D1. Alpha is an ordinary fixed coverage level (S19), and the theorem gives uniform marginal rowwise coverage error, not joint simultaneous coverage.",
+    "3": "The PCA data/noise/sampling model remains the standing model in Section 3. D6 resolves its spectral and condition-number quantities; D7 resolves mu-incoherence; D9 is Assumption 1; D10 is Algorithm 2; D12 gives the distinct off-diagonal/diagonal population v-star formulas. Delta, i,j and the lower bound on their row norms are theorem-local. Only the iteration condition (3.6), reproduced in A5, is referenced from Theorem 1; the stronger log^9 sampling restriction is not. Phi is the standard normal CDF.",
+    "4": "The reference imports Theorem 3’s actual hypotheses and adds ndp^2>=constant times log^8(n+d). D13 defines the entrywise interval from Algorithm 4; its population S-star_jj anomaly is preserved. The statement has the same selected pair i,j and fixed confidence level alpha. It does not require the row-confidence procedure in Algorithm 3.",
+    "5": "D14 supplies the separate fixed rectangular signal, its natural-marked SVD and n=max(n_1,n_2). D15/D16 are the complete Assumptions 2/3. D17 gives Algorithm 5, D18 the minimizing rotation R_U, and D5 the off-diagonal projection in the inline Z formula. A6 resolves zeta_op and zeta_op,m through sigma and sigma_m from Assumption 3. Z,Psi and all-row residual bounds are bound inside the theorem. The starred sigma_1 in the iteration condition remains unresolved source wording, not a dependency on the PCA model. Probability concerns the matrix perturbation under the printed assumptions."
+  }
+}

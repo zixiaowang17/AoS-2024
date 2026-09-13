@@ -1,0 +1,84 @@
+{
+  "scope": "Manual comparisons for kernel LSTD, time-series mixed-graph repetition/background knowledge and eigenspace restriction; source dependencies and retained conventions inspected.",
+  "rows": [
+    {
+      "interface_id": "local-fcc696a90b940c5f483d",
+      "related": [
+        "InnerProductSpace.rankOne_apply",
+        "ContinuousLinearMap.inverse"
+      ],
+      "query": "Search LSTD, Bellman and temporal-difference across Mathlib; inspect InnerProductSpace/LinearMap.lean 322-325 and ContinuousLinearMap/Invertible.lean 38-49 against the empirical covariance/cross-covariance dependency.",
+      "result": "Rank-one continuous operators, sums and continuous-linear-map inverses support the algebraic equation. No regularized kernel LSTD estimator or universal invertibility theorem for this nonsymmetric empirical operator was located.",
+      "gap": "The operator primitives are available, but the regularized kernel LSTD equation needs its empirical construction, reward domain and valid existence/uniqueness argument.",
+      "comparisons": {
+        "D10": "On the RKHS form C_hat=n^-1 sum Phi_x tensor Phi_x and C_cross_hat=n^-1 sum Phi_x tensor Phi_xprime, preserving the order of the cross factors. The equation is (C_hat+lambda_n I-gamma C_cross_hat) theta_hat=(C_hat+lambda_n I)r. In particular, regularization also acts on the reward side; replacing it by C_hat r changes the estimator. The reward must belong to the operator domain H as recorded in footnote 3; its proposed projection alternative is not inserted into the original formula. Rank-one operators and finite sums express C_hat/C_cross_hat, but the latter need not be self-adjoint. Positive lambda_n alone is not a proved invertibility certificate for the full operator. ContinuousLinearMap.inverse returns zero without a continuous linear equivalence, so that fallback cannot define a solution to this equation. Preserve the potentially infinite-dimensional setting, n>0 and the theorem's actual parameter regime."
+      }
+    },
+    {
+      "interface_id": "local-a892c9d8110039ad37f7",
+      "related": [
+        "MeasureTheory.eLpNorm",
+        "MeasureTheory.Measure.real",
+        "Real.exp"
+      ],
+      "query": "Search LSTD/Bellman concentration bounds in Mathlib; inspect LpSeminorm/Defs.lean 83-87, MeasureSpaceDef.lean 99-102 and the real exponential declaration against bound (17) and its data/radius assumptions.",
+      "result": "L2 seminorms and finite event probabilities express the event and its exponential lower probability; no kernel-LSTD bound with these critical-radius and regularization regimes was located.",
+      "gap": "The norm and probability primitives are available, but the stated high-probability error bound requires the paper’s LSTD concentration argument and branch-specific admissible parameters.",
+      "comparisons": {
+        "D18": "Measure squared prediction error in L2(mu), not the RKHS norm, and compare it with c1 R^2 times (delta^2+lambda_n/(1-gamma)). Retain probability at least 1-2 exp(-c2 n delta^2 (1-gamma)^2/b^2), including the factor 2 and squared discount gap. The probability is over n iid stationary transition pairs; it is not automatically a single dependent trajectory result. The target theta-star is the projected fixed point, so this estimation bound alone does not control its approximation error to the true value function. Both branches share the displayed event but have different permitted delta/lambda choices and critical-radius assumptions; universal constants c1,c2 come from this preceding passage. eLpNorm is extended-valued and its real conversion requires finiteness. Preserve the radius's two constraints, discount/kernel nondegeneracy and zero-noise critical-radius caveat instead of filling them with totalized division or exponential conventions."
+      }
+    },
+    {
+      "interface_id": "local-0b849aa9d645ca47345b",
+      "related": [
+        "Digraph",
+        "Relation.ReflTransGen"
+      ],
+      "query": "Search DMAG, ancestral graph, repeating ancestry and latent projection across Mathlib; inspect Digraph/Basic.lean 40-50 and Logic/Relation.lean 317-321; check the registered paper’s main-text ancestor convention and time-series vertex domain.",
+      "result": "A directed adjacency relation and its reflexive transitive closure express ancestry, including self-ancestry. No DMAG or repeating-ancestry interface was located.",
+      "gap": "Directed reachability is available, but the DMAG structure and shift-invariance of its ancestral relation over the permitted time window still need development.",
+      "comparisons": {
+        "D21": "The source explicitly counts a vertex as its own ancestor, so Relation.ReflTransGen of the directed-edge relation has the appropriate reflexive convention; bidirected edges are not traversed as directed causal arrows. For every integer shift Delta t, require ancestry of the shifted endpoints whenever both remain in V=I times T. This is a condition on reachability, not merely on shifted single-edge existence; it does not assert that an existing path can be shifted vertex by vertex within the finite window. The underlying graph is a DMAG, carrying directed acyclicity, absence of almost-directed cycles and maximality conditions that a plain Digraph does not supply. The time set may have infinite endpoints, and the paper imposes no universal finite maximum lag. Keep this condition separate from repeating orientations and from probabilistic stationarity or faithfulness assumptions not part of the graphical statement."
+      }
+    },
+    {
+      "interface_id": "local-755c1e64d90a2e04c435",
+      "related": [
+        "Digraph"
+      ],
+      "query": "Search partial mixed graph, DPAG, repeating orientations and stationarification across Mathlib; inspect Digraph/Basic.lean 40-50 and compare the archived four-mark decomposition and time-series domain.",
+      "result": "Digraph provides an underlying binary relation, but no partial mixed graph with directed, bidirected, circle-arrow and circle-circle endpoint marks was located.",
+      "gap": "Binary graph relations are available, but the four edge types and their conditional shift-consistency require a partial mixed graph construction.",
+      "comparisons": {
+        "D20": "Represent the source's four edge types as additional marked relations with the disjointness and no-self-adjacency/single-edge constraints; a plain Digraph allows loops and lacks endpoint marks. If an original ordered endpoint pair has a particular type and the shifted pair is adjacent, require the shifted pair to have that same type. The premise explicitly requires the shifted adjacency to exist: the condition does not create missing shifted edges and is weaker than repeating adjacencies. Preserve both circle-bearing edge types and endpoint orientation, rather than turning a bidirected edge into two ordinary arrows. Shifts are integer translations on the supplied time window, with no added finite-lag restriction. The statement concerns partial mixed graphs, not only ancestral/maximal graphs, and must not be merged with repeating reachability."
+      }
+    },
+    {
+      "interface_id": "local-35cc098bb706566adc43",
+      "related": [
+        "Digraph",
+        "Relation.ReflTransGen",
+        "Set.image"
+      ],
+      "query": "Search ts-DAG, DMAG/DPAG, stationarification, background knowledge and latent projection across Mathlib; inspect digraph, relation-closure and Set.image declarations against all four archived cases and projection dependencies.",
+      "result": "Graph relations, ancestry closure and images of maps provide representations for parts of the predicates; no time-series latent-projection or stationarification API was located.",
+      "gap": "The logical and graph primitives are available, but all four background-knowledge predicates require the paper’s distinct ts-DAG projection, stationarification, time-order and repetition constructions.",
+      "comparisons": {
+        "D22": "Keep four Boolean predicates on DMAGs, interpreted as truth conditions and then reflected into Bool if desired. A_D(M) asserts existence of a ts-DAG with M equal to its observed finite-window latent projection, equivalently membership in the projection map's image once that map exists. A_D^stat instead uses the stationarified projection; the source explicitly warns that this resulting class need not be the class of ts-DMAGs, so the first two cases are not equated. A_ta combines time order with repeating ancestral reachability; A_to combines time order with repeating marked orientations, not repetition of all adjacencies. Directed time order permits same-time arrows since the inequality is <=. The needed latent projection preserves ancestral and separation information, which Set.image alone does not construct or prove. Do not add stochastic stationarity, causal Markov/faithfulness or finite maximum edge-lag premises to these graph predicates."
+      }
+    },
+    {
+      "interface_id": "local-2b7b02942776fed52f37",
+      "related": [
+        "Submodule.starProjection",
+        "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot"
+      ],
+      "query": "Search principal-component restriction, compact spectral truncation and eigenspace projections in Mathlib; inspect InnerProductSpace/Spectrum.lean 441-445 and Projection/Basic.lean 129-133 against (2.3) and the retained multiplicity conventions.",
+      "result": "Orthogonal projections and compact self-adjoint spectral completeness support the population construction. No full functional spectral-density restriction/empirical eigenprojection interface with the paper's parameter dependence was located.",
+      "gap": "Spectral projections are available, but the ordered eigenspace truncation and its empirical counterpart require the paper’s multiplicity, separation and sequential-estimator conditions.",
+      "comparisons": {
+        "D31": "Form sum_{j=1}^d Pi_j composed with F as an ambient-space operator; starProjection has the correct codomain, unlike a projection whose output is only the subspace subtype. Under the eigenspace properties this equals the sum of lambda_j Pi_j over the retained distinct eigenvalues. The archived Pi_j projects onto the whole eigenspace for the j-th distinct eigenvalue, whereas the dotted sequence counts eigenvectors with multiplicity. Thus the formula can retain more than d individual components unless the appropriate simple-spectrum conditions apply; do not replace it with an arbitrary basis-vector cutoff. Finite nonzero eigenspaces of the compact self-adjoint operator admit the needed projections. The empirical version uses the sequential estimator's own corresponding eigenspaces, not fixed population projections, and retains its eta/index/denominator issues. Spectral completeness alone does not provide ordered eigenvalue selection, uniform eigengaps or the trace-class process limit and differentiability arguments used downstream."
+      }
+    }
+  ]
+}

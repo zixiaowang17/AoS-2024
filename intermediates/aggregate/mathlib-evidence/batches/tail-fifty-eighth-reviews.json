@@ -1,0 +1,77 @@
+{
+  "scope": "Manual comparison of eight remaining p1825 Navier-Stokes inverse-problem interfaces; keep deterministic dynamics, observation-window exception, Gaussian RKHS and Sobolev distinctions, and recorded spectral/source conventions.",
+  "rows": [
+    {
+      "interface_id": "local-ef54ae429eff6748b76a",
+      "related": ["ProbabilityTheory.cond", "MeasureTheory.Measure.pi", "MeasureTheory.Measure.map", "ProbabilityTheory.multivariateGaussian"],
+      "status": "composable",
+      "query": "Inspected normalized restricted measures, finite iid products, measurable pushforwards and Euclidean Gaussian laws; checked uniformOn's counting-measure convention to exclude it for continuous design.",
+      "result": "A product of continuous uniform design and independent bivariate Gaussian noise, pushed through the deterministic solution evaluations, constructs the experiment with a separate Dirac-time branch.",
+      "gap": "Construct the joint response-design law and its N-fold product, retaining the explicit single-time branch and proving measurability of the forward evaluations.",
+      "comparisons": {"D11": "For T0<T normalize Lebesgue time measure on (T0,T] and spatial volume on the torus to probability measures; ProbabilityTheory.uniformOn uses counting measure and is not this continuous law. Independently draw N design pairs and N Gaussian vectors with mean zero and covariance I_2, then set Y_i=u_theta(t_i,X_i)+epsilon_i and retain all three observed components. For T0=T>0 use delta_T times uniform spatial probability as the source expressly declares, rather than conditioning Lebesgue measure on an empty interval. The solution is deterministic conditional on theta with known viscosity and forcing; this is measurement noise, not stochastic forcing of the PDE. Theorem 3 permits T0=0 while Theorem 4 requires positive observation times. The product construction does not itself establish continuity or measurability of the PDE solution map."}
+    },
+    {
+      "interface_id": "local-2b442fb0a8ec41726bd0",
+      "related": ["ProbabilityTheory.IsGaussian", "ProbabilityTheory.IsGaussianProcess", "RKHS", "MeasureTheory.Measure.map", "Real.rpow"],
+      "status": "partial_match",
+      "query": "Searched Gaussian-measure, Cameron-Martin and RKHS terminology; inspected IsGaussian, finite-marginal Gaussian processes, the RKHS class, continuous-linear Gaussian pushforwards and sample-size power scaling.",
+      "result": "Gaussian laws, point-evaluation RKHS structure and scalar pushforwards have library ingredients, but the associated Gaussian RKHS and periodic Sobolev embedding are not supplied by these predicates alone.",
+      "gap": "Construct the supported centered Gaussian field and its associated RKHS embedding, then push its law through the exact sample-size rescaling.",
+      "comparisons": {"D12": "Pi-prime is a Borel probability on divergence-free zero-mean fields in V intersect H2, and centering must be stated in addition to IsGaussian or IsGaussianProcess. A finite-marginal Gaussian process does not by itself give Borel sample paths in this Sobolev space. The RKHS must be the one associated with this Gaussian law, not an arbitrary RKHS instance, and completeness and a continuous injective embedding into V intersect H^alpha are additional requirements. Alpha>=2 may be fractional, beyond the source's earlier integer Sobolev definition. Push forward by theta-prime mapped to N^(-1/(2*alpha+2))*theta-prime for N>0. This is the prior scaling, not a claimed contraction rate; its base RKHS is distinct from PDE space H. RKHS regularity does not assert that typical prior draws lie in H^alpha or in the RKHS itself, and the following Fourier-series example is optional."}
+    },
+    {
+      "interface_id": "local-4637fa11c9700178b966",
+      "related": ["MeasureTheory.integral", "MeasureTheory.condExp"],
+      "status": "partial_match",
+      "query": "Inspected Bochner integration and conditional expectation, including their invalid-domain fallbacks, against the posterior initial-condition mean and nonlinear plug-in trajectory.",
+      "result": "A V-valued integral under the posterior defines the mean once integrability is established; the nonlinear forward solution must then be evaluated at that mean.",
+      "gap": "Prove the posterior identity map is Bochner integrable in V and evaluate the deterministic PDE solution at its integral, without commuting the nonlinear solution map with expectation.",
+      "comparisons": {"D15": "For each admissible observed dataset form theta-bar_N as the V-valued integral of theta under the already defined posterior. Bochner measurability, integrability and the complete V structure must be available to justify the source mean rather than the integral's zero fallback. Conditional expectation under the joint prior-data experiment can represent a corresponding version, but agreement with the posterior kernel integral needs a disintegration argument. Then solve equation (10) with initial value theta-bar_N. Because the dynamics are nonlinear, u_(theta-bar_N) is not generally the posterior integral of u_theta. No Gaussian posterior or linearity of the forward map is inferred from a Gaussian prior."}
+    },
+    {
+      "interface_id": "local-d43fb3e476310df7c648",
+      "related": ["fourierBasis", "Complex.exp", "InnerProductSpace.laplacianWithin"],
+      "status": "partial_match",
+      "query": "Inspected the circle Fourier basis and monomial formulas, their Haar normalization and classical Laplacian against the complex two-dimensional Stokes eigenfield expression.",
+      "result": "Products of Fourier monomials give the plane-wave factors, while divergence-free vector polarization, real orthonormalization and Stokes-domain identification require construction.",
+      "gap": "Construct a normalized real divergence-free Fourier eigenbasis on the two-dimensional torus, resolving phases and lattice redundancy without treating the proportional source display as a complete basis specification.",
+      "comparisons": {"D13": "For nonzero integer k=(k1,k2), multiply exp(i*k dot x) by the perpendicular vector (k2,-k1); differentiation gives zero divergence and negative Laplacian eigenvalue |k|^2 once the smooth periodic field is identified with the Stokes domain. fourierBasis is a scalar complex one-circle basis under normalized Haar measure, so a two-coordinate product, vector polarization and the paper's Lebesgue normalization still need justification. The source only writes proportionality and refers to real parts: phase choices, sine/cosine pairs and redundancy between k and -k cannot be ignored when forming a real orthonormal basis. Theorem 5 separately orders such a real basis by increasing eigenvalues; this display alone specifies neither that enumeration nor prior coefficient variances."}
+    },
+    {
+      "interface_id": "local-f419cf19c7a878668968",
+      "related": ["MeasureTheory.MemLp", "MeasureTheory.eLpNorm", "MeasureTheory.lpNorm", "ContinuousMap.comp"],
+      "status": "partial_match",
+      "query": "Inspected Bochner Lp membership, finite-exponent and essential-supremum norm branches, and bundled continuous-map domains against the time-function-space conventions.",
+      "result": "The library supplies measurable Lp functions and continuous maps; the source's omitted measurability and pointwise-versus-essential boundedness conventions need explicit interpretation.",
+      "gap": "Instantiate the chosen field space and time measure with strong measurability, and distinguish essential L-infinity bounds from the source's time-bounded prose.",
+      "comparisons": {"D10": "Treat t mapped to u(t,.) as a function into the specified normed field space X and use restricted Lebesgue measure on (0,T] at 1<=p<infinity. MemLp includes almost-everywhere strong measurability plus finite extended norm, whereas the displayed integral alone does not state measurability. The usual Lp quotient identifies time functions almost everywhere; C([0,T],X) instead includes the initial value and a continuous representative. At infinity eLpNorm uses essential supremum, while the source says time-bounded without specifying pointwise or essential bounds; do not identify them without a suitable representative or continuity argument. For the strong-solution theorem the continuous space is X=V with its gradient norm, not a silently substituted full H1 norm."}
+    },
+    {
+      "interface_id": "local-18fff8885aefca484ea8",
+      "related": ["Submodule.span", "Submodule.starProjection", "MeasureTheory.Measure.map", "ProbabilityTheory.IsGaussian", "Asymptotics.IsBigO"],
+      "status": "partial_match",
+      "query": "Inspected finite-span projection, Gaussian linear pushforwards and big-O against the projected prior, fixed truth support and recorded span/growth source issues.",
+      "result": "A fixed spectral projection can push forward each sample-size-dependent prior; the specified Stokes eigenbasis, Gaussian RKHS and truth-support conditions remain part of the paper setup.",
+      "gap": "Project the rescaled prior onto the specified spectral span and state the fixed truth-support and upper growth bound without inferring eventual coverage of that support.",
+      "comparisons": {"D17": "Use the real L2-orthonormal Stokes eigenbasis ordered by increasing eigenvalues and project Pi_N onto the linear span of its first J_N elements, preserving the source's simultaneous span wording and literal E_J={e_j:j<=J} notation. The finite-rank orthogonal projection is defined in the PDE H inner product, not as projection in the Gaussian RKHS; its continuous/measurable realization on the prior's field space must be shown. A continuous linear pushforward preserves Gaussianity but supplies no contraction theorem. Keep the base calligraphic-H membership and theta0 in a fixed E_J0. J_N=O(log log N) only bounds growth from above and does not ensure divergence or eventual J_N>=J0, so do not insert that missing condition as if printed. The replacement rate and all inherited conclusions remain those of the original theorem."}
+    },
+    {
+      "interface_id": "local-6423cf068dff283f456f",
+      "related": ["ContDiffOn", "Function.Periodic"],
+      "status": "composable",
+      "query": "Inspected infinite-order differentiability on Euclidean space and the translation-period predicate for the torus's lattice generators.",
+      "result": "An infinitely differentiable periodic lift to the plane represents a smooth scalar function on the flat torus.",
+      "gap": "Package a smooth Euclidean lift invariant under both period-lattice generators and identify it with a function on the quotient torus.",
+      "comparisons": {"D2": "Require ContDiffOn real infinity f on all of real two-space and Function.Periodic f for the two coordinate period vectors of the source domain [0,2*pi]^2. Two generator identities imply lattice invariance, enabling a well-defined torus function and avoiding boundary mismatch from merely smooth functions on a closed square. Infinity means derivatives of every finite order, not analyticity. The definition is scalar; Theorem 2 uses its two-component product. The chosen domain does not require each generator to be a least period, nor does smooth periodicity alone impose zero mean or zero divergence."}
+    },
+    {
+      "interface_id": "local-ee075d7df14ee3c2839a",
+      "related": ["MeasureTheory.lpNorm", "MeasureTheory.MemLp"],
+      "status": "composable",
+      "query": "Inspected L2 norms and moment domains against the unsquared inverse-Poincare ratio and the separately recorded zero-difference and squared-ratio discrepancies.",
+      "result": "The specified gradient and L2 norms express the additional bound for a given pair of initial fields, once their source norm structures and denominator conditions are supplied.",
+      "gap": "State the positive finite bound on the unsquared V-to-L2 norm ratio, retaining zero-denominator ambiguity and distinguishing pairwise from uniform parameter-class constants.",
+      "comparisons": {"D16": "For h=u(0)-v(0), use the source V norm from the gradient L2 energy and the vector Lebesgue L2 norm in the denominator. Require 0<c_P<infinity and the printed unsquared ratio <=c_P. If h=0 the source has no quotient convention; Lean's totalized 0/0 would introduce one, and multiplying away the denominator without qualification changes the literal premise. A bound for one nonzero pair is not a uniform reverse embedding estimate over an infinite-dimensional class. Remark 1's squared ratio and eigenvalue bound use a different scale, so neither c_P nor the exponent in the theorem is silently squared or square-rooted."}
+    }
+  ]
+}

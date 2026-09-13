@@ -1,0 +1,159 @@
+{
+  "scope": "Manual comparison of nineteen foundational interfaces from the change-point regression paper against the pinned mathlib declarations; preserve the frozen source statements and distinct stationary, nonstationary, marginal and directional assumptions.",
+  "rows": [
+    {
+      "interface_id": "local-787a09475924322b343c",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "Measurable"],
+      "query": "rg -i 'functional dependence|sub.?weibull|stationar.*causal|bernoulli shift' Mathlib/Probability Mathlib/Dynamics; inspect iIndepFun in Independence/Basic, IdentDistrib and Measurable with their ambient measure parameters",
+      "result": "The checked declarations express jointly independent innovations, their identical laws and a measurable vector-valued generator; no verified packaged causal Bernoulli-shift construction or stationarity theorem was located.",
+      "gap": "Construct the lag-indexed innovation histories and prove strict stationarity of their common measurable image.",
+      "comparisons": {"D5": "Use integer-indexed random elements for script X, joint independence under one probability law and IdentDistrib for their common marginal law; G is one time-invariant measurable map into p-dimensional real vectors. Histories must be identified by relative lag before applying the same G. Plain X denotes the resulting observed process, not the innovation. Measurability and iid primitives alone do not supply the history construction or the equality of all finite-dimensional shifted laws asserted as strict stationarity."}
+    },
+    {
+      "interface_id": "local-79dbf352df5a86a2bb96",
+      "related": ["ProbabilityTheory.covariance", "ProbabilityTheory.IdentDistrib"],
+      "query": "Inspect Probability/Moments/Covariance covariance definition and Probability/IdentDistrib structure; compare finite-coordinate population moments with the source's causal infinite sequence",
+      "result": "Scalar covariance can define each entry of the population matrix and identical distributions express equality of marginal laws; neither declaration packages a mean-zero stationary causal triangular sequence.",
+      "gap": "Assemble the mean-zero causal covariate sequence, its consecutive observation window and its integrable coordinate covariance matrix for each sample size.",
+      "comparisons": {"D12": "Set Sigma i j to covariance of coordinates i and j of X_1, under the population probability measure, and supply the moments required for an ordinary covariance interpretation. The n observations are consecutive terms of an integer-indexed process of form (4), with zero marginal mean. IdentDistrib describes marginal equality but does not establish joint strict stationarity. The dimension p and population law may vary with n; Sigma is not a fixed empirical Gram matrix."}
+    },
+    {
+      "interface_id": "local-570ac040f2e907c8730f",
+      "related": ["dotProduct", "EuclideanSpace.norm_eq", "Real.rpow", "Real.exp", "csSup_le_iff"],
+      "query": "Search Probability and Dynamics for sub-Weibull interfaces; inspect dotProduct, EuclideanSpace.norm_eq, Real.rpow, Real.exp and the boundedness/nonemptiness hypotheses of csSup_le_iff",
+      "result": "The directional projection, Euclidean unit sphere and exponential-power bound are expressible; the checked supremum lemma converts a bounded nonempty set of tail probabilities to all-direction inequalities, without proving such tails.",
+      "gap": "Define and prove the uniform sub-Weibull tail property over every Euclidean unit direction with the paper's common constants.",
+      "comparisons": {"D14": "For every positive tau take the probability of the strict event abs(dotProduct v X_1) > tau, uniformly over norm v = 1. Gamma_2 lies in (0,2] and C_X is an absolute positive constant; real powers have positive base tau/C_X here. Real-valued probabilities are bounded by one under a probability measure, but nonemptiness of the unit sphere also needs positive dimension before using csSup_le_iff. Coordinatewise tails do not imply this exact uniform constant, and gamma_2 below two is not replaced by a sub-Gaussian hypothesis."}
+    },
+    {
+      "interface_id": "local-909b1d7cb8e4946a0f80",
+      "related": ["dotProduct"],
+      "query": "Inspect Data/Matrix/Mul dotProduct and compare its finite coordinate sum with the complete regression and integer change-point specification",
+      "result": "dotProduct gives each linear predictor; the checked library declaration contains no piecewise coefficient model, endpoint convention or characterization of change locations.",
+      "gap": "Define the sample-size-dependent regression sequence and its ordered integer segmentation with changes exactly at the stated boundaries.",
+      "comparisons": {"D1": "Represent y_t = dotProduct X_t beta_t + epsilon_t for t = 1,...,n with p = p(n), and deterministic coefficients constant on the integer segments [eta_k,eta_{k+1}). Preserve eta_0 = 1 and eta_{K+1} = n+1, so eta_k starts the new segment. The comparison beta_t versus beta_{t-1} is meaningful at interior indices; the displayed source only declares beta_1,...,beta_n and supplies no beta_0 for a literal t=1 reading. Do not silently add one, nor add sparsity or conditional mean-zero assumptions supplied elsewhere."}
+    },
+    {
+      "interface_id": "local-5f9fc9829be21a36e7c1",
+      "related": ["EuclideanSpace.norm_eq"],
+      "query": "Inspect Analysis/InnerProductSpace/PiL2 EuclideanSpace.norm_eq and compare the jump's signed indices and nonzero normalization",
+      "result": "The finite-dimensional Euclidean norm is directly available; the jump vector, fixed number of change points and n-dependent normalization are specific to the source model.",
+      "gap": "Define each signed adjacent-time coefficient jump and justify division by its positive Euclidean magnitude under the change-point model.",
+      "comparisons": {"D34": "Psi_k is beta at eta_k minus beta at eta_k minus one time step, not beta at eta_{k-1}; the sign must be retained. Use the Euclidean norm, and scalar multiplication by its reciprocal, to obtain v_k. Actual changes imply a nonzero jump, so kappa_k is positive for every finite sample under this model. K is a fixed absolute integer at least one, while v_k and kappa_k can depend on n; no fixed direction across n is asserted."}
+    },
+    {
+      "interface_id": "local-aefb1c8d9506b9ef3e91",
+      "related": ["EuclideanSpace.norm_eq", "Finset.exists_min_image"],
+      "query": "Inspect EuclideanSpace.norm_eq and the generated order-dual Finset.exists_min_image with its nonempty finite-domain hypothesis",
+      "result": "Euclidean magnitudes and attainment of a minimum on a nonempty finite index set are checked ingredients; jump and spacing bounds are model-specific assumptions.",
+      "gap": "Assemble the two minima over their different index sets and retain the absolute upper jump bound without inventing a uniform positive lower jump bound.",
+      "comparisons": {"D4": "The magnitude minimum ranges over k = 1,...,K and uses norm Psi_k; the spacing minimum ranges over k = 1,...,K+1 and includes the first and last segments. K >= 1 makes both finite sets nonempty. The strict boundary ordering gives positive integer spacings, not normalized fractions. Each kappa_k is bounded above by C_kappa; positivity of finite-sample jumps does not assert a positive lower bound independent of n, and the vanishing regime remains possible."}
+    },
+    {
+      "interface_id": "local-051cd8c035160e311102",
+      "related": ["Matrix.PosSemidef", "dotProduct", "Filter.Tendsto"],
+      "query": "Inspect LinearAlgebra/Matrix/PosDef PosSemidef, Data/Matrix/Mul dotProduct and Order/Filter/Defs Tendsto; compare the covariance lower bound and directional limiting drift",
+      "result": "Positive-semidefinite order can express the quadratic-form lower bound for Sigma minus c_min times the identity, and Tendsto can express each scalar drift limit; the checked declarations do not prove the eigenvalue equivalence or the limits.",
+      "gap": "Connect the covariance eigenvalue bound to the uniform quadratic-form inequality and establish each positive directional limit along the sample-size sequence.",
+      "comparisons": {"D15": "For a real symmetric covariance matrix, PosSemidef(Sigma - c_min I) is the appropriate form encoding, once its equivalence to the least eigenvalue condition is justified. The absolute c_min is strictly positive and applies in every direction, rather than only sparse directions. The scalar dotProduct v_k (Sigma.mulVec v_k) tends to the positive absolute varpi_k as n tends to infinity; Sigma and v_k can both vary with n. This is neither a sample covariance assertion nor a finite-n equality to varpi_k."}
+    },
+    {
+      "interface_id": "local-3bb9b0cf7d9f26914c3e",
+      "related": ["MeasureTheory.condExp"],
+      "query": "Inspect MeasureTheory/Function/ConditionalExpectation/Basic condExp including its sub-sigma-algebra, sigma-finiteness and integrability branches",
+      "result": "The library conditional expectation supports conditioning on the sigma-algebra generated by X_t; its zero fallback must not be used as evidence for the statistical assumption.",
+      "gap": "Instantiate the contemporaneous covariate sigma-algebra and prove the integrable conditional expectation is almost surely zero for each observed time.",
+      "comparisons": {"D2": "Under the regression model, condition epsilon_t on sigma(X_t) and require the resulting conditional expectation to equal zero almost surely for every t = 1,...,n. Establish the sub-sigma-algebra and integrability requirements so the library definition has its usual meaning. The source does not condition on the full past, assert independence between epsilon_t and X_t, or require independent covariate and noise innovation streams."}
+    },
+    {
+      "interface_id": "local-5cbd5e10d7749e49a7d0",
+      "related": ["Finset.filter", "Finset.card"],
+      "query": "Inspect Data/Finset/Filter filter and Data/Finset/Card card for finite nonzero coordinate supports",
+      "result": "Finite filtering and cardinality express the nonzero coordinate count; the time-indexed sparsity assumption and its supplied support sets require a source-specific predicate.",
+      "gap": "Define the per-time support bound and relate a chosen containing support to the cardinality of the actual nonzero coordinates.",
+      "comparisons": {"D3": "For each time choose a finite S_t contained in the p coordinate indices, with card S_t <= s and beta_t,j = 0 outside S_t. Filtering all coordinates by beta_t,j != 0 gives the actual support and needs classical decidability for real equality if used directly. S_t can contain zero coefficients and can vary with time; the source neither fixes one common support nor bounds nonzero coefficient magnitudes away from zero."}
+    },
+    {
+      "interface_id": "local-c177c54f0f3374ec5565",
+      "related": ["Filter.Tendsto"],
+      "query": "Inspect Order/Filter/Defs Tendsto and compare the source's per-jump vanishing regime with its finite-sample nonzero normalization",
+      "result": "Tendsto directly expresses a deterministic jump magnitude sequence tending to zero; it does not establish the model-specific limit or extend conclusions to another regime.",
+      "gap": "Supply each sample-size-indexed jump magnitude and retain the vanishing-regime restriction in the variance and inference results that use it.",
+      "comparisons": {"D33": "For each k in the fixed finite change-point set, assert Tendsto (fun n => kappa_k(n)) atTop (nhds 0). This does not set any finite-n jump to zero or invalidate v_k normalization where changes are nonzero. The frozen source review records that Sections 4 and 4.1 restrict to this regime even though Theorems 8 and 10 refer back to the two-regime Theorem 3; the library comparison does not broaden their scope."}
+    },
+    {
+      "interface_id": "local-fae895618f36655a2baa",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "Measurable"],
+      "query": "Search Probability and Dynamics for stationary causal/Bernoulli-shift interfaces; inspect iIndepFun, IdentDistrib and Measurable for the noise innovation family",
+      "result": "Joint independence, common marginal law and a measurable scalar generator are available, but no verified declaration packages the lag history and its strict stationarity consequence.",
+      "gap": "Construct the scalar noise process from its own lag-indexed iid history and prove strict stationarity without adding cross-stream independence.",
+      "comparisons": {"D8": "Observed epsilon_t is g of the history of innovation varepsilon_s for s <= t, where g is time-invariant and scalar-valued. Use a common relative-lag domain for these histories and an integer-indexed jointly independent identically distributed innovation family. The different epsilon and varepsilon symbols must stay distinct. Independence among this family's innovations does not assert independence from script-X innovations or, by itself, joint stationarity of the pair (X_t, epsilon_t)."}
+    },
+    {
+      "interface_id": "local-cca8d7219aed9637bef8",
+      "related": ["Real.exp", "Real.rpow", "csSup_le_iff"],
+      "query": "Search Probability and Dynamics for functional dependence; inspect Real.exp, Real.rpow and csSup_le_iff for the all-lag weighted fourth-moment bound",
+      "result": "The weighted bound and supremum conversion are expressible with checked real analysis primitives; no verified scalar functional-dependence decay API was found.",
+      "gap": "Define the noise cumulative L4 dependence coefficients and establish the uniform exponential-power bound over all nonnegative lags.",
+      "comparisons": {"D17": "Use Delta^epsilon_{m,4} from (9), multiplied by exp(c m^gamma_1), with absolute positive c, gamma_1 and D_epsilon. The supremum is over all nonnegative integer lags, including zero, not an eventual asymptotic bound. csSup_le_iff requires a nonempty bounded-above set, so do not infer boundedness from a totalized real supremum without that condition. The common gamma notation is a worst-case convention across covariates and errors, not an assertion that their dependence coefficients coincide."}
+    },
+    {
+      "interface_id": "local-4cab11da35eca321e130",
+      "related": ["ProbabilityTheory.variance", "ProbabilityTheory.IdentDistrib"],
+      "query": "Inspect Probability/Moments/Variance variance and its extended-moment toReal definition; inspect IdentDistrib for the scalar stationary marginals",
+      "result": "The real variance and equality of marginal laws are available; finite centered second moment must be supplied, and the causal stationarity and positive absolute variance are assumptions.",
+      "gap": "Assemble the mean-zero stationary noise subsequence with a finite positive marginal variance independent of sample size.",
+      "comparisons": {"D16": "The observations are consecutive terms from the integer-indexed scalar process in (8), whose marginal mean is zero and variance at time 1 is the positive absolute constant sigma_epsilon squared. Library variance sends infinite extended variance to zero, so justify moment finiteness for the ordinary statistical interpretation. This marginal variance is not the directional long-run variance of epsilon_t times v_k^T X_t and does not prove that long-run variance is positive."}
+    },
+    {
+      "interface_id": "local-93f9ffb9ad93fd06a03b",
+      "related": ["Real.exp", "Real.rpow"],
+      "query": "Search Probability for sub-Weibull declarations; inspect the real exponential and real-power definitions against the scalar strict-tail inequality",
+      "result": "The exponential-power expression can be represented, but the inspected declarations do not supply a general sub-Weibull scalar tail class or the paper's inequality.",
+      "gap": "Define and establish the scalar noise tail inequality with its own positive scale and the stated shape range.",
+      "comparisons": {"D18": "For every positive tau require P(abs epsilon_0 > tau) <= 2 exp(-(tau/C_epsilon)^gamma_2), with gamma_2 in (0,2] and absolute C_epsilon > 0. The base of the real power is positive, and the event is strict. This scale is not C_X; shared shape notation does not equate the two distributions. No independence from X_t or sub-Gaussian specialization for gamma_2 < 2 is introduced."}
+    },
+    {
+      "interface_id": "local-331bbb56f8e239223149",
+      "related": ["Real.exp", "Real.rpow", "csSup_le_iff"],
+      "query": "Search Probability and Dynamics for functional dependence; inspect the real exponential-power and supremum-bound declarations for the directional cumulative L4 condition",
+      "result": "Checked real analysis primitives encode the all-lag bound; the direction-uniform cumulative functional-dependence coefficient itself has no verified packaged match.",
+      "gap": "Construct the direction-uniform cumulative L4 covariate dependence coefficients and prove their stated weighted all-lag bound.",
+      "comparisons": {"D13": "Retain Delta^X_{m,4} as defined by the source's projection supremum and subsequent lag sum in (6)-(7). Multiply by exp(c m^gamma_1) and bound the supremum for all nonnegative integer m by the absolute positive D_X. This is not coordinatewise control, an L2 bound, or merely eventual decay. A real supremum formulation needs the boundedness and nonemptiness hypotheses of csSup_le_iff; pointwise all-lag bounds can instead be the predicate from which boundedness is proved."}
+    },
+    {
+      "interface_id": "local-6fbbeb3fd9922de700cb",
+      "related": [],
+      "status": "no_verified_match",
+      "no_related_reason": "The source introduces a particular scalar bookkeeping formula for combined dependence and tail exponents; searches found no declaration identifying that formula with this statistical role, and generic field arithmetic would not be a substantive library match.",
+      "query": "rg -i 'functional dependence|sub.?weibull|stationar.*causal|bernoulli shift' Mathlib/Probability Mathlib/Dynamics; compare the exact inverse-sum coefficient with the frozen source boundary",
+      "result": "No verified API was found for the combined product-process exponent; the formula can be defined directly using real inverses with positive parameters.",
+      "gap": "Define gamma as the inverse of gamma_1 inverse plus twice gamma_2 inverse and connect that specific exponent to the product-process bounds.",
+      "comparisons": {"D19": "Preserve gamma = (gamma_1^(-1) + 2 gamma_2^(-1))^(-1), with the positive parameters furnished by the preceding assumptions. The factor two is essential and differs from the scalar gamma(Z) convention in Theorem 4. Shared gamma_1 and gamma_2 are chosen to cover covariate and error assumptions together; this does not identify their innovation processes or tail scales. Positivity of denominators is part of the intended real arithmetic interpretation."}
+    },
+    {
+      "interface_id": "local-db3f6c307de7e0c7eec8",
+      "related": ["Real.log", "Real.rpow", "Filter.Tendsto"],
+      "query": "Inspect Real.log, Real.rpow and Filter.Tendsto; compare all factors and quantifiers in the source signal-spacing inequality (24)",
+      "result": "The logarithm, real exponent and divergence of a positive sequence can be encoded; no verified declaration gives the change-point signal-to-noise condition or a sufficient absolute constant.",
+      "gap": "Define the baseline signal-spacing assumption with the exact real exponent, minimum jump and spacing, and positive diverging sequence.",
+      "comparisons": {"D20": "Require Delta times kappa squared >= C_snr times (s log(p n))^(2/gamma - 1) times alpha_n, with a sufficiently large absolute positive C_snr and alpha_n > 0 tending to positive infinity. Kappa and Delta are the two minima defined earlier. Coerce the positive sample size and dimension before taking log(p n), retaining the real-power convention at any zero base rather than assuming log(p n) is always strictly positive. Alpha_n is a growth sequence, not a significance level, and the stronger rate in part b is a separate addition."}
+    },
+    {
+      "interface_id": "local-a1384424cbf5b41abb43",
+      "related": ["Asymptotics.IsLittleO", "Real.log", "Real.rpow"],
+      "query": "Inspect Analysis/Asymptotics/Defs IsLittleO and the real logarithm/power definitions; compare the faster-than condition with the retained baseline inequality",
+      "result": "The additional rate is expressible as a little-o relation at infinity; the checked declaration supplies the asymptotic predicate, not the paper's signal condition or its statistical consequence.",
+      "gap": "Combine the baseline inequality (24) with the little-o growth condition on the same alpha sequence.",
+      "comparisons": {"D21": "Encode s(n) times (log(p(n) n))^(2/gamma) = o(alpha_n) atTop, with the positive alpha_n and baseline signal-spacing inequality from part a retained. Under the appropriate eventual positivity this corresponds to the displayed faster-than ratio. The exponent applies to log(p n), while s is outside that power; do not replace it by (s log(p n))^(2/gamma). This strengthens the same sequence used in (24) and is not merely divergence or an alternative that removes part a."}
+    },
+    {
+      "interface_id": "local-279b06ace1e61894c40d",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "Measurable"],
+      "query": "Search Probability and Dynamics for causal functional-dependence constructions; inspect iid-family and measurable-map declarations with the source's time-dependent generator",
+      "result": "The iid innovations and measurable scalar maps have checked representations, but the lag-history causal process is not packaged by these declarations and a time-dependent generator does not yield stationarity.",
+      "gap": "Construct the generic scalar causal process from time-dependent measurable maps of its iid innovation histories while allowing nonstationarity.",
+      "comparisons": {"D10": "Use integer-indexed iid zeta innovations and a measurable map g_t for each t to define Z_t from the history through t. Unlike G in (4) and g in (8), g_t may vary with time, so common innovation laws do not imply that Z_t has stationary finite-dimensional laws. The process is scalar and generic: do not import the regression model, sparsity, change points or a marginal zero mean that belongs to a later theorem's assumptions."}
+    }
+  ]
+}

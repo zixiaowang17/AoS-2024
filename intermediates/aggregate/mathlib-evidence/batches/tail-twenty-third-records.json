@@ -1,0 +1,488 @@
+[
+  {
+    "interface_id": "local-45d4ba7742f03ad2d6fc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "eac921f4be4167b24bfc514f091ce3d3b4509b0eb58f16d534983c5cab41c9a4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D32",
+        "comparison": "Use L with d_n rows and m columns and covariance L L-transpose + I_d, centered multivariateGaussian, and Measure.pi over n observations. The matrix needs a proof of the intended PSD/positive-definite covariance to avoid the constructor’s non-PSD Dirac fallback. Keep the factor dimension m as the loading column count, without inferring full column rank or row sparsity from this sampling-law definition. The product lives on finite coordinate tuples, not an algebraic tensor product.",
+        "statement_sha256": "970c1e6709164cb73c866d060f92822cf8bb65126cdd2abe62fa5832f7822b37"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "The Gaussian constructor and finite product express the centered independent observation law; PosDef supplies the covariance predicate. No sparse-factor-model constructor was found in the bounded searches."
+        }
+      ],
+      "gap": "Construct the loading-to-covariance map, prove its positive definiteness and identify the resulting finite Gaussian product experiment."
+    }
+  },
+  {
+    "interface_id": "local-87c508bcf629c45fc2d2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "b835bb3aa68694e48536f3fa7962d2d9e186985cc8fb758dc89bbd6890ac7b42",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D33",
+        "comparison": "Treat the matrix as the function j ↦ L_j,: with values in m-dimensional vectors. Function.support then selects j with a nonzero entire row, equivalent to positive l0 count for a finite row. This is row support rather than the support of the flattened entry function or topological support of a measure. A short equivalence proof and the [d_n]-to-Fin d_n index map remain.",
+        "statement_sha256": "9547e5abb3b5f0b54ebd8e3347e235a0adf1b50c5314e6d121f2e4bd856ac287"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "Function.support is generated additively from mulSupport and is exactly the set of inputs at which a function is not zero; choosing the codomain to be a row vector gives row support."
+        }
+      ],
+      "gap": "Identify the source’s positive row nonzero-count condition with nonzero rows and transport its one-based indices."
+    }
+  },
+  {
+    "interface_id": "local-4e05c353127601430411",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "02b22b6451a18c7188f9de817225e6812a8f6bf6489bf138aa373edc0ded85b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D34",
+        "comparison": "The cell is {L : Matrix (Fin d_n) (Fin m) Real | Function.support L = S}, with S a subset of row indices, preserving equality rather than containment. For each fixed m distinct supports are disjoint; across different m use dependent tagged matrix spaces to represent the claimed disjointness. Set.powerset on the finite row universe represents all supports; m_max times 2^d_n needs a cardinality proof. This does not restrict every model to at most s_n rows.",
+        "statement_sha256": "ec726a262f3e092a6a5c237463b2089ccafd666d3380da09cdd1b58528e51490"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "Set.powerset",
+          "type": "{α : Type u} → Set α → Set (Set α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Subsets of the unit family, used as possible signal configurations and prior-allowed configurations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L259-L259",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "Function.support supplies the row-index set and Set.powerset supplies all support subsets. These are sufficient predicates for exact-support cells, but do not package variable matrix shapes or their disjoint union."
+        }
+      ],
+      "gap": "Define tagged loading spaces with exact row support and prove their disjointness and finite model-count formula."
+    }
+  },
+  {
+    "interface_id": "local-76ebe85414232ab6c1b4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "a7787d2d72c2c234734a2b32bd5d8890c02c066a7cf143c7116716730d420b74",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D35",
+        "comparison": "Equation (5.10) uses a point spike at the whole zero row, Gaussian slab with covariance tau_0 I_m (tau_0 is covariance scale, not a squared standard deviation), and weight omega=d_n^(-(1+a_0)m). Prove 0≤omega≤1 from the dimension and positive constant conditions, form each nonnegative weighted two-measure sum and then the product over d_n rows. The model weights 1/|M_n| require a nonempty finite model set. Embed varying m into the hierarchical parameter space; the APIs do not establish the sparsity regularization or posterior contraction claims.",
+        "statement_sha256": "cb5cb933e2ca29fc21822e82b64c3345d0051ea1b50b464ef47fc99787e666d9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.dirac",
+          "type": "{α : Type u} → [MeasurableSpace α] → α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Dirac.Def",
+          "provides": "Unit point mass on a measurable space; finite normalized sums of observation-indexed point masses define empirical distributions and retain repeated observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Dirac/Def.lean#L29-L29",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.sum",
+          "type": "{α : Type u} → {ι : Type v} → {mα : MeasurableSpace α} → (ι → MeasureTheory.Measure α) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Sum",
+          "provides": "Sum of an indexed family of measures; weighted component measures on a common ambient space yield a hierarchical mixture.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Sum.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "Dirac and multivariateGaussian supply the spike and slab, finite products supply independent rows, and weighted Measure.sum supplies the model mixture after embedding components into a common tagged space."
+        }
+      ],
+      "gap": "Assemble the row spike-and-slab prior and its dimension-dependent weights, proving probability normalization on the tagged model space."
+    }
+  },
+  {
+    "interface_id": "local-1df95c59a38ec6e5ee83",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "61e8320c4de4843b245f4eabba4eb554f434f693dc0fac98ce8bfb17c61688d6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D36",
+        "comparison": "For each row choose psi_j in R^m, Phi_j positive definite and nu_j in [0,1], form (1-nu_j) delta_0 + nu_j N(psi_j,Phi_j) and product across rows. Positive definiteness must be proved for each covariance; do not specialize Phi_j to diagonal matrices or infer independence within a row. Values nu_j=0 or 1 are allowed. This builds a family of distributions, not a variational optimizer, and does not enforce one fixed exact support S because support cells have been merged.",
+        "statement_sha256": "7f457e8c55289dc6be95d5b28907947078908eb7c06fe2a76bb2824202801c22"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.dirac",
+          "type": "{α : Type u} → [MeasurableSpace α] → α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Dirac.Def",
+          "provides": "Unit point mass on a measurable space; finite normalized sums of observation-indexed point masses define empirical distributions and retain repeated observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Dirac/Def.lean#L29-L29",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "The inspected constructors build Gaussian row slabs and zero-row spikes with finite independent products; PosDef retains the allowed full within-row covariance matrices."
+        }
+      ],
+      "gap": "Construct the parameterized row spike-and-slab family with admissible probabilities and full positive-definite slab covariances."
+    }
+  },
+  {
+    "interface_id": "local-259dfa9a411c9fd53715",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "d9e13aabf5dc8e46e3316b66f01900b5872aa834aefcf9c7d83e7a9c6233cc30",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D30",
+        "comparison": "Equation (4.5) is the finite product of g_N(0,1)(Y_i-f(x_i)); equivalently each response has Gaussian mean f(x_i), variance one. Inputs are fixed in [0,1]^d, so no input sampling law belongs in this product. The scalar density and law use a variance argument, here exactly 1. The finite product construction needs a joint density identification; the prose about possible unknown-variance extension does not change the theorem’s unit-variance model.",
+        "statement_sha256": "6f081f7a0422b87b979bf25c100ff32968edf4899115403fb51813450f9d6a87"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianPDFReal",
+          "type": "ℝ → ℝ≥0 → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real-valued univariate Gaussian density formula parameterized by mean and variance; it is zero at zero variance and is a probability density for positive variance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "gaussianReal at mean f(x_i) and variance one supplies each response law, gaussianPDFReal at mean zero and variance one supplies the residual density, and Measure.pi supplies independence."
+        }
+      ],
+      "gap": "Package the fixed-design regression experiment and prove its joint density equals the printed product of standard Gaussian residual densities."
+    }
+  },
+  {
+    "interface_id": "local-34e13e7de37eac477194",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "13c8604afd0062fa6b40072ab50613941ad31e6d833226d582a5bd8ef619f94b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D31",
+        "comparison": "Use the Euclidean vector i ↦ f_0(x_i)-f_1(x_i) and divide its norm by sqrt(n); nonnegative square-root algebra gives the displayed root mean square when n>0. EuclideanSpace.norm_eq supplies the sum-of-squares identity, while the ordinary function-space Pi norm would be a sup norm. Distinct functions can agree at all observed points, so the result is a pseudometric on functions rather than a separating metric or population L2 distance. Preserve repeated design indices.",
+        "statement_sha256": "2f16d238e0f9cdab26adc139b64c21e7dd63fbee007b4ee7a7a9dfe45f67659e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "The inspected theorem identifies finite Euclidean norm with the square root of the sum of squared coordinate norms. Evaluation at the fixed design points and a factor 1/sqrt(n) give the source expression for positive n."
+        }
+      ],
+      "gap": "Define the scaled finite-design evaluation seminorm and prove the empirical-distance formula with the source sample-size domain."
+    }
+  },
+  {
+    "interface_id": "local-1b28f09b43a2aae29606",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "7264ee1bf84412385aca4da498ef65746558ae48e78bb74706a8ff7d09c90efe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D27",
+        "comparison": "For J=(d+1)M+(K-2)(M^2+M)+(M+1), the bounded vector set is Set.pi univ (fun _ ↦ Icc (-B) B), equivalent to the stated coordinate sup-norm bound after identifying Theta_(K,M) with R^J. Retain K≥2 and the printed description of hidden layers: the referenced network composition uses K affine maps and K-1 activations, so do not silently alter J to fit the prose. This definition’s diverging B_n discussion does not strengthen Theorem 4.1’s explicit 1≤B_n≤polynomial condition.",
+        "statement_sha256": "b212e3d7a46f9a7283f60aa898e3c989d5003b7a46acfe7ec53f636c8c6dc049"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → Set ι → (∀ i, Set (α i)) → Set (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set of coordinate functions taking values in the prescribed coordinate sets at each index in the supplied index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L280-L280",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "Set.pi with coordinate intervals [-B,B] expresses a finite parameter box after flattening; it does not supply the architecture-dependent flattening equivalence or network-layer convention."
+        }
+      ],
+      "gap": "Define the indexed network parameter space and its coordinate flattening while preserving the printed depth convention and dimension formula."
+    }
+  },
+  {
+    "interface_id": "local-5277d5e0bd70908dc900",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "d0b6bbe27d0841f893568aaa75dfaa4ef5bad1b85acb0c1cc63b8a1a6b3617d7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D28",
+        "comparison": "For B_n>0, cond volume (Ioo (-B_n) B_n) has finite positive interval mass, and its J_(K,M)-fold finite product represents Pi_n,(K,M); endpoint inclusion is Lebesgue-null. Mix the embedded model laws with exp(-a_0(KM)^2 log n) divided by the entire architecture sum. Retain a_0>0, dependence on n and architecture and independence from the truth. A nonempty finite set suffices for normalization; where a countable set is intended one must prove finite positive total weight rather than use nonsummable real tsum=0.",
+        "statement_sha256": "6c4d526ce38a097f7e678a5221003a100b5589368d3cac5f5df8d117299d5b6f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.sum",
+          "type": "{α : Type u} → {ι : Type v} → {mα : MeasurableSpace α} → (ι → MeasureTheory.Measure α) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Sum",
+          "provides": "Sum of an indexed family of measures; weighted component measures on a common ambient space yield a hierarchical mixture.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Sum.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "Conditioning Lebesgue measure on a positive-length bounded interval produces the scalar uniform law; finite products and weighted measure sums provide the within-network and across-architecture constructions."
+        }
+      ],
+      "gap": "Construct the product-uniform architecture prior and prove the exponential model weights normalize on the stated model set."
+    }
+  },
+  {
+    "interface_id": "local-17b67ae317682b25dfc6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:11:13.164846+00:00",
+    "source_interface_sha256": "9f4b30ed18d2bc8e114c6a496ea3d31fffeaefac02cacd8d8cf663772c385f5c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0335",
+        "local_id": "D29",
+        "comparison": "Equation (4.4) prints Unif(-psi_1,j,psi_2,j) with -B_n≤psi_1,j<psi_2,j≤B_n. Both printed endpoints lie in the parameter box, but the constraints do not imply the required ordering -psi_1,j<psi_2,j. Do not remove the minus sign or assert the missing inequality. cond volume on Ioo (-psi_1,j) psi_2,j agrees with the intended uniform law only for positive interval length; its zero measure on an empty or null interval is not a supplied source convention. Measure.pi then gives the J-fold product only after valid component laws have been justified.",
+        "statement_sha256": "1ea2b20e1398f12cb26ae6251fafd47fcc8e5ce51555f1332f05b343c88460fd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+          "result": "The interval conditional measure and finite product construct the uniform-coordinate family on valid intervals; the printed endpoint constraint does not ensure those intervals have positive length."
+        }
+      ],
+      "gap": "Retain the source’s endpoint inconsistency and specify the valid-interval domain before identifying the product as a probability family."
+    }
+  }
+]

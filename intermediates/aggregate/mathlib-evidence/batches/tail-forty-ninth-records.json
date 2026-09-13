@@ -1,0 +1,254 @@
+[
+  {
+    "interface_id": "local-d4a375e46ea5420d42b9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "fcec6df192226a134df1286a9cc3176f33949b42329b31f78e2b1ef1be9be0c4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D7",
+        "comparison": "For each positive time i, a finite I within {1,...,i}, and any possibly infinite future J, require rejection of I to imply rejection of I union J. This does not permit inserting omitted past indices and is weaker than monotonicity under arbitrary supersets. Standard process predictability does not express this property. The source generally interprets comparisons almost surely under each model law; separate comparisons over uncountably many subsets cannot silently be promoted to one common full-measure event needed for pointwise finite-prefix reduction.",
+        "statement_sha256": "76809a438804ca4718a686be59a5a1dd3197b6dad76639792b704764af6ea787"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched predictable/intersection-test terminology in Probability and across Mathlib; inspected Process/Predictable.lean 163–164 and the discrete characterization at 250–254 against Definition 3.1.",
+          "result": "The library's predictable-process notion is strong measurability for the predictable sigma-algebra, not persistence of intersection-test rejection under future extensions; no specialized matching family predicate was found."
+        }
+      ],
+      "gap": "Define future-extension rejection persistence for the whole intersection-test family and retain the source's unresolved simultaneous almost-sure interpretation.",
+      "no_related_reason": "Standard predictable-process declarations express a different property; elementary set union and implication syntax do not provide a substantive implementation of this statistical interface."
+    }
+  },
+  {
+    "interface_id": "local-98df60dd259a94ce895d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "2d0776bb8eaf6f2211fe8ee249a26e9f4a293724006baad0fa549c4ae2f2ed01",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D9",
+        "comparison": "For each rejected I there must be an i in I such that every J subset of I containing i is rejected. The witness may depend on both I and the outcome, and J is not restricted to finite subsets. This is neither arbitrary-superset rejection nor merely rejection of some singleton. The empty-intersection test is fixed to zero in the source, so no empty-set witness is demanded. Preserve the source's almost-sure convention and its unresolved uncountable-family simultaneity rather than inferring a measurable witness or stronger pointwise property.",
+        "statement_sha256": "819c11a43e4cdcdfe4ad3a466b8fbeac65ffca2ed33e1f2a9fdeb7ebaf25e211"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched consonan, intersection-test and familywise terminology across Mathlib and reviewed the surrounding online-closure definitions against source equation (2), page 4.",
+          "result": "No specialized consonance predicate or corresponding closed-testing theorem was found in the searched pinned library."
+        }
+      ],
+      "gap": "Define the outcome-dependent consonance witness over all containing sub-intersections with an explicit interpretation of the random comparisons.",
+      "no_related_reason": "The remaining construction is the paper's quantified predicate on an intersection-test family; ordinary existential and subset syntax is not a statistical library match."
+    }
+  },
+  {
+    "interface_id": "local-e1d77d53b93aca4d6763",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "1efd490c688498e208d314aa3a958c9f7921c5d2ae7a14d515fcbbe88a1ba3de",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D3",
+        "comparison": "For fixed model law P, the event of any false rejection is the countable union over j with P in H_j of {d_j=1}; finite-prefix events increase to it. The inspected continuity theorem gives convergence of their extended measures, and for probability laws conversion to real probabilities is finite. Strong control quantifies over all P, not only the global null. The cumulative count may be infinite, so use an extended count or the equivalent event rather than a real limit assumed finite. Adapted binary decisions make the countable error event measurable; the library theorem's allowance for nonmeasurable sets does not resolve the paper's separate arbitrary uncountable-closure measurability issue.",
+        "statement_sha256": "a91d9de87ad448d6fb9847b473a4fa9a16f5469ae8c8f63a008cb3d8128aaf6e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.tendsto_measure_iUnion_atTop",
+          "type": "{α : Type u} → {ι : Type v} → {m : MeasurableSpace α} → {μ : MeasureTheory.Measure α} → {s : ι → Set α} → [Preorder ι] → [Filter.IsCountablyGenerated (Filter.atTop : Filter ι)] → Monotone s → Filter.Tendsto (μ ∘ s) Filter.atTop (nhds (μ (⋃ n, s n)))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Continuity",
+          "provides": "Continuity from below: measures of increasing sets converge to the measure of their union, under a countably generated atTop filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Continuity.lean#L198-L199",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched familywise-error terminology, inspected continuity-from-below at Measure/Continuity.lean 198–203, Adapted 60–61 and the indicator definition; compared equation (1), source page 3.",
+          "result": "Increasing-event measure convergence supports the equivalence of finite-time and whole-sequence error bounds; indicators and adaptedness supply the measurable false-rejection events."
+        }
+      ],
+      "gap": "Define the law-dependent true-null sets and measurable false-rejection events, allowing an infinite cumulative count, then quantify the bound over every model law."
+    }
+  },
+  {
+    "interface_id": "local-045b2d775604496e40b6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "853d240dac3eb1741251091e439fe87a1e46ce111009c2aee08756f6610a201c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D11",
+        "comparison": "Represent alpha_i in [0,1) and p_i in [0,1], require each to be F_i-measurable, and define d_i as the indicator of p_i<=alpha_i. measurableSet_le applies in the measurable space F_i and preserves rejection at equality. The source permits current-information thresholds, including dependence on the current p-value; neither past measurability nor independence is a defining assumption. Marginal p-value validity and adaptedness alone do not imply error control for these thresholds.",
+        "statement_sha256": "b7f76840d6f6c1201a33aa11bf1588e636612c9c3f64305f82284419ef28a109"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "measurableSet_le",
+          "type": "{α : Type u} → {δ : Type v} → [TopologicalSpace α] → {mα : MeasurableSpace α} → [OpensMeasurableSpace α] → {mδ : MeasurableSpace δ} → [PartialOrder α] → [OrderClosedTopology α] → [SecondCountableTopology α] → {f g : δ → α} → Measurable f → Measurable g → MeasurableSet {a | f a ≤ g a}",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.BorelSpace.Order",
+          "provides": "Measurability of the non-strict comparison event for two measurable ordered-valued functions, including real p-values and random thresholds.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/BorelSpace/Order.lean#L172-L174",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Adapted's current-time measurability and measurableSet_le 172–174, together with the generated additive indicator definition; compared the full online alpha-adjustment paragraph on source page 7.",
+          "result": "Adapted real-valued thresholds and p-values produce measurable non-strict comparison events, whose constant-one indicators are the test decisions."
+        }
+      ],
+      "gap": "Package the threshold range and adaptedness with the p-value comparison indicator, keeping error-rate validity as a separate condition."
+    }
+  },
+  {
+    "interface_id": "local-01287b793457f143f413",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "33ebf8303403d18242622b478092953339f54c0107c4a419612f742d8d61e0c0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D12",
+        "comparison": "For fixed I subset of positive integers form the union, over i in I, of {p_i<=alpha_i^I}; Set.mem_iUnion₂ identifies its existential witness and Set.indicator with constant one gives phi_I. Measurability of each threshold at F_i and the filtration inclusions give the online test at F_sup(I); infinite I uses the ambient sigma-field A, and the empty union gives the prescribed zero test without inventing F_0. The relevant union is countable for each fixed I, although the family of all I is uncountable. An alpha-level guarantee is additional, not a consequence of this measurability construction.",
+        "statement_sha256": "f11a345fd5141c6e97a5fe678d78bed5296383c0fee497cad7b9d637b22931d4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "measurableSet_le",
+          "type": "{α : Type u} → {δ : Type v} → [TopologicalSpace α] → {mα : MeasurableSpace α} → [OpensMeasurableSpace α] → {mδ : MeasurableSpace δ} → [PartialOrder α] → [OrderClosedTopology α] → [SecondCountableTopology α] → {f g : δ → α} → Measurable f → Measurable g → MeasurableSet {a | f a ≤ g a}",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.BorelSpace.Order",
+          "provides": "Measurability of the non-strict comparison event for two measurable ordered-valued functions, including real p-values and random thresholds.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/BorelSpace/Order.lean#L172-L174",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Set.mem_iUnion₂",
+          "type": "{γ : Type u} → {ι : Sort v} → {κ : ι → Sort w} → {x : γ} → {s : (i : ι) → κ i → Set γ} → (x ∈ ⋃ (i) (j), s i j) ↔ ∃ i j, x ∈ s i j",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Set.Lattice.Indexed",
+          "provides": "Membership in a doubly indexed union is witnessed by membership in one indexed cell; the second index can be a proof that the first is in an allowed set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Lattice/Indexed.lean#L33-L34",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected current-time Adapted, comparison-event measurability, indicator and bounded-union membership evidence; compared equation (3), source page 7, and the empty/infinite-index conventions.",
+          "result": "The intersection-test rejection event is a countable union of measurable p-value threshold events, with the source's intersection-specific threshold family supplied separately."
+        }
+      ],
+      "gap": "Construct each intersection-indexed threshold family and its countable rejection union, then prove the separately assumed level-alpha bound."
+    }
+  },
+  {
+    "interface_id": "local-e568a1c48ec90dea92c8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:41:15.123908+00:00",
+    "source_interface_sha256": "8cb9366aa65310f95aac2ec396fae944964d1b0bdc2cb8885523c657f3708dd2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0817",
+        "local_id": "D13",
+        "comparison": "For every time i, finite I within {1,...,i}, arbitrary future J and K=I union J, require alpha_j^I=alpha_j^K for each j in I. This exact equality implies rejection persistence of the induced tests but is stronger than it; replacing equality by a one-sided inequality changes the definition. It also differs from requiring an individual threshold to be measurable with respect to F_{i-1}. The source's implicit universal i and its almost-sure comparison convention are retained, including the unresolved simultaneous-version issue for the uncountable family of future extensions.",
+        "statement_sha256": "048843a12259cf16e68a37f9119e08ee640d7a9d7423834ec559edb9ba9a93e9"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched predictable/sub-adjustment/intersection-test terminology and inspected the distinct stochastic-process predictability declaration; compared Definition 4.1 and the immediately following explanation, source page 7.",
+          "result": "No specialized invariant-threshold family predicate was found; process predictability concerns a different measurability property."
+        }
+      ],
+      "gap": "Define equality of existing thresholds under arbitrary future extensions and preserve its distinction from rejection persistence and past measurability.",
+      "no_related_reason": "The missing interface is equality of old thresholds across future extensions of intersection sets; neither adaptedness nor standard predictable-process declarations supply this cross-family condition."
+    }
+  }
+]

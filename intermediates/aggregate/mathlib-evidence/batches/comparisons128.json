@@ -1,0 +1,86 @@
+[
+  {
+    "interface_id": "local-1893046b5067adf9d89f",
+    "status": "composable",
+    "names": [
+      "intervalIntegral"
+    ],
+    "comparison": "Use the real vector-valued Bochner interval integral of G_theta(lambda) scaled by the scalar spectral density over [-pi,pi], and assert equality with script M_theta at theta=theta0 only. The finite-dimensional vector target fits intervalIntegral; Lebesgue endpoint singletons have zero measure, so its Ioc convention matches the printed integral when integrable. Integrability must come from the admitted regularity assumptions rather than from the totalized integral's fallback. Script M need not be zero or equal to theta. An identity for every candidate theta, or an assertion that this equation uniquely identifies theta0, would strengthen the source.",
+    "gap": "The vector-valued interval integral directly expresses the spectral moment condition once its integrability domain and true-parameter specialization are supplied.",
+    "searches": [
+      [
+        "Inspect intervalIntegral against p1152 D4 and the retained true-parameter/nonzero-moment-vector source note",
+        "The primitive permits a vector target and does not impose zero moments, equality at all theta or identification."
+      ]
+    ]
+  },
+  {
+    "interface_id": "finite-sample-periodogram",
+    "status": "composable",
+    "names": [
+      "Complex.exp",
+      "Finset.Icc"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i03-p1152/D5": "For a positive observed length n, sum the real observations embedded into C times exp(-I*lambda*t) over the integer indices 1 through n, take the squared complex norm and divide by the real value 2*pi*n. Complex.exp and finite interval sums express this exactly. This is an uncentered finite Fourier sum at arbitrary real lambda in [-pi,pi], not an integral Fourier transform or merely a DFT grid operation. Do not insert sample-mean subtraction, a different 2*pi convention or restrictions to nonzero grid frequencies from later empirical sums.",
+      "aos-2024-v52-i03-p1152/D7": "For a positive integer b<n set N=floor(n/b), use block i observations X_((i-1)b+s), s=1,...,b, and normalize each squared Fourier norm by 2*pi*b. Local phase index s is kept distinct from the block index and imaginary unit. Only N complete disjoint blocks are used; leftover observations are discarded and b need not divide n. Nonoverlap does not imply independence in the allowed dependent process. The separate overlapping periodogram has a different printed prefactor and is intentionally not identified with this formula."
+    },
+    "gap": "Complex exponentials and finite sums construct both periodograms, preserving their sample lengths, block indexing and normalizations.",
+    "searches": [
+      [
+        "rg -i 'periodogram' Mathlib/Probability Mathlib/Analysis; inspect Complex.exp and finite interval indexing against p1152 D5/D7",
+        "No named periodogram match found; the finite complex sum directly supplies the construction without an independence or normalization change."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-a05bd67097b8752bbdaf",
+    "status": "partial_match",
+    "names": [
+      "Complex.exp",
+      "ProbabilityTheory.covariance",
+      "MeasureTheory.integral"
+    ],
+    "comparison": "Construct the fourth joint cumulant from the centered fourth product expectation minus the three pairwise covariance products under finite fourth moments, then form the triple integer-lag Fourier series with negative imaginary exponent and factor (2*pi)^(-3). This moment expression works without a moment-generating function in a neighborhood of zero. The search finds cgf, a log-MGF for one real random variable, which is not a direct implementation of this joint cumulant density under the source moment assumptions. Summability or the admitted source convergence conditions must justify the infinite Fourier series; a totalized nonsummable tsum is not a density. Preserve fourth-order stationarity assumptions where invoked and do not remove the cumulant term using an unprinted Gaussian or independent-innovation hypothesis. The Fourier-series value is generally complex; any real-valued or symmetry specialization must be established from its arguments and process symmetries.",
+    "gap": "Expectations, centered covariance and complex exponentials support the construction, but a joint fourth-cumulant spectral-density interface and its convergence properties remain to establish.",
+    "searches": [
+      [
+        "rg -i 'cumulant|periodogram' Mathlib/Probability Mathlib/Analysis; inspect cgf, covariance and Complex.exp",
+        "The search finds log-MGF infrastructure, not a direct fourth joint cumulant spectrum under finite-moment assumptions; the moment-based construction avoids extra exponential moments."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-ed0de1713025aac7c882",
+    "status": "composable",
+    "names": [
+      "Matrix.PosDef",
+      "Matrix.vecMulVec",
+      "intervalIntegral"
+    ],
+    "comparison": "Build the first matrix integrand as the outer product of G(lambda) with G(lambda)+G(-lambda), multiplied by f(lambda)^2, retaining the reflected-frequency vector and 2*pi prefactor. Build the second term with the two distinct frequency vectors and f4(lambda1,lambda2,-lambda2), retaining its two integrations and 2*pi factor. Matrix.vecMulVec is an ordinary outer product, not a conjugating product. Appropriate real-matrix identification for the integrated cumulant term, symmetry and integrability need justification from the process/spectral assumptions, rather than taking real parts silently. Matrix.PosDef applies to the SUM and includes Hermitian symmetry and strict positivity of the quadratic form; it does not require each contribution to be positive definite. No Gaussian simplification that deletes V2 is allowed, and positivity is an assumption at theta0, not a proved property for all theta.",
+    "gap": "Outer products, matrix-valued integration and positive definiteness express the condition on the sum, with spectral integrability and real/symmetric identifications still required.",
+    "searches": [
+      [
+        "Inspect Matrix.PosDef, Matrix.vecMulVec and intervalIntegral with equation (9) and the saved p1152 covariance qualification",
+        "Positive definiteness belongs to the total matrix; the primitives neither delete the fourth-cumulant term nor establish separate positivity of the contributions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-09c5334dba78fc03fad5",
+    "status": "composable",
+    "names": [
+      "Asymptotics.IsLittleO",
+      "Filter.Tendsto"
+    ],
+    "comparison": "Specify an integer dimension sequence d(n) and express the full real-valued sum of d*n^(-2*beta1/(2*beta1+1)) and choose(d,2)*n^(-beta2/(beta2+1)), multiplied by (log n)^(9/2), as little-o of the constant one along n tending to infinity. Cast d, n and the binomial coefficient to reals before multiplication and use real powers; rounding 4.5 to an integer exponent or applying natural-number subtraction/division changes the condition. Keep the two smoothness indices and their distinct rates. The prose that d is growing remains part of the regime and is not replaced by this upper-rate condition, which alone would also allow bounded dimension. The saved source-scope note explains its adoption before Theorems 2.7/2.12 despite omission from their bodies; the comparison does not rewrite those statements.",
+    "gap": "Filter convergence and little-o directly express the dimension-growth condition with its separate smoothness rates and full logarithmic factor.",
+    "searches": [
+      [
+        "Inspect Asymptotics.IsLittleO and Filter.Tendsto against the full Assumption 2.6 formula and its saved theorem-scope qualification",
+        "Little-o relative to one represents the vanishing product; dimension growth and the source scope remain separate conditions."
+      ]
+    ]
+  }
+]

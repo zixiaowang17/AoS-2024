@@ -1,0 +1,920 @@
+[
+  {
+    "interface_id": "local-74789ec0b51b3e6f310e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "646ba9c156bd0be674f834549065a593912d827685bae9b5b588a1eaa9975ce0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D1",
+        "comparison": "Use n=ghm and observations indexed by i,j,k. alpha_i is shared across its whole row, beta_j across its column, gamma_ij within its cell, and e_ijk is observation-specific; the resulting observations are not independent. Effects have zero means and the four specified variances with genuine finite second moments. Normality is explicitly not assumed; identical distribution within each family is supplied later by Condition A, and the four families need not share the same variance or distribution.",
+        "statement_sha256": "248ac41251ac0fd37cfd3154105092b8ea17b085480abbd7ba662d3536133c7d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search crossed random effects with interaction; inspect independent indexed families, variance and finite linear predictor.",
+          "result": "Independent effects and a linear predictor can express the balanced model, without a dedicated crossed-effects interface."
+        }
+      ],
+      "gap": "The balanced crossed-effects model still needs its four independently indexed effect families and shared row, column and cell contributions."
+    }
+  },
+  {
+    "interface_id": "local-64451af6e7a500f72131",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "916d6f7b70b771bda523888a6199d9593a65b7e40cbf698bcaefd664cee166ff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D2",
+        "comparison": "Use grand n^-1, cell m^-1, row (hm)^-1 and column (gm)^-1 averages. The interaction is cell minus row minus column plus grand mean; within-cell is observation minus cell. These five terms sum to the original covariate and can receive different coefficients, so expanded p=pa+pb+pab+pw may exceed p0. Do not impose equality of the expanded coefficients or confuse deterministic sample orthogonality with probabilistic independence; some slope blocks may be absent.",
+        "statement_sha256": "bdcf86788ed867b3bee275d2232bf0f40763f0cea09de769c20ed0be7b484691"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search balanced ANOVA covariate decomposition and finite averaging projections; inspect finite sums and Kronecker coordinate actions.",
+          "result": "Finite averages and mode-wise projections can implement the five-term decomposition, but not its full model expansion automatically."
+        }
+      ],
+      "gap": "The covariate decomposition still needs the exact balanced averaging operators, orthogonality and expanded coefficient blocks."
+    }
+  },
+  {
+    "interface_id": "local-274cff614c22f58f6778",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "d268fb5cfe41311376c9f4af567e154f8c6ff03e0e58983bf3e44a5e9ea16833",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D14",
+        "comparison": "Keep the intercept in the row block together with pa slopes and the row variance; other blocks contain their slopes plus one variance. K contains g,h,gh,n, not their square roots; the theorem separately applies K^1/2. Block sizes sum to p+5, and an absent slope block still retains its variance coordinate. No single common sample-size normalization is substituted.",
+        "statement_sha256": "73db4ba33aea21394338d2f685651523b36de20291889505c80ed08ce3e1c669"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.blockDiagonal'",
+          "type": "{o α : Type*} → {m n : o → Type*} → [DecidableEq o] → [Zero α] → ((i : o) → Matrix (m i) (n i) α) → Matrix (Σ i, m i) (Σ i, n i) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Forms a block-diagonal matrix with block-dependent row and column sizes, indexed by dependent sums.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L570-L573",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect heterogeneous blockDiagonal' and compare the exact parameter-group dimensions and rate weights.",
+          "result": "The four diagonal blocks and their different sizes can be directly assembled with the inspected block-matrix constructor."
+        }
+      ],
+      "gap": "The rate matrix is directly expressible with blocks g I_(pa+2), h I_(pb+1), gh I_(pab+1) and n I_(pw+1) in the stated parameter order."
+    }
+  },
+  {
+    "interface_id": "local-0aa220687f585eb0645a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "93dd431bf000eb0749af64b31c8eb32b9d1837ce2a6a0e7cc4175af04500fb19",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D3",
+        "comparison": "The expanded predictors have separate xi1,xi2,xi3,xi4 and intercept, while omega orders intercept,row slopes,row variance,column slopes,column variance,interaction slopes,interaction variance,within slopes,error variance. Do not regroup all variances at the end for the theorem's rate matrices. True parameters are dotted; all expectations condition on covariates, even if they were originally random, and no Gaussian truth is imposed.",
+        "statement_sha256": "d243f9a26efe4c641bce58435841e5d47101c3d0b226b64935fe0c90429a8354"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search hierarchical crossed classification regression and inspect finite predictors with independent random effects.",
+          "result": "Separate block predictors and indexed effects are representable; the model-specific parameter packaging and conditioning remain additional."
+        }
+      ],
+      "gap": "The generalized model still needs its four slope blocks and exact interleaved mean/variance parameter order under fixed-design expectations."
+    }
+  },
+  {
+    "interface_id": "local-de6aec3bed7d8f03f55b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "4d905a697e7e2c97fe704f6e14560706a4b75ec4811d074724fbf324bae964b6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D5",
+        "comparison": "At each positive g,h set eta=g/h and tau=sigma_alpha^2+eta sigma_beta^2, with dotted true variances for dot-tau. The later finite, zero and infinite eta regimes refer to limits of that ratio, not a fixed positive constant. A real-valued infinity substitute is not valid; eta=infinity requires the source's separate reordered asymptotic statement rather than direct substitution into this scalar expression.",
+        "statement_sha256": "7efa545cf69a4df5bb62aa92ea2b9d632868f2596b7493ce288541ea69d6697f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search row-column asymptotic ratio and inspect limit predicate against eta=g/h and tau definition.",
+          "result": "Scalar arithmetic gives tau, while Tendsto can distinguish the finite-sample ratio from its asymptotic regimes."
+        }
+      ],
+      "gap": "The ratio-dependent variance combination still needs explicit finite-sample and limiting eta conventions."
+    }
+  },
+  {
+    "interface_id": "local-67f9e9d340d2547767cf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "56a05a312daa649e8c6ea83634e46cafc481550d82dd8fa4f31ffc04d6bdf5b0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D20",
+        "comparison": "Stack k fastest, then j, then i. Z1 repeats row effects across h,m; Z2 repeats column effects across g,m; Z3 repeats cell effects across m; Z0 is n-dimensional identity. J_a is all ones, not normalized or identity. Use the four variances as multipliers, with cross-covariances zero by independent zero-mean effects. No normality is needed and the centered covariance of y is not the uncentered moment of its nonzero mean.",
+        "statement_sha256": "aba765e0ee9d319af5de609fa0f40e828e16a7aa1992263560b1ece347db1850"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Kronecker and outer-product constructions and covariance semantics for independent crossed effects.",
+          "result": "The incidence matrices and four weighted Gram terms can be constructed algebraically; the covariance identity uses effect independence and centering."
+        }
+      ],
+      "gap": "The dispersion matrix still needs the exact incidence indexing and proof that the four covariance contributions sum to the stated Kronecker form."
+    }
+  },
+  {
+    "interface_id": "local-eb7a43cad70a04e37973",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "af59c8d3046d62f16d12fed6d4e15188c7811ea503fec0f6e1c4788ea17107d9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D10",
+        "comparison": "Use C_a=I-J_a/a and normalized J_a/a with positive g,h,m. The within-cell component I_g tensor I_h tensor C_m has lambda0; the remaining four components use C or normalized J in row/column modes and normalized J_m, with exactly the printed lambda1,...,lambda4. Preserve hm multiplying row variance and gm multiplying column variance. J_a^0/I and J_a^1/J are the defined switches. If denominators vanish, total inverse/division cannot supply a source convention; no appendix derivation is imported.",
+        "statement_sha256": "423a4df547bce52662c00fe2e3c15671d231a8fff074800c4fdabab9e93902f2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search crossed-covariance inverse decomposition; inspect Kronecker products and nonsingular inverse identity.",
+          "result": "The five orthogonal projection blocks can be assembled; proving they diagonalize V and verifying positive denominators remains necessary."
+        }
+      ],
+      "gap": "The explicit inverse still needs the five projection identities and nonzero lambda values before it can be identified with the ordinary matrix inverse."
+    }
+  },
+  {
+    "interface_id": "local-5983009d98f81d7cc836",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "d49464c94e3112743278aed8fe06487de946157442807e8876fb3c62c4ae2589",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D4",
+        "comparison": "xi here groups only the intercept and four slope blocks, unlike the interleaved omega. Assemble X as [ones_n, X(a) tensor ones_h tensor ones_m, ones_g tensor X(b) tensor ones_m, X(ab) tensor ones_m, X(w)], with k-fastest row stacking. Add the four incidence/effect products exactly; no centered design substitution or permutation of Kronecker factors is automatic.",
+        "statement_sha256": "09f79fcb5a8b592527760b77ab60915b596d2cf0a88a75be3f0c744828024134"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromCols",
+          "type": "{R : Type u} → {m : Type v} → {n₁ : Type w} → {n₂ : Type z} → Matrix m n₁ R → Matrix m n₂ R → Matrix m (n₁ ⊕ n₂) R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.ColumnRowPartitioned",
+          "provides": "Concatenates two matrices horizontally, using a sum type for their column indices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/ColumnRowPartitioned.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect column concatenation, Kronecker replication and matrix action against the stacked model.",
+          "result": "The expanded design can be constructed with column concatenation and Kronecker repetition, then applied to grouped regression coefficients."
+        }
+      ],
+      "gap": "The stacked model still needs the source's coordinate order and consistent design/incidence dimensions."
+    }
+  },
+  {
+    "interface_id": "local-437e5511b1a868660f31",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "9a7cda2edf435d2ad71f6c6d51a814493e19f429dec19c455186e90c06b9fb87",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D11",
+        "comparison": "Differentiate the working Gaussian log-likelihood (6) in the exact omega order to get psi, then solve p+5 zero equations. Real Gaussian working likelihood is not a true Gaussian noise assumption. Nonzero covariance determinant and derivative existence must be proved; gradient's default at nondifferentiable points is not a score root. Theorems assert a suitably local root exists, without uniqueness or the claim that every stationary point is a global maximum; exclude supplementary derivative calculations.",
+        "statement_sha256": "348e74cbf576db1bc55f92a6902e0ef91f1b516a36c4174c03d6b9773102d51a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search mixed-model likelihood scores; inspect Euclidean gradient and maximality predicate against the working Gaussian objective.",
+          "result": "Gradient expresses the p+5 score equations on a differentiable domain, while maximization is a distinct property."
+        }
+      ],
+      "gap": "The likelihood estimator still needs a valid differentiable covariance domain and a justified relationship between a score root and the desired maximizer."
+    }
+  },
+  {
+    "interface_id": "local-c9e522737a125189684b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "c78da3f44610c376602e26eaaf57113db96d1b3372c31db857d7670e92a5bcb5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D6",
+        "comparison": "Row x_i(a) minus its grand average and row-marginal averages of interaction/within covariates minus their grand averages are explicit. The source only says similarly for several cell/within symbols, while its hierarchy distinguishes interaction residualization from simple grand centering. Do not silently fill every c-subscript with one common centering operation or use the excluded Appendix A to resolve it; later Gram matrices and phi retain those source symbols.",
+        "statement_sha256": "f90b376e868e2281848c89440667e2e220b63a0f7d3b1cfb47fcf44b84cf31fd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.kronecker",
+          "type": "{l m n p α : Type*} → [Mul α] → Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "provides": "Kronecker product with paired row and column indices and entries given by products of the corresponding matrix entries.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Kronecker.lean#L274-L275",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search balanced centering/averaging operators and inspect mode-wise Kronecker projection representation against source examples.",
+          "result": "Finite averaging maps represent the explicitly given marginal centerings, but not the omitted full cell/within convention."
+        }
+      ],
+      "gap": "The centering notation still needs the unambiguous displayed averages while leaving unspecified cell and within-cell residualization formulas unresolved."
+    }
+  },
+  {
+    "interface_id": "local-737de9bf46e50b2432f2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "0c1fd0bcc267446d108cd4ef0251fcf1dc105f2e17727c87665307e36f3be38e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D15",
+        "comparison": "Keep the intercept sum of alpha plus eta sum beta divided by dot-tau; row slopes have their printed shifted x weights and beta coupling, column slopes the asymmetric corresponding alpha coupling. Variance components use centered effect squares divided by 2 dot-sigma^4, meaning squared variances. Interaction/within slopes use their printed c-subscript design terms. No Gaussian simplification of third/fourth moments is justified, and positive denominator/domain assumptions cannot be inferred solely from the unnamed parameter space Omega. This phi is the stated linearization, not automatically the exact score.",
+        "statement_sha256": "20f78c2df3ad37cfc3369b0e417120c052abde21897e9c6da91af43ced15d6c7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromCols",
+          "type": "{R : Type u} → {m : Type v} → {n₁ : Type w} → {n₂ : Type z} → Matrix m n₁ R → Matrix m n₂ R → Matrix m (n₁ ⊕ n₂) R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.ColumnRowPartitioned",
+          "provides": "Concatenates two matrices horizontally, using a sum type for their column indices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/ColumnRowPartitioned.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search mixed-model score linearization and inspect vector block construction and effect moments against all nine phi components.",
+          "result": "Finite effect sums, squares and scalar weights can form the vector, but the influence representation and its asymptotic justification are source-specific."
+        }
+      ],
+      "gap": "The influence vector still needs its exact block coefficients, genuine effect moments and valid variance/tau denominators with the unresolved centerings preserved."
+    }
+  },
+  {
+    "interface_id": "local-8dfea5054363f2d264ea",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "81eef74c3b648fa253c9717db5cb47ac35594efe4df85a29f166450efd6aefff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D7",
+        "comparison": "Capital X_i(c)(a) combines row covariates with row means of interaction and within covariates; the column and interaction stacks differ accordingly. Sum X X-transpose without normalization here, preserving all off-diagonal cross blocks and their transpose positions. SW uses only within-cell lowercase x. These full enlarged Gram matrices are not interchangeable with the selected diagonal blocks later denoted D1-D4, and zero-dimensional absent covariates must be handled consistently.",
+        "statement_sha256": "cc541c20baf0d335f0f6b40ed917e8328ee0017318df06428de532cbebda9e3e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.fromBlocks",
+          "type": "{n l m o α : Type*} → Matrix n l α → Matrix n m α → Matrix o l α → Matrix o m α → Matrix (n ⊕ o) (l ⊕ m) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Assemble four compatible rectangular blocks into a matrix indexed by the disjoint unions of their row and column types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L46-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite outer products and block matrices for enlarged row/column/interaction sums of squares.",
+          "result": "Outer-product sums and typed block assembly directly support the Gram structure after the source covariate stacks are fixed."
+        }
+      ],
+      "gap": "The sums of squares still need the exact enlarged covariate stacks and the source's unresolved cell-centering interpretation."
+    }
+  },
+  {
+    "interface_id": "local-d99a0c626bf59bc23a4f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "6677076155f8fa3a24ded818a66b77c49366c7b081fd997c3543f1fb75af5cf2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D8",
+        "comparison": "Dhat1 selects SA of row covariates divided by g, Dhat2 SB by h, Dhat3 SAB by gh, Dhat4 SW by n=ghm. They are designated diagonal blocks, not the entire capital-X Gram matrices of Condition A4. Limits use g, h, (g,h), or (g,h,m) as printed; no fixed relative rate or stochastic design law is supplied. Invertibility of limiting blocks requires the separate positive-definiteness conditions and valid source centering.",
+        "statement_sha256": "3ba18e8719b362245d7e0dca33f6ba7c48882d35ef9ef2a769b7f54d9e718256"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite Gram sums and multi-index limit predicate against normalized D1-D4 definitions.",
+          "result": "The normalizations and limits can be encoded with finite matrices and filters, without assuming a common growth rate."
+        }
+      ],
+      "gap": "The design-limit matrices still need their distinct normalizations, selected block identities and appropriate joint limits."
+    }
+  },
+  {
+    "interface_id": "local-83493e3dfadea2af76dc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "737ca1e94a8632e34483eea4e9cef1d89a95885c643a7fcc610e85654c15f4b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D16",
+        "comparison": "Preserve first row/column covariance coupling through f1,f2,f3, eta^1/2 and third moments. Variance entries are E alpha^4-dot-sigma_alpha^4 and analogues, not Gaussian replacements; slope blocks use variance times D_k^-1. F1(a,b)'s second-row last block is printed p_b by 1 beside p_a by p_b, so it cannot typecheck generally without correction; record rather than replace with p_a. Keep finite eta versus limiting regimes and unprovided centering/domain assumptions separate; generic constructors do not prove F is a valid covariance.",
+        "statement_sha256": "6329323acc9d49e1d463076b11db85a0ae8bcbb4e494acac4c2de75d6ece9fbd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromBlocks",
+          "type": "{n l m o α : Type*} → Matrix n l α → Matrix n m α → Matrix o l α → Matrix o m α → Matrix (n ⊕ o) (l ⊕ m) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Assemble four compatible rectangular blocks into a matrix indexed by the disjoint unions of their row and column types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L46-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.blockDiagonal'",
+          "type": "{o α : Type*} → {m n : o → Type*} → [DecidableEq o] → [Zero α] → ((i : o) → Matrix (m i) (n i) α) → Matrix (Σ i, m i) (Σ i, n i) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Forms a block-diagonal matrix with block-dependent row and column sizes, indexed by dependent sums.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L570-L573",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search non-Gaussian random-effects asymptotic covariance; inspect block constructors, inverse assumptions and third/fourth moments against F.",
+          "result": "Block matrices and moments support much of the expression, but the printed cross block is dimensionally inconsistent for unequal slope dimensions."
+        }
+      ],
+      "gap": "The asymptotic covariance still needs resolution of its inconsistent zero-block dimension and a justified non-Gaussian moment/block-limit construction."
+    }
+  },
+  {
+    "interface_id": "local-fa1f4441e3f6c72db157",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "e6c99411c9c2efc8d0cf131feba166c0700dd0d5d475baef102b95551eb70966",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D13",
+        "comparison": "All g,h,m diverge without a relative-rate constraint. Interpret iid within each random-effect family and mutual independence of the families, retaining their distinct distributions/variances and finite 4+delta moments. Part4 literally omits h^-1 in the column mean limit, unlike the row mean; do not insert it. The positive-definite limits are full enlarged capital-X Grams, while 2+delta bounds use specified lowercase centered covariates. Omega and all centered symbols are not fully defined in the main text; MemLp requires measurability and preserves genuine finite moments instead of integral defaults.",
+        "statement_sha256": "e5c2ffcfef15711d2538946c650cc56ede51b99631ccfede3e56e05864ad68af"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect iid family, moment, positive-definite matrix and joint-limit primitives against every part of Condition A.",
+          "result": "The separate regularity conditions can be represented, with explicit source ambiguities preventing a unique corrected specification."
+        }
+      ],
+      "gap": "Condition A still needs a specified parameter space and faithful treatment of its unnormalized column-mean limit, enlarged Gram limits and family-wise moments."
+    }
+  },
+  {
+    "interface_id": "local-56deb61183151cb82f9f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "fd38fef3ede64501f99c1f4a74660fc4400769bf9e5527b14d22012ffa5b9024",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D17",
+        "comparison": "Use minus K^-1/2 E[Jacobian psi(dot-omega)] K^-1/2, not an unnormalized Hessian, observed information or covariance automatically equal to F. Preserve dot-tau and eta couplings and exact interleaved parameter blocks. B3's lower-right entry is printed 1(2 dot-sigma_e^4) without division; do not replace it by a reciprocal even though other blocks suggest that intent. Derivative existence/integrability, variance domains and the joint limits must be justified separately from the main-text block display.",
+        "statement_sha256": "e039fe4f8e8c8048351ae25ef2d9567e57e1799c54065accd4b88e3e732f05d9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.fromBlocks",
+          "type": "{n l m o α : Type*} → Matrix n l α → Matrix n m α → Matrix o l α → Matrix o m α → Matrix (n ⊕ o) (l ⊕ m) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Assemble four compatible rectangular blocks into a matrix indexed by the disjoint unions of their row and column types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L46-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.blockDiagonal'",
+          "type": "{o α : Type*} → {m n : o → Type*} → [DecidableEq o] → [Zero α] → ((i : o) → Matrix (m i) (n i) α) → Matrix (Σ i, m i) (Σ i, n i) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Forms a block-diagonal matrix with block-dependent row and column sizes, indexed by dependent sums.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L570-L573",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Jacobian, block assembly and expected derivative under multi-rate scaling; compare every displayed B block with its limit definition.",
+          "result": "The derivative-limit representation and block matrices have primitives, but a malformed printed scalar prevents an unambiguous identification of the full display."
+        }
+      ],
+      "gap": "The information-limit matrix still needs the expected score-Jacobian convergence and resolution of the malformed lower-right B3 entry."
+    }
+  },
+  {
+    "interface_id": "local-9f6096676352d6ac8ebc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "d541c67294cb17c3e0f7d2e481840e4aed0f775ddc1055ef709a809ef21751f9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D18",
+        "comparison": "For each variance vector theta, xi-hat=(X-transpose V^-1 X)^-1 X-transpose V^-1 y, then subtract one-half log determinant of X-transpose V^-1 X from the profiled working likelihood. This needs full column rank and valid positive covariance; total inverse/log at singular points is not a REML convention. Maximize over theta, then plug back xi-hat and interleave omega_R as printed. No Gaussian truth, uniqueness, root-to-global-maximum theorem or automatic bias removal is asserted by these primitives.",
+        "statement_sha256": "22d436118d871cb726220844db5a6fa5db029a83d040ee7b4f6a05031e8e7ec3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.det",
+          "type": "{n : Type u} → [DecidableEq n] → [Fintype n] → {R : Type v} → [CommRing R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "provides": "Determinant of a finite square matrix over a commutative ring, with positivity and nonsingularity supplied separately when taking a real logarithm or inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search REML/profile Gaussian working likelihood and inspect inverse, log determinant and maximizer domains.",
+          "result": "Matrix operations express generalized least squares and the profile adjustment, but no REML implementation or optimization theorem was located."
+        }
+      ],
+      "gap": "The REML estimator still needs invertible covariance/design information and an attained maximum of the exact adjusted profile criterion."
+    }
+  },
+  {
+    "interface_id": "local-938e34620e4d57272159",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:18:55.631839+00:00",
+    "source_interface_sha256": "91f11f6762ef5674d6eb8c9564874847a4d10969243be4f86137ca1f8f183058",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2956",
+        "local_id": "D19",
+        "comparison": "Adjustment is independent of regression xi, so mean-score components are unchanged. For each variance v, dV/dv=Z_s Z_s-transpose and derivative of -one-half logdet(X-transpose V^-1 X) contributes plus one-half the displayed trace, whereas all four source corrections have minus signs. Preserve both statements and exact Z1,Z2,Z3,Z0 assignment rather than choosing an intended correction. Generic differentiation/inverse formulas still require a valid smooth domain; direct joint optimization and two-stage profiling do not resolve the score inconsistency.",
+        "statement_sha256": "a0ca251513c3af84228f4827851d173fc918c0e450a330dbc873ad2036de9124"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect gradient and trace/inverse operations against adjusted log-likelihood and all four printed variance-score corrections.",
+          "result": "The adjusted objective and printed score can each be expressed, but their variance derivative signs do not agree."
+        }
+      ],
+      "gap": "The adjusted REML score requires resolution of the sign conflict between the minus log-determinant objective and the four printed minus trace corrections."
+    }
+  }
+]

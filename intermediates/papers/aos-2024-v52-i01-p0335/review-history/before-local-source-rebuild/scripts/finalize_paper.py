@@ -1,0 +1,62 @@
+"""Derive and validate this paper's census from its reviewed inventory and local graph."""
+import copy
+import json
+import subprocess
+import sys
+from pathlib import Path
+from extract_interfaces import ROOT,PID,interfaces,members,edges,main as save_passages
+
+SKILL=Path('skills/statistical-paper-census/scripts')
+sys.path.insert(0,str(SKILL))
+from canonical_dependencies import canonical_dependencies
+from census_metrics import derive_metrics
+from publication_contract import attach_inventory
+
+DIRECT={'2.1': {'D3': 'The statement assumes disjoint parameter spaces Theta_n,m and indexes every formula by the model space M_n.', 'D7': 'The variational posterior in (2.7) is the distribution decomposed in (2.10).', 'D4': 'The weight formula uses the prior model probabilities alpha_n,m and individual priors Pi_n,m from (2.4).', 'D6': 'The local minimizations range over the predefined individual families Q_n,m.', 'D8': 'Equations (2.11) and (2.12) explicitly use the negative ELBO E_n.', 'D9': 'The where-clause (2.11) itself specifies the individual variational posterior Q-hat_n,m.'}, '3.1': {'D9': 'The contracting distribution is the individual-model optimizer Q-hat_n,m from (2.11).', 'D10': 'The full Assumption A cited in the theorem includes the individual-model testing condition A1.', 'D11': 'The cited Assumption A includes the variational approximation budget A2; eta_n,m and zeta_n,m appear in the contraction threshold.'}, '3.3': {'D1': 'Both displayed upper bounds and the gap being bounded are KL divergences in the convention of Section 1.1.', 'D7': 'The bound concerns Q-hat_n, the adaptive variational approximation.', 'D5': 'The first KL target is the original posterior Pi_n(.|Y^(n)).', 'D6': 'The two infima range over Q_n and its individual families Q_n,m.', 'D4': 'The second bound contains -log(alpha_n,m) and KL(Q_m,Pi_n,m).', 'D11': 'Only the final consequence adds the witness-budget Assumption A2.', 'D15': 'Only the final consequence additionally assumes sufficient near-oracle prior mass B3.', 'D16': 'The final clause asserts the expected KL bound referenced as equation (3.1).', 'D12': 'The final clause identifies epsilon_n with the model-space oracle rate (3.5).'}, '3.4': {'D7': 'The shrinking metric-ball complement is measured by Q-hat_n.', 'D10': 'Assumption A includes the testing requirement A1.', 'D11': 'Assumption A includes the individual approximation budget A2.', 'D13': 'Assumption B includes the model-count bound B1.', 'D14': 'Assumption B includes the prior-tail regularization condition B2.', 'D15': 'Assumption B includes the near-oracle mass condition B3.', 'D12': 'The radius is A_n times the oracle rate epsilon_n from (3.5).'}, '3.5': {'D7': 'The conclusion bounds the expected adaptive variational mass of a model-index set.', 'D11': 'The theorem explicitly assumes A2, without adding A1.', 'D13': 'The full Assumption B supplies its model-count bound B1.', 'D14': 'The full Assumption B supplies its prior-tail condition B2.', 'D15': 'The full Assumption B supplies its near-oracle mass B3.', 'D17': 'The conclusion is the vanishing mass of M_n^over(H1) defined in (3.13).', 'D12': 'Both n epsilon_n squared tending to infinity and M_over use the oracle rate.'}, '3.6': {'D7': 'The conclusion evaluates the adaptive posterior on the underexpressive-model set.', 'D10': 'The cited full Assumption A includes A1.', 'D11': 'The cited full Assumption A includes A2.', 'D13': 'The cited full Assumption B includes B1.', 'D14': 'The cited full Assumption B includes B2.', 'D15': 'The cited full Assumption B includes B3.', 'D18': 'The event is M_n^under(underlined A_n epsilon_n;lambda-star) from (3.15).', 'D12': 'The approximation-gap threshold is measured against epsilon_n from (3.5).'}, '4.1': {'D7': 'Q-hat_n is the adaptive variational posterior instantiated in Section 4.1 with the specified network prior and variational family.', 'D26': 'Both loss and oracle approximation error evaluate the network function net(theta).', 'D27': 'The theorem quantifies over network architectures and bounded parameter spaces Theta_(K,M)^(<=B_n).', 'D28': 'The local Q-hat_n convention uses the uniform network prior and architecture weights in (4.3).', 'D29': 'The local Q-hat_n convention optimizes over the product-uniform families in (4.4).', 'D30': 'P_f-star^(n) is the fixed-design, unit-variance Gaussian regression law defined immediately before the theorem.', 'D31': 'The contraction event uses the empirical design-point L2 distance, rather than the sup norm used inside the oracle expression.'}, '5.1': {'D7': 'Section 5.1 applies the same adaptive variational posterior construction over merged individual models.', 'D20': 'The statement indexes parameter spaces and events by the nested/combinatorial pair (m,S).', 'D22': 'The contraction and no-underestimation clauses assume D1 as part of D; the final overestimation clause does not.', 'D23': 'D2 is required in both the full-D clause and the final D2/D3 clause.', 'D25': 'D3 is required in both clauses, with its cell-count and prior-weight bounds.', 'D24': 'The statement explicitly selects the pair-index oracle rate from (5.3).'}, '5.2': {'D7': 'Q-hat_n is the adaptive variational posterior with the sparse-factor prior and variational family of Section 5.2.1.', 'D32': 'The data law P_Sigma-star^(n) and covariance map T(L) are the Gaussian factor experiment of Example 3.', 'D35': 'The sparse-factor posterior uses the row spike-and-slab prior and uniform factor-dimensionality weights in (5.10).', 'D36': 'The sparse-factor posterior uses the rowwise spike-and-slab variational family specified in Section 5.2.1.', 'D37': 'The loss is the matrix operator norm.', 'D38': 'The supremum ranges over the bounded, row-sparse covariance truth class Lambda_n-star defined before the theorem.', 'D40': 'The opening conditions impose s_n r_n log d_n=o(n), s_n>=r_n, logarithmic dimension growth and the factor-index bound.'}, '5.3': {'D7': 'The two conclusions concern the adaptive posterior from Section 5.2.1, with the same construction as in Theorem 5.2.', 'D32': 'The true data law is the Gaussian factor-model covariance experiment.', 'D35': 'The imported setup uses the spike-and-slab prior in (5.10).', 'D36': 'The imported setup uses the row spike-and-slab variational family.', 'D33': 'The second conclusion controls the number of active loading rows |supp(L)|.', 'D39': 'Both infima range over the stronger class Lambda_n-star(eta_n*) in (5.12), with signal and active-row lower bounds.', 'D40': 'The first sentence expressly imports the assumptions of Theorem 5.2; their exact source text is retained in this member.'}, '6.1': {'D7': 'The conclusion is vanishing expected adaptive posterior mass.', 'D11': 'Only A2 is assumed from Assumption A.', 'D13': 'B1 is explicitly assumed to control the number of models.', 'D15': 'B3 is explicitly assumed for near-oracle prior mass.', 'D42': 'The shrinking event is M_n^(ivB,over)(A_n), the set of large implicit-penalty models from (6.2).'}, '6.2': {'D7': 'The conclusion controls the adaptive posterior outside a metric ball.', 'D10': 'The full Assumption A supplies A1.', 'D11': 'The full Assumption A supplies A2.', 'D13': 'The theorem explicitly requires B1.', 'D15': 'The theorem explicitly requires B3, without adding B2.', 'D12': 'One term in the loss threshold is A_n times the oracle rate.', 'D43': 'The other term is zeta_n double-dagger, explicitly referenced to the maximum over the ivB sieve in (6.4).'}, '7.1': {'D45': 'The bounded gap uses Q-hat_n-natural, the variational quasi-posterior of (7.2).', 'D44': 'The target is Pi_n-natural(.|Y^(n)), the original quasi-posterior of (7.1).', 'D1': 'The displayed bound uses KL on the approximation and prior terms.', 'D4': 'Its right side contains the prior weight penalty and individual prior Pi_n,m.', 'D6': 'The bound infimizes over each individual variational family Q_n,m.', 'D46': 'The initial bound assumes E1 and uses its constants c_2 and rho.', 'D47': 'The final clause adds E2, whose metric approximation budget yields the rate bound.', 'D48': 'The final clause also adds near-oracle prior mass E3.', 'D49': 'The final consequence is the expected quasi-posterior KL-gap bound (7.5).', 'D12': 'The rate in the final consequence is epsilon_n(M_n) from (3.5), reused with the E2 errors.'}, '7.2': {'D45': 'The contracting distribution is Q-hat_n-natural.', 'D46': 'The full Assumption E includes the quasi-likelihood moment bounds E1.', 'D47': 'The full Assumption E includes the KL-plus-metric approximation budget E2.', 'D48': 'The full Assumption E includes the near-oracle prior mass requirement E3.', 'D12': 'The contraction threshold uses the oracle rate from (3.5) under the E2 error convention.'}}
+
+def main():
+    save_passages()
+    inv=json.loads((ROOT/'theorem-inventory.json').read_text())
+    data=copy.deepcopy(inv)
+    data['schema_version']='statistical-ranked-interfaces-v4'
+    data['scope'].update(paper_count=1,
+        source_policy='Pinned arXiv:2109.03204v4, 94 PDF pages. All fourteen main-text Theorems preserved from the main document, pages 1-29. Supplementary material starting on page 30 is excluded.',
+        normalization_policy='Preserve printed wording, formulas, labels and source inconsistencies; transcribe mathematical expressions into LaTeX and normalize line wrapping and typographic emphasis only. The printed PDF supplies original wording and numbering; possible source errors remain explicit review notes.',
+        semantic_ranking_policy='All fourteen inventoried Theorems retained; direct demand counted once per theorem and interface, independently of proof use.',
+        build_order_policy='Derive from the acyclic same-paper dependency graph; A/B, D and E conditions remain separate; concrete neural-network and sparse-factor priors/families are bound only in their applications; a proof use does not add a statement dependency.')
+    data['interfaces']=copy.deepcopy(interfaces)
+    claims={c['claim_id']:c for c in data['claims']}
+    for c in data['claims']:
+        number=c['claim_id'].split('/T')[-1]
+        direct=DIRECT[number]
+        c['depends_on']=list(direct)
+        for x in data['interfaces']:
+            used=[m['local_id'] for m in x['members'] if m['local_id'] in direct]
+            if used:
+                x['central_claim_uses'].append(dict(use_id=c['claim_id']+'-'+x['interface_id'].split('/')[-1],
+                    paper_id=PID,claim_id=c['claim_id'],use_kind='statement_dependency',reason=' '.join(direct[lid] for lid in used),evidence=c['evidence']))
+    derived=canonical_dependencies(data)
+    for x in data['interfaces']:x['dependencies']=derived[x['interface_id']]
+    derive_metrics(data)
+    for x in data['interfaces']:
+        for r in x['related_theorems']:
+            cid=r['claim_id'];path=r['via_local_ids'];number=cid.split('/T')[-1]
+            sentences=[DIRECT[number][path[0]]]
+            evidence=list(claims[cid]['evidence'])
+            for lid in path:
+                evidence.extend(e for e in members[lid]['evidence'] if e not in evidence)
+            for a,b in zip(path,path[1:]):sentences.append(edges[a][b])
+            x['theorem_explanations'][cid]=dict(paper_id=PID,via_local_ids=path,text=' '.join(sentences),evidence=evidence)
+        for m in x['members']:
+            own=m['statement_original']+' '+m['local_label']
+            linked=own+' '+' '.join(claims[r['claim_id']]['statement_original'] for r in x['related_theorems'])
+            selectors=m['highlight_symbols']+m['highlight_phrases']
+            assert any(s in own for s in selectors),(m['local_id'],'no source highlight')
+            assert all(s in linked for s in selectors),(m['local_id'],'unmatched selectors',[s for s in selectors if s not in linked])
+    attach_inventory(data,ROOT/'theorem-inventory.json',ROOT/'ranked-interfaces.json')
+    (ROOT/'unfinalized-census.json').write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
+    subprocess.run([sys.executable,str(SKILL/'finalize_census.py'),str(ROOT/'unfinalized-census.json'),str(ROOT/'ranked-interfaces.json'),'--inventory',str(ROOT/'theorem-inventory.json')],check=True)
+    subprocess.run([sys.executable,str(SKILL/'validate_census.py'),str(ROOT/'ranked-interfaces.json')],check=True)
+    print('All source highlight selectors matched. Census finalized and independently validated; final source-audit record remains.')
+
+if __name__=='__main__':main()

@@ -1,0 +1,56 @@
+"""Preserve unranked local notation and the complete indicator helpers."""
+import json
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+PID=ROOT.name
+
+def main():
+    passages=[
+      dict(local_id='A1',name='Section 2.1 — coordinate-pair notation and permutation set',
+        statement_original=r'''For the sake of notation clarity, we define $\mathbf{z}_{i,kl}=(X_{i,k},Y_{i,l})$ for $1\leq i\leq n$, $1\leq k\leq p$ and $1\leq l\leq q$, and $\mathcal P_m$ as the set of all permutations of $\{1,\ldots,m\}$.''',
+        evidence=[dict(page=4,location='Paragraph before Definition 1')],used_by_local_ids=['D2','D3','D4','D5','D6','D16','D17']),
+      dict(local_id='A2',name='Section 2.1 — indicator contrast psi',
+        statement_original=r'''We further define $\psi(z_1,z_2,z_3)=I(z_2<z_1)-I(z_3<z_1)$, where $I(\cdot)$ is an indicator function,''',
+        evidence=[dict(page=4,location='Paragraph before Definition 1')],used_by_local_ids=['D3','D4','D11']),
+      dict(local_id='A3',name='Section 2.1 — four-argument contrast omega',
+        statement_original=r'''and $\omega(z_1,z_2,z_3,z_4)=I(z_1\vee z_3<z_2\wedge z_4)+I(z_1\vee z_3>z_2\wedge z_4)-I(z_1\vee z_2<z_3\wedge z_4)-I(z_1\vee z_2>z_3\wedge z_4)$, where $a\vee b=\max(a,b)$ and $a\wedge b=\min(a,b)$.''',
+        evidence=[dict(page=4,location='Paragraph before Definition 1')],used_by_local_ids=['D5']),
+      dict(local_id='A4',name='Section 2.3 — full paired observation notation',
+        statement_original=r'''Let $\mathbf{z}_i=(\mathbf{x}_i^{\mathrm T},\mathbf{y}_i^{\mathrm T})^{\mathrm T}$, for $i=1,\ldots,n$.''',
+        evidence=[dict(page=9,location='Paragraph immediately before Theorem 3')],used_by_local_ids=['D15','D16','D17']),
+    ]
+    census=json.loads((ROOT/'ranked-interfaces.json').read_text())
+    members={m['local_id']:m for x in census['interfaces'] for m in x['members']}
+    def closure(ids):
+        found=set(ids)
+        todo=list(ids)
+        while todo:
+            for dep in members[todo.pop()]['depends_on']:
+                if dep not in found:found.add(dep);todo.append(dep)
+        return found
+    for p in passages:
+        p['related_theorem_ids']=[c['claim_id'] for c in census['claims'] if closure(c['depends_on']) & set(p['used_by_local_ids'])]
+    data=dict(paper_id=PID,passages=passages,
+      policy='These unranked local auxiliary definitions remain part of the audited paper artifact. The editorial passage names identify notation; they are not claimed as author-supplied API titles or as library availability verdicts. Their related-theorem IDs are derived through the reviewed local dependencies.',
+      standard_ambient_resolution=[
+        dict(notation='Probability, expectation, conditional expectation, variance and covariance',resolution='Standard measure-theoretic meanings are assumed by the source. Specialized projection and variance formulas are explicitly archived in D6, D9-D11 and D16-D17.'),
+        dict(notation='C(n,d), finite permutations and indicator functions',resolution='The source combination convention is retained in D2; permutation and indicator helpers are retained in A1-A3 above.'),
+        dict(notation='Continuity and random sampling',resolution='The exact Section 2.1 random-sample and continuous-vector convention is D1. It does not say that the coordinates within a vector are independent. The precise intended meaning of continuous vector is not further defined.'),
+        dict(notation='Convergence in distribution and probability',resolution='Theorems 1 and 2 explicitly explain their arrow notation; both explanations are preserved in the original statements.'),
+        dict(notation='Little-o and divergent dimensions',resolution='The exact rates and dimension guards are retained in Assumption 1 and (8)-(10). No universal rate restriction on p/n or q/n is inserted.'),
+        dict(notation='Bivariate Gaussian law, Pearson correlation, arcsine, sine, cosine, infimum and supremum',resolution='Standard ambient concepts in Theorem 5. Its M_h functions, integral formulas and extrema are defined in the theorem itself. No rank-statistic independence condition is added to its Gaussian hypothesis.'),
+        dict(notation='Normal cdf Phi and universal constant C',resolution='Theorem 3 explicitly defines Phi and states that C is independent of n, p and q in its continuation on page 10.'),
+        dict(notation='Supplement references',resolution='Main-text mentions of supplement results are retained for source fidelity. No supplement statement, proof, simulation or algorithm is imported into the census.')],
+      unresolved_source_conventions=[
+        dict(source='Section 2.1 — U-statistic definition, page 4',issue='The printed summation uses non-strict indices while C(n,d) is defined using distinct elements. The word distinctive also describes a pair of coordinate indices drawn from different vector index sets. Preserve the text and formula; do not assume an unprinted k!=l restriction or repair the summation.'),
+        dict(source='Section 2.1 — omega and Definition 1(c), page 4',issue='The second and fourth comparisons use maximum greater than minimum as printed, and the X-argument list has an extra comma. These are retained instead of substituting a standard four-point kernel.'),
+        dict(source='Section 2.2 — S squared, pages 5-6',issue='The source first calls S squared the full aggregate variance, presents a dominating leading-term variance, and says S squared is kernel-independent in an asymptotic sense. Theorem 2 nevertheless states exact unbiasedness. The audit preserves this ambiguity instead of declaring an exact finite-sample equality.'),
+        dict(source='Section 2.2 — normalized test statistic, page 6',issue='The text uses S-hat in a denominator after defining S-hat squared by a signed unbiased estimate. It does not specify a convention for a negative or zero estimate. The six-index formula also requires enough observations; no unprinted regularization is inserted.'),
+        dict(source='Section 2.3 — Assumption 1, page 7',issue='The source specifies p-divergent and q-divergent limits separately, while the theorems require max(p,q) to diverge. Preserve these guards; the source does not require both dimensions to diverge or explicitly specify all nondivergent subsequence conventions.'),
+        dict(source='Section 2.4 — projection sums and S_h, page 10',issue='The M-hat display feeds coordinate-pair arguments to G_h, which is next defined on full observations. The same section relates its own second-projection variance S_h squared to S squared. Preserve the argument notation and local-alternative scale instead of importing the null product variance.'),
+        dict(source='Theorem 5, pages 12-13',issue='The second coordinate range is printed as 1<=l<=p rather than q. The Gaussian/correlation domain and zero-correlation ratio convention are not further specified; the extrema explicitly exclude rho=0. Preserve the printed statement.')])
+    (ROOT/'ambient-conventions.json').write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
+    print('Saved four local auxiliary passages and ambient/source-convention resolutions.')
+
+if __name__=='__main__':main()

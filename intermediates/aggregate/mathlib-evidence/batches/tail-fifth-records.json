@@ -1,0 +1,830 @@
+[
+  {
+    "interface_id": "local-8f982229096d23b785ad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "84d5bea210dce8097554f96e59b15d43eead4e456398a0df7109ad4219e843a7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D37",
+        "comparison": "Keep the maximum over observed spatial locations outside the temporal tail sum, division by sigma(ell), common C>0 and beta>0, and every nonnegative h with max(1,h) in the rate. The q>=8 functional-dependence coefficients come from the general nonlinear coupling, not earlier VMA coefficient rows. eLpNorm and HasSum require the correct coupling and finite/summable values; an IsBigOWith bound using the principal full domain can preserve all h rather than merely eventual decay. The coupling index domains and sigma-as-variance versus standard-deviation ambiguity remain unresolved, and no positive scale bound is inserted.",
+        "statement_sha256": "3505163b468e285ee0cf8490ab379af5ef3c54cf2c5511d9a7d5f2835be3784f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched probability/measure sources for temporal functional dependence; inspected extended Lp seminorm, infinite-sum convergence and explicit-constant asymptotic bounds against the all-lag normalized tail condition.",
+          "result": "Lp differences and summable tails can be expressed, while IsBigOWith on a principal full-domain filter retains an all-input bound; an atTop bound alone would weaken the source condition."
+        }
+      ],
+      "gap": "The source coupling coefficients, normalized tails and one uniform all-lag decay bound still require definition and summability and scale-domain proofs."
+    }
+  },
+  {
+    "interface_id": "local-69b09c3bc2b346a5ee5d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "7b2928f96d9be0da388d5e043a2301ff7657ccb964df954c491c6311f5da4535",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D38",
+        "comparison": "For each temporal k, sum delta(k,ell,q)^2/sigma(ell)^2 over observed locations whose Euclidean norm from the origin is at least m, take that square root, and only then sum over k>=0. Keep all m>=0, C'>0 and xi>1 with max(1,m)^(-xi). Reversing the sums or replacing origin-based distance by distance from an arbitrary location changes the premise. HasSum and square-root arithmetic do not construct the source's double coupling, resolve its OR replacement/domain conventions or prove the all-m bound; the later derived inequality (52) is not substituted for this assumption.",
+        "statement_sha256": "73e7902ca0a2fa3d8aa73af15078ba411259e1b3e745510658675b0b16f340be"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for cross-sectional functional dependence; inspected summation, real square root and explicit-constant bounds against the spatial-l2 then temporal-l1 condition (51).",
+          "result": "The nested norm-like expression and global power bound are constructible from generic sums and arithmetic. The aggregation order is mathematically substantive and is not supplied by a generic dependence predicate."
+        }
+      ],
+      "gap": "The double-coupling coefficients and their spatial-l2/temporal-l1 tail bound with common constants remain to be formalized."
+    }
+  },
+  {
+    "interface_id": "local-315cf39bdddb4a972219",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "8d71aa0187bf1fd121ae0289cdbadea29ccb31208fa50511a7bc5774ab9229c3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D39",
+        "comparison": "Preserve sigma(ell1,ell2)/(sigma(ell1)*sigma(ell2)) literally. Scalar covariance and convergent lag sums supply candidate long-run covariance entries, but equation (44) defines sigma(ell) as its diagonal variance while later formulas use it like a standard deviation. Do not insert square roots, infer unit diagonal or absolute correlation at most one, or totalize zero denominators into a valid correlation law. The surrounding lemma's decay conclusion is not part of this extracted defining equality and does not become an extra Gaussian-law premise.",
+        "statement_sha256": "113b4cb689c91b7ea0780fc4f82b3d4e148128a8405e5f27c3eeb7e7cb5035d7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for long-run correlation/covariance; inspected scalar covariance and infinite-sum convergence against the source's ratio and recorded equation (44) scale discrepancy.",
+          "result": "Covariances can be summed over lags and divided by scale factors, but the source's sigma definition is not automatically a standard-deviation normalization or a correlation matrix."
+        }
+      ],
+      "gap": "The lag-summed covariance and scale convention must be specified before the printed ratio can be treated as a normalized correlation."
+    }
+  },
+  {
+    "interface_id": "local-9b418a1f0730f50e436e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "ce5d6dd765b8d2c08c742f5def357e4e8ec49fbf75f66ead1e6d4e8a08e6678f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D40",
+        "comparison": "Use one coordinate for each time/window pair and retain the source's time-index offset, (bn)^(-2) scale and weights requiring both spatial indices in the intersection of the two windows. The piecewise expression covers only positive zeta and does not specify zero-lag/diagonal entries; do not fill them by a limiting value or replace intersection weights. multivariateGaussian needs a complete PSD matrix to have the intended covariance, while its non-PSD Dirac fallback would silently change the reference law. The sigma normalization discrepancy also remains, and the appendix Lemma 15 reference is preserved without importing its calculation.",
+        "statement_sha256": "50f3eeca22e21a737277f937d97a6fe0596413c3441378d857efdd6996524e4d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected multivariateGaussian's covariance construction and non-PSD Dirac fallback against the full printed reference-vector index and piecewise covariance expression (54)-(56).",
+          "result": "A fully specified PSD covariance matrix can parameterize a centered Gaussian measure. The printed formula omits all zero-lag cases, so it does not yet provide that matrix, and no library fallback resolves the omission."
+        }
+      ],
+      "gap": "The missing same-time covariance entries and a PSD proof are required before the printed reference vector can be constructed as a Gaussian law."
+    }
+  },
+  {
+    "interface_id": "local-960ee4c3c6a49fdaf6f7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "2647737d459513ea4548937d297b3d0727118aaa2a7a3a93810f3a3fb195756c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D10",
+        "comparison": "At the fixed evaluation point x, center both Gamma and Phi empirical increments by their population increments at x+v/a_n and x, scale by sqrt(n*a_n), and multiply the Phi increment by theta0(x), not theta0 at the running argument. Keep a_n=n^(1/(1+2*q)) and the distinction from the estimator rate r_n. ContinuousMap.comp applies only if the selected path representation has continuity; it does not grant continuity to empirical monotone maps or provide extensions outside appendix-deferred localized domains. No iid sampling or specific bootstrap weights are part of this definition.",
+        "statement_sha256": "294ca7eebc5df26898139ddce2d1ba30ca79ce948946be180b492de69f660bf4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousMap.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [TopologicalSpace α] → [TopologicalSpace β] → [TopologicalSpace γ] → C(β, γ) → C(α, β) → C(α, γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.ContinuousMap.Basic",
+          "provides": "Composition of bundled continuous maps; continuity of the component maps must be supplied and surjectivity is not asserted.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/Basic.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for localized empirical drift/process constructions; inspected real powers, square root and continuous composition against the four empirical/population increments.",
+          "result": "Arithmetic and composition express the increments at a fixed n, but the process domain and extension conventions remain source-specific and are not established by bundled continuous-map operations."
+        }
+      ],
+      "gap": "The empirical increment maps, localization domain and valid process-space representation still need to be supplied around the source's scaling formula."
+    }
+  },
+  {
+    "interface_id": "local-83035134ba75434f8534",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "7ca515ed6f2311ec34e05586b9a414194eb84c3eb393354065a759701884b275",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D12",
+        "comparison": "B1 needs both unconditional process weak convergence and conditional bootstrap weak convergence in probability to a centered Gaussian process with C*min(abs(s),abs(t)) times the same-sign indicator; IsGaussianProcess alone gives neither covariance nor path regularity. B2 uses one beta<q+1, one high-probability event A_n shared by two unconditional expectation bounds, and a supremum over V in [1,a_n*delta]; it does not impose beta>0 or substitute conditional expectations. B3 and B4 distinguish original-versus-population and bootstrap-versus-original global consistency, with additional a_n-scaled local Phi bounds on the closed neighborhood. B5 gives lower endpoint inequalities with o_P errors, not equalities. B6 separately requires nonnegativity, monotonicity, right continuity, both range endpoints and closed truncated ranges. B7 controls left jumps at sqrt(n*a_n) scale; Function.leftLim has a point-value fallback when no limit exists, which cannot be used to conceal absent source-domain/left-limit conventions. Convergence-in-measure and deterministic Big-O APIs do not supply the missing process-space construction, nor justify adding iid sampling or a particular resampling scheme.",
+        "statement_sha256": "839d5cfefd489c2be12ad5b6b95f6dea868f71040dab20c35e2a7a9c6be6d3b6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Function.leftLim",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → [TopologicalSpace β] → (α → β) → α → β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Order.LeftRightLim",
+          "provides": "Left limit using the domain order topology, returning the point value when the left-neighborhood filter is bottom or no left limit exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Order/LeftRightLim.lean#L50-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected weak-law convergence, convergence in measure, Gaussian-process predicate, deterministic Big-O and order left limits against every clause B1-B7, including probability/expectation and endpoint qualifiers.",
+          "result": "Mathlib provides separate primitives for the convergence, Gaussianity, deterministic bounds and left limits. No inspected primitive supplies the entire conditional bootstrap process-space assumption or its precise seven-clause combination."
+        }
+      ],
+      "gap": "The original and conditional process laws, uniform event bounds, map domains and all seven source clauses still need a coordinated formal statement."
+    }
+  },
+  {
+    "interface_id": "local-c2ad87b583a950c63160",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "42bac7ec49ccdaa2b38d074168b4bc9748cf395cde31889337b739dae88f8085",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D14",
+        "comparison": "Construct independent unit exponential increments and iid mark/covariate pairs, independent of those increments, then form signed partial sums divided by the conditional density at zero evaluated at each mark. Independence across i and (k,h) concerns entire families; successive arrival times within a family share increments and are not iid. Preserve the joint mark law, including the dependence of xi on Z, and its unresolved conditional versions at q_i=0. With positive density the negative sign gives J<0, so the printed event J+Z-transpose-v_-1<=0<J never fires for that family. Do not add a complementary indicator. The series still needs measurability and local-finiteness/summability proofs; generic HasSum and expMeasure do not establish them. The declared full-space v retains two unused first coordinates.",
+        "statement_sha256": "71f05f714985317835b941e9dd3cf76057e8c0d3bf1234896757dd2fcdcb05df"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.expMeasure",
+          "type": "ℝ → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Exponential",
+          "provides": "Exponential measure with the given rate, defined through the shape-one gamma measure; it is a probability measure for strictly positive rates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Exponential.lean#L94-L96",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for marked/compound Poisson constructions; inspected positive-rate exponential laws, indexed independence, series convergence and indicator semantics against the full signed-arrival process (3.4).",
+          "result": "Exponential laws, independent families and marked series are available components, but the printed one-sided indicator removes negative-sign arrival families and the conditional marks and local finiteness are not supplied by these primitives."
+        }
+      ],
+      "gap": "The conditional marks, signed arrivals and convergent marked process still need construction while preserving the source's missing negative-orientation contribution."
+    }
+  },
+  {
+    "interface_id": "local-36ea8190f8bf8ef2d012",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "350417052f9724ea4be20284232727b2203f34689a82050bd7af195ae0d0f397",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D36",
+        "comparison": "Form all minimizers of the limiting D, not the empirical LSE solution set, and interpret a centroid through the integral of the identity divided by the set's measure only after a dimension/reference measure and positive finite volume with integrable first moment are established. D ignores the two first coordinates while its source domain is the full R^(d1+d2), leaving unrestricted directions; the source does not remove them or supply an intrinsic measure. IsMinOn does not prove attainment, and total Bochner/field operations cannot make this a valid full-volume centroid. Averaging arbitrary solver outputs or finitely many minimizers is a separate sampling procedure, not an automatically equivalent construction.",
+        "statement_sha256": "7a41af06ae3895bb549c0a5e37d2387781defb3ff4344364c51c59aa3b4d49cd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected minimizer predicates, Bochner integration and the neighboring finite centerMass construction against the centroid of the limiting process's full minimizer set.",
+          "result": "A minimizer set and its volume-normalized first moment are expressible if the measure/domain and integrability are valid. Finset.centerMass averages finitely many points and is not the volume centroid of this random polyhedron."
+        }
+      ],
+      "gap": "The intrinsic minimizer domain, attainment and positive finite centroid measure must be clarified before a volume centroid can be defined."
+    }
+  },
+  {
+    "interface_id": "local-e070f23fc76fc09a650e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "6b7b5fd598d75252b497cf9819383ab9411ee4efb88e6a70454b9f52e6ce6d63",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D16",
+        "comparison": "Enumerate b1,b2,s1,s2 from 1 through 2S and r1/r2 of lengths s1/s2 with entries from 1 through S, retaining sum(r1)=b1 and sum(r2)=b2. Additional subscripts add predicates to that same set. Generic finite filters and sums can express the notation after S is an integer and the dependent tuple spaces are defined. Do not change the r upper bound to 2S from the earlier Gaussian-integral notation or permit zero entries; either changes the coefficient family.",
+        "statement_sha256": "1d2bbf5bbd1fbdc5aee8a5bc3c3456cd08813ab7ff7b52f2d0d7ab73b2a2e87d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite filtering and sum recursion against the six index families and two degree constraints in the overlined-sum notation.",
+          "result": "Finite index products with length-dependent vectors and predicates represent the sum, but the source's different r-entry upper bounds must remain distinct."
+        }
+      ],
+      "gap": "The dependent finite index set and its exact bounds and degree constraints still need to be instantiated for the overlined sum."
+    }
+  },
+  {
+    "interface_id": "local-4f3f38419bb3bf5fdf79",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "7ff1bb25f4c4a62cd9c8c55137c1e304fdadd2dbb897a106f678b0f7aa30b73c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D17",
+        "comparison": "Keep integer l with abs(l)<2^p, the overlined index family constrained by b1+b2=2a, weight 2^(-2p)*(2^p-abs(l))*(-1)^(s1+s2)/(s1*s2), and the product of the two specified fraktur-W differences. Negative l needs signed indices; the fraktur Gaussian-integral object differs from the underlying fractional Brownian driver, including its special degree-one convention. Bochner expectation needs product integrability and does not authorize an external Wick/Isserlis replacement. Retain the overlined sum's S-dependent index range, the original formula and its printed spelling.",
+        "statement_sha256": "d81722ae577786cb3de65ad2460c6e497336fcd9c6a507a1aa3e9f1b4c9350c6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for fractional Brownian/Hurst coefficient and Isserlis APIs; inspected expectation, finite filters and normalized sums against the full equation (36) coefficient.",
+          "result": "The finite weighted expectation formula is expressible, but no located declaration provides these source-specific Gaussian-integral variables or coefficient functions."
+        }
+      ],
+      "gap": "The source Gaussian-integral variables and their product integrability still need construction within the exact finite coefficient sum."
+    }
+  },
+  {
+    "interface_id": "local-9ab3c6706a38ce937d25",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "fd5bd08a23935a56a6e24602aa1b992042d374274e5465156720fca32f94ea44",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D18",
+        "comparison": "Sum nu^(2a)*2^(-2*a*I*j)*kappa(p,a,I) over a=2 through integer S, including the ordinary empty-sum behavior when no such a exists. Keep the argument order (I,nu), the lower summation bound two and the generic positive I/nu domain separate from the estimator's later 0<I<1 restriction. The source's generic S>0 wording alone is not an integer-index type, and the estimator imposes its own two lower bounds on S. Finite sums and rpow do not define kappa or import the proof passage that reverses parameter names.",
+        "statement_sha256": "fd4a03b5383546d73eb908722f13d89fc8db8931fc24084e6f0a78e352172506"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite-sum recursion and real powers against the bias sum beginning at a=2 with candidate arguments (I,nu).",
+          "result": "Finite summation and real powers express the bias once the kappa coefficients and integer truncation are given; the expression is not an observation-noise variance correction."
+        }
+      ],
+      "gap": "The coefficient functions and integer truncation must be instantiated in the exact a=2,...,S bias sum."
+    }
+  },
+  {
+    "interface_id": "local-adf021177f807c423f88",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "507939abce5e39701e4f1e4256e3633bee3a3821cab381eb045c757a29e7dede",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D22",
+        "comparison": "At candidate 0<I<1 and nu>0, subtract B_jp^(S)(I,nu) from the already defined Qhat_jpn. The bias starts at a=2 and addresses nonlinear scaling, while Qhat already includes its separate observation-noise variance correction. Do not substitute raw energy, apply that earlier correction twice, clip negative corrected energies, or infer positivity from the generic finite-sum/rpow operations. The reference to a proposition's scaling explains the method and is not an extra assumption on this definition.",
+        "statement_sha256": "82e3682292a5a2390142082f5730209641cd1fa106a2e565dd81c44f4df51b39"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the finite bias expression and source dependency on the already noise-corrected empirical energy against the subtraction defining Qhat-corrected.",
+          "result": "Real subtraction after the finite power-weighted bias sum is elementary, but the source empirical energy and kappa coefficients remain distinct inputs."
+        }
+      ],
+      "gap": "The source empirical energy and coefficient-based bias need to be connected by the stated subtraction without changing the earlier noise correction."
+    }
+  },
+  {
+    "interface_id": "local-8d4cef87bfc9e8ffeb4a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "5033ac1ec248905dcf12d1f627ad5b8d306bf14ae746b48ccd16fe14a0242bb4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D21",
+        "comparison": "Use base-two log of the ratio whose two Qhat terms share p=N-Jstar-1, clamp H to [Hminus,Hplus], and choose jhat=floor(log2(n)/(2*Hhat0+1)). Then form eta from Qhat at (jhat,N-jhat), the 2^(2*jhat*Hhat0) factor and kappa denominator before clamping eta. The maximum's j range and empty-set behavior are omitted here, so do not borrow the coarse estimator's return-two convention. Real.logb/sqrt/division are totalized outside intended domains, and clamping their outputs does not repair negative or zero energies. The target rectangle may strictly contain D, and the source does not project onto D itself.",
+        "statement_sha256": "8e22d283011442c291046e68c8fb928ccaab6efc5ecea8d80261fe5cd0e5c29b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.logb",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Base",
+          "provides": "Real logarithm in a supplied base, defined as log(x)/log(base); nonpositive-argument and degenerate-base extensions are totalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Base.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected base-specific logarithm, square root, real powers, integer floor and nonempty finite maximum against all components of the initial general-model estimators.",
+          "result": "The algebraic operations and finite maximum exist, but the unprinted scale index domain and empty-set convention prevent them from automatically defining a total source-faithful estimator."
+        }
+      ],
+      "gap": "The admissible scale search and intermediate ratio, logarithm and square-root domains remain to be specified before clamping the initial estimates."
+    }
+  },
+  {
+    "interface_id": "local-babb4bdca346856780e5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "295a2aadcddc27da14741d63d467f693843437fdf4c246c8970a57f0164ad5a3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D23",
+        "comparison": "For Hc(I,nu), recompute Jstar-c from corrected Qhat and use its ratio at the two specified neighboring j values with the same p. For etac(I,nu), keep the jhat chosen from the initial H and evaluate 2^(2*jhat*I) and kappa(N-jhat,1,I), not the newly corrected H inside this map. Both outputs are clamped after log/square-root operations. Finset.max' needs a finite nonempty scale set, and none of these APIs supplies the omitted empty-search or nonpositive-energy conventions. Do not introduce lower clipping or change the argument order to repair the source.",
+        "statement_sha256": "1737db5d066a0c8a0582243a0171e2bff8150ef5ab06ef09702ccbd2d7bd684a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.logb",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Base",
+          "provides": "Real logarithm in a supplied base, defined as log(x)/log(base); nonpositive-argument and degenerate-base extensions are totalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Base.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected logarithm, power, square-root and finite-maximum APIs against both corrected maps and their different scale-index dependencies.",
+          "result": "The scalar maps are expressible once their inputs are valid, but the corrected H recomputes its threshold scale while corrected eta keeps the initial jhat; these cannot be merged into one shared scale update."
+        }
+      ],
+      "gap": "The corrected scale search and energy-domain conventions remain to be supplied while preserving the frozen eta scale."
+    }
+  },
+  {
+    "interface_id": "local-e35998354f492803d310",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "26a947a19f3c8250e0e9ab77bbb2d02f889f7becb6f81b9b56a2e58907533be5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D24",
+        "comparison": "Define a pair map taking (Hprev,etaprev) first to Hnew=Hc(Hprev,etaprev) and then to etanew=etac(Hnew,etaprev); iterate this map from the initial pair. Function.iterate_succ_apply' gives the recursion once that self-map is defined, without proving the corrected scalar maps are valid on every finite sample. Keep integer m_opt satisfying the stated inequality for every H in the open bounding interval, and preserve Theorem 11's stronger intermediate-m condition separately. Generic iteration does not establish the paper's uniform bounded-in-probability rate or a CLT.",
+        "statement_sha256": "d8248e319c58ebae291236eea32d825bc1d9395827a5350b3e24f7d8c0cba58d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.iterate_succ_apply'",
+          "type": "{α : Type u} → (f : α → α) → (n : ℕ) → (x : α) → f^[n.succ] x = f (f^[n] x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Logic.Function.Iterate",
+          "provides": "One more iteration of a self-map applies the same map to the previous iterate; the map can encode a sequential update on a pair of parameters.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Function/Iterate.lean#L174-L175",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the iterate successor theorem against the sequential H-then-eta recursion and the final iteration-count condition.",
+          "result": "Iterating a self-map of parameter pairs can represent the recursion, provided the map first computes the new H and then uses it in the eta update. A simultaneous update from the old pair would be different."
+        }
+      ],
+      "gap": "The sequential pair-update map and its source-domain validity still need to be supplied before the generic iteration theorem applies."
+    }
+  },
+  {
+    "interface_id": "local-28baf6b3c62fe2f87f39",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:26:49.726005+00:00",
+    "source_interface_sha256": "bbf4446b43a6d553260f2a33371fc49ebd7ae18abdeb5eb52971490684dc706e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2714",
+        "local_id": "D26",
+        "comparison": "Keep r,v,k in the complement of C and s,t,l in C, both nu1 terms with factor three, and all four nu3 terms with coefficients one, three, three, one. The mixed Lambda/barOmega contractions are distinct and cannot be combined by dropping index order. MvPolynomial.eval evaluates the resulting linear-plus-cubic polynomial after these finite sums are defined; it does not prove the Gaussian moment expansion. The source's factor-three component formula is valid only in its appropriate symmetric contraction, not as an arbitrary uncontracted third moment. Preserve empty/full-C conventions as unresolved and do not introduce the later 1/(12*eta*n*sqrt(n)) factor into these nu coefficients themselves.",
+        "statement_sha256": "68cbbdd0889cfe68a1896a01827b752e62ca1f561c2571d8963f328163447576"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "MvPolynomial.eval",
+          "type": "{R : Type u} → {σ : Type v} → [CommSemiring R] → (σ → R) → (MvPolynomial σ R →+* R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.MvPolynomial.Eval",
+          "provides": "Evaluation of a multivariate polynomial at a coordinate vector, allowing invariance to be stated at every group-transformed input.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/MvPolynomial/Eval.lean#L256-L257",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite sums and multivariate-polynomial evaluation against the exact nu1/nu3 contracted coefficient formulas and their marginal-coordinate context.",
+          "result": "Finite contractions and the resulting polynomial can be represented, but the library operations do not supply the source's conditional Gaussian moments or justify replacing its printed componentwise third-moment formula."
+        }
+      ],
+      "gap": "The complement-coordinate contractions and conditional Gaussian coefficient identities remain to be established for the marginal polynomial."
+    }
+  }
+]

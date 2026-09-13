@@ -1,0 +1,443 @@
+[
+  {
+    "interface_id": "local-f2ce34b1945676576705",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "076dc4d546b6e93d8d1a6772e99c0fe0a11c371ab0719028111b1bb34404e373",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D19",
+        "comparison": "Keep kappa2-perp=sqrt(1-(1-kappa2)^2), kappa3=kappa1*kappa2-perp and kappa4=(1/kappa1+2)*kappa2-perp. Epsilon is half the maximum over y in [kappa4/sqrt(d),(1-kappa2)*x_pre] of the minimum over z in [(1-4*kappa1)*y,(1+4*kappa1)*y] of the finite increment abs(f(z+kappa3/sqrt(d))-f(z)); neither the factor 4 nor the increment may be replaced by a derivative. Require a feasible attaining y-star before lambda=y-star/((1-kappa2)*x_pre). Query each translated action lambda*(1-kappa2)*v_pre plus or minus kappa2-perp*v with fresh Gaussian variance-one noise and the printed 2*log(4/delta)/epsilon^2 count per action. The decision requires one common pair (z,x) in the stated intervals satisfying both sample-mean residual inequalities; separate witnesses would change the test. x_pre is the progress parameter, not guaranteed to equal the actual previous inner product. Nonempty extrema domains, positive epsilon/denominator, integer query counts, measurability or decidability of the real feasibility test and action/link validity remain separate requirements. The guarantee distinguishes a narrow positive interval from the complement of a wider interval; it leaves the intervening region unspecified.",
+        "statement_sha256": "fb29cbe72891d3fa178dc8033860e4e1dc51b493cc8f3a64fb247d1ce9c64e24"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected gaussianReal, IsMaxOn, closed intervals and sqrt; compared every constant, interval and joint feasibility clause of GoodActionHypTest, with the prior bounded search finding no ridge-bandit algorithm API.",
+          "result": "Gaussian query laws, interval predicates and maximizer constraints are available; the two-action certification procedure, its stochastic execution and correctness guarantee require a new construction."
+        }
+      ],
+      "gap": "Construct the two-action certification test with its exact constants and common feasibility witness, resolving extrema, query counts and domain conditions before proving its probability guarantee."
+    }
+  },
+  {
+    "interface_id": "local-983a8a3728f66110183b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "bb99bf36be3f23dddfb3d3113f10b52b00c628b1ded518d14ab65fca7e68d070",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D18",
+        "comparison": "Epsilon is half the minimum for z in [1,1+2*kappa1] of abs(f((z+kappa1)/sqrt(d))-f(z/sqrt(d))); this interval is unscaled before substitution into f. Query v with fresh variance-one Gaussian noise for the printed 2*log(2/delta)/epsilon^2 repetitions, then return true iff some x in [(1+kappa1)/sqrt(d),(1+2*kappa1)/sqrt(d)] satisfies abs(r-bar-f(x))<=epsilon. The success specification guarantees true on that narrow correlation interval and false outside [1/sqrt(d),(1+3*kappa1)/sqrt(d)], not a binary classification guarantee at every intervening correlation. Real infimum bounds alone do not establish minimum attainment or positive finite differences; monotone links can have flat intervals. Leave zero-epsilon, noninteger query counts, link-domain validity and the computability/measurability of the real existential test explicit rather than silently rounding, extending f or assuming strict monotonicity.",
+        "statement_sha256": "196d66361543c93c17f395e933df132d2dcb2ff737b555b27965418fdf0b1140"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Gaussian query laws, interval predicates and conditional infimum bounds against the full InitialActionHypTest finite-difference and projection formulas.",
+          "result": "The sample law and real feasibility predicate can be specified, but no specialized certification algorithm or its finite-sample probability bound was found."
+        }
+      ],
+      "gap": "Define the initial projection test with its finite-difference accuracy and exact acceptance interval, resolving zero accuracy and query-count conventions before establishing correctness."
+    }
+  },
+  {
+    "interface_id": "local-13911f96b5b97a6d1886",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "31355b0f6ced3a52bfdd43c5c9b3de2dfc268c7b06adacadc46bd3820e89dd15",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D17",
+        "comparison": "Initialize m=ceil(x0^2*d), V={0}, L=2*m*log(2*m/delta)/c0. Run all first d0 epochs exactly as printed, sampling a unit vector in V-perp repeatedly until InitialActionHypTest at delta/L and kappa1/4 accepts; update V to its real linear span with that vector. Later epochs d0+1 through m use v_pre=(sum_{j<i}v_j)/sqrt(i-1), x_pre=sqrt((i-1)/d) and GoodActionHypTest with the same kappa1/4 scaling and kappa2. Return (sum_{i=1}^m v_i)/sqrt(m). Generic IsUniform needs an appropriate positive finite surface reference measure; restricting ambient Lebesgue volume to a sphere does not give this law. The source does not truncate d0 when m<d0, so small dimensions can produce an empty remaining sphere. Retry termination, fresh conditional sampling/noise, measurable selections and integer internal query budgets require separate treatment. c0 retains its appendix-only unresolved definition; importing its numerical block does not assume Theorem 9's conclusion. This is the monotone-link code, with even-link modifications and the detailed unknown-link procedure remaining outside main-text scope.",
+        "statement_sha256": "b5fdf9fe84ce929161e08556d2dcdac535aa993383d70c96ae05e31ee55896b9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.pdf.IsUniform",
+          "type": "{E : Type u} → [MeasurableSpace E] → {Ω : Type v} → [MeasurableSpace Ω] → (Ω → E) → Set E → MeasureTheory.Measure Ω → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "A random element has the normalized restriction of a specified reference measure as its law; uniform volume sampling needs a set of positive finite volume.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L64-L65",
+          "link_checked": true
+        },
+        {
+          "name": "Int.ceil",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "Smallest integer greater than or equal to the supplied value; equality stays at that integer rather than increasing it.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L252-L253",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability and MeasureTheory for uniform-sphere/surface-measure constructions; inspected Submodule.span, generic IsUniform, Int.ceil and sqrt against every stage of Algorithm 1.",
+          "result": "Linear spans, counts and normalized sums are available, and generic uniformity requires a supplied reference measure; no specialized adaptive orthogonal-sphere sampling algorithm was found in the bounded search."
+        }
+      ],
+      "gap": "Construct the adaptive sphere-sampling and certification loop with its supplied surface law, unresolved numerical constant and source range conventions, then prove termination and the output guarantee."
+    }
+  },
+  {
+    "interface_id": "local-7c99bf449520d34bb07a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "40e22727551dc6355ce81dee0e0c9ba81f6af16dda6d68bc3f986f7d1e37a3d1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D23",
+        "comparison": "Represent A by a finset of EuclideanSpace vectors with card A=K and every element in Metric.closedBall 0 1, or by an equivalent finite set with its cardinality. Cardinality counts distinct actions, not a list with repeated samples. This does not require actions on the sphere or a covering/separation property. A nonempty action set is needed to select actions but is not inferred for an arbitrary K=0. Theorem 12 asserts that a difficult action set exists for each allowed subexponential K, not that all finite action sets are equally difficult; its unknown parameter and estimator remain sphere-valued. Do not fold that statistical quantifier or its expected-correlation target into the bare finite-set definition.",
+        "statement_sha256": "1df53c51ec3df8acafd8f825b01f4fd8181960279862f9318055d7b749e1abfa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.card and Metric.closedBall against D23's finite unit-ball action domain and its source-specific theorem quantifiers.",
+          "result": "A finite set with a specified cardinality and a closed-ball containment predicate captures the action-domain components; no hardness theorem follows from those predicates."
+        }
+      ],
+      "gap": "Package a K-element subset of the closed Euclidean unit ball and retain the separate existential hard-action-set quantifier of Theorem 12."
+    }
+  },
+  {
+    "interface_id": "local-3015ad004c3799e098bf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "88c5ec5e6d5c95c6ebf2e7da4674bbc5cf89e31e904cefea16a2ce375231f65d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D7",
+        "comparison": "Keep T-burn-in-star(f,d,epsilon)=T-star(f,d,1-epsilon) for epsilon in (0,1/2]. Definition 1 permits its third argument only in (0,1/2], so except at epsilon=1/2 this invokes an unstated extension to larger accuracy tolerances. The underlying objective is inf over adaptive policies and measurable sphere-valued final estimates of sup over sphere parameters of E[1-inner(theta-hat,theta-star)], thresholded at 1-epsilon. This corresponds to a worst-case expected-correlation target, not a probability guarantee, realized path bound or fixed-prior Bayes target. Nat.find needs proof that a finite successful horizon exists and a decidable predicate (possibly classical); it must not silently return a finite complexity when flat/even-link identifiability issues make the target unattainable. Preserve the original minimum convention and the unresolved extension rather than changing the loss or parameter domain.",
+        "statement_sha256": "bce51db604ada2e8925876787e36750f0a6721099fd27d8512b7bfc066110393"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Nat.find and its existence requirement, integral and infimum bounds against D7 and the complete Definition 1 expected-correlation sample complexity.",
+          "result": "Least successful sample sizes can be represented when success exists, but the source calls its accuracy-indexed complexity outside the domain originally stated for it."
+        }
+      ],
+      "gap": "Resolve the accuracy-domain extension before defining the burn-in trajectory as the least horizon meeting the worst-case expected-correlation target, with nonattainability handled explicitly."
+    }
+  },
+  {
+    "interface_id": "local-a198343576c2fb862724",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "29163d8fcf00454c2898878b192c38730b32868d531af452434f5b07208e2617",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D25",
+        "comparison": "Require either MonotoneOn f (Icc (-1) 1), or evenness of f on its symmetric domain together with MonotoneOn f (Icc 0 1). Increasing is not strengthened to strict increase. If f is represented on the subtype [-1,1], its negation action must be supplied for Function.Even; if represented by an ambient real function, evenness outside [-1,1] must not be required without an extension convention. This is only item 2: do not add f(0)=0, f(1)=1 or the normalized-scale item because Theorem 13 explicitly imports just monotonicity. The even alternative permits signed identifiability issues and does not make its signed estimation task automatically feasible.",
+        "statement_sha256": "368fcf38b1d8bd4a0ff689dddc0ddf29217f983fb448c1a72937a42ebf363801"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MonotoneOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Nondecreasing behavior on a specified domain, without requiring strict monotonicity or nonzero slope.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L74-L75",
+          "link_checked": true
+        },
+        {
+          "name": "Function.Even",
+          "type": "{α : Type u} → {β : Type v} → [Neg α] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Group.EvenFunction",
+          "provides": "Evenness of a function as equality of values at opposite arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Group/EvenFunction.lean#L32-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected MonotoneOn and Function.Even against the isolated second item D25 and contrasted the full normalized-scale Assumption 1 D8.",
+          "result": "Interval monotonicity and observation evenness provide the two component predicates; the required disjunction can be assembled without adjoining the separate scale conditions."
+        }
+      ],
+      "gap": "State the disjunction of full-interval monotonicity and even positive-half-interval monotonicity while respecting the link's restricted domain."
+    }
+  },
+  {
+    "interface_id": "local-ee7eb9c3662c91e85925",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "eb81b298043adf73c570284c02ea0961cc0289f14064a5652decf8368956329b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D22",
+        "comparison": "Choose the whole action vector (a_1,...,a_T) before receiving rewards and require every a_t in the Euclidean unit ball. It may depend on exogenous design randomness, so nonadaptive does not force a deterministic design; for a randomized formulation, define initial information and its appropriate independence from unknown parameter/noise in the experiment. A constant initial filtration can express measurability of this preselected design, whereas the original H_{t-1}-adaptation alone permits reward-based choices and is insufficient. The final estimator may still use the full observations. Theorem 11 separately supplies a uniform-sphere prior and an expected signed-correlation bound; these are not extra clauses of nonadaptivity or a conversion to worst-case minimax risk.",
+        "statement_sha256": "cf163a76f4a5a185814cb7b858ee1cddc9db3be234a0c74c3b64fae2a404875a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected observation-generated sigma-algebras, Adapted and closed-ball membership against D22's preselected action sequence and the separate Bayes interpretation of Theorem 11.",
+          "result": "A design measurable with respect to initial information can be represented, but ordinary adaptation to an accumulating reward history would impose a weaker condition than nonadaptive sampling."
+        }
+      ],
+      "gap": "Define action sequences selected from initial design information before reward observations, allowing exogenous randomization while retaining unit-ball constraints."
+    }
+  },
+  {
+    "interface_id": "local-041c58f23851e9131549",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:00:30.716155+00:00",
+    "source_interface_sha256": "f15f95db14f1d0cc3a83fa497d2b6dbe0447ed69f78c615063268be03e91fe04",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D21",
+        "comparison": "Use m=T for estimation or min(T,d*sqrt(T)/c_f) for regret, retaining the unrounded source expression. For t=1,...,m, the action is (1-gamma/8)*a0 plus (-1)^(ceil(t/d))*(gamma/8)*e_{((t-1) mod d)+1}; ceil uses the real ratio t/d, not a prematurely truncated natural quotient, and the first coordinate block has negative sign. Query the Gaussian law with ridge mean and variance one using fresh noise. Minimize sum_{t=1}^m(f(inner(theta,a_t))-r_t)^2 over the sphere cap inner(theta,a0)>=1-gamma, requiring membership separately from IsMinOn and a measurable selection. Commit the selected estimate for every remaining t and return that same fit. The printed input needs correlation at least 1-gamma, whereas Theorem 6 supplies the stronger 1-3*gamma/4; preserve both. Positive c_f, valid gamma and d, integer exploration length, incomplete coordinate cycles, action/link-domain validity and minimizer existence are not supplied by these primitives or silently repaired. This cap fit differs from the full-sphere Eluder-UCB least-squares estimate.",
+        "statement_sha256": "2905b2c2ea54334b681116e4c8768f6fd58c688c0abb45ad2cc4ca301404fd3a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Int.ceil",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "Smallest integer greater than or equal to the supplied value; equality stays at that integer rather than increasing it.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L252-L253",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected minimizer predicates, Gaussian variance parameterization, ceilings and sqrt against every branch and coordinate action of Algorithm 4 and its recorded initialization/budget discrepancies.",
+          "result": "The deterministic exploration formulas, Gaussian queries and cap-constrained least-squares specification are representable; no reusable explore-then-commit implementation supplies the omitted rounding, selection and local-domain conditions."
+        }
+      ],
+      "gap": "Construct both budget branches, cyclic exploration, measurable cap-constrained least squares and commitment while resolving the source's noninteger budgets and initialization conventions."
+    }
+  }
+]

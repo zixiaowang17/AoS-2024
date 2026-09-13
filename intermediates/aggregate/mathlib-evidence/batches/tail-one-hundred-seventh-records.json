@@ -1,0 +1,1292 @@
+[
+  {
+    "interface_id": "local-624be384bc6c910138a4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "03d632fd4723c203922e7639648914f1650aae17e7fec2585d2823302684dffd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D1",
+        "comparison": "Treat K as Matrix X X R, with X the supplied support subtype or abstract domain. Hermitian means symmetric over R; nonnegativity against every finitely supported coefficient family is equivalent to the finite n and x_i condition, with coefficients summed when x_i repeat. The printed positive definite means semidefinite: a zero quadratic form, duplicate points and a singular finite Gram matrix are allowed. Matrix.PosDef would be too strong. No continuity, characteristicness, bounded diagonal or measurability of K is supplied by this definition; the separately named measurable mean m does not add those properties.",
+        "statement_sha256": "4ab71caa5ad1145530cd5a6eb26c6d3739ddca83deb80e472d1aabf9e22806cc"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Matrix.PosSemidef on arbitrary index types and its finite-support quadratic-form definition, and the RKHS positivity construction.",
+          "result": "A real symmetric kernel is an arbitrary-index positive semidefinite matrix; finite-support sums express the source condition, including repeated sample points after collecting coefficients."
+        }
+      ],
+      "gap": "Identify the finite-list and finite-support quadratic forms, preserving nonstrict positivity and the supplied kernel domain."
+    }
+  },
+  {
+    "interface_id": "reproducing-kernel-hilbert-space",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "104a42a9d4035ff1fe4a1c8fa495afa2c419da0414d8e8b8ae5d90b0be4e3a63",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D6",
+        "comparison": "Use RKHS R H X R together with CompleteSpace H; the class itself only supplies the continuous injective function map, so completeness cannot be omitted. For v=1, kerFun_inner gives inner(kerFun H x 1,f)=f(x), and the kernel identity identifies kerFun H x 1 with K(.,x)=Phi_x. The construction and uniqueness apply to the supplied real symmetric PSD kernel after scalar-operator identification. The norm is H's own Hilbert norm; its completeness does not imply that its image is closed in L2(mu), so the later L2 projection issue remains separate.",
+        "statement_sha256": "2294e789b851df1643d8915698bd58efc392addbb660dd9863eea17cc0488ecd"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D2",
+        "comparison": "Apply the complete scalar RKHS construction separately to kappa_U on Omega_U and kappa_Theta on Omega_Theta. The generated kernel equality and evaluation identity give the two spaces and their feature sections, without mixing their domains. Characteristicness, kernel measurability and embedding integrability, C2 regularity, boundedness and feature-Lipschitz conditions are distinct assumptions used by different theorems; none follows just from being an RKHS. The completed tensor product and Hilbert-Schmidt identification in D3 require a separate comparison.",
+        "statement_sha256": "f7aaef73d1553be61baae67eb3f37df755dab78315b722de0637d9b838a23e5d"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D2",
+        "comparison": "Construct the complete real RKHS of covariance kernel K and define B_K as its norm-closed unit ball. RKHS.equiv gives uniqueness up to linear isometry for identical kernels, with the adjacent coe_equiv preserving functions; this is the appropriate interpretation rather than definitional equality of arbitrary Lean carrier types. The standing separability condition belongs to the dual-space passage and is not automatic for every kernel. The norm and inner product are those of H_K, not the residual-weighted L2(mu) geometry used in the projected-kernel spectral expansion.",
+        "statement_sha256": "d97cc20de51e916f51dc181852c8e7236ee54ee2acaf75a442d940dc8354e1fd"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "RKHS",
+          "type": "(𝕜 : Type u) → (H : Type v) → (X : Type w) → (V : Type z) → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → Type (max u v w z)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "An inner-product function space with an injective continuous linear map into functions and hence continuous point evaluation; completeness and association with a particular Gaussian measure require additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L56-L62",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.OfKernel.kernel_ofKernel",
+          "type": "{𝕜 X V : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [CompleteSpace V] → {K : Matrix X X (V →L[𝕜] V)} → [Fact K.PosSemidef] → RKHS.kernel (RKHS.OfKernel K) = K",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The complete RKHS constructed from a positive semidefinite operator-valued kernel has exactly that kernel; real scalar kernels embed as scalar-multiplication operators.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L366-L370",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.equiv",
+          "type": "{𝕜 X V H H' : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [CompleteSpace V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [CompleteSpace H] → [RKHS 𝕜 H X V] → [NormedAddCommGroup H'] → [InnerProductSpace 𝕜 H'] → [CompleteSpace H'] → [RKHS 𝕜 H' X V] → RKHS.kernel H = RKHS.kernel H' → (H ≃ₗᵢ[𝕜] H')",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "A linear isometric equivalence between complete RKHSs having the same kernel; the adjacent coe_equiv theorem identifies their underlying functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L421-L422",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the complete Reproducing RKHS class, evaluation adjoints, completion-based OfKernel construction and kernel identity, and isometric uniqueness with function equality; compared all three frozen source variants.",
+          "result": "The real scalar-valued RKHS interface, reproducing identity, construction from a PSD kernel and isometric uniqueness are supplied after the scalar kernel is represented by scalar-multiplication operators."
+        }
+      ],
+      "gap": "Specialize to real scalar functions and the named kernels, supply completeness and preserve each paper's domain, unit ball and separate analytic assumptions."
+    }
+  },
+  {
+    "interface_id": "local-650b7b0d181bfc7252a8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "4c99e95d1ea1f12e05208d0dd3c1afcf1432d85f8d79f4e81586c046ba9594ed",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D3",
+        "comparison": "StrongDual R H_K is H_K ->L[R] R, whose operator norm equals sup over norm(a)<=1 of abs(S a). Riesz gives an isometric correspondence for complete real H_K, supporting transfer of separability when assumed. The source's separable-domain/continuous-kernel sufficient condition needs its own proof, not merely a separable carrier X. TendstoInDistribution uses almost-everywhere measurable random elements and ordinary weak convergence of their laws; a general Hoffmann-Jorgensen outer-expectation formulation can be broader. Keep that distinction and the operator-norm Borel topology. The arbitrary sequence S_n in the general theorem is not assumed to be the later fitted empirical process, and the bootstrap theorem concerns conditional distribution of a scalar squared norm.",
+        "statement_sha256": "76c7ec6310d4e1a89178a7932c56f50f69d41964b26d374f08ce9db03aa6da39"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.toDual",
+          "type": "(𝕜 : Type u) → (E : Type v) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → (E ≃ₗᵢ⋆[𝕜] StrongDual 𝕜 E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Dual",
+          "provides": "The Frechet-Riesz conjugate-linear isometric equivalence between a Hilbert space and its continuous dual; over the reals it identifies a functional with its unique representing vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Dual.lean#L137-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.le_opNorm",
+          "type": "∀ {𝕜 : Type u} {𝕜₂ : Type v} {E : Type w} {F : Type z} [SeminormedAddCommGroup E] [SeminormedAddCommGroup F] [NontriviallyNormedField 𝕜] [NontriviallyNormedField 𝕜₂] [NormedSpace 𝕜 E] [NormedSpace 𝕜₂ F] {σ : 𝕜 →+* 𝕜₂} [RingHomIsometric σ] (f : E →SL[σ] F) (x : E), ‖f x‖ ≤ ‖f‖ * ‖x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Operator.Basic",
+          "provides": "The operator-norm bound for a continuous semilinear map, including ordinary bounded linear maps between the chosen normed spaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Operator/Basic.lean#L235-L235",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected StrongDual, the real Riesz isometry, continuous-linear operator norm and bound, and weak convergence of measurable random laws.",
+          "result": "Continuous scalar functionals on a Hilbert space carry the operator norm and are isometric to the Hilbert space; measurable-law weak convergence is available, but the full Hoffmann-Jorgensen convention is not identified automatically."
+        }
+      ],
+      "gap": "Identify the closed-unit-ball supremum norm and separable dual, then relate the stated Hoffmann-Jorgensen convergence to measurable-law weak convergence under appropriate measurability."
+    }
+  },
+  {
+    "interface_id": "local-d3557b90a53d2c557969",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "0aeff4d8cb2d857c280615ce2a4cef6573d48e86356dd5b7ab6645978200702d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D7",
+        "comparison": "The known functional form epsilon maps Z times Theta to R^q, with unknown finite-dimensional theta0; the base theory specializes q=1, while the mentioned vector statistic sums the scalar component statistics. W contains the non-overlapping coordinates needed for both Z and X, so those subvectors may overlap and are not independent. Apply iIndepFun and IdentDistrib to W_i as whole observations with the law of W and n>=1. Neither these sampling predicates nor measurability says E[epsilon|X]=0; H0 is a separately recorded hypothesis. No estimator rate or unknown nonparametric conditional-score fit is included.",
+        "statement_sha256": "80f9fa131c427c3f6a0e9a8d7b9d1ef0cb5e3a899a8d088dc9af21fcb34784bc"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched conditional-moment models and inspected Measurable, indexed independence and identical distribution for joint random elements.",
+          "result": "A measurable parameterized moment function and iid joint observations can be assembled directly, without adding a conditional moment restriction."
+        }
+      ],
+      "gap": "Package the joint observation and scalar base moment model with iid sampling, keeping the vector-moment extension separate."
+    }
+  },
+  {
+    "interface_id": "local-0e4dcae959f9a02221b1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "17229c61d3c1b9638478fa3d451be699e33f7e811a4f534f3a4da4f09875ffef",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D9",
+        "comparison": "This score differentiates epsilon(Z,theta) with respect to theta, not a log likelihood. Coordinate evaluation of fderiv produces the p-vector when Frechet differentiability and the parameter-domain interpretation are justified. condExp with sigma(X) gives an integrable vector conditional expectation; measurable factorization yields a version g(X,theta0) under the stated standard-Borel codomain requirements. Its zero fallback for nonintegrable inputs cannot establish an intended conditional score. The base construction treats g as known up to theta; the later nonparametric g-hat extension is not folded into this definition, and no within-observation independence of Z and X is used.",
+        "statement_sha256": "92919165d86958c4fdd705ca0cc9c35d66cdb77e8dcfe6b89b3e4168178b89fd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "Measurable.exists_eq_measurable_comp",
+          "type": "∀ {X Y Z : Type*} [mY : MeasurableSpace Y] {f : X → Y} {g : X → Z} [Nonempty Z] [MeasurableSpace Z] [StandardBorelSpace Z], Measurable[mY.comap f] g → ∃ h : Y → Z, Measurable h ∧ g = h ∘ f",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Function.FactorsThrough",
+          "provides": "Doob-Dynkin factorization of a function measurable for a pullback sigma-algebra through the generating map, with a measurable factor into a nonempty standard Borel codomain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/FactorsThrough.lean#L77-L79",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected fderiv, conditional expectation's integrability/sub-sigma-algebra requirements and measurable factorization through X; searched conditional-score interfaces.",
+          "result": "Coordinate derivatives and vector conditional expectation provide a score and a version depending on X, but their domain and integrability conditions need explicit assembly."
+        }
+      ],
+      "gap": "Define the genuine p-coordinate moment derivative and its integrable conditional expectation as a function of X, retaining the base known-score construction."
+    }
+  },
+  {
+    "interface_id": "local-104089d4edb1a3f49cb4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "83851b6ccd69170cbe8d4b70165535b44b85b775af2db2f8b96175e6a750df75",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D10",
+        "comparison": "The space is L2 of the covariate law P_X. The p coordinate functions g span a finite-dimensional subspace; project onto its orthogonal complement and include the result back into L2. With square-integrable scores and nonsingular Gamma=E[g g-transpose], the coefficients of the removed projection are G(a,theta0) Gamma-inverse, with G=E[a g-transpose]. The inverse theorem needs nonzero determinant and supplies no generalized inverse. An L2 element is an equivalence class, so the pointwise formula chooses versions rather than a value intrinsic to the class. Neither the H_K norm nor the residual-weighted L2(mu) norm can replace P_X geometry here.",
+        "statement_sha256": "5926e2217875360138a6349f11beb2d57a2c2b35a5dfd39511cb220e2f335ae9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.orthogonalProjectionOnto",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (K : Submodule 𝕜 E) → [K.HasOrthogonalProjection] → E →L[𝕜] K",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Continuous linear orthogonal projection onto a submodule with an explicit HasOrthogonalProjection instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L121-L121",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected orthogonalProjectionOnto and its HasOrthogonalProjection premise, finite nonsingular inverse, L2 membership and integral definitions.",
+          "result": "The projection onto the orthocomplement of a finite score span exists in L2 once that span and its projection instance are supplied; the displayed Gram-inverse formula requires a separate identification."
+        }
+      ],
+      "gap": "Prove the score-span complement projection equals the supplied population Gram formula in L2(P_X), preserving genuine nonsingularity and almost-everywhere representatives."
+    }
+  },
+  {
+    "interface_id": "local-f61315c8b0fb2783edae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "51f3b0f6a6a5ba9b782d5f25cafffb87f4e2816197913c56ae33714e1487c54d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D13",
+        "comparison": "The n-by-p matrix has row g(X_i,theta-hat)-transpose. Raw mathbb K has entries K(X_i,X_j)/n, and projected K-hat is P-hat-transpose mathbb K P-hat with P-hat=I-G(G-transpose G)-inverse G-transpose. The kernel's nonstrict PSD condition need not make either Gram matrix invertible; the score inverse needs full column rank or an equivalent nonsingularity condition. Preserve the left transpose and the raw versus projected matrix distinction. AssumptionB(ii) bounds the eigenvalue of the raw mathbb K, not K-hat. Population G(a,theta), its empirical average and this design matrix are separate objects.",
+        "statement_sha256": "315d13c777085fa269bef2edd88e1987ad63404e025d437644357d114262742f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite matrix products, true inverse requirements and PSD kernel matrices; compared Algorithm1 normalization with the source's raw-Gram assumption.",
+          "result": "The score matrix, normalized Gram matrix and two-sided finite projection are explicit matrix expressions; sample nonsingularity is still required."
+        }
+      ],
+      "gap": "Construct the fitted score projection and apply it on both sides of the Gram matrix with exactly one factor 1/n, retaining singular-sample conventions."
+    }
+  },
+  {
+    "interface_id": "local-589ce4b7dbfb95f02462",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "7e539b217584e3e9d3a3aff2877f3a5c832500236e9b8156a3afada3b488a414",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D18",
+        "comparison": "s is p-dimensional, so E[s s-transpose|X] is a p-by-p positive semidefinite conditional second-moment matrix, not generally a scalar variance. Multiplying it by F_X gives a matrix-valued measure, and integrating K(x,x) gives a matrix unless a scalarization is specified. The source's kappa_s<infinity supplies no trace, norm or componentwise convention; scalar withDensity is applicable directly only to a valid scalar case such as p=1. Dot g and dot s are parameter derivatives of the p-vector functions, requiring the original small neighborhood Theta0 interpretation. Neither fderiv totalization at a boundary nor silently taking a trace resolves these issues.",
+        "statement_sha256": "fbe50a6b310318f2075e94e47be1822c089b4d9f147f2257b4e243a0cd2f8cd1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected vector/matrix conditional expectation, nonnegative scalar withDensity and fderiv, and compared the matrix-valued source weight with scalar measure requirements.",
+          "result": "Conditional score second moments and derivative arrays have ingredients; withDensity only handles a scalar nonnegative weight and cannot implement the full p-by-p measure as printed when p>1."
+        }
+      ],
+      "gap": "Resolve the matrix-valued score measure and kappa_s scalarization while retaining the original second-moment and neighborhood derivative conventions."
+    }
+  },
+  {
+    "interface_id": "local-9fc63d6ee03ee8ba66f8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "4284650c0e15be2c311db72841a2bdd630295129cb85f66c04a870bdae7844b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D11",
+        "comparison": "Upsilon(x1,x2)=g(x1)-transpose Gamma-inverse g(x2). Keep both distinct subtracted terms and the final expectation of Upsilon(x_i,X) K(X,X-tilde) Upsilon(X-tilde,x_j) using independent replicated covariates; product integration is justified by that replication plus integrability. These are population expectations, not fitted sample sums. The L2(P_X) score complement projection need not be an orthogonal projection in the original RKHS norm, so a generic RKHS-submodule kernel theorem is not automatically the same formula. The source defining passage sits in Lemma3.3, which remains a definition source rather than a new inventoried Theorem.",
+        "statement_sha256": "70dc88fcdca73337bd058955d7a2e7046b2f3c312f32cca64264295991a7a46d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral_integral_swap",
+          "type": "{α β E : Type*} → [MeasurableSpace α] → [MeasurableSpace β] → {μ : MeasureTheory.Measure α} → {ν : MeasureTheory.Measure β} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → [MeasureTheory.SFinite μ] → [MeasureTheory.SFinite ν] → {f : α → β → E} → MeasureTheory.Integrable (Function.uncurry f) (μ.prod ν) → (∫ x, ∫ y, f x y ∂ν ∂μ) = ∫ y, ∫ x, f x y ∂μ ∂ν",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Prod",
+          "provides": "Fubini interchange of two Bochner integrals under product integrability and s-finiteness of both measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Prod.lean#L478-L480",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Neyman-orthogonal/reduced kernels; inspected the population matrix product, inverse and product-integral ingredients and the saved independent-copy convention.",
+          "result": "The four-term projected kernel can be expressed using population integrals and the inverse score Gram; no verified library theorem directly supplies this L2(P_X) score-removal formula."
+        }
+      ],
+      "gap": "Construct Upsilon and the four population expectation terms, proving the required integrability and projected-kernel properties in the correct space."
+    }
+  },
+  {
+    "interface_id": "local-eb1c82eb2b95481c0f97",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "ef330e35822bdf4280151d4e9e05d27414510ab749ff5e370008c903b6084965",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D16",
+        "comparison": "The weight is E[epsilon(Z,theta0)^2|X]; it equals conditional variance only if the conditional mean is zero, which is not part of this definition alone. Choose a measurable nonnegative version and use withDensity against F_X; mu need not have total mass one. The separate condition integral K-perp(x,x) dmu < infinity is about the nonnegative diagonal integral. Its real Bochner integral would default to zero if nonintegrable, so that fallback cannot be used to satisfy the condition. Retain the population true parameter and the weight mu for the later spectral space.",
+        "statement_sha256": "901218aba345f8ec659d644315639d4839d2b9a848e72a1bfe31cc31ad70773d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional expectation and scalar density-weighted measures and integrals, including the nonintegrable zero fallbacks.",
+          "result": "An integrable conditional residual second moment supplies a nonnegative weight for the covariate law, and the kernel-diagonal integral is a separate finiteness condition."
+        }
+      ],
+      "gap": "Construct the residual-second-moment weighted measure and enforce finite kappa-perp, without replacing the weight by conditional variance or normalizing the measure."
+    }
+  },
+  {
+    "interface_id": "local-4270461d11419c10952c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "44bb119f7d24ef99db62400d71f9a125ab9375fcaa3ce665876374c661b7dbb0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D19",
+        "comparison": "Part(i) requires separable X, continuous K and finite E K(X,X). Part(ii) retains finite kappa-perp and kappa_s and lambda-max of the raw K(X_i,X_j)/n matrix = O_P(n^-1), not O_P(1) or a projected-matrix bound; kappa_s has the unresolved matrix-weight scalarization. Part(iii) is almost-sure C2 of epsilon on Theta, finite expectations of the Theta0 suprema of squared score, squared score derivative and squared epsilon, and positive definiteness of E[g(X,theta)g(X,theta)-transpose] for theta in Theta0. Part(iv) requires compact Theta and a root-n O_P estimator rate, not an asymptotic linear expansion or almost-sure rate. ContDiffOn and matrix predicates supply components only; deterministic BigO is not stochastic order, and totalized integrals must not pass divergent moment conditions. Preserve the implicit compact-boundary neighborhood convention. Later B(v), AssumptionC and H0 are not additional clauses of this definition.",
+        "statement_sha256": "e04492bba4a1d3be6755234ab95b6132b4a88a872408641c3d0c33023b91d57e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched conditional-moment and bootstrap regularity; inspected C2-on-domain, positive-definite matrices, Hermitian eigenvalues and integral/convergence primitives against all four source parts.",
+          "result": "Several analytic predicates are available, but no verified declaration packages these particular uniform moments, raw-Gram stochastic bound and fitted-parameter rate, and source ambiguities remain."
+        }
+      ],
+      "gap": "Assemble B(i)-(iv) with every uniform moment and stochastic rate, preserving the raw-Gram n-inverse scaling, matrix-valued kappa_s issue and boundary-domain convention."
+    }
+  },
+  {
+    "interface_id": "local-7b5eb678721a32cae7a0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "52671b0016904dbe42e5929daa2516240bbe4321fe6b184dd7f30f903da5d65b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D17",
+        "comparison": "The operator integrates K-perp(x1,x2) f(x1) against residual-second-moment weighted mu and returns an L2(mu) class. Boundedness, well-defined representatives, compactness and self-adjointness must precede use of the library spectral theorem; that theorem alone does not prove trace class or a summable sequence of nonnegative eigenvalues. Eigenfunctions here are orthonormal in L2(mu), not H_K. The source expansion is in L2(mu times mu) and separately asserted almost everywhere, so neither uniform pointwise convergence nor pointwise evaluation of arbitrary L2 classes is available automatically. Zero eigenvalues and their later RKHS representatives remain implicit, and the lambda normalization cannot be borrowed from the H_K covariance spectrum.",
+        "statement_sha256": "af9f418f23806ea76f85f9c841b0230bf59c40e3e36f296f8892e4e1efda35b1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {E : Type v} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E] {T : E →L[𝕜] E}, IsCompactOperator T → T.IsSymmetric → (⨆ μ, Module.End.eigenspace (T : Module.End 𝕜 E) μ)ᗮ = ⊥",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Compact self-adjoint spectral completeness, including the zero eigenspace; it does not define an arbitrary spectral multiplier or remove its nullspace term.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L443-L445",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched trace-class and Hilbert-Schmidt operators; inspected the compact symmetric spectral completeness theorem, Hilbert basis reconstruction and the source integral-operator domain.",
+          "result": "Compact self-adjoint eigenspace completeness and Hilbert basis expansions are available, but construction and trace-class proof for this weighted integral operator and the kernel expansion are not verified as a combined interface."
+        }
+      ],
+      "gap": "Construct the K-perp operator on L2(mu), establish its analytic properties and derive the L2(product-mu) and almost-everywhere kernel expansion with the stated normalization."
+    }
+  },
+  {
+    "interface_id": "local-97cfe3673a7fc54eebc4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "09cac2db6fd4c60805cbf9064ae165c8ab5e60cc6b40b18606e4a7f00606086c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D23",
+        "comparison": "Use the same fitted theta-hat in all n entries and retain the original index ordering. These are moment residuals, not necessarily y_i minus a linear prediction, and their definition imposes neither unbiasedness nor the B(iv) estimator rate. Joint measurability of epsilon and measurability of the supplied estimator support measurability of the composed vector. In the multiplier bootstrap the fitted parameter and these residuals are held fixed conditional on the original data; no new fit or resampled observation is required by this step.",
+        "statement_sha256": "bcbc65ab04fd83e11e4ebd4142fb5f4d1aed8b0f30597ed1bab53606668c2efd"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected measurable-function composition for the known moment function and fitted parameter; searched residual interfaces for the conditional-moment setting.",
+          "result": "The residual vector is ordinary finite evaluation of the supplied moment function at each observation and the common fitted parameter."
+        }
+      ],
+      "gap": "Define residual coordinates epsilon(Z_i,theta-hat) and establish their measurability from that of the inputs."
+    }
+  },
+  {
+    "interface_id": "local-6dea41efbb40ec2c2046",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "d27fb86f4f0037bd076cf3ff6b06b4d285e4e02eac6f4a5b33a0c5f7d0889617",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D12",
+        "comparison": "G_n(a,theta) is n^-1 times the sum of g(X_i,theta)-transpose a(X_i), while Gamma_n uses g at the common theta-hat in both factors. The projected value subtracts G_n(a,theta-hat) Gamma_n-inverse g(X_i,theta-hat). For nonsingular Gamma_n this agrees with residualizing the vector of a evaluations against the fitted score design; it is not the population L2 projection. The source asserts nonsingularity for sufficiently large n under B but supplies no singular-small-sample rule. A totalized zero inverse or generalized inverse would introduce new behavior, and importing B into the body would create an artificial cycle.",
+        "statement_sha256": "63bb21e065004c9fbdfea3a3dc12f61123de6868ba5c7ed3e3588c945fda770e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite products, average normalization via sum_div and nonsingular inverse, comparing the sample and population score projections.",
+          "result": "The empirical projection formula is finite algebra using fitted scores and sample averages, with a missing convention for singular finite samples."
+        }
+      ],
+      "gap": "Assemble the fitted empirical averages and true inverse Gamma_n, retaining the source's eventual-nonsingularity claim separately from the definition."
+    }
+  },
+  {
+    "interface_id": "local-c03f0785eca52e2bf173",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "c32722b33d507c23e819e99d85768a8ab55760f928ca793da0b9e47f7a40d588",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D21",
+        "comparison": "The a.s. qualifier applies to conditional distributional convergence along almost every original-data realization, not to pathwise convergence of the newly sampled bootstrap statistic. For defined conditional laws, the linked theorem characterizes weak convergence through all bounded continuous real test functions; it does not itself impose the outer almost-everywhere data quantifier or identify the source's external definition. Keep that missing convention visible rather than weakening the statement to convergence in probability. In particular the root-n O_P estimator condition elsewhere does not by itself establish this almost-sure assertion.",
+        "statement_sha256": "5053972533ca5f83e14a37e9be947bbe504fae59a36eedb1353ba47ea80d58bd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto",
+          "type": "{Ω : Type*} → [MeasurableSpace Ω] → [TopologicalSpace Ω] → [OpensMeasurableSpace Ω] → {γ : Type*} → {F : Filter γ} → {μs : γ → MeasureTheory.ProbabilityMeasure Ω} → {μ : MeasureTheory.ProbabilityMeasure Ω} → (Filter.Tendsto μs F (nhds μ) ↔ ∀ f : Ω →ᵇ ℝ, Filter.Tendsto (fun i ↦ ∫ ω, f ω ∂(μs i : MeasureTheory.Measure Ω)) F (nhds (∫ ω, f ω ∂(μ : MeasureTheory.Measure Ω))))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Weak convergence of probability measures is equivalent to convergence of integrals against all bounded continuous real test functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L364-L368",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched bootstrap, conditional weak convergence and Hoffmann-Jorgensen terminology; inspected weak probability-measure convergence via bounded continuous test functions.",
+          "result": "Ordinary weak convergence of supplied conditional laws has an available test-function criterion; no verified declaration identifies the externally cited almost-sure bootstrap-consistency convention."
+        }
+      ],
+      "gap": "Specify the conditional bootstrap laws and the cited convergence convention before asserting almost-sure weak convergence over data realizations."
+    }
+  },
+  {
+    "interface_id": "local-2b9e352f2c34382c6b91",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "3fbae468bc5802a1c5eada30267ed6e3f8ea815eed63ca34f63bc96fea400fc4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D4",
+        "comparison": "For every a in H_K, the scalar S_n(a) tends in law to centered Gaussian with variance sigma(a,a)>=0; zero variance is allowed. sigma is a supplied continuous positive symmetric bilinear form. Part(ii) asserts finiteness of sum_j sigma(e_j,e_j) for some H_K orthonormal basis. Part(iii) has limit as J tends to infinity of limsup as n tends to infinity of P(sum over j>=J+1 of S_n(e_j)^2 >= epsilon), equal to zero for every epsilon>0. Retain that order, the nonstrict tail-event threshold, and the nonnegative infinite sum with its finiteness interpretation instead of a nonsummable real-tsum fallback. These are assumptions on arbitrary random bounded functionals; iid observations, CMR H0 and fitted-estimator assumptions do not enter this general criterion.",
+        "statement_sha256": "68cac224f4dd3db9d2929c764754c39580d18ac1c57ecb7d83278a7d52a462c6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected scalar convergence in distribution, Gaussian variance including the zero case, Hilbert basis series and filter limits; searched Hilbert-valued Gaussian convergence assumptions.",
+          "result": "Scalar Gaussian weak limits, basis coordinates and nested probability limits have ingredients, but the full general dual-space tightness criterion is not a verified combined theorem."
+        }
+      ],
+      "gap": "State the continuous positive symmetric covariance form, one-basis trace summability and the exact lim-J limsup-n tail condition for the arbitrary dual-valued sequence."
+    }
+  },
+  {
+    "interface_id": "local-88ec3e30708a6051b0d1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "d6ab976215a472b127cef5d56b70d6153d13411cc8955cd73ab0cff56729ad14",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D22",
+        "comparison": "The coefficient is lambda_j times inner(varphi_j,Pi a) in the K-perp RKHS, multiplied by U_j, for a in H_K. varphi_j is normalized in L2(mu); it is not the H_K-orthonormal covariance basis, so replacing lambda_j by sqrt(lambda_j) changes the source formula. Membership of Pi a and suitable varphi_j representatives in the K-perp RKHS, especially when lambda_j=0, must be justified rather than multiplying an undefined inner product by zero. HasSum requires a real convergence proof to a bounded functional. U_j are iid standard normals by the standing convention. Reusing this definition in the bootstrap theorem does not add the H0 premise or AssumptionA from a different theorem.",
+        "statement_sha256": "18c0e97f54f7c98d716dd5202a659d272c404f2e39b0fdd1877d00a3e69b735e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected HasSum, scalar Gaussian law and indexed independence, comparing the applied L2(mu) eigenbasis series with the distinct abstract covariance-basis series.",
+          "result": "An iid standard-normal sequence and a specified Hilbert/dual series can be expressed; validity of the projected-RKHS coefficients and convergence require additional work."
+        }
+      ],
+      "gap": "Establish the limit functional's series and RKHS representatives with its printed lambda_j coefficients, including zero-mode conventions."
+    }
+  },
+  {
+    "interface_id": "local-14622c8e5cb42340bd85",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "6e428d2224b291d04a22ffb4bbe2bdaf9f337698b39ac0e775c3d68c292f6446",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D20",
+        "comparison": "The process is n^-1/2 sum_i (Pi-hat a)(X_i) V_i epsilon-hat_i. The fitted theta, residuals, score matrix and projection remain fixed for each original-data realization; only V_i are sampled. Require the multiplier family to be jointly iid and independent as a family of all original W_i, with zero mean, unit variance and bounded support. Pairwise independence alone is insufficient, and Gaussian weights violate the printed bounded-support requirement. StrongDual can encode the finite bounded linear functional once evaluation/projection continuity is established, but this construction does not certify almost-sure bootstrap consistency or settle the theorem's unprinted null scope. Optional two-point examples are not mandatory extra assumptions.",
+        "statement_sha256": "db2a9564810f3718a50a649704ad9f10c437a42158452545dfe99481883ab2df"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "Bornology.IsBounded",
+          "type": "{α : Type u} → [Bornology α] → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Bornology.Basic",
+          "provides": "Boundedness in the ambient bornology, giving metric boundedness under the Euclidean instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Bornology/Basic.lean#L99-L100",
+          "link_checked": true
+        },
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched multiplier bootstrap interfaces and inspected independence, identical laws, boundedness and the continuous-dual representation of the finite fitted process.",
+          "result": "The finite multiplier-weighted functional and its sampling assumptions can be assembled, but no verified theorem supplies the source bootstrap convergence conclusion."
+        }
+      ],
+      "gap": "Construct the data-conditional multiplier law and bounded dual functional, retaining iid centered unit-variance bounded weights independent of the entire data."
+    }
+  },
+  {
+    "interface_id": "local-ecc7cfef699a9ba8addb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "cbe49e52049ef6986cbed40d873193a38448905aa4d062b030189a5c9562574e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D8",
+        "comparison": "H0 is existence of theta0 in Theta with E[epsilon(Z,theta0)|sigma(X)]=0 almost surely; H1 requires for every theta in Theta that the probability of the equality-to-zero event be strictly less than one. Under integrability and a probability law these express complementary existence/failure statements. condExp's zero fallback on nonintegrable epsilon cannot be used to satisfy H0. Neither Z-X independence nor uniqueness of theta0 is required. H0 appears explicitly in Theorem4.3 but is not printed in Theorem4.4, so the definition must not insert it into that later statement by inference.",
+        "statement_sha256": "9abd3208391c7efadbc2b0be8270533e0d12c4f7d13a423b4c6c23079a14ad86"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional expectation relative to sigma(X), its integrability requirements and real event probabilities; searched conditional moment restrictions.",
+          "result": "The parameter-existence null and all-parameter alternative can be assembled from the conditional expectation and an almost-everywhere zero predicate when the moments are defined."
+        }
+      ],
+      "gap": "State the existential conditional-moment null and its all-parameter failure alternative with the necessary conditional-expectation domain conditions."
+    }
+  },
+  {
+    "interface_id": "local-eac1aa44a6bac476173d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "0a0df5a5b25d54c1329f08f7e6a24d32cc2c52731837a4af8f1aea1bf4e78f70",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D14",
+        "comparison": "For fixed data and a valid finite-sample inverse, the projection of a's evaluation vector is linear in that vector, so the displayed finite weighted sum is linear in a. RKHS.norm_apply_le bounds each evaluation and hence the finite combination, yielding StrongDual R H_K. Coefficients use epsilon(Z_i,theta-hat) and fitted g, not the infeasible true-parameter process R_n(Pi a), and no V_i appear here. The normalization is n^-1/2. Measurability as a random dual element and nonsingular-sample conventions need explicit justification; neither a null hypothesis nor an asymptotic equivalence is part of this definition.",
+        "statement_sha256": "d17c1f96401afc7ad62eebbf350901a4525eff89a895c9311e3ede0cbf118733"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite sum normalization, RKHS evaluation bounds and continuous dual; compared fitted, infeasible and multiplier versions of the process.",
+          "result": "A finite linear combination of bounded RKHS evaluations can be bundled as a continuous functional once the fitted score projection is valid."
+        }
+      ],
+      "gap": "Build the fitted residual/projection functional with 1/sqrt(n) scaling and prove its boundedness on the original RKHS."
+    }
+  },
+  {
+    "interface_id": "local-a362c6f7f8d6daf84b66",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "bb2b75d45928c9963fa7c2a5f32657af0d600a6e67f04149a527bd6884a6ae78",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D15",
+        "comparison": "The statistic whose limit is asserted is n times Q-hat-K-perp, equal to epsilon-hat-transpose K-hat epsilon-hat. K-hat already contains raw K(X_i,X_j)/n and both fitted projections. The n^-1/2 empirical functional has squared dual norm sup over norm(a)<=1 of R-hat_n(a)^2, giving compatible scaling by the reproducing identity. Do not remove the factor n or insert a second 1/n. The source review's separate Lemma3.4 mismatch for a differently normalized representer is not used as proof of this identity. No Gaussian-process integration or bootstrap weights are needed to define the finite statistic.",
+        "statement_sha256": "3044e6f5ba87c0133e03e778029247c9c66d47b634892fa83a0c44d7ec380ca4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        },
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite quadratic forms, the reproducing identity and dual operator norm; compared the statistic normalization with the saved auxiliary-lemma scaling issue.",
+          "result": "The empirical quadratic form and the squared norm of its RKHS-represented functional can be connected, but the equality must retain the source's exact normalization."
+        }
+      ],
+      "gap": "Prove the projected residual quadratic form equals the unit-ball supremum of the squared fitted functional with the single 1/n Gram scaling."
+    }
+  },
+  {
+    "interface_id": "local-b6eae7edff34501b4711",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "71b8801cef5258741e0b1397fc5d91a7e5c4f9ebf9fb8313f6cfc8748ad4db17",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D5",
+        "comparison": "For each a, the bounded functional b maps to sigma(a,b); its real Riesz representative T_sigma a satisfies evaluation at x = sigma(a,K_x) by reproducing. Continuity, symmetry and positivity of sigma are used to bundle a bounded symmetric positive operator. The linked spectral theorem requires compactness and gives completeness of all eigenspaces, including zero; it does not itself turn the one-basis diagonal summability assumption into trace class or an ordered countable eigenbasis. The mu_j and phi_j live in H_K and phi_j are orthonormal in that norm. They are distinct from lambda_j,varphi_j in weighted L2(mu); applying AssumptionA to the eigenbasis also requires the appropriate basis-independent justification.",
+        "statement_sha256": "6d4818ef18788a436fe03ea2ec28a18e095054269d3cce54fafbaa3637d428dd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.toDual",
+          "type": "(𝕜 : Type u) → (E : Type v) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → (E ≃ₗᵢ⋆[𝕜] StrongDual 𝕜 E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Dual",
+          "provides": "The Frechet-Riesz conjugate-linear isometric equivalence between a Hilbert space and its continuous dual; over the reals it identifies a functional with its unique representing vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Dual.lean#L137-L138",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {E : Type v} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E] {T : E →L[𝕜] E}, IsCompactOperator T → T.IsSymmetric → (⨆ μ, Module.End.eigenspace (T : Module.End 𝕜 E) μ)ᗮ = ⊥",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Compact self-adjoint spectral completeness, including the zero eigenspace; it does not define an arbitrary spectral multiplier or remove its nullspace term.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L443-L445",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Riesz representation, RKHS evaluation and compact self-adjoint spectral completeness; searched trace-class operator interfaces for the supplied covariance form.",
+          "result": "Riesz representation can turn the continuous bilinear form into an operator with the displayed evaluations, and compact symmetric operators have spectral completeness; trace-class construction and the enumerated spectrum remain additional work."
+        }
+      ],
+      "gap": "Construct the H_K covariance operator from sigma and prove its trace/compactness properties and basis representation under AssumptionA."
+    }
+  },
+  {
+    "interface_id": "local-67233d363c2bb8fe3106",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:20:47.623214+00:00",
+    "source_interface_sha256": "3184b49e083a1eb9f58fbc2da66b61cd2d04e6d652efeb6f75437ccc8d7ca486",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2456",
+        "local_id": "D6",
+        "comparison": "The coefficient is sqrt(mu_j) U_j against the H_K-orthonormal phi_j, yielding S_infinity(a)=sum_j sqrt(mu_j) inner(phi_j,a)_K U_j. Nonnegative summable covariance eigenvalues and iid standard normals are needed to prove square summability almost surely; HilbertBasis.hasSum_repr_symm applies once that l2 coefficient element is supplied, and the real Riesz isometry gives a bounded functional. Its theorem is deterministic and does not by itself establish the probability-one event, measurable choice on the complement or centered Gaussian law. Do not change sqrt(mu_j) to mu_j or transfer this basis normalization to the applied R_infinity series.",
+        "statement_sha256": "f894f9c3ad19377ee6ffd662362f1d992ed0172df61a1bc4b53e8a88a04a3de9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.toDual",
+          "type": "(𝕜 : Type u) → (E : Type v) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → (E ≃ₗᵢ⋆[𝕜] StrongDual 𝕜 E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Dual",
+          "provides": "The Frechet-Riesz conjugate-linear isometric equivalence between a Hilbert space and its continuous dual; over the reals it identifies a functional with its unique representing vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Dual.lean#L137-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hilbert-basis reconstruction from square-summable coordinates, Riesz duality and scalar iid Gaussian laws; searched infinite-dimensional trace-class Gaussian constructions.",
+          "result": "Square-summable random coefficients can define a Hilbert element and hence a bounded functional, but almost-sure summability, measurability and the Gaussian limit law need proof."
+        }
+      ],
+      "gap": "Construct the random square-summable coefficients sqrt(mu_j) U_j and transfer their basis series to the dual with the stated Gaussian law."
+    }
+  }
+]

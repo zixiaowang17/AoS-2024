@@ -1,0 +1,194 @@
+{
+  "scope": "Manual comparison of the remaining 18 p0052 interfaces against the archive-pinned mathlib source; frozen main-text statements and retained appendix-reference limitations preserved.",
+  "rows": [
+    {
+      "interface_id": "local-fd9a06bdf18c037e5e90",
+      "related": ["Matrix.specialOrthogonalGroup", "MeasureTheory.Measure.haarMeasure", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.stdGaussian", "Matrix.unitaryGroup"],
+      "query": "Searched all Mathlib for cryo-EM, white noise, isonormal, spherical harmonics and tomographic terms; inspected UnitaryGroup SO(3) and unitary bodies, Haar normalization, IsGaussianProcess finite marginals and stdGaussian coordinate construction.",
+      "result": "SO(3), Haar integration, finite Gaussian coordinates and supplied unitary matrices are available. IsGaussianProcess alone supplies neither centering nor L2 inner-product covariance. No matching radial/spherical basis and white-noise observation package was found in this revision.",
+      "gap": "The radial and spherical basis construction, its rotation representation, the specified real coordinate transform and the white-noise experiment with its finite coefficient reduction still need to be supplied.",
+      "comparisons": {
+        "D29": "Use real SO(3) and probability-normalized Haar for the independent rotations, and a centered Gaussian process indexed by L2(R3) with inner-product covariance for white noise, not a pointwise independent random function or an L2-valued identity-covariance Gaussian. Preserve the rho-squared radial weight, all (l,s,m) indices and d=sum_l (2l+1)S_l. Finite signal coefficients can carry independent N(0,sigma squared) noise after orthonormality is proved; that reduction does not discard the full experiment's ancillary noise without an argument. The exact inverse-Fourier normalization, real basis and V-hat transform remain pinned appendix references, not reconstructed conventions."
+      }
+    },
+    {
+      "interface_id": "local-111ad4c0e29e18b99098",
+      "related": ["PiTensorProduct.tprod", "Module.Basis.piTensorProduct_repr_tprod_apply"],
+      "query": "Searched tensor coordinate/vectorization APIs in LinearAlgebra/PiTensorProduct and inspected tprod and Basis.piTensorProduct_repr_tprod_apply with their finite-index assumptions; compared both frozen moment-map variants.",
+      "result": "The tensor basis evaluates coordinates as products, so each order can be represented by its full coordinate array and the arrays joined using a finite dependent index. The declarations do not assemble this paper's integrated moment arrays into the stated ordered vector.",
+      "gap": "The full moment-coordinate arrays need a specified concatenation and coordinate correspondence preserving every order and all repeated symmetric entries.",
+      "comparisons": {
+        "D21a": "Concatenate orders 1 through k with d^j entries at order j, yielding d+...+d^k coordinates; do not replace the full arrays with only distinct symmetric monomials. The input remains theta in R^d and the order-zero convention belongs to the separate variety definition.",
+        "D21b": "Use tilde_d^j entries from each projected moment tensor and the same order-1-through-k concatenation, giving tilde_d+...+tilde_d^k output coordinates while theta still ranges over the original R^d."
+      }
+    },
+    {
+      "interface_id": "local-3fe77ee6827cdfb8fece",
+      "related": ["Set.preimage"],
+      "status": "composable",
+      "query": "Searched moment-variety and zero-fiber presentations and inspected Set.preimage's defining membership predicate against both main-text equal-moment sets.",
+      "result": "Once the moment map is supplied, its fiber is exactly the preimage of the singleton containing the reference moment vector. The k=0 case is the whole input space, either by an explicit branch or an empty coordinate map; this set construction does not certify algebraicity or smoothness.",
+      "gap": "The defining sets are directly expressible as singleton preimages of the supplied moment maps with the stated order-zero convention; algebraic and smooth-manifold properties require separate proofs.",
+      "comparisons": {
+        "D22a": "For positive k use M_k inverse-image {M_k(theta_star)} in R^d, and set V_0 to univ; equality is coordinatewise equality of all unprojected moments, not proximity or equality of a selected moment subset.",
+        "D22b": "Use tilde_M_k inverse-image {tilde_M_k(theta_star)}, still as a subset of R^d, and tilde_V_0=univ; projected output dimension does not change the signal-space domain or imply that the fiber is a single orbit."
+      }
+    },
+    {
+      "interface_id": "local-2a0a2c27420b4143063f",
+      "related": ["MulAction.orbit", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "Inspected orbit as the range of the action and IdentDistrib as ae measurability plus equality of mapped measures; searched projected orbit equivalence and compared the conjunction in D5.",
+      "result": "The two parts are expressible by equality of the projection images of the two orbit sets and IdentDistrib for the two projection-after-action maps on the Haar probability space. Neither generic declaration conflates set equality with law equality.",
+      "gap": "The paper's equivalence is the conjunction of projected-orbit set equality and IdentDistrib under the supplied Haar probability law, with measurability obligations for the projected action.",
+      "comparisons": {
+        "D5": "Both random variables use the same Haar-uniform rotation law but different fixed signals; require Pi '' orbit(theta)=Pi '' orbit(theta_star) as well as IdentDistrib (fun g => Pi(g theta)) (fun g => Pi(g theta_star)) Lambda Lambda. Equality of supports alone is not used to replace the second condition."
+      }
+    },
+    {
+      "interface_id": "local-e8795e202a019d75a125",
+      "related": ["MulAction.orbitRel", "MulAction.orbit", "ProbabilityTheory.IdentDistrib"],
+      "query": "Searched finite-orbit and orbit-quotient constructions in GroupAction/Defs and finite sets; inspected orbitRel's equivalence proof and IdentDistrib, and checked D7's generic projected-equivalence quantifier.",
+      "result": "Orbit quotient elements or distinct orbit sets can represent the objects whose set is finite. Existing orbit infrastructure does not prove generic finiteness of the fiber of this paper's projected set-and-law equivalence.",
+      "gap": "The projected set-and-law condition must be shown well defined on orbit classes and its fibers proved finite for the paper's generic signals.",
+      "comparisons": {
+        "D7": "Count distinct full G-orbits meeting the projected-equivalence condition, rather than signal vectors or points within an orbit; finite subsets of the orbit quotient provide the right representation. The source asks for generic theta_star, not all signals, and does not state a uniform numerical bound on the number of compatible orbits."
+      }
+    },
+    {
+      "interface_id": "local-d963d9156a3435eddd83",
+      "related": ["Algebra.trdeg", "Algebra.adjoin", "Nat.find"],
+      "query": "Searched trdeg and finite-type/transcendence-basis results, degree-generated subalgebras and finite-orbit criteria; inspected Algebra.trdeg, Algebra.adjoin and Nat.find including its required existence witness.",
+      "result": "The generated subalgebras and cardinal transcendence degrees can be represented and Nat.find selects the least order only after existence is proved. The searches did not supply the compact-orthogonal invariant-theory stabilization or the projected finite-orbit equivalence in D17.",
+      "gap": "Existence of a finite stabilizing moment order and the projected model's equivalence with generic finite-orbit identifiability require the paper's invariant-theoretic arguments before least-order selection applies.",
+      "comparisons": {
+        "D17a": "The target is trdeg of the full invariant algebra, with the left side the subalgebra generated by invariants of degree at most K; degree-bounded polynomials are not themselves generally a subalgebra. Nat.find handles minimality only after the finite-order existence claim is established for the compact subgroup.",
+        "D17b": "The left side uses the projected-moment-generated algebra through tilde_K, but the target on the right is still trdeg of the full unprojected invariant algebra. Preserve the if-and-only-if with (2.4), not just a definition conditional on existence or stabilization at the projected algebra's smaller transcendence degree."
+      }
+    },
+    {
+      "interface_id": "local-2de0ca099b9dfa4d8e37",
+      "related": ["gradient", "Submodule.span", "Module.finrank", "Algebra.trdeg"],
+      "query": "Searched gradient-rank/transcendence-degree and generic-signal criteria; inspected gradient's Riesz/fderiv body, Submodule.span, Module.finrank and Algebra.trdeg with their scalar and cardinal conventions.",
+      "result": "The gradient family, real span, finite dimension and algebra transcendence degree are available ingredients for the stated equality. The invariant-polynomial evaluation family and its generic maximal-rank theorem are not furnished by these declarations.",
+      "gap": "The invariant or projected-invariant polynomial families must be evaluated on signal space and their gradient-span dimension related to the specified finite transcendence degree.",
+      "comparisons": {
+        "D33": "Use real gradients of the evaluated polynomial functions, span all p in the corresponding degree-generated subalgebra and compare finite span dimension with trdeg of the corresponding full algebra. The unprojected target is R^G and the projected target here is tilde_R^G, as written; preserve this explicit rank condition instead of substituting an unspecified almost-everywhere predicate. Finite-dimensionality and finite cardinal-to-natural conversion prevent the library's infinite-rank-to-zero convention from entering."
+      }
+    },
+    {
+      "interface_id": "local-50c3dfa933d251223e99",
+      "related": ["MulAction.orbit", "IsGreatest"],
+      "query": "Searched orbit dimension, tangent-orbit and maximal-dimension constructions in GroupTheory and Geometry; inspected orbit and IsGreatest as attained membership plus an upper-bound property.",
+      "result": "The orbit set and an attained maximum of a supplied dimension function are expressible. No searched declaration supplies this compact orthogonal action's smooth orbit dimension function and maximal-orbit geometry.",
+      "gap": "A geometric dimension for each orbit and its bounded, attained maximum must be established before defining d_0.",
+      "comparisons": {
+        "D18": "Take the maximum over all theta in R^d of the dimension of the orbit as a smooth manifold, not the linear span of its points and not its cardinality. Once orbit dimensions are defined and bounded natural numbers, attainment is an order-theoretic step; IsGreatest encodes both membership in the range and the upper bound."
+      }
+    },
+    {
+      "interface_id": "local-c54193031bb245d99d47",
+      "related": ["iteratedFDeriv", "Matrix.rank", "MulAction.orbit"],
+      "query": "Searched Hessian, critical-point and nondegenerate-orbit constructions in Analysis/Calculus and Geometry; inspected iteratedFDeriv's recursive derivative body, matrix rank and orbit against the constrained critical-point definition.",
+      "result": "Ambient second derivatives, matrix rank and orbit sets exist. They do not construct the intrinsic Hessian of s_K restricted to the smooth moment variety or identify its null directions with the local orbit tangent directions.",
+      "gap": "The smooth moment variety, its constrained critical-point Hessian and the local orbit dimension must be constructed and related to the stated rank equality.",
+      "comparisons": {
+        "D23": "Assume V_(K-1) is smooth and theta is a critical point of the restricted function; require the orbit near theta to be smooth of dimension d_0 and the restricted Hessian rank to equal dim(V_(K-1))-d_0. Merely restricting the ambient Hessian to a tangent subspace can miss the curvature term from the ambient gradient, so iteratedFDeriv is only infrastructure for a chart-based construction. Do not promote the defining condition to a landscape theorem."
+      }
+    },
+    {
+      "interface_id": "local-55100f1bfe4f639e6c1c",
+      "related": ["Matrix.specialOrthogonalGroup", "MeasureTheory.Measure.haarMeasure", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.stdGaussian"],
+      "query": "Searched all Mathlib for spherical harmonics, white noise and spherical registration; inspected SO(3), Haar normalization, Gaussian-process finite marginals and standard Gaussian coordinate construction.",
+      "result": "The rotation group, Haar probability and Gaussian law infrastructure are reusable, but the searched revision does not contain this real spherical-harmonic basis and its coefficient action or the stated white-noise observation equivalence.",
+      "gap": "The real spherical-harmonic basis, rotation closure and coefficient representation must be supplied together with white noise having covariance from the specified surface-area L2 inner product.",
+      "comparisons": {
+        "D26": "Use surface area sin(phi_1)dphi_1 dphi_2, not the normalized uniform probability on the sphere, for basis orthonormality and white-noise covariance. Index the centered Gaussian process by L2 test functions or an entire orthonormal coefficient family. The signal band has 0<=l<=L and -l<=m<=l, hence d=(L+1)^2; prove rotation closure and preserve appendix D.2 for the exact basis/action. The Gaussian-process predicate alone does not impose the identity covariance needed for independent coefficient noise."
+      }
+    },
+    {
+      "interface_id": "local-f9f05a54dfdce959c56c",
+      "related": [],
+      "status": "no_verified_match",
+      "no_related_reason": "Whole-library searches for Clebsch-Gordan, spherical harmonics and bispectra, followed by inspection of representation and tensor infrastructure, found no declaration implementing these normalized coupling coefficients; generic integrals or tensor products would not identify the source's convention.",
+      "query": "Searched all Mathlib for clebsch, gordan, spherical.harmonic and bispectrum; inspected representation/tensor infrastructure for a harmonic coupling construction. The Gordan hit is the unrelated finiteness lemma.",
+      "result": "No matching real Clebsch-Gordan coefficient definition or spherical-harmonic triple-product correspondence was found in the pinned revision. The exact normalization and phase are referenced only to the paper's appendix D.1 in the frozen main-text census.",
+      "gap": "A Clebsch-Gordan coefficient construction and its harmonic-product identities require the exact normalization and phase convention left in the paper's appendix reference.",
+      "comparisons": {
+        "D32": "Retain real-valued coefficients with the six angular indices and their stated role in three-harmonic integrals and third moments. The main text does not itself fix the full coefficient formula, and a generic representation tensor product cannot supply the missing phase and normalization; no appendix formula is inferred or imported."
+      }
+    },
+    {
+      "interface_id": "local-88c14b9ae9523a3b78d5",
+      "related": ["Matrix.unitaryGroup", "Matrix.mulVec", "Finset.sum_apply"],
+      "query": "Searched complex radial coefficients and bispectrum/harmonic-coupling APIs; inspected finite unitary matrices, mulVec and pointwise finite-sum evaluation against D30's indexed conjugated contraction.",
+      "result": "A supplied unitary matrix can transform the real coefficient vector embedded in C^d, and finite complex arithmetic represents the displayed filtered triple sum. The source's V-hat and Clebsch-Gordan constants are not defined by those operations.",
+      "gap": "The paper's real-to-complex transform and Clebsch-Gordan convention must be supplied before assembling the radial-indexed, conjugated bispectrum contraction.",
+      "comparisons": {
+        "D30": "Form u=V-hat adjoint times theta and extract each (l,s) block of length 2l+1; retain all three radial indices. Sum only triples with m''=m+m', conjugating the product of the first two coefficients and leaving the third unconjugated. Preserve the published (4.8)/(4.9) formulas and the recorded appendix reference; the earlier arXiv numbering is not used as a replacement."
+      }
+    },
+    {
+      "interface_id": "local-ce04eb7e0e348ad99ef5",
+      "related": ["Complex.arg", "Complex.norm_mul_exp_arg_mul_I"],
+      "status": "composable",
+      "query": "Searched polar complex reconstruction and exp_arg identities; inspected Complex.arg's branches and norm_mul_exp_arg_mul_I's complete zero/nonzero proof against the circular Fourier coefficient definition.",
+      "result": "The library reconstructs every complex value from its norm and principal argument. The source's three-frequency magnitudes and signed phase combinations can then be defined by real multiplication and subtraction, while its unspecified phase choice is retained.",
+      "gap": "The coefficient and bispectrum shorthands are directly expressible using complex arithmetic and polar reconstruction once a phase representative is chosen consistently with the source's unspecified branch.",
+      "comparisons": {
+        "D25": "Keep the zeroth coefficient real and use theta_1+i theta_2 only for l>=1, taking r_l as the complex norm. Complex.arg provides one representative modulo 2*pi and defaults to zero at zero, whereas the source does not impose this branch or uniqueness at zero. Preserve r_l r_l' r_l'' and lambda_l-lambda_l'-lambda_l'', not the opposite conjugation convention of the spherical contraction."
+      }
+    },
+    {
+      "interface_id": "local-0f38109fa6139f1185dc",
+      "related": ["Matrix.unitaryGroup", "Matrix.mulVec"],
+      "query": "Searched spherical harmonic real-to-complex changes of basis and inspected unitaryGroup and mulVec with finite complex coefficient types.",
+      "result": "Finite unitary changes of coordinates are represented by existing matrix APIs, but the searched revision has no matching spherical-harmonic change-of-basis convention. D27 points to an exact matrix in appendix D.S11 rather than giving its entries.",
+      "gap": "The exact real-to-complex spherical-harmonic matrix from the retained appendix reference and its indexing correspondence must be supplied.",
+      "comparisons": {
+        "D27": "For each l, transform the full real vector indexed by m=-l,...,l into a complex vector of length 2l+1 using the supplied unitary convention. This is not the circle's two-real-components-to-one-complex-number map, and no signs, phases or matrix orientation absent from this main-text shorthand are inferred."
+      }
+    },
+    {
+      "interface_id": "local-d1c735731e0a9e91a3f0",
+      "related": ["Finset.sum_apply"],
+      "query": "Searched all Mathlib for spherical bispectrum and Clebsch-Gordan APIs, then inspected pointwise finite-sum evaluation and complex coefficient arithmetic for the exact filtered triple contraction.",
+      "result": "Finite complex sums can express the displayed polynomial once coefficient vectors and coupling constants are inputs. No matching spherical-harmonic coupling coefficients or rotation-invariance theorem was found by the scoped search.",
+      "gap": "The Clebsch-Gordan constants and spherical coefficient convention remain to be supplied for the displayed conjugated triple sum and its invariant-theoretic properties.",
+      "comparisons": {
+        "D28": "Use the angular bounds separately for l, l' and l'', restrict to m''=m+m', multiply by the real coupling coefficient and conjugate u_m^(l) times u_m'^(l') before multiplying by u_m''^(l''). There are no radial indices in this definition, and its invariance does not follow solely from the finite-sum evaluation lemma."
+      }
+    },
+    {
+      "interface_id": "local-57850dbbb652375932cc",
+      "related": ["iteratedFDeriv"],
+      "query": "Searched Fisher-information and Hessian definitions, then inspected iteratedFDeriv's second-order specialization and compared D15's population-risk Hessian rather than imposing a score-covariance definition.",
+      "result": "The second Frechet derivative gives a continuous bilinear form whose evaluations on coordinate vectors form the Hessian matrix of the supplied population negative log likelihood. Differentiability and exchanging differentiation with the expectation remain analytic obligations.",
+      "gap": "The population risk needs the requisite second differentiability and a coordinate Hessian construction, with additional regularity if Fisher information is also identified with score covariance.",
+      "comparisons": {
+        "D15": "Evaluate the Hessian of R at theta_star exactly as defined, without replacing R by sample risk or reversing its negative-log-likelihood sign. iteratedFDeriv at order two supplies the derivative form under appropriate differentiability; symmetry, positive semidefiniteness and equality to expected score outer products require their own hypotheses and arguments."
+      }
+    },
+    {
+      "interface_id": "local-ccb1af1a59479c692772",
+      "related": ["Matrix.mulVec", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.stdGaussian", "Matrix.specialOrthogonalGroup"],
+      "query": "Searched tomographic/cryo-EM and Fourier-slice constructions across Mathlib; inspected matrix coefficient maps, SO(3), Gaussian-process marginals and finite Gaussian coordinates against the frozen line-projection and basis formulas.",
+      "result": "A finite projection matrix and Gaussian coefficient noise are expressible once the signal and projected bases are supplied. No inspected declaration establishes this line-integral projection's Fourier-slice formula, exact coefficient matrix or the paper's specially chosen projected orthonormality.",
+      "gap": "The line-projection integrability, Fourier-slice coefficient map and separately orthonormal projected basis must be established to justify the stated Gaussian coefficient observation model.",
+      "comparisons": {
+        "D31": "Integrate the rotated signal over x_3 while x_1,x_2 remain fixed; noise is white on R2. Preserve original signal dimension sum_l(2l+1)S_l and projected dimension S(2L+1), S=max_l S_l. The rectangular coefficient matrix sends R^d to R^tilde_d and its entries remain appendix D.S57. Original rho-squared radial orthogonality alone does not prove the projected real basis is orthonormal, and line integration is not automatically a bounded operator on arbitrary L2(R3). Independent equal-variance coefficient noise depends on the additional projected orthonormality."
+      }
+    },
+    {
+      "interface_id": "local-a87e7fd4cfee77f37322",
+      "related": ["Algebra.trdeg", "Algebra.adjoin", "MulAction.orbit", "IsGreatest"],
+      "query": "Searched transcendence-degree monotonicity, degree-generated subalgebras and orbit dimension; inspected trdeg's cardinal supremum, adjoin, orbit and attained maxima against both dimension-increment displays.",
+      "result": "The two algebra filtrations can be represented and their finite transcendence degrees converted to integer-valued increments after finiteness and monotonicity are established. The geometric d_0 and its relation to invariant transcendence degree are additional results, not consequences of subtracting cardinals or telescoping alone.",
+      "gap": "The orbit dimension and finite monotone transcendence-degree filtrations must be established before forming the integer increments and proving any total-dimension identity.",
+      "comparisons": {
+        "D19a": "Use d_0 as the maximal geometric dimension of the full orbit and d_k as successive unprojected invariant-subalgebra transcendence-degree differences for k=1,...,K; the library's cardinal-valued trdeg needs justified finite conversion before ordinary subtraction, and the equality of the total with ambient d needs the orbit/invariant dimension relation.",
+        "D19b": "tilde_d_0 is still the maximal dimension of the full, unprojected G-orbit. Only k>=1 uses the projected algebra filtration and the range through tilde_K; these tilde_d_k quantities are not the projected observation dimension tilde_d. Preserve monotonicity and finite arithmetic rather than silently using infinite-cardinal subtraction."
+      }
+    }
+  ]
+}

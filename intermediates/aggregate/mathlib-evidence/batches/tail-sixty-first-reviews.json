@@ -1,0 +1,89 @@
+{
+  "scope": "Manual comparison of nine remaining p2194 quantile covariance, variance-estimation and comparison interfaces, including both indexed matrix families; unresolved supplement-only substitutions and source typography remain explicit.",
+  "rows": [
+    {
+      "interface_id": "local-b176ec078854fdc890e9",
+      "related": ["Set.indicator", "MeasureTheory.integral"],
+      "status": "partial_match",
+      "query": "Inspected indicator functions and population integrals against all eight Table 3 entries, their branch-specific coefficients and the recorded expectation-power/footnote typography.",
+      "result": "Indicator-over-density terms and scalar coefficient arithmetic express the table after its quantiles, densities and population moments are supplied, with the printed regression denominator still ambiguous.",
+      "gap": "Implement the four coefficient choices separately in each stratum regime while preserving the fixed-H moment typography and treating the superscript two as a footnote marker.",
+      "comparisons": {"D25": "Each row starts with the Y-prime indicator at Q_y,H(p) divided by f_y,H at that quantile. The adjusted rows subtract the X-prime indicator divided by its mixture density, multiplied respectively by the mixture quantile ratio, a ratio of population-size-weighted stratum means, or a ratio of weighted cross moments and the printed E_P(X-prime)^2 expression. The latter typography is ambiguous between second moment and squared mean; the regression context suggests a second moment, but it is not silently repaired. In the growing-H branch the difference and regression coefficients are Theta_2/Theta_1 and Theta_3/Theta_4; the repeated superscript two denotes the table footnote, not squaring or multiplication. Keep mixture thresholds, stratum observations and the two regimes distinct, and establish nonzero quantile/density/moment denominators rather than relying on totalized division."}
+    },
+    {
+      "interface_id": "local-e20039e9bd8507dd9c33",
+      "related": ["ProbabilityTheory.covariance", "Filter.Tendsto", "MeasureTheory.integral"],
+      "status": "partial_match",
+      "query": "Inspected scalar covariance and sequence limits against equation (8), its design factors and the retained expectation-parenthesis issue.",
+      "result": "A weighted sum of stratum covariances followed by a population-sequence limit expresses the intended kernel, but the source's expectation grouping is not an exact match without interpretation.",
+      "gap": "Construct the stated weighted covariance limit with its exact design normalization and preserve the printed ambiguity about whether expectation encloses both centered factors.",
+      "comparisons": {"D28": "Under the intended covariance reading use (n/N^2)*sum_h [N_h*(N_h-n_h)/n_h]*Cov_P(zeta-prime_h(p1),zeta-prime_h(p2)), then require its limit along nu for p1,p2 in [alpha,beta]. The stratum law, n_h=m_h*r_h, N_h=sum_j N_hj and the appropriate Table 3 regime supply the inputs. As printed, E_P appears immediately on the first centered factor without explicit enclosing parentheses, which literally differs from the covariance of the product; preserve that issue instead of certifying an exact substitution. Integrability and existence of the limit must be shown under the relevant branch conditions; a generic covariance definition or an arbitrary chosen limit is insufficient."}
+    },
+    {
+      "interface_id": "quantile-process-covariance-matrix",
+      "related": ["Matrix.PosSemidef", "Matrix.mul_apply"],
+      "status": "composable",
+      "query": "Inspected finite matrix and positive-semidefinite quadratic-form infrastructure against both kernel-on-grid matrix families and their different comparison indices.",
+      "result": "Evaluation of each supplied covariance kernel on a finite probability grid constructs the matrices; covariance existence and any comparison ordering remain separate facts.",
+      "gap": "Construct each matrix by grid evaluation and preserve whether its outer index ranges over estimators or sampling designs, without asserting equality or ordering of the resulting kernels.",
+      "comparisons": {
+        "D35": "For one fixed choice among SRSWOR, RHC and HE-piPS, take the four supplied kernels for the plain, ratio, difference and regression quantile estimators. Define Delta_u(w,v)=K_u(p_w,p_v) for u=1,...,4 and the same k-point grid. A genuine covariance kernel gives a PSD matrix by finite quadratic-form expansion, but that property does not establish the source's omitted kernel-existence hypotheses or strict positive definiteness. The index u selects estimators, not designs.",
+        "D36": "Fix one estimator G and use its three design-specific kernels under SRSWOR, RHC and HE-piPS, defining Delta-star_u(w,v)=K-star_u(p_w,p_v) for u=1,...,3. This family compares designs rather than the four estimators in D35. Repeated grid points are allowed in the construction and can make the matrices singular; do not infer invertibility or a variance ordering from their covariance form alone. Preserve the exact preceding kernel conventions and the recorded comparison-theorem existence gap."
+      }
+    },
+    {
+      "interface_id": "local-930ee71226941c751f90",
+      "related": ["MeasureTheory.integral", "fderiv", "Matrix.mul_apply"],
+      "status": "composable",
+      "query": "Inspected iterated integration, finite-dimensional derivative coordinates and quadratic-form multiplication against both plug-in variance functionals and the exact gradient evaluation point.",
+      "result": "A supplied kernel estimator yields the double-integral and finite quadratic-form estimates by standard analytic operations; their consistency needs the stated convergence and regularity arguments.",
+      "gap": "Construct both plug-in functionals with the gradient at the plain sample quantiles and prove continuity/integrability conditions required for consistency.",
+      "comparisons": {"D34": "Integrate Khat(p1,p2)*J(p1)*J(p2) over the two copies of [alpha,beta] for sigmahat_1 squared. Form Deltahat(u,v)=Khat(p_u,p_v), take the row gradient of f at (Qhat_y(p1),...,Qhat_y(pk)) and evaluate ahat*Deltahat*ahat^T for sigmahat_2 squared. Even if the underlying quantile process uses an adjusted G, the printed gradient is evaluated at Qhat_y and must not be replaced. fderiv represents the linear derivative only after differentiability is supplied; its fallback is not a statistical gradient. A supplied Khat need not be PSD or consistent merely because it has this type. Integral finiteness, gradient continuity and sufficient kernel convergence must be established before claiming the two estimates consistent."}
+    },
+    {
+      "interface_id": "local-1fa3d262497514446571",
+      "related": ["ProbabilityTheory.cdf", "Set.indicator", "Matrix.PosDef", "Matrix.mul_apply", "Filter.Tendsto"],
+      "status": "partial_match",
+      "query": "Inspected indicator-based covariance matrices, positive definiteness and almost-sure convergence against the complete inclusion-probability assumption and its repeated-grid inconsistency.",
+      "result": "The finite centered vectors, inclusion-weight correction and bounds can be expressed, but the unrestricted quantile grid conflicts with the asserted strictly positive definite limit.",
+      "gap": "Retain the exact empirical centering and inclusion-weighted limit while flagging repeated quantile coordinates and establishing every denominator's domain.",
+      "comparisons": {"D11": "Use superpopulation generalized inverse quantiles to construct the 2k indicator coordinates, but center G_i by its finite-population average sum_i G_i/N to obtain V_i. Define T=sum_i V_i*(1-pi_i)/sum_i pi_i*(1-pi_i), then the matrix sequence (n/N^2)*sum_i (V_i-T*pi_i)^T(V_i-T*pi_i)*(pi_i^(-1)-1). State its almost-sure convergence to a strictly positive definite Gamma and the uniform a.s. bounds K1<=N*pi_i/n<=K2 for all units and population indices. Positive sample/population sizes and nonzero correction denominators require justification from the design conditions. Repeated p values create duplicate coordinates and a fixed null direction, so arbitrary-grid strict PosDef cannot hold as printed; distinctness is not inserted. This assumption is not the stratified Assumption 10 and does not use stratum moment means."}
+    },
+    {
+      "interface_id": "local-01203689da88aa3c910f",
+      "related": ["Finset.sum_apply", "Matrix.mul_apply"],
+      "status": "partial_match",
+      "query": "Searched survey, Horvitz-Thompson and quantile terminology; inspected finite function-valued sums and product algebra against every high-entropy kernel-estimation factor and the unresolved estimated-zeta reference.",
+      "result": "Given estimated zeta functions, the centering, correction and weighted cross-product formula are finite algebraic constructions; the actual nuisance substitutions are not defined by the inspected main text.",
+      "gap": "Construct the displayed weighted formula conditional on supplied zeta estimates while retaining the supplement-only substitutions and denominator requirements as unresolved inputs.",
+      "comparisons": {"D31": "Use zeta-bar-hat(p)=sum_sample zeta-hat_i(p)/(N*pi_i), without renormalizing these weights to sum to one. Set Shat(p)=sum_sample (zeta-hat_i-zeta-bar-hat)*(pi_i^(-1)-1)/sum_sample(1-pi_i), and form the corrected cross products with the additional weight (pi_i^(-1)-1)*pi_i^(-1) and prefactor n/N^2. The estimated correction differs from the population S formula and must not be replaced by it. Exact density, quantile and moment estimates inside zeta-hat are delegated to supplement Table 5 and remain unresolved; do not invent a bandwidth or plug-in rule from their names. Require nonzero inclusion probabilities and a nonzero correction denominator before using real division. These algebraic ingredients do not prove consistency under high entropy."}
+    },
+    {
+      "interface_id": "local-1274085e7cc46714a0a5",
+      "related": ["Finset.sum_apply", "Matrix.mul_apply"],
+      "status": "partial_match",
+      "query": "Inspected finite weighted cross products against the RHC estimator, its distinct centering weights and the separately archived gamma/bar-X conventions.",
+      "result": "The RHC kernel formula is constructible from supplied estimated zeta values and design quantities, with unresolved definitions and substitutions still visible.",
+      "gap": "Assemble the RHC weighted centered products with their exact factors while leaving the unprinted bar-X definition and supplement-only zeta substitutions explicit.",
+      "comparisons": {"D32": "Center using sum_sample zeta-hat_i(p)*A_i/(N*X_i), but weight the cross products by A_i/X_i^2 and multiply by n*gamma*(bar-X/N). These two weight formulas are different and must not be homogenized or renormalized. Gamma comes from (7), sum_r N_r*(N_r-1)/(N*(N-1)), using the RHC group sizes rather than stratum clusters. Bar-X is plausibly the known finite-population auxiliary mean, but the reviewed main text gives no explicit defining equation, so treat it as an unresolved supplied quantity. Zeta-hat's exact substitutions are likewise referred to supplement Table 5. Positivity/nonzero auxiliary values and N>1 must support the intended ratios; the finite algebra supplies no consistency theorem."}
+    },
+    {
+      "interface_id": "local-8af4885497fdf27517ff",
+      "related": ["Finset.sum_apply", "Matrix.mul_apply"],
+      "status": "partial_match",
+      "query": "Inspected finite nested sums and scalar cross-product algebra against both equations (15)-(16), preserving cluster weights, stratum centering and unresolved Table 6 substitutions.",
+      "result": "The stratum-centered plug-in covariance and its outer design-weighted sum are finite constructions once the estimated influence quantities are supplied.",
+      "gap": "Build the two nested weighted formulas with exact stratum centering and preserve the supplement-only estimated-zeta definitions as unresolved inputs.",
+      "comparisons": {"D33": "For stratum h define zeta-bar-hat_h(p)=sum_{j in s_h,l in s_hj} M_h*N_hj*zeta-hat_hjl(p)/(m_h*r_h*N_h). Use exactly those weights on the product of two stratum-centered estimated zeta values in (15). Multiply each stratum result by N_h^2/n_h-N_h and sum with prefactor n/N^2 for (16). With unequal cluster sizes the observed weights need not sum to one; do not replace this estimator by a self-normalized sample average or center across all strata. Table 6 of the excluded supplement supplies the actual nuisance substitutions, so only the conditional algebraic formula can be compared. Keep fixed/growing-H Table 3 variants and the two-stage design separate from single-stage HE assumptions; consistency is not inferred from weighted sums alone."}
+    },
+    {
+      "interface_id": "local-18e9a0ef8b213482c1ce",
+      "related": ["MeasureTheory.integral", "PMF.uniformOfFintype", "ProbabilityTheory.variance"],
+      "status": "partial_match",
+      "query": "Searched GREG, generalized regression and calibration terminology in the pinned probability/analysis sources; inspected empirical means, population expectations and variance against the actual comparison passage.",
+      "result": "The finite sample/population means and variance-comparison inputs have generic primitives, but the main-text passage does not identify a concrete GREG estimator formula to match.",
+      "gap": "Supply the referenced GREG estimator definition before comparing that estimator, while retaining the passage's distinct means, median and superpopulation centering.",
+      "comparisons": {"D37": "Uniform-index averages express the finite-population mean and the SRSWOR sample mean, and the separately defined sample quantile gives the median at 0.5. The comparison centers sqrt(n) times each mean estimator at E_P Y and the median at Q_y(0.5), assuming the two superpopulation targets coincide; it is not the earlier centering at finite-population targets. The cited GREG estimator is named but no formula is provided in the inspected main text, so do not equate it with the uncentered quantile regression slope, invent calibration weights or claim a complete library match. Ordinary asymptotic variances require their finite-moment and convergence conditions; a totalized variance or equality of mean and median does not establish those conditions or the stated estimator ordering."}
+    }
+  ]
+}

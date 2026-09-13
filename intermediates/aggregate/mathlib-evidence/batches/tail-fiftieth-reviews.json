@@ -1,0 +1,149 @@
+{
+  "scope": "Manual source-aware comparisons of sixteen remaining p1646 matrix-factor monitoring interfaces; supplementary B1-B4 remain unresolved source dependencies and are not reconstructed.",
+  "rows": [
+    {
+      "interface_id": "local-ec80a11de7ebe3214767",
+      "related": ["ProbabilityTheory.condDistrib", "MeasureTheory.TendstoInMeasure", "MeasureTheory.TendstoInDistribution"],
+      "status": "partial_match",
+      "query": "Inspected condDistrib argument order and conditional-kernel scope, convergence-in-measure 57–59 and convergence-in-distribution 64–70; compared source page 10 and the almost-all-data qualifications in the archived theorem statements.",
+      "result": "Conditional kernels and probability/distribution convergence are available separately; the data-conditioned randomization experiment and its almost-everywhere asymptotic quantifiers must be assembled.",
+      "gap": "Construct the conditional randomization laws given the full observed data and formulate convergence for almost every data realization with the correct varying-sample setup.",
+      "comparisons": {"D12": "P* conditions on the entire X_1,...,X_T array, not just a rolling window or past observations. Instantiate condDistrib with the auxiliary randomization or resulting statistic as Y and the full data as X, on a measurable finite-dimensional model. For almost every data realization, TendstoInDistribution can use the resulting sequence of conditional probability laws. TendstoInMeasure uses a fixed measure, so conditional probability convergence needs a common auxiliary space or an explicit sequence of conditional tail probabilities. Do not erase the almost-all-data quantifier or infer data-independent Gaussian randomization solely from the standalone iid statement."}
+    },
+    {
+      "interface_id": "local-a5ed34fc183d243c67d8",
+      "related": ["Matrix.mul_apply", "LinearMap.IsSymmetric.eigenvectorBasis", "Real.sqrt"],
+      "status": "partial_match",
+      "query": "Inspected matrix multiplication entries, the decreasing-order symmetric eigenvector basis at Spectrum.lean 300–304, and real square root; compared projected covariance (2.4) and the full initial-estimator passage on source pages 6–7.",
+      "result": "Matrix products, finite averages and an ordered orthonormal eigenbasis provide the algebraic ingredients; the data-dependent projection estimator and its source ambiguities are not a pre-existing covariance API.",
+      "gap": "Assemble the uncentered projected second moment and chosen leading-eigenvector estimator while retaining the full-T source formula and row-product ambiguity.",
+      "comparisons": {"D2": "Form Ytilde_t=(1/p2) X_t Ctilde and average Ytilde_t Ytilde_t-transpose over t=1,...,m. A symmetric-operator eigenvector basis applied to M_r supplies leading vectors after selecting k2 or a chosen ktilde>=k2 within the ambient dimension; ties give a choice, not a unique projection or a demonstrated measurable selection. Multiply their matrix by sqrt(p2). The printed M_r uses all T observations and its first expression X_t-transpose X_t is p2-by-p2; its expanded row-product order is dimensionally ambiguous under the paper's row convention. Do not replace T by m, center the data, or claim a causal update rule. Nondegenerate dimensions and the source's separate zero-factor cases need explicit treatment."}
+    },
+    {
+      "interface_id": "local-fcf6e27ce0b3537aed34",
+      "related": ["Matrix.IsHermitian.eigenvalues₀", "Matrix.mul_apply"],
+      "status": "composable",
+      "query": "Inspected Matrix.IsHermitian.eigenvalues₀ 60–61 and its antitone lemma 63–64, together with the underlying sorted operator eigenvalues; compared the moving-window formula on source page 7.",
+      "result": "The Hermitian-matrix API returns eigenvalues in decreasing ordinal order with multiplicity, matching the desired spectral ordering after constructing the rolling second moment.",
+      "gap": "Build the rolling Hermitian second moment and select ordinal k1 with a proof that the source index k1+1 lies within p1.",
+      "comparisons": {"D3": "Average Ytilde_t Ytilde_t-transpose for exactly tau+1<=t<=m+tau and select the source's (k1+1)-st largest eigenvalue. eigenvalues₀ uses zero-based Fin positions, so the corresponding position is k1, requiring k1<p1. Its decreasing ordering is explicit, whereas the separately reindexed matrix eigenvalues function need not preserve an arbitrary matrix index order. Retain tau as monitoring time relative to training length m and T=m+Tm. Hermitianity follows from the real Gram products; positivity and finite-sample definition do not establish the supplementary spectral asymptotics."}
+    },
+    {
+      "interface_id": "local-81bed2ca516ec696368e",
+      "related": ["Matrix.trace", "Real.rpow", "Filter.Tendsto"],
+      "status": "partial_match",
+      "query": "Inspected Matrix.trace 45–46, real-power semantics and generic limit predicates; compared transformation (3.15), delta context and the zero-trace source note on page 9.",
+      "result": "Trace, real scaling and limit predicates are available; the chosen continuous transformation and normalized spectral statistic require a paper-specific definition and domain treatment.",
+      "gap": "Specify the transformation's domain and the nonzero average-trace domain without inventing behavior at an undefined zero denominator.",
+      "comparisons": {"D9": "The denominator is (1/p1) times the sum of all rolling eigenvalues, equal to the average trace after the spectral trace identity, not the trace alone. Apply g to p1^(-delta) times the monitored eigenvalue divided by this denominator. Preserve continuity, g tending to zero at zero and g tending to infinity at positive infinity, with the source's unspecified domain and no added monotonicity or nonnegative-range assumption. Delta and its sufficient piecewise rule are archived separately. Lean's totalized division at zero is not a source-supplied zero-trace convention."}
+    },
+    {
+      "interface_id": "local-097ce5b3fc9a7f0d8f6a",
+      "related": ["ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "Inspected the verified gaussianReal, indexed independence and equal-law declarations; compared the exact randomized-sequence formula (3.16) and its conditional interpretation on pages 9–10.",
+      "result": "Standard Gaussian laws, indexed independence and common distributions express the auxiliary iid normals; adding the data-dependent drift is a direct construction.",
+      "gap": "Construct the auxiliary iid normals and data-dependent shifts, making any independence from the original data explicit in the conditional experiment.",
+      "comparisons": {"D10": "Use gaussianReal 0 1 for each z_tau, indexed independence and matching pushforward laws, then set y_tau=z_tau+psi_tau. Conditional on fixed data and an independently supplied Gaussian randomization, psi_tau is fixed and y_tau has a shifted Gaussian law, generally with different means across tau. The quoted sentence states iid z_tau but does not separately state independence from X; preserve this source distinction when specifying the conditional experiment. Vanishing null drift is asymptotic, so do not call finite-sample y_tau centered iid standard normal."}
+    },
+    {
+      "interface_id": "local-937159b62e1d787a3053",
+      "related": ["Real.sqrt", "Real.log", "Real.rpow"],
+      "status": "composable",
+      "query": "Inspected existing real sqrt/log/rpow declarations against source rate (1.3), page 6, including the archived magnified-root review.",
+      "result": "Real arithmetic and elementary functions directly express the deterministic three-parameter rate after casting dimensions and restricting to its asymptotic domain.",
+      "gap": "Define the rate with the exact square-root and logarithmic-product grouping and an explicit sufficiently-large positive parameter domain.",
+      "comparisons": {"D4": "Use (1/p2+1/m+p1/sqrt(m*p2)) times ((log p1)^2*(log p2)*(log m))^(1+epsilon), with the whole log product under the final exponent. Positive integer dimensions are cast to reals; sufficiently large dimensions make the relevant logarithms positive and avoid interpreting generalized real-power conventions outside the source's intended regime. The rate slack epsilon>0 is not automatically the tuning epsilon in delta's separate rule."}
+    },
+    {
+      "interface_id": "local-106005a6e7b89e31c870",
+      "related": ["Filter.Tendsto", "Real.rpow"],
+      "status": "composable",
+      "query": "Inspected Filter.Tendsto and real powers against condition (3.17), pages 9–10, and the distinct joint-limit conventions in the source notes.",
+      "result": "Generic filter convergence expresses the stated deterministic restriction once the parameter family and its growth filter are fixed.",
+      "gap": "Define the joint parameter filter and impose the exact horizon-weighted transformation limit with the source delta and rate sequence.",
+      "comparisons": {"D11": "Require Tm*g(p1^(-delta)*l_p1,p2,m) to tend to zero along the printed min(p1,Tm)->infinity regime. Keep m,p2 and delta as parameters or specified functions in that regime rather than assuming they are fixed or silently changing the limit to min(m,p1,p2). C2 ties Tm to m separately. This is a condition on g and growth rates; it does not follow just from continuity of g and g(0)=0, and no almost-sure big-O convention is substituted for it."}
+    },
+    {
+      "interface_id": "local-17bbca4ad32f66e1688d",
+      "related": ["Submodule.span"],
+      "status": "composable",
+      "query": "Inspected Submodule.span 46–47 and compared Assumption C1 on page 7 with the source's row-factor/column-loading naming convention.",
+      "result": "The real span of matrix columns represents the loading space; constancy is an equality of these subspaces across training times.",
+      "gap": "Express training-period constancy of the column spans of the row-factor loading matrices without strengthening it to matrix equality.",
+      "comparisons": {"D5": "Use Submodule.span ℝ of the set of columns of R_t and require the same subspace for 1<=t<=m. R is called the row-factor loading matrix, but its column span is the relevant space. This is weaker than requiring the entries of R_t to be constant and concerns training, not automatically the monitoring null. Theorem 3 does not explicitly list C1, so the comparison must not add it to that theorem's printed premises."}
+    },
+    {
+      "interface_id": "local-d2341615d0480c85384c",
+      "related": ["Matrix.fromCols", "Matrix.mul_apply", "Submodule.span"],
+      "status": "partial_match",
+      "query": "Inspected horizontal matrix concatenation 39–40 and span/multiplication definitions; compared the additional-factor alternative (3.9) on page 8 and its dimension annotations.",
+      "result": "Block concatenation and matrix products express the enlarged loading model; genuine enlargement and monitoring asymptotics require further model assumptions.",
+      "gap": "Define the two regimes and appended loading/factor blocks, then separately state whatever rank conditions justify actual loading-space enlargement.",
+      "comparisons": {"D8": "Before and at calendar time m+t*, use R F_a,t C-transpose+E_t; afterwards use Rtilde F_t C-transpose+E_t with Rtilde=[R|R3] and the corresponding stacked factor rows. Matrix.fromCols uses a sum index that must be reindexed to the stated finite dimensions. Appending a block gives span inclusion but not strict enlargement without independence/rank conditions; those potentially contained in excluded B1-B4 are not invented. Keep C unchanged under the stated section convention and preserve this as a separate alternative from the fixed-count space change."}
+    },
+    {
+      "interface_id": "local-467f1315b6d0b0de008c",
+      "related": ["Matrix.fromCols", "Matrix.mul_apply", "Submodule.span"],
+      "status": "partial_match",
+      "query": "Inspected horizontal concatenation and column-span algebra; compared the complete fixed-count alternative (3.7), source page 8.",
+      "result": "The shared/changed block decomposition and piecewise matrix model can be expressed with existing operations; the statistical loading-space change is additional to mere block inequality.",
+      "gap": "Build the fixed-count two-regime model with shared columns and separately encode the intended subspace change and valid block dimensions.",
+      "comparisons": {"D7": "Represent R=[R0|R1] and Rtilde=[R0|R2], with R0 of width k1-c1 and R1,R2 of width c1, requiring c1<=k1 before identifying the sum-index width with k1. Use the old model through t=m+t* inclusive and the new one afterwards, with C fixed. Different blocks alone need not imply different column spans, so do not assert that implication or insert unprinted orthogonality/rank assumptions. The factor count remains fixed, unlike D8, and the break is not at calendar time t* alone."}
+    },
+    {
+      "interface_id": "local-87aa35254d33949a1f49",
+      "related": ["Finset.sum_range_succ"],
+      "status": "composable",
+      "query": "Inspected the finite-sum successor identity and compared partial-sum definition (3.18), source page 10.",
+      "result": "Finite sums implement the uncentered cumulative process and its one-step recursion after shifting the source's one-based index.",
+      "gap": "Define the one-based partial sum of the randomized observations and relate it to the finite-range sum convention.",
+      "comparisons": {"D13": "Set S_tau to the sum of y_(j+1) for j in Finset.range tau, equivalently the sum from j=1 through tau. The inspected identity yields S_(tau+1)=S_tau+y_(tau+1) after this shift. No sample-mean subtraction, bridge correction or centering is present; the process contains the cumulative data-dependent drift from y."}
+    },
+    {
+      "interface_id": "local-b4abdb19ea89423999ec",
+      "related": ["Finset.max'", "Real.rpow", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Inspected nonempty finite maximum and real powers; compared the Renyi statistic and both trimming limits in (3.21), source page 10.",
+      "result": "The trimmed finite maximum and its real-power normalization are composable; the diverging but negligible trimming sequence is an explicit additional condition.",
+      "gap": "Construct the nonempty trimmed monitoring interval and impose both trimming limits with the r_Tm-based normalization.",
+      "comparisons": {"D16": "For eta>1/2 take the maximum of abs(S_tau)/tau^eta over r_Tm<=tau<=Tm and multiply by r_Tm^(eta-1/2). The two source conditions r_Tm->infinity and r_Tm/Tm->0 ensure an eventually positive, nonempty trimming interval; an integer trimming sequence or explicit treatment of integer bounds is needed. Finset.max' requires nonemptiness, so do not totalize an empty early interval without a convention. The prefactor uses r_Tm, not Tm, and no untrimmed eta>1/2 statistic is substituted."}
+    },
+    {
+      "interface_id": "local-74b24d8998be2e500248",
+      "related": ["Finset.max'", "Real.rpow"],
+      "status": "composable",
+      "query": "Inspected Finset.max' and real-power definitions against standardized partial sums (3.20), source page 10, and the separately archived iterated-log normalizers.",
+      "result": "A nonempty finite image maximum expresses the eta=1/2 statistic with its exact absolute-value and time-weight placement.",
+      "gap": "Define the positive-time finite maximum and keep its later iterated-log normalization separate from the statistic itself.",
+      "comparisons": {"D15": "For positive Tm maximize abs(S_tau)/(tau:ℝ)^(1/2) over tau=1,...,Tm; tau=0 is excluded. Finset.max' applies to the finite image of these values once nonempty. The source definition has no extra Tm prefactor. Its theorem-specific alpha_Tm,beta_Tm normalization is the iterated-log pair, not the a_Tm,b_Tm pair used for maxima of individual y_tau."}
+    },
+    {
+      "interface_id": "local-ccc4bc9748e64040e66a",
+      "related": ["Finset.max'", "Real.rpow"],
+      "status": "composable",
+      "query": "Inspected Finset.max' and real powers against weighted functional (3.19), source page 10.",
+      "result": "The finite maximum and monitoring-horizon normalization can be directly assembled on positive integer times for the stated exponent range.",
+      "gap": "Define the weighted partial-sum maximum with 0<=eta<1/2 and the exact Tm^(eta-1/2) prefactor.",
+      "comparisons": {"D14": "Maximize abs(S_tau)/tau^eta on the positive integer interval 1,...,Tm and multiply by Tm^(eta-1/2). Finset.max' requires Tm>=1, and positive real-cast times avoid division-by-zero or negative-base power conventions. Keep the strict upper bound eta<1/2; eta=1/2 and the trimmed eta>1/2 construction are separate definitions. The finite formula alone does not supply the conditional Wiener-process limit or its time-zero supremum convention."}
+    },
+    {
+      "interface_id": "local-af662fb385fca56013dd",
+      "related": ["Real.log", "Real.sqrt"],
+      "status": "composable",
+      "query": "Inspected real logarithm and square-root definitions against the complete raw-maximum norming formulas on source page 13.",
+      "result": "Elementary real functions express both sequences on a sufficiently large horizon; no extreme-value convergence theorem is supplied by these arithmetic definitions.",
+      "gap": "Define the raw-maximum center and scale on a sufficiently large horizon and retain their roles in (Z-b)/a.",
+      "comparisons": {"D18": "Set b_Tm=sqrt(2 log Tm)-(log(log Tm)+log(4*pi))/(2*sqrt(2 log Tm)) and a_Tm=b_Tm/(1+b_Tm^2). The theorem normalizes as (Z_Tm-b_Tm)/a_Tm. Restrict to sufficiently large Tm for the intended logs, roots and positive scale; Lean's totalized log/sqrt/division conventions do not justify an early-horizon extension. These are different from the iterated-log alpha,beta normalizers for standardized partial sums."}
+    },
+    {
+      "interface_id": "local-88b3b58887673fa82c85",
+      "related": ["Finset.max'"],
+      "status": "composable",
+      "query": "Inspected Finset.max' 135–136 and compared the exact worst-case statistic (3.31), source page 13.",
+      "result": "The finite maximum of the individual randomized observations is directly expressible for a positive monitoring horizon.",
+      "gap": "Define the nonempty one-sided maximum of y_tau while preserving the finite-sample data-dependent drift.",
+      "comparisons": {"D17": "Use Finset.max' on the finite image of y_tau for tau=1,...,Tm with Tm>=1. This is a one-sided maximum without absolute values and without partial sums. The surrounding iid-Gaussian null description is heuristic: y_tau includes psi_tau, so the formula does not give exact centered iid Gaussian observations at finite sample. Conditional Gumbel asymptotics require the separate theorem premises and are not consequences of the maximum constructor."}
+    }
+  ]
+}

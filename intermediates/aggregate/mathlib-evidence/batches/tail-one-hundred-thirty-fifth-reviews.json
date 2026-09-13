@@ -1,0 +1,88 @@
+{
+  "scope": "Manual review of the ten remaining p0729 interfaces, including both members of the HeteroPCA recursion family and all original source anomalies in the two inferential procedures.",
+  "rows": [
+    {
+      "interface_id": "local-a0834c786bc43f00d802",
+      "related": ["LinearMap.singularValues", "CFC.rpow", "Matrix.orthogonalGroup"],
+      "query": "Searched polar decomposition, SVD and Procrustes declarations; inspected singularValues, operator rpow and orthogonalGroup and compared the frozen nonsingular matrix-sign convention.",
+      "result": "Singular values and positive operator powers provide ingredients for the polar factor, but no inspected declaration directly supplies the SVD factor U_H V_H transpose with its required characterization.",
+      "gap": "Construct the nonsingular polar factor and prove its equivalence to the source's SVD product and orthogonality, keeping singular outcomes outside the printed domain.",
+      "comparisons": {"D8": "For nonsingular square H, the candidate H*(H^T H)^(-1/2) can be built from CFC.rpow on the positive Gram matrix, then related to U_H V_H^T after a spectral/SVD argument. singularValues alone supplies no left/right singular-vector factorization. The output belongs to the full orthogonal group, including determinant minus one, not the determinant-one rotation group; it is not an entrywise sign or a symmetric spectral sign unless additional hypotheses apply. Later H=U^T U_star can be singular on some outcomes, and the source provides no extension there."}
+    },
+    {
+      "interface_id": "local-5db02b1ea93e4416a3be",
+      "related": ["Finset.sum_apply", "Matrix.mulVec"],
+      "query": "Inspected finite sums and matrix-vector products and compared every coefficient, row inner product and branch of frozen (3.10)-(3.11).",
+      "result": "The two population variance expressions can be encoded from matrix entries and finite sums, but identifying them as approximate estimator variances needs the paper's Gaussian signal, masking and perturbation analysis.",
+      "gap": "Define the distinct diagonal and off-diagonal population variance formulas with their exact sampling factors and prove their claimed asymptotic variance role under the intended joint model.",
+      "comparisons": {"D12": "For i!=j retain coefficients (2-p)/(np), (4-3p)/(np), the noise-signal sum divided by np, and two separate k-sums divided by np^2 with squared row inner products (U_star[k,:] dot U_star[j,:])^2 and its i/j counterpart. Each summand contains [omega_i_star^2+(1-p)S_star_ii]*[omega_k_star^2+(1-p)S_star_kk]+2(1-p)^2 S_star_ik^2. The diagonal branch instead uses (12-9p)/(np), 4/(np) and one k-sum scaled by 4/(np^2); it is not obtained by simply setting j=i in the other branch. Require positive n and sampling p in (0,1], preserve all population stars, and distinguish these proposed approximate variances from exact finite-sample variance identities or unchanged non-Gaussian fourth-moment formulas."}
+    },
+    {
+      "interface_id": "local-d90259f18d98084b6890",
+      "related": ["LinearMap.singularValues", "Matrix.vecMulVec", "Matrix.mulVec"],
+      "query": "Searched SVD interfaces and inspected singularValues' Gram-eigenvalue construction and matrix products; compared the full rectangular model and source S4/S16/S18.",
+      "result": "Singular values and rank-one products represent the signal decomposition's ingredients, but a thin SVD, rectangular perturbation law and condition-number domain require separate construction.",
+      "gap": "Build the rectangular rank-r signal and perturbation with a thin SVD, resolving the printed noise shape and positive smallest-singular-value requirements.",
+      "comparisons": {"D14": "M_natural is n1 by n2 with orthonormal-column U_natural and V_natural and r singular values; vecMulVec represents each sigma_i u_i v_i^T term. singularValues is zero-indexed and includes zero values beyond rank, whereas the paper lists i=1..r. Exact positive rank r supports sigma_r>0 even though (6.2) prints >=0; kappa_natural divides by sigma_r and is a singular-value ratio, not the PCA eigenvalue ratio. Here n=max(n1,n2), not a sample-column count. M=M_natural+E requires E of rectangular shape, but the literal E_ij display indexes both axes by n; retain that discrepancy and do not assume a Gaussian random signal or a row-space estimation target."}
+    },
+    {
+      "interface_id": "local-7464b0b411ea27bf419f",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.variance", "MeasureTheory.MemLp", "Real.rpow"],
+      "query": "Inspected independent-family and variance definitions and real powers; compared the exact squared-noise variance and dimension factors in frozen Assumption 3 with source S2/A9.",
+      "result": "Independent bounded centered entries and the printed variance of their squares can be stated, but that variance differs from the ordinary entry variance used in the later Gram expectation.",
+      "gap": "Resolve the source's variance-of-squared-noise mismatch while retaining all rowwise/global bounds and their exact dimension and logarithm dependence.",
+      "comparisons": {"D16": "Use independent entries on [n1] by [n2], mean zero, and preserve Var(E_ij^2)=sigma_ij^2<=sigma_i^2<=sigma^2, rather than Var(E_ij); the later Gram expectation treats sigma_ij^2 as the latter, which remains a source inconsistency. Bounds |E_ij|<=B_i<=B and nonnegative scales accompany B_i bounded up to a constant by sigma_i*min(sqrt n2,(n1*n2)^(1/4))/sqrt(log n), with an analogous global B bound and n=max(n1,n2). Bounded entries can justify fourth moments after measurability, but the library's variance totalization cannot repair the mismatch. Preserve the unspecified comparison constant and logarithm domain, and do not import the PCA sub-Gaussian law or heteroskedasticity-ratio assumption."}
+    },
+    {
+      "interface_id": "local-fce7c011915571a67a16",
+      "related": ["EuclideanSpace.norm_eq", "Matrix.frobeniusNormedAddCommGroup"],
+      "query": "Searched row-norm interfaces and inspected Euclidean row norm and Frobenius matrix norm; compared all three frozen incoherence inequalities.",
+      "result": "Row Euclidean norms, finite entry maxima and the Frobenius norm support the three conditions, which are stronger data than a single left-subspace row bound.",
+      "gap": "Define the two maximum-row norms and entrywise maximum explicitly and impose all three rectangular-signal incoherence bounds with their distinct dimensions.",
+      "comparisons": {"D15": "The left maximum row norm is bounded by sqrt(mu_natural*r/n1), the right by sqrt(mu_natural*r/n2), and max absolute signal entry by sqrt(mu_natural/(n1*n2))*norm(M_natural)_F. EuclideanSpace.norm_eq gives each row's square-root sum of squared entries; the Frobenius instance gives the full matrix sum-of-squares norm. The infinity notation here is an entrywise maximum, not maximum absolute row sum or spectral norm. Keep the additional entrywise signal condition and both singular spaces, rather than merging this assumption with the earlier covariance-model incoherence definition."}
+    },
+    {
+      "interface_id": "local-7d7cf1ef4524af8786b1",
+      "related": ["Set.indicator", "Matrix.submatrix"],
+      "query": "Inspected indicator support and matrix reindexing to distinguish masking from row/column restriction; compared frozen observed-data construction and source S6.",
+      "result": "An indicator on the full matrix index set implements zero-filled observations; selecting a submatrix would not preserve the same shape or masking operation.",
+      "gap": "Assemble signal columns and additive noise into the full-shaped masked data matrix, preserving the separate sampling law and its recorded joint-independence convention.",
+      "comparisons": {"D4": "X is d by n with column j equal to Gaussian signal x_j, N_lj=eta_lj, and Y_lj=X_lj+N_lj on Omega and zero elsewhere. Set.indicator on index pairs preserves the d by n shape and masks after noise addition, without inverse-p rescaling; Matrix.submatrix alone selects/reindexes rows and columns and cannot represent arbitrary entry masks. The separate model specifies independent signal columns, mask indicators and noise entries, but joint independence of the three collections is only implicit in the supporting conditional Gram formula and is not silently added to the original definition."}
+    },
+    {
+      "interface_id": "heteropca-diagonal-imputation",
+      "related": ["LinearMap.IsSymmetric.eigenvectorBasis", "LinearMap.IsSymmetric.eigenvalues", "Set.indicator", "CFC.rpow"],
+      "query": "Searched HeteroPCA and inspected ordered symmetric eigenvalues/eigenvector bases, indicator projections and operator powers; compared both complete frozen recursion members and source S9.",
+      "result": "Spectral choices and diagonal masking support both recursions, but the scaling, rank selection, eigenvalue ties and square-root domain must be specified and verified for the implemented algorithm.",
+      "gap": "Construct the rank-r diagonal-imputation recursion with each model's Gram scaling, source iteration/output indexing and explicit spectral-selection and square-root conventions.",
+      "comparisons": {
+        "D10": "Initialize G0=(np^2)^-1 offdiag(Y Y^T), then for each t=0..t0 choose a top-r eigendecomposition of Gt and replace only its diagonal by diag(Ut Lambda_t Ut^T), leaving the scaled observed off-diagonal Gram fixed. The ordered eigenvalue/basis declarations give an abstract spectral choice after converting a real symmetric matrix to a Euclidean linear map; the source leaves top-r selection/ties unspecified, so decreasing-algebraic eigenvalues are a convention to justify rather than an unqualified match. Output U_t0, Lambda_t0^(1/2) and U_t0 Lambda_t0 U_t0^T even though the loop also computes G_(t0+1). Positive n,p and square-root admissibility remain necessary; an off-diagonalized Gram need not be PSD.",
+        "D17": "Initialize G0=offdiag(M M^T) without the PCA factor (np^2)^-1, and use that same fixed off-diagonal matrix at every update; n1 determines G's square dimension and n=max(n1,n2) is only the general model's size abbreviation. The loop t=0..t0 and outputs at t0 match the printed general algorithm, including Lambda as an additional output and Sigma=Lambda^(1/2). Spectral primitives alone do not resolve rank-r tie selection or nonpositive retained eigenvalues; do not transfer PCA Gaussian/masking assumptions or its scaling into this rectangular bounded-noise model."
+      }
+    },
+    {
+      "interface_id": "local-5830ac9394678e13df32",
+      "related": ["Set.indicator", "Finset.sum_apply", "ProbabilityTheory.cdf", "ProbabilityTheory.gaussianReal", "Real.sqrt"],
+      "query": "Inspected finite indicator sums, standard normal law/CDF and real square root; compared every branch of frozen Algorithm 4 with population formulas (3.10)-(3.11) and source S1/S10/S12.",
+      "result": "Finite plug-in formulas and a normal critical value are representable, but the printed off-diagonal formula retains an unavailable population quantity and the procedure lacks several finite-sample domain conventions.",
+      "gap": "Resolve the retained population S-star_jj and define valid row-count and variance domains before claiming a data-computable interval or its marginal coverage.",
+      "comparisons": {"D13": "Compute omega_l^2 as the observed-row mean of y_lj^2 minus estimated S_ll; keep the indicator count denominator rather than replacing it by np, and do not truncate a negative estimate. The off-diagonal variance substitutes estimates in (3.10) except that the printed omega_i^2*S_star_jj term remains starred, while omega_j^2*S_ii is estimated; preserve this unavailable input instead of repairing it. Retain both k-sums and their U-row dot products, the separate diagonal formula with coefficients 12-9p and four, and the interval S_ij plus/minus Phi inverse(1-alpha/2)*sqrt(v_ij). Empty rows, negative estimated v and eigenvalue issues from the input algorithm have no source fallback; Real.sqrt's zero on negatives does not implement a valid statistical repair. Coverage is for the selected entry and fixed ordinary confidence level, not simultaneous coverage of all entries."}
+    },
+    {
+      "interface_id": "local-280df6e9204f6870a4e0",
+      "related": ["Matrix.vecMulVec", "CFC.rpow", "Matrix.mul_nonsing_inv", "ProbabilityTheory.cdf", "EuclideanSpace.norm_eq"],
+      "query": "Searched chi-square quantile declarations and inspected matrix powers, inverse cancellation, Euclidean norms and CDF; compared all covariance terms and the image-of-ball construction in frozen Algorithm 3.",
+      "result": "Matrix products and images of Euclidean balls provide geometric ingredients, but the estimated covariance, valid inverse/square roots and chi-square critical value need separate construction and domain handling.",
+      "gap": "Assemble the estimated row covariance and chi-square ball image with valid counts, inverse singular values and PSD square roots, then prove the stated marginal rowwise coverage.",
+      "comparisons": {"D11": "Use the untruncated observed-row variance estimates and form Sigma_U,l as [(1-p)/(np)*norm(U_l Sigma)^2+omega_l^2/(np)]*Sigma^-2 plus 2(1-p)/(np)*U_l^T U_l plus Sigma^-2 U^T diag(d_li) U Sigma^-2. Each d_li has the product of the row l/i noise-plus-missingness terms divided by np^2, plus 2(1-p)^2 S_li^2/(np^2); keep both outer inverse-square factors and distinguish Sigma (singular-value scale) from Lambda. The radius set is norm(z)^2<=tau_(1-alpha) for chi-square r, so its geometric radius is sqrt(tau), and the region is the image U_l+Sigma_U,l^(1/2) z, without adding another 1/sqrt(n). Reconcile row/column coordinate representation explicitly. CFC and inverse APIs need PSD/nonsingularity proofs, while empty rows or negative noise estimates can invalidate the construction; no clipping or pseudoinverse is silently introduced, and marginal coverage is not joint coverage across rows."}
+    },
+    {
+      "interface_id": "local-4dca7e2dc01bca7c6c36",
+      "related": ["Matrix.orthogonalGroup", "IsMinOn", "Matrix.frobeniusNormedAddCommGroup"],
+      "query": "Searched Procrustes/polar decomposition results and inspected orthogonalGroup, IsMinOn and Frobenius norm; compared frozen rotation argmin with source S21 and A7.",
+      "result": "The orthogonal constraint and squared Frobenius objective can be stated; IsMinOn does not choose a minimizer or assert its membership, and singular overlap may prevent uniqueness.",
+      "gap": "Construct an orthogonal Procrustes minimizer with a selection rule where needed and prove its minimizing property for the squared Frobenius alignment objective.",
+      "comparisons": {"D18": "The target is a chosen R_U in the full r by r orthogonal group minimizing norm(U O-U_natural)_F^2. State membership as well as IsMinOn, since the latter omits it; compactness/continuity can supply existence after a finite-dimensional argument but do not choose a unique matrix. Reflections are allowed, and the source gives no determinant-one restriction or multiple-minimizer rule. Relating this to sgn(U^T U_natural) needs a separate polar/Procrustes theorem and the matrix-sign definition's nonsingular domain, not an assumed SVD formula at singular overlap."}
+    }
+  ]
+}

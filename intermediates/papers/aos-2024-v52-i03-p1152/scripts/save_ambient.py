@@ -1,0 +1,185 @@
+"""Save source-reviewed published conventions and unresolved issues."""
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+PID='aos-2024-v52-i03-p1152'
+CONTENT={'paper_id': 'aos-2024-v52-i03-p1152',
+ 'scope': 'main_text_only',
+ 'auxiliary_source_passages': [{'local_id': 'A1',
+                                'statement_original': 'For a given lag $h\\ge0$, the process autocovariance '
+                                                      'function is given by '
+                                                      '$\\gamma(h)\\equiv\\operatorname{Cov}(X_0,X_h)=\\int_{-\\pi}^\\pi\\cos(h\\lambda)f(\\lambda)d\\lambda$.',
+                                'evidence': [{'page': 5,
+                                              'location': 'Section 3.1 — autocovariance and spectral-density '
+                                                          'convention'}]},
+                               {'local_id': 'A2',
+                                'statement_original': 'Without the linear constraint $\\sum_{i=1}^N '
+                                                      'p_iT_{i,\\mathrm{NOL}}(\\theta)=\\mathcal M_\\theta$ '
+                                                      'in (6), the product $\\prod_{i=1}^N p_i$ achieves a '
+                                                      'maximum when each $p_i=1/N$, which leads to a SEL '
+                                                      'ratio $L_n(\\theta)/(1/N)^N\\in[0,1]$ for assessing a '
+                                                      'value of $\\theta$.',
+                                'evidence': [{'page': 7,
+                                              'location': 'Section 4.1 — unconstrained likelihood '
+                                                          'normalization'}]},
+                               {'local_id': 'A3',
+                                'statement_original': 'The blocks for $\\mathcal C_{\\mathrm{OL}}$ match the '
+                                                      'same length $b$ as the NOL blocks used for '
+                                                      '$\\ell_n(\\theta_0)$.',
+                                'evidence': [{'page': 12, 'location': 'Section 5.2 — common block length'}]},
+                               {'local_id': 'A4',
+                                'statement_original': 'Let $\\mathbb P_*$ denote the bootstrap probability '
+                                                      'induced by resampling.',
+                                'evidence': [{'page': 13,
+                                              'location': 'Section 5.2 — bootstrap probability'}]},
+                               {'local_id': 'A5',
+                                'statement_original': 'Here we extend SEL/SELB results for inference on a '
+                                                      'general spectral parameter '
+                                                      '$\\vartheta=h(\\theta)\\in\\mathbb R^s$, defined by a '
+                                                      'smooth function $h(\\cdot):\\mathbb '
+                                                      'R^p\\mapsto\\mathbb R^s$, $s\\le p$ of a baseline '
+                                                      'parameter $\\theta\\in\\mathbb R^p$, where the latter '
+                                                      'parameter is prescribed through spectral estimating '
+                                                      'functions (2).',
+                                'evidence': [{'page': 18,
+                                              'location': 'Section 7 — smooth function framework and '
+                                                          'dimensions'}]},
+                               {'local_id': 'A6',
+                                'statement_original': 'At the true parameter, say '
+                                                      '$\\vartheta_0=h(\\theta_0)\\in\\mathbb R^s$, the SEL '
+                                                      'log-ratio $\\ell_n(\\vartheta_0)$ can be shown to '
+                                                      'admit a chi-square limit (cf. Theorem 4 below), as an '
+                                                      'extension of Theorem 1.',
+                                'evidence': [{'page': 19,
+                                              'location': 'Section 7 — true smooth-function parameter'}]}],
+ 'statement_resolution': {'shared': 'D1 gives the real process, spectral density and parameter domain. A1 '
+                                    'records the spectral normalization. Fourth-order stationarity, '
+                                    'covariance/cumulants, bounded variation, Riemann integrals, '
+                                    'vector/matrix derivatives, nonsingularity, positive definiteness, '
+                                    'Euclidean spaces, transpose, probability convergence and '
+                                    'chi-square/normal laws are ambient mathematical notions. The source '
+                                    'does not choose a specific norm on the finite-dimensional derivative '
+                                    'tensors; no particular norm is inserted into original statements. The '
+                                    'imaginary unit is dotless i, not the subsample index. Floor has its '
+                                    'ordinary meaning, and signed nonzero Fourier frequencies retain the '
+                                    'endpoint duplication at even sample/block sizes. n and b are integer '
+                                    'data/block lengths; b<n, N=floor(n/b), and no exact divisibility is '
+                                    'assumed. P is the sampling law; P_* is the conditional resampling law '
+                                    'from A4. Its meaning applies to the appropriate resampling experiment, '
+                                    'including the entire-function experiment for the smooth profile. h and '
+                                    'its Jacobian are locally bound in Theorem 4. No application-specific '
+                                    'autocorrelation, Whittle density family, ARMA process or sunspot model '
+                                    'is imposed on the general theorems.',
+                          '1': 'The explicit assumptions are D12 (fourth-order stationarity, moment and '
+                               'mixing summability), D13 (componentwise bounded variation at theta0), D15 '
+                               '(positive definite spectral covariance sum), and D4 (moment condition at '
+                               'theta0). D10 is the SEL log-ratio, defined from D9 weights on D8 NOL '
+                               'spectral averages, using D7 blocks, D2 estimating functions and D3 moments. '
+                               'D14 resolves the cumulant spectrum inside D15 and D11 the mixing '
+                               'coefficient. The block condition tends to zero and the limit has p degrees '
+                               'of freedom. No full-data M-estimator, overlapping bootstrap collection, '
+                               'derivative conditions or smooth profiling is needed to state this result.',
+                          '2': 'The opening Assumptions 1–3 refer to D12,D13,D15. The true parameter '
+                               'satisfies D4. D17 preserves all four derivative/regularity conditions and '
+                               'the inline moment Jacobian D_theta0. The solution sequence is the spectral '
+                               'M-estimator D16, using D6 full-data average, D5 periodogram, D2 functions '
+                               'and D3 moments. Sigma_theta0 is fully defined inline as (D^transpose V^-1 '
+                               'D)^-1; 0_p and the multivariate normal law are ambient. Only existence of a '
+                               'consistent asymptotically normal root sequence is asserted. This theorem '
+                               'contains no block-size restriction and does not use the NOL likelihood or '
+                               'either bootstrap. Assumption 1 retains fourth-order rather than strict '
+                               'stationarity.',
+                          '3': 'The reference to assumptions of Theorem 2 imports D12,D13,D15,D17 and D4. '
+                               'Its fitted parameter is D16, and the block-length condition explicitly tends '
+                               'to zero. The sampling statistic is D10; the bootstrap statistic is D22, '
+                               'built from D21 independent draws out of D20, which evaluates D19 overlapping '
+                               'averages at the fit. D18 supplies overlapping periodograms; A3 fixes the '
+                               'same b as the original SEL blocks. The source prefactor mismatch in D18 is '
+                               'retained. A4 defines P_*; the supremum over all real x is the CDF distance '
+                               'and convergence is in sampling probability. The bootstrap-calibrated '
+                               'confidence region is surrounding interpretation, not a new hypothesis or '
+                               'conclusion inserted into this theorem.',
+                          '4': 'The imported assumptions of Theorem 3 recursively require D12,D13,D15,D17,D4 '
+                               'and the zero block-size limit. The same theorem also literally states the '
+                               'block expression tends to infinity, which is retained as a conflict. The new '
+                               'h:R^p→R^s is C1 near theta0; vartheta0 and Jacobian rank u are defined '
+                               'inline. D23 supplies the original smooth-function profile maximum and '
+                               'log-ratio. D24 supplies the fitted target h(hat-theta_n). D26 profiles D25, '
+                               'which resamples whole overlapping block-statistic functions from D19 with '
+                               'common sampled indices across theta before applying the SEL objective. It '
+                               'does not use the fixed-fit resampling collection D20 or its pointwise '
+                               'bootstrap D22. The bootstrap probability is the induced law for this '
+                               'function-valued experiment. A5 and A6 agree with the theorem on the domain '
+                               'R^p and codomain R^s, with s<=p in the introductory setup. No neighborhood '
+                               'constant-rank assumption, maximizer-existence assumption or corrected block '
+                               'limit is silently inserted.'},
+ 'source_issues': ['The registered source is the published article in The Annals of Statistics 52(3), 2024, '
+                   'pp. 1152-1177, DOI 10.1214/24-AOS2388. It replaces the separately preserved dissertation '
+                   'chapter as the active source.',
+                   'The complete 26-page published PDF is pinned by SHA-256. Only main-text pages 1-22, '
+                   'clipped above Appendix A at y=241.31422424316406 on page 22, supply mathematical '
+                   'evidence. Appendix bodies and later material are excluded.',
+                   'All four published main-text Theorems are retained with printed labels 1-4. Corollary 1 '
+                   'and external theorem citations are not counted as Theorems.',
+                   'The spectral moment vector is script M and need not vanish or equal theta. The equality '
+                   'in (2) is imposed at theta0, not as an identity at every candidate theta.',
+                   'The common setup is weak stationarity with absolutely summable autocovariances; '
+                   'Assumption 1 strengthens this to fourth-order stationarity and mixing/moment conditions. '
+                   'Strict stationarity, linearity, Gaussianity, mean zero and eighth moments are not '
+                   'silently imposed.',
+                   'All full-data and block spectral averages omit zero frequency and include both positive '
+                   'and negative frequencies. The printed summation includes both endpoints for even n or b; '
+                   'no endpoint half-weight or deduplication is introduced.',
+                   'The NOL blocks number floor(n/b); leftover observations need not form another block. The '
+                   'OL collection has n-b+1 indexed windows with the same block length. They have different '
+                   'roles in SEL and its bootstrap.',
+                   'PDF 12 prints the OL periodogram with prefactor 2π/b, whereas the NOL periodogram on PDF '
+                   '6 has 1/(2πb). The factor differs by 4π². Both original formulas remain unchanged; '
+                   'bootstrap validity under the printed mismatch is not certified.',
+                   'SEL profiles probability weights on subsample spectral averages. Its zero value for an '
+                   'empty feasible set is explicit. The extended-real log-ratio convention at zero follows '
+                   'ordinary interpretation but is not supplied as a new quoted definition.',
+                   'Positive definiteness is required only of V_theta0=V_theta0,1+V_theta0,2. The '
+                   'cumulant-spectrum contribution is not removed or separately required to be positive '
+                   'definite.',
+                   'The full-data M-estimator solves T_n(theta)=script M_theta. Theorem 2 establishes '
+                   'existence of a consistent solution sequence, not uniqueness or consistency for every '
+                   'root.',
+                   'Theorem 2 retains second derivatives and Riemann-integrable envelopes; the norm on '
+                   'derivative tensors is unspecified. V, D and Sigma are plain matrix symbols; script N is '
+                   'the normal distribution.',
+                   'The fitted-parameter bootstrap resamples N iid elements of the indexed OL collection, '
+                   'retaining multiplicities. The source does not explicitly spell out a uniform index law; '
+                   'the empirical-resampling interpretation is recorded as such.',
+                   'Bootstrap probability P_* uses a subscript star. Bootstrap likelihood and log-ratio '
+                   'L_n^*, ell_n^* use superscript stars. Script C_OL denotes the empirical collection, not '
+                   'a constant or parameter class.',
+                   'The published text calls the bootstrap calibration a percentile without the exact CDF '
+                   'equality found in the dissertation. The old-only percentile equation is excluded from '
+                   'this source census.',
+                   'Smooth-function SEL uses a maximum over the h-fiber, not a supremum. '
+                   'Attainment/feasibility conventions are not fully stated in the main text; no compactness '
+                   'hypothesis is inserted.',
+                   'The published Section 7 introduction has vartheta in R^s, h:R^p to R^s, s<=p and theta '
+                   'in R^p. These dimensions agree with Theorem 4; the inconsistent dissertation dimensions '
+                   'are not carried over.',
+                   'The smooth-function bootstrap resamples entire theta-indexed block-statistic functions. '
+                   'Shared resampling indices across theta are necessary for the likelihood process '
+                   'described in the source; independent redraws at each theta would change that '
+                   'construction.',
+                   'Theorem 4 literally requires b/n+n/b^2→infinity while importing assumptions of Theorem '
+                   '3, which require the same expression to approach zero. The contradiction is explicitly '
+                   'retained and not repaired.',
+                   'Theorem 4 gives u as the Jacobian rank at theta0 and assumes C1 near theta0, without '
+                   'explicitly requiring a constant rank in a neighborhood. No stronger rank condition is '
+                   'added to the original claim.',
+                   'The named statistics L_n and ell_n are overloaded for the baseline and smooth-function '
+                   'parameter. Their definitions and dependency paths are separated without renaming the '
+                   'original mathematical notation.',
+                   'Whittle-specific Corollary 1, application models and computational Lagrange-multiplier '
+                   'formulas are not prerequisites of the four general theorem statements. No appendix proof '
+                   'results are imported.'],
+ 'excluded_references': []}
+def main():
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(CONTENT,indent=2,ensure_ascii=False)+'\n')
+if __name__=='__main__':main()

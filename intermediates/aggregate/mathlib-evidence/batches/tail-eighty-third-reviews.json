@@ -1,0 +1,167 @@
+{
+  "scope": "Manual comparison of fifteen remaining interfaces and sixteen source members from aos-2024-v52-i05-p2400; separates discrete KTV, essential variation, anisotropic BV and the two minimax risks.",
+  "rows": [
+    {
+      "interface_id": "local-f8dfdc0e4c76ec9ff24b",
+      "related": ["Matrix.mulVec", "PiLp.norm_eq_of_L1"],
+      "status": "composable",
+      "query": "Kronecker total variation as the L1 norm of a supplied stacked difference matrix applied to a signal; inspected matrix-vector multiplication and finite L1 norm identity.",
+      "result": "The KTV quantity is the sum of absolute values of the supplied discrete derivative coordinates and is directly expressible without a continuous bounded-variation operator.",
+      "gap": "Matrix multiplication and the finite L1 norm define KTV once the source's shrinking-row Kronecker difference matrix is supplied.",
+      "comparisons": {
+        "D8": "For the k-th order KTV apply D_(n,d)^(k+1) to theta and sum absolute values over all stacked axis-direction rows. The name's order k corresponds to differences of order k+1. Use the source matrix construction with shrinking rows, not the separately iterated fixed-length Delta operator whose boundary convention differs. This is a seminorm with a polynomial null space, not ordinary multidimensional total variation of an interpolated function or a positive-definite vector norm."
+      }
+    },
+    {
+      "interface_id": "generalized-lasso-signal-estimator",
+      "related": ["IsMinOn", "Matrix.mulVec", "EuclideanSpace.norm_eq", "PiLp.norm_eq_of_L1"],
+      "query": "Generalized lasso signal denoising and KTF specialization with squared Euclidean loss and L1 matrix penalty; inspected minimizing predicate and both finite-dimensional norm conventions.",
+      "result": "The two variants share the same convex objective with a different supplied penalty matrix. IsMinOn expresses minimization, while the coercive strictly convex squared-signal loss can support an existence and uniqueness proof on the nonnegative-penalty domain.",
+      "gap": "The remaining estimator construction proves and selects the minimizer with the stated tuning domain, retaining each variant's penalty matrix and normalization.",
+      "comparisons": {
+        "D15": "For arbitrary real D of shape r by n minimize (1/2)*||y-theta||_2^2+lambda*||D theta||_1 over theta in R^n. The data-fidelity term is Euclidean and has no 1/n normalization; the penalty is an L1 norm in R^r. This generic signal-denoising estimator does not require a lattice, Kronecker structure or a regression design matrix replacing the identity in the loss. Standard existence/uniqueness reasoning needs lambda>=0 and is not supplied by the IsMinOn predicate alone.",
+        "D9": "Specialize D to the displayed shrinking-row Kronecker matrix D_(n,d)^(k+1) and preserve the same one-half loss and unnormalized L1 penalty. The source calls this equivalent to the earlier fixed-length finite-difference problem, but its recorded boundary discrepancy means that equation (7)'s explicit matrix formulation must remain the definition used here. The KTF specialization adds the valid regular-lattice and difference-order domain; it does not change the general objective's norm conventions or assert its statistical risk bound by definition."
+      }
+    },
+    {
+      "interface_id": "local-1bb360a94c123f384d92",
+      "related": ["Matrix.mulVec", "PiLp.norm_eq_of_L1", "Set.ofPred"],
+      "status": "composable",
+      "query": "Positive-radius KTV signal class defined by a discrete L1 derivative bound; inspected matrix action, finite L1 norm and predicate-defined sets.",
+      "result": "The parameter class is the inverse image of an L1 norm sublevel set under the Kronecker difference map, with no bound on its null-space components.",
+      "gap": "These ingredients define the KTV class for the supplied matrix and positive radius, retaining its unbounded polynomial null space.",
+      "comparisons": {
+        "D10": "Require rho>0 and include exactly the theta in R^n with ||D_(n,d)^(k+1) theta||_1<=rho. Use the regular-lattice matrix convention and do not add a bound on ||theta||, its mean or its polynomial components. Calling it a ball refers to a seminorm sublevel set; it is not compact merely because the displayed radius is finite. The null space contributes to minimax risk and cannot be removed without changing this class."
+      }
+    },
+    {
+      "interface_id": "local-5107e3367903af26a075",
+      "related": ["MeasureTheory.lintegral", "ProbabilityTheory.gaussianReal", "MeasureTheory.Measure.pi", "EuclideanSpace.norm_eq"],
+      "status": "composable",
+      "query": "Unrestricted minimax mean-squared risk in a Gaussian sequence experiment; inspected finite Gaussian product laws, Euclidean loss and extended nonnegative integration.",
+      "result": "For each parameter, the independent Gaussian observation law defines an expected squared-error risk. Extended suprema over the parameter class and infima over measurable estimators express the minimax value without assuming optimal-estimator attainment.",
+      "gap": "The minimax quantity is definable from the Gaussian experiment and measurable estimator class, with lower bounds and uniform expected-risk upper bounds requiring separate proofs.",
+      "comparisons": {
+        "D13": "Use y_i independent with mean theta0_i and common variance sigma squared, and define the loss as (1/n)*||theta-hat(y)-theta0||_2^2 for n>0. Take expectation under each parameter-specific law, then supremum over theta0 in K, then infimum over admissible measurable estimators. Retain infinite risks rather than Bochner-zero fallbacks, and do not restrict estimators to KTF, spectral projections or linear maps. An Op error bound for each signal is not by itself a uniform expected-risk bound or a minimax attainment proof."
+      }
+    },
+    {
+      "interface_id": "local-b4f03ab604cd5c87d82e",
+      "related": ["Matrix.mulVec", "InnerProductSpace.rankOne_apply", "Submodule.orthogonalProjectionOnto"],
+      "status": "composable",
+      "query": "Truncated right-singular-vector projection estimator for the Kronecker difference matrix; inspected matrix action and orthogonal rank-one projection construction.",
+      "result": "For a supplied orthonormal family of right singular vectors, summing their rank-one projections yields V_Q V_Q transpose acting on y.",
+      "gap": "The projection estimator is supported once the singular-vector family and retained index set are specified, while tensor spectral facts and risk-optimal truncation remain separate.",
+      "comparisons": {
+        "D19": "Use right singular vectors in R^n indexed by [N]^d, including the (k+1)^d zero modes, not the left singular vectors in R^r used by the incoherence assumption. Preserve coordinatewise ordering of the tensor-indexed singular values and allow the source's arbitrary Q subset in the standalone definition. Orthonormal columns give the orthogonal projection V_Q V_Q^T; choices within repeated eigenspaces are separate inputs. Risk claims over unbounded null-space components require retaining those modes, and theorem-specific truncations need feasible integer rounding/clipping; these are not automatic restrictions on every Q in the definition."
+      }
+    },
+    {
+      "interface_id": "local-dfadae8a206107fd1908",
+      "related": ["Real.rpow"],
+      "status": "composable",
+      "query": "Canonical discrete Sobolev and KTV radius sequences with effective smoothness (k+1)/d; inspected real-power definition and positive sample-size domain.",
+      "result": "The two sequences are direct real powers of the sample size with the distinct half-minus-smoothness and one-minus-smoothness exponents.",
+      "gap": "Real powers define the two radius sequences for positive n and d; their statistical interpretation and rate simplifications require the paper's separate bounds.",
+      "comparisons": {
+        "D21": "Set B_n-star=n^(1/2-(k+1)/d) for the discrete L2-Sobolev class and C_n-star=n^(1-(k+1)/d) for the L1-KTV class. Do not interchange the radii, replace n by lattice side length N, or square either radius. Keep d>=1, valid n=N^d and the source's fixed k,d convention for asymptotics. These definitions do not justify dropping the parametric 1/n term when a later multiplier makes the nonparametric rate smaller."
+      }
+    },
+    {
+      "interface_id": "local-9e1a561249829d9e4024",
+      "related": ["Set.image", "csInf_le", "csSup_le_iff", "Set.Icc"],
+      "status": "composable",
+      "query": "Coordinate projection and fiber endpoint interval for an open bounded domain; inspected projected sets, bounded real extrema and closed intervals.",
+      "result": "Coordinate deletion gives U_-j and each nonempty bounded fiber has finite infimum and supremum. Their closed hull defines the displayed interval, while convexity is needed to identify its interior with the entire open fiber.",
+      "gap": "Set projections and real extrema support the coordinate construction on nonempty bounded fibers, with convexity and endpoint evaluation treated explicitly where needed.",
+      "comparisons": {
+        "D4": "Fix the other d-1 coordinates, collect all admissible j-th coordinates in U and define a as their infimum and b as their supremum; use [a,b] as printed without requiring the endpoints to lie in open U. The theorem's convexity ensures an interval fiber, whereas a generic nonconvex open U can have gaps inside this hull. Essential variation samples only strict interior points, so its definition does not require selecting endpoint values. For d=1 retain the usual singleton R^0 projection convention rather than changing the coordinate decomposition."
+      }
+    },
+    {
+      "interface_id": "local-ed0308c86affe1a4467b",
+      "related": ["eVariationOn"],
+      "query": "Essential one-dimensional variation over approximate-continuity points; bounded whole-library approximate-continuity/essential-variation search and inspection of eVariationOn's finite monotone sequences.",
+      "result": "Once the set of approximate-continuity points is supplied, extended variation on its intersection with the open interval supports the restricted partition supremum. No verified declaration found supplies that approximate-continuity set or its equivalence with the infimum over almost-everywhere representatives.",
+      "gap": "The remaining interface defines approximate continuity and proves the restricted-partition and almost-everywhere-representative characterizations of essential variation.",
+      "comparisons": {
+        "D3": "Restrict partition points to AC(g) and a<z_1<...<z_(m+1)<b, then sum absolute successive increments. eVariationOn on the restricted set allows non-strict monotone sequences, so compare the two suprema by removing repeated points rather than assuming the indexing conventions are identical. Do not use unrestricted variation on [a,b], which can detect isolated point changes and endpoint values excluded here. The source only describes and externally cites approximate continuity; the claimed infimum of unrestricted variation over Lebesgue-a.e.-equal representatives is an additional theorem, not the defining body of eVariationOn."
+      }
+    },
+    {
+      "interface_id": "local-50f35d527ea9ec6913b7",
+      "related": ["Matrix.rank", "csSup_le_iff", "Real.sqrt"],
+      "status": "composable",
+      "query": "Incoherence bound for nonzero left singular vectors with an exceptional index set; inspected rank, real coordinate supremum bounds and square-root normalization.",
+      "result": "Given the ordered nonzero singular values and chosen left singular vectors, the condition is a finite set of coordinate magnitude bounds outside the supplied exceptional set.",
+      "gap": "The incoherence predicate is expressible once the singular-vector data are supplied, with its unusual sample-size normalization retained exactly.",
+      "comparisons": {
+        "D16": "Let q=rank(D), order its q nonzero singular values increasingly and choose associated left singular vectors u_i in R^r. For i in [q] outside I require ||u_i||_infinity<=mu/sqrt(n) with mu>=1. Preserve sqrt(n), not sqrt(r), despite the vectors having r coordinates. No bound is imposed on the exceptional indices, and this is a condition on the chosen singular basis rather than the right-singular-vector projection estimator or on the signal itself. Repeated singular values require a chosen basis; matrix rank alone does not supply or prove incoherence."
+      }
+    },
+    {
+      "interface_id": "local-31b953de28865961b0ae",
+      "related": ["Matrix.mulVec", "MeasureTheory.lintegral", "EuclideanSpace.norm_eq"],
+      "status": "composable",
+      "query": "Minimax expected risk restricted to fixed linear signal estimators; inspected real matrix action, Euclidean loss and nonnegative expectation.",
+      "result": "Restrict the estimator infimum to matrices S acting on the observed vector, while retaining the same parameter-wise Gaussian expectation and worst-case squared-error risk.",
+      "gap": "The linear minimax quantity is definable by matrix-parametrized estimators and extended expected loss, while its rates and comparison with unrestricted minimax risk require proofs.",
+      "comparisons": {
+        "D14": "Use theta-hat(y)=S y for a fixed real n-by-n matrix, not an affine map with an intercept or a matrix selected adaptively from y. Keep the 1/n loss factor and the order infimum over S, supremum over theta0 in K and expectation under the corresponding Gaussian law. KTF generally is not linear in y and does not become an admissible estimator here merely because its penalty matrix is linear. Finite-dimensional matrix operations define the class but do not establish the stated minimax-linear lower bound or spectral estimator optimality."
+      }
+    },
+    {
+      "interface_id": "local-96c5a8749a3f69e05598",
+      "related": ["MvPolynomial.totalDegree", "MvPolynomial.degreeOf", "MvPolynomial.eval"],
+      "status": "composable",
+      "query": "Multivariate total degree versus coordinatewise max degree for the polynomial null space; inspected total-degree support supremum, per-variable degree and evaluation.",
+      "result": "TotalDegree bounds the sum of monomial exponents, whereas degreeOf bounds each coordinate exponent separately. Polynomial evaluation connects either formal polynomial class to real functions and lattice signal vectors.",
+      "gap": "These declarations express both polynomial classes and their evaluations, while identifying the coordinatewise class with the Kronecker difference null space requires a separate argument.",
+      "comparisons": {
+        "D20": "Total degree k means every retained monomial has sum_j a_j<=k; max degree k means each individual a_j<=k. Use degreeOf j p<=k for every coordinate in the latter class, not totalDegree p<=k. For example a product with degree k in several coordinates can belong to the max-degree class while exceeding total degree k. The source uses an upper bound despite the phrase 'of degree k'; no exact-degree requirement is added. Evaluation on the regular lattice needs the side-length/order domain for the claimed polynomial null-space dimension."
+      }
+    },
+    {
+      "interface_id": "local-20bf0e42dcf81a97fbb9",
+      "related": ["Module.finrank", "Matrix.mulVec"],
+      "status": "composable",
+      "query": "Matrix nullity as dimension of the zero-action subspace; inspected finite module dimension and matrix-vector action.",
+      "result": "The vectors sent to zero by the real matrix form a finite-dimensional subspace of its input space, whose finrank is its nullity.",
+      "gap": "Matrix action and finite-dimensional rank support the nullity definition once the kernel subspace is formed.",
+      "comparisons": {
+        "D17": "For a real matrix M with n input coordinates form the subspace {v:M v=0} and take its dimension over R. This is the right kernel in the input space, not the left kernel in the row space or the number of zero matrix entries. Finite-dimensionality follows from the finite input space, avoiding finrank's infinite-rank-to-zero convention. The n-rank(M) identity is a rank-nullity theorem, and the specific (k+1)^d nullity for a Kronecker difference matrix is a further structural result rather than this definition."
+      }
+    },
+    {
+      "interface_id": "local-e4de121c61ce5430684c",
+      "related": ["Matrix.mulVec", "EuclideanSpace.norm_eq", "Set.ofPred"],
+      "status": "composable",
+      "query": "Discrete axiswise Sobolev signal class defined by Euclidean norm of the Kronecker derivative; inspected matrix action and Euclidean norm.",
+      "result": "The class is a Euclidean-norm sublevel set of the same stacked discrete derivative map, with coordinate-axis differences and an unbounded null space.",
+      "gap": "The class is directly definable from the supplied discrete derivative matrix and positive radius, without introducing a continuum mixed-derivative Sobolev norm.",
+      "comparisons": {
+        "D11": "Bound ||D_(n,d)^(k+1) theta||_2 by rho>0 using the Euclidean norm over all output rows. This is not the L1 KTV class and is not the space of all mixed derivatives of total order k+1; the stacked blocks differentiate one coordinate at a time. Retain the shrinking-row lattice boundary convention and unrestricted polynomial null-space components. Do not infer a bounded signal norm or alter the class because the nearby explanatory embedding inequality contains a recorded norm typo."
+      }
+    },
+    {
+      "interface_id": "local-050fc1348a90a1e733b5",
+      "related": ["MeasureTheory.integral", "ContDiffOn", "HasCompactSupport", "fderiv"],
+      "query": "Anisotropic distributional total variation via smooth compactly supported test fields with infinity-norm bound; bounded variation/divergence search and inspection of smoothness, compact support, derivatives and integration.",
+      "result": "The coordinate derivatives of a smooth test field and a finite diagonal sum express divergence, while integration and a supremum over bounded test fields describe the functional. The test-field norm choice is essential to its anisotropic meaning.",
+      "gap": "The remaining interface bundles admissible test fields compactly supported inside U and their extended supremum, retaining the infinity-norm constraint and distributional interpretation.",
+      "comparisons": {
+        "D1": "For open bounded U integrate f times sum_j partial_j phi_j over U, then take the supremum over infinitely smooth vector fields with compact support contained in U and ||phi(x)||_infinity<=1 for all x in U. A globally compact support touching the boundary is not automatically compactly supported inside U; this containment must be supplied. Do not replace the infinity norm by the Euclidean norm, which changes anisotropic TV to isotropic TV, or use one-dimensional eVariationOn for the multivariate distributional definition. No absolute value appears outside the integral, although symmetry of the admissible field class can relate that alternative. Retain extended values when the supremum is infinite."
+      }
+    },
+    {
+      "interface_id": "local-dc96d3cf9b4382c1da6e",
+      "related": ["MeasureTheory.MemLp"],
+      "query": "Anisotropic BV class as integrable functions with finite distributional total variation; bounded distributional-variation search and inspection of L1 membership versus ordered-domain BoundedVariationOn.",
+      "result": "MemLp at exponent one provides integrability and measurability, but the source's multidimensional anisotropic variation functional must be supplied separately. The existing ordered-domain bounded-variation predicate is not this BV space.",
+      "gap": "The remaining BV interface combines L1 equivalence classes with finite anisotropic distributional variation and establishes invariance under Lebesgue-almost-everywhere equality.",
+      "comparisons": {
+        "D2": "Require f in L1(U) with the TV from D1 finite, using restricted Lebesgue measure and the infinity-bounded test-field convention. This class is defined modulo null-set changes in its intended analytic interpretation, unlike unrestricted pointwise variation sensitive to isolated changes. Do not substitute BoundedVariationOn, whose domain is linearly ordered and whose variation uses pointwise distances. The essential-variation slicing theorem is an additional statement relating this BV class to almost-everywhere coordinate slices, not part of its definition."
+      }
+    }
+  ]
+}

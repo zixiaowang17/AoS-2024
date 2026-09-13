@@ -1,0 +1,782 @@
+{
+  "paper_id": "aos-2024-v52-i06-p2851",
+  "members": [
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D1",
+      "local_label": "Introduction — Conditional mean independence",
+      "source_heading": "Introduction — Conditional mean independence",
+      "source_kind": "definition",
+      "statement_original": "In this work we consider the model-free null hypothesis of conditional mean independence, that is $\\mathbb E(Y\\mid X,Z)=\\mathbb E(Y\\mid Z)$; in words, $X$ does not feature in the regression function of $Y$ on $X$ and $Z$.",
+      "relation": "exact",
+      "depends_on": [
+        "D6",
+        "D7"
+      ],
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Introduction — Conditional mean independence"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbb E(Y\\mid X,Z)=\\mathbb E(Y\\mid Z)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D2",
+      "local_label": "Introduction — Signal parameter (1)",
+      "source_heading": "Introduction — Signal parameter (1)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\tau:=\\mathbb E\\left[\\{\\mathbb E(Y\\mid X,Z)-\\mathbb E(Y\\mid Z)\\}^2\\right],\\tag{1}\n\\]\nwe have that $\\tau=0$ if and only if $Y$ is conditionally mean independent of $X$ given $Z$.",
+      "relation": "exact",
+      "depends_on": [
+        "D8"
+      ],
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Introduction — Signal parameter (1)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\tau",
+        "\\tau_P"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D2/name",
+          "text": "To circumvent this issue, Williamson et al. (2023) and independently Dai et al. (2024), utilise an alternative representation of the target parameter $\\tau=\\mathbb E[{Y-\\mathbb E(Y\\mid Z)}^2]-\\mathbb E[{Y-\\mathbb E(Y\\mid X,Z)}^2]$",
+          "evidence": [
+            {
+              "page": 3,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D3",
+      "local_label": "Section 1.3 — Uniform probabilistic notation",
+      "source_heading": "Section 1.3 — Uniform probabilistic notation",
+      "source_kind": "definition",
+      "statement_original": "In order to present our uniform results on testing, we require some conventions for probabilistic notation used in what follows. Let $(\\Omega,\\mathcal F)$ be a measurable space equipped with a family of probability measures $(\\mathbb P_P)_{P\\in\\mathcal P}$ where $\\mathcal P$ is a collection of distributions on a Euclidean space. We will permit the family $\\mathcal P$ to depend on $n$, to allow for settings where the number of parameters grows with $n$, but will typically suppress this in the notation. Given a family of sequences of random variables $(X_{P,n})_{P\\in\\mathcal P,n\\in\\mathbb N}$ on $(\\Omega,\\mathcal F)$ whose distributions are determined by $P\\in\\mathcal P$, we write $X_{P,n}=o_{\\mathcal P}(1)$ if $\\sup_{P\\in\\mathcal P}\\mathbb P_P(|X_{P,n}|>\\epsilon)\\to0$ for every $\\epsilon>0$. Similarly, we write $X_{P,n}=O_{\\mathcal P}(1)$ if, for any $\\epsilon>0$, there exist $M_\\epsilon,N_\\epsilon>0$ such that $\\sup_{n\\ge N_\\epsilon}\\sup_{P\\in\\mathcal P}\\mathbb P_P(|X_{P,n}|>M_\\epsilon)<\\epsilon$.\nIn addition, for another family of sequences of random variables $(Y_{P,n})_{P\\in\\mathcal P,n\\in\\mathbb N}$, we write $X_{P,n}=o_{\\mathcal P}(Y_{P,n})$ if there exists $R_{P,n}$ with $X_{P,n}=Y_{P,n}R_{P,n}$ and $R_{P,n}=o_{\\mathcal P}(1)$; likewise, we write $X_{P,n}=O_{\\mathcal P}(Y_{P,n})$ if $R_{P,n}=O_{\\mathcal P}(1)$ in this representation. We say that $(X_{P,n})_{P\\in\\mathcal P,n\\in\\mathbb N}$ converges uniformly in distribution to random variable $X$ with distribution function $F$ if for all continuity points $x$ of $F$, we have\n\\[\n\\lim_{n\\to\\infty}\\sup_{P\\in\\mathcal P}|\\mathbb P_P(X_{P,n}\\le x)-F(x)|=0.\n\\]",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.3 — Uniform probabilistic notation"
+        },
+        {
+          "page": 8,
+          "location": "Section 1.3 — Uniform probabilistic notation"
+        }
+      ],
+      "highlight_symbols": [
+        "o_{\\mathcal P}(1)",
+        "o_{\\mathcal P_0}(n^{\\delta/2})"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D4",
+      "local_label": "Section 1.3 — Data and conditioning convention",
+      "source_heading": "Section 1.3 — Data and conditioning convention",
+      "source_kind": "source_passage",
+      "statement_original": "We will denote different independent datasets by $\\mathcal D_1,\\mathcal D_2,\\ldots$, each containing $n$ independent observations. We will frequently abuse notation and write conditional expectations conditioning on a random function, e.g. $\\mathbb E_P(\\hat f(X,Z)\\mid\\hat f,Z)$ where $\\hat f$ is a function produced by some regression estimator. By this we mean formally that we condition on the sample used to construct the regression estimator and any additional randomness involved in the computation of the regression function. We let $(X,Y,Z)$ be random variables in $\\mathcal X\\times\\mathbb R\\times\\mathcal Z$, where $\\mathcal X$ and $\\mathcal Z$ are measurable spaces, although we will at times think of $\\mathcal X$ and $\\mathcal Z$ being specific $d_X$- and $d_Z$-dimensional Euclidean spaces, respectively.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Section 1.3 — Data and conditioning convention"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbb E_P(\\hat f(X,Z)\\mid\\hat f,Z)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D5",
+      "local_label": "Section 1.3 — Normal reference distribution",
+      "source_heading": "Section 1.3 — Normal reference distribution",
+      "source_kind": "definition",
+      "statement_original": "We use the notation $z_\\alpha$ to denote the $\\alpha$th quantile of the standard normal distribution, whose distribution function is denoted by $\\Phi$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.3 — Normal reference distribution"
+        }
+      ],
+      "highlight_symbols": [
+        "z_\\alpha",
+        "\\Phi",
+        "z_{1-\\alpha}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D6",
+      "local_label": "Section 2.1 — Response regression target",
+      "source_heading": "Section 2.1 — Response regression target",
+      "source_kind": "definition",
+      "statement_original": "Next, given an estimate $\\hat m(\\cdot)$ of $m(\\cdot):=\\mathbb E(Y\\mid Z=\\cdot)$, the oracular test statistic (3) suggests a numerator of our test statistic of the form",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Section 2.1 — Response regression target"
+        }
+      ],
+      "highlight_symbols": [
+        "m(\\cdot):=\\mathbb E(Y\\mid Z=\\cdot)"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D6/name",
+          "text": "To motivate our specific strategy, consider an oracular test statistic that uses knowledge of the conditional expectation $\\mathbb E(Y\\mid Z)$:",
+          "evidence": [
+            {
+              "page": 4,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D7",
+      "local_label": "Assumption 4 — Full regression target",
+      "source_heading": "Assumption 4 — Full regression target",
+      "source_kind": "definition",
+      "statement_original": "for $P\\in\\mathcal P$, let $g_P(x,z):=\\mathbb E_P(Y\\mid X=x,Z=z)$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Assumption 4 — Full regression target"
+        }
+      ],
+      "highlight_symbols": [
+        "g_P(x,z)"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D7/name",
+          "text": "the conditional mean of $Y$ given $X$ and $Z$ does not depend on $X$.",
+          "evidence": [
+            {
+              "page": 1,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D8",
+      "local_label": "Section 1.1 — Regression projection",
+      "source_heading": "Section 1.1 — Regression projection",
+      "source_kind": "definition",
+      "statement_original": "where $h(X,Z):=\\mathbb E(Y\\mid X,Z)-\\mathbb E(Y\\mid Z)$ and $v(X,Z):=\\operatorname{Var}(Y\\mid X,Z)$. We therefore see that the optimal $f$ is a version of the projection $h$ of $Y$ onto the space of square-integrable functions of $(X,Z)$ that are orthogonal to functions of $Z$, inversely weighted by the conditional variance $v$.",
+      "relation": "exact",
+      "depends_on": [
+        "D6",
+        "D7"
+      ],
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Section 1.1 — Regression projection"
+        }
+      ],
+      "highlight_symbols": [
+        "h(X,Z):=\\mathbb E(Y\\mid X,Z)-\\mathbb E(Y\\mid Z)",
+        "h_P(X,Z)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D9",
+      "local_label": "Section 2.1 — Projection regression target",
+      "source_heading": "Section 2.1 — Projection regression target",
+      "source_kind": "definition",
+      "statement_original": "where $\\hat m_{\\hat f}$ is an estimate of $m_{\\hat f}(\\cdot):=\\mathbb E(\\hat f(X,Z)\\mid Z=\\cdot,\\hat f)$.",
+      "relation": "exact",
+      "depends_on": [
+        "D4"
+      ],
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Section 2.1 — Projection regression target"
+        }
+      ],
+      "highlight_symbols": [
+        "m_{\\hat f}(\\cdot)"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D9/name",
+          "text": "for instance by subtracting from $\\hat f(X,Z)$ an estimate of its conditional expectation given $Z$, to reduce bias;",
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D10",
+      "local_label": "Algorithm 1 — Projected Covariance Measure: single sample split",
+      "source_heading": "Algorithm 1 — Projected Covariance Measure: single sample split",
+      "source_kind": "definition",
+      "statement_original": "Input: Data $(X_i,Y_i,Z_i)_{i=1}^{2n}$, significance level $\\alpha\\in(0,1)$, partition of $[2n]=\\mathcal I_1\\cup\\mathcal I_2$ into index sets $\\mathcal I_1$ and $\\mathcal I_2$, each of size $n$.\nOptions: Regression methods for each of the regressions.\nDefine: $\\mathcal D_j=(X_i,Y_i,Z_i)_{i\\in\\mathcal I_j}$ for $j\\in[2]$.\n1: Form $\\hat h$.\n(i) Regress $Y$ onto $(X,Z)$ using $\\mathcal D_2$ to give fitted regression function $\\hat g$.\n(ii) If $\\hat g$ can be modified so that all components involving only $Z$ are set to $0$, let $\\tilde g$ be this modified version of $\\hat g$. Alternatively, set $\\tilde g:=\\hat g$.\n(iii) Regress $\\tilde g(X,Z)$ onto $Z$ using $\\mathcal D_2$ to give fitted regression function $\\tilde m$, and then set $\\tilde h(x,z):=\\tilde g(x,z)-\\tilde m(z)$.\n(iv) Compute\n\\[\n\\hat\\rho:=\\frac1n\\sum_{i\\in\\mathcal I_2}\\{Y_i-\\hat g(X_i,Z_i)+\\tilde g(X_i,Z_i)-\\tilde m(Z_i)\\}\\tilde h(X_i,Z_i),\n\\]\nand set $\\hat h(x,z):=\\operatorname{sgn}(\\hat\\rho)\\tilde h(x,z)$,\n2: Form $\\hat v$.\n(i) Regress $\\{Y-\\hat g(X,Z)\\}^2$ onto $(X,Z)$ using $\\mathcal D_2$ to give $\\tilde v$.\n(ii) Define $a:[0,\\infty)\\to[0,\\infty]$ by\n\\[\na(c):=\\frac1n\\sum_{i\\in\\mathcal I_2}\\frac{\\{Y_i-\\hat g(X_i,Z_i)\\}^2}{\\max\\{\\tilde v(X_i,Z_i),0\\}+c}.\n\\]\nIf $a(0)\\le1$, set $\\hat c:=0$; otherwise find $\\hat c$ by solving $a(c)=1$. Set $\\hat v(x,z):=\\max\\{\\tilde v(x,z),0\\}+\\hat c$.\n3: Compute test statistic.\n(i) Set $\\hat f(x,z):=\\hat h(x,z)/\\hat v(x,z)$ and regress $\\hat f(X,Z)$ onto $Z$ using $\\mathcal D_1$, giving $\\hat m_{\\hat f}$.\n(ii) Regress $Y$ onto $Z$ using $\\mathcal D_1$ to give $\\hat m$.\n(iii) For $i\\in\\mathcal I_1$ set $L_i:=\\{Y_i-\\hat m(Z_i)\\}\\{\\hat f(X_i,Z_i)-\\hat m_{\\hat f}(Z_i)\\}$ and let\n\\[\nT:=\\frac{\\frac1{\\sqrt n}\\sum_{i\\in\\mathcal I_1}L_i}{\\sqrt{\\frac1n\\sum_{i\\in\\mathcal I_1}L_i^2-\\left(\\frac1n\\sum_{i\\in\\mathcal I_1}L_i\\right)^2}}.\n\\]\n4: Reject $H_0$ if $T>z_{1-\\alpha}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D4",
+        "D5"
+      ],
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Algorithm 1 — Projected Covariance Measure: single sample split"
+        }
+      ],
+      "highlight_symbols": [
+        "\\hat f(x,z):=\\hat h(x,z)/\\hat v(x,z)",
+        "L_i:=\\{Y_i-\\hat m(Z_i)\\}\\{\\hat f(X_i,Z_i)-\\hat m_{\\hat f}(Z_i)\\}"
+      ],
+      "highlight_phrases": [
+        "Algorithm 1"
+      ],
+      "naming_context": [
+        {
+          "context_id": "D10/name",
+          "text": "Algorithm 1 Projected Covariance Measure: single sample split",
+          "evidence": [
+            {
+              "page": 11,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D11",
+      "local_label": "Algorithm 2 — Projected Covariance Measure: theoretical version",
+      "source_heading": "Algorithm 2 — Projected Covariance Measure: theoretical version",
+      "source_kind": "definition",
+      "statement_original": "Input: Data $(X_i,Y_i,Z_i)_{i=1}^{4n}$, significance level $\\alpha\\in(0,1)$, partition of $[4n]=\\mathcal I_1\\cup\\mathcal I_2\\cup\\mathcal I_3\\cup\\mathcal I_4$ into index sets $\\mathcal I_1$, $\\mathcal I_2$, $\\mathcal I_3$ and $\\mathcal I_4$, each of size $n$.\nOptions: Regression methods for each of the regressions.\nDefine: $\\mathcal D_j=(X_i,Y_i,Z_i)_{i\\in\\mathcal I_j}$ for $j\\in[4]$.\nPerform Algorithm 1 but in steps 3 (i) and 3 (ii), perform the regressions on $\\mathcal D_3$ and $\\mathcal D_4$, respectively, instead of on $\\mathcal D_1$.",
+      "relation": "exact",
+      "depends_on": [
+        "D4",
+        "D5",
+        "D10"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Algorithm 2 — Projected Covariance Measure: theoretical version"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal D_3",
+        "\\mathcal D_4"
+      ],
+      "highlight_phrases": [
+        "Algorithm 2"
+      ],
+      "naming_context": [
+        {
+          "context_id": "D11/name",
+          "text": "Algorithm 2 Projected Covariance Measure: theoretical version",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D12",
+      "local_label": "Section 4 — Response residual (11)",
+      "source_heading": "Section 4 — Response residual (11)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\varepsilon_{P,i}:=Y_i-m_P(Z_i),\\tag{11}\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D6"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 4 — Response residual (11)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\varepsilon_{P,i}",
+        "\\varepsilon_P"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D12/name",
+          "text": "In words, the residuals $Y-\\mathbb E(Y\\mid Z)$ from regressing $Y$ on $Z$ alone are uncorrelated with any square-integrable function of $X$ and $Z$.",
+          "evidence": [
+            {
+              "page": 4,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D13",
+      "local_label": "Section 4 — Projection residual (11)",
+      "source_heading": "Section 4 — Projection residual (11)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\xi_{P,i}:=\\hat f(X_i,Z_i)-m_{P,\\hat f}(Z_i),\\tag{11}\n\\]\nfor $i\\in[n]$, and an analogous version of (11) without a subscript $i$.",
+      "relation": "exact",
+      "depends_on": [
+        "D9"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 4 — Projection residual (11)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\xi_{P,i}",
+        "\\xi_P"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D13/name",
+          "text": "we now ask in part (d) of Theorem 5 for $\\xi_P$, the population residual from regressing our estimated projection $\\hat f$ onto $Z$, to be positively correlated with $h_P$ with high probability",
+          "evidence": [
+            {
+              "page": 20,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D14",
+      "local_label": "Section 4 — Projection variance (12)",
+      "source_heading": "Section 4 — Projection variance (12)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\sigma_P^2:=\\operatorname{Var}_P(\\xi_P\\mid\\hat f),\\tag{12}\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D4",
+        "D13"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 4 — Projection variance (12)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\sigma_P^2"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D14/name",
+          "text": "The second MSPE $\\mathcal E_{P,2}$ in the display above is normalised by the variance of the errors $\\xi_{P,i}$ featuring in the corresponding regression.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D15",
+      "local_label": "Section 4 — Response MSPE (13)",
+      "source_heading": "Section 4 — Response MSPE (13)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\mathcal E_{P,1}:=\\frac1n\\sum_{i=1}^n\\{m_P(Z_i)-\\hat m(Z_i)\\}^2\\tag{13}\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D6"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 4 — Response MSPE (13)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal E_{P,1}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D15/name",
+          "text": "Importantly, the bias term can then be controlled by a product of the mean squared prediction error (MSPE) of $\\hat m$,",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D16",
+      "local_label": "Section 4 — Normalized projection MSPE (13)",
+      "source_heading": "Section 4 — Normalized projection MSPE (13)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\mathcal E_{P,2}:=\\frac1{n\\sigma_P^2}\\sum_{i=1}^n\\{m_{P,\\hat f}(Z_i)-\\hat m_{\\hat f}(Z_i)\\}^2.\\tag{13}\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D9",
+        "D14"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 4 — Normalized projection MSPE (13)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal E_{P,2}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D16/name",
+          "text": "The second MSPE $\\mathcal E_{P,2}$ in the display above is normalised by the variance of the errors $\\xi_{P,i}$ featuring in the corresponding regression.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D17",
+      "local_label": "Assumption 3",
+      "source_heading": "Assumption 3",
+      "source_kind": "assumption",
+      "statement_original": "Assume that the class of distributions $\\mathcal P$ of $(X,Y,Z)$ on $\\mathcal X\\times\\mathbb R\\times\\mathcal Z$ satisfies:\n(a) $\\mathcal E_{P,1}=o_{\\mathcal P}(1)$, $\\mathcal E_{P,2}=o_{\\mathcal P}(1)$ and their product satisfies $\\mathcal E_{P,1}\\mathcal E_{P,2}=o_{\\mathcal P}(n^{-1})$.\n(b) The weighted MSPE satisfies\n\\[\n\\frac1{n\\sigma_P^2}\\sum_{i=1}^n\\{m_P(Z_i)-\\hat m(Z_i)\\}^2\\xi_{P,i}^2=o_{\\mathcal P}(1).\n\\]\n(c) There exists $C>0$ such that $\\sup_{P\\in\\mathcal P}\\operatorname{Var}_P(Y\\mid X,Z)\\le C$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D13",
+        "D14",
+        "D15",
+        "D16"
+      ],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Assumption 3"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal E_{P,1}\\mathcal E_{P,2}",
+        "\\xi_{P,i}^2"
+      ],
+      "highlight_phrases": [
+        "Assumption 3"
+      ],
+      "naming_context": [
+        {
+          "context_id": "D17/name",
+          "text": "Assumption 3.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D18",
+      "local_label": "Section 4.1 — Stability reference",
+      "source_heading": "Section 4.1 — Stability reference",
+      "source_kind": "condition",
+      "statement_original": "To this end, we say that $\\hat m$ is sufficiently stable if conditions (ii) and (iii) of Proposition S15 in Section S2 hold.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Section 4.1 — Stability reference"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "sufficiently stable"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D19",
+      "local_label": "Section 5 — Spline spaces and bases",
+      "source_heading": "Section 5 — Spline spaces and bases",
+      "source_kind": "definition",
+      "statement_original": "Throughout this section, we assume that $(X,Z)\\in[0,1]^{d_X}\\times[0,1]^{d_Z}$ and set $d:=d_X+d_Z$. In Section S4, we give a self-contained description of spline spaces and their tensor product B-spline bases, containing all the results that we require for our analysis. Given a spline order $r\\in\\mathbb N$ (i.e. degree $r-1$) and $N\\in\\mathbb N_0$ equi-spaced interior knots in each dimension, we denote by $\\mathcal S^{d_Z}_{r,N}$ the corresponding spline space on $[0,1]^{d_Z}$, and by $\\phi^Z$ its $d_Z$-tensor B-spline basis, which consists of $K_Z:=(N+r)^{d_Z}$ basis functions. Writing $\\mathcal S^{d_X}_{r,N}$ for the corresponding spline space on $[0,1]^{d_X}$ with $d_X$-tensor B-spline basis $\\phi^X$, having $K_X:=(N+r)^{d_X}$ basis functions, we can define the $d$-tensor product basis $\\phi(x,z):=\\phi^X(x)\\otimes\\phi^Z(z)$ for $\\mathcal S^d_{r,N}$, where $u\\otimes v:=\\operatorname{vec}(uv^\\top)$, having $K_{XZ}:=K_XK_Z$ basis functions. Further, we let $\\psi$ denote the tensor product B-spline basis for $\\mathcal S^{d_Z}_{2r-1,N}$, and write $\\tilde K_Z:=(N+2r-1)^{d_Z}$; the higher order of the spline basis functions that make up $\\psi$ affords better approximation properties that turn out to be useful for our theory.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Section 5 — Spline spaces and bases"
+        }
+      ],
+      "highlight_symbols": [
+        "\\phi(x,z)",
+        "K_{XZ}",
+        "\\tilde K_Z"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D20",
+      "local_label": "Section 5 — Spline regressions",
+      "source_heading": "Section 5 — Spline regressions",
+      "source_kind": "definition",
+      "statement_original": "In what follows, when we write that a variable is regressed on a spline basis, we mean that OLS is used for the regression. In Theorems 6 and 7 below, we use the terminology that $T$ is computed using spline regressions if the regressions (following the notation of Algorithm 1) are as follows:\n• $\\hat v\\equiv1$ for simplicity;\n• $\\hat g$ is formed by regressing $Y$ onto $\\phi(X,Z)$;\n• $\\tilde m$ is formed by regressing $\\hat g(X,Z)$ onto $\\phi^Z(Z)$, or equivalently by regressing $Y$ onto $\\phi^Z(Z)$;\n• $\\hat m_{\\hat f}$ and $\\hat m$ are formed by regressing $\\hat f(X,Z)$ and $Y$, respectively, on $\\psi(Z)$.\nIn addition, we also omit discussion of the sign correction step (Algorithm 1, Step 1(iv)), since $\\hat\\rho$ is always non-negative for the estimators given above.",
+      "relation": "exact",
+      "depends_on": [
+        "D10",
+        "D19"
+      ],
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Section 5 — Spline regressions"
+        }
+      ],
+      "highlight_symbols": [
+        "\\hat v\\equiv1"
+      ],
+      "highlight_phrases": [
+        "spline regressions"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D21",
+      "local_label": "Section 5.1 — Hölder space reference",
+      "source_heading": "Section 5.1 — Hölder space reference",
+      "source_kind": "source_passage",
+      "statement_original": "We start by stating our main distributional assumptions, which rely on the definitions of Hölder spaces $\\mathcal H^d_s$ and Hölder norms $\\|\\cdot\\|_{\\mathcal H_s}$ given in Definition S24.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Section 5.1 — Hölder space reference"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal H^d_s",
+        "\\|\\cdot\\|_{\\mathcal H_s}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D22",
+      "local_label": "Assumption 4",
+      "source_heading": "Assumption 4",
+      "source_kind": "assumption",
+      "statement_original": "Let $\\mathcal P$ be a class of distributions of $(X,Y,Z)$ on $[0,1]^{d_X}\\times\\mathbb R\\times[0,1]^{d_Z}$, and for $P\\in\\mathcal P$, let $g_P(x,z):=\\mathbb E_P(Y\\mid X=x,Z=z)$. Assume that there exist $C\\ge1$ and $c\\in(0,1]$ with the following properties:\n(a) For each $P\\in\\mathcal P$, we have $\\mathbb E_P(\\varepsilon_P^2\\mid X,Z)\\ge c$ and there exists $\\delta\\in(0,2]$ such that $\\mathbb E_P(|\\varepsilon_P|^{2+\\delta}\\mid X,Z)\\le C$.\n(b) For each $P\\in\\mathcal P$, the marginal distribution of $(X,Z)$ is absolutely continuous with respect to Lebesgue measure on $[0,1]^d$, with density $p_P$ satisfying $\\sup_{(x,z)\\in[0,1]^d}p_P(x,z)\\le C$ and $\\inf_{(x,z)\\in[0,1]^d}p_P(x,z)\\ge c$.\n(c) Let $s\\in(0,r]$ and let $p_{X\\mid Z,P}(\\cdot\\mid z)$ denote the conditional density of $X$ given $Z=z$. Assume that for all $P\\in\\mathcal P$, we have $p_{X\\mid Z,P}(x\\mid\\cdot)\\in \\mathcal H^{d_Z}_s$ for all $x\\in[0,1]^{d_X}$, and that $m_P\\in \\mathcal H^{d_Z}_s$ and $g_P\\in \\mathcal H^d_s$, with\n\\[\n\\max\\left\\{\\sup_{x\\in[0,1]^{d_X}}\\|p_{X\\mid Z,P}(x,\\cdot)\\|_{\\mathcal H_s},\\|m_P\\|_{\\mathcal H_s},\\|g_P\\|_{\\mathcal H_s}\\right\\}\\le C.\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D6",
+        "D7",
+        "D12",
+        "D19",
+        "D21"
+      ],
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Assumption 4"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbb E_P(\\varepsilon_P^2\\mid X,Z)",
+        "p_{X\\mid Z,P}(x\\mid\\cdot)"
+      ],
+      "highlight_phrases": [
+        "Assumption 4"
+      ],
+      "naming_context": [
+        {
+          "context_id": "D22/name",
+          "text": "Assumption 4.",
+          "evidence": [
+            {
+              "page": 21,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D23",
+      "local_label": "Section 5.1 — Coefficient projection",
+      "source_heading": "Section 5.1 — Coefficient projection",
+      "source_kind": "definition",
+      "statement_original": "In order to state our Type I error control result for spline regressions, it will be convenient to define the projection $\\Pi:\\mathbb R^{K_{XZ}}\\to\\mathbb R^{K_{XZ}}$ by $\\Pi(x)\\equiv\\Pi(x_1,\\ldots,x_{K_{XZ}}):=x-\\mathbf1\\otimes\\bar x$, with $\\bar x=(\\bar x_1,\\ldots,\\bar x_{K_Z})$ given by $\\bar x_k:=K_X^{-1}\\sum_{\\ell=1}^{K_X}x_{(k-1)K_X+\\ell}$ for $k\\in[K_Z]$.",
+      "relation": "exact",
+      "depends_on": [
+        "D19"
+      ],
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Section 5.1 — Coefficient projection"
+        }
+      ],
+      "highlight_symbols": [
+        "\\Pi(x)",
+        "\\Pi x=x"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D24",
+      "local_label": "Section 5.1 — Regression coefficients",
+      "source_heading": "Section 5.1 — Regression coefficients",
+      "source_kind": "definition",
+      "statement_original": "Let $\\hat\\beta_{XZ}\\in\\mathbb R^{K_{XZ}}$ denote the coefficients obtained when forming the $\\hat g$ regression and similarly let $\\hat\\beta_Z\\in\\mathbb R^{K_Z}$ denote the coefficients from the $\\tilde m$ regression. Using the fact that $\\phi^X$ forms a partition of unity (Proposition S23(a)), it follows that if we write $\\hat\\beta:=\\hat\\beta_{XZ}-\\mathbf1\\otimes\\hat\\beta_Z$, where $\\mathbf1\\in\\mathbb R^{K_X}$ denotes a vector of ones, then $\\hat f(x,z)=\\hat\\beta^\\top\\phi(x,z)$.",
+      "relation": "exact",
+      "depends_on": [
+        "D19",
+        "D20"
+      ],
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Section 5.1 — Regression coefficients"
+        }
+      ],
+      "highlight_symbols": [
+        "\\hat\\beta:=\\hat\\beta_{XZ}-\\mathbf1\\otimes\\hat\\beta_Z",
+        "\\Pi\\hat\\beta"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D25",
+      "local_label": "Theorem 5(a)",
+      "source_heading": "Theorem 5(a)",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "$\\hat m_{\\hat f}$ is scale equivariant in the sense that $\\hat m_{a\\cdot\\hat f}(Z)=a\\cdot\\hat m_{\\hat f}(Z)$ for all $a>0$;",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 19,
+          "location": "Theorem 5(a)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\hat m_{a\\cdot\\hat f}(Z)=a\\cdot\\hat m_{\\hat f}(Z)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D26",
+      "local_label": "Theorem 4(iii)",
+      "source_heading": "Theorem 4(iii)",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "$T$ is computed using Algorithm 1 and $\\hat m$ is a linear smoother;",
+      "relation": "exact",
+      "depends_on": [
+        "D10"
+      ],
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Theorem 4(iii)"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "linear smoother"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2851",
+      "local_id": "D27",
+      "local_label": "Introduction — Conditional independence",
+      "source_heading": "Introduction — Conditional independence",
+      "source_kind": "definition",
+      "statement_original": "It is interesting to compare this to the conditional independence null $Y\\perp\\!\\!\\!\\perp X\\mid Z$, which has attracted much attention in recent years. The latter asks not just for the regression function to be expressed as a function of $Z$ alone, but in fact for the entire conditional distribution of $Y$ given $(X,Z)$ to equal the conditional distribution of $Y$ given $Z$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Introduction — Conditional independence"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "conditional independence"
+      ]
+    }
+  ]
+}

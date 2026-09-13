@@ -1,0 +1,470 @@
+[
+  {
+    "interface_id": "local-5c0cde793fe88a2f7439",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "52a551ee95d52000cd9b3b9baa436cf24f2e9dbe8dbea2888a33d6c20b0b3d32",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D15",
+        "comparison": "IsGaussianProcess imposes joint finite-dimensional Gaussianity, not merely Gaussian one-dimensional marginals, but does not specify centering or this kernel; IsBrownianReal uses nonnegative times and unit variance rate. Opposite-sign covariances vanish, including the required value at zero, and C is strictly positive. A continuous version must be justified when used in the uniform-on-compacts process limit.",
+        "statement_sha256": "10d12d1e6a27fd20a10033d4bd71ec97979c419cc9f9c8bc928b9acc897a8fee"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i two.?sided.*brownian and direct IsGaussianProcess, IsBrownianReal and covariance definitions",
+          "result": "Finite-dimensional Gaussianity, nonnegative-time Brownian paths and scalar covariance are available; no two-sided construction was found by this search."
+        }
+      ],
+      "gap": "The centered real-time process with covariance C min(|s|,|t|) on equal-sign pairs still requires constructing and joining independent Brownian halves with scale sqrt(C)."
+    }
+  },
+  {
+    "interface_id": "local-82afe6962e4d34540827",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "4626b07ec7657f8f06cc6fedc899a49244ed9248a231e9115091063cda889fa4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D5",
+        "comparison": "Specialize iteratedDeriv to real scalar functions and positive integer orders, excluding order zero. Existence of a finite order is implicit in the paper's q and s>=q; no exponent is assigned to a fully flat function. The library's total derivative value outside differentiability must not manufacture nonzero-order or smoothness facts, and q need not be one.",
+        "statement_sha256": "5b2d86a920414b73a25a401e5cba68538aa80b476e75baaa27d9ada6f25732c9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct iteratedDeriv definition and rg -i grenander in pinned Mathlib",
+          "result": "The scalar iterated derivative is available, but the first positive nonzero derivative and its oddness under monotonicity are additional requirements."
+        }
+      ],
+      "gap": "Defining the first positive nonzero derivative requires a nonempty set of admissible orders and a separate oddness argument under the source smoothness and monotonicity assumptions."
+    }
+  },
+  {
+    "interface_id": "local-3e8702d5cd318998e1e4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "c90ad8cd7a6c267fe20ec893b462a0c4acaee7f4b7779636b4bdcd8c5a2932b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D7",
+        "comparison": "Use the closed delta interval inside I, theta order floor(s), Phi order floor(s)-q+1, common exponent s-floor(s), and nonzero Phi derivative at the fixed point. HolderOnWith uses a finite nonnegative distance-inequality constant; the paper prints a supremum of quotients without excluding equal arguments, including the integer-s case of exponent zero. Preserve that source ambiguity, and do not replace global bounded monotonicity or Phi nonnegativity by differentiability.",
+        "statement_sha256": "688a20052a181d1b2ff303c702cd4da6582cb65778ccdc951b3181fc3acd039d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct ContDiffOn, HolderOnWith and iteratedDeriv definitions; p1509 frozen Assumption A source issues",
+          "result": "Local differentiability and Holder predicates are available, with distinct function orders and additional global monotonicity/boundedness conditions still to assemble."
+        }
+      ],
+      "gap": "Assumption A requires assembling its global and local conditions and resolving the printed diagonal Holder quotients before asserting equivalence with HolderOnWith."
+    }
+  },
+  {
+    "interface_id": "local-a580e101192a87bab555",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "377067390e754eaeef7341a978f040607a990ca22f80ef0a9e5368f05d53eff3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D1",
+        "comparison": "ConvexOn Real I g supplies convexity of g but neither g<=f on I nor domination of every other convex minorant. A generic real function on an unbounded interval need not have a finite convex minorant, so an unrestricted real supremum with default values is not a justified construction; source later conditions must supply the relevant existence.",
+        "statement_sha256": "21dda1b1093b5e0ab7d94b92b8cc9ad68fcc868aaf1d45b6049c6bb3c64d6237"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ConvexOn",
+          "type": "(𝕜 : Type u) → {E : Type v} → {β : Type w} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Convexity of a function on a convex set; it does not impose existence or uniqueness of a minimizer.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L54-L56",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i convex.*minorant|greatest.*convex|grenander across pinned Mathlib; direct ConvexOn body",
+          "result": "ConvexOn represents convexity on the interval; the search found no named greatest convex minorant constructor."
+        }
+      ],
+      "gap": "A greatest convex minorant still needs a construction, a pointwise minorization and maximality proof, and hypotheses ensuring a finite real-valued result."
+    }
+  },
+  {
+    "interface_id": "local-c35cfffa4f957cf9bcf5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "6d52c680b298577137663593849530c21783ddcbbb7d85fcb343aa49bfa9657c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D3",
+        "comparison": "For the paper's one-dimensional argument, iteratedDeriv q supplies the qth scalar derivative. HasDerivWithinAt f d (Set.Iio x) x specifies a left derivative using approach from below; appropriate one-sided accumulation gives uniqueness. It is not the left limit f(x-) or an ordinary two-sided derivative, and a total derivative's fallback value must not replace an existence hypothesis.",
+        "statement_sha256": "4ae21280278bea1062a5f077948f64191c55921ac86bca3c3a40e08ba0850bb9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivWithinAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → Set 𝕜 → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified derivative relative to a subset, allowing an interval-endpoint convention to remain distinct from an unrestricted derivative.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L123-L124",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct iteratedDeriv and HasDerivWithinAt defining bodies and filter convention",
+          "result": "Scalar iterated derivatives and derivatives within a left half-line express the source operators where their derivatives exist."
+        }
+      ],
+      "gap": "The source operators can be expressed by iteratedDeriv and a derivative within the left half-line, with the stated existence assumptions retained."
+    }
+  },
+  {
+    "interface_id": "local-ad36c73cdc0147deba00",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "7742aa6358efd016759bcb54e0ba7a25148713244f14f5af7a06a7011053e6b9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D6",
+        "comparison": "The coefficient is theta's qth derivative times Phi's first derivative divided by (q+1)!, and the power is q+1; neither q! nor omission of Phi's derivative agrees. The Brownian scalar scale must match covariance C in D15 and requires independent halves across zero. The fixed evaluation point is distinct from the monomial argument v.",
+        "statement_sha256": "c90f3e2c4a7e920eaa08651c9e305a60832f60012e4c01ffdd48e8bd8cc40c27"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i two.?sided.*brownian; direct IsBrownianReal and iteratedDeriv bodies",
+          "result": "The monomial uses elementary powers, factorial and available derivatives, while the linked Brownian predicate has only nonnegative time."
+        }
+      ],
+      "gap": "The drift is expressible from scalar derivatives and arithmetic, but its paired two-sided Brownian process and the associated convex-minorant limit still require construction."
+    }
+  },
+  {
+    "interface_id": "local-6585fb3e2a129880c2e4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "9bbda9ae64af67b852c1e154dcb910a82cf81990f2f5d6ad5c79ee63f4b2c558",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D2",
+        "comparison": "The level set is {u in I | f(u)>=x} with a weak inequality and f monotone right-continuous. Real sInf alone has an arbitrary empty or unbounded fallback, whereas the paper specifies sup I on emptiness; unbounded intervals may require extended endpoints. This is not a strict inverse or an inverse-function-theorem construction, and plateaus and jumps remain admissible.",
+        "statement_sha256": "4cfa932d6bae0905130a8245ef94e4dcab1cbf251656bd12a2055678d48d53cd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i generalized.?inverse across pinned Mathlib; inspect conditionally complete lattice csInf_le and its dual source",
+          "result": "Conditional infimum order infrastructure supports a bounded nonempty level set, but supplies no source-specific empty-level-set endpoint convention."
+        }
+      ],
+      "gap": "The generalized inverse needs an explicit empty-level-set branch returning sup I and suitable endpoint types and boundedness hypotheses for nonempty level sets."
+    }
+  },
+  {
+    "interface_id": "local-beba0062a75c49d05b6d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "5ffb377e9586beaea9ba55fe9eb467a89a1622e830a70f91be8341feb41ef766",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D4",
+        "comparison": "Population psi=theta composed with Phi generalized inverse, Psi is the integral from zero, and Gamma=Psi composed with Phi; then take the left slope of GCM on [0,u0] after composing Gamma with Phi inverse, and evaluate at Phi of the fixed point. The strict separation Phi(x)<Phi(fixed)<u0 for all x below fixed and theta left continuity are identity hypotheses. Estimated Phi is only nonnegative monotone right-continuous, so substituting ordinary continuous inverses or two-sided slopes loses permitted estimators.",
+        "statement_sha256": "f9cee9d20bca8567b80f9d51290957bb9288a96e48cc52fdf1e96c62e7b559d8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ConvexOn",
+          "type": "(𝕜 : Type u) → {E : Type v} → {β : Type w} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Convexity of a function on a convex set; it does not impose existence or uniqueness of a minimizer.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L54-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivWithinAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → Set 𝕜 → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified derivative relative to a subset, allowing an interval-endpoint convention to remain distinct from an unrestricted derivative.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L123-L124",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i convex.*minorant|greatest.*convex|generalized.?inverse|grenander; direct ConvexOn, HasDerivWithinAt and csInf_le",
+          "result": "Convexity, left-derivative predicates and infimum infrastructure cover parts of the estimator, not the composite operator or its population identity."
+        }
+      ],
+      "gap": "The generalized Grenander operator requires the source generalized inverse, greatest convex minorant and left derivative constructions, together with the hypotheses proving the displayed population identity."
+    }
+  },
+  {
+    "interface_id": "local-3ac558872d730ddaf4f0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "fc2c5fa24eb11cefbe0ef70a4f28a4b0c7a8657cd4432372534c15c7900041ed",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D8",
+        "comparison": "All three inputs Gamma, Phi and endpoint u are starred, the inverse belongs to starred Phi, and evaluation is at starred Phi of the original fixed point. The source permits a generic bootstrap, not only iid resampling, and monotonicity/right continuity of starred Phi do not establish the estimator's conditional consistency.",
+        "statement_sha256": "d018009e5807f3560001fb2eda7dde70daf5956409eccf00bae63d8a42593f5f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ConvexOn",
+          "type": "(𝕜 : Type u) → {E : Type v} → {β : Type w} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Convexity of a function on a convex set; it does not impose existence or uniqueness of a minimizer.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L54-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivWithinAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → Set 𝕜 → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified derivative relative to a subset, allowing an interval-endpoint convention to remain distinct from an unrestricted derivative.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L123-L124",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i grenander|convex.*minorant|generalized.?inverse; direct convexity, one-sided derivative and infimum definitions",
+          "result": "The same partial operator ingredients apply to starred inputs; no generic bootstrap validity follows from their existence."
+        }
+      ],
+      "gap": "The starred estimator needs the same generalized Grenander construction plus a specified conditional bootstrap law, and this ordinary bootstrap is not the corrected estimator used by the theorem."
+    }
+  },
+  {
+    "interface_id": "local-5c5037c3be55f470912d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:25:05.968825+00:00",
+    "source_interface_sha256": "5e5f1035bad31f408d5b1742736c77b881626a2f986895ae083669966329f6af",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1509",
+        "local_id": "D9",
+        "comparison": "Use Gamma-star(x)-Gamma-hat(x)+theta-hat(fixed)*Phi-hat(x)+M-tilde(x-fixed); the linear term uses unstarred Phi, not Phi-star. The outer inverse, endpoint and evaluation transformation remain starred, while only the primitive changes. The generic judicious drift is constrained later by Assumption C, not defined as the population monomial here, and no appendix localization convention is imported.",
+        "statement_sha256": "3be65ecb4cd457bf0eca0785e91df19e625d00a558c7aec71760c05819462077"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ConvexOn",
+          "type": "(𝕜 : Type u) → {E : Type v} → {β : Type w} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Convexity of a function on a convex set; it does not impose existence or uniqueness of a minimizer.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L54-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivWithinAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → Set 𝕜 → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified derivative relative to a subset, allowing an interval-endpoint convention to remain distinct from an unrestricted derivative.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L123-L124",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i grenander|greatest.*convex|generalized.?inverse; direct ConvexOn, HasDerivWithinAt and csInf_le, frozen correction source note",
+          "result": "Basic ingredients do not implement the corrected primitive and its composite estimator or prove validity of a chosen drift."
+        }
+      ],
+      "gap": "The corrected estimator requires the generalized Grenander operator and the exact source primitive correction, with the drift conditions supplying bootstrap validity separately."
+    }
+  }
+]

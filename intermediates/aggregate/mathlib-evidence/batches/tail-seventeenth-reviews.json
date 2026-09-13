@@ -1,0 +1,111 @@
+{
+  "scope": "Manual source-variant comparisons for residual/projection statistics, OMP oracle entry indices, overlapping-block empirical distributions and estimates, and discounted pessimistic value iteration.",
+  "rows": [
+    {
+      "interface_id": "local-b181950a52d9daf35054",
+      "related": ["Submodule.span", "Submodule.starProjection"],
+      "status": "composable",
+      "query": "Searched orthogonal projection and residual squared-norm infrastructure; inspected Submodule.span, starProjection and its HasOrthogonalProjection requirement, the complete-subspace instance, and finite-dimensional span infrastructure.",
+      "result": "The span of the supplied finite columns in Euclidean space is finite-dimensional and admits orthogonal projection, without a full-column-rank assumption. Subtracting that projection from y and squaring the Euclidean norm gives either residual statistic. The construction does not require a Gram inverse or a permutation-law theorem.",
+      "gap": "The two residual statistics are directly expressible using the specified column spans, orthogonal projections and squared Euclidean norms.",
+      "comparisons": {
+        "D7": "Use EuclideanSpace with its 2-norm, not the ordinary Pi-space sup norm. Keep T_original paired with the span of (x_pi,Z,Z_pi) and T_perm with (x,Z,Z_pi), exactly as equation (3) prints. Both are residual sums of squares, not the earlier F-statistic ratios. The columns can be dependent: their span still admits projection. This comparison establishes the geometric expression only and does not establish exchangeability, p-value validity or an identity between the two statistics."
+      }
+    },
+    {
+      "interface_id": "local-61d4d2f804368f563e96",
+      "related": ["MeasureTheory.MemLp.toLp", "Submodule.span", "Submodule.starProjection", "Submodule.norm_sq_eq_add_norm_sq_starProjection"],
+      "status": "composable",
+      "query": "Inspected LpSpace.Basic MemLp.toLp, L2Space.innerProductSpace, Submodule.span, finite-dimensional spans and the complete-subspace projection instance; inspected the full norm_sq_eq_add_norm_sq_starProjection proof and its underlying orthogonal split.",
+      "result": "Square-integrable covariates define elements of real L2 under the population design law. Their finite span admits projection. For a fitted function g in that span, apply the squared-norm projection identity to g-f-star: its span component is g-Pi f-star and its orthogonal component is minus (I-Pi)f-star. Norm symmetry and addition commutativity give the displayed decomposition. This is a pathwise geometric statement even when J is selected from the data.",
+      "gap": "With the functions represented in population L2 and the fitted function in the selected span, the projection and Pythagorean declarations give the displayed risk decomposition.",
+      "comparisons": {
+        "D12": "The ambient measure is P_X1, not the empirical design measure. MemLp.toLp handles almost-everywhere equivalence classes and requires measurability as well as finite second moment. Finite spans are complete over the reals; no covariance inverse is needed merely to define Pi_J. At each realized OMP support, fit membership in that span yields the orthogonal split. Keep B_m^2 and S_m as the squared norms in (1.9), not expectations over training samples, and retain the malformed source assignment 'B_m^2: a =' without altering its transcription."
+      }
+    },
+    {
+      "interface_id": "local-7d2bff45342f4196d52d",
+      "related": ["MeasureTheory.hittingAfter", "Submodule.starProjection"],
+      "query": "Searched orthogonal matching pursuit, hitting times and first-entry definitions; inspected hittingAfter, its no-hit branch and natural-index interpretation, plus the population orthogonal-projection definition.",
+      "result": "With natural iteration indices and start 0, hittingAfter expresses either entry of the support path into sets containing S or entry of the squared-bias path into the non-strict threshold interval. It returns infinity on no entry. The generic definition proves no relation to the actual stopping rule tau and does not itself make the oracle process measurable or adapted.",
+      "gap": "The two oracle indices can use first-entry infrastructure, but their relation to the OMP path and the no-early-stopping guarantee remain to be proved.",
+      "comparisons": {
+        "D14": "For s-sparsity the target is S subset J-hat_m, not exact equality or a bias threshold; for gamma-sparsity it is the displayed population squared-bias bound with G>0 and the original exponent. The first admissible m includes 0. A WithTop Nat representation gives the usual inf-empty-as-infinity interpretation explicitly; finite-valued use requires eventual entry. The event tau < m-tilde is a comparison with a full-path oracle index, not automatically a computable stopping rule or an adapted hitting time."
+      }
+    },
+    {
+      "interface_id": "local-b810c2a7d9848201c8bd",
+      "related": ["Multiset.map", "PMF.ofMultiset"],
+      "status": "composable",
+      "query": "Searched overlapping-block and empirical resampling infrastructure; inspected Multiset.map's quotient-of-list definition and PMF.ofMultiset's count/card mass and normalization proof.",
+      "result": "Map the n-b+1 start indices to their supplied spectral statistics as a multiset. Equal statistic values retain the sum of their multiplicities, and ofMultiset gives the equal-window empirical distribution when at least one window exists. Neither the map nor the empirical distribution asserts independence of overlapping windows.",
+      "gap": "A multiset of the indexed window statistics and its equal-weight empirical law are directly expressible while preserving duplicate values.",
+      "comparisons": {
+        "D20": "Use every start index i=1 through n-b+1 at the same full-data fitted theta-hat_n; the target entries are the spectral statistics D19, not raw time-series blocks. Map an index multiset without converting the resulting values to a Finset, so coincident values keep their window multiplicities. The empirical law requires 1 <= b <= n; construction of each spectral statistic and the fitted parameter is upstream."
+      }
+    },
+    {
+      "interface_id": "local-450304d8511b53333ce0",
+      "related": ["PMF.ofMultiset", "MeasureTheory.Measure.infinitePi", "ProbabilityTheory.iIndepFun"],
+      "query": "Searched overlapping-block bootstrap, empirical distributions and product measures; inspected ofMultiset, infinitePi's probability-measure branch and cylinder product formula, and the iIndepFun comap-independence definition.",
+      "result": "For each fixed observed data set, the empirical multiset law is a probability measure. Its product over Fin N supplies N independent coordinates with the same empirical law, including repeated values and repeated selections. iIndepFun records joint independence under that fixed bootstrap measure. The family indexed by random observed data still requires measurable-kernel treatment to become a conditional bootstrap construction.",
+      "gap": "The fixed-data product law supplies the resampling step, while a measurable data-dependent bootstrap law and its spectral-EL validity still require construction and proof.",
+      "comparisons": {
+        "D21": "Independence is conditional on the data and theta-hat_n, not an assertion that original overlapping statistics are independent. Use the same block length b as SEL and N draws with replacement from all OL start indices, preserving multiplicities. Each draw is a spectral average used as a counterpart of a nonoverlapping statistic; no reconstructed series or concatenation is specified. The product-law construction does not by itself prove bootstrap approximation or unconditional independence after mixing over the observed sample."
+      }
+    },
+    {
+      "interface_id": "local-8561662bdb58b801aada",
+      "related": ["Convexity.StdSimplex", "csSup_le_iff", "Real.log"],
+      "query": "Searched empirical likelihood and probability-simplex infrastructure; inspected Convexity.StdSimplex weights/nonneg/total, the deprecated set-valued simplex for comparison, csSup_le_iff with nonempty/bounded assumptions, and Real.log's nonpositive extension.",
+      "result": "StdSimplex over Fin N supplies nonnegative weights summing to one, including zero weights. Restricting them by the spectral moment equation and taking the supremum of their finite coordinate products expresses the optimization target. Supremum identities over the reals require a nonempty bounded objective set, and a finite log-ratio additionally needs positive likelihood; Real.log maps zero to zero and is not the extended statistical convention at zero likelihood.",
+      "gap": "The fitted spectral-moment constraint and likelihood optimization need feasibility and positivity treatment before the real logarithm represents the intended bootstrap log-ratio.",
+      "comparisons": {
+        "D22": "Weights index N bootstrap draws, so duplicate draw values still receive separate coordinates. Add sum_i p_i T_i,OL-star(theta-hat_n)=M_theta-hat_n with M_theta-hat_n=T_n(theta-hat_n), not a target recomputed as the bootstrap sample average. The objective is the product of all N coordinates; finite-support storage must still include the zero factors when forming that product. Preserve the -2 and N^N normalization. The original ell_n(theta_0) is a comparison baseline and is not a random numeric input to this bootstrap definition; source stars on L/ell are superscripts."
+      }
+    },
+    {
+      "interface_id": "local-fe568f20b2b208ac5c62",
+      "related": ["Finset.sum_div", "Finset.sum_range_succ"],
+      "status": "composable",
+      "query": "Searched overlapping-block averages and finite normalized sums; inspected Finset.sum_div, the generated additive sum_range_succ theorem and the natural-number Finset interval implementation.",
+      "result": "The interval s-k+1 through s can be represented by k terms X_(s-k+1+j) for j in range k, with the common denominator k handled by sum_div. This representation keeps the source's endpoint and does not need the label s/k to be an integer.",
+      "gap": "Finite sums and division directly express the sliding average for valid window endpoints and positive block length.",
+      "comparisons": {
+        "D10": "Require k>0 and k<=s<=n for a full observed-data window. The symbol R_(s/k) labels a window ending at s; it is not integer division or a restriction to multiples of k. For s=jk the window agrees with the earlier nonoverlapping block j. Empty sums or truncated natural subtraction must not silently extend the source to invalid windows, and overlap implies no independence."
+      }
+    },
+    {
+      "interface_id": "local-645ccc0985d4f76ef7d0",
+      "related": ["Finset.sum_div", "Finset.sum_range_succ"],
+      "status": "composable",
+      "query": "Searched overlapping-block long-run variance estimates and inspected finite interval indexing, Finset.sum_div and sum_range_succ as the normalization and summation ingredients.",
+      "result": "For supplied ell-hat, mu-hat_0 and overlapping block means, the expression is a finite sum of centered squares multiplied by k and divided by ell-hat-k+1. A valid selected block gives ell-hat>=k when k>0. These operations express the statistic but carry no long-run variance consistency theorem.",
+      "gap": "The displayed estimator is directly expressible by finite sums, squared deviations and its stated normalization once the selected endpoint and centering estimate are supplied.",
+      "comparisons": {
+        "D11": "Keep every integer endpoint s=k,...,ell-hat, giving ell-hat-k+1 overlapping windows, and use the full-prefix mu-hat_0 from D9 for every deviation. Preserve the outside factor k, with no Bessel correction or substitution of a block-sample mean. Both ell-hat and mu-hat_0 are data-selected inputs. It is the optional specific estimator (8), not an automatic replacement for every occurrence of a generic consistent long-run variance estimator; the definition comparison does not certify Theorem 3.2."
+      }
+    },
+    {
+      "interface_id": "local-5d40df6dedd09508eb6f",
+      "related": ["Matrix.mulVec", "Finset.max'"],
+      "status": "composable",
+      "query": "Searched Bellman and value-iteration declarations in the pinned Mathlib tree; inspected Matrix.mulVec's finite dot-product body and Finset.max' with its nonempty finite-set requirement.",
+      "result": "For nonempty finite actions, max' of the row's action values defines V(s). Matrix.mulVec supplies the transition-row expectation. Addition, scaling, subtraction of a supplied b(s,a;V), and scalar max with zero then express equations (26)-(27). No specialized Bellman operator was found by the name/semantic searches.",
+      "gap": "With the kernels, reward, discount and penalty function supplied, matrix-vector multiplication and finite maxima directly express both displayed Bellman updates.",
+      "comparisons": {
+        "D10": "Use max over actions separately at each state, then multiply the transition row by this V vector. The classical map uses P; the pessimistic map uses P-hat and subtracts the value-dependent penalty before clipping below at zero. There is no additional upper clipping or previous-iterate maximum in the printed map. The input Q is arbitrary, not already a fixed point. This algebraic expression assumes the supplied penalty is defined and establishes neither monotonicity, contraction nor pessimistic accuracy; the positive-over-zero convention in upstream penalty (28) remains explicit."
+      }
+    },
+    {
+      "interface_id": "local-d1c0f0fe8c202e60ef49",
+      "related": ["Function.iterate_succ_apply'", "Matrix.mulVec", "Finset.max'", "IsMaxOn"],
+      "query": "Searched offline value iteration, Bellman and finite greedy selection; inspected iterate_succ_apply' and its iterate-composition proof, Matrix.mulVec, Finset.max' and IsMaxOn's principal-filter definition.",
+      "result": "A self-map on Q/V pairs can encode one simultaneous iteration, and iterate_succ_apply' gives repeated application from zero initialization with a fixed data-derived kernel. Finite maxima give the value update, while membership plus IsMaxOn characterizes a greedy action. These declarations do not supply the full empirical-kernel/penalty algorithm, its choices at exceptional counts or its policy guarantee.",
+      "gap": "The empirical-kernel and penalty construction, exceptional-count conventions and greedy policy selection must be assembled and verified around the generic iteration machinery.",
+      "comparisons": {
+        "D12": "Reuse the same data and P-hat for all iterations; do not resample transitions or recompute Q_tau using partially updated V_tau. Every state/action update uses V_(tau-1), then every value row is maximized. Start Q_0=V_0=0 and run exactly tau_max rounds. The output is any maximizing action at the final Q, with no tie-breaking rule supplied; IsMaxOn alone lacks membership and selection. Retain the empirical uniform fallback at zero counts from (25), the exact capped Bernstein penalty including 5/N from (28), and its unresolved positive-over-zero convention rather than silently inheriting Lean's totalized real division."
+      }
+    }
+  ]
+}

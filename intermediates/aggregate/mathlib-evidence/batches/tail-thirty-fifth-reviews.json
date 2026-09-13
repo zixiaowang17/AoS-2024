@@ -1,0 +1,170 @@
+{
+  "scope": "Manual comparisons of all twelve remaining p1334 interfaces, retaining registered-version and source-normalization issues.",
+  "rows": [
+    {
+      "interface_id": "local-643ffa03aff2caa0a058",
+      "related": [
+        "ProbabilityTheory.gaussianReal",
+        "MeasureTheory.Measure.pi"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "A finite product of gaussianReal 0 1 over matrix-entry indices is exactly the independent standard-normal noise law.",
+      "gap": "The finite product law supplies the noise model after choosing the rectangular index type and retaining p at least q.",
+      "comparisons": {
+        "D2": "Take row indices Fin p and column indices Fin q, use their product as the index type, and assign gaussianReal 0 1 to each coordinate. Its second argument is variance, so the paper’s unit variance is represented by 1. Reindex the finite product as a p-by-q real matrix; the source matrix A is an arbitrary fixed signal with no low-rank restriction. Keep the standing p>=q convention and do not propagate this Gaussian law into the Section 6 non-Gaussian variant."
+      }
+    },
+    {
+      "interface_id": "local-b0b654b89c3caac0dd03",
+      "related": [
+        "LinearMap.singularValues",
+        "Real.rpow"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "The singular-value sequence is decreasing, includes multiplicity and extends by zeros; a finite sum of real powers of its first q entries gives the displayed Schatten power.",
+      "gap": "These declarations express the finite-s Schatten formula after restricting the sequence to q singular values and using the Euclidean matrix map.",
+      "comparisons": {
+        "D4": "Represent A as the linear map from EuclideanSpace R (Fin q) to EuclideanSpace R (Fin p), with p>=q, and sum (singularValues A i)^s for i=0,...,q-1. This is the paper’s norm^s; taking a 1/s power gives the norm for finite real s>=1. Keep all q values, including zeros, and shift the one-based source indices. Do not substitute the default matrix norm or entrywise l_s norm. The s=infinity operator norm is defined in a separate source entry, not by passing infinity to Real.rpow."
+      }
+    },
+    {
+      "interface_id": "local-30a0b353abcf62f3a797",
+      "related": [
+        "Polynomial.hermite",
+        "Polynomial.deriv_gaussian_eq_hermite_mul_gaussian",
+        "Polynomial.natDegree_hermite"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "The inspected polynomial is the probabilists’ Hermite family, and the Gaussian derivative theorem gives exactly the signed polynomial factor for exp(-y^2/2); multiplying by the constant normalizing density factor yields equation (8).",
+      "gap": "The Hermite family and derivative identity suffice after real evaluation and multiplication by the standard-normal density constant.",
+      "comparisons": {
+        "D7": "Evaluate the integer-coefficient Polynomial.hermite r in R. The theorem holds for every natural r with the sign (-1)^r and the probabilists’ normalization, matching the source Gaussian exponent -y^2/2; no physicists’ rescaling or factorial normalization is needed. Differentiation commutes with the constant (2*pi)^(-1/2), giving the identity for the normalized density. natDegree_hermite confirms degree r. The source states r positive, while the estimator later needs H_0=1; mathlib has that base case and the census already records it as an ambient extension rather than part of the original positive-degree passage."
+      }
+    },
+    {
+      "interface_id": "local-b4f63b2ff1e1a019966d",
+      "related": [
+        "Set.indicator"
+      ],
+      "status": "partial_match",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "Finite sums of equality indicators count the occurrences of a matrix-entry pair in the two edge lists, retaining multiplicity.",
+      "gap": "The two-list count is expressible, but its cyclic j-index must retain the source’s inconsistent recalled i-index convention.",
+      "comparisons": {
+        "D8": "For each (r,s), sum over t=1,...,k the indicators of (i_t,j_t)=(r,s) and of (i_t,j_(t+1))=(r,s). These are two counted occurrences even when the pairs agree; deduplicating a set of pairs changes N_rs. The preceding trace expansion explicitly uses j_(k+1)=j_1, whereas the definition paragraph recalls i_(k+1)=i_1 despite its j_(t+1); keep that mismatch recorded rather than claiming the printed count is unambiguous. Given the contextual cyclic-j interpretation, the total count across all entries is 2k and absent entries have degree zero."
+      }
+    },
+    {
+      "interface_id": "local-3ded4ce23c3923101262",
+      "related": [
+        "Polynomial.hermite"
+      ],
+      "status": "partial_match",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "Real evaluation of the Hermite polynomials and finite indexed products and sums express the polynomial statistic in equation (9).",
+      "gap": "The occurrence counts and finite Hermite product must be assembled, with the cyclic-index convention resolved explicitly and unbiasedness proved separately.",
+      "comparisons": {
+        "D9": "Sum over all ordered row-index sequences of length k and all ordered column-index sequences of length k, then multiply H_(N_rs)(Y_rs) over EVERY matrix entry. Keep the multiplicity counts and H_0=1 for absent entries; this is not a product only over distinct visited pairs with every exponent set to one. Preserve the cyclic-index issue in the N_rs definition and the same statistic in the later non-Gaussian section. The recursion and derivative identity for Hermite polynomials alone do not establish E[H_n(N(a,1))]=a^n or the resulting unbiasedness and variance claims; those require Gaussian moment arguments and entry independence. General sub-Gaussian entries need not make this estimator unbiased."
+      }
+    },
+    {
+      "interface_id": "local-366c5947154556052623",
+      "related": [
+        "BoundedContinuousFunction.norm_eq_iSup_norm",
+        "le_csInf_iff"
+      ],
+      "status": "partial_match",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "For bounded continuous differences on the interval, the function norm is exactly the pointwise supremum error; conditional-complete infimum infrastructure then expresses the least achievable error over a nonempty approximation family.",
+      "gap": "The approximation family and supremum-error domain must be supplied, without assuming an optimal approximant exists or replacing unrestricted functions by bounded continuous ones.",
+      "comparisons": {
+        "D11": "For each f in F compute sup_{x in I}|f(x)-g(x)|, then infimize over F; the source defines an infimum, not a selected minimizer or an attained best polynomial. The bounded-continuous norm applies to the paper’s compact-interval polynomial/continuous-function applications, after restriction to I, but the definition’s arbitrary function collection may require a more general extended supremum. Use nonempty F and bounded-below finite errors when using real conditional-complete infima; the original statement gives no explicit empty-family or unbounded-error convention. This is pointwise uniform error, not essential supremum or L2 error."
+      }
+    },
+    {
+      "interface_id": "local-aa6e48fd8b8828b1761c",
+      "related": [
+        "LinearMap.singularValues"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "A finite sum of a supplied scalar function over the first q singular values directly expresses the spectral functional.",
+      "gap": "The singular-value sequence and a finite sum suffice, with the scalar function defined at zero and its source-specific range retained.",
+      "comparisons": {
+        "D6": "Evaluate f on all q descending singular values of the rectangular Euclidean linear map, including zero values, and sum without normalization by q. Do not use a Finsupp.sum that discards zero singular-value entries unless f(0)=0: for general f these entries contribute f(0). The introduction uses nonnegative-valued f, whereas Theorem 4.9 explicitly permits continuous real-valued f; keep these scopes distinct. The notation R+ must accommodate evaluation at zero for rank-deficient matrices, so specify that domain rather than assuming full rank."
+      }
+    },
+    {
+      "interface_id": "local-83c21a616279adee88eb",
+      "related": [
+        "ProbabilityTheory.HasSubgaussianMGF"
+      ],
+      "status": "partial_match",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "HasSubgaussianMGF supplies an integrable all-real-parameter exponential-moment bound with a supplied variance proxy; it is a predicate, not a real-valued psi_2 norm.",
+      "gap": "The source delegates the psi_2 norm’s definition and normalization to an external reference, and the inspected MGF predicate does not specify that norm.",
+      "comparisons": {
+        "D20": "The paper names ||E||_(psi_2) and refers to [39] without giving a formula; the saved source review explicitly leaves this convention unexpanded. A witness c to HasSubgaussianMGF is a variance proxy for a centered variable, and neither its value nor its square root is automatically equal to the referenced norm. Do not invent a Luxemburg/Orlicz normalization or assert exact constants from equivalence of qualitative sub-Gaussian conditions. The comparison is limited to the inspected exponential-moment infrastructure, with the scalar noise E distinguished from the full matrix."
+      }
+    },
+    {
+      "interface_id": "local-526e7683018a37a1219a",
+      "related": [
+        "ProbabilityTheory.HasSubgaussianMGF",
+        "MeasureTheory.Measure.pi",
+        "ProbabilityTheory.variance"
+      ],
+      "status": "partial_match",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "A centered scalar law with a sub-Gaussian MGF bound can be copied into a finite product to obtain iid matrix entries; variance expresses the additional unit-variance requirement.",
+      "gap": "The scalar noise law and unit variance must be specified before forming its product, while the source’s named sub-Gaussian norm remains a separate convention.",
+      "comparisons": {
+        "D19": "Choose one real probability law for scalar E, require mean zero and variance one, and copy this SAME law independently over all p*q matrix entries. HasSubgaussianMGF encodes a centered exponential-moment condition with some finite nonnegative proxy, supporting finiteness of second moments; the proxy need not equal the actual variance or the unresolved psi_2 norm. In particular variance one does not mean Gaussian noise, and Gaussian rotation invariance or Hermite unbiasedness cannot be assumed. The variance definition uses an ENNReal-toReal conversion, so its intended use requires actual finite second moments rather than relying on the infinity-to-zero fallback."
+      }
+    },
+    {
+      "interface_id": "local-4a94a59df3f0ca0390e1",
+      "related": [
+        "Function.Even"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "Evenness of the evaluated polynomial together with a degree bound expresses the source’s univariate symmetric-polynomial space.",
+      "gap": "Function.Even and the polynomial degree bound suffice to express this space using the source’s even-symmetry interpretation.",
+      "comparisons": {
+        "D12": "Use real univariate polynomials of degree at most k whose evaluation satisfies P(-x)=P(x). The saved original context A7 states that each symmetric polynomial of degree at most 2K is P(x^2), supporting evenness here; this is not the multivariate notion of invariance under permutation of variables. Include the zero polynomial and lower-degree terms, rather than requiring exact degree k. Restricting these polynomials to the approximation interval is a later operation and does not alter the global symmetry definition."
+      }
+    },
+    {
+      "interface_id": "local-069c11a5c8b72397e1eb",
+      "related": [
+        "ProbabilityTheory.cdf",
+        "MeasureTheory.integral",
+        "MeasureTheory.lintegral"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "cdf supplies the distribution functions of real probability measures; integrating their absolute difference gives the paper’s one-dimensional Wasserstein formula, with the nonnegative integral retaining infinite values if needed.",
+      "gap": "These declarations express the CDF-distance formula for probability measures, while a finite real value requires integrability and its equivalence to transport costs is separate.",
+      "comparisons": {
+        "D14": "Use volume integration over the whole real line of |cdf(mu1)(t)-cdf(mu2)(t)|. In the source application the measures are the q-point probability measures from singular-value vectors, hence have finite first moments and an integrable CDF difference. mathlib cdf has its intended semantics for probability measures, not arbitrary unnormalized finite measures. If general distributions have infinite distance, use lintegral of the nonnegative difference rather than the Bochner zero fallback. This is order-one distance without an extra square or root; the equality to the scaled l1 error for compatibly ordered vectors is a separate statement and does not repair the source estimator’s recorded opposite-ordering issue."
+      }
+    },
+    {
+      "interface_id": "local-23f3c30adba1666d0dc0",
+      "related": [
+        "Real.rpow"
+      ],
+      "status": "composable",
+      "query": "Searched pinned Analysis, Probability and Hermite modules for Schatten, singular values, Gaussian derivatives, Wasserstein, sub-Gaussian norm and Orlicz; inspected singularValues construction, Hermite recursion and Gaussian derivative theorem, CDF, variance, Function.Even and the relevant integral/norm definitions; checked registered p1334 PDF pages 1,7,11-14 and saved ambient prerequisites.",
+      "result": "Real powers and scalar multiplication express the finite vector of normalized even-moment estimates from the supplied U_k statistics.",
+      "gap": "The scalar operations suffice to express the moment vector once U_k is defined, with positive dimensions and spectral scale retained.",
+      "comparisons": {
+        "D15": "For k=1,...,K set mhat_k=q^(-1)*(M*(p*q)^(1/4))^(-2*k)*U_k, using real casts and positive q and scale. These are estimates of normalized even moments, not raw singular-value moments or moments of Y. Preserve the factor q^(-1) and the exponent -2k on the ENTIRE scale. The U_k source count convention remains its own prerequisite. The later estimator mixes normalized moments and a physically scaled grid and uses an undefined Uhat symbol; this definition does not resolve that recorded scaling/alias conflict."
+      }
+    }
+  ]
+}

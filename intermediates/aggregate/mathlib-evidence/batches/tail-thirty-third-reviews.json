@@ -1,0 +1,25 @@
+{
+  "scope": "Manual comparison of all six population-risk variants from five registered papers, keyed by paper and local definition ID.",
+  "rows": [
+    {
+      "interface_id": "expected-loss-population-risk",
+      "related": [
+        "MeasureTheory.integral",
+        "MeasureTheory.lintegral",
+        "ProbabilityTheory.cond"
+      ],
+      "status": "composable",
+      "query": "Inspected Bochner integral, lower Lebesgue integral and ConditionalProbability.cond bodies, and compared Decision/Risk/Defs.avgRisk; checked registered PDF p1227 page17, p1845 page10, p1796 pages7/10, p2268 page8 and p2931 page3, preserving each loss and law.",
+      "result": "Ordinary expectation is a real Bochner integral under integrability; nonnegative lintegral preserves infinite risk, and cond constructs the positive-mass event-conditioned target law. These implement the risk operation with the supplied paper-specific loss and law; avgRisk instead averages over a prior and estimator kernel, which is additional structure these fixed-loss definitions do not require.",
+      "gap": "These declarations express all six variants once each loss, integrability domain and target law are fixed, with positive event mass required only for the event-conditioned variant.",
+      "comparisons": {
+        "aos-2024-v52-i03-p1227/D32": "For a fixed f in F integrate z -> ell(f,z) against P, not the empirical distribution of the observed data and not a posterior over hypotheses. The later bounded-loss condition is |ell(f,z)|<=1, allowing signed losses; with measurability this ensures integrability under a probability law and the ordinary real integral is appropriate. Do not use ENNReal.ofReal without nonnegativity, because it would discard negative values. Evaluating this deterministic risk function at the random empirical minimizer is a later operation, not a change of its definition.",
+        "aos-2024-v52-i04-p1845/D12": "Integrate the specific nonnegative Huber loss ell_tau(Y-f(X)) under the joint law of X,Y, retaining tau in (0,infinity]. The source loss (2.7) uses one-half times the squared residual in the central region, so the tau=infinity case is one-half squared loss even though the prose calls it squared loss. Use the finite-tau Huber definition or an explicit infinite-tau branch, not arithmetic involving an infinite real cutoff. Bochner integral matches a finite population risk under the relevant moment and function-class conditions; the nonnegative lintegral preserves infinite risk outside those conditions. This risk is neither its empirical average nor excess risk relative to f0.",
+        "aos-2024-v52-i04-p1796/D1": "For the joint observed law P_star of (Z,A), take the measurable event s={A=0}, require positive event probability, and integrate ell(Z) against ProbabilityTheory.cond P_star s. This produces a scalar target risk, not the random-variable conditional expectation on the entire sigma-algebra of A. The conditioned measure is a probability law only with positive finite event mass; its zero fallback at P_star(s)=0 must not invent a target risk. General ell is real-valued, so signed integration requires integrability under the target conditional law; nonnegative risk can instead retain infinity through lintegral. The predictor or prediction set used to construct ell is given, not optimized in this definition.",
+        "aos-2024-v52-i04-p1796/D2": "Use the separate target probability law Q and integrate ell directly under Q, even when no observed datum has target label zero and the observed label set omits zero. Conditioning P_star on an absent event would give a null measure and is not this estimand. Identification from source distributions via the later sequential-conditional assumptions is separate from defining expectation under Q. Keep Z general and multiple source populations permitted, with signed integrability or the applicable nonnegative extended-risk treatment.",
+        "aos-2024-v52-i05-p2268/D4": "For each environment law mu^e integrate the squared REAL residual |y-beta dot x|^2, retaining candidate beta and the population law. The finite moment assumptions support integrability for the intended real-valued risk; otherwise use the nonnegative extended integral rather than Bochner zero fallback. This environment risk has no one-half factor, differs from the empirical average, and is not pooled over environments. The statement here consistently uses beta; do not import the printed x-for-beta ambiguity from the later population EILLS formula (3.8).",
+        "aos-2024-v52-i06-p2931/D1": "For each client k and fixed common parameter theta, integrate xi -> f_k(theta;xi) under that client’s own P_k. Neither the losses nor their laws are assumed identical across clients. Keep each F_k separate from the weighted federated risk F, its empirical version, and its optimizer; expectation under a mixture or an unweighted pooled law would change this definition. General real-valued client losses require integrability for finite risks; lintegral applies only when a nonnegative loss is actually given, not by silently truncating signed loss values."
+      }
+    }
+  ]
+}

@@ -1,0 +1,461 @@
+[
+  {
+    "interface_id": "local-ef54ae429eff6748b76a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "31f96c20b471b430d5da6f7b899aaab2d6ac7fc12ffc06ecfd47386464969da6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D11",
+        "comparison": "For T0<T normalize Lebesgue time measure on (T0,T] and spatial volume on the torus to probability measures; ProbabilityTheory.uniformOn uses counting measure and is not this continuous law. Independently draw N design pairs and N Gaussian vectors with mean zero and covariance I_2, then set Y_i=u_theta(t_i,X_i)+epsilon_i and retain all three observed components. For T0=T>0 use delta_T times uniform spatial probability as the source expressly declares, rather than conditioning Lebesgue measure on an empty interval. The solution is deterministic conditional on theta with known viscosity and forcing; this is measurement noise, not stochastic forcing of the PDE. Theorem 3 permits T0=0 while Theorem 4 requires positive observation times. The product construction does not itself establish continuity or measurability of the PDE solution map.",
+        "statement_sha256": "cccae45d815ba536fdad0a2bebcc8635ddc380a605a3a2c3db3ea864cd3853a1"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected normalized restricted measures, finite iid products, measurable pushforwards and Euclidean Gaussian laws; checked uniformOn's counting-measure convention to exclude it for continuous design.",
+          "result": "A product of continuous uniform design and independent bivariate Gaussian noise, pushed through the deterministic solution evaluations, constructs the experiment with a separate Dirac-time branch."
+        }
+      ],
+      "gap": "Construct the joint response-design law and its N-fold product, retaining the explicit single-time branch and proving measurability of the forward evaluations."
+    }
+  },
+  {
+    "interface_id": "local-2b442fb0a8ec41726bd0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "d32fb327e282bf9ff0ed2c46720dca19b548678c976bacc379e3bebf12e596d0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D12",
+        "comparison": "Pi-prime is a Borel probability on divergence-free zero-mean fields in V intersect H2, and centering must be stated in addition to IsGaussian or IsGaussianProcess. A finite-marginal Gaussian process does not by itself give Borel sample paths in this Sobolev space. The RKHS must be the one associated with this Gaussian law, not an arbitrary RKHS instance, and completeness and a continuous injective embedding into V intersect H^alpha are additional requirements. Alpha>=2 may be fractional, beyond the source's earlier integer Sobolev definition. Push forward by theta-prime mapped to N^(-1/(2*alpha+2))*theta-prime for N>0. This is the prior scaling, not a claimed contraction rate; its base RKHS is distinct from PDE space H. RKHS regularity does not assert that typical prior draws lie in H^alpha or in the RKHS itself, and the following Fourier-series example is optional.",
+        "statement_sha256": "c2266bb02230e6ca8a7ae7f52e727f058f6bb28cf15983d6182e176919551379"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussian",
+          "type": "{E : Type u} → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → {mE : MeasurableSpace E} → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Basic",
+          "provides": "A measure is Gaussian when every continuous real linear functional has a real Gaussian pushforward law; centering and a specified covariance or Cameron-Martin space are additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Basic.lean#L45-L47",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS",
+          "type": "(𝕜 : Type u) → (H : Type v) → (X : Type w) → (V : Type z) → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → Type (max u v w z)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "An inner-product function space with an injective continuous linear map into functions and hence continuous point evaluation; completeness and association with a particular Gaussian measure require additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L56-L62",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Gaussian-measure, Cameron-Martin and RKHS terminology; inspected IsGaussian, finite-marginal Gaussian processes, the RKHS class, continuous-linear Gaussian pushforwards and sample-size power scaling.",
+          "result": "Gaussian laws, point-evaluation RKHS structure and scalar pushforwards have library ingredients, but the associated Gaussian RKHS and periodic Sobolev embedding are not supplied by these predicates alone."
+        }
+      ],
+      "gap": "Construct the supported centered Gaussian field and its associated RKHS embedding, then push its law through the exact sample-size rescaling."
+    }
+  },
+  {
+    "interface_id": "local-4637fa11c9700178b966",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "e1e900c99e61ad0ed8b3117c51ed2e6aec8c736c9d8c61613ab35ec4bf049d23",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D15",
+        "comparison": "For each admissible observed dataset form theta-bar_N as the V-valued integral of theta under the already defined posterior. Bochner measurability, integrability and the complete V structure must be available to justify the source mean rather than the integral's zero fallback. Conditional expectation under the joint prior-data experiment can represent a corresponding version, but agreement with the posterior kernel integral needs a disintegration argument. Then solve equation (10) with initial value theta-bar_N. Because the dynamics are nonlinear, u_(theta-bar_N) is not generally the posterior integral of u_theta. No Gaussian posterior or linearity of the forward map is inferred from a Gaussian prior.",
+        "statement_sha256": "acae8dd367c3116186d729bdcfbcb92833c444b206e903d2fd8fc4b50a7f39b0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integration and conditional expectation, including their invalid-domain fallbacks, against the posterior initial-condition mean and nonlinear plug-in trajectory.",
+          "result": "A V-valued integral under the posterior defines the mean once integrability is established; the nonlinear forward solution must then be evaluated at that mean."
+        }
+      ],
+      "gap": "Prove the posterior identity map is Bochner integrable in V and evaluate the deterministic PDE solution at its integral, without commuting the nonlinear solution map with expectation."
+    }
+  },
+  {
+    "interface_id": "local-d43fb3e476310df7c648",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "21a52905f85a8af7e763c5204c8e260f9bd20000b9e8beefa0435cb1f060cf87",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D13",
+        "comparison": "For nonzero integer k=(k1,k2), multiply exp(i*k dot x) by the perpendicular vector (k2,-k1); differentiation gives zero divergence and negative Laplacian eigenvalue |k|^2 once the smooth periodic field is identified with the Stokes domain. fourierBasis is a scalar complex one-circle basis under normalized Haar measure, so a two-coordinate product, vector polarization and the paper's Lebesgue normalization still need justification. The source only writes proportionality and refers to real parts: phase choices, sine/cosine pairs and redundancy between k and -k cannot be ignored when forming a real orthonormal basis. Theorem 5 separately orders such a real basis by increasing eigenvalues; this display alone specifies neither that enumeration nor prior coefficient variances.",
+        "statement_sha256": "eab537533e2992205ed5551872ad9b7fe8f20c9b1bdffea7aac7239d756006e2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fourierBasis",
+          "type": "{T : ℝ} → [hT : Fact (0 < T)] → HilbertBasis ℤ ℂ (MeasureTheory.Lp ℂ 2 (@AddCircle.haarAddCircle T hT))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Fourier.AddCircle",
+          "provides": "Complex exponential Fourier basis on the additive circle with Haar measure normalized to total mass one.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Fourier/AddCircle.lean#L411-L412",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.exp",
+          "type": "ℂ → ℂ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "Complex exponential defined by its convergent Taylor series, usable for oscillatory lag-window factors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L62-L63",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.laplacianWithin",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace ℝ F] → (E → F) → Set E → E → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Laplacian",
+          "provides": "Laplacian within a set via the second Frechet derivative contracted with the canonical Euclidean tensor; no Neumann boundary realization is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Laplacian.lean#L133-L134",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the circle Fourier basis and monomial formulas, their Haar normalization and classical Laplacian against the complex two-dimensional Stokes eigenfield expression.",
+          "result": "Products of Fourier monomials give the plane-wave factors, while divergence-free vector polarization, real orthonormalization and Stokes-domain identification require construction."
+        }
+      ],
+      "gap": "Construct a normalized real divergence-free Fourier eigenbasis on the two-dimensional torus, resolving phases and lattice redundancy without treating the proportional source display as a complete basis specification."
+    }
+  },
+  {
+    "interface_id": "local-f419cf19c7a878668968",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "d1ac98eebd45abe1a6587e342a4ad59ae067f35d48efc523e93dda8b0b10f81c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D10",
+        "comparison": "Treat t mapped to u(t,.) as a function into the specified normed field space X and use restricted Lebesgue measure on (0,T] at 1<=p<infinity. MemLp includes almost-everywhere strong measurability plus finite extended norm, whereas the displayed integral alone does not state measurability. The usual Lp quotient identifies time functions almost everywhere; C([0,T],X) instead includes the initial value and a continuous representative. At infinity eLpNorm uses essential supremum, while the source says time-bounded without specifying pointwise or essential bounds; do not identify them without a suitable representative or continuity argument. For the strong-solution theorem the continuous space is X=V with its gradient norm, not a silently substituted full H1 norm.",
+        "statement_sha256": "14813d99407661910343c4a06fb8466c99069df2c69197f4ff8f5e7255baa899"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lpNorm",
+          "type": "{α : Type u} → {E : Type v} → {mα : MeasurableSpace α} → [NormedAddCommGroup E] → (α → E) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Real-valued Lp seminorm; agrees with the finite moment root and returns zero outside its measurable finite domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L142-L143",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousMap.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [TopologicalSpace α] → [TopologicalSpace β] → [TopologicalSpace γ] → C(β, γ) → C(α, β) → C(α, γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.ContinuousMap.Basic",
+          "provides": "Composition of bundled continuous maps; continuity of the component maps must be supplied and surjectivity is not asserted.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/Basic.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner Lp membership, finite-exponent and essential-supremum norm branches, and bundled continuous-map domains against the time-function-space conventions.",
+          "result": "The library supplies measurable Lp functions and continuous maps; the source's omitted measurability and pointwise-versus-essential boundedness conventions need explicit interpretation."
+        }
+      ],
+      "gap": "Instantiate the chosen field space and time measure with strong measurability, and distinguish essential L-infinity bounds from the source's time-bounded prose."
+    }
+  },
+  {
+    "interface_id": "local-18fff8885aefca484ea8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "c428a79be3c98f1fe50987b26c29c025dad6a9604fc7aca89dccba6d0e1d6604",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D17",
+        "comparison": "Use the real L2-orthonormal Stokes eigenbasis ordered by increasing eigenvalues and project Pi_N onto the linear span of its first J_N elements, preserving the source's simultaneous span wording and literal E_J={e_j:j<=J} notation. The finite-rank orthogonal projection is defined in the PDE H inner product, not as projection in the Gaussian RKHS; its continuous/measurable realization on the prior's field space must be shown. A continuous linear pushforward preserves Gaussianity but supplies no contraction theorem. Keep the base calligraphic-H membership and theta0 in a fixed E_J0. J_N=O(log log N) only bounds growth from above and does not ensure divergence or eventual J_N>=J0, so do not insert that missing condition as if printed. The replacement rate and all inherited conclusions remain those of the original theorem.",
+        "statement_sha256": "fb4887a55cf5397b97705f7e4570714eb44289872087a1362f8da26b60a166de"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussian",
+          "type": "{E : Type u} → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → {mE : MeasurableSpace E} → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Basic",
+          "provides": "A measure is Gaussian when every continuous real linear functional has a real Gaussian pushforward law; centering and a specified covariance or Cameron-Martin space are additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Basic.lean#L45-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite-span projection, Gaussian linear pushforwards and big-O against the projected prior, fixed truth support and recorded span/growth source issues.",
+          "result": "A fixed spectral projection can push forward each sample-size-dependent prior; the specified Stokes eigenbasis, Gaussian RKHS and truth-support conditions remain part of the paper setup."
+        }
+      ],
+      "gap": "Project the rescaled prior onto the specified spectral span and state the fixed truth-support and upper growth bound without inferring eventual coverage of that support."
+    }
+  },
+  {
+    "interface_id": "local-6423cf068dff283f456f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "a12fbf3e3f0b8993a0f048de0a06f5ae0fc7cc49e22fa2f4983194d5f7264ffc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D2",
+        "comparison": "Require ContDiffOn real infinity f on all of real two-space and Function.Periodic f for the two coordinate period vectors of the source domain [0,2*pi]^2. Two generator identities imply lattice invariance, enabling a well-defined torus function and avoiding boundary mismatch from merely smooth functions on a closed square. Infinity means derivatives of every finite order, not analyticity. The definition is scalar; Theorem 2 uses its two-component product. The chosen domain does not require each generator to be a least period, nor does smooth periodicity alone impose zero mean or zero divergence.",
+        "statement_sha256": "2e0c009f5cd17ef79c5f9bf878a0a1bd6d3f1ef6eca15a7b166826f3034d1131"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "Function.Periodic",
+          "type": "{α : Type u} → {β : Type v} → [Add α] → (α → β) → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Ring.Periodic",
+          "provides": "Translation by the specified period leaves the function unchanged at every argument; the period need not be minimal or nonzero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Ring/Periodic.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected infinite-order differentiability on Euclidean space and the translation-period predicate for the torus's lattice generators.",
+          "result": "An infinitely differentiable periodic lift to the plane represents a smooth scalar function on the flat torus."
+        }
+      ],
+      "gap": "Package a smooth Euclidean lift invariant under both period-lattice generators and identify it with a function on the quotient torus."
+    }
+  },
+  {
+    "interface_id": "local-ee075d7df14ee3c2839a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:24:56.655959+00:00",
+    "source_interface_sha256": "8b7853200e964cd80ae52544fb31e865bc5b82c6866f4f8ab7d535bc306d5ed6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1825",
+        "local_id": "D16",
+        "comparison": "For h=u(0)-v(0), use the source V norm from the gradient L2 energy and the vector Lebesgue L2 norm in the denominator. Require 0<c_P<infinity and the printed unsquared ratio <=c_P. If h=0 the source has no quotient convention; Lean's totalized 0/0 would introduce one, and multiplying away the denominator without qualification changes the literal premise. A bound for one nonzero pair is not a uniform reverse embedding estimate over an infinite-dimensional class. Remark 1's squared ratio and eigenvalue bound use a different scale, so neither c_P nor the exponent in the theorem is silently squared or square-rooted.",
+        "statement_sha256": "55c09353222291e39150eaeb9642f9cafb59c8fca8cadaee96c1c0b4471ef5df"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lpNorm",
+          "type": "{α : Type u} → {E : Type v} → {mα : MeasurableSpace α} → [NormedAddCommGroup E] → (α → E) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Real-valued Lp seminorm; agrees with the finite moment root and returns zero outside its measurable finite domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L142-L143",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected L2 norms and moment domains against the unsquared inverse-Poincare ratio and the separately recorded zero-difference and squared-ratio discrepancies.",
+          "result": "The specified gradient and L2 norms express the additional bound for a given pair of initial fields, once their source norm structures and denominator conditions are supplied."
+        }
+      ],
+      "gap": "State the positive finite bound on the unsquared V-to-L2 norm ratio, retaining zero-denominator ambiguity and distinguishing pairwise from uniform parameter-class constants."
+    }
+  }
+]

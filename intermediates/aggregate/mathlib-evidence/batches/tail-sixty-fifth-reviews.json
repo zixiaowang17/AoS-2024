@@ -1,0 +1,95 @@
+{
+  "scope": "Manual comparison of all 11 remaining p0842 interfaces, preserving approximate/full objective distinctions, finite-horizon constants, inverse-domain limitations and covariance coordinate conventions.",
+  "rows": [
+    {
+      "interface_id": "local-66bb318d7ec5c0433031",
+      "related": ["HasStrictFDerivAt.localInverse", "Flow"],
+      "query": "Searched inverse-flow and small-step invertibility constructions; inspected the local inverse function theorem's strict derivative assumptions, neighborhood inverse identities and the forward Flow structure.",
+      "result": "An invertible strict derivative gives an inverse on suitable neighborhoods, while a nonnegative-time flow does not itself supply backward maps. Neither declaration establishes the source's asymptotic inverse availability at every state and parameter or chooses its unstated quantifier order.",
+      "gap": "The small-step inverse's domain and quantifiers need specification and a proof beyond the forward flow or a pointwise local inverse theorem.",
+      "comparisons": {"D11": "Preserve inverse availability as h tends to zero for all x in R^d and beta in the open Theta_beta. Do not strengthen it to one threshold uniform in x and beta, every finite h, all boundary search parameters, or polynomial inverse growth. A local inverse near f_h(a) is not automatically an inverse at every requested x, and the library's globally typed localInverse only has inverse identities on neighborhoods."}
+    },
+    {
+      "interface_id": "local-f58efc5ffbf0879ff7ea",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "Matrix.trace", "Real.log", "Finset.sum_apply"],
+      "query": "Searched Lie-Trotter/Strang likelihood and approximate-objective APIs; inspected matrix quadratic operations, nonsingular inverse conditions, trace, real logarithm and finite sums against equations (22)/(23) and the retained Z residual.",
+      "result": "The two real-valued matrix expressions can be assembled from supplied flows and derivatives. The generic operations do not justify the truncation, inverse-flow availability or equality of minimizers with the full objectives.",
+      "gap": "The two distinct approximate objectives require their specified residuals, valid inverse flows and covariance inverses, with truncation and minimizer claims proved separately.",
+      "comparisons": {"D16": "For LT use r_k=X_k-mu_h(f_h(X_(k-1))); for S use Z_k=f_(h/2) inverse(X_k)-mu_h(f_(h/2)(X_(k-1))). Both objectives retain N log det Q+Nh Tr A+(1/h)sum r^T Q^-1 r-sum r^T Q^-1 A r with Q=Sigma Sigma^T, and S additionally has h sum Tr DN(X_k). Keep the product order Q^-1 A, every coefficient, h>0 and positive determinant. The Jacobian's derivative-first convention does not change its trace. Equations (22)/(23) are the theorem objectives, not the full (12)/(14) objectives; R(Nh^2,x0) is order notation and does not imply Nh^2 tends to zero under consistency's limits alone."}
+    },
+    {
+      "interface_id": "local-548eb175717b3e22a72d",
+      "related": ["Function.not_injective_iff"],
+      "status": "composable",
+      "query": "Searched function-family injectivity criteria and inspected not_injective_iff's distinct-input collision characterization against global drift identifiability.",
+      "result": "Map each allowed drift parameter to the whole function x -> F(x,beta); injectivity of that map is the stated condition by function extensionality. The inspected theorem describes exactly how this fails through distinct parameters with the same drift function.",
+      "gap": "The assumption is directly expressible as injectivity of the parameter-to-drift-function map on the stated parameter domain.",
+      "comparisons": {"D7": "Require equality of F(x,beta1) and F(x,beta2) for every x before concluding beta1=beta2, with parameters restricted to their supplied domain. Equality only nu0-almost everywhere is a different condition. This identifies the drift parameter, not the diffusion square-root matrix Sigma."}
+    },
+    {
+      "interface_id": "local-021cb99b5246c8eaab5d",
+      "related": ["ProbabilityTheory.Kernel.Invariant"],
+      "query": "Searched invariant probabilities of diffusions and inspected Kernel.Invariant's equality of the kernel pushforward measure with its input measure.",
+      "result": "After a transition kernel is constructed for each elapsed time, invariance is expressible for nu0 at every time. The generic invariant predicate does not construct the SDE transition semigroup or assert probability mass one.",
+      "gap": "The diffusion transition kernels must be constructed and nu0 required to be a probability measure invariant under every elapsed-time transition.",
+      "comparisons": {"D5": "Preserve existence of an invariant probability for the SDE and its use at the true law. Do not infer uniqueness, ergodicity, stationary initialization from nu0, or finite moments of every order. Invariance of one numerical-step kernel alone would not express invariance for the continuous-time solution."}
+    },
+    {
+      "interface_id": "local-f4c6396f94c96bbe7ae9",
+      "related": ["Matrix.mul_nonsing_inv"],
+      "status": "composable",
+      "query": "Inspected the determinant-unit condition for the matrix nonsingular inverse and both inverse identities against covariance invertibility throughout the closed parameter domain.",
+      "result": "For each real square covariance matrix, nonzero determinant supplies the required inverse identity. Totalized matrix inverse notation alone is not an invertibility hypothesis.",
+      "gap": "The condition is directly expressible as invertibility of every covariance matrix on the closed noise-parameter domain, with the determinant hypothesis used for inverse identities.",
+      "comparisons": {"D6": "Quantify over the entire closure of Theta_Sigma, not only the true parameter or the open domain. The general model's positive-definite covariance is compatible with this condition, but the assumption is not a hypoelliptic extension and no uniform numerical bound on inverse norms is inserted into its wording."}
+    },
+    {
+      "interface_id": "local-182c959e35435d92fb9d",
+      "related": ["MeasureTheory.integral", "MeasureTheory.eLpNorm", "Real.rpow"],
+      "query": "Searched numerical-scheme moment bounds and inspected Bochner integral, finite-exponent eLpNorm and real powers against the bound for every grid point.",
+      "result": "Finite moment bounds can be represented by nonnegative integrals or finite-exponent Lp seminorm bounds. A real Bochner integral alone would return zero in nonintegrable cases, so finiteness must be established rather than hidden by totalization.",
+      "gap": "The numerical process needs measurable finite 2p moments and one bound across the stated grid, retaining the source's allowed dependence of the constant on p and the fixed horizon.",
+      "comparisons": {"D15": "For every p>=1 choose C>0 bounding E||X_tilde_(t_k)||^(2p) by C(1+||x0||^(2p)) for k=1,...,N. Keep the 2p moment, not a p moment or its root, and do not infer uniformity over h or a growing observation horizon from this finite-grid statement. The exact and numerical processes remain distinct."}
+    },
+    {
+      "interface_id": "local-de9a7d8bc1ebc07d866b",
+      "related": ["Matrix.diag"],
+      "query": "Searched all Mathlib for vech and half-vectorization; inspected Matrix.diag and finite matrix-entry indexing against the printed covariance coordinate order.",
+      "result": "The diagonal specialization is directly available and upper-triangular entries can be indexed by finite pairs. No searched declaration supplies the paper's exact upper-triangle-by-column half-vectorization and its enumeration correspondence.",
+      "gap": "The upper-triangular coordinate enumeration and covariance reconstruction must be specified, while the diagonal specialization can use Matrix.diag directly.",
+      "comparisons": {"D17": "Retain Q11,Q12,Q22,...,Q1d,...,Qdd and s=d(d+1)/2 for general symmetric Q; a lower-triangle convention needs an explicit reindexing, not silent substitution. For a diagonal covariance use diag Q with d coordinates, coordinating all subsequent derivatives and the diffusion-information block with that reduced dimension."}
+    },
+    {
+      "interface_id": "local-993ac07339073b721868",
+      "related": ["Matrix.fromBlocks", "fderiv", "MeasureTheory.integral", "Matrix.trace", "Matrix.mul_nonsing_inv"],
+      "query": "Searched splitting-estimator information matrices and inspected block assembly, Frechet derivatives, stationary integration, trace and nonsingular inverse against both blocks of equation (27).",
+      "result": "The block diagonal matrix can be assembled from parameter derivatives evaluated on coordinate directions, with the drift block integrated against nu0 and the covariance block formed by a half trace. The library operations do not prove parameter regularity, finiteness or identification as limiting Fisher information.",
+      "gap": "The parameter-family derivatives, covariance-coordinate correspondence and stationary integrability must be supplied before identifying the assembled blocks as the limiting information matrix.",
+      "comparisons": {"D18": "Interpret the retained shorthand Sigma Sigma_0^T as Q0=Sigma0 Sigma0^T, not a candidate/true cross product. Differentiate F and Q as families before evaluating at theta0, rather than differentiating already fixed constants. Preserve zero off-diagonal blocks, the Q0 inverse between drift derivatives and one half times Tr((partial_j1 Q)Q0^-1(partial_j2 Q)Q0^-1). The derivative ordering follows the specified vech or diagonal coordinates, and source regularity of N does not silently add unprinted parameter smoothness of A and b or certify efficiency."}
+    },
+    {
+      "interface_id": "local-7754fb4cbcff3cf362e6",
+      "related": ["ContinuousMap.comp", "ProbabilityTheory.multivariateGaussian"],
+      "query": "Searched Lie-Trotter and stochastic splitting schemes; inspected continuous-map composition and multivariate Gaussian innovations against the nonlinear-then-OU update.",
+      "result": "For a fixed innovation realization, supplied continuous substeps compose in the displayed order; a PSD OU covariance defines the innovation law. These generic operations do not prove strong convergence or couple innovations to the original Wiener path.",
+      "gap": "The nonlinear and OU substeps must be supplied in the displayed order with innovations coupled to the driving Wiener increments for strong-error comparisons.",
+      "comparisons": {"D12": "Apply f_h first, then mu_h, then add xi_(h,k): mu_h(f_h(X_previous))+xi. The Gaussian innovation has the supplied OU covariance and is not moved inside f_h or replaced by reversed-order splitting. Its iid marginal law alone is insufficient for strong pathwise error against the exact SDE; retain the Wiener coupling recorded in the source context."}
+    },
+    {
+      "interface_id": "local-e67d18abdad6c9d28ed3",
+      "related": ["ProbabilityTheory.condDistrib", "MeasureTheory.condExp", "MeasureTheory.eLpNorm", "Asymptotics.IsBigO"],
+      "query": "Searched local Lp scheme consistency and inspected regular conditional laws, conditional expectation, finite-exponent Lp seminorms and Landau bounds against the two local errors and polynomial state remainder.",
+      "result": "Conditional moments and h-order bounds can be expressed, but a regular conditional law is identified only almost everywhere in the conditioning state. The source's all-state polynomial error estimates need a chosen transition/coupling version beyond a generic conditional expectation.",
+      "gap": "A statewise conditional coupling and polynomial-in-state error bounds must be established for both the conditional mean and conditional 2p-moment root.",
+      "comparisons": {"D14": "Evaluate the one-step numerical map at the exact previous state, using coupled exact and numerical innovations. Bound the norm of the conditional mean by order h^q1 and the conditional 2p-moment root by order h^q2, with p>=1, q2>=1/2 and q1>=q2+1/2; the named consistency order is q2-1/2. R denotes bounds with polynomial dependence on x, not equality to one fixed function. Pointwise-in-x big O with arbitrary constants or an almost-everywhere conditional version alone does not establish the intended common polynomial bounds."}
+    },
+    {
+      "interface_id": "local-c51e05e45dbe2b6ccb15",
+      "related": ["ContinuousMap.comp", "ProbabilityTheory.multivariateGaussian"],
+      "query": "Searched Strang stochastic splitting and inspected composition order and Gaussian innovation representation against the three-substep update in equation (11).",
+      "result": "The given continuous nonlinear half-step can be composed on both sides of the random OU full-step map. The construction is a forward update and does not itself need an inverse or prove the paper's strong-error theorem.",
+      "gap": "The nonlinear-half/OU-full/nonlinear-half update must be assembled with the correct innovation placement and Wiener coupling, with its accuracy theorem proved separately.",
+      "comparisons": {"D13": "Use f_(h/2)(mu_h(f_(h/2)(X_previous))+xi_(h,k)), so the outer nonlinear half-step acts on the noise as well. Do not substitute OU-half/nonlinear-full/OU-half or add noise after the last half-step. The forward definition contains no inverse; the separate A6 requirement of Theorem 3.7 remains an explicit theorem premise rather than a fabricated substep requirement."}
+    }
+  ]
+}

@@ -1,0 +1,647 @@
+[
+  {
+    "interface_id": "local-a2d1136ea84b46791f85",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "853a715b5880c36685a340eb6b32c69e8077ce421eefcc3f3801c56643ab1f85",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D4",
+        "comparison": "Use Q_i(dz_i|x_i) for each coordinate with no history argument, allowing the output spaces and kernels to vary with i. Conditional on the input tuple the output law is the product of these marginal measures; this does not make outputs independent under arbitrarily dependent private inputs. Preserve the equivalence between the source's full non-interactive privacy condition and Q_i in Q_alpha for every i, rather than inserting an n*alpha parameter or treating the more general sequentially interactive channel as already non-interactive.",
+        "statement_sha256": "0ac1e744b453bb4c41f145ee941ec796ca477dc2803963183b2d15479d20cb26"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.compProd",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel (α × β) γ → ProbabilityTheory.Kernel α (β × γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.CompProd",
+          "provides": "Composition-product retaining the first output and sampling the next conditionally on the input and history; Markov kernels meet its s-finiteness requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/CompProd.lean#L69-L72",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Non-interactive privacy channel as a coordinatewise product of marginal Markov kernels; inspected kernels, probability product measures and sequential kernel composition.",
+          "result": "For a fixed input tuple, product measures give independent outputs from the individual marginal kernels. Kernel measurability assembles this into a channel that does not use previous releases."
+        }
+      ],
+      "gap": "The product channel is constructible from Markov kernels, while the stated equivalence with marginal privacy constraints requires a separate event-probability argument."
+    }
+  },
+  {
+    "interface_id": "local-7d9b550076fd367c9288",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "658f2286dde0b47f7ebaa184b2099a7b8c2fa8ebb33f506966c025dd9a32bd45",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D10",
+        "comparison": "Apply the earlier DQM definition at every theta in Theta with the stated dominating mu and score s_theta: sqrt(p_(theta+h))-sqrt(p_theta)-(1/2)*(h dot s_theta)*sqrt(p_theta) has squared L2 norm o(||h||^2). Keep the one-half factor and the source's requirement that each such theta be interior. Pointwise DQM in theta does not by itself assert joint measurability of (x,theta) or continuity of theta -> s_theta*sqrt(p_theta); those are separate C2 and C3 records.",
+        "statement_sha256": "103dbcd911d9c30a8ff20de28e2c76de9cc51c8cdb9f7fd9c11a2f6829ba0b83"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Model-wide differentiability in quadratic mean with a common dominating measure and score field; bounded quadratic-mean differentiability search and inspection of L2 seminorm and deterministic little-o.",
+          "result": "The DQM remainder can be expressed in L2 for each parameter, with its squared norm little-o of the squared parameter perturbation norm. Requiring it at every theta gives C1 without adding the separate joint measurability or continuity conditions."
+        }
+      ],
+      "gap": "The model-wide condition is expressible from the DQM remainder once common density and score versions and the parameter-interior domain are specified."
+    }
+  },
+  {
+    "interface_id": "local-1455ec60a85919eb7fc2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "24e190eb593a66c6afbaa2b40782839eaeb42980a3c04a41b6e7e08edd8743de",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D11",
+        "comparison": "Require joint measurability of (x,theta) -> p_theta(x) into the nonnegative reals and (x,theta) -> s_theta(x) into R^p with their Borel structures. Separate measurability for every fixed theta or an equivalence class of density versions is not enough without a jointly measurable representative. Do not replace this condition by continuity in theta or infer it solely from DQM at each point.",
+        "statement_sha256": "1d52f428a491c8fd7fb76995263523d7e109bdc0ddf18184d47a784a0d1bada5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Joint measurability of density and score in observation and parameter; inspected the measurable-map predicate for product domains and finite-vector targets.",
+          "result": "Two instances of Measurable on the product measurable space express exactly the required joint regularity."
+        }
+      ],
+      "gap": "Joint measurability is directly expressible once the observation and parameter measurable structures and chosen versions are fixed."
+    }
+  },
+  {
+    "interface_id": "local-5a10dcad1d4fa794bf76",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "cdb83155f7fa6cfbcb79d3f0705d036aeec719a05f384f4c28b8e88543e87750",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D12",
+        "comparison": "Use s_theta(x)*sqrt(p_theta(x)) with the Euclidean norm on the p-dimensional score, integrate against the fixed dominating mu and impose continuity as an L2-valued map on Theta. This is not pointwise score continuity, continuity in L2(P_theta) with a changing reference measure, or continuity of Fisher information alone. MemLp witnesses are needed to construct the L2 equivalence classes; the source's C3 remains distinct from DQM and joint measurability.",
+        "statement_sha256": "80bdf848e915211b47d2a9a8fbb7f5e7a8aa4921be26ea59ecf5f1e240e51136"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ContinuousOn",
+          "type": "{X : Type u} → {Y : Type v} → [TopologicalSpace X] → [TopologicalSpace Y] → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Continuity at every point of a set relative to that set, expressed by limits along neighborhood-within filters.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L191-L192",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp.toLp",
+          "type": "{α : Type u} → {E : Type v} → {m : MeasurableSpace α} → {p : ℝ≥0∞} → {μ : MeasureTheory.Measure α} → [NormedAddCommGroup E] → (f : α → E) → MeasureTheory.MemLp f p μ → MeasureTheory.Lp E p μ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+          "provides": "The Lp equivalence class of a function with an explicit finite-moment and measurability witness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSpace/Basic.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "L2 continuity of the score weighted by square-root density; inspected L2 representatives and continuity on the parameter domain.",
+          "result": "The weighted score is an L2(mu;R^p) element and continuity can be imposed on its parameter map in that fixed Hilbert-space norm."
+        }
+      ],
+      "gap": "The regularity condition is supported after placing each weighted score in the same L2 space and specifying its parameter map."
+    }
+  },
+  {
+    "interface_id": "local-e242c8d23e9043dd6a99",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "7db9246ae700e2973f88c6a8085da7da0f7d3f6c5f69e450675939889b6ba61a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D14",
+        "comparison": "For Q of shape ell by k require Q_ij>=0 and sum_i Q_ij=1 for each input column j. For a fixed output row i and any columns j,j' require exp(-alpha)*Q_ij'<=Q_ij<=exp(alpha)*Q_ij'. These inequalities allow a row to be identically zero and avoid undefined likelihood ratios. Do not normalize rows, require strictly positive entries or restrict ell=k merely because the library's rowStochastic object is square. The later estimator chooses the square case for its finite alphabet; the general matrix class remains rectangular.",
+        "statement_sha256": "557792b03134e2fd6b85f0b20b109bbbcc62139c9900b38b9da304301926a384"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rowStochastic",
+          "type": "(R : Type u) → (n : Type v) → [Fintype n] → [DecidableEq n] → [Semiring R] → [PartialOrder R] → [IsOrderedRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Stochastic",
+          "provides": "Submonoid of matrices with nonnegative entries and every row summing to one; symmetry and graph support are separate conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Stochastic.lean#L46-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Rectangular column-stochastic privacy matrices with same-row multiplicative inequalities; inspected finite sums and the library's square row-stochastic matrix definition.",
+          "result": "Entrywise nonnegativity, column-sum equations and rowwise privacy inequalities directly define the set. The existing rowStochastic declaration applies only to a square transpose specialization, not the full rectangular domain."
+        }
+      ],
+      "gap": "The rectangular channel set is expressible by finite sums and inequalities; square row-stochastic matrices supply only a transposed special case."
+    }
+  },
+  {
+    "interface_id": "local-fb87e93c06e72de7a90f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "4104047b351169e01aaa9ae5a7238ec39c94df77673381b9521494488fff14b4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D13",
+        "comparison": "Require jointly measurable T_m(x,theta) and measurable k_m(theta), with every output in the one-based set [k_m(theta)]. Include in J only cells with 0<mu(B_j)<infinity, and let K be their union. Average p_theta and dot-p_theta=s_theta*p_theta over each such cell using mu(B_j), not P_theta(B_j), and set the displayed piecewise sums to zero outside K. Delta_m contains the L1 density error on K, the integral of the Euclidean magnitude of the derivative error on K, and sqrt(P_theta(K complement)). Require Delta_m(theta_m)->0 for every theta_m converging to a limit in Theta; pointwise convergence at each fixed theta does not meet this condition. Retain the moving cells and alphabet size rather than imposing a fixed partition or discarding excluded-cell probability.",
+        "statement_sha256": "3d05d16be7c23fa4301d0d573cbac5a7571b3a52bbd427aa04b59790d27122a4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Consistent parameter-dependent finite quantizer with cell averages and error along every convergent parameter sequence; bounded quantizer search and inspection of measurable partitions, integrals and L1/L2 norm ingredients.",
+          "result": "The cells and piecewise constant density/derivative averages can be built from measurable maps and integration, while the required error convergence is stronger than a pointwise-in-parameter approximation assertion."
+        }
+      ],
+      "gap": "The remaining quantizer interface packages the jointly measurable finite partition, finite-measure cell averages and moving-parameter error convergence with all three error terms."
+    }
+  },
+  {
+    "interface_id": "fisher-information-score",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "6e06f8e2418dd4c433e26d450ba1cf9acfd8c4978d647f4f92ff91463d425759",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D16",
+        "comparison": "For the one-group marginal density g(Y|psi), integrate the outer product of its log-density gradient, with entries indexed d,d'=1,...,D. The source omits the expectation subscript; the conventional law is g(.;psi), which must be specified rather than silently using the true-parameter law for every psi. Keep this marginal information distinct from the f-model information in the same paper's Bernstein-von Mises theorem. Derivatives, log-density domains and finite score moments are needed; positive definiteness is not a consequence of the formula alone.",
+        "statement_sha256": "dac6f75716076a7f542777497df47e39b99a057de372e47892e87c9437e48c56"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D6",
+        "comparison": "Use the DQM score s_theta and expectation under P_theta to define I_theta(P)=E_theta[s_theta*s_theta^T]. DQM supplies the cited zero-score-mean and finite-information conclusions, which remain theorem-level implications rather than the body of Matrix.vecMulVec or integral. Do not require a pointwise log-density derivative where the DQM definition supplies only an L2 score, and do not impose positive definite information in cases where the source allows a singular matrix.",
+        "statement_sha256": "0d03474dc0d59ead92ca57e315c15fe68b31ad5025f703e654b8c1560a6de1ae"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Fisher information as score outer-product expectation in DQM and hierarchical marginal models; bounded Fisher-information search and inspection of vector derivatives, outer products and matrix integration.",
+          "result": "The two matrices have the same score-second-moment construction but use different scores, dimensions and probability models. Finite information and centering require the corresponding regularity hypotheses."
+        }
+      ],
+      "gap": "The information matrices are constructible from integrable score outer products, while score identities and model-specific regularity remain separate proofs."
+    }
+  },
+  {
+    "interface_id": "local-60fbce2fc0776e9abbe6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "7fc5d7189f33a95e42f5b5d7bad9490cb7ed16f68c69da730be3443396c5941e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D7",
+        "comparison": "Use positive-definite localization matrices delta_n with operator norm tending to zero, an interior theta and a separate probability-zero remainder for every fixed h in Lambda_n(theta+delta_n*h,theta)-h^T*Delta_n+(1/2)*h^T*Sigma_n*h. The source defines the likelihood ratio from the absolutely continuous part and sets it to zero for parameters outside Theta; do not impose full mutual absolute continuity or conceal zero-density logarithm behavior with a totalized real llr. Require joint weak convergence of (Delta_n,Sigma_n) to (Sigma_theta^(1/2)*Delta,Sigma_theta), with Delta standard Gaussian independent of the possibly random, possibly singular nonnegative information. Marginal convergence of the two components or replacing the mixture by a fixed-information normal law is insufficient.",
+        "statement_sha256": "a3914c0925dfe06dcfa353258b48b5cf9220ece95981644b1bb6a78aa8f99623"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.llr",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.LogLikelihoodRatio",
+          "provides": "Logarithm of the real-valued Radon–Nikodym derivative, with the numerator measure first.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean#L37-L37",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Local asymptotic mixed normality with matrix localization, random information and joint Gaussian-mixture limit; bounded LAMN search and inspection of log-likelihood ratios, convergence and Gaussian/independence ingredients.",
+          "result": "The likelihood expansion and joint limiting law can be expressed using generic probability tools, but a complete LAMN interface must retain changing experiment spaces, source likelihood conventions and the independence that generates the Gaussian mixture."
+        }
+      ],
+      "gap": "The remaining experiment interface combines local likelihood remainders and joint weak convergence with a valid random-information square root and the source's likelihood-ratio boundary conventions."
+    }
+  },
+  {
+    "interface_id": "local-c9b303ffa9ca133504ea",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "183b8d43c224f6e1777837a4bd59197813b96ae0745e6d365c60a71c2c701a37",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D8",
+        "comparison": "Fix one Q in Q_alpha, reference nu=Q(.|x_star), and q_theta(z)=integral q(z|x)*p_theta(x) dmu with the stated exp(-alpha) and exp(alpha) bounds. Form the unnormalized sum of log q_theta(z_i) for the non-interactive releases and choose a measurable maximizer over Theta. Do not replace the likelihood by the private-input density or add the second-stage procedure's explicit arbitrary fallback to this definition. The channel density construction is referenced to excluded Lemma D.2; its main-text formula and bounds are retained without importing the lemma's proof. Compact-event consistency results are not automatically global consistency.",
+        "statement_sha256": "4cde8b1f4166392e5d6029ba0ad04b1a6bc29a6912aa601dba81c063f38dd2e4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Fixed-channel non-interactive private maximum likelihood estimator with integrated output densities; inspected integrals, log likelihood and measurable maximizing predicates.",
+          "result": "For supplied channel density versions, the privatized model density is an integral and the log likelihood is a finite sum. A measurable maximizer is an additional selection requirement rather than a consequence of the expression."
+        }
+      ],
+      "gap": "The remaining MLE construction supplies the referenced channel density versions and a measurable maximizing selection, without assuming universal attainment or consistency."
+    }
+  },
+  {
+    "interface_id": "local-a3c748f7a0a65ec32d0c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "9ebd0064fb254a2545b5ca1840d67ec7e6bfc5f8f6eb5d2c98e6c1803e87a4cd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D9",
+        "comparison": "Return y unchanged if sum_j |y_j|<=tau and return the zero vector otherwise. Preserve inclusion of the boundary and the L1 rather than Euclidean norm. This is not radial clipping onto the ball, coordinatewise clipping or a projection to its boundary. No additive noise or privacy guarantee is supplied by the truncation operation alone.",
+        "statement_sha256": "5d33c7b1ea29576988dabe1bbb6eb36eac9ddb2a0234e453c34bf47b165ba875"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "PiLp.norm_eq_of_L1",
+          "type": "{ι : Type u} → [Fintype ι] → {β : ι → Type v} → [∀ i, SeminormedAddCommGroup (β i)] → (x : PiLp 1 β) → ‖x‖ = ∑ i : ι, ‖x i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.PiLp",
+          "provides": "The finite L1 product norm equals the sum of coordinate norms, giving the full sum-of-absolute-coefficients penalty for real vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/PiLp.lean#L759-L760",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Hard truncation to zero outside a closed L1 ball; inspected real-vector set indicators and finite L1 norm.",
+          "result": "The indicator of the closed L1 ball multiplied by the input vector gives the stated hard truncation directly."
+        }
+      ],
+      "gap": "The truncation map is expressible by the finite L1 norm and an indicator, while any privacy or estimator guarantee needs the surrounding mechanism."
+    }
+  },
+  {
+    "interface_id": "local-9d4ce5f78c997c09173c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:41:44.241427+00:00",
+    "source_interface_sha256": "903a2f313060676016fafcff65e914459c652550cd3c77c6fef86869c00d5bf5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2139",
+        "local_id": "D15",
+        "comparison": "Retain the scalar parameter model Theta subset R and all six steps: choose identifiable Q0; obtain a consistent private preliminary estimator from n1 releases; evaluate T_n1 and k_n1 at that estimate; choose a measurable Fisher-information maximizing square channel of the fitted alphabet size; release the remaining individuals through Q-hat*T-hat; and maximize their conditional average log likelihood. The selected channel is shared across second-stage individuals and depends on preliminary releases, so second-stage iid sampling is conditional on those releases and the full protocol is sequentially interactive, not globally iid or non-interactive. Keep q-hat_theta(z)=sum_j Q-hat[z,j]*P_theta(T-hat inverse {j}), its 1/n2 log-likelihood normalization and the explicitly arbitrary value when no maximizer exists. Do not infer consistency from measurable maximization or import a guessed n1 schedule; the theorem separately assumes second-stage consistency and its own asymptotic regime.",
+        "statement_sha256": "3498ca618adb125c0dfd6f68faf4d227f8b25c89621cafddcd65c539c6582a1e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Six-step adaptive locally private estimator using a preliminary fit, information-optimal finite channel and conditional second-stage MLE; inspected kernel composition, deterministic quantization, measurable optimization and likelihood integration.",
+          "result": "Generic kernels can compose the fitted quantizer with a selected finite channel, and the second-stage likelihood is explicit conditional on the preliminary releases. The measurable choices and consistency needed by the efficiency result remain substantial separate requirements."
+        }
+      ],
+      "gap": "The remaining procedure implements the measurable quantizer/channel selections and conditional MLE with its fallback, and verifies privacy and consistency under the source conditions."
+    }
+  }
+]

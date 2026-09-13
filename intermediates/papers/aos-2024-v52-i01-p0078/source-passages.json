@@ -1,0 +1,706 @@
+{
+  "paper_id": "aos-2024-v52-i01-p0078",
+  "members": [
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D1",
+      "local_label": "Section 2 — graph selection problem, equation (2.1)",
+      "source_heading": "Section 2 — graph selection problem, equation (2.1)",
+      "source_kind": "source_passage",
+      "statement_original": "Before introducing our method, we set up the problem with more details. Specifically, we consider a graph $\\mathcal{G}= (\\mathcal{V}_1, \\mathcal{V}_2, \\mathcal{E})$ with the node sets $\\mathcal{V}_1,\\mathcal{V}_2$ and the edge set $\\mathcal{E}$. Let $d_1=|\\mathcal{V}_1|$, $d_2=|\\mathcal{V}_2|$ and denote its weight matrix by $\\boldsymbol{\\Theta}\\in \\mathbb{R}^{d_1\\times d_2}$. In the undirected graph where $\\mathcal{V}_1 = \\mathcal{V}_2:=\\mathcal{V}$, $\\boldsymbol{\\Theta}$ is a square matrix and its element $\\boldsymbol{\\Theta}_{jk}$ is nonzero when there is an edge between node $j$ and node $k$, zero when there is no edge.\n\nIn a bipartite graph where $\\mathcal{V}_1 \\ne \\mathcal{V}_2$, elements of $\\boldsymbol{\\Theta}$ describe the existence of an edge between node j in $\\mathcal{V}_{1}$ and node $k$ in $\\mathcal{V}_{2}$. Without loss of generality, we focus on one of the node sets and denote it by $\\mathcal{V}$ with $|\\mathcal{V}|:=d$. We would like to select those nodes among $\\mathcal{V}$ whose degree exceeds a certain threshold $k_{\\tau}$, based on the $n$ data samples $\\boldsymbol{X}_1, \\cdots \\boldsymbol{X}_n \\stackrel{i.i.d.}{\\sim}  \\boldsymbol{X}\\in \\mathbb{R}^d$. And the selection problem is equivalent to simultaneously testing $d$ hypotheses: $$H_{0j}: \\text{degree of node } j < k_{\\tau} \\text{  v.s.  }  H_{1j}:  \\text{degree of node } j \\ge k_{\\tau},\\tag{2.1}$$ for $j \\in [d]$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Section 2 — graph selection problem, equation (2.1)"
+        }
+      ],
+      "highlight_symbols": [
+        "k_{\\tau}",
+        "\\boldsymbol{\\Theta}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D2",
+      "local_label": "Section 2 — false discovery proportion and FDR",
+      "source_heading": "Section 2 — false discovery proportion and FDR",
+      "source_kind": "definition",
+      "statement_original": "Let $\\psi_j = 1$ if $H_{0j}$ is rejected and $\\psi_j = 0$ otherwise, then for some multiple testing procedure with output $\\{\\psi_j\\}_{j\\in[d]}$, the false discovery proportion (FDP) and FDR can be defined as below: $${\\rm FDP} = \\frac{\\sum_{j \\in \\mathcal{H}_0}^d \\psi_j}{\\max\\left\\{1, \\sum_{j=1}^d \\psi_j\\right\\} },\\quad {\\rm FDR}  := \\mathbb{E}[{\\rm FDP} ],$$ where $\\mathcal{H}_0 = \\{j \\mid  \\text{degree of node } j < k_{\\tau} \\}$. Given the data $\\boldsymbol{X}_1, \\cdots \\boldsymbol{X}_n$ from the graphical model, we aim to propose a multiple testing procedure such that the FDP or FDR can be controlled at a given level $0 < q < 1$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Section 2 — false discovery proportion and FDR"
+        }
+      ],
+      "highlight_symbols": [
+        "{\\rm FDP}",
+        "{\\rm FDR}"
+      ],
+      "highlight_phrases": [
+        "false discovery proportion"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D3",
+      "local_label": "Section 2.1 — maximum test statistic, equation (2.2)",
+      "source_heading": "Section 2.1 — maximum test statistic, equation (2.2)",
+      "source_kind": "definition",
+      "statement_original": "Denote this generic estimator by $\\widetilde{\\boldsymbol{\\Theta}}$ (without causing confusion in notation), the maximum test statistic over a given subset $E$ of $\\mathcal{V}\\times \\mathcal{V}$ will be $$T_{E}:= \\max_{(j,k)\\in E}\\sqrt{n}\\left|\\widetilde{\\boldsymbol{\\Theta}}_{jk}  \\right|\\tag{2.2}$$",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Section 2.1 — maximum test statistic, equation (2.2)"
+        }
+      ],
+      "highlight_symbols": [
+        "T_{E}",
+        "\\widetilde{\\boldsymbol{\\Theta}}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D4a",
+      "local_label": "Section 2.1 — upper-tail quantile",
+      "source_heading": "Section 2.1 — upper-tail quantile",
+      "source_kind": "definition",
+      "statement_original": "and its quantile is defined as ${c} (\\alpha,E) = \\inf \\left\\{ t\\in \\mathbb{R}\\; | \\; \\mathbb{P}\\left( T_E \\le t  \\right) \\ge 1-\\alpha    \\right\\}$, which is often unknown. Assume it can be estimated by $\\widehat{c} (\\alpha,E)$ from some procedure such as the Gaussian multiplier bootstrap",
+      "relation": "distinct",
+      "depends_on": [
+        "D3"
+      ],
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Section 2.1 — upper-tail quantile"
+        }
+      ],
+      "highlight_symbols": [
+        "{c} (\\alpha,E)"
+      ],
+      "highlight_phrases": [],
+      "variant_note": " This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D5",
+      "local_label": "Algorithm 2 — StarTrek Filter",
+      "source_heading": "Algorithm 2 — StarTrek Filter",
+      "source_kind": "source_passage",
+      "statement_original": "**Input:** $\\{\\widetilde{\\boldsymbol{\\Theta}}_e \\}_{e \\in \\mathcal{V}\\times \\mathcal{V}}$, nominal FDR level $q$.\n\n**for** $j\\in[d]$ **do**\n\nWe order the elements in $\\{|\\widetilde{\\boldsymbol{\\Theta}}_{j\\ell}|: \\ell \\neq j\\}$ as\n\n$|\\widetilde{\\boldsymbol{\\Theta}}_{j, (1)}| \\ge |\\widetilde{\\boldsymbol{\\Theta}}_{j, (2)}| \\ge \\ldots \\ge |\\widetilde{\\boldsymbol{\\Theta}}_{j, (d-1)}|,$ where $|\\widetilde{\\boldsymbol{\\Theta}}_{j, (\\ell)}|$ is the $\\ell$th largest entry. Compute $\\alpha_j = \\max_{1 \\le s \\le  k_{\\tau}} \\widehat{c}^{-1}(\\sqrt{n}|\\widetilde{\\boldsymbol{\\Theta}}_{j, (s)}|,E^{(s)}_j)$ where $E^{(s)}_j:=\\{ (j,\\ell):\\ell \\neq j, |\\widetilde{\\boldsymbol{\\Theta}}_{j\\ell}| \\le |\\widetilde{\\boldsymbol{\\Theta}}_{j, (s)}|\\}$. **end for**\n\nOrder $\\alpha_j$ as $\\alpha_{(1)} \\le \\alpha_{(2)} \\le \\dots \\le \\alpha_{(d)}$ and set $\\alpha_{(0)}=0$, let $j_{\\max} = \\max\\{0\\le j\\le d:\\alpha_{(j)} \\le {qj}/{d}\\}$.\n\n**Output: $S =\\{j: \\alpha_j \\le \\alpha_{(j_{\\max})}\\}$** if $j_{\\max}>0$; $S =\\emptyset$ otherwise.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D3",
+        "D4a"
+      ],
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Algorithm 2 — StarTrek Filter"
+        }
+      ],
+      "highlight_symbols": [
+        "\\alpha_j",
+        "j_{\\max}"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "The source writes an inverse estimated-quantile function without defining an inverse/tie convention. It prints a square-graph loop excluding the diagonal, while Section 4 supplies a rectangular response-by-predictor input. Those conventions are preserved and not silently repaired.",
+      "naming_context": [
+        {
+          "context_id": "D5/name",
+          "text": "StarTrek Filter",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Algorithm 2 — StarTrek Filter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D6",
+      "local_label": "Section 3 — centered Gaussian random vectors",
+      "source_heading": "Section 3 — centered Gaussian random vectors",
+      "source_kind": "source_passage",
+      "statement_original": "Let $U,V\\in \\mathbb{R}^{d}$ be two centered Gaussian random vectors with different covariance matrices $\\boldsymbol{\\Sigma}^U=(\\sigma_{jk}^U)_{1\\le j,k\\le d},\\boldsymbol{\\Sigma}^V=(\\sigma_{jk}^V)_{1\\le j,k\\le d}$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 3 — centered Gaussian random vectors"
+        }
+      ],
+      "highlight_symbols": [
+        "\\boldsymbol{\\Sigma}^U",
+        "\\boldsymbol{\\Sigma}^V"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D7",
+      "local_label": "Section 3 — maximal covariance difference",
+      "source_heading": "Section 3 — maximal covariance difference",
+      "source_kind": "definition",
+      "statement_original": "Recall that the maximal difference of the covariance matrices is $\\Delta_{\\infty}:= ||\\boldsymbol{\\Sigma}^U-\\boldsymbol{\\Sigma}^V||_{\\max}$",
+      "relation": "exact",
+      "depends_on": [
+        "D6"
+      ],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 3 — maximal covariance difference"
+        }
+      ],
+      "highlight_symbols": [
+        "\\Delta_{\\infty}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D8",
+      "local_label": "Section 3 — elementwise covariance difference",
+      "source_heading": "Section 3 — elementwise covariance difference",
+      "source_kind": "definition",
+      "statement_original": "and the elementwise $\\ell_0$ norm difference of the covariance matrices is denoted by $\\Delta_{0}:= \\left\\|\\boldsymbol{\\Sigma}^U-\\boldsymbol{\\Sigma}^V\\right\\|_{0} = \\sum_{j,k\\in [d]}\\mathbb{1}{(\\sigma^U_{jk}\\ne \\sigma^{{V}}_{jk})}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D6"
+      ],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 3 — elementwise covariance difference"
+        }
+      ],
+      "highlight_symbols": [
+        "\\Delta_{0}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D8/name",
+          "text": "elementwise ℓ₀ norm difference",
+          "evidence": [
+            {
+              "page": 7,
+              "location": "Section 3 — elementwise covariance difference"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D9",
+      "local_label": "Section 4 — multitask regression model, equation (4.1)",
+      "source_heading": "Section 4 — multitask regression model, equation (4.1)",
+      "source_kind": "source_passage",
+      "statement_original": "Consider the multitask regression problem with linear models, we have $n$ i.i.d. pairs of the response vector and the predictor vector, denoted by $(\\boldsymbol{Y}_1,\\boldsymbol{X}_1), (\\boldsymbol{Y}_2,\\boldsymbol{X}_2), \\dots, (\\boldsymbol{Y}_n,\\boldsymbol{X}_n)$, where $\\boldsymbol{Y}_i \\in \\mathbb{R}^{d_1},\\boldsymbol{X}_i \\in \\mathbb{R}^{d_2}$ satisfy the following relationship, $$\\boldsymbol{Y}_i = \\boldsymbol{\\Theta}\\boldsymbol{X}_i + \\boldsymbol{E}_i,  \\text{ where } \\boldsymbol{E}_i\\sim \\mathcal{N}(0,\\mathbf{D}_{d_1\\times d_1}  ) \\text{ and }\\boldsymbol{X}_i \\mathrel{\\perp\\!\\!\\!\\perp} \\boldsymbol{E}_i,\\tag{4.1}$$ where $\\boldsymbol{\\Theta}\\in \\mathbb{R}^{d_1 \\times  d_2}$ is the parameter matrix and $\\mathbf{D}$ is a $d_1$ by $d_1$ diagonal matrix whose diagonal elements $\\sigma_j^2$ is the noise variance for response variable $\\boldsymbol{Y}^{(j)}$. Let $\\boldsymbol{X}$ be the design matrix with rows $\\boldsymbol{X}_1^{\\top},\\dots, \\boldsymbol{X}_n^{\\top}$, shared by different response variables, and assume the noise variables are independent conditional on the design matrix $\\boldsymbol{X}$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Section 4 — multitask regression model, equation (4.1)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\boldsymbol{Y}_i",
+        "\\mathbf{D}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D10",
+      "local_label": "Section 4 — sparsity level",
+      "source_heading": "Section 4 — sparsity level",
+      "source_kind": "definition",
+      "statement_original": "Let $s = \\max_{j\\in [d_1]}||\\boldsymbol{\\Theta}_{j}||_0$ be the sparsity level of the parameter matrix $\\boldsymbol{\\Theta}$, we want to select columns of the parameter matrix which has at least $k_{\\tau}$ nonzero entries, i.e., select nodes with large degree among $[d_1]$ in the bipartite graph $\\mathcal{G}= (\\mathcal{V}_1, \\mathcal{V}_2, \\mathcal{E})$.",
+      "relation": "exact",
+      "depends_on": [
+        "D9",
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Section 4 — sparsity level"
+        }
+      ],
+      "highlight_symbols": [
+        "s = \\max_{j\\in [d_1]}||\\boldsymbol{\\Theta}_{j}||_0"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "This paragraph says columns after defining row sparsity and selecting among response nodes [d1]. The original wording is retained; the formal row/column convention is not silently changed."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D11",
+      "local_label": "Section 4 — debiased Lasso estimator, equations (4.2) and (4.3)",
+      "source_heading": "Section 4 — debiased Lasso estimator, equations (4.2) and (4.3)",
+      "source_kind": "definition",
+      "statement_original": "For each response variable $\\boldsymbol{Y}^{(j)}, j \\in [d_1]$, we compute the debiased Lasso estimator, denoted by $\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{j}$ as $$\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_j = \\widehat\\boldsymbol{\\Theta}_j + \\frac{1}{n}\\, \\mathbf{M}\\boldsymbol{X}^{\\top}(\\boldsymbol{Y}^{(j)} - \\boldsymbol{X}\\widehat\\boldsymbol{\\Theta}_j), \n\\text{ where  }\\widehat\\boldsymbol{\\Theta}_j= \\arg\\min_{\\beta\\in\\mathbb{R}^{d_2}}\n\\Big\\{\\frac{1}{2n}\\|\\boldsymbol{Y}^{(j)}-\\boldsymbol{X}\\beta\n\\|^2_2+\\lambda\\|\\beta\\|_1\\Big\\}\\, .\\tag{4.2}$$\n\nNote the above $\\mathbf{M}$ is defined as $\\mathbf{M}= (m_1,\\dots,m_{d_2})^{\\top}$ where $$\\begin{aligned}m_i = &\\mathop{\\mathrm{argmin}}_m  m^{\\top} \\widehat{\\boldsymbol{\\Sigma}}m, \\quad \\text{s.t. }  \\|\\widehat{\\boldsymbol{\\Sigma}}m - e_i \\|_{\\infty} \\le \\mu\\,,\\end{aligned}\\tag{4.3}$$\n\nand here $\\widehat{\\boldsymbol{\\Sigma}}= (\\boldsymbol{X}^{\\top} \\boldsymbol{X})/n$.\n\nThen the debiased estimator of the parameter matrix, defined by $\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}:= (\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{1}, \\cdots, \\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{d_1})^\\top$, will be used the input $\\{\\widetilde{\\boldsymbol{\\Theta}}_e\\}_{e \\in \\mathcal{V}_1 \\times \\mathcal{V}_2}$ of Algorithm 2.",
+      "relation": "exact",
+      "depends_on": [
+        "D9"
+      ],
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Section 4 — debiased Lasso estimator, equations (4.2) and (4.3)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_j",
+        "\\mathbf{M}"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "Both argmin constructions are preserved as written. The source does not specify a minimizer tie rule; the matrix M is the stated constrained quadratic-program construction."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D12",
+      "local_label": "Section 4 — scaled Lasso, equation (4.5)",
+      "source_heading": "Section 4 — scaled Lasso, equation (4.5)",
+      "source_kind": "definition",
+      "statement_original": "As the noise variance $\\sigma_j$ is unknown, the scaled Lasso is used for its estimation [39, 77], given by the following joint optimization problem, $$\\{\\widehat\\boldsymbol{\\Theta}_j,\\widehat\\sigma_j \\} = \\arg \\min_{\\beta \\in \\mathbb{R}^{d_2}, \\sigma > 0}\\Big\\{\\frac{1}{2\\sigma n}\\|\\boldsymbol{Y}^{(j)}-\\boldsymbol{X}\\beta\n    \\|^2_2+ \\frac{\\sigma}{2} +\n    \\lambda\\|\\beta\\|_1\\Big\\}.\\tag{4.5}$$",
+      "relation": "exact",
+      "depends_on": [
+        "D9"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Section 4 — scaled Lasso, equation (4.5)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widehat\\sigma_j"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D4b",
+      "local_label": "Section 4 — Gaussian quantile approximation, equation (4.6)",
+      "source_heading": "Section 4 — Gaussian quantile approximation, equation (4.6)",
+      "source_kind": "definition",
+      "statement_original": "Regarding our testing problem, intuitively we can use the quantile of the Gaussian maxima of $\\mathcal{N}(0,\\widehat\\sigma_j^2 M\\widehat{\\boldsymbol{\\Sigma}}M^{\\top})$ to approximate the quantile of maximum statistic $T_{E} =\\underset{(j,k)\\in E}{\\max}\\sqrt{n} |\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{jk}|$ for some given subset $E$. Specifically, let $Z_j\\mid \\boldsymbol{X}, \\boldsymbol{Y}^{(j)}\\sim  \\mathcal{N}(0,\\widehat\\sigma_j^2 M\\widehat{\\boldsymbol{\\Sigma}}M^{\\top})$ where $Z_j \\in \\mathbb{R}^{d_2}$ and consider the subset $E \\subset \\{j\\}\\times \\mathcal{V}_2$, we approximate the quantile of $T_E$ by the following\n\n$$T^{\\mathcal{N}}_{E} := \\underset{(j,k)\\in E}{\\max} \\; | Z_{jk} |,\\quad \\widehat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\mathbb{R}: \\mathbb{P}_{Z} \\left( T^{\\mathcal{N}}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\}.\\tag{4.6}$$",
+      "relation": "distinct",
+      "depends_on": [
+        "D11",
+        "D12"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Section 4 — Gaussian quantile approximation, equation (4.6)"
+        }
+      ],
+      "highlight_symbols": [
+        "T^{\\mathcal{N}}_{E}",
+        "\\widehat{c} (\\alpha,E)"
+      ],
+      "highlight_phrases": [],
+      "variant_note": " This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D13",
+      "local_label": "Assumption 4.1 — Debiased Lasso with random designs",
+      "source_heading": "Assumption 4.1 — Debiased Lasso with random designs",
+      "source_kind": "assumption",
+      "statement_original": "The following assumptions are from the ones of Theorems 7 and 8 in [39].\n\n- Let $\\boldsymbol{\\Sigma}= \\mathbb{E}\\left[{\\boldsymbol{X}_1 \\boldsymbol{X}_1^\\top}\\right]\\in\\mathbb{R}^{d_2\\times d_2}$ be such that $\\sigma_{\\min}(\\boldsymbol{\\Sigma}) \\ge C_{\\min} > 0$, and $\\sigma_{\\max}(\\boldsymbol{\\Sigma}) \\le C_{\\max} < \\infty$, and $\\max_{j\\in [d_2]}\\boldsymbol{\\Sigma}_{jj}\\le 1$. Assume $\\boldsymbol{X}\\boldsymbol{\\Sigma}^{-1/2}$ have independent subgaussian rows, with zero mean and subgaussian norm $\\|\\boldsymbol{\\Sigma}^{-1/2} \\boldsymbol{X}_i\\|_{\\psi_2} = \\kappa$, for some constant $\\kappa \\in(0, \\infty)$.\n\n- $\\mu =a\\sqrt{(\\log d_2)/n}$, and $n\\ge \\max(\\nu_0s\\log (d_2/s), \\nu_1\\log d_2)$, $\\nu_1 = \\max(1600\\kappa^4, a/4)$, and $\\lambda = \\sigma\\sqrt{(c^2\\log\n      d_2)/n}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D9",
+        "D10",
+        "D11"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Assumption 4.1 — Debiased Lasso with random designs"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "Assumption 4.1"
+      ],
+      "variant_note": "The passage invokes constants nu0, a, c and a noise scale sigma without supplying all their numerical choices in the main text; the cited-source reference is preserved.",
+      "naming_context": [
+        {
+          "context_id": "D13/name",
+          "text": "Debiased Lasso with random designs",
+          "evidence": [
+            {
+              "page": 10,
+              "location": "Assumption 4.1 — Debiased Lasso with random designs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D14a",
+      "local_label": "Section 4 — non-hub responses and signal strength, equation (4.8)",
+      "source_heading": "Section 4 — non-hub responses and signal strength, equation (4.8)",
+      "source_kind": "definition",
+      "statement_original": "Recall that $\\mathcal{H}_0 = \\{j\\in [d_1]: ||\\boldsymbol{\\Theta}_{j}||_0 < k_\\tau\\}$ with $d_0 = |\\mathcal{H}_0|$, we consider the following rows of $\\boldsymbol{\\Theta}$, $$\\mathcal{B}:=\\{j\\in \\mathcal{H}_{0}^{c}:\\forall k \\in \\text{supp}(\\boldsymbol{\\Theta}_j),|\\boldsymbol{\\Theta}_{jk}|>c\\sqrt{{\\log d_2}/{n}}\\},\\tag{4.8}$$ and define the proportion of such rows as $\\rho = |\\mathcal{B}|/d_1$. In the context of multitask regression, $\\rho$ measures the proportion of hub response variables whose non-null parameter coefficients all exceed certain thresholds, thus characterizes the overall signal strength.",
+      "relation": "distinct",
+      "depends_on": [
+        "D9",
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Section 4 — non-hub responses and signal strength, equation (4.8)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal{H}_0",
+        "\\rho"
+      ],
+      "highlight_phrases": [],
+      "variant_note": " This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D15",
+      "local_label": "Section 5 — Gaussian graphical models and initial estimator",
+      "source_heading": "Section 5 — Gaussian graphical models and initial estimator",
+      "source_kind": "source_passage",
+      "statement_original": "This section focuses on the hub node selection problem on Gaussian graphical models where $\\boldsymbol{X}_1,\\ldots, \\boldsymbol{X}_n  \\stackrel{\\mathrm{i.i.d.}}{\\sim} N_d (0,\\boldsymbol{\\Sigma})$. Let the weight matrix be the precision matrix $\\boldsymbol{\\Theta}= \\boldsymbol{\\Sigma}^{-1}$. Given some estimator $\\widehat{\\boldsymbol{\\Theta}}$ (e.g., the graphical Lasso (GLasso) estimator [28] or the CLIME estimator [10]),",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Section 5 — Gaussian graphical models and initial estimator"
+        }
+      ],
+      "highlight_symbols": [
+        "\\boldsymbol{\\Theta}= \\boldsymbol{\\Sigma}^{-1}",
+        "\\widehat{\\boldsymbol{\\Theta}}"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "The main text gives graphical Lasso and CLIME as examples of the initial estimator. No additional rate assumption or appendix definition is supplied by this extraction."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D16",
+      "local_label": "Section 5 — one-step estimator, equation (5.1)",
+      "source_heading": "Section 5 — one-step estimator, equation (5.1)",
+      "source_kind": "definition",
+      "statement_original": "we consider the following one-step estimator $\\{\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{e}\\}_{e\\in \\mathcal{V}\\times \\mathcal{V}}$: $$\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{jk} := \\widehat{\\boldsymbol{\\Theta}}_{jk} - \\frac{\\widehat{\\boldsymbol{\\Theta}}_{j}^{\\top} \\left( \\widehat{\\boldsymbol{\\Sigma}} \\widehat{\\boldsymbol{\\Theta}}_k - \\mathbf{e}_k\\right)}{\\widehat{\\boldsymbol{\\Theta}}_j^{\\top} \\widehat{\\boldsymbol{\\Sigma}}_j},\n\\quad\n\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{jk}:={\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{jk}}/{\\sqrt{\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{jj}\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{kk}}}.\\tag{5.1}$$ where $\\mathbf{e}_k$ denotes the $k$th canonical basis in $\\mathbb{R}^d$. then use its standardized version $\\{\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{e}\\}_{e\\in \\mathcal{V}\\times \\mathcal{V}}$ as the input of Algorithm 2.",
+      "relation": "exact",
+      "depends_on": [
+        "D15"
+      ],
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Section 5 — one-step estimator, equation (5.1)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widehat{\\boldsymbol{\\Theta}}^\\text{d}_{jk}",
+        "\\widetilde{\\boldsymbol{\\Theta}}^\\text{d}_{jk}"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "The correction denominator and the subsequent diagonal standardization are preserved exactly; row/column conventions and the base estimator are not replaced by a preferred implementation."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D4c",
+      "local_label": "Section 5 — Gaussian multiplier bootstrap quantiles, equation (5.2)",
+      "source_heading": "Section 5 — Gaussian multiplier bootstrap quantiles, equation (5.2)",
+      "source_kind": "definition",
+      "statement_original": "The quantiles are approximated using the Gaussian multiplier bootstrap [17]: given the Gaussian multipliers $\\xi_i \\stackrel{\\mathrm{i.i.d.}}{\\sim} N(0,1)$, we compute $$\\widehat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\mathbb{R}: \\mathbb{P}_\\xi \\left( T^{\\mathcal{B}}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\},\\tag{5.2}$$ where $T^{\\mathcal{B}}_{E} := \\underset{(j,k)\\in E}{\\max} \\; \\frac{1}{\\sqrt{n~ {\\widehat{\\boldsymbol{\\Theta}}_{jj}\\widehat{\\boldsymbol{\\Theta}}_{kk}}}}   \\big|\\sum_{i=1}^n  {\\widehat{\\boldsymbol{\\Theta}}^{\\top}_j \\left( \\boldsymbol{X}_i \\boldsymbol{X}_i^{\\top} \\widehat{\\boldsymbol{\\Theta}}_k - \\mathbf{e}_k  \\right)} \\xi_i \\big|$.",
+      "relation": "distinct",
+      "depends_on": [
+        "D15"
+      ],
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Section 5 — Gaussian multiplier bootstrap quantiles, equation (5.2)"
+        }
+      ],
+      "highlight_symbols": [
+        "T^{\\mathcal{B}}_{E}",
+        "\\widehat{c} (\\alpha,E)"
+      ],
+      "highlight_phrases": [],
+      "variant_note": " This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D14b",
+      "local_label": "Section 5 — non-hub nodes and signal strength",
+      "source_heading": "Section 5 — non-hub nodes and signal strength",
+      "source_kind": "definition",
+      "statement_original": "Similarly, the set of non-hub nodes is denoted by $\\mathcal{H}_0 = \\{j\\in [d]: ||\\boldsymbol{\\Theta}_{j}||_0 < k_\\tau\\}$ with $d_{0}=|\\mathcal{H}_{0}|$.\n\nAnd similarly as in Section 4, we define $\\rho$ to measure the signal strength, i.e., $\\rho = |\\mathcal{B}|/d$, where $\\mathcal{B}:=\\{j\\in \\mathcal{H}_{0}^{c}:\\forall k \\in \\text{supp}(\\boldsymbol{\\Theta}_j),|\\boldsymbol{\\Theta}_{jk}|>c\\sqrt{{\\log d}/{n}}\\}$.",
+      "relation": "distinct",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Section 5 — non-hub nodes and signal strength"
+        },
+        {
+          "page": 13,
+          "location": "Section 5 — non-hub nodes and signal strength"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal{H}_0",
+        "\\rho"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "The source writes the full row norm in H0 here, whereas Section 2.1 excludes the diagonal. Both passages are preserved, and no diagonal correction is inferred. Section 6 explicitly reuses this d0 and rho convention without importing Gaussian data assumptions. This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D17",
+      "local_label": "Section 5 — dependence set, equation (5.3)",
+      "source_heading": "Section 5 — dependence set, equation (5.3)",
+      "source_kind": "definition",
+      "statement_original": "Now we consider the following set,\n\n$$S = \\{(j_1,j_2,k_1,k_2): j_1,j_2\\in \\mathcal{H}_0, j_1\\ne j_2,k_1 \\ne k_2 , \\boldsymbol{\\Theta}_{j_1 j_2} = \\boldsymbol{\\Theta}_{j_1 k_1} = \\boldsymbol{\\Theta}_{j_2 k_2} = 0, \\boldsymbol{\\Theta}_{j_1 k_2} \\ne 0, \\boldsymbol{\\Theta}_{j_2 k_1}\\ne 0\\}.\\tag{5.3}$$\n\nRemark that in the above definition, $k_1$ can be the same as $j_2$ and $k_2$ can be the same as $j_1$.",
+      "relation": "exact",
+      "depends_on": [
+        "D14b",
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Section 5 — dependence set, equation (5.3)"
+        }
+      ],
+      "highlight_symbols": [
+        "S ="
+      ],
+      "highlight_phrases": [],
+      "variant_note": "The source permits k1=j2 and k2=j1. It imposes k1!=k2 but does not require four distinct vertices.",
+      "naming_context": [
+        {
+          "context_id": "D17/name",
+          "text": "In general, the sparsity/density of the graph is closed related to the dependence level of multiple testing problem on graphical models.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Section 5 — dependence set, equation (5.3)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D18",
+      "local_label": "Section 5 — number of connected components",
+      "source_heading": "Section 5 — number of connected components",
+      "source_kind": "definition",
+      "statement_original": "In addition to $|S|$, we also characterize the dependence level via the connectivity of the graph, specifically let $p$ be the number of connected components.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Section 5 — number of connected components"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "number of connected components"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D19",
+      "local_label": "Assumption 5.1",
+      "source_heading": "Assumption 5.1",
+      "source_kind": "assumption",
+      "statement_original": "Suppose that $\\boldsymbol{\\Theta}\\in \\mathcal{U}(M,s, r_0)$ and the following conditions hold:\n\n(i) Signal strength and scaling condition. $$\\frac{\\log d }{\\rho}\\left(\n        \\frac{(\\log d)^{19/6}}{n^{1/6}} + \\frac{ (\\log d)^{11/6}}{\\rho^{1/3} n^{1/6}} + \n        \n        \\frac{{s(\\log d)^{3}}}{{n}^{1/2}}\n        \\right) = o(1).\\tag{5.4}$$\n\n(ii) Dependency and connectivity condition.\n\n     $$\\frac{\\log d}{\\rho d_0} + \\frac{({\\log d})^{2}|S|}{\\rho d_0^2 p} = o(1).\\tag{5.5}$$",
+      "relation": "exact",
+      "depends_on": [
+        "D14b",
+        "D17",
+        "D18"
+      ],
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Assumption 5.1"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "Assumption 5.1"
+      ],
+      "variant_note": "The class U(M,s,r0) is named here but has no definition in the inspected main text. Its meaning remains unresolved; no appendix definition is imported."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D20",
+      "local_label": "Section 6 — generic estimator and linear representation",
+      "source_heading": "Section 6 — generic estimator and linear representation",
+      "source_kind": "source_passage",
+      "statement_original": "Recall that in Section 2.1, we denote $\\boldsymbol{\\Theta}$ as the weight matrix of the general graphical models, i.e., $\\boldsymbol{\\Theta}_{e} \\neq 0$ if and only if $e \\in \\mathcal{E}$ where $\\mathcal{E}$ is the edge set, and $\\widetilde\\boldsymbol{\\Theta}$ is the generic estimator of $\\boldsymbol{\\Theta}$. Since Algorithm 2 requires the quantile of the maximal statistics in (2.2), we need the estimator $\\widetilde\\boldsymbol{\\Theta}$ to be asymptotically Gaussian. In specific, for each $e \\in \\mathcal{V}\\times \\mathcal{V}$, there exist $n$ i.i.d. mean zero random vectors $\\boldsymbol{Y}_1(e),\\cdots,\\boldsymbol{Y}_n(e)$ such that $\\widetilde\\boldsymbol{\\Theta}_e - \\boldsymbol{\\Theta}_e = n^{-1}\\sum_{i=1}^n \\boldsymbol{Y}_i(e) + o_P(1/\\sqrt{n})$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 6 — generic estimator and linear representation"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widetilde\\boldsymbol{\\Theta}",
+        "\\boldsymbol{Y}_i(e)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D4d",
+      "local_label": "Section 6 — generic Gaussian multiplier quantiles, equation (6.1)",
+      "source_heading": "Section 6 — generic Gaussian multiplier quantiles, equation (6.1)",
+      "source_kind": "definition",
+      "statement_original": "We can then estimate the quantile of $T_E = \\max_{e \\in E} \\sqrt{n}|\\widetilde\\boldsymbol{\\Theta}_e - \\boldsymbol{\\Theta}_e|$ by some Gaussian multiplier bootstrap statistic $T^{\\mathcal{B}}_{E}$, i.e., $$\\widehat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\mathbb{R}: \\mathbb{P}_\\xi \\left( T^{\\mathcal{B}}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\},\\tag{6.1}$$",
+      "relation": "distinct",
+      "depends_on": [
+        "D20"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 6 — generic Gaussian multiplier quantiles, equation (6.1)"
+        }
+      ],
+      "highlight_symbols": [
+        "T^{\\mathcal{B}}_{E}",
+        "\\widehat{c} (\\alpha,E)"
+      ],
+      "highlight_phrases": [],
+      "variant_note": "This passage uses a centered T_E, unlike the uncentered statistic (2.2). The source does not give a specific formula for the generic T_E^B; Assumption 6.1 supplies approximation requirements. This source occurrence retains its own inputs and dependency path; sharing a keyword does not equate the conditions."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D21",
+      "local_label": "Assumption 6.1",
+      "source_heading": "Assumption 6.1",
+      "source_kind": "assumption",
+      "statement_original": "There exist $\\zeta_1 \\ge 0$ and $\\zeta_2  \\ge 0$ such that for any edge set $E \\subseteq \\mathcal{V}\\times \\mathcal{V}$, we have $$\\begin{aligned}&\\mathbb{P}(|T_E-T_{0E}|>\\zeta_{1})<\\zeta_{2}, \\text{ where } T_{0E}= \\max_{e\\in E}\\Big| \\frac{1}{\\sqrt{n}}\\sum_{i=1}^{n}\\boldsymbol{Y}_{i} (e) \\Big| ,\\\\ \n &\\mathbb{P}(\\mathbb{P}_{\\xi}(|T_E^{\\mathcal{B}}-T_{0E}^{\\mathcal{B}}|>\\zeta_{1})>\\zeta_{2})<\\zeta_{2}, \\text{ where } T_{0E}^{\\mathcal{B}} = \\max_{e\\in E} \\Big| \\frac{1}{\\sqrt{n}}\\sum_{i=1}^{n}\\boldsymbol{Y}_{i} (e) \\xi_i  \\Big|,\\end{aligned}$$ where the i.i.d. mean zero random vectors $\\boldsymbol{Y}_1(e),\\cdots,\\boldsymbol{Y}_n(e) \\sim \\boldsymbol{Y}(e)$ satisfy $\\min_{e \\in \\mathcal{V}\\times \\mathcal{V}} \\mathbb{E}[ \\boldsymbol{Y}^2(e)]>c$, $\\max_{e \\in \\mathcal{V}\\times \\mathcal{V}}  ||\\boldsymbol{Y}(e)||_{\\psi_1} \\le C$ and $\\max_{e \\in \\mathcal{V}\\times \\mathcal{V}}  ||\\boldsymbol{Y}^2(e)||_{\\psi_1} \\le C\\sqrt{n/\\log d}$ for some positive constants $c$ and $C$, the multiplier variables $\\xi_{i}\\stackrel{i.i.d.}{\\sim}\\mathcal{N}(0,1)$ are independent from the data and $\\mathbb{P}_{\\xi}$ is the measure only on $\\xi_1, \\ldots, \\xi_n$.",
+      "relation": "exact",
+      "depends_on": [
+        "D20",
+        "D4d"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Assumption 6.1"
+        }
+      ],
+      "highlight_symbols": [
+        "\\zeta_1",
+        "\\zeta_2"
+      ],
+      "highlight_phrases": [
+        "Assumption 6.1"
+      ],
+      "naming_context": [
+        {
+          "context_id": "D21/name",
+          "text": "In specific, similar to the assumptions in Theorem 3.2 of [17], we need the following general assumptions on $\\widetilde\\boldsymbol{\\Theta}$.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Assumption 6.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D22",
+      "local_label": "Section 6 — dependency set",
+      "source_heading": "Section 6 — dependency set",
+      "source_kind": "definition",
+      "statement_original": "Similar to (5.3), for the general case, we also need to define a dependency set $S$ as $$S=\\{(j_1,j_2,k_1,k_2): j_1, j_2\\in \\mathcal{H}_0, j_1 \\ne j_2, \\boldsymbol{\\Theta}_{j_1k_1} =\\boldsymbol{\\Theta}_{j_2k_2}=0,\n\\mathop{\\mathrm{\\rm Cov}}(\\boldsymbol{Y}((j_1,k_1)),\\boldsymbol{Y}((j_2,k_2))) \\neq 0\\}.$$",
+      "relation": "exact",
+      "depends_on": [
+        "D20",
+        "D14b"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 6 — dependency set"
+        }
+      ],
+      "highlight_symbols": [
+        "S="
+      ],
+      "highlight_phrases": [],
+      "variant_note": "This general set is defined by influence covariance and two zero weights; it does not reproduce the additional weight-pattern and k1!=k2 conditions of (5.3)."
+    },
+    {
+      "paper_id": "aos-2024-v52-i01-p0078",
+      "local_id": "D23",
+      "local_label": "Assumption 6.2",
+      "source_heading": "Assumption 6.2",
+      "source_kind": "assumption",
+      "statement_original": "Suppose that $\\boldsymbol{\\Theta}\\in \\mathcal{U}(M,s, r_0)$ and the following scaling condition holds: $$\\frac{\\log d }{\\rho}\\left(\n    \\frac{(\\log d)^{19/6}}{n^{1/6}} + \\frac{ (\\log d)^{11/6}}{\\rho^{1/3} n^{1/6}} + \n   \\zeta_1 \\log d + \\frac{\\zeta_2}{\\rho}\n    \\right) + \\zeta_2 d^4  +   \\frac{\\log d}{\\rho d_0} + \\frac{({\\log d})^{2}|S|}{\\rho d_0^2} = o(1),$$ where the definitions of $d_0$ and $\\rho$ are the same as in Section 5.",
+      "relation": "exact",
+      "depends_on": [
+        "D14b",
+        "D21",
+        "D22"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Assumption 6.2"
+        }
+      ],
+      "highlight_symbols": [],
+      "highlight_phrases": [
+        "Assumption 6.2"
+      ],
+      "variant_note": "The class U(M,s,r0) remains undefined in the inspected main text. This scaling condition has no graph-component divisor p, unlike Assumption 5.1."
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+"""Archive main-text notation and unresolved source references without reading appendices."""
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];PID=ROOT.name
+aux=[]
+def add(lid,text,pages,location):
+    aux.append(dict(local_id=lid,statement_original=text.strip(),evidence=[dict(page=p,location=location) for p in pages]))
+add('A1',r'''To simplify our exposition, we assume throughout the rest of the paper, except where otherwise specified, that all measures have support contained in a set $\Omega\subseteq\mathbb R^d$ satisfying the following condition.''',[8],'Section 2.1 — scope of (S1)')
+add('A2',r'''Given $T:\Omega\to\Omega$, we write by abuse of notation $\|T\|_{L^2(P)}=(\int\|T(x)\|^2\,dP(x))^{1/2}$.''',[7],'Notation — map L2 norm')
+add('A3',r'''We abuse notation by writing $W_2$ to denote both the 2-Wasserstein distance over $\mathbb R^d$ and $\mathbb T^d$. Whenever we speak of the optimal transport problem or Wasserstein distance between two measures $P,Q\in\mathcal P(\Omega)$, the underlying cost function is tacitly understood to be $\|\cdot\|^2$ when $\Omega\subseteq\mathbb R^d$, and $d_{\mathbb T^d}^2$ when $\Omega=\mathbb T^d$.''',[10],'Section 2.2 — overloaded cost notation')
+add('A4',r'''A function $f:\mathbb T^d\to\mathbb R$ is understood to be a function on $\mathbb R^d$ which is $\mathbb Z^d$-periodic, and we write $T:\mathbb T^d\to\mathbb T^d$ when $T$ is a map from $\mathbb R^d$ to $\mathbb R^d$ such that $[T(x)]=[T(y)]$ whenever $[x]=[y]$.''',[10],'Section 2.2 — functions and maps on the quotient')
+add('A5',r'''
+Let $P\in\mathcal P_{\mathrm{ac}}(\mathbb T^d)$ and $Q\in\mathcal P(\mathbb T^d)$. Then, there exists a ($P$-a.e. uniquely determined) optimal transport map $T_0=\nabla\varphi_0$ from $P$ to $Q$ which solves the Monge problem (14), where $\varphi_0:\mathbb R^d\to\mathbb R$ is a convex function satisfying the following properties.
+
+(i) $\|\cdot\|^2/2-\varphi_0$ is $\mathbb Z^d$-periodic.
+
+(ii) $T_0(x+k)=T_0(x)+k$ for almost every $x\in\mathbb R^d$ and $k\in\mathbb Z^d$.
+
+(iii) For $P$-almost all $x\in\mathbb R^d$, $\|T_0(x)-x\|=d_{\mathbb T^d}(x,T_0(x))$.
+
+Assume further that $Q\in\mathcal P_{\mathrm{ac}}(\mathbb T^d)$, and denote the respective densities of $P,Q$ by $p,q$. Then,
+
+(v) $\nabla\varphi_0^*$ is the ($Q$-a.e. uniquely determined) optimal transport map from $Q$ to $P$.
+
+(vi) $(\|\cdot\|^2-2\varphi_0,\|\cdot\|^2-2\varphi_0^*)$ is a pair of optimal Kantorovich potentials in equation (15).
+
+(vii) If $\varphi_0\in\mathcal C^2([0,1]^d)$, then it solves the Monge-Ampère equation
+\[
+\det(\nabla^2\varphi_0(x))q(\nabla\varphi_0(x))=p(x),\qquad x\in\mathbb R^d.
+\]
+In particular, if $\gamma^{-1}\le p,q\le\gamma$ for some $\gamma>0$, then $\varphi_0$ is $\lambda$-strongly convex, for some constant $\lambda>0$ depending only on $\gamma$ and $\|\varphi_0\|_{\mathcal C^2([0,1]^d)}$.
+''',[11],'Proposition 4 — original conventions for the torus potential and map')
+add('A6',r'''We assume condition (S1) holds throughout this section, and we may therefore assume without loss of generality that $-d\le\phi_0\le0$ and $0\le\psi_0\le d$ over $\Omega$ (Villani (2003), Remark 1.13).''',[11],'Section 3 — standing support and dual normalization')
+add('A7',r'''Equipped with this result, we arrive at the following bound on the risk of the estimator $\widehat T_n\equiv\widehat T_n^{(\mathrm{bc})}$ defined in equation (26), and of the corresponding plugin estimator of the squared Wasserstein distance.''',[16],'Before Theorem 10 — wavelet specialization')
+add('A8',r'''Furthermore, $\mathcal C^\infty(\Omega)$ denotes the set of real-valued functions on $\Omega$ which are differentiable up to any order, and $\mathcal C_c^\infty(\Omega)$ denotes the set of functions in $\mathcal C^\infty(\Omega)$ whose support is compactly contained in $\Omega$.''',[7],'Notation — smooth functions and compact support')
+add('A9',r'''The Fourier transform of a function $K\in L^1(\mathbb R^d)$ is denoted $\mathcal F[K](\xi)=\int_{\mathbb R^d}f(x)e^{-2\pi ix^\top\xi}\,dx$ for all $\xi\in\mathbb R^d$.''',[7],'Notation — printed Fourier transform convention')
+add('A10',r'''
+Our aim is to bound the risk of the estimator
+\[
+\widehat T_{nm}=\nabla\widehat\varphi_{nm}=\operatorname*{argmin}_{T\in\mathcal T(\widehat P_n,\widehat Q_m)}\int d_{\mathbb T^d}^2(T(x),x)\,d\widehat P_n(x).\tag{33}
+\]
+Note that $\widehat P_n$ and $\widehat Q_m$ are absolutely continuous, thus there indeed exists a unique solution to the above minimization problem, by Proposition 4. We continue to quantify the risk of $\widehat T_{nm}$ in terms of the $L^2(P)$ loss
+\[
+\|\widehat T_{nm}-T_0\|_{L^2(P)}^2=\int_{\mathbb T^d}\|\widehat T_{nm}(x)-T_0(x)\|^2\,dP(x).
+\]
+''',[20],'Section 4.3 — transport lifts and population loss (33)')
+add('A11',r'''As discussed previously, we are only able to verify condition (C2) when $\Omega$ is replaced by the torus $\mathbb T^d$. However, in view of Theorem 3, it is natural to conjecture that condition (C2) is satisfied for other domains of the type (C1), and if such a result is proven in future work, then the bounds appearing in this section can be applied. For completeness, we will also state a one-sample result over $\Omega$, for which condition (C2) is not needed.''',[23],'Section 4.4 — status of the uniform regularity assumption')
+add('A12',r'''
+Under condition (C1), the densities may be expanded as
+\[
+p=1+\sum_{\ell=1}^\infty\alpha_\ell\eta_\ell,\qquad q=1+\sum_{\ell=1}^\infty\beta_\ell\eta_\ell,
+\]
+where $\alpha_\ell=\int\eta_\ell\,dP$ and $\beta_\ell=\int\eta_\ell\,dQ$.
+''',[23,24],'Section 4.4 — population spectral expansion')
+add('A13',r'''
+$R_{K,n}(\alpha):=\begin{cases}n^{-\frac{2\alpha}{2(\alpha-1)+d}},&d\ge3,\\\log n/n,&d=2,\\1/n,&d=1.\end{cases}$
+''',[22],'Theorem 18 — rate notation reused in Theorem 20')
+add('A14',r'''Recall that we respectively denote by $P_n$, $\widehat P_n^{(\mathrm{bc})}$, $\widehat P_n^{(\mathrm{ker})}$, the empirical measure and the distributions induced by the boundary-corrected and kernel density estimators of $p$ (and similarly for $q$), as defined in Sections 3–4. Given a smoothness parameter $\alpha>1$ to be specified, let their tuning parameters be chosen as $2^{J_n}\asymp h_n^{-1}\asymp n^{1/(d+2(\alpha-1))}$, and assume that the kernel $K$ satisfies condition $K1(2\alpha,\kappa)$ for some $\kappa>0$.''',[25],'Section 5.1 — estimator choices and tuning for Theorem 22')
+add('A15',r'''
+\[
+\sigma_\rho^2=(1-\rho)\operatorname{Var}_P[\phi_0(X)]+\rho\operatorname{Var}_Q[\psi_0(Y)],\qquad\text{for any }\rho\in[0,1],
+\]
+where we recall that $\phi_0=\|\cdot\|^2-2\varphi_0$ and $\psi_0=\|\cdot\|^2-2\varphi_0^*$, for any given Brenier potential $\varphi_0$ in the optimal transport problem from $P$ to $Q$.
+''',[25,26],'Section 5.1 — asymptotic variance and potential convention')
+add('A16',r'''
+Let $(\phi_0,\psi_0)$ denote a pair of Kantorovich potentials in the optimal transport problem from $P$ to $Q$, uniquely defined up to translation by a constant, and define the map
+\[
+\widetilde\Phi_{(P,Q)}(x)=\phi_0(x)-\int\phi_0\,dP,\qquad x\in\Omega.
+\]
+''',[27],'Lemma 23 — centered source potential used by the paths')
+add('A17',r'''Let $X_1,\ldots,X_n\sim P$ and $Y_1,\ldots,Y_m\sim Q$ denote i.i.d. samples, and define the empirical measures $P_n=(1/n)\sum_{i=1}^n\delta_{X_i}$ and $Q_m=(1/m)\sum_{j=1}^m\delta_{Y_j}$.''',[18],'Section 4.2 — two empirical measures')
+resolution={
+ 'shared':'Euclidean inner product and norm, measurable pushforward, integrals, expectation, variance, gradients, Hessians, convexity, matrix Loewner order, identity matrix, Gaussian law N and convergence in distribution are ambient mathematical notions. The scalar/vector Lp and mean-zero conventions are stated on page 7. D2 and D15 distinguish finite probability laws on a compact Euclidean support from periodic representatives of torus laws. P and Q have densities p and q where stated. Straight phi denotes a Kantorovich potential; curly varphi denotes a convex Brenier potential. All rates and constants retain the original parameter dependencies. Source a wedge b and a vee b denote min and max. Geometric C2/C-infinity boundary and uniform convexity are source hypotheses, without added quantitative constants.',
+ '1':'D1 is the standing (S1) setting. D2 resolves P_ac and P. D3 resolves the Monge map and pushforward; D8 resolves the referenced semi-dual objective (12) through D6 and D7. The convex potential and optimal map are bound by the theorem itself; no source sampling model or extra C2 condition is needed. Retain the literal Lebesgue-almost-everywhere inverse identities.',
+ '3':'D1 resolves (S1), D9 identifies the Brenier potential and D11 resolves the declared Hölder notation. Density lower/upper bounds, noninteger alpha, closure-containment of the interior subdomain, norm dependence, smooth boundary and uniform convexity are all bound inline. No quantitative global uniform estimate is asserted in part (ii). The exact Hölder norm remains appendix-only.',
+ '5':'D15 identifies torus probability and absolute continuity; D18, D16 and auxiliary A5 identify the convex lift used by varphi_0. D11 is the Hölder notation, with a torus domain for densities and a closed cube for the potential norm. The theorem does not print a normalization of the additive constant or exclude integer alpha. Do not add either.',
+ '6':'D20 is the two-sided Hessian assumption A1(lambda), D9 the population map, D3 the estimated map construction, D10 the target Kantorovich potential and D5 the transport cost. The hatted probability law and map are arbitrary inputs bound by the theorem; D21 is not required. The result is deterministic despite the section being about sampling.',
+ '10':'D21 supplies the known-P/unknown-Q iid experiment. D25 instantiates (26) with the wavelet density estimate D24, whose basis and empirical coefficients are D23 and D22. Part (i) uses D20, while part (ii) uses D12 for the conjugate potential and D7 for conjugation. D13 is the positive density ball. D10 supplies psi_0 and D5 supplies W2. J_n and the complete R_T,n rate are inline. The precise basis construction and its relation to alpha are not supplied in the main text.',
+ '18':'D26 is the independent two-sample experiment, D27 the periodic kernel estimates and D29 their torus map. D28 resolves K1(2alpha,kappa); its Fourier convention is A9. D13 is the positive Hölder density ball, and D15–D19 resolve the torus laws, metric, potential and distance. R_K,n, h_n and the extra noninteger condition for part (ii) are bound inline. The regularity theorem used in the proof is not an additional statement prerequisite.',
+ '20':'D30 replaces the generic standing unit-cube containment by the smooth unit-volume domain (C1). D35 resolves the constrained Hölder density ball and its Neumann conditions. D33, D34 and D36 resolve the spectral cutoff, empirical series, positive-part normalization and both maps. D32 supplies the mean-zero eigenbasis with the separate constant-one density component. D40 is the local sampling statement. Only part (ii) uses D31=(C2); part (i) instead uses D12 for the population potential bound. A13 resolves the R_K notation without importing kernel estimators or K1. The one-dth power of L_n and the distinct bar/hats are preserved.',
+ '22':'D37 contains the full referenced (38)–(39), with variance A15 and tuning A14. D26 supplies sample independence. D27/D28 apply to the torus kernel branch, D24 to the hypercube wavelet branch and D22/A17 to empirical measures. D11 and the potential definitions resolve the regularity assumptions, with D7 for the extra conjugate condition in the two-sample hypercube case. The theorem includes all branches in one inventory record. No P-not-equal-Q restriction is inserted; a degenerate Gaussian is allowed by the printed statement.',
+ '24':'D13 is the density ball with original and separately barred bounds; D15,D19 resolve torus measures and potentials. D38 is the torus specialization of the fixed-target cost. D39 identifies the two differentiable paths, with source score A16 and target score defined inline in D39. The actual path densities are only referenced in excluded Appendix L. Finite-set suprema, arbitrary estimator sequences, scaled local alternatives, product-law expectations and the sample-size ratio are bound in the full theorem. These paths are not treated as arbitrary perturbations with a guessed construction.'
+}
+issues=[
+ 'The inspected source is the 99-page arXiv:2107.12364v3 artifact dated 16 June 2024, identified by its saved SHA. Equivalence of every statement to the final journal layout is not asserted.',
+ 'Appendix A begins on shared page 29 at y=637.536865234375. Mathematics from that boundary onward is excluded. The later references are not part of the inspected main text.',
+ 'Theorem 1 states a globally finite-valued convex potential and Lebesgue-almost-everywhere inverse identities. These assertions are retained without replacing Lebesgue measure by P or Q.',
+ 'Theorem 3 uses the closure of Omega-prime inside the interior of Omega; extraction without inspecting the overbar would weaken the hypothesis.',
+ 'Theorem 5 bounds the norm of a potential that is otherwise defined only up to an additive constant. No normalization is printed in that theorem. Condition C2 separately and explicitly requires a mean-zero potential.',
+ 'Theorem 5 allows every alpha>1, while Theorem 3 and several later assertions exclude integer alpha. No noninteger condition is transferred between them.',
+ 'The main-text notation paragraph names Hölder and Sobolev spaces but defers their actual norm definitions and conventions to Appendix A. Theorems also use Hölder notation on open interiors although the paragraph initially describes closed sets.',
+ 'The norm-only Hölder ball (7) and positive Hölder ball (8) are distinct. Neither displayed set itself requires integral one; normalization comes from calling p and q densities.',
+ 'The source Kantorovich dual (11) writes L1(Omega) for both potentials. The torus dual instead writes L1(P) and L1(Q); this distinction is preserved.',
+ 'The torus dual display uses straight phi, but its following feasibility clause uses curly varphi. This local notation change is retained and does not identify a dual potential with a Brenier potential.',
+ 'The Legendre-Fenchel definition on page 9 takes the supremum over Omega, while the torus discussion uses a convex lift on all of Rd. The main text does not separately spell out the conjugation domain for that lift.',
+ 'Periodic representatives of torus probability measures have unit mass per cell and infinite total mass on Rd. They are not ordinary probability measures on all of Rd.',
+ 'The torus Brenier potential is a convex lift; the quadratic correction is periodic. The risk in (33) uses Euclidean differences of selected lifted maps, not a replacement by shortest torus distances between output representatives.',
+ 'Proposition 4 skips item (iv) in its printed numbering. The auxiliary transcription preserves (i),(ii),(iii),(v),(vi),(vii) without inventing a missing item.',
+ 'The wavelet basis paragraph uses 2^{j0}-1 in the displayed index range even for level j. Its detailed boundary construction is deferred to Appendix A; no corrected tensor index range is substituted.',
+ 'The wavelet density formula equates an empirical sum over the entire Psi-bc basis with a truncated sum through J_n. The source inconsistency remains visible in the original passage.',
+ 'The main text specifies N>=2 and j0>=log2(N), but does not spell out the needed wavelet regularity relative to an arbitrary alpha in Theorem 10. No Appendix A condition is guessed.',
+ 'The normalized estimated densities are clipped at zero. The general estimated transport map is stated to be unique only almost everywhere under its estimated source law; the later population loss needs the source choice of a representative. No extra global uniqueness assertion is made.',
+ 'The Fourier-transform sentence names K but writes f in the integral. The printed 2pi sign convention is retained together with that variable mismatch.',
+ 'Theorem 18 has log(n)/n in dimension two, whereas Theorem 10 has log(n)^2/n. Both variance terms in Theorem 18 are under one square root.',
+ 'Kernel condition K1 is distinct from the kernel-estimator definition. Its evenness and Fourier-order bound do not assert that K is nonnegative.',
+ 'Generic smooth-domain condition C1 replaces S1 unit-cube containment. Requiring both would incorrectly eliminate the intended generic-domain setting.',
+ 'Uniform regularity condition C2 is assumed for the generic-domain two-sample result. The main text explicitly says it is only verified on the torus and conjectural on other domains; it is not treated as a proved consequence of C1.',
+ 'The spectral density construction excludes the constant eigenfunction from its mean-zero basis and adds 1 separately. The constrained Hölder densities are not mean-zero functions.',
+ 'The spectral weights omega_l are defined using lambda_{L_n} and then used in both the source and target series, even though the target truncates at L_m. Separate target weights are not printed.',
+ 'Theorem 20 reuses the scalar rate R_K from Theorem 18. This reuse does not make the kernel estimator or Fourier kernel condition a prerequisite of the spectral estimator theorem.',
+ 'Theorem 20 ends with a comma after its final display. The following prose and footnote are discussion, not part of the theorem.',
+ 'The Section 4.4 sampling paragraph states iid observations but does not repeat the explicit cross-sample independence sentence used in Sections 4.3 and 5.1. The local statement is retained separately.',
+ 'Theorem 22 retains both endpoint sample-size ratios and allows the zero-variance Gaussian case. The later discussion of nondegeneracy and confidence intervals is not inserted into the theorem.',
+ 'Theorem 24 has barred M, gamma and u in the perturbed-density assertion. Its suprema range over finite subsets, not intervals. Both features require visual inspection.',
+ 'The differentiable paths in Theorem 24 have main-text score descriptions, but their actual construction is only in Appendix L equations (115–116), which are excluded. The result is inventoried with this unresolved reference rather than silently completed from an assumed standard path.'
+]
+unresolved=[
+ dict(reference='Appendix A — Hölder norms and spaces',main_text_pages=[7],status='excluded_appendix',reason='The main text declares notation but does not give the exact norm and integer-index conventions.'),
+ dict(reference='Appendix A — boundary-corrected wavelet construction',main_text_pages=[15],status='excluded_appendix',reason='Main-text families and estimator formulas are saved; detailed boundary basis construction and regularity conventions are not supplied there.'),
+ dict(reference='Appendix A — H2 Sobolev space',main_text_pages=[7,23],status='excluded_appendix',reason='The Neumann operator domain is stated in terms of H2; its norm definition is deferred to the excluded smoothness appendix.'),
+ dict(reference='Appendix L, equations (115–116)',main_text_pages=[28],status='excluded_appendix',reason='Theorem 24 uses specific differentiable paths whose scores are described in the main text but whose actual densities are defined only in the appendix.')
+]
+data=dict(paper_id=PID,auxiliary_passages=aux,standard_ambient_resolution=resolution,unresolved_source_conventions=issues,unresolved_statement_references=unresolved)
+(ROOT/'ambient-conventions.json').write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
+print(f'Saved {len(aux)} auxiliary passages, nine theorem resolutions and {len(issues)} source notes.')

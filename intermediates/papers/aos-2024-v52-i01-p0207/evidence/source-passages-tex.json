@@ -1,0 +1,342 @@
+[
+  {
+    "local_id": "D1",
+    "original_tex": "Let $Q$ be a probability distribution over $\\mathcal{X}\\times[0,1]^{K}$ that generates a sequence of independent random vectors $(X^{Q},Y^{Q,(1)},\\cdots,Y^{Q,(K)})$.\nAt each time point $t$, based on the covariate $X_{t}^{Q}\\in\\mathcal{X}$ drawn from the marginal distribution $Q_{X}$, a decision-maker selects an arm $k\\in[K]$ and receives a random reward $Y_{t}^{Q,(k)}\\in[0,1]$ associated with the chosen arm according to the conditional distribution $Q_{Y^{(k)}| X_{t}^{Q}}$. We assume that for any $k\\in[K]$ and $t\\geq1$, the random reward $Y_{t}^{Q,(k)}$ is a random variable with conditional expectation given by\n\\begin{align*}\n\\mathbb{E}\\big[Y_{t}^{Q,(k)}\\,|\\,X_{t}^{Q}\\big]=f_{k}^{Q}(X_{t}^{Q}),\n\\end{align*}\nwhere $f_{k}^{Q}:\\mathcal{X}\\rightarrow[0,1]$ is an unknown function called a reward function. A policy $\\pi$ is a collection of functions $\\{\\pi_{t}\\}_{t\\geq1}$ where $\\pi_{t}: \\mathcal{X}\\rightarrow[K]$ prescribe the arm to pull at time $t$.",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — target bandit and reward functions"
+      }
+    ]
+  },
+  {
+    "local_id": "D2",
+    "original_tex": "In the context of transfer learning, we assume that the decision-maker is given a batch dataset $\\mathcal{D}^{P} \\coloneqq \\{(X_{i}^{P},\\pi_{i}^{P}, Y_{i}^{P,(\\pi_{i}^{P})})\\}_{i=1}^{n_{P}}$. This dataset is collected from a contextual $K$-armed bandit over $n_{P}$ rounds, of which the underlying probability distribution $P$ generates a sequence of independent random vectors $(X^{P},Y^{P,(1)},\\cdots,Y^{P,(K)})\\in\\mathcal{X}\\times[0,1]^{K}$.\nHere, $X_{i}^{P}\\in\\mathcal{X}$ represents the covariate observed at time $i$, policy $\\pi_{i}^{P}:\\mathcal{X}\\rightarrow[K]$ denotes the selected arm at time $i$, and $Y_{i}^{P,(\\pi_{i}^{P})}$ corresponds to the observed random reward at time $i$. Similar to the $Q$-bandit, it is assumed that for any $k\\in[K]$ and $i\\geq1$, the random reward $Y_{i}^{P,(k)}$ of the $P$-bandit obeys\n\\begin{align*}\n\\mathbb{E}\\big[Y_{i}^{P,(k)}\\,|\\,X_{i}^{P}\\big]=f_{k}^{P}(X_{i}^{P}),\n\\end{align*}\nfor an unknown function $f_{k}^{P}:\\mathcal{X}\\rightarrow[0,1]$. Throughout the paper, we denote $n \\coloneqq n_{Q} \\vee n_{P}$.",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — pre-collected source bandit dataset"
+      },
+      {
+        "page": 7,
+        "location": "Section 2.1 — pre-collected source bandit dataset"
+      }
+    ]
+  },
+  {
+    "local_id": "D3",
+    "original_tex": "As mentioned in the introduction, this paper focuses on the covariate shift model. To be specific, it is assumed that the marginal distributions of covariates in the $P$-bandit and $Q$-bandit are different (i.e.~$P_{X} \\neq Q_{X}$) while the distributions of rewards conditioned on the covariate value are identical (i.e.~$P_{Y^{(k)}|X}=Q_{Y^{(k)}|X}$ for all $1\\leq k\\leq K$). In particular, the latter implies that the reward functions of the two bandits are also identical. We denote these common reward functions as $f_{k}(x)\\coloneqq f_{k}^{P}(x)\\equiv f_{k}^{Q}(x)$ for all $k\\in[K]$ and $x\\in\\mathcal{X}$.",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.1 — covariate shift model"
+      }
+    ]
+  },
+  {
+    "local_id": "D4",
+    "original_tex": "Recall that $\\pi^{\\star}$ is the oracle policy with access to full knowledge of the reward functions $\\{f_{k}\\}_{k=1}^{K}$.\nIt is straightforward to see that given a covariate value $x$, the oracle policy $\\pi^{\\star}$ selects any arm with the largest expected reward, with ties broken arbitrarily. In other words,\n\\begin{align*}\n\\pi^{\\star}(x)\\in\\argmax_{k\\in[K]}f_{k}(x).\n\\end{align*}\nTherefore, for any policy $\\pi=\\{\\pi_{t}\\}_{t\\geq1}$, the regret of $\\pi$ in the $Q$-bandit defined in (\\ref{eq:regret}) has the following expression:\n\\begin{align}\n\\mathbb{E}[R_{n_Q}(\\pi)] & =\\mathbb{E}\\bigg[ \\sum_{t=1}^{n_{Q}} \\Big( f_{\\pi^{\\star}(X_t^Q)}(X_{t}^{Q})-f_{\\pi_{t}(X_t^Q)}(X_{t}^{Q}) \\Big) \\bigg] \\nonumber \\\\\n& =\\mathbb{E}\\bigg[ \\sum_{t=1}^{n_{Q}} \\Big( \\max_{k\\in[K]} f_{k}(X_{t}^{Q})-f_{\\pi_{t}(X_t^Q)}(X_{t}^{Q}) \\Big)\\bigg]. \\label{eq:def-regret}\n\\end{align}\nIn the remainder of the paper, we may drop the subscript $n_Q$ whenever there is no confusion.",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.1 — oracle policy and expected regret, equation (2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D5",
+    "original_tex": "Finally, we would like to emphasize that the policy $\\pi_{t}$ at time $t$ depends on both the observations of the $Q$-data prior to time $t$ (i.e.~$\\{(X_{i}^{Q},\\pi_{i},Y_{i}^{Q,(\\pi_{i})})\\}_{i=1}^{t-1}\\cup\\{X_{t}^{Q}\\}$) and the complete $P$-data (i.e.~$\\{(X_{i}^{P},\\pi_{i}^{P},Y_{i}^{P,(\\pi_{i}^{P})})\\}_{i=1}^{n_{P}}$).",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.1 — history available to a target policy"
+      }
+    ]
+  },
+  {
+    "local_id": "D6",
+    "original_tex": "Here, the infimum is taken over the class of admissible policies obeying the selected arm~$\\pi_t$ at time $t$ depends only on observations prior to time $t$, i.e.~$\\{(X^{Q}_s, \\pi_s, Y^{Q,(\\pi_s)})\\}_{s<t}\\cup \\{X^{Q}_{t}\\}$.",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 3.2 — admissible policies for the lower bound"
+      }
+    ]
+  },
+  {
+    "local_id": "D7",
+    "original_tex": "The reward functions $\\{f_{k}\\}_{k=1}^{K}$ are $\\left(\\beta,C_{\\beta}\\right)$-H\\\"{o}lder continuous for some constants $0<\\beta\\leq1,C_{\\beta}>0$, i.e. for any $k\\in[K]$,\n\\begin{align*}\n\\big|f_{k}(x)-f_{k}(x')\\big|\\leq C_{\\beta} \\| x-x'\\|_{\\infty}^{\\beta},\\quad\\forall x,x'\\in\\mathcal{X}.\n\\end{align*}",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Assumption 1 (Smoothness)"
+      }
+    ]
+  },
+  {
+    "local_id": "D8",
+    "original_tex": "Next, it is natural to expect that the gap between the reward functions is a pivotal measure of a contextual multi-armed bandit problem's complexity. To this end, let $f_{(1)}$ (resp.~$f_{(2)}$) denote the pointwise maximum (resp.~the second pointwise maximum) of the reward functions $\\{f_{k}\\}_{k=1}^{K}$, namely\n\\begin{align*}\nf_{(1)}(x) & \\coloneqq\\max_{k\\in[K]}f_{k}(x),\n\\end{align*}\nand\n\\begin{align*}\nf_{(2)}(x)\\coloneqq\\begin{cases}\n\\max\\limits_{k\\in[K]}\\big\\{ f_{k}(x):f_{k}(x)<f_{(1)}(x)\\big\\}, & \\text{if }\\min\\limits_{k\\in[K]}f_{k}(x)\\neq\\max\\limits_{k\\in[K]}f_{k}(x),\\\\\nf_{(1)}(x), & \\text{otherwise.}\n\\end{cases}\n\\end{align*}",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 2.2 — pointwise maximum and second pointwise maximum"
+      },
+      {
+        "page": 8,
+        "location": "Section 2.2 — pointwise maximum and second pointwise maximum"
+      }
+    ]
+  },
+  {
+    "local_id": "D9",
+    "original_tex": "There exist constants $\\alpha\\geq0,C_{\\alpha}>0$ such that the reward functions $\\{f_{k}\\}_{k=1}^{K}$ and marginal distribution $Q_{X}$ satisfy\n\t\\begin{align*}\n\t\tQ_X\\big(0<f_{(1)}(X)-f_{(2)}(X)\\leq\\delta\\big)\\leq C_{\\alpha}\\delta^{\\alpha},\\quad\\forall0<\\delta\\leq1.\n\t\\end{align*}",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Assumption 2 (Margin)"
+      }
+    ]
+  },
+  {
+    "local_id": "D10",
+    "original_tex": "There exist constants $\\overline{q}>\\underline{q}>0$ such that $\\underline{q} r^d \\leq Q_{X}(B(x,r)) \\leq \\overline{q} r^d$ for any $x\\in \\mathsf{supp}(Q_{X})$ and $r\\in(0,1]$.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Assumption 3 (Bounded density)"
+      }
+    ]
+  },
+  {
+    "local_id": "D11",
+    "original_tex": "In addition, the covariate-arm pairs $\\big\\{\\big(X^{P}_{i}, \\pi_{i}^{P}\\big)\\big\\}_{i=1}^{n_P}$ in the pre-collected source dataset are assumed to be generated i.i.d.~according to $X^{P}_{i} \\sim P_{X}$ and $\\pi_{i}^{P}(X^{P}_{i}) \\sim \\mu(\\cdot \\, | \\, X^{P}_{i})$, where $\\{\\mu(\\cdot \\, | \\, x) \\}_{x\\in \\mathcal{X}}$ is a collection of probability distributions over the arm set $[K]$.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 2.2 — iid source covariate-arm sampling"
+      }
+    ]
+  },
+  {
+    "local_id": "D12",
+    "original_tex": "Define the transfer exponent $\\gamma \\in \\mathbb{R}_{+} \\cup \\{0,\\infty\\}$ of $P_{X}$ with respect to $Q_{X}$ to be the smallest constant such that\n\\begin{align}\n\nP_{X}(B(x, r)) \\geq c_{\\gamma}r^{\\gamma} Q_{X}(B(x, r)),\\quad\\forall x\\in\\mathsf{supp}(Q_{X}), r \\in (0, 1],\n\\end{align}\nfor some constant $0 < c_{\\gamma} \\leq 1$.",
+    "evidence": [
+      {
+        "page": 8,
+        "location": "Definition 1 (Transfer exponent)"
+      }
+    ]
+  },
+  {
+    "local_id": "D13",
+    "original_tex": "Define the exploration coefficient $ \\kappa  \\in [0, 1]$ of a collection of distributions over the arm set $\\{\\mu(\\cdot \\, | \\, x) \\}_{x\\in\\mathcal{X}}$ with respect to $Q_X$ as\n\t\\begin{align} \n\n\t \\kappa  \\defn \\inf_{\\substack{k\\in [K],\\,x\\in \\mathsf{supp}(Q_{X})}} K \\mu(k \\, | \\, x).\n\\end{align}",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Definition 2 (exploration coefficient)"
+      }
+    ]
+  },
+  {
+    "local_id": "D14",
+    "original_tex": "Finally, we assume the number of arms $K$ is constant throughout this paper.\n\nDenote by $\\Pi(K,\\beta,C_{\\beta},\\alpha,C_{\\alpha},\\underline{q},\\overline{q},\\gamma,c_{\\gamma}, \\kappa )$ the class of nonparametric contextual $K$-armed bandits that satisfy Assumptions~\\ref{assumption:smooth}--\\ref{assumption:bounded-density} and Definitions~\\ref{def:transfer}--\\ref{def:explore-coef}. Here and throughout the paper, we may use the shorthands $\\Pi(K,\\beta,\\alpha,\\gamma, \\kappa )$ and $\\Pi$ if there is no confusion.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 2.2 — general parameter space Pi"
+      }
+    ]
+  },
+  {
+    "local_id": "D15",
+    "original_tex": "Here, for any non-negative integer $l \\geq 0$, we define a collection of bins $\\mathcal{B}_{l}\\defn \\{B_{\\mathsf k}\\}_{\\mathsf{k} \\in [2^l]^d}$ where\n\\begin{align}\n    B_{\\mathsf{k}}\\defn\\{x\\in\\mathcal{X}:(k_{i}-1)2^{-l}\\leq x_{i}\\leq k_{i}2^{-l},\\,k_{i}\\in[2^{l}],\\,i\\in[d]\\},\\quad\\forall\\mathsf{k}=(k_{1},\\dots,k_{d}).\\label{def:bin}\n\\end{align}\nThroughout the paper, we use $|B|$ to denote the side length of any bin $B$, i.e.~$|B|=2^{-l}$ for any $B\\in\\mathcal{B}_{l}$.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 3.1 — dyadic bins, equation (5)"
+      }
+    ]
+  },
+  {
+    "local_id": "D16",
+    "original_tex": "First, for any $x\\in\\mathcal{X}$ and $t \\geq 1$, let $B_{t}(x)\\in\\mathcal{L}_{t}$ denote\nthe bin in the partition $\\mathcal{L}_{t}$ at time $t$ such that $x\\in B_{t}(x)$. If there are multiple bins, we choose $B_{t}(x)$ to be the one whose center is closest to the origin. \nNext, for any bin $B$ and time $t \\geq 1$, denote by $N_{t}(B)$ the number of times the covariate fell into $B$ prior to time $t$, i.e.~$N_{t}(B)\\defn\\sum_{1\\leq s\\leq t}\\mathds{1}\\{X_{s}^Q\\in B\\}$.\nWith these definitions in place, the policy $\\pi = \\{\\pi_{t}\\}_{t \\geq 1}$ yielded by Algorithm~\\ref{alg:UCB-TL} can be described by $\\pi_{t} = \\widetilde{\\pi}_{N_{t}(B)}(B)$ with $B = B_{t}(X_t^Q)$ for any time $t \\geq 1$.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — selecting bins and counting target visits"
+      }
+    ]
+  },
+  {
+    "local_id": "D17",
+    "original_tex": "To this end, denote by $\\mathcal{T}^{(l)}$ the perfect tree with root node $\\mathcal{X}$ and depth $l \\geq 0$, where there are $2^{i d}$ nodes in each depth $0 \\leq i < l$ and each node $B$ represents a bin in set $\\mathcal{B}_{i}$. \nThe set of children of any bin $B \\in \\mathcal{B}_{i}$ with $i \\geq 0$ is defined as $\\mathsf{child}(B) \\defn \\{ B' \\in \\mathcal{B}_{i + 1} : B' \\subset B \\}$. Then at each time~$t$, the partition $\\mathcal{L}_t$ induced by Algorithm~\\ref{alg:UCB-TL} can be described as a set of leaf nodes of a subtree of $\\mathcal{T}^{(l)}$ for some $l>0$.\n\nThroughout the paper, the terms bin and node are used interchangeably.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — perfect tree and child bins"
+      }
+    ]
+  },
+  {
+    "local_id": "D18",
+    "original_tex": "Next, given a subset $\\mathcal{D}$ of the source dataset $\\mathcal{D}^{P}$, for any bin $B$ and arm $k$, let $n_{k}^{P}(B;\\mathcal{D})$ denote the number of samples in dataset $\\mathcal{D}$ such that the covariate falls in bin $B$ and arm $k$ is pulled, i.e.\n\\begin{align}\n    \\label{eq:n-k-B-Pdata}\n    n_{k}^{P}(B;\\mathcal{D}) & \\defn\\sum_{(X_{i},\\pi_{i},Y_{i})\\in\\mathcal{D}}\\mathds{1}\\{X_{i}\\in B,\\,\\pi_{i}=k\\}.\n\\end{align}",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — source sample count, equation (7)"
+      }
+    ]
+  },
+  {
+    "local_id": "D19",
+    "original_tex": "Let $\\overline{Y}_{k}^{P}(B;\\mathcal{D})$  denote the empirical mean of the reward of arm $k$ over bin $B$ in dataset~$\\mathcal{D}$, namely\n\\begin{align}\n\\label{eq:Y-bar-k-B-Pdata}\n\\overline{Y}_{k}^{P}(B;\\mathcal{D})\\defn\n\\begin{cases}\n    \\frac{1}{n_{k}^{P}(B;\\mathcal{D})}\\sum\\limits_{(X_{i},\\pi_{i},Y_{i})\\in\\mathcal{D}}Y \\mathds{1}\\{X_{i}\\in B,\\,\\pi_{i}=k\\}, & \\text{if }  n_{k}^{P}(B;\\mathcal{D}) \\neq 0, \\\\\n    0, & \\text{otherwise.}\n\\end{cases}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — source empirical mean, equation (8)"
+      }
+    ]
+  },
+  {
+    "local_id": "D20",
+    "original_tex": "In addition, for any non-negative integer $\\tau \\geq 0$, bin $B$ and arm $k$, let us define\n\\begin{align}\nU_{k}(\\tau,B;\\mathcal{D})\\coloneqq\n\\begin{cases}\n2\\sqrt{\\frac{2}{\\tau+n_{k}^{P}(B;\\mathcal{D})}\\log^{+}(\\frac{n_{Q}|B|^{d}}{\\tau})} \\vee 2C_{\\beta}|B|^{\\beta}, & \\text{if } \\tau > 0, \\\\\n2\\sqrt{\\frac{2}{n_{k}^{P}(B;\\mathcal{D})}\\log^{+}(n_{Q}|B|^{d+2\\beta}\\vee\\kappa n_{P}|B|^{d+2\\beta+\\gamma})} \\vee 2C_{\\beta}|B|^{\\beta}, & \\text{if } \\tau = 0,\n\\end{cases} \\label{eq:UCB}\n\\end{align}\nwhere we recall the notation $\\log^{+}(x)\\defn\\log(x)\\vee1$ and use the convention $1/0 = \\infty$. The $U_{k}(\\tau,B;\\mathcal{D})$ can be essentially viewed as a confidence bound that quantifies the uncertainty of the reward function estimator used in Algorithm~\\ref{alg:UCB-TL}.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — confidence bound, equation (9)"
+      }
+    ]
+  },
+  {
+    "local_id": "D21",
+    "original_tex": "In order to achieve such an adaptive partition, for each bin $B$ and arm $k$, we assign a non-negative upper bound on the number of pulls, given by\n\\begin{align}\n\\tau^\\star_k(B;\\mathcal{D}) \\defn \\min_{\\tau \\in \\{0\\}\\cup\\mathbb{N}}\\big\\{ \\tau : U_{k}(\\tau,B;\\mathcal{D}) \n\n\\leq 2C_{\\beta}|B|^{\\beta}\\big\\}, \\label{eq:tau-star}\n\\end{align}\nwhere we recall the definition of $U_{k}(\\tau,B;\\mathcal{D})$ in \\eqref{eq:UCB}.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 3.1 — upper bound on pulls, equation (10)"
+      }
+    ]
+  },
+  {
+    "local_id": "D22",
+    "original_tex": "\\caption{Successive elimination procedure for a static bandit with source data}\n \n\\begin{algorithmic}[1]\n\\State{\\textbf{Input:} bin $B$, arm set $\\mathcal{I}$, confidence bound function $U$, source data $\\mathcal{D}$.}\n\\State{Set $n_{k}^{P}(B;\\mathcal{D}),\\overline{Y}_{k}^{P}(B;\\mathcal{D}),\\tau_{k}^{\\star}(B;\\mathcal{D})$ as in (\\ref{eq:n-k-B-Pdata}), (\\ref{eq:Y-bar-k-B-Pdata}), (\\ref{eq:tau-star}), respectively, $\\forall k\\in\\mathcal{I}$.}\n\n\n\\State{Set $n_{k}^{P} \\gets n_{k}^{P}(B;\\mathcal{D})$, $\\overline{Y}_{k} \\gets \\overline{Y}_{k}^{P}(B;\\mathcal{D})$, and $\\tau_{k}^{\\star} \\gets \\tau_{k}^{\\star}(B;\\mathcal{D}), \\forall k\\in\\mathcal{I}$.}\n\\State{Initialize $t\\gets0$.}\n\\State{Initialize $\\tau_{k} \\gets 0, \\forall k\\in\\mathcal{I}$.} \n    \\Comment{initialize pull counts}\n\\State{Initialize $\\underline{Y}^{\\star}\\gets\\max\\limits_{k\\in\\mathcal{I}}\\big\\{\\overline{Y}_{k}-U_{k}(0,B;\\mathcal{D})\\big\\}$.}\n    \\Comment{initialize largest reward lower bound}\n\\Loop\n\\If{$\\tau_{k}\\geq\\tau_{k}^{\\star}, \\forall k\\in\\mathcal{I}$} \n\t\\Comment{condition to stop exploration}\n\\State{Set $t \\gets t+1$.}\n\\State{Select arm $\\widetilde{\\pi}_{t}\\gets\\argmax\\limits_{k\\in\\mathcal{I}}\\overline{Y}_{k}$ (with ties broken arbitrarily) and receive reward $Y^{Q,({\\widetilde{\\pi}_{t}})}$.}\n\\State{Set $\\tau_{\\widetilde{\\pi}_{t}}\\gets\\tau_{\\widetilde{\\pi}_{t}} + 1$.}\n\t\\Comment{update pull count}\n\\State{Set $\\tau_{t,k}\\gets \\tau_{k}, \\forall k\\in\\mathcal{I}$, and $\\mathcal{I}_{t}\\gets\\mathcal{I}$.}\n\t\\Comment{record pull count and active arm set}\n\\State{Set $\\overline{Y}_{\\widetilde{\\pi}_{t}}\\gets\\frac{1}{n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}}\\big(Y^{Q,({\\widetilde{\\pi}_{t}})}+(n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}-1)\\overline{Y}_{\\widetilde{\\pi}_{t}}\\big)$.}\n    \\Comment{update estimated reward}\n\\Else\n\\For{$k\\in\\mathcal{I} \\text{ such that } \\tau_{k}<\\tau_{k}^{\\star}$}\n\n    \\Comment{only explore arms s.t.~pull counts less than upper bounds}\n\\If{$\\overline{Y}_{k}+  U_{k}(\\tau_{k},B;\\mathcal{D}) \\geq\\underline{Y}^{\\star}$}\n    \\Comment{eliminate arm s.t.~reward upper bound is smaller than largest reward lower bound}\n\\State{Set $t \\gets t+1$.} \n\\State{Select arm $\\widetilde{\\pi}_{t}\\gets k$ and receive reward $Y^{Q,({\\widetilde{\\pi}_{t}})}$.}\n\\State{Set $\\tau_{\\widetilde{\\pi}_{t}}\\gets\\tau_{\\widetilde{\\pi}_{t}} + 1$.}\n\t\\Comment{update pull count}\n\\State{Set $\\tau_{t,k}\\gets \\tau_{k}, \\forall k\\in\\mathcal{I}$, and $\\mathcal{I}_{t}\\gets\\mathcal{I}$.}\n\t\\Comment{record pull count and active arm set}\n\\State{Set $\\overline{Y}_{\\widetilde{\\pi}_{t}}\\gets\\frac{1}{n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}}\\big(Y^{Q,({\\widetilde{\\pi}_{t}})}+(n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}-1)\\overline{Y}_{\\widetilde{\\pi}_{t}}\\big)$.}\n    \\Comment{update estimated reward}\n\\State{Set $\\underline{Y}^{\\star}\\gets\\max_{k\\in\\mathcal{I}}\\big\\{\\overline{Y}_{k}-U_{k}(\\tau_{k},B;\\mathcal{D})\\big\\}$.}\n    \\Comment{update largest reward lower bound}\n\n\\Else \\State{Eliminate arm $k$ from active arm set: $\\mathcal{I} \\gets\\mathcal{I}\\setminus\\{k\\}$.}\n\\EndIf\n\n\\EndFor\n\\EndIf\n\\EndLoop\n\\State{\\textbf{Output:} policy $\\{\\widetilde{\\pi}_{t}\\}_{t\\geq1}$, arm pull counts $\\{(\\tau_{t,k})_{k\\in\\mathcal{I}_t}\\}_{t\\geq1}$, sets of active arms $\\{\\mathcal{I}_{t}\\}_{t\\geq1}$.}\n\\end{algorithmic}",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Procedure 1 — Successive elimination procedure for a static bandit with source data"
+      }
+    ]
+  },
+  {
+    "local_id": "D23",
+    "original_tex": "\\caption{Transfer learning algorithm for contextual multi-armed bandits}\n \\begin{algorithmic}[1]\n\\State{\\textbf{Input:} arm set $\\mathcal{I}$, horizon length\n$n_{Q}$, smoothness parameters $\\beta, C_{\\beta}$, transfer parameters $\\gamma$, exploration coefficient $\\kappa$, $P$-data $\\mathcal{D}^{P}$.}\n\\State{Initialize $\\mathcal{L}_{1}\\gets\\{\\mathcal{X}\\}$, $\\mathcal{I}(\\mathcal{X})\\gets\\mathcal{I}$.} \n    \\Comment{initialize partition and arm set}\n\\State{Initialize the policy $\\widetilde{\\pi}(\\mathcal{X})$ by Procedure~\\ref{alg:EA-TL}$\\big(\\mathcal{X},\\mathcal{I}(\\mathcal{X}),U,\\mathcal{D}^{P} \\big)$.}\n\\State{Initialize $N(\\mathcal{X})\\gets0$.}\n    \\Comment{initialize time for policy $\\widetilde{\\pi}(\\mathcal{X})$}\n\\State{Initialize $\\tau_{k}(\\mathcal{X}) \\gets 0$, and $\\tau_{k}^{\\star}(\\mathcal{X};\\mathcal{D}^{P}) $ as in \\eqref{eq:tau-star}, $\\forall k\\in \\mathcal{I}(\\mathcal{X})$.} \n    \\Comment{initialize rounds and set round upper bounds}\n\\For{$t=1,\\dots,n_{Q}$}\n\\State{Draw a sample $X_{t}^{Q} \\sim Q_{X}$.}\n\\State{Find the bin $B\\in\\mathcal{L}_{t}$ such that $X_{t}^{Q}\\in B$.} \n\\While{$|\\mathcal{I}(B)|>1$\n\nand $\\tau_{k}(B)\\geq\\tau_{k}^{\\star}(B;\\mathcal{D}^{P}), \\forall k\\in\\mathcal{I}(B)$}\n    \\Comment{keep partitioning $B$ until reaching suitable scale}\n\\If{$\\tau_{k}^{\\star}(B;\\mathcal{D}^{P}) = 0, \\forall k\\in\\mathcal{I}(B)$}\n    \\Comment{no exploration needed in $B$: discard suboptimal arms}\n\\State{Set $\\underline{Y}^{\\star}(B;\\mathcal{D}^{P})\\gets\\max\\limits_{k\\in\\mathcal{I}(B)}\\big\\{\\overline{Y}_{k}^P(B;\\mathcal{D}^{P})-  U_{k}(0,B;\\mathcal{D}^{P}) \\big\\}$.}\n    \\Comment{set largest reward lower bound}\n\\State{Set $\\mathcal{I}(B) \\gets \\big\\{ k \\in \\mathcal{I}(B) : \\overline{Y}_k^P(B;\\mathcal{D}^{P})+U_{k}(0,B;\\mathcal{D}^{P}) \\geq \\underline{Y}^{\\star}(B;\\mathcal{D}^{P}) \\big\\}$.}\n    \\Comment{update arm set}\n\\EndIf\n\\For{$B'\\in\\mathsf{child}(B)$}\n\\State{Set $\\mathcal{I}(B')\\gets\\mathcal{I}(B)$.}\n    \\Comment{assign remaining arms in $B$ as initial arms in its children}\n\\State{Initialize the policy $\\widetilde{\\pi}(B')$ by Procedure~\\ref{alg:EA-TL} $ \\big(B',\\mathcal{I}(B'),U,\\mathcal{D}^{P} \\big)$.}\n\\State{Set $N(B')\\gets0$.}\n    \\Comment{initialize time for policy $\\widetilde{\\pi}(B')$}\n\\State{Set $\\tau_{k}(B')\\gets0$ and $\\tau_{k}^{\\star}(B';\\mathcal{D}^{P})$ as in \\eqref{eq:tau-star}, $\\forall k\\in\\mathcal{I}(B')$.}\n    \\Comment{initialize rounds and set round upper bounds}\n\\EndFor\n\\State{Set $\\mathcal{L}_{t}\\gets (\\mathcal{L}_{t}\\setminus B)\\cup\\mathsf{child}(B)$.}\n    \\Comment{replace $B$ with its children in partition}\n\\State{Find the bin $B\\in\\mathcal{L}_{t}$ such that $ X_{t}^{Q}\\in B$.}\n\\EndWhile\n\\State{Set $N(B)\\gets N(B)+1$.}\n    \\Comment{update times $X_{t}^{Q} \\in B$}\n\\State{Set $\\pi_{t}\\gets\\widetilde{\\pi}_{N(B)}(B)$.}\n    \\Comment{choose arm by policy $\\widetilde{\\pi}(B)$}\n\\State{Set $\\mathcal{I}(B)\\gets\\widetilde{\\mathcal{I}}_{N(B)} (B)$.}\n    \\Comment{update arm set by policy $\\widetilde{\\pi}(B)$}\n\\State{Set $\\tau_{k}(B) \\gets \\widetilde{\\tau}_{N(B),k}(B), \\forall k\\in\\mathcal{I}(B)$.}\n    \\Comment{update numbers of rounds by policy $\\widetilde{\\pi}(B)$}\n\\EndFor\n\\State{\\textbf{Output:} policy $\\{\\pi_{t}\\}_{t\\geq1}$.}\n\\end{algorithmic}",
+    "evidence": [
+      {
+        "page": 11,
+        "location": "Algorithm 1 — Transfer learning algorithm for contextual multi-armed bandits"
+      }
+    ]
+  },
+  {
+    "local_id": "D24",
+    "original_tex": "For any function $f(\\cdot)$ on $\\mathcal{X}$, bin $B$ in $\\mathcal{X}$, and probability distribution $\\lambda$ over $\\mathcal{X}$, let $\\Gamma_{B}f(\\cdot ; \\lambda)$ be the $L_{2}(\\lambda)$-projection of $f$ onto the class of piecewise-constant functions over $B$, namely\n\\begin{align}\n\\label{eq:def-poly-proj}\n\\Gamma_{B}f(x ; \\lambda) \\defn \\frac{1}{\\lambda(B)} \\int_{B} f(u)  \\, \\mathsf{d}\\lambda(u)\n\\end{align}\nif $\\lambda(B) > 0$, and $\\Gamma_{B}f(x ; \\lambda) \\defn 0$ otherwise.",
+    "evidence": [
+      {
+        "page": 15,
+        "location": "Section 4.1 — piecewise-constant projection, equation (15)"
+      }
+    ]
+  },
+  {
+    "local_id": "D25",
+    "original_tex": "Let $f:\\mathcal{X} \\rightarrow \\mathbb{R}$ be a H\\\"{o}lder continuous function in $\\mathcal{H}(\\beta, C_\\beta)$ with $0<\\beta \\leq 1$. For any probability distribution $\\lambda$ and constants $l_{0}\\geq 0$, $b >0$, we say $f$ is self-similar under $\\lambda$ with parameters $l_{0}$ and $b$, if the following holds for any integer $l\\geq l_{0}$:\n\\begin{align*}\n\\sup_{B\\in\\mathcal{B}_{l}}\\sup_{x\\in B}\\big|\\Gamma_{B}f(x ; \\lambda)-f(x)\\big|\\geq b2^{-\\beta l}.\n\\end{align*}",
+    "evidence": [
+      {
+        "page": 15,
+        "location": "Definition 3 (Self-similarity)"
+      }
+    ]
+  },
+  {
+    "local_id": "D26",
+    "original_tex": "Assume that there exists some $k\\in[K]$ such that the reward function $f_{k}$ is self-similar under both $Q_{X}$ and $P_{X\\,|\\,\\pi=k}$ with some parameters $l_{0} \\geq 0$ and $b > 0$.",
+    "evidence": [
+      {
+        "page": 16,
+        "location": "Assumption 4 (Self-similarity)"
+      }
+    ]
+  },
+  {
+    "local_id": "D27",
+    "original_tex": "We denote by $\\Pi(K,\\beta,C_{\\beta},\\alpha,C_{\\alpha},\\underline{q},\\overline{q},\\gamma,c_{\\gamma}, \\kappa,l_{0},b)$ the class of nonparametric contextual $K$-armed bandits that satisfy Assumptions~\\ref{assumption:smooth}--\\ref{assumption:self-similar} and Definitions~\\ref{def:transfer}--\\ref{def:explore-coef}.\nWhenever clear from the context, the shorthand $\\Pi(K,\\beta,\\alpha,\\gamma, \\kappa,l_{0},b)$ and $\\Pi$ are used.",
+    "evidence": [
+      {
+        "page": 16,
+        "location": "Section 4.1 — self-similar parameter space Pi"
+      }
+    ]
+  },
+  {
+    "local_id": "D28",
+    "original_tex": "\\caption{Smoothness estimation procedure}\n \\begin{algorithmic}[1]\n\n\\State{\\textbf{Input:} arm number $K$, horizon length $n_{Q}$, lower and upper bounds on smoothness $\\underline{\\beta}$ and $\\overline{\\beta}$, upper bound on transfer exponent $\\overline{\\gamma}$, $P$-data $\\mathcal{D}^{P}$, tuning parameters $C_{1}, C_{2}$.}\n\\State{Set $n\\gets n_{P}\\vee n_{Q}$.}\n\\If{$n_{P}>n_{Q}$}\n\\State{Set $l_{1}\\gets\\Big\\lceil\\frac{\\underline{\\beta}\\log_{2}(n)}{(d+2\\overline{\\beta}+\\overline{\\gamma})^2}\\Big\\rceil$, $l_{2}\\gets l_{1}+\\Big\\lceil\\frac{1}{d}\\log_{2}(\\log(n))\\Big\\rceil$, $l_{3}\\gets\\Big\\lceil \\frac{\\overline{\\beta}}{\\underline{\\beta}}l_{1}+\\frac{1}{\\underline{\\beta}}\\log_{2}(\\log(n))\\Big\\rceil$.}\n    \\Comment{bandwidths of reward function estimators}\n\\State{Set $T\\gets \\Big\\lceil C_{1} K n^{\\frac{\\underline{\\beta}}{d+2\\overline{\\beta}}}\\log^{\\frac{d+\\overline{\\gamma}}{d}}(Kn)\\Big\\rceil$.}\n    \\Comment{sample size for smoothness estimation}\n\\State{Set $\\mathcal{D}_{\\mathsf{se}} \\gets \\Big\\{\\big(X_{i}^{P},\\pi_{i}^{P},Y_{i}^{P,(\\pi_{i}^{P})}\\big)\\Big\\}_{i=1}^{T}$, $s_{P}\\gets T+1$, $s_{Q}\\gets1$.} \n    \\Comment{samples for smoothness estimation}\n\\Else\n\\State{Set $l_{1}\\gets\\Big\\lceil\\frac{\\underline{\\beta}\\log_{2}(n)}{(d+2\\overline{\\beta})^2}\\Big\\rceil$, $l_{2}\\gets l_{1}+\\Big\\lceil\\frac{1}{d}\\log_{2}(\\log(n))\\Big\\rceil$, $l_{3}\\gets\\Big\\lceil \\frac{\\overline{\\beta}}{\\underline{\\beta}}l_{1}+\\frac{1}{\\underline{\\beta}}\\log_{2}(\\log(n))\\Big\\rceil$.}\n    \\Comment{bandwidths of reward function estimators}\n\\State{Set $T\\gets \\Big\\lceil C_1 n^{\\frac{\\underline{\\beta}}{d+2\\overline{\\beta}}}\\log(Kn)\\Big\\rceil$.}\n    \\Comment{sample size for smoothness estimation}\n\\For{$t = 1,\\dots, T$}\n\\State{Draw a sample $X_{t}^{Q}$, pull arm $\\pi_{t}$ uniformly at random from $[K]$, and get the reward $Y_{t}^{Q,(\\pi_{t})}$.}\n\\EndFor\n\\State{Set $\\mathcal{D}_{\\mathsf{se}} \\gets \\Big\\{\\big(X_{t}^{Q},\\pi_{t},Y_{t}^{Q,(\\pi_{t})}\\big)\\Big\\}_{t=1}^{T}$, $s_{P}\\gets1$, $s_{Q}\\gets T+1$.}\n    \\Comment{samples for smoothness estimation}\n\\EndIf\n\n\\State Define the grid $\\mathcal{M}$\n\\begin{align*}\n\\mathcal{M}\\coloneqq\\big\\{x\\in\\mathcal{X}:x_{i}=(k_{i}-1/2)2^{-l_{3}},\\,k_{i}=[2^{l_{3}}],i=[d]\\big\\}.\n\\end{align*}\n\n\n\n\\For{$i\\in\\{1,2\\},k\\in[K]$}\n\\State{Set $\\mathcal{D}_{\\mathsf{se}}^{(k)} \\gets \\{(X_{t},Y_{t}) : (X_{t},\\pi_{t},Y_{t}) \\in\\mathcal{D}_{\\mathsf{se}}\\,\\, \\text{ such that }\\,\\, \\pi_{t} = k \\}$.}\n\\For{$x\\in\\mathcal{M}$}\n\\State{Find the bin $B_{i}(x)\\in\\mathcal{B}_{l_{i}}$ such that $x\\in B_{i}(x)$.}\n\\State{Define the reward function estimator $\\widehat{f}_{k}(x;2^{-l_{i}}) \\defn \\widehat{\\eta}_{k}\\big(x;B_{i}(x)\\big)$, where\n\\begin{align}\n\\widehat{\\eta}_{k}(x;B) \\defn \\frac{\\sum_{(X_{t},Y_{t})\\in\\mathcal{D}_{\\mathsf{se}}^{(k)}}Y_{t}\\mathds{1}\\{X_{t}\\in B\\}}\n{1 \\vee \\sum_{(X_{t},Y_{t})\\in\\mathcal{D}_{\\mathsf{se}}^{(k)}}\\mathds{1}\\{X_{t}\\in B\\}},\\quad \\forall B\\in\\mathcal{B}_{l_{i}}. \n\\end{align}\n\n}\n\n\\EndFor\n\\EndFor\n\\State {Set $\\mathsf{b}\\gets\\max_{k\\in[K]}\\max_{x\\in\\mathcal{M}}\\big|\\widehat{f}_{k}(x;2^{-l_{1}})-\\widehat{f}_{k}(x;2^{-l_{2}})\\big|$.} \n\\State {Set $\\widehat{\\beta}\\gets-\\frac{1}{l_{1}}\\log(\\mathsf{b})-C_{2}\\frac{\\log_{2}(\\log (n))}{\\log_{2}(n)}$.}\n\\State {\\textbf{Output:} smoothness estimate $(\\underline{\\beta}\\vee\\widehat{\\beta})\\wedge\\overline{\\beta}$, time steps $s_{P}$ and $s_{Q}$, policy $\\{\\pi_{t}\\}_{1\\leq t<s_{Q}}$.}\n\\end{algorithmic}",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Procedure 2 — Smoothness estimation procedure"
+      }
+    ]
+  },
+  {
+    "local_id": "D29",
+    "original_tex": "Given a subset $\\mathcal{D}$ of the source data $\\mathcal{D}^{P}$ and the smoothness estimate $\\widehat{\\beta}$ returned by Procedure~\\ref{alg:smoothness}, for any non-negative integer $\\tau \\geq 0$, bin $B$, and arm $k$, we define\n\\begin{align}\n\\widehat{U}_{k}(\\tau,B;\\mathcal{D})\\coloneqq\n\\begin{cases}\n2\\sqrt{\\frac{2}{\\tau+n_{k}^{P}(B;\\mathcal{D})}\\log^{+}\\big(\\frac{n_{Q}|B|^{d}}{\\tau}\\big)} \\vee 2\\overline{C}_{\\beta}|B|^{\\widehat{\\beta}}, & \\text{if } \\tau > 0, \\\\\n2\\sqrt{\\frac{2}{n_{k}^{P}(B;\\mathcal{D})}\\log(n|B|^{d+2\\widehat{\\beta}})} \\vee 2\\overline{C}_{\\beta}|B|^{\\widehat{\\beta}}, & \\text{if } \\tau = 0,\n\\end{cases}\n \\label{eq:UCB-adapt}\n\\end{align}\nwhere we recall the notations $\\log^{+}(x)\\defn\\log(x)\\vee1$, $n\\defn n_{P}\\vee n_{Q}$, and $1/0 = \\infty$.",
+    "evidence": [
+      {
+        "page": 17,
+        "location": "Section 4.2 — adaptive confidence bound, equation (17)"
+      },
+      {
+        "page": 18,
+        "location": "Section 4.2 — adaptive confidence bound, equation (17)"
+      }
+    ]
+  },
+  {
+    "local_id": "D30",
+    "original_tex": "The associated non-negative upper bound on play rounds is defined by\n\\begin{align}\n\\widehat{\\tau}^\\star_k(B;\\mathcal{D}) \\defn \\min_{\\tau \\in \\{0\\}\\cup\\mathbb{N}}\\big\\{ \\tau : \\widehat{U}_{k}(\\tau,B;\\mathcal{D}) \\leq 2\\overline{C}_{\\beta}|B|^{\\widehat{\\beta}}\\big\\}. \\label{eq:tau-star-adaptive}\n\\end{align}",
+    "evidence": [
+      {
+        "page": 18,
+        "location": "Section 4.2 — adaptive upper bound on play rounds, equation (18)"
+      }
+    ]
+  },
+  {
+    "local_id": "D22a",
+    "original_tex": "\\caption{Successive elimination procedure for a static bandit with source data}\n \n\\begin{algorithmic}[1]\n\\State{\\textbf{Input:} bin $B$, arm set $\\mathcal{I}$, confidence bound function $U$, source data $\\mathcal{D}$.}\n\\State{Set $n_{k}^{P}(B;\\mathcal{D}),\\overline{Y}_{k}^{P}(B;\\mathcal{D}),\\tau_{k}^{\\star}(B;\\mathcal{D})$ as in (\\ref{eq:n-k-B-Pdata}), (\\ref{eq:Y-bar-k-B-Pdata}), (\\ref{eq:tau-star}), respectively, $\\forall k\\in\\mathcal{I}$.}\n\n\n\\State{Set $n_{k}^{P} \\gets n_{k}^{P}(B;\\mathcal{D})$, $\\overline{Y}_{k} \\gets \\overline{Y}_{k}^{P}(B;\\mathcal{D})$, and $\\tau_{k}^{\\star} \\gets \\tau_{k}^{\\star}(B;\\mathcal{D}), \\forall k\\in\\mathcal{I}$.}\n\\State{Initialize $t\\gets0$.}\n\\State{Initialize $\\tau_{k} \\gets 0, \\forall k\\in\\mathcal{I}$.} \n    \\Comment{initialize pull counts}\n\\State{Initialize $\\underline{Y}^{\\star}\\gets\\max\\limits_{k\\in\\mathcal{I}}\\big\\{\\overline{Y}_{k}-U_{k}(0,B;\\mathcal{D})\\big\\}$.}\n    \\Comment{initialize largest reward lower bound}\n\\Loop\n\\If{$\\tau_{k}\\geq\\tau_{k}^{\\star}, \\forall k\\in\\mathcal{I}$} \n\t\\Comment{condition to stop exploration}\n\\State{Set $t \\gets t+1$.}\n\\State{Select arm $\\widetilde{\\pi}_{t}\\gets\\argmax\\limits_{k\\in\\mathcal{I}}\\overline{Y}_{k}$ (with ties broken arbitrarily) and receive reward $Y^{Q,({\\widetilde{\\pi}_{t}})}$.}\n\\State{Set $\\tau_{\\widetilde{\\pi}_{t}}\\gets\\tau_{\\widetilde{\\pi}_{t}} + 1$.}\n\t\\Comment{update pull count}\n\\State{Set $\\tau_{t,k}\\gets \\tau_{k}, \\forall k\\in\\mathcal{I}$, and $\\mathcal{I}_{t}\\gets\\mathcal{I}$.}\n\t\\Comment{record pull count and active arm set}\n\\State{Set $\\overline{Y}_{\\widetilde{\\pi}_{t}}\\gets\\frac{1}{n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}}\\big(Y^{Q,({\\widetilde{\\pi}_{t}})}+(n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}-1)\\overline{Y}_{\\widetilde{\\pi}_{t}}\\big)$.}\n    \\Comment{update estimated reward}\n\\Else\n\\For{$k\\in\\mathcal{I} \\text{ such that } \\tau_{k}<\\tau_{k}^{\\star}$}\n\n    \\Comment{only explore arms s.t.~pull counts less than upper bounds}\n\\If{$\\overline{Y}_{k}+  U_{k}(\\tau_{k},B;\\mathcal{D}) \\geq\\underline{Y}^{\\star}$}\n    \\Comment{eliminate arm s.t.~reward upper bound is smaller than largest reward lower bound}\n\\State{Set $t \\gets t+1$.} \n\\State{Select arm $\\widetilde{\\pi}_{t}\\gets k$ and receive reward $Y^{Q,({\\widetilde{\\pi}_{t}})}$.}\n\\State{Set $\\tau_{\\widetilde{\\pi}_{t}}\\gets\\tau_{\\widetilde{\\pi}_{t}} + 1$.}\n\t\\Comment{update pull count}\n\\State{Set $\\tau_{t,k}\\gets \\tau_{k}, \\forall k\\in\\mathcal{I}$, and $\\mathcal{I}_{t}\\gets\\mathcal{I}$.}\n\t\\Comment{record pull count and active arm set}\n\\State{Set $\\overline{Y}_{\\widetilde{\\pi}_{t}}\\gets\\frac{1}{n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}}\\big(Y^{Q,({\\widetilde{\\pi}_{t}})}+(n_{\\widetilde{\\pi}_{t}}^{P}+\\tau_{\\widetilde{\\pi}_{t}}-1)\\overline{Y}_{\\widetilde{\\pi}_{t}}\\big)$.}\n    \\Comment{update estimated reward}\n\\State{Set $\\underline{Y}^{\\star}\\gets\\max_{k\\in\\mathcal{I}}\\big\\{\\overline{Y}_{k}-U_{k}(\\tau_{k},B;\\mathcal{D})\\big\\}$.}\n    \\Comment{update largest reward lower bound}\n\n\\Else \\State{Eliminate arm $k$ from active arm set: $\\mathcal{I} \\gets\\mathcal{I}\\setminus\\{k\\}$.}\n\\EndIf\n\n\\EndFor\n\\EndIf\n\\EndLoop\n\\State{\\textbf{Output:} policy $\\{\\widetilde{\\pi}_{t}\\}_{t\\geq1}$, arm pull counts $\\{(\\tau_{t,k})_{k\\in\\mathcal{I}_t}\\}_{t\\geq1}$, sets of active arms $\\{\\mathcal{I}_{t}\\}_{t\\geq1}$.}\n\\end{algorithmic}",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Procedure 1 — adaptive invocation in Algorithm 2"
+      },
+      {
+        "page": 17,
+        "location": "Procedure 1 — adaptive invocation in Algorithm 2"
+      },
+      {
+        "page": 18,
+        "location": "Procedure 1 — adaptive invocation in Algorithm 2"
+      }
+    ]
+  },
+  {
+    "local_id": "D31",
+    "original_tex": "\\caption{Adaptive transfer learning algorithm for contextual multi-armed bandits}\n \n\\begin{algorithmic}[1]\n\\State{\\textbf{Input:} arm set $\\mathcal{I}$, horizon length $n_{Q}$, lower and upper bounds on smoothness $\\underline{\\beta}$ and $\\overline{\\beta}$, upper bound on Lipschitz constant $\\overline{C}_\\beta$, upper bound on transfer exponent $\\overline{\\gamma}$, $P$-data $\\mathcal{D}^{P}$.}\n\n\\State{Run Procedure~\\ref{alg:smoothness} ($K, n_{Q}, \\underline{\\beta}, \\overline{\\beta}, \\overline{\\gamma}, \\mathcal{D}^{P}$) to get the smoothness estimate $\\widehat{\\beta}$, time steps $s_{P}$ and $s_{Q}$, and policy $\\{\\pi_{t}^{\\adp}\\}_{1\\leq t <s_{Q}}$.}\n\n\\State{Split the source data $\\mathcal{D}^{P}_{\\mathsf{dm}} \\gets \\Big\\{ \\big(X_{i}^{P},\\pi_{i}^{P},Y^{P,(\\pi_{i}^{P})} \\big) \\Big\\}_{i=s_{P}}^{n_{P}}$ to aid in decision-making in the $Q$-bandit.}\n\n\\State{Set $\\mathcal{L}_{s_{Q}}\\gets\\{\\mathcal{X}\\}$, and $\\mathcal{I}(\\mathcal{X})\\gets\\mathcal{I}$.}\n    \\Comment{initialize partition and arm set}\n\\State{Initialize the policy $\\widetilde{\\pi}(\\mathcal{X})$ by Procedure~\\ref{alg:EA-TL}\n$\\big(\\mathcal{X}, \\mathcal{I}(\\mathcal{X}), \\widehat{U}, \\mathcal{D}^{P}_{\\mathsf{dm}} \\big)$.}\n\\State{Initialize $N(\\mathcal{X})\\gets0$.}\n    \\Comment{set time to $0$ for policy $\\widetilde{\\pi}(\\mathcal{X})$}\n\\State{Initialize $\\tau_{k}(\\mathcal{X}) \\gets 0$, and $\\widehat{\\tau}_{k}^{\\star}(\\mathcal{X};\\mathcal{D}^{P}_{\\mathsf{dm}})$ as in \\eqref{eq:tau-star-adaptive}, $\\forall k \\in \\mathcal{I}(\\mathcal{X})$.}\n    \\Comment{initialize rounds and round upper bounds}\n\\For{$t=s_{Q},\\dots,n_{Q}$}\n    \\State{Draw a sample $X_{t}^{Q} \\sim Q_{X}$.}\n    \\State{Find the bin $B\\in\\mathcal{L}_{t}$ such that $X_{t}^{Q}\\in B$.}\n    \\While{$|\\mathcal{I}(B)|>1$ and $\\tau_{k}(B)\\geq\\widehat{\\tau}_{k}^{\\star}(B;\\mathcal{D}^{P}_{\\mathsf{dm}}), \\forall k\\in\\mathcal{I}(B)$}\n        \\Comment{keep partitioning $B$ until reaching suitable scale}\n    \\If{$\\widehat{\\tau}_{k}^{\\star}(B;\\mathcal{D}^{P}_{\\mathsf{dm}}) = 0, \\forall k\\in\\mathcal{I}(B)$}\n        \\Comment{no exploration needed in $B$: discard suboptimal arms}\n    \\State{Set $\\underline{Y}^{\\star}(B;\\mathcal{D}^{P}_{\\mathsf{dm}})\\gets\\max\\limits_{k\\in\\mathcal{I}(B)}\\big\\{\\overline{Y}_{k}^P(B;\\mathcal{D}^{P}_{\\mathsf{dm}})-\\widehat{U}_{k}(0,B;\\mathcal{D}^{P}_{\\mathsf{dm}})\\big\\}$}\n        \\Comment{set largest reward lower bound}\n    \\State{Set $\\mathcal{I}(B) \\gets \\{ k \\in \\mathcal{I}(B) : \\overline{Y}_k^P(B;\\mathcal{D}^{P}_{\\mathsf{dm}}) + \\widehat{U}_{k}(0,B;\\mathcal{D}^{P}_{\\mathsf{dm}}) \\geq \\underline{Y}^{\\star}(B;\\mathcal{D}^{P}_{\\mathsf{dm}}) \\}$.}\n        \\Comment{update arm set}\n    \\EndIf\n    \\For{$B'\\in\\mathsf{child}(B)$}\n    \\State{Set $\\mathcal{I}(B')\\gets\\mathcal{I}(B)$.}\n        \\Comment{assign remaining arms in $B$ as initial arms in its children}\n    \\State{Initialize the policy $\\widetilde{\\pi}({B'})$ by Procedure~\\ref{alg:EA-TL} $\\big(B', \\mathcal{I}(B'),\\widehat{U},\\mathcal{D}^{P}_{\\mathsf{dm}} \\big)$.}\n    \\State{Set $N(B')\\gets0$.}\n        \\Comment{initialize time for policy $\\widetilde{\\pi}(B')$}\n    \\State{Set $\\tau_{k}(B') \\gets 0$, and  $\\widehat{\\tau}_{k}^{\\star}(B';\\mathcal{D}^{P}_{\\mathsf{dm}}) $ as in \\eqref{eq:tau-star-adaptive}, $\\forall k\\in\\mathcal{I}(B')$.}\n        \\Comment{initialize rounds and round upper bounds}\n\\EndFor\n\\State{Set $\\mathcal{L}_{t}\\gets (\\mathcal{L}_{t}\\setminus B)\\cup\\mathsf{child}(B)$.}\n    \\Comment{replace $B$ with its children in partition}\n\\State{Find the bin $B\\in\\mathcal{L}_{t}$ such that $X_{t}^{Q}\\in B$.}\n\\EndWhile\n\\State{Set $N(B)\\gets N(B)+1$.}\n    \\Comment{update times $X_{t}^{Q} \\in B$}\n\\State{Set $\\pi^{\\adp}_{t}\\gets\\widetilde{\\pi}_{N(B)}(B)$.}\n    \\Comment{choose arm by policy $\\widetilde{\\pi}(B)$}\n\\State{Set $\\mathcal{I}(B)\\gets\\widetilde{\\mathcal{I}}_{N(B)} (B)$.}\n    \\Comment{update arm set by policy $\\widetilde{\\pi}(B)$}\n\\State{Set $\\tau_{k}(B) \\gets \\widetilde{\\tau}_{N(B),k}(B), \\forall k\\in\\mathcal{I}(B)$.}\n    \\Comment{update numbers of rounds by policy $\\widetilde{\\pi}(B)$}\n\\EndFor\n\\State\\textbf{Output:} policy $\\pi^{\\adp} = \\{\\pi^{\\adp}_{t}\\}_{t\\geq1}$.\n\n\\end{algorithmic}",
+    "evidence": [
+      {
+        "page": 17,
+        "location": "Algorithm 2 — Adaptive transfer learning algorithm for contextual multi-armed bandits"
+      }
+    ]
+  }
+]

@@ -1,0 +1,758 @@
+[
+  {
+    "interface_id": "local-84d6983a88d508798fbe",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "6ec585763d500195d7ade5c0eb607074155b7cfd02cb4908fd99fbc691728014",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D7",
+        "comparison": "For each k choose m-1 distinct indices from {1,...,n} excluding k, sort them for the symmetric kernel and average h_i(X_k,...) by choose(n-1,m-1). Then sum (q_k,i-U_i)^2 over all k and multiply by m^2(n-1)/(n(n-m)^2). The source estimates Var(U_i), not the variance of sqrt(n) U_i, so do not remove its sample-size scale. Require enough observations for the combinatorial average and n>m for the displayed denominator. The nonnegative standard error is sqrt of this estimator, which can be zero; the later ratio has no source-supplied zero convention.",
+        "statement_sha256": "8f0a34777949b4bc5bcf3c1a441f13fc30d4e20e31584505bb303a3c55fa0642"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory/Analysis for jackknife and U-statistic declarations; inspect Finset.powersetCard and its cardinality theorem together with Real.sqrt",
+          "result": "Fixed-cardinality subsets enumerate the leave-one-index-in kernel averages and explain the binomial count; no verified jackknife variance estimator or variance consistency result was located."
+        }
+      ],
+      "gap": "Construct the exact q averages and jackknife variance with the n,m normalization, including the sample-size and later standard-error denominator domains."
+    }
+  },
+  {
+    "interface_id": "local-67763e7ee6033913e035",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "fe64219966300d1e6a1e2a937afa432f8bfdc98d69120e08612cdecf100405a4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D8",
+        "comparison": "For i=1,...,d maximize (U_i^2-Delta^2)/(2 sigma-hat_i Delta), with Delta>0 and sigma-hat_i the square root of (2.10). This is not a squared standardized difference, and there is no additional sqrt(n) factor outside because the denominator estimates the finite-sample standard error of U_i. A nonempty coordinate set needs d>0. Assumption (A2) does not prevent every empirical standard error from vanishing, particularly near small expectations, so totalized real division is not a supplied statistical interpretation. The later unnormalized absolute statistic is a distinct construction.",
+        "statement_sha256": "b584c3df27b092b1280b958d2d4b8b665108bdb3ef46f6254e13af422c2b1b0c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Finset.exists_max_image with its nonempty finite domain and Real.sqrt; compare all factors of normalized test statistic (2.9)",
+          "result": "A finite coordinate maximum and the nonnegative standard-error square root are available ingredients; the statistical normalization and zero-denominator issue remain source-specific."
+        }
+      ],
+      "gap": "Assemble the squared U-statistic maximum with its exact standard-error scaling and an explicit domain for every denominator."
+    }
+  },
+  {
+    "interface_id": "local-009d0943f5691d60a63b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "135af8fcc0a20a0ba340a248c875e9aa51baa64401cf7ae0ca782659d1729795",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D9",
+        "comparison": "The target CDF is exp(-exp(-x)); a measurable negative-log transformation of expMeasure 1 can construct this law once its CDF identity is proved. For 0<alpha<1 the source quantile is -log(log(1/(1-alpha))), equivalently -log(-log(1-alpha)). Preserve a_d=sqrt(2 log d) and b_d=a_d-[log(log d)+log(4 pi)]/(2 a_d), requiring d>1 for their intended logarithms and division. The printed growth regime does not by itself force d to diverge when its exponent may be zero. These are distribution and calibration ingredients, not a library theorem validating the paper's test.",
+        "statement_sha256": "4398c39aa869188b4eb51b6e1aeb6eec3f15b8a818d56bc4f8d1f0607e462308"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.expMeasure",
+          "type": "ℝ → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Exponential",
+          "provides": "Exponential measure with the given rate, defined through the shape-one gamma measure; it is a probability measure for strictly positive rates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Exponential.lean#L94-L96",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory/Analysis for Gumbel and quantile APIs; inspect expMeasure, the measurable branch of Measure.map, and the real log/exp/sqrt definitions",
+          "result": "The negative-log pushforward of a rate-one exponential is a construction route to the stated Gumbel law, and the printed quantile and normalizers are expressible; the checked declarations do not prove that pushforward CDF, inverse-CDF identity or an extreme-value approximation."
+        }
+      ],
+      "gap": "Establish the standard Gumbel CDF and quantile formula and retain the valid alpha and dimension domains of the extreme-value normalizers."
+    }
+  },
+  {
+    "interface_id": "local-63adf7839fa6363e1e68",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "405720444f6f3456d53f86ab4dfc32aadc184fe44dacd6d3edf5f619879bfb3b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D17",
+        "comparison": "Keep (A1), its same beta in (0,2] and B_n, and additionally bound the maximum over i of the psi_beta quantity for h_i(X_j1,...,X_jm) for all j_1,...,j_m in {1,...,n}, allowing repeated indices. The bound is uncentered, unlike (A1)'s h_i-theta_i on distinct iid observations. The quantity uses inf over nu>0 with E[exp((abs Z/nu)^beta)-1]<=1; establish the expected-integral interpretation rather than accepting a nonintegrable Bochner zero fallback. For beta<1 this is not silently replaced by a convex Young-function norm. Neither the extra repeated-index control nor (A3) follows automatically from the original centered envelope.",
+        "statement_sha256": "ffc4824a5a0cc91f92d1283930b3f227da5bd1e3bf5f399c758cc01a6f9e8e88"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory/Analysis for Orlicz and bootstrap interfaces; inspect the SubGaussian file's stated Orlicz TODO and the integral, exponential and real-power primitives against the frozen psi_beta definition",
+          "result": "The exponential-moment expression underlying the source's Orlicz quantity is representable; no verified general psi_beta norm or repeated-index bootstrap envelope API was found."
+        }
+      ],
+      "gap": "Define the source's psi_beta infimum and impose the additional uncentered envelope bound for every index tuple while retaining all of Assumption (A1)."
+    }
+  },
+  {
+    "interface_id": "local-60b114d504d260a3ba04",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "faba65ec34f0595021424f7dd9386fb5c4b52bb986de86614e7413db29ee5004",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D22",
+        "comparison": "F belongs to the observation-law class with existing kernel expectation, theta_F lies in V_0={max_i abs theta_i<=Delta}, and F satisfies (A1-prime) and (A2). Keep the same n-dependent dimensions, constants and B_n. This class omits the Gumbel correlation assumption (A3) but adds the uncentered repeated-index bounds of (A1-prime); it is not identified with H_0 from (2.15). The saved source review flags the prose inclusion claim, so it is not used to discard the stronger envelope requirement.",
+        "statement_sha256": "f2f7e6ae88c99f6998b42d7829400f90c8aedd79697cbabe3a1cbeebb67424f6"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -n -i 'bootstrap|u.?statistic|orlicz' Mathlib/Probability Mathlib/MeasureTheory Mathlib/Analysis; compare the full saved (A1-prime), (A2) and V_0 dependencies",
+          "result": "No verified packaged class was located for the bootstrap null, which must be assembled from the source's individual predicates."
+        }
+      ],
+      "gap": "Define the bootstrap null class with its expectation-existence condition, threshold region, repeated-index envelope and restricted nondegeneracy assumptions.",
+      "no_related_reason": "This is a source-specific composite class combining its expectation map, null region and named moment assumptions; searches found no bootstrap null-class API, and generic set-builder syntax supplies none of those statistical conditions."
+    }
+  },
+  {
+    "interface_id": "local-18ac307ed76d11dd5ab9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "2b47c4396639a79f15370ec0d0a1da1f62c0d3aea32fb18a89f1fab433084227",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D13",
+        "comparison": "Correlate h_1,i(X_1) and h_1,j(X_1) under F with finite positive variances, then sum over all ordered pairs i!=j, not just i<j. Each term is abs kappa/sqrt(1-kappa^2) times exp(-(2-epsilon) log d/(1+abs kappa)), with fixed epsilon>0 and total at most gamma_n tending to zero. Off-diagonal kappa must lie strictly between -1 and 1; diagonal correlations are excluded from the sum. The source opening does not separately state that exclusion in its correlation phrase, and (A2) permits zero projection variances near zero expectations, so no zero-variance correlation convention is inserted. Do not impose (A3) on the bootstrap theorems.",
+        "statement_sha256": "6e7d7cc337869cf060704d103c4db2bc0c16f291ec099765132b184d82dc2aa6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory for correlation/Pearson APIs; inspect covariance, variance, real sqrt/exp/log and Tendsto against the off-diagonal condition (A3)",
+          "result": "Scalar covariance and variances supply a correlation construction on positive finite variances, and the correlation-weighted sum and vanishing bound are expressible; no verified Gumbel correlation-summability criterion was located."
+        }
+      ],
+      "gap": "Define meaningful first-projection correlations and prove the exact off-diagonal exponential summability bound with a sequence tending to zero."
+    }
+  },
+  {
+    "interface_id": "local-6293aaebe2c6526439c3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "8e5c0457979a990d18cf879dfc639f5837ae4f9d1aa8c572efcd63290e57fe89",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D14",
+        "comparison": "V_0 is the closed maximum-absolute-coordinate ball of radius Delta in R^d. H_0 requires F in the expectation-existence sampling class, theta_F in that ball and all of (A1),(A2),(A3), with dependence on n,d(n),B_n, b-underline and D retained. The opening prose says distribution functions on R^d whereas the sampling class is defined on R^p and the expectation parameter lies in R^d; both source conventions stay documented. This class is distinct from the bootstrap null and does not acquire its repeated-index envelope merely by being used in a testing statement.",
+        "statement_sha256": "0cad3ea265548c06b08254ce3f85c1c649566e340e161a66b9d8cd3f3fc6c8e3"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory/Analysis for Gumbel, U-statistic and Orlicz interfaces; compare the frozen null-class formula and its full named assumption dependencies",
+          "result": "The class requires a new conjunction of the paper's predicates; no verified packaged library equivalent was located."
+        }
+      ],
+      "gap": "Assemble the Gumbel-calibrated null class with all three assumptions and explicit sample-size-dependent constants while preserving the source's observation-versus-parameter dimension caveat.",
+      "no_related_reason": "No verified source-specific Gumbel null-distribution class was found; a generic set or finite maximum does not encode the combined moment, nondegeneracy, correlation and expectation-existence requirements."
+    }
+  },
+  {
+    "interface_id": "local-e5d66d98ee2a621316a0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "9133a27fea4af841c21741edac4160bdc61bb98f00a4d42978a26d3a07f3a2b7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D18",
+        "comparison": "Given the data, use the empirical measure n^(-1) sum_{j=1}^n dirac X_j and take its n-fold finite product. Observations with the same value retain their index multiplicity in that sum; sampling is with replacement and conditionally iid. The U_i^* sum uses distinct increasing bootstrap positions l_1<...<l_m and divides by choose(n,m), but their selected original observations may repeat. This is neither sampling original indices without replacement nor summing all bootstrap-position m-tuples. Positive n and n>=m are needed for the usual probability and combinatorial normalization.",
+        "statement_sha256": "c34ce3b850c3dd16afed1fb27049f62e3324fcb3bdf81b76ac85ab7a52568b53"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.dirac",
+          "type": "{α : Type u} → [MeasurableSpace α] → α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Dirac.Def",
+          "provides": "Unit point mass on a measurable space; finite normalized sums of observation-indexed point masses define empirical distributions and retain repeated observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Dirac/Def.lean#L29-L29",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search bootstrap and U-statistic APIs; inspect Measure.dirac, finite Measure.pi and powersetCard with its binomial-cardinality theorem",
+          "result": "A finite product of the observed empirical probability measure gives the conditional resampling law, and fixed-cardinality subsets index the bootstrap U-statistic; no verified packaged bootstrap U-statistic construction was found."
+        }
+      ],
+      "gap": "Construct the conditional empirical product law and its distinct-bootstrap-index U-statistic, preserving duplicate observed values and the exact binomial normalization."
+    }
+  },
+  {
+    "interface_id": "local-aff1e2bd8d29fd4e9e38",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "c99094b85304ab7c523049e23e77cf600f36cca101d66e33914701fea2cdfe71",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D19",
+        "comparison": "Condition on the entire observed sample and integrate each distinct-bootstrap-position kernel term under the empirical product law. Every such term averages over all ordered original-index tuples (l_1,...,l_m) in {1,...,n}^m, including repeats, giving n^(-m) times the complete sum. The binomial average over bootstrap positions then has the same conditional expectation. Do not replace V_i with the original distinct-index U_i. A joint conditional-expectation formalization requires the relevant measurability and integrability rather than the definition's zero fallback; for fixed finite data the empirical product calculation is finite.",
+        "statement_sha256": "5947e4fcb2d25afc99da227cc15f120442a67b511fb2490a7cb7b1dd66ae7c08"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect condExp and its integrability branches, finite Measure.pi and Bochner integral; compare the conditional expectation of U_i^* with the full original-index V-statistic",
+          "result": "Conditional expectation and finite product integration supply a route to the empirical V-statistic identity; the checked declarations do not automatically expand the bootstrap U-statistic or its full n^m sum."
+        }
+      ],
+      "gap": "Prove that the conditional expectation of the empirical bootstrap U-statistic equals the full repeated-index V-statistic with denominator n to the m."
+    }
+  },
+  {
+    "interface_id": "local-9b80da7de226fa09f111",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "aa1228cf2a6c8007cd6d0490d88266f59d67f7f5027a17de83a636d0162fd563",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D20",
+        "comparison": "Use V_i unchanged when abs V_i<=Delta and positive Delta otherwise. In particular V_i<-Delta maps to positive Delta, not negative Delta, while V_i=-Delta stays at negative Delta. Given E[U_i^*|data]=V_i and data-measurability of the truncation, the conditional mean of U_i^*-V_i+V_i,Delta is V_i,Delta, whose absolute value is at most Delta. This uses the actual source truncation; replacing it by sign-preserving clipping would change the bootstrap statistic even though it also meets an absolute bound.",
+        "statement_sha256": "e4f8b5b3b69200ce26d120ce7912449053d5971baea893a5439e208fe206d3c2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.piecewise_eq_of_mem",
+          "type": "∀ {α : Type u} {δ : α → Sort v} (s : Set α) (f g : ∀ i, δ i) [∀ j, Decidable (j ∈ s)] {i : α}, i ∈ s → s.piecewise f g i = f i",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Set.Piecewise",
+          "provides": "Evaluates the selected branch of a set-based piecewise function, preserving the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Piecewise.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Data/Set/Piecewise branch lemmas and condExp; compare both branches of (2.21) and the archived conditional-mean identity",
+          "result": "The piecewise construction preserves the inclusive inner interval, and conditional expectation can express the recentered mean; no signed-clipping operation is an exact substitute."
+        }
+      ],
+      "gap": "Define the literal positive-Delta outside branch and prove the conditional mean bound for the recentered bootstrap statistic."
+    }
+  },
+  {
+    "interface_id": "local-6033afd68ffee826bbae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "3966bb04e2f62ea349b062bf5edc664cf22ea26213b03af0ffd21feae82ba431",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D25",
+        "comparison": "The class uses sup_{F in H_0(Delta)} P(T_alpha does not reject H_0)<=alpha. Preserve the nonrejection event and H_0 from (2.15). For nonnegative alpha an always-reject test meets this displayed constraint because its nonrejection probability is zero, and its nonrejection probability under every alternative is also zero; thus it conflicts with the positive 1-alpha-beta lower bound when alpha+beta<1. No library comparison converts this event to rejection or treats the printed minimax claim as verified.",
+        "statement_sha256": "279627f4db83f5c16db3e71b38464866820019fdf2302a6b6c3e24800be430fd"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability for bootstrap/U-statistic testing interfaces and compare the frozen test-class event with its archived always-reject counterexample",
+          "result": "The literal predicate can be written directly but it is not a standard level-alpha constraint; the archived source event conflicts with the stated positive minimax nonrejection lower bound."
+        }
+      ],
+      "gap": "Formalize the literal null-nonrejection constraint and retain its documented conflict with the claimed minimax lower bound rather than certifying or silently repairing it.",
+      "no_related_reason": "The source's displayed test class bounds null nonrejection rather than the rejection probability used for a standard level-alpha class; no verified equivalent statistical test-class declaration was located, and a conventional level definition would change the source."
+    }
+  },
+  {
+    "interface_id": "local-df67fb4f12b70b64fece",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "2fc445249ffa040142357d50f4a55f4be915421b48278cb3349ecf3d09a68c8e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D21",
+        "comparison": "At each coordinate square U_i^*-V_i+V_i,Delta, subtract V_i,Delta squared and divide by 2 sigma-hat_i Delta, then take the maximum. Sigma-hat_i is computed from the original data and is held fixed during resampling; no new bootstrap jackknife is substituted. The (1-alpha) quantile is under the law conditional on the observations, not the unconditional distribution over data and resampling together. A lower generalized-inverse CDF quantile is a possible explicit representation once its convention is stated; discreteness permits ties. The observed unstarred T_n,Delta rejects only when strictly greater than this threshold, with no automatic exact finite-sample level claim or zero-standard-error fallback.",
+        "statement_sha256": "1fffcbdf63cd7696c5ac33960f5dc580828ed1469f8c412a1482fa3c8a2a608b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory for quantile and bootstrap declarations; inspect finite maximum existence, measurable pushforward and cdf for the conditional empirical resampling law",
+          "result": "The conditional distribution can be formed by a measurable pushforward of the bootstrap product measure and described by its CDF; no verified specialized calibrated squared-maximum bootstrap test was found."
+        }
+      ],
+      "gap": "Construct the squared conditional bootstrap statistic and its quantile, retaining the original-data standard errors and a valid denominator and tie convention."
+    }
+  },
+  {
+    "interface_id": "local-0bc844230ae33f636d53",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "5a43fff695a5388cd45b42ecc16c321bb27e045c4564c895dac6a9cf5bfff9b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D24",
+        "comparison": "Take sqrt(n) times max_i(abs(U_i^*-V_i+V_i,Delta)-abs(V_i,Delta)), with the coordinatewise subtraction inside the maximum. Do not replace this by a difference of two separate maxima or insert the squared statistic's jackknife denominator. Form its (1-alpha) quantile conditional on the observations using the same empirical resampling and literal truncation. The saved theorem tests the observed unstarred T_abs; preceding (2.32) prints a starred statistic on the left and remains separately flagged. The conditional quantile's representation and possible ties require an explicit convention, not an unconditional Monte Carlo quantile.",
+        "statement_sha256": "6934a47b72ebd438cbca039309d1b1bfa746d0de2c615fc7fe412b3692ac42c2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect the finite maximum theorem, Measure.map, cdf and Real.sqrt; compare the source's absolute bootstrap construction and archived starred-decision conflict",
+          "result": "The finite maximum and its conditional pushforward CDF can describe the bootstrap calibration; the checked declarations do not provide the paper's absolute-maximum bootstrap approximation."
+        }
+      ],
+      "gap": "Define the conditionally calibrated absolute bootstrap maximum and apply its quantile to the observed statistic with the theorem's own decision event."
+    }
+  },
+  {
+    "interface_id": "local-2b3b02aff9346d060bd3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "3ea528922a21ce7a3c2ec361c985bc5cbaeb4f9a00b92531b6c5650404d1ad6d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D4",
+        "comparison": "For i<j, evaluate the real 2m-argument kernel on the interleaved coordinate pairs (X_1i,X_1j,...,X_mi,X_mj) and take its finite expectation under iid observation sampling. The source's vech stacks entries above the diagonal column by column, excluding the diagonal, so the output has d=p(p-1)/2 coordinates and the same ordering defines theta_F. This differs from common lower-triangle including-diagonal conventions and from full column vectorization. Filtering finite coordinate pairs by i<j supplies the set but not its ordered enumeration; prove the enumeration and cardinality rather than relying on a matching acronym.",
+        "statement_sha256": "8885b5abb9acca47edbf8dc16231b5465bfc04259077915d1098f218c5f3fb55"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory/Analysis for vech and U-statistic interfaces; inspect Bochner integral and finite filtering for strict upper-triangle coordinate pairs",
+          "result": "Kernel expectations and the finite set of strict upper-triangle pairs are expressible; no verified half-vectorization declaration with this exact source ordering was located."
+        }
+      ],
+      "gap": "Assemble the pairwise kernel expectation vector and prove its strict-upper-triangle column ordering and p(p-1)/2 dimension."
+    }
+  },
+  {
+    "interface_id": "local-61f6a1eb6d9b244292bf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:39:17.618542+00:00",
+    "source_interface_sha256": "6441b1a98ea5f1d865c63f03df77d3af8bc7467ef63075f4fa73c6b5b6fdb468",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D23",
+        "comparison": "For positive coordinate count d, take max_i abs U_i, subtract the common positive threshold Delta and multiply by sqrt(n). There is no division by an empirical standard deviation, no squaring of U_i or Delta, and no starred resampled input. Theorem 2.8 uses this observed statistic even though its preceding decision prose contains a starred typo. Inheriting a theorem's assumption block does not import the squared statistic or jackknife estimator into this formula.",
+        "statement_sha256": "0afe564dbfa9850742005c2c74392cbf9593b0226c600a3d1953194680483f3a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Finset.exists_max_image and Real.sqrt; compare the exact unnormalized statistic (2.30) with the distinct squared and bootstrap constructions",
+          "result": "The maximum absolute coordinate and nonnegative square-root sample scaling have checked primitives; the statistical test and its bootstrap calibration remain separate constructions."
+        }
+      ],
+      "gap": "Instantiate the observed absolute U-statistic maximum and its sqrt(n) threshold centering without importing a jackknife normalization."
+    }
+  }
+]

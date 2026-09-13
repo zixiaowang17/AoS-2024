@@ -1,0 +1,104 @@
+{
+  "scope": "Manual review of the eleven remaining p2668 bootstrap, smoothing, optimization and model-selection interfaces; no solver or bootstrap validity inferred from generic library ingredients.",
+  "rows": [
+    {
+      "interface_id": "local-3b3986bbf2aadc55556a",
+      "related": ["ProbabilityTheory.IndepFun", "MeasureTheory.integral", "ProbabilityTheory.condVar", "Set.indicator", "innerSL"],
+      "status": "partial_match",
+      "query": "Inspected independence, integral and condVar 40 semantics against the complete heteroscedastic refinement (5.1), source page 11, and its stored coefficient-index issue.",
+      "result": "An independent standardized scalar error and a covariate-dependent scale are expressible; the printed regression coefficient index and the intended conditional-variance identity need explicit treatment.",
+      "gap": "Resolve the source's coefficient dimension/index ambiguity and build the independent standardized-error model with the required conditional moments.",
+      "comparisons": {"D18": "Use IndepFun e (X,Z), the stated continuous error distribution, E[e]=0 and E[e^2]=1 with integrability, and epsilon=sigma0(X,Z)*e. Under suitable measurable square-integrable conditions this yields the conditional variance sigma0^2; condVar's fallback zero outside its validity conditions is not that identity. No Gaussian or homoscedastic error assumption is present. The formula prints beta0 inside every regime term although beta0 earlier denotes stacked coefficients, so the missing k index is a source ambiguity rather than a silent correction. This independent-error refinement is stronger than a martingale-difference condition alone."}
+    },
+    {
+      "interface_id": "local-b6baa427a5ebcbd67e68",
+      "related": ["IsMinOn", "Real.log", "Set.indicator"],
+      "status": "partial_match",
+      "query": "Searched segmented-regression and mixed-integer/model-selection terminology; inspected generic minimizer and logarithm definitions against all steps of (6.7)–(6.8), source page 16.",
+      "result": "Generic minimizers and finite objectives supply pieces of the greedy procedure, but no inspected declaration implements its adjacent-region merges, refits, label tracking or penalized selection.",
+      "gap": "Implement the full adjacent-merge recursion and final penalized argmin with explicit attainment, tie, positive-SSR and label-matching conventions.",
+      "comparisons": {"D33": "Starting at the four-regime fit, retain the printed initial SSR's free K as a source issue. At K=4,3,2 compute the minimum merged two-region SSR minus the existing two-region SSR for each adjacent pair, choose an argmin, merge and relabel, and set S_T(K-1)=S_T(K)+D_T^(K). This reaches K=1 even though the later prose lists only 2,3,4. The final choice minimizes log(S_T(K)/T)+(lambda_T/T)*K over all 1<=K<=4; log at zero SSR requires a convention not supplied by totalized Real.log. IsMinOn needs membership and attainment separately, and says nothing about efficient fitting, tie-breaking or matching relabeled estimated regions to true labels. Do not replace the greedy candidate sequence by optimization over all possible partitions or extend the inherited K0<4 theorem scope."}
+    },
+    {
+      "interface_id": "local-c2dc2e025966a5adea5c",
+      "related": ["IsCompact.exists_isMinOn", "IsCompact.exists_isMaxOn"],
+      "status": "composable",
+      "query": "Inspected the compact-set minimum and maximum theorems at Topology/Order/Compact.lean 228–229 and 246–248; compared the coefficient-bound passage on source page 9.",
+      "result": "Continuous coordinate projections attain finite extrema on a nonempty compact coefficient space, furnishing lower and upper bounds for every coefficient coordinate.",
+      "gap": "Apply compact extrema to each continuous coordinate projection and use the resulting bounds without replacing the original feasible set by its enclosing box.",
+      "comparisons": {"D17": "For coordinate i apply the extreme-value results to beta mapped to beta_i on the compact set B, obtaining L_i and U_i bounding all beta_k in that set; if the set were empty, bounds are vacuous rather than attained. These constants bound feasible coefficients but do not prove that B is convex or polyhedral, or that every point in the box is feasible. The source does not select a unique tight bound or a practical bound-estimation algorithm as part of this definition."}
+    },
+    {
+      "interface_id": "local-ed413006421a5d798e26",
+      "related": ["Set.indicator", "Matrix.mul_apply"],
+      "status": "composable",
+      "query": "Inspected indicator and finite matrix-product formulas against the lifted coefficient definitions and objective (4.1), source page 9.",
+      "result": "The binary region indicators, coefficient products and squared finite residual sum are elementary compositions; enforcing the products in an optimization problem is a separate constraint construction.",
+      "gap": "Define the candidate-regime indicators and lifted products and verify the resulting quadratic objective equals the original empirical residual criterion.",
+      "comparisons": {"D32": "For fixed supplied data define I_k,t as the indicator of the original region R_k(gamma), then ell_k,i,t=I_k,t*beta_k,i. Substituting into the sum over k=1,...,4 and i=1,...,p gives the displayed T^-1 sum of squared residuals, quadratic in ell. It is not quadratic in all original variables through the discontinuous region map. Preserve the original positive/nonpositive boundary convention; the later signed strict-indicator identity has a zero-boundary discrepancy and is not needed to define these literal region indicators."}
+    },
+    {
+      "interface_id": "local-48e0d483c2641d4b6459",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.withDensity"],
+      "status": "partial_match",
+      "query": "Inspected integrals and density measures against the complete kernel-integral and smoothed-distribution passage on source page 12; compared the signs of both data-minus-evaluation arguments.",
+      "result": "Kernel integrals and finite averages can represent the printed function, but its orientation does not directly produce the asserted ordinary lower-tail distribution function.",
+      "gap": "Specify multidimensional kernel integration and resolve the printed decreasing-in-evaluation orientation before treating the result as a sampling CDF.",
+      "comparisons": {"D19": "Keep G_i as the integral of the kernel up to its argument, with the source's reused integration variable, and keep G1((X_t-x)/h1)*G2((Z_t-z)/h2) in the average. For positive bandwidths and nonnegative kernels these factors decrease with evaluation coordinates, unlike an ordinary lower-tail CDF; silently reversing the differences changes the source. Multidimensional G_i needs a lower-orthant or other explicit integration domain. The ambient p and d1+d2 dimensions also require nonredundant covariate coordinates when variables are shared. withDensity can build a measure from a valid density, but does not certify this printed function as its CDF or fix the bootstrap sampling law."}
+    },
+    {
+      "interface_id": "local-db5883d7d1444d196564",
+      "related": ["MeasureTheory.Measure.withDensity", "IsCompact", "LipschitzWith", "Function.Even", "Filter.Tendsto"],
+      "status": "partial_match",
+      "query": "Inspected withDensity, compactness, LipschitzWith 60, evenness and convergence declarations against all clauses of Assumption 6, source page 12, including the recorded support and shared-coordinate issues.",
+      "result": "Density representation, symmetric Lipschitz kernels and bandwidth limits are available separately, but the printed density domain and variance-smoothing conditions are not resolved by these APIs.",
+      "gap": "Resolve the density's lower-bound domain and nonredundant coordinates, then state the exact kernel and bandwidth conditions without adding missing variance smoothness or positivity rules.",
+      "comparisons": {"D22": "Keep compact support and the unqualified inf_(x,z) f0(x,z)>0 as printed: a globally positive lower bound over all Euclidean space conflicts with a compactly supported density, and a support-relative restriction is not stated. Shared variables can also make the asserted full ambient joint density singular. Clause (ii) bounds the true conditional variance above and away from zero but supplies no variance smoothness or positive-truncation rule for its local-linear estimate. Clause (iii) requires symmetric density kernels, expressible by Even plus nonnegativity/integral one, Lipschitz continuity and bounded supports; retain all four bandwidths tending to zero and both T/log(T) product-bandwidth limits with the exact p and d1+d2 exponents. These ingredients do not by themselves prove the claimed uniform estimator consistency."}
+    },
+    {
+      "interface_id": "local-e4713b185f87a387e70d",
+      "related": ["PMF.uniformOfFintype", "MeasureTheory.Measure.map", "ProbabilityTheory.cdf"],
+      "status": "composable",
+      "query": "Inspected uniformOfFintype 275–276, measurable pushforward and real CDF evidence against the standardized/centered residual empirical law on source page 12.",
+      "result": "The pushforward of a uniform law on sample indices gives the empirical residual measure with multiplicities; its real CDF supplies the displayed distribution function.",
+      "gap": "Define valid standardized residuals and their centering, then push forward the uniform index law while retaining the unspecified scale-denominator convention.",
+      "comparisons": {"D21": "For T>0 compute ehat_t=epsilonhat_t/sigmatilde(X_t,Z_t), subtract the sample mean of ehat, and map the uniform probability law on Fin T to the resulting centered residuals. Sampling indices preserves repeated observations; taking a uniform law on the set of distinct values would be wrong. The real CDF evaluates lower-tail probabilities including equality. No extra sample-variance normalization is printed. A local-linear variance estimate may be nonpositive and the denominator may vanish, so the division/square-root domain must be addressed rather than inherited from Lean's totalized arithmetic. This Ghat is a residual distribution, distinct from the calligraphic boundary-minimizer set."}
+    },
+    {
+      "interface_id": "local-1e36c4d6bd69dbf4541f",
+      "related": ["MeasureTheory.Measure.pi", "PMF.uniformOfFintype", "MeasureTheory.Measure.map", "IsMinOn"],
+      "status": "partial_match",
+      "query": "Inspected finite product measures, uniform-index empirical laws, measurable pushforwards and minimizer predicates against all three source bootstrap steps on pages 12–13.",
+      "result": "Independent sampling and empirical distributions are composable, but the smoothed covariate law, valid scale estimates and minimizer-sampling mechanism remain unresolved parts of the stated procedure.",
+      "gap": "Resolve the sampling-law and scale issues and specify how the N boundary minimizers are selected before claiming a valid implementation or centroid-consistent bootstrap.",
+      "comparisons": {"D23": "Preserve independent covariate and residual resampling as stated, followed by the four-regime fitted response with beta-hat_k and gamma-hat^c, LSE refitting, averaging N boundary minimizers, and B repetitions. A product probability law can encode the chosen independence once genuine component laws are defined, but Step 1's Ftilde versus earlier F0tilde naming and the printed CDF orientation need resolution. The source supplies neither a law for the N minimizers nor an N asymptotic guaranteeing their average is a Lebesgue centroid; an arbitrary solver selection is not sufficient. The final empirical pairs are centered at the original estimates and scaled by T for gamma and sqrt(T) for beta. This model-based independent resampling is not a block bootstrap, and the generic constructors do not prove its consistency."}
+    },
+    {
+      "interface_id": "local-aa60b1286adca180c52a",
+      "related": ["MeasureTheory.Measure.map", "PMF.uniformOfFintype", "MeasureTheory.ProbabilityMeasure"],
+      "status": "composable",
+      "query": "Inspected measurable pushforward, uniform finite-index laws and ProbabilityMeasure evidence against the target and bootstrap joint-law definitions on source page 13.",
+      "result": "Theoretical estimator laws are pushforwards of the original experiment, and finite bootstrap empirical laws are pushforwards of a uniform replicate-index distribution.",
+      "gap": "Construct measurable estimator pairs in the stated coordinate order and distinguish the original target law from the random finite-replicate empirical law.",
+      "comparisons": {"D24": "L_T is the law of (T*(gammahat^c-gamma0),sqrt(T)*(betahat-beta0)); L_T,B gives equal mass to the B displayed centered bootstrap pairs in that same boundary-then-regression order. Use a uniform law on replicate indices to retain multiplicity and B>0. Measurability of the original minimizer/centroid selections is needed for the intended pushforward; Measure.map's fallback on a nonmeasurable map is not acceptable. The starred boundary entry is the finite-N average from Step 2, not automatically an exact centroid. The definition itself does not establish convergence in a weak-convergence metric as B,T grow."}
+    },
+    {
+      "interface_id": "local-cc13700d58900e95eb8d",
+      "related": ["Set.indicator", "innerSL", "IsCompact.exists_isMaxOn"],
+      "status": "composable",
+      "query": "Inspected the strict-sign indicator, real inner product and compact maximum theorem against both inequalities of (4.3), source page 9.",
+      "result": "Compactness and continuity give the absolute linear-form bound; the two binary cases recover the printed strict-positive versus nonpositive sign test.",
+      "gap": "Construct the attained data-dependent bound and prove the two binary sign cases, without inferring linear-program computability from compactness alone.",
+      "comparisons": {"D34": "For fixed Z_j,t maximize abs(Z_j,t-transpose gamma) over the nonempty compact Gamma_j. Then g=1 makes the lower inequality 0<q and the upper q<=M; g=0 gives -(M+epsilon)<q<=0, compatible with abs(q)<=M and epsilon>0. Thus the original strict lower and non-strict upper sides assign q=0 to g=0. Epsilon extends the negative bound, not a positive classification margin. The compact maximum theorem gives attainment but Gamma_j is not asserted polyhedral, so it does not justify the source's linear-program computation claim or a solver-tolerance replacement."}
+    },
+    {
+      "interface_id": "local-1f449b6583e98d62edd6",
+      "related": ["IsMinOn", "Set.indicator", "Matrix.mul_apply"],
+      "status": "partial_match",
+      "query": "Searched MIQP/mixed-integer quadratic and segmented-regression terms in pinned Mathlib; inspected generic minimizers and algebraic indicators against the full objective and every constraint in (4.6)–(4.7), source page 10.",
+      "result": "A feasible-set predicate and quadratic objective can represent the displayed optimization, but no verified specialized solver or complete source-equivalence theorem was found.",
+      "gap": "Encode every original constraint and prove objective equivalence on feasible solutions while retaining strict-boundary and nonpolyhedral-domain limitations.",
+      "comparisons": {"D16": "Use a tuple of beta,gamma,g,I,ell with beta in B, gamma in Gamma, binary g and I, coordinate bounds, the strict/non-strict sign inequalities, both pairs of coefficient-product bounds, and all upper/lower Boolean-conjunction inequalities. For binary I the product bounds force ell=I*beta, and the conjunction inequalities encode the two sign bits; retain all source indices and signs. IsMinOn must be combined with feasible membership and supplies neither existence nor an algorithm. B and Gamma are only compact, and strict inequalities are not ordinary closed MIQP constraints, so no efficient solver or tolerance-based reformulation follows. The separate strict signed-product display disagrees with nonpositive region boundaries at zero; keep that issue visible when relating the model to the original LS criterion. Theorem 4.1 states equality of minima for solutions, not a generic guarantee of unique, measurable or uniformly sampled minimizers."}
+    }
+  ]
+}

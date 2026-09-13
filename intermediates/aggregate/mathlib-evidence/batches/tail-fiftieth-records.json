@@ -1,0 +1,767 @@
+[
+  {
+    "interface_id": "local-ec80a11de7ebe3214767",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "285f2a9fc8c716a70a5965e5efdebd789d1309b756a4f2287cac090832d016b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D12",
+        "comparison": "P* conditions on the entire X_1,...,X_T array, not just a rolling window or past observations. Instantiate condDistrib with the auxiliary randomization or resulting statistic as Y and the full data as X, on a measurable finite-dimensional model. For almost every data realization, TendstoInDistribution can use the resulting sequence of conditional probability laws. TendstoInMeasure uses a fixed measure, so conditional probability convergence needs a common auxiliary space or an explicit sequence of conditional tail probabilities. Do not erase the almost-all-data quantifier or infer data-independent Gaussian randomization solely from the standalone iid statement.",
+        "statement_sha256": "35e811f406edf80ef97bca0d0c09b214924422739d1aef50454dc6a9ea9d4c08"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected condDistrib argument order and conditional-kernel scope, convergence-in-measure 57–59 and convergence-in-distribution 64–70; compared source page 10 and the almost-all-data qualifications in the archived theorem statements.",
+          "result": "Conditional kernels and probability/distribution convergence are available separately; the data-conditioned randomization experiment and its almost-everywhere asymptotic quantifiers must be assembled."
+        }
+      ],
+      "gap": "Construct the conditional randomization laws given the full observed data and formulate convergence for almost every data realization with the correct varying-sample setup."
+    }
+  },
+  {
+    "interface_id": "local-a5ed34fc183d243c67d8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "1a58684be2e5fe4b64717bfd8f39a5378b9f684223ebe3b6b954d57f33ef74b3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D2",
+        "comparison": "Form Ytilde_t=(1/p2) X_t Ctilde and average Ytilde_t Ytilde_t-transpose over t=1,...,m. A symmetric-operator eigenvector basis applied to M_r supplies leading vectors after selecting k2 or a chosen ktilde>=k2 within the ambient dimension; ties give a choice, not a unique projection or a demonstrated measurable selection. Multiply their matrix by sqrt(p2). The printed M_r uses all T observations and its first expression X_t-transpose X_t is p2-by-p2; its expanded row-product order is dimensionally ambiguous under the paper's row convention. Do not replace T by m, center the data, or claim a causal update rule. Nondegenerate dimensions and the source's separate zero-factor cases need explicit treatment.",
+        "statement_sha256": "513293e075b1d11cd676874265413a52907ff18f1cbfff3809f80ace7508b70b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected matrix multiplication entries, the decreasing-order symmetric eigenvector basis at Spectrum.lean 300–304, and real square root; compared projected covariance (2.4) and the full initial-estimator passage on source pages 6–7.",
+          "result": "Matrix products, finite averages and an ordered orthonormal eigenbasis provide the algebraic ingredients; the data-dependent projection estimator and its source ambiguities are not a pre-existing covariance API."
+        }
+      ],
+      "gap": "Assemble the uncentered projected second moment and chosen leading-eigenvector estimator while retaining the full-T source formula and row-product ambiguity."
+    }
+  },
+  {
+    "interface_id": "local-fcf6e27ce0b3537aed34",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "ce936fb2ae5e30085aa9c0d76d5f77ffe5548fabad44dc28f5cb6046623a577a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D3",
+        "comparison": "Average Ytilde_t Ytilde_t-transpose for exactly tau+1<=t<=m+tau and select the source's (k1+1)-st largest eigenvalue. eigenvalues₀ uses zero-based Fin positions, so the corresponding position is k1, requiring k1<p1. Its decreasing ordering is explicit, whereas the separately reindexed matrix eigenvalues function need not preserve an arbitrary matrix index order. Retain tau as monitoring time relative to training length m and T=m+Tm. Hermitianity follows from the real Gram products; positivity and finite-sample definition do not establish the supplementary spectral asymptotics.",
+        "statement_sha256": "83a4d78071433e4dbfb5e85d6a32d39f1788888a2386096fa7e760c9e9656779"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Matrix.IsHermitian.eigenvalues₀ 60–61 and its antitone lemma 63–64, together with the underlying sorted operator eigenvalues; compared the moving-window formula on source page 7.",
+          "result": "The Hermitian-matrix API returns eigenvalues in decreasing ordinal order with multiplicity, matching the desired spectral ordering after constructing the rolling second moment."
+        }
+      ],
+      "gap": "Build the rolling Hermitian second moment and select ordinal k1 with a proof that the source index k1+1 lies within p1."
+    }
+  },
+  {
+    "interface_id": "local-81bed2ca516ec696368e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "938076c13b3750681c082c6a2fadfbdbbd2f2c402a36fa81784f5e7c301bdd1b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D9",
+        "comparison": "The denominator is (1/p1) times the sum of all rolling eigenvalues, equal to the average trace after the spectral trace identity, not the trace alone. Apply g to p1^(-delta) times the monitored eigenvalue divided by this denominator. Preserve continuity, g tending to zero at zero and g tending to infinity at positive infinity, with the source's unspecified domain and no added monotonicity or nonnegative-range assumption. Delta and its sufficient piecewise rule are archived separately. Lean's totalized division at zero is not a source-supplied zero-trace convention.",
+        "statement_sha256": "a818669802cec49a2939be32c3a2c2a253c85d22d0c26f7997400fcffa191c7d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Matrix.trace 45–46, real-power semantics and generic limit predicates; compared transformation (3.15), delta context and the zero-trace source note on page 9.",
+          "result": "Trace, real scaling and limit predicates are available; the chosen continuous transformation and normalized spectral statistic require a paper-specific definition and domain treatment."
+        }
+      ],
+      "gap": "Specify the transformation's domain and the nonzero average-trace domain without inventing behavior at an undefined zero denominator."
+    }
+  },
+  {
+    "interface_id": "local-097ce5b3fc9a7f0d8f6a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "3631660ad968a286168504fd8174636152997e1bff5e1c93f8f884756222d049",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D10",
+        "comparison": "Use gaussianReal 0 1 for each z_tau, indexed independence and matching pushforward laws, then set y_tau=z_tau+psi_tau. Conditional on fixed data and an independently supplied Gaussian randomization, psi_tau is fixed and y_tau has a shifted Gaussian law, generally with different means across tau. The quoted sentence states iid z_tau but does not separately state independence from X; preserve this source distinction when specifying the conditional experiment. Vanishing null drift is asymptotic, so do not call finite-sample y_tau centered iid standard normal.",
+        "statement_sha256": "8a6dfcebafd06f657f27c09ca19ba653e053872bf7e48527f037dba641ca90f3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the verified gaussianReal, indexed independence and equal-law declarations; compared the exact randomized-sequence formula (3.16) and its conditional interpretation on pages 9–10.",
+          "result": "Standard Gaussian laws, indexed independence and common distributions express the auxiliary iid normals; adding the data-dependent drift is a direct construction."
+        }
+      ],
+      "gap": "Construct the auxiliary iid normals and data-dependent shifts, making any independence from the original data explicit in the conditional experiment."
+    }
+  },
+  {
+    "interface_id": "local-937159b62e1d787a3053",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "ef46812013cd7067fa7ea12d9da332d30859230c0d78b0a0eb7dfa312199354b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D4",
+        "comparison": "Use (1/p2+1/m+p1/sqrt(m*p2)) times ((log p1)^2*(log p2)*(log m))^(1+epsilon), with the whole log product under the final exponent. Positive integer dimensions are cast to reals; sufficiently large dimensions make the relevant logarithms positive and avoid interpreting generalized real-power conventions outside the source's intended regime. The rate slack epsilon>0 is not automatically the tuning epsilon in delta's separate rule.",
+        "statement_sha256": "63b20d6a96957bf06c7f18a9852aa17d2df5f66b52e16ca6f89200a5965571a2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected existing real sqrt/log/rpow declarations against source rate (1.3), page 6, including the archived magnified-root review.",
+          "result": "Real arithmetic and elementary functions directly express the deterministic three-parameter rate after casting dimensions and restricting to its asymptotic domain."
+        }
+      ],
+      "gap": "Define the rate with the exact square-root and logarithmic-product grouping and an explicit sufficiently-large positive parameter domain."
+    }
+  },
+  {
+    "interface_id": "local-106005a6e7b89e31c870",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "c1c23695e23763337f12540434c0e863f535c1d55f67188bab47f94bfa94a131",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D11",
+        "comparison": "Require Tm*g(p1^(-delta)*l_p1,p2,m) to tend to zero along the printed min(p1,Tm)->infinity regime. Keep m,p2 and delta as parameters or specified functions in that regime rather than assuming they are fixed or silently changing the limit to min(m,p1,p2). C2 ties Tm to m separately. This is a condition on g and growth rates; it does not follow just from continuity of g and g(0)=0, and no almost-sure big-O convention is substituted for it.",
+        "statement_sha256": "1da55205d89b882a5da5cfb755935b6c6bb078ef4d3a1cc09587a90f03ad5880"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Filter.Tendsto and real powers against condition (3.17), pages 9–10, and the distinct joint-limit conventions in the source notes.",
+          "result": "Generic filter convergence expresses the stated deterministic restriction once the parameter family and its growth filter are fixed."
+        }
+      ],
+      "gap": "Define the joint parameter filter and impose the exact horizon-weighted transformation limit with the source delta and rate sequence."
+    }
+  },
+  {
+    "interface_id": "local-17bbca4ad32f66e1688d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "d525219215a8f45eb0927a64702c0b6bf4dcb68794aaaaf542c8c5886fb32bb7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D5",
+        "comparison": "Use Submodule.span ℝ of the set of columns of R_t and require the same subspace for 1<=t<=m. R is called the row-factor loading matrix, but its column span is the relevant space. This is weaker than requiring the entries of R_t to be constant and concerns training, not automatically the monitoring null. Theorem 3 does not explicitly list C1, so the comparison must not add it to that theorem's printed premises.",
+        "statement_sha256": "8f8ba330f61f6e1ddb929a92a4c8ccfb1d751ea44eff1166cd77fb90690a36e7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Submodule.span 46–47 and compared Assumption C1 on page 7 with the source's row-factor/column-loading naming convention.",
+          "result": "The real span of matrix columns represents the loading space; constancy is an equality of these subspaces across training times."
+        }
+      ],
+      "gap": "Express training-period constancy of the column spans of the row-factor loading matrices without strengthening it to matrix equality."
+    }
+  },
+  {
+    "interface_id": "local-d2341615d0480c85384c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "e007bb19d5b1beb679a0966353a43760ad19f0d99d8211d6bbe261bbe8b00145",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D8",
+        "comparison": "Before and at calendar time m+t*, use R F_a,t C-transpose+E_t; afterwards use Rtilde F_t C-transpose+E_t with Rtilde=[R|R3] and the corresponding stacked factor rows. Matrix.fromCols uses a sum index that must be reindexed to the stated finite dimensions. Appending a block gives span inclusion but not strict enlargement without independence/rank conditions; those potentially contained in excluded B1-B4 are not invented. Keep C unchanged under the stated section convention and preserve this as a separate alternative from the fixed-count space change.",
+        "statement_sha256": "3993676702b34700a8064f306d924e168ec1a30a7056d3a5643f95f5b67c1887"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromCols",
+          "type": "{R : Type u} → {m : Type v} → {n₁ : Type w} → {n₂ : Type z} → Matrix m n₁ R → Matrix m n₂ R → Matrix m (n₁ ⊕ n₂) R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.ColumnRowPartitioned",
+          "provides": "Concatenates two matrices horizontally, using a sum type for their column indices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/ColumnRowPartitioned.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected horizontal matrix concatenation 39–40 and span/multiplication definitions; compared the additional-factor alternative (3.9) on page 8 and its dimension annotations.",
+          "result": "Block concatenation and matrix products express the enlarged loading model; genuine enlargement and monitoring asymptotics require further model assumptions."
+        }
+      ],
+      "gap": "Define the two regimes and appended loading/factor blocks, then separately state whatever rank conditions justify actual loading-space enlargement."
+    }
+  },
+  {
+    "interface_id": "local-467f1315b6d0b0de008c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "8f169196d41c97e85d9bf5c61e6a59bc7153177b65ebcd0b9ea6df507d905b4d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D7",
+        "comparison": "Represent R=[R0|R1] and Rtilde=[R0|R2], with R0 of width k1-c1 and R1,R2 of width c1, requiring c1<=k1 before identifying the sum-index width with k1. Use the old model through t=m+t* inclusive and the new one afterwards, with C fixed. Different blocks alone need not imply different column spans, so do not assert that implication or insert unprinted orthogonality/rank assumptions. The factor count remains fixed, unlike D8, and the break is not at calendar time t* alone.",
+        "statement_sha256": "fee1a7106faf513554abe29f57bcbd5b885e053be7b6ef112f75c18644a4d51b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromCols",
+          "type": "{R : Type u} → {m : Type v} → {n₁ : Type w} → {n₂ : Type z} → Matrix m n₁ R → Matrix m n₂ R → Matrix m (n₁ ⊕ n₂) R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.ColumnRowPartitioned",
+          "provides": "Concatenates two matrices horizontally, using a sum type for their column indices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/ColumnRowPartitioned.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected horizontal concatenation and column-span algebra; compared the complete fixed-count alternative (3.7), source page 8.",
+          "result": "The shared/changed block decomposition and piecewise matrix model can be expressed with existing operations; the statistical loading-space change is additional to mere block inequality."
+        }
+      ],
+      "gap": "Build the fixed-count two-regime model with shared columns and separately encode the intended subspace change and valid block dimensions."
+    }
+  },
+  {
+    "interface_id": "local-87aa35254d33949a1f49",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "8db03bdac13b4b9650d9960b37ecc76b50fde7e9f9db7abd257c7ad407badea8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D13",
+        "comparison": "Set S_tau to the sum of y_(j+1) for j in Finset.range tau, equivalently the sum from j=1 through tau. The inspected identity yields S_(tau+1)=S_tau+y_(tau+1) after this shift. No sample-mean subtraction, bridge correction or centering is present; the process contains the cumulative data-dependent drift from y.",
+        "statement_sha256": "5eb435f31d663e98eb1796a26c8ec440cb57856bd580373368070ce44084ba71"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the finite-sum successor identity and compared partial-sum definition (3.18), source page 10.",
+          "result": "Finite sums implement the uncentered cumulative process and its one-step recursion after shifting the source's one-based index."
+        }
+      ],
+      "gap": "Define the one-based partial sum of the randomized observations and relate it to the finite-range sum convention."
+    }
+  },
+  {
+    "interface_id": "local-b4abdb19ea89423999ec",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "bc144de713d1f4a8d6d15758f7c878aec844015e84c822ef6e2ba5f3c556371b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D16",
+        "comparison": "For eta>1/2 take the maximum of abs(S_tau)/tau^eta over r_Tm<=tau<=Tm and multiply by r_Tm^(eta-1/2). The two source conditions r_Tm->infinity and r_Tm/Tm->0 ensure an eventually positive, nonempty trimming interval; an integer trimming sequence or explicit treatment of integer bounds is needed. Finset.max' requires nonemptiness, so do not totalize an empty early interval without a convention. The prefactor uses r_Tm, not Tm, and no untrimmed eta>1/2 statistic is substituted.",
+        "statement_sha256": "0ea94f19e340e7e5c9b3c2605c32d21f468be0b7ea55985a7c7bb11e93d25f7d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected nonempty finite maximum and real powers; compared the Renyi statistic and both trimming limits in (3.21), source page 10.",
+          "result": "The trimmed finite maximum and its real-power normalization are composable; the diverging but negligible trimming sequence is an explicit additional condition."
+        }
+      ],
+      "gap": "Construct the nonempty trimmed monitoring interval and impose both trimming limits with the r_Tm-based normalization."
+    }
+  },
+  {
+    "interface_id": "local-74b24d8998be2e500248",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "f57ee276b6746de70baf19f5cc0efb0b29a6bf07a54cb4f46c0296f00dade72f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D15",
+        "comparison": "For positive Tm maximize abs(S_tau)/(tau:ℝ)^(1/2) over tau=1,...,Tm; tau=0 is excluded. Finset.max' applies to the finite image of these values once nonempty. The source definition has no extra Tm prefactor. Its theorem-specific alpha_Tm,beta_Tm normalization is the iterated-log pair, not the a_Tm,b_Tm pair used for maxima of individual y_tau.",
+        "statement_sha256": "601cb99f9e1eca87fa4d3d4db74804b6f91d629da313d0fb6e6b7023312dfc2e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.max' and real-power definitions against standardized partial sums (3.20), source page 10, and the separately archived iterated-log normalizers.",
+          "result": "A nonempty finite image maximum expresses the eta=1/2 statistic with its exact absolute-value and time-weight placement."
+        }
+      ],
+      "gap": "Define the positive-time finite maximum and keep its later iterated-log normalization separate from the statistic itself."
+    }
+  },
+  {
+    "interface_id": "local-ccc4bc9748e64040e66a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "0fc9f297755cb4a86c6ac4a483b5601acf65c50e55a652fce166b53f005fa007",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D14",
+        "comparison": "Maximize abs(S_tau)/tau^eta on the positive integer interval 1,...,Tm and multiply by Tm^(eta-1/2). Finset.max' requires Tm>=1, and positive real-cast times avoid division-by-zero or negative-base power conventions. Keep the strict upper bound eta<1/2; eta=1/2 and the trimmed eta>1/2 construction are separate definitions. The finite formula alone does not supply the conditional Wiener-process limit or its time-zero supremum convention.",
+        "statement_sha256": "f433beeea1d5bddcdc6d853be4b7ddaf18706a99483d455ff02a3ca442d37f46"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.max' and real powers against weighted functional (3.19), source page 10.",
+          "result": "The finite maximum and monitoring-horizon normalization can be directly assembled on positive integer times for the stated exponent range."
+        }
+      ],
+      "gap": "Define the weighted partial-sum maximum with 0<=eta<1/2 and the exact Tm^(eta-1/2) prefactor."
+    }
+  },
+  {
+    "interface_id": "local-af662fb385fca56013dd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "454f74f145a19e850865d2a7175582eabc777f81bc8ad18b7f0d6edbeedc7008",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D18",
+        "comparison": "Set b_Tm=sqrt(2 log Tm)-(log(log Tm)+log(4*pi))/(2*sqrt(2 log Tm)) and a_Tm=b_Tm/(1+b_Tm^2). The theorem normalizes as (Z_Tm-b_Tm)/a_Tm. Restrict to sufficiently large Tm for the intended logs, roots and positive scale; Lean's totalized log/sqrt/division conventions do not justify an early-horizon extension. These are different from the iterated-log alpha,beta normalizers for standardized partial sums.",
+        "statement_sha256": "785d5be164b61f01996a2bf36a0fda301324afd31550baf9d88f2245c3a82880"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real logarithm and square-root definitions against the complete raw-maximum norming formulas on source page 13.",
+          "result": "Elementary real functions express both sequences on a sufficiently large horizon; no extreme-value convergence theorem is supplied by these arithmetic definitions."
+        }
+      ],
+      "gap": "Define the raw-maximum center and scale on a sufficiently large horizon and retain their roles in (Z-b)/a."
+    }
+  },
+  {
+    "interface_id": "local-88b3b58887673fa82c85",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:46:03.339440+00:00",
+    "source_interface_sha256": "204663cd5d2dd73d688bfb13de4a18df9ce040cc2cae71f1acbdceda513d2626",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D17",
+        "comparison": "Use Finset.max' on the finite image of y_tau for tau=1,...,Tm with Tm>=1. This is a one-sided maximum without absolute values and without partial sums. The surrounding iid-Gaussian null description is heuristic: y_tau includes psi_tau, so the formula does not give exact centered iid Gaussian observations at finite sample. Conditional Gumbel asymptotics require the separate theorem premises and are not consequences of the maximum constructor.",
+        "statement_sha256": "932cbfe373c524fce6a39b8489a4b4b0e6b262819c5d69bd8dd747c0b030eaa2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.max' 135–136 and compared the exact worst-case statistic (3.31), source page 13.",
+          "result": "The finite maximum of the individual randomized observations is directly expressible for a positive monitoring horizon."
+        }
+      ],
+      "gap": "Define the nonempty one-sided maximum of y_tau while preserving the finite-sample data-dependent drift."
+    }
+  }
+]

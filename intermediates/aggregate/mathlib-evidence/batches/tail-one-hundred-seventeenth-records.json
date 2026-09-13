@@ -1,0 +1,320 @@
+[
+  {
+    "interface_id": "local-cc266ac9d6987480584a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:03:58.283099+00:00",
+    "source_interface_sha256": "486fd7d162e91ac2b95c3362b67fcccf6a68f59d6ccd168d64455fcb9c0e7e9a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D9",
+        "comparison": "For i!=ell, average over j distinct from both using 1/(p-2). The first term is E phi_(ell,j),1 times E phi_(i,j),0 divided by mu_ell,1; the second switches 0/1 and divides by mu_ell,2, with a PLUS sign. These are products of separate population expectations, not empirical products or conditional bootstrap expectations. The true triangle moments must be nonzero and p>=3. The phi values may be signed on individual sanitized observations; their moment identities depend on the actual graph and fresh-noise release model.",
+        "statement_sha256": "bdda837aaf9de8e97e710c502a11bfc5b7f67d5f3baf42a25352dbc8e6839f58"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D10",
+        "comparison": "b_ell=(p-1)^-1 sum_i!=ell lambda_i,ell^2 Var(Z_i,ell). b-tilde_ell uses 1/(2N), N=(p-1)(p-2), times ((mu1+mu2)/(mu1 mu2))^2 and the sum over ORDERED distinct i,j avoiding ell of Var(Z_i,ell) Var(Z_ell,j) Var(Z_i,j). N is twice the unordered triangle-pair count |H_ell|, not the total edge count. Preserve both the 1/(2N) factor and the ordered summation; silently changing one changes the coefficient. Variances are those of the sanitized binary edge law, not the latent X law. Finite Bernoulli moments justify real variance, but generic variance primitives do not prove this particular asymptotic expansion.",
+        "statement_sha256": "d0f553e0fb3f658630de2362e08349c91ae4a303e2f8a1ae2124c532e6e212db"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D11",
+        "comparison": "nu_ell=(p-2)b_ell+b-tilde_ell combines the distinct linear and cubic population contributions. It is not a sample variance estimate and not merely one dominant contribution selected by an asymptotic phase. Any inverse-square-root normalization needs actual positivity; totalized square root or variance cannot resolve degenerate excluded cases. Theorem-specific phase limits and the number of selected coordinates are separate from this deterministic population definition.",
+        "statement_sha256": "2ca84ef98473f1235c279a2aca065ef15b03677a829d60d31d0e64736baf0dc7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched jittered beta-model variance expansions; inspected finite expectation/variance and index filtering against lambda, b, b-tilde and nu formulas.",
+          "result": "All population coefficients and variance contributions can be constructed from the graph-release law, but the source-specific variance expansion is not supplied by generic moments."
+        }
+      ],
+      "gap": "Construct the population lambda coefficients and both variance contributions with their exact ordered-pair normalization, then combine them as nu=(p-2)b+b-tilde."
+    }
+  },
+  {
+    "interface_id": "local-e0b94ccbaf921616bbdf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:03:58.283099+00:00",
+    "source_interface_sha256": "34c630e2e00e57fb56e87ad63c69080f6a69b236b8745f6c495cedca527e5590",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D13",
+        "comparison": "For tau in {0,1}, phi_tau-dagger(x)=[x-delta-alpha(1-2delta)]^tau [1-delta-beta(1-2delta)-x]^(1-tau). Equivalently the effective false-positive and false-negative parameters are delta+alpha(1-2delta) and delta+beta(1-2delta), as follows by composing the specified fresh release kernels. The tau powers select one signed affine factor, including the usual exponent-zero convention. The source says release noises are independent but does not separately state independence from the incoming graph; that fresh-kernel interpretation is needed for the composition identity and is recorded explicitly. It is not a bootstrap resampling of nodes or empirical residuals.",
+        "statement_sha256": "4260e1b60d989973d30a9349a674ec5227ebd7cbbcf2ba782ddf72f12113cfd8"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D14",
+        "comparison": "Average the three dagger factors over H_ell={(i,j):i,j!=ell,i<j}, using edge types (1,0,1) for mu1-hat-dagger and (0,1,0) for mu2-hat-dagger. Then theta-hat-ell-dagger is one-half log of their ratio. This uses unordered triangle pairs, unlike ordered pairs in the cubic variance contribution. p>=3 and a positive defined ratio are required for the ordinary logarithm; the finite signed sample moments need not supply that domain on every outcome. Real.log extends through absolute value for negative arguments and assigns zero at zero, so those library values cannot silently fill the missing estimator convention. Theorem 2 centers at original theta and uses unconditional population scaling, not a conditional bootstrap law centered at theta-hat.",
+        "statement_sha256": "b7b95ba5800266f3cbcdb963eb81fbb1bd8c91a12cb9e23be2a2a8ffdd46df04"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected composition of release kernels, triangle index filtering and the real logarithm domain; compared the twice-jittered score functions and empirical log-ratio estimator.",
+          "result": "The second release and empirical triangle formulas can be represented, but the source does not define the estimator on nonpositive or undefined empirical ratios."
+        }
+      ],
+      "gap": "Construct the twice-jittered triangle estimator with its effective flip parameters and a specified valid logarithm domain, preserving its population-theta centering."
+    }
+  },
+  {
+    "interface_id": "local-c62d239b20d82c0167ad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:03:58.283099+00:00",
+    "source_interface_sha256": "4f84e25fdcd395a16c660e75cbcddec9b97a52137772cf2951945ba6bb489a02",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D15",
+        "comparison": "mu_ell,1-dagger and mu_ell,2-dagger are averages of EXPECTATIONS of dagger triangle products over H_ell, not averages conditional on the observed sanitized graph. lambda_i,ell-dagger uses 1/(p-2) times the sum over j!=i,ell of products of separate dagger-factor expectations divided by the appropriate dagger population moments. The law integrates latent graph, first release and second fresh release. Generic kernel composition supplies that experiment once independence/measurability is specified, but does not itself prove moment identities or nonzero denominators. The references to (3.6),(3.7),(3.11) establish analogous formulas, not equality to undaggered values or a proof dependency on their variance expansion.",
+        "statement_sha256": "5c624b5553a137a8b2a356a79ee3e519dc0f1c35768a6f4c12c0f2abffc4078b"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D16",
+        "comparison": "nu_ell-dagger=(p-2)b_ell-dagger+b-tilde_ell-dagger, with b using squared dagger lambda and Var(Z_i,ell-dagger), and b-tilde using the same 1/(2N), ordered pair sum and squared ratio of dagger moments as the original construction. All edge variances are UNCONDITIONAL under the twice-jittered network, not Var(Z-dagger|Z). Positivity for inverse scaling needs the intended interior model domains and p>=3. This population scale differs from the later Monte Carlo or plug-in variance estimate; the assertion of an asymptotic analogue is not proved merely by naming the moments.",
+        "statement_sha256": "6f794348e06319510a579a829562f7d7d8f704c19e502921467e44caa9114704"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected release-kernel composition and population moments, comparing every dagger analogue with its sample and original counterparts.",
+          "result": "The twice-jittered population coefficients and variance scale can be constructed under the complete joint law, but they are not empirical conditional bootstrap variance estimates."
+        }
+      ],
+      "gap": "Construct the unconditional dagger triangle moments, lambda coefficients and combined variance scale with their original index and normalization conventions."
+    }
+  },
+  {
+    "interface_id": "local-bc95161e37270f531277",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:03:58.283099+00:00",
+    "source_interface_sha256": "4c347d41b8ce0877e7bb68fcb134379a79add32962f8cd23bb3612fa162cc394",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D19",
+        "comparison": "a_p is a positive stochastic sequence and c_p a positive deterministic sequence. For a chosen fixed epsilon>0, O_p(p^epsilon c_p) means the normalized positive variables are bounded in probability: for each probability tolerance there is a finite bound valid eventually in p. Measure.real on a probability law expresses those tail probabilities and permits indexed laws if the sample spaces vary. Deterministic Asymptotics.IsBigO is not stochastic order. The source says SOME sufficiently small fixed epsilon, not every epsilon, and gives no numeric smallness threshold here. The hidden factor is polynomial p^epsilon and may be much larger than any logarithmic factor; the usual soft-O interpretation is not substituted.",
+        "statement_sha256": "1e13c7b49bfe0450fd7ea9dfed10ec0bcd397644b85275188c42d4a44144122b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched stochastic order and bounded-in-probability interfaces; inspected probability-valued event measures and compared the source's tilde-O_p quantifier with standard deterministic big-O.",
+          "result": "The bounded-in-probability tail condition can be expressed using event probabilities, but the paper-specific small-polynomial convention needs explicit quantifiers."
+        }
+      ],
+      "gap": "Define tilde-O_p as O_p(p^epsilon c_p) for some sufficiently small fixed positive epsilon, preserving the source's unspecified smallness threshold."
+    }
+  },
+  {
+    "interface_id": "local-5907cb5763a84d3fcd81",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:03:58.283099+00:00",
+    "source_interface_sha256": "d3e4ea1788b9f90f5d22d15e3baf3803d9e2621eeca99a5d81a9cd0110b9e13e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D17",
+        "comparison": "For i!=j the edge probability is exp(xi+check-theta_i+check-theta_j)/(1+exp(xi+check-theta_i+check-theta_j)), which lies strictly between zero and one for real finite parameters. The undirected beta-model uses independent upper-triangular edges with symmetric copying, not independent copies of both orientations. check-theta is NONNEGATIVE with minimum zero and support S of size s=o(p); positive-only coordinates would contradict that minimum. For active ell, xi=-omega1 log p+xi-plus and check-theta_ell=omega2 log p+check-theta_ell-plus, where omega1 in [0,2), omega2 in [0,1), 0<=omega1-omega2<1 and the absolute residuals are o(log p). Signed residuals are allowed. Empty S is not excluded but leaves the displayed maximum without a convention. theta_ell=xi/2+check-theta_ell applies also to inactive nodes; the later source norm assertion omitting their xi/2 terms is not imported. Theorem 4 imposes further omega restrictions separately.",
+        "statement_sha256": "9855a0d91ca0d347ffaa847e171615b26b9d0aa502c6fc403bdb21e9f84b7a79"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0708",
+        "local_id": "D18",
+        "comparison": "xi-hat=(2/p) sum_ell theta-hat_ell and check-theta-hat_ell=theta-hat_ell-xi-hat/2. At the population parameter, twice the mean theta is xi+(2/p)sum_ell check-theta_ell, so this is not an exact inverse of the sparse normalization min check-theta=0. Sparse-rate assumptions must control that contamination bias; s=o(p) alone does not bound arbitrarily growing active effects. These estimates are unthresholded, can be negative and need not have support S; no support recovery or projection to the nonnegative cone is part of the formula. They inherit the original log-ratio estimator's finite-sample domain issue. Theorem 4's printed equality chain between different random errors remains a source qualification rather than an algebraic identity of these estimators.",
+        "statement_sha256": "7172cd9e7cc92d4b86d3f56fb001740bd6b73e434f10a1416ac5a9530924d734"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched sparse beta-models and inspected Bernoulli/exponential probabilities, support counts and deterministic little-o; compared the logarithmic reparametrization with unthresholded mean-based estimates.",
+          "result": "The sparse logistic graph model and algebraic estimates are expressible, but their domain, identifiability and sparse-rate assertions need the source-specific hypotheses."
+        }
+      ],
+      "gap": "Construct the nonnegative sparse-effect model and its logarithmic sequences, then retain the unthresholded mean-based estimates and their nonzero population centering bias."
+    }
+  }
+]

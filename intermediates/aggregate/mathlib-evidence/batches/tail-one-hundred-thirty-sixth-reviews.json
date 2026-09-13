@@ -1,0 +1,53 @@
+{
+  "scope": "Manual review of the six remaining p1873 centered-block, replacement-moment and cutoff interfaces, preserving the frozen source's rank, normalization and contour conventions.",
+  "rows": [
+    {
+      "interface_id": "local-1724f2492616d0139fb7",
+      "related": ["Finset.sum_apply", "Finset.sum_div"],
+      "query": "Inspected finite function sums and normalization; compared frozen centered matrices with the raw observation-column and block definitions in A1-A2.",
+      "result": "Columnwise subtraction of the full or block sample mean uses standard finite averages, but introduces shared dependence and a centered rank constraint.",
+      "gap": "Construct the centered observation matrices with denominator N and consistent block indexing, preserving the source's i-versus-t label mismatch.",
+      "comparisons": {"D2": "For positive N, subtract ybar=N^-1 sum_i y(i) from every column of the p by N matrix, and ybar_t=N^-1 sum_i y_t(i) from every column of block t. The source labels the latter Y_hat_i while its entries/range use t; retain the typo rather than selecting a different block. These are sample means, not known population means, and centered columns sum to zero, constraining each block rank to at most N-1; raw iid columns do not remain independent after this common centering."}
+    },
+    {
+      "interface_id": "local-d76a66be2d018fbac933",
+      "related": ["Matrix.blockDiagonal'", "CFC.rpow", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected dependent-size block diagonal assembly, positive operator powers and nonsingular inverse cancellation; compared frozen unknown-mean correlation matrix and centered-rank caveat.",
+      "result": "Block inverse square roots and a two-sided Gram normalization are supported as ingredients, but centered-block invertibility is not guaranteed on every sample.",
+      "gap": "Construct the centered block correlation matrix with valid inverse square roots of all block Gram matrices and preserve its N-1 rank restriction.",
+      "comparisons": {"D3": "Use D=blockDiagonal' of (Y_hat_t Y_hat_t^T)^(-1/2), with dependent block dimensions p_t, then B_hat=D Y_hat Y_hat^T D. CFC.rpow supplies a candidate inverse half-power only on the appropriate positive spectral domain; no pseudoinverse or singular-sample zero convention is stated by the paper. Block row rank cannot exceed N-1 after centering, so the domain differs from raw B, and the matrix is p by p rather than the N by N sum-of-projections representation. Equal nonzero spectra do not equate all linear spectral statistics without tracking different zero multiplicities."}
+    },
+    {
+      "interface_id": "local-d46399667f15c3b16f51",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "MeasureTheory.MemLp", "ProbabilityTheory.cdf"],
+      "query": "Inspected iid-family/law predicates, MemLp and CDF; searched continuous-law/NoAtoms conventions and compared the replacement clause with the isolated A8 inherited bullets.",
+      "result": "The weaker moment regime can be stated with genuine 4+delta moments and continuous marginal laws; it replaces rather than supplements the earlier all-orders bound.",
+      "gap": "Bundle the retained iid-column and normalized-moment premises with continuous entry laws and a common 4+delta moment bound, excluding the replaced all-moment assumption.",
+      "comparisons": {"D15": "Retain iid columns, entry independence under H0, E X_ab=0 and E |X_ab|^2=1/N, then replace the third bullet by continuous entry distributions and E |sqrt(N) X_ab|^(4+delta)<C uniformly in N,a,b for some delta>0. MemLp at 4+delta supplies finiteness but not a common bound; continuity of each real-law CDF represents absence of atoms, without asserting a density or Gaussianity unless 'continuous' is further specified. Entry laws need not all coincide across rows, and no moments of every order are retained from D13."}
+    },
+    {
+      "interface_id": "local-2f1616208379278cd563",
+      "related": ["ContDiffOn", "iteratedFDeriv", "Matrix.trace", "Matrix.mul_nonsing_inv", "MeasureTheory.integral"],
+      "query": "Inspected smoothness, iterated derivatives, trace, matrix inverse and integral definitions; compared frozen (22)-(23) with the global normalized-trace and weighted-expectation conventions.",
+      "result": "A smooth cutoff product and its weighted expectation are expressible, but source-specific thresholds, derivative bounds and inverse domains must be supplied; this is not conditional expectation.",
+      "gap": "Construct the N-dependent smooth cutoff and weighted expectation with the exact normalized traces, finite-moment obligations and a stated domain for inverse Gram matrices.",
+      "comparisons": {"D18": "Use a smooth real cutoff equal to one below N^K and zero above 2 N^K with the stated O(1) bounds for every positive derivative order, preserving sufficiently large fixed K. Form Xi as the product across blocks of cutoffs applied to the normalized trace of the inverse Gram and of the Gram, with lower-case tr=N^-1 Tr even for p_t by p_t matrices. The inverse-Gram reading follows the stated goal of controlling its operator norm and must not become the reciprocal of its trace. E^chi(xi)=E[xi*Xi] is unnormalized; there is no division by E Xi or conditioning event, and the printed definition does not add an explicit 0<=chi<=1 constraint. ContDiffOn on univ represents smoothness but not those quantitative derivative bounds; singular Gram samples and integrability remain unresolved rather than hidden by totalized inverses/integrals."}
+    },
+    {
+      "interface_id": "local-5c467db2a98e69c4cf18",
+      "related": ["Matrix.blockDiagonal'", "CFC.rpow", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected blockDiagonal', operator rpow and inverse cancellation; compared the frozen zero-population-mean matrix with its centered variant.",
+      "result": "The uncentered block-whitened Gram matrix uses the same algebraic ingredients as the centered variant but has distinct inputs and rank constraints.",
+      "gap": "Assemble the raw block correlation matrix with positive-definite block Gram inverse square roots and explicit treatment of the source's unprovided singular-sample domain.",
+      "comparisons": {"D20": "With known population mu=0, define D from (Y_t Y_t^T)^(-1/2) and B=D Y Y^T D using raw Y columns, without subtracting sample means. blockDiagonal' handles different p_t sizes; the two-sided factor is an inverse square root rather than an ordinary inverse and no extra 1/N appears outside this displayed normalization. Full block row rank gives positive Gram matrices after proof, while the all-moment assumption allows discrete samples and only high-probability invertibility is discussed. Do not import the centered rank N-1 substitution or identify B's zero spectrum with the N by N H matrix."}
+    },
+    {
+      "interface_id": "local-95a78003b3dd6b29b91f",
+      "related": ["Set.indicator", "Real.rpow"],
+      "query": "Inspected set indicators and real powers and compared the frozen clipped-contour definition with the recorded source contour superscript and endpoint issues.",
+      "result": "A threshold predicate selects the retained contour pieces, but a set intersection alone does not construct the oriented integration paths or repair the source contours.",
+      "gap": "Restrict the four source contours to the closed imaginary-part threshold and specify their inherited oriented pieces while retaining the unresolved original contour definitions.",
+      "comparisons": {"D17": "For each gamma_1^0,gamma_2^0,gamma_1,gamma_2 retain z with absolute imaginary part at least N^(-K), using a large fixed K and positive N. A set indicator can select these pieces; the bar here means near-real-axis removal, not the complex conjugation denoted by a bar over C earlier. Truncation may produce disconnected open-ended path pieces even though the threshold predicate is closed, so contour integration needs parameterizations/orientations. The gamma-versus-gamma^0 right-hand-side discrepancy and C7/C3 endpoint mismatch in the original source remain dependencies rather than being repaired by this selection."}
+    }
+  ]
+}

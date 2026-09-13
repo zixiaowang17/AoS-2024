@@ -1,0 +1,200 @@
+[
+  {
+    "interface_id": "local-6964cf81f7d9266d1841",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:12:57.887525+00:00",
+    "source_interface_sha256": "c723739a39f4ffc040a73f18c0053bb8e9b78db495e2a76490ca012e35d1d7a4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0580",
+        "local_id": "D11",
+        "comparison": "Z is the LOCATION attaining the maximum of W(t)-t^2 over all real t, not the maximum value or the argmax of a differently scaled drift. IsBrownianReal is indexed by nonnegative real time; a two-sided standard process needs compatible independent positive and negative Brownian halves joined at zero, not the same path reflected on both sides. IsMaxOn describes a maximizing point but gives no global attainment on the noncompact real line, a.s. uniqueness or measurable selection. Those require Brownian growth and argmax results beyond the inspected primitives. Measure.map gives the law only for an a.e.-measurable location map; its fallback must not hide a failed selection. The source's approximately 0.26 variance is a quoted property of this normalization and is not certified numerically by these declarations. Library Chernoff exponential tail bounds concern a different object.",
+        "statement_sha256": "f19db8ec9455151826833019df2ec7b856c27e108c24691a23ac4f4e5c3bd2b2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Chernoff distribution and two-sided Brownian motion; inspected the nonnegative-time Brownian predicate, maximum predicate and measurable-law pushforward, distinguishing Chernoff tail bounds.",
+          "result": "Brownian and argmax ingredients exist, but the two-sided process, almost-sure unique maximizing location and its law require a specialized construction and proof."
+        }
+      ],
+      "gap": "Construct the location law of argmax over real t of W(t)-t^2 for standard two-sided Brownian motion, proving attainment, uniqueness and measurability with that exact normalization."
+    }
+  },
+  {
+    "interface_id": "local-664ea26e3c3796f542b5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:12:57.887525+00:00",
+    "source_interface_sha256": "b06814541a28aa9dd3a5c8e1c03f188dc886195efa7278f5f3ab219877e3600d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0580",
+        "local_id": "D4",
+        "comparison": "A procedure maps the p-value vector to a subset of [m]. For a nonempty set use the maximum of lfdr(p_i); for an empty set use the source's explicit zero, then average over the full two-groups experiment. Finset.max' requires the nonempty branch witness. Measurable rejection decisions and a measurable lfdr version valued in [0,1] make the resulting bounded random variable integrable; the density-ratio formula alone leaves zero-density point versions unspecified. This is an EXPECTATION, not the realized maximum, expected rejection proportion or ordinary FDR. Monotone lfdr permits the later largest-rejected-p-value characterization but is not required to define this maximum risk. The empty branch must not evaluate a nonexistent order-zero label.",
+        "statement_sha256": "2b26ccc22d1883e9ce82729dcf51b4fa4b826b9bd7e873d9767be94b5d74205b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched maximum local false-discovery risk; inspected nonempty finite maxima and expectation, comparing the explicit empty-set case with ordinary FDR.",
+          "result": "A case-defined finite maximum followed by expectation implements this risk for a measurable rejection procedure and a valid conditional-probability version."
+        }
+      ],
+      "gap": "Construct the expected maximum lfdr over the random rejection set, explicitly returning zero for an empty set and retaining the conditional-probability version requirements."
+    }
+  },
+  {
+    "interface_id": "local-1439e1fdfa63661e92d1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:12:57.887525+00:00",
+    "source_interface_sha256": "d0ab5d7a3ff5476f39921eb9173efa21b917a13ebdf31e874444a949c95a99d7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0580",
+        "local_id": "D8",
+        "comparison": "pi0-hat^lambda=(1+card{i:p_i>lambda})/((1-lambda)m), with fixed lambda in (0,1). Preserve the STRICT comparison and the numerator's plus one. For m>0 the denominator is positive, so the estimate is strictly positive but can exceed one; it is not truncated to [0,1]. Real casts of the finite count and sample size implement the formula. This is the particular estimator used by the finite-sample constrained procedure, whereas Theorem 6 permits an arbitrary estimator subject to its own one-sided condition. Neither that theorem's hypotheses nor a consistency assertion are part of this finite formula.",
+        "statement_sha256": "1ea4d995642183cbcafb72f775daf8837fbe7c04d4fdd86138362dafc4044427"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite threshold counting and compared the plus-one null-proportion estimator with clipping and the later arbitrary-estimator asymptotic theorem.",
+          "result": "The finite count formula is directly constructible for positive sample size and a cutoff strictly inside the unit interval."
+        }
+      ],
+      "gap": "Assemble the plus-one strict-upper-tail count divided by (1-lambda)m without clipping its value at one."
+    }
+  },
+  {
+    "interface_id": "local-b407cbf336736e0f47e1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:12:57.887525+00:00",
+    "source_interface_sha256": "9ff3f06b3f307eb72a6d040c0d01be38ee326bcc4273cc40391180d6190f3de6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0580",
+        "local_id": "D9",
+        "comparison": "Use p_(0)=0 and feasible indices 0<=k<=m satisfying p_(k)<=lambda, despite prose saying below lambda. Minimize pi0-hat^lambda p_(k)-ell k/m, then choose the LAST minimizer as specified in the standing procedure. k=0 makes the finite feasible set nonempty for lambda>0, so the minimum is attained for finite valid objectives; IsMinOn still needs feasible membership, and Finset.max' selects the largest index among minimizers. Reject all i with p_i<=p_(R_ell^lambda), retaining the original threshold and its treatment of ties rather than inventing a strict rejection inequality. The plus-one estimator is positive for m>0, allowing algebraic rescaling of the objective, but the cutoff restriction remains: this is not automatically the unconstrained SL procedure at ell/pi0-hat. Empty-rejection and zero-p-value interpretations follow the source model/conventions, not a silently altered set.",
+        "statement_sha256": "4b8c81b65e82c803bcf6ae5fdff97a943fd5af322798ca687bf828dce19a2ded"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite feasible-index filtering, minimum and last-minimizer selection; compared the constrained rule with the ordinary estimated-level procedure and source tie convention.",
+          "result": "The finite constrained minimum and largest minimizing index can be constructed with the source order-statistic conventions, preserving the weak cutoff and rejection threshold."
+        }
+      ],
+      "gap": "Construct the largest minimizing index among k=0,...,m with p_(k)<=lambda, using the exact estimated-proportion objective and source rejection-set rule."
+    }
+  }
+]

@@ -1,0 +1,443 @@
+[
+  {
+    "interface_id": "local-6d038aafe5e73fe1f431",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "1af6b1af2f66eb586b363da9312906a4ee5d5b53e22f283844e2113f0edf087c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D1",
+        "comparison": "The kernel's output at each dataset must be a probability measure. Quantify over measurable output U and dataset pairs differing in the entire contents of one fixed local machine; the ordered-pair quantification supplies both directions. The additive delta is an eventwise scalar slack, not a multiple of an unspecified measure. This is trusted-curator output privacy, not record-level adjacency or protection from the server receiving the local messages.",
+        "statement_sha256": "b0258dfa5312e4c1718e88d413a84b1d6d16c12f738b4371e4b7cda53ea7775e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i differential.*priv in pinned probability and analysis; inspect Kernel and IsMarkovKernel bodies",
+          "result": "A Markov kernel represents each dataset's randomized output law; no distributed-group privacy predicate was found by this search."
+        }
+      ],
+      "gap": "Distributed group privacy requires defining whole-machine adjacency and imposing the displayed eventwise inequality on a Markov kernel for every adjacent dataset pair."
+    }
+  },
+  {
+    "interface_id": "local-ca711d3ca080d95391c3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "676ff95f4ee5da6a8a31309b1e9436d461f77406131e5e6d477991759767d8c9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D16",
+        "comparison": "Sigma is E[XX^T] in the source context, not centered covariance; spectral bounds rho<=lambda_min<=lambda_max<=rho^-1 imply positive definiteness when feasible. The supremum covers all Euclidean unit projections with constants eta1,C1, and z=Y-X^T theta has its own eta2,C2 and independence from X. Neither X nor z is explicitly mean zero. HasSubgaussianMGF bounds E exp(tZ) by exp(c t^2/2) for every real t, whereas the source bounds E exp(eta |Z|^2); equivalence needs centering and constants, and ordinary integrals need finiteness rather than fallback zeros.",
+        "statement_sha256": "c1d6efa5d4191e457f64f64aef915ea267651ee7ed983ec1a060abb02ce804d7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.HasSubgaussianMGF",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → ℝ≥0 → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Moments.SubGaussian",
+          "provides": "Sub-Gaussian MGF predicate requiring integrability and the exp(c*t²/2) bound for every real t; it implies centering on a probability space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/SubGaussian.lean#L606-L608",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct covarianceOperator_apply and HasSubgaussianMGF defining body; frozen equation 17 and centering note",
+          "result": "The operator matches uncentered second moments under L2 assumptions, while the MGF predicate is a different centered exponential condition from the paper's squared-exponential moment bound."
+        }
+      ],
+      "gap": "The class requires assembling its spectral and squared-exponential moment bounds and noise independence, without adding centering or treating HasSubgaussianMGF as the same predicate."
+    }
+  },
+  {
+    "interface_id": "local-9d371cbd31592bbc0267",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "524fd72a2724f2c3be9baf79993f2e57ff4f6c00ca519fa5ddc889ca9a8fc194",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D12",
+        "comparison": "Center each coordinate at theta_l and impose its third absolute moment bound, equivalently the maximum over finitely many coordinates. MemLp alone gives only finiteness; lpNorm^3<=C supplies the numerical bound after the L3 identity is established. Include E[X]=theta and measurability, use finite real C>0, and do not infer independent coordinates, bounded observations, or positive variances. lpNorm's zero on infinite/nonmeasurable cases must be excluded by MemLp.",
+        "statement_sha256": "b79d1b4ba59b630167bf920a978f5ed9b33aefb87a510c47dfa40cccb54a83fc"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lpNorm",
+          "type": "{α : Type u} → {E : Type v} → {mα : MeasurableSpace α} → [NormedAddCommGroup E] → (α → E) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Real-valued Lp seminorm; agrees with the finite moment root and returns zero outside its measurable finite domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L142-L143",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct MemLp and lpNorm definitions, including finite-integral and toReal requirements; frozen mean-family source note",
+          "result": "Finite coordinate third absolute centered moments can be expressed by L3 membership and cubed L3 norm bounds under a probability law."
+        }
+      ],
+      "gap": "The class can be expressed by its mean constraint and finite centered coordinate L3 norms whose cubes are bounded by C, with no additional independence or variance lower bound."
+    }
+  },
+  {
+    "interface_id": "local-053a16981fba03a1d960",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "93abd246f9fd407a8cbccb9c4eb7d4321077d602dcb238e07620fdab19d761b4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D14",
+        "comparison": "For each local machine count the support of its selected estimator at lambda and require at most s-tilde nonzeros plus lambda>=lambda_N. The minimum is over a real penalty continuum, not the first point on an introduced grid. A nonempty feasible set bounded below by lambda_N has an infimum, but may not contain it; support size need not be assumed monotone along arbitrary Lasso selections. lambda_j is data dependent and lambda_N is supplied from (18).",
+        "statement_sha256": "2e74a75d64ea21a78b09ceaaa4845b5e61fab8487f88e0da53c09375ef8718a8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct Function.support generated additive definition and csInf_le source; frozen minimum-attainment and Lasso selection issues",
+          "result": "Nonzero-coordinate support and infimum inequalities are available, but neither establishes that the least feasible regularization parameter exists."
+        }
+      ],
+      "gap": "The local penalty rule requires a specified Lasso minimizer selection and proof that the feasible penalty set attains its minimum, beyond nonemptiness or an infimum bound."
+    }
+  },
+  {
+    "interface_id": "local-8a54a991989e109b8e08",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "516e12707a2954fb14734037c5f9ae39894057868d86293fd0e89da761992163",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D15",
+        "comparison": "On machine j use its data, its selected lambda_j and the local Lasso, then send every component's sign (including zero) to the server, which invokes DPVote with s-tilde,epsilon,delta. Real.sign agrees at negative, zero and positive values. s-tilde is used but omitted from the printed input line; upstream DPVote prints support and a set of signs although this algorithm expects a coordinate-indexed full sign vector. Keep those issues explicit and do not claim local messages themselves are private.",
+        "statement_sha256": "7d8e13d4676f3543ddbb3fe28f3623bd34098a95f7797a851e4a03c2abcebb48"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sign",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Basic.Real.Sign",
+          "provides": "Real sign with values -1, 0 and 1; its zero value does not automatically implement a strictly binary decision rule.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Basic/Real/Sign.lean#L34-L35",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Real.sign, Kernel and IsMarkovKernel definitions; frozen Algorithm 4 input/output conventions",
+          "result": "Componentwise ternary signs and randomized output laws are supported, but the distributed Lasso-plus-DPVote pipeline remains a paper-specific construction."
+        }
+      ],
+      "gap": "The pipeline still needs measurable local Lasso and penalty selections and the DPVote construction with its implicit selection-count input and indexed output convention resolved."
+    }
+  },
+  {
+    "interface_id": "local-f2fa729ab00e23925b43",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "bad65bc9480d2550f1261f32aa952fc3c549503256299e6da9ddd06e9db1778a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1671",
+        "local_id": "D4",
+        "comparison": "Instantiate the function as the realized majority sign vector Q-bar on p coordinates. S-bar={l | Q-bar_l !=0} and s-bar is its cardinality, with an index translation from 1,...,p if using Fin p. This count may be zero and differs from the true-parameter support size s and algorithm selection count s-tilde; measure support or topological support is not the intended notion.",
+        "statement_sha256": "30852ba74efc162aa9ac7afedc5e2f16abf8d22e3f7884a387679bde18682f8f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct Function.support additive source and frozen support-count distinction",
+          "result": "Function.support gives exactly the nonzero coordinates; finite-set cardinality then gives the source count."
+        }
+      ],
+      "gap": "The support and its size are expressible by Function.support and finite cardinality on the majority-vector coordinate type."
+    }
+  },
+  {
+    "interface_id": "local-cd7e57e7644dd3b1efa1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "8dcb9d9730251aa6c347d684001ce49359b759c3141c542ee908c404656b378f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1953",
+        "local_id": "D3",
+        "comparison": "Take the supremum of Lp norms of inner(X,v) over v^T Sigma v=1, not the Euclidean unit sphere; finite p>=4 and E||X||^p<infinity ensure directional integrability. Sigma may be singular but is nonzero, so no full inverse or positive-definiteness restriction may be inserted. Finiteness of the directional supremum requires controlling covariance-null directions, not assuming compactness of this generally unbounded level set. kappa_p itself is the pth-root quantity, not its square.",
+        "statement_sha256": "045f8a7a15aa7db5726131bafa44ee41ff6d412be9f8598a228e77882958de54"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lpNorm",
+          "type": "{α : Type u} → {E : Type v} → {mα : MeasurableSpace α} → [NormedAddCommGroup E] → (α → E) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Real-valued Lp seminorm; agrees with the finite moment root and returns zero outside its measurable finite domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L142-L143",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect lpNorm, MemLp and covarianceOperator_apply bodies; frozen non-null covariance and kappa notes",
+          "result": "Each directional pth-root moment is an Lp norm under finite pth moments, and the centered source covariance agrees with the uncentered operator only because E[X]=0."
+        }
+      ],
+      "gap": "The standardized supremum still needs its covariance-level-set construction and finiteness argument, allowing singular nonzero covariance and excluding Lp fallback values."
+    }
+  },
+  {
+    "interface_id": "local-2356a450e7e036adf88f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "cd3cf166f85c54738f736ac6d3492bb8fa4bbc1f2c0d3871af3d90425dbdb706",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1953",
+        "local_id": "D2",
+        "comparison": "Use independence and identical laws only for X_1,...,X_n, with zero mean, finite pth Euclidean moment for p>=4 and nonzero possibly singular Sigma. The Y_i are other random elements on a coupled space satisfying the count of indices where Y_i differs from X_i <=eta*n, eta in [0,1); they may depend adversarially on the clean sample. This is bounded sample replacement, not necessarily iid mixture contamination, and the real count inequality needs no inserted rounding in the quotation.",
+        "statement_sha256": "a172cc3045a2998e38e523267e972c0fdcfbdb16794f00206034e204ac8edcd2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct iIndepFun, IdentDistrib, MemLp and covarianceOperator_apply; frozen contamination and singular-covariance notes",
+          "result": "Clean iid laws and finite moments are expressible, with centered covariance identified by zero mean; the replacement-count constraint is an extra joint-sample condition."
+        }
+      ],
+      "gap": "The model requires combining the clean iid moment assumptions and standardized-moment constant with a joint-sample replacement-count bound that imposes no independence on contaminated observations."
+    }
+  },
+  {
+    "interface_id": "local-3fa132caf71f88793ed9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:01.229904+00:00",
+    "source_interface_sha256": "f3b757e2fffc6d0f5a9963dfee3f0b5da2172fa1ea487f967c766d432726d3fd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1953",
+        "local_id": "D4",
+        "comparison": "The source's R_{>=0}^{dxd} means symmetric positive semidefinite matrices, not entrywise nonnegative matrices. Use the scoped L2 operator norm rather than a default entry norm; nonzero M gives a nonzero denominator. The ratio is trace(M)/norm(M), often called effective rank, not the different norm_F(M)^2/norm_op(M)^2 formula sometimes named stable rank; preserve the paper's name and formula.",
+        "statement_sha256": "6ee7e5c53ae1303379f8b29cf6d74a811f1dba4677359f185b8519bcd1844172"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.l2_opNorm_def",
+          "type": "{𝕜 m n : Type*} → [RCLike 𝕜] → [Fintype m] → [Fintype n] → [DecidableEq n] → (A : Matrix m n 𝕜) → ‖A‖ = ‖(Matrix.toEuclideanLin (𝕜 := 𝕜) (m := m) (n := n)).trans LinearMap.toContinuousLinearMap A‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "provides": "With Matrix.Norms.L2Operator scoped instances, the matrix norm is the operator norm of its map between Euclidean spaces, including rectangular matrices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/Matrix.lean#L198-L199",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i stable.?rank in pinned analysis and linear algebra; inspect Matrix.trace and scoped Matrix.l2_opNorm_def",
+          "result": "Trace and Euclidean operator norm give exactly the source ratio on nonzero positive semidefinite matrices."
+        }
+      ],
+      "gap": "The source quantity is expressible as Matrix.trace M divided by the Euclidean operator norm of M, retaining the nonzero positive-semidefinite domain."
+    }
+  }
+]

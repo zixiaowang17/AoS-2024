@@ -1,0 +1,45 @@
+{
+  "scope": "Manual review of the five remaining p2059 regression/permutation-test interfaces, preserving the frozen sampling-scope and exchangeability conventions.",
+  "rows": [
+    {
+      "interface_id": "local-9272ebd98ed3d1d47ae0",
+      "related": ["Matrix.mulVec", "ProbabilityTheory.IndepFun"],
+      "query": "Inspected Matrix.mulVec and IndepFun and compared the frozen coordinate regression model with the standing exchangeable-noise context.",
+      "result": "Finite matrix-vector regression and stated noise-feature independence are supported as ingredients; the model's dependence restrictions are separate from its linear formula.",
+      "gap": "Define the scalar target coefficient, nuisance regression and error family with the stated independence scope, retaining exchangeability as a separate premise.",
+      "comparisons": {"D1": "Write y=x*beta+Z theta+epsilon, with n-vector x, n by p nuisance matrix Z and scalar beta; Matrix.mulVec supplies Z theta. IndepFun can express each epsilon_i's independence from the pair (x_i,z_i) as printed. That rowwise statement alone does not establish independence of the full error vector from the entire random design, nor independence across errors, and the source's arbitrary-design/exchangeability standing context must be distinguished rather than replacing it by an iid Gaussian-noise model."}
+    },
+    {
+      "interface_id": "local-a7c282de377c223b1300",
+      "related": ["ProbabilityTheory.IdentDistrib", "fintypePerm"],
+      "query": "Searched Probability for exchangeability declarations and inspected IdentDistrib and the finite permutation type.",
+      "result": "Invariance of the joint error-vector law under every finite permutation can be stated through IdentDistrib; no inspected specialized exchangeability declaration was found.",
+      "gap": "Define finite exchangeability by equality in law of the full error vector and every coordinate permutation, with the required measurability.",
+      "comparisons": {"D2": "For epsilon:Omega to (Fin n to real), require IdentDistrib epsilon (fun omega i => epsilon omega (pi i)) P P for every Equiv.Perm (Fin n), using a fixed reindexing convention. This equality concerns the joint vector law, so equal one-dimensional marginals are insufficient; iid errors imply a stronger condition than the paper requires. IdentDistrib includes ae measurability, and no independence, Gaussianity or finite-moment assumption is hidden in the source's wording 'exchangeable with in law'."}
+    },
+    {
+      "interface_id": "local-9e72079ef1d481cee13f",
+      "related": ["Set.indicator", "Finset.sum_div"],
+      "query": "Searched permutation-test/p-value APIs; inspected generated Set.indicator and finite sum normalization and compared the frozen generic paired-statistic recipe and A9-A10.",
+      "result": "Indicators and finite sums construct the half-tie p-value, but its validity bound depends on exchangeability, statistic equivariance and the unresolved sampling-scope convention.",
+      "gap": "Construct the paired-comparison p-value with its exact half-tie weights and establish the paper's error bound under explicitly resolved permutation sampling and statistic assumptions.",
+      "comparisons": {"D6": "For b=1..B use omega_b=1/2 if T_b0=T_0b, one if T_b0>T_0b and zero otherwise; p=(1+sum omega_b)/(B+1). Preserve the leading one, denominator B+1 and half credit for ties, not randomized ties or a weak-inequality rank count. The scalar formula is defined even at B=0 as one, though the intended permutation-count domain is supplied by the algorithm. The construction tests beta=0 and is generic in paired statistics; source statements say uniform permutations while the archived main-text proof uses independent uniform draws, so ordinary super-uniform p-value validity is not inferred from this arithmetic or silently substituted for the paper's stated guarantee."}
+    },
+    {
+      "interface_id": "local-d278448ce410f2f16a28",
+      "related": ["fintypePerm", "Matrix.submatrix"],
+      "query": "Inspected finite permutations and Matrix.submatrix's row/column reindexing body; compared the frozen row-permutation convention and A1-A2.",
+      "result": "Finite equivalences and matrix row reindexing supply the construction; a consistent direction is required when matching later inverse-composition formulas.",
+      "gap": "Define one row-permutation convention for vectors and matrices and connect its composition and inverse identities to the paper's notation.",
+      "comparisons": {"D3": "Represent [n] by Fin n with the one-based display offset, take pi:Equiv.Perm (Fin n), and reindex vector coordinates and matrix rows consistently, for example x_pi i=x(pi i) and Z_pi=Z.submatrix pi id. Only rows move; nuisance-feature columns remain fixed, and duplicates in observed values are retained because the permutation acts on indices. A permutation is a bijection, not an arbitrary finite map; do not switch between pi and pi inverse conventions when using Condition 3.1."}
+    },
+    {
+      "interface_id": "local-deb02989725e3573febc",
+      "related": ["fintypePerm", "Matrix.submatrix"],
+      "query": "Searched permutation equivariance in Probability; inspected finite permutation structure and row reindexing and compared the exact source Condition 3.1 and inverse convention.",
+      "result": "Permutation algebra provides the argument transformations, but the displayed two-argument statistic identity is a property to prove for a chosen T.",
+      "gap": "Define the bivariate statistic and prove its pointwise equivariance under error-vector reindexing with the exact simultaneous inverse compositions.",
+      "comparisons": {"D5": "Preserve T(pi1,pi2;x,Z,epsilon_sigma)=T(pi1 composed with sigma inverse,pi2 composed with sigma inverse;x,Z,epsilon) for all pi1,pi2,sigma. The design x,Z remains fixed on both sides and the inverse is composed on the right of each permutation in the printed function convention; this is a pointwise functional identity, not merely equality in distribution. Exchangeable errors can be combined with the identity later, but do not prove it for an arbitrary T or allow simultaneous row permutation of all statistic inputs."}
+    }
+  ]
+}

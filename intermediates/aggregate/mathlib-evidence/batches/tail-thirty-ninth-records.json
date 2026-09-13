@@ -1,0 +1,470 @@
+[
+  {
+    "interface_id": "local-e4c2bf98254ce575a426",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "b1eb24cc8801f6dcccd49c9dc96f4d74585ed9ffc4fab6343612649de94bb3b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D28",
+        "comparison": "Use a real smooth compactly supported K on Euclidean R^d and Function.Even K. For its complex Fourier transform choose Lebesgue volume and the character exp(2*pi*i*t) with the real Euclidean bilinear pairing; fourierIntegral evaluates the character at the NEGATED pairing, producing the source negative exponent. Use complex modulus |F[K](x)-1| and the Euclidean norm raised to the real exponent -zeta, with zeta,kappa>0 and x!=0. State the uniform pointwise bound, or justify nonemptiness/boundedness before converting to a real supremum. The ambient sentence names K but prints f inside the integral; keep that transcription issue explicit while recording the intended comparison. Neither compact support nor the order bound asserts K>=0; signed higher-order kernels are permitted. The kernel mass-one interpretation must be stated or deduced from continuity at frequency zero and the bound rather than supplied by Fourier integral itself.",
+        "statement_sha256": "c9f7e7cd06bd01e4d9fbfa1710862795f62e65fd2aef46921847f4e68ae22247"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "VectorFourier.fourierIntegral",
+          "type": "{𝕜 : Type u} → [CommRing 𝕜] → {V : Type v} → [AddCommGroup V] → [Module 𝕜 V] → [MeasurableSpace V] → {W : Type w} → [AddCommGroup W] → [Module 𝕜 W] → {E : Type z} → [NormedAddCommGroup E] → [NormedSpace ℂ E] → AddChar 𝕜 Circle → MeasureTheory.Measure V → (V →ₗ[𝕜] W →ₗ[𝕜] 𝕜) → (V → E) → W → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Fourier.FourierTransform",
+          "provides": "Fourier integration with an explicit additive character and bilinear pairing, allowing the paper's positive-exponent convention to be encoded by the pairing.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Fourier/FourierTransform.lean#L82-L84",
+          "link_checked": true
+        },
+        {
+          "name": "Function.Even",
+          "type": "{α : Type u} → {β : Type v} → [Neg α] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Group.EvenFunction",
+          "provides": "Evenness of a function as equality of values at opposite arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Group/EvenFunction.lean#L32-L32",
+          "link_checked": true
+        },
+        {
+          "name": "HasCompactSupport",
+          "type": "{α : Type u} → {β : Type v} → [TopologicalSpace α] → [Zero β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Support",
+          "provides": "Compactness of the closure of the nonzero support in the function's domain topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Support.lean#L213-L217",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "The generic Fourier integral accepts the exact character and pairing, while smoothness, compact support and evenness are separate library predicates."
+        }
+      ],
+      "gap": "These ingredients express K1 after specifying the source Fourier convention and punctured-frequency bound, retaining its printed variable mismatch."
+    }
+  },
+  {
+    "interface_id": "local-64eb9458ed4b7222f271",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "32d26a62dd9fec5f91e32e83262c936df277d64422f4b1ff839a62409e7378cb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D27",
+        "comparison": "For positive h, let Kh(z)=h^(-d)*K(z/h). Use the Z^d-periodic extension of the empirical measure in the R^d integral; this extension has mass one per unit cell and infinite global mass, so replacing it by the finite unextended empirical law changes boundary wrapping. convolution with f=1, g=Kh and scalar multiplication gives integral Kh(x-z) dP_n^periodic(z); compact kernel support makes the relevant lattice sum locally finite for each x. Keep separate h_n and h_m and the n and m empirical samples. The raw estimator may be negative; take its nonnegative part FIRST, then divide by its positive finite integral over [0,1)^d. Build the probability measure from that normalized nonnegative density on the torus/unit cell and extend periodically only when needed. withDensity does not enforce mass one, and totalized division cannot substitute for proving the normalizing denominator positive. Do not normalize over all R^d or assume kernel positivity.",
+        "statement_sha256": "a607ea9b1e6a54dd356ea8390c3be9cacdd8d39291b281237f619f5be4d775f8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.convolution",
+          "type": "{𝕜 : Type u} → {G : Type v} → {E : Type w} → {E' : Type x} → {F : Type y} → [NontriviallyNormedField 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup E'] → [NormedAddCommGroup F] → [NormedSpace 𝕜 E] → [NormedSpace 𝕜 E'] → [NormedSpace 𝕜 F] → [MeasurableSpace G] → [NormedSpace ℝ F] → [Sub G] → (G → E) → (G → E') → (E →L[𝕜] E' →L[𝕜] F) → MeasureTheory.Measure G → G → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convolution",
+          "provides": "Function convolution using a continuous bilinear product and a specified measure, with integrand L(f t)(g(x-t)); scalar multiplication and real volume recover ordinary kernel convolution.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convolution.lean#L402-L404",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "Function convolution with first function one and the empirical periodic measure reproduces the displayed kernel integral; withDensity forms the final law after clipping and normalization."
+        }
+      ],
+      "gap": "The periodic empirical extension, bandwidth rescaling and positive finite unit-cell normalization must be constructed and justified."
+    }
+  },
+  {
+    "interface_id": "local-bc24f62ad90eb8beb527",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "b62c8e1751837fc83800c6a9430b87d926c1a261ce6cbd3594d328a272edbba9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D23",
+        "comparison": "The Hilbert space is L2 of Lebesgue measure on Omega=[0,1]^d; the combined scaling and wavelet family must be orthonormal and complete there. The displayed scaling level uses j0>=log2 N for integer N>=2 and the wavelet orientations exclude the all-zero vector in {0,1}^d. Preserve the printed bound k<=2^j0-1 even for wavelets at level j rather than silently repairing it to 2^j-1; the index convention is an explicit source issue. Require the scaling span to contain all polynomials of degree at most N-1 as stated. HilbertBasis reconstruction assumes square-summable coefficients and a previously built basis and does not produce Daubechies boundary corrections, localization, regularity or polynomial reproduction. Detailed construction lies in excluded Appendix A and is not imported as a completed main-text definition.",
+        "statement_sha256": "20ff940665bc22e488343af8674caacc3a38616f841b72692e6412ad42edf9e3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "A supplied Hilbert basis admits L2 reconstruction, but that abstraction does not construct a boundary-corrected Daubechies system."
+        }
+      ],
+      "gap": "The specific wavelet/scaling functions and polynomial-reproduction property remain to be supplied, with the printed index issue preserved."
+    }
+  },
+  {
+    "interface_id": "local-7df2728c227ed8744a3c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "3a54854d13504beee1421e1a62fdd965cbbeea8f2faf46d4bc8f63655473d389",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D24",
+        "comparison": "Use coefficients beta_hat_xi=integral xi dQ_n, with Q_n the empirical target sample, and the finite scaling-plus-wavelet sum from levels j0 through J_n inclusive. These are evaluations of selected wavelet functions at sample points, so arbitrary L2 equivalence classes alone do not define their empirical coefficients. The source also writes an untruncated sum over all Psi^bc as equal to that finite sum; do not assume empirical coefficients vanish at every higher level or silently remove the discrepancy. After forming the finite series, set qhat=max(qtilde,0)/integral_Omega max(qtilde,0), with integral over the unit cube and a positive finite denominator, then form the induced probability law. Hilbert-basis reconstruction alone does not justify the empirical infinite sum, and totalized real division by zero is not a density-estimator convention. Clipping precedes rescaling and need not retain the original finite-dimensional span.",
+        "statement_sha256": "36f67306f5351cefb03a0eb8c2de766e774bafea530110a0f21e2fad9537fd30"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "Finite function sums and empirical integrals express the truncated series, and a normalized nonnegative part gives the density measure."
+        }
+      ],
+      "gap": "The source wavelet basis, intended truncation and nonzero clipping normalizer must be supplied while retaining the displayed full-sum discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-75a701cb53682e832c88",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "32f1f63a76b41cfc9afcad72e2b1e5c600d67c538b98c75ded1d74cb4537adf8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D37",
+        "comparison": "For the one-sample statistic use sqrt(n)*(W2_squared(Phat_n,Q)-W2_squared(P,Q)), centered at the POPULATION cost rather than its estimator expectation. Its limit variance sigma_0^2 is Var_P(phi0). For any sequence of positive sample sizes n,m tending to infinity with n/(n+m) tending to rho in [0,1], use sqrt(n*m/(n+m)) and variance (1-rho)*Var_P(phi0)+rho*Var_Q(psi0). Both n and m must diverge even when rho is an endpoint. The independent sampling premise is separate. gaussianReal accepts the variance, not its square root, and variance zero is a Dirac mass at zero rather than a nondegenerate Gaussian. Establish finite second moments of the potentials before using real variance, whose ENNReal conversion otherwise maps infinity to zero. TendstoInDistribution supplies a proposition about laws and measurability, not the transport linearization, bias estimates or any of Theorem 22’s smoothness/dimension-dependent proof.",
+        "statement_sha256": "6762e39ddf2dc4779d284b2d65024567c9fcd64f3837f5c71e34be1e89853966"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "Convergence in distribution allows changing sample spaces, and the real Gaussian constructor takes the required nonnegative variance including zero."
+        }
+      ],
+      "gap": "These declarations state the two limit forms after defining the transport statistic, but estimator-specific CLT and remainder bounds remain to be proved."
+    }
+  },
+  {
+    "interface_id": "local-d951e85f7ca87e6f29ec",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "72785e0a7fe99b473e31c1ccd708d6aab0102eaa0203421a826bb5bfbf796096",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D30",
+        "comparison": "Omega is a known compact convex subset of Euclidean R^d with Lebesgue volume exactly one and a C-infinity boundary. Smoothness here is a property of the boundary as a hypersurface/local graph, not merely smoothness of an arbitrary scalar function restricted to boundary points or smoothness of an indicator function. ContDiffOn can describe local boundary charts once the correct geometric setup is provided. This section replaces the earlier S1 domain condition; do not require Omega subset [0,1]^d as well as volume one and smooth boundary. Convexity is as printed, not an unstated uniform curvature lower bound, and C1 does not itself imply the uniform Brenier estimate C2.",
+        "statement_sha256": "ca900a3dc576bc23153f5de494d42f216f8f483d42ad8f9767227fa178c82b4b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsCompact",
+          "type": "{X : Type u} → [TopologicalSpace X] → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Compactness of a subset, without any additional nonemptiness, convexity, box or polyhedral restriction.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L284-L285",
+          "link_checked": true
+        },
+        {
+          "name": "Convex",
+          "type": "(𝕜 : Type u) → {E : Type v} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [SMul 𝕜 E] → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Basic",
+          "provides": "Convexity of a set under the specified scalar action; instantiate real Euclidean space for the diffusion domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Basic.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "Compactness and convexity are direct predicates; continuous differentiability can support local defining functions for a smooth boundary."
+        }
+      ],
+      "gap": "The smooth-boundary geometry and volume-one condition must be added to compactness and convexity without reimposing the earlier cube containment."
+    }
+  },
+  {
+    "interface_id": "local-5f0f02e76b93801c8058",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "9780255aba8399003f6ea84f409165be8a4395ca64f940da1c5a956157a3628e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D35",
+        "comparison": "For u in C^s(Omega), require the outward normal derivative of Delta iterated j times applied to u to vanish on the boundary for every nonnegative integer j<=floor((s-1)/2). j=0 already means the normal derivative of u; higher j are successive Laplacian iterates, not coordinatewise derivatives or a power of the scalar value Delta u. Preserve that the admissible j set is EMPTY for 0<s<1: using a natural-number floor that clamps negative values to zero would add an unintended boundary condition. At threshold values retain the printed inequality and the source smoothness/trace convention rather than imposing Dirichlet u=0. The associated balls intersect this constrained space with the original Holder ball, and the positive ball retains its separate density bounds. laplacianWithin is a differential expression, not a Neumann operator domain or a theorem providing boundary traces. The exact Holder convention is deferred to excluded Appendix A.",
+        "statement_sha256": "cb72487d3def40d6cacf1c3c450d8229b8667d9e8edce69f939f020dc6200bc6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.laplacianWithin",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace ℝ F] → (E → F) → Set E → E → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Laplacian",
+          "provides": "Laplacian within a set via the second Frechet derivative contracted with the canonical Euclidean tensor; no Neumann boundary realization is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Laplacian.lean#L133-L134",
+          "link_checked": true
+        },
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "The Laplacian and gradient give differential ingredients, while a norm ball can restrict a supplied Holder space."
+        }
+      ],
+      "gap": "The exact Holder norm and normal boundary derivatives of iterated Laplacians must be defined with the source index range."
+    }
+  },
+  {
+    "interface_id": "local-f51b70914b2b08254f36",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "4c3ab53feb3a60056739ceb4f33f39418391fb2314383896e55c137b78e0cad9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D39",
+        "comparison": "For every real pair (h1,h2), retain two paths indexed by t>=0 through P and Q, with respective scores h1*(phi0-integral phi0 dP) and h2*(psi0-integral psi0 dQ). The two means use different laws and different Kantorovich potentials. MemLp with exponent two and the centering integral express components of the score space once integrability is justified, but ordinary Frechet differentiability of an arbitrary map into probability measures is not automatically the semiparametric notion used by the paper. The main-text sentence refers to specific equations (115-116) in excluded Appendix L; do not invent exponential-tilt paths, import those equations into the main-text census, or claim their positivity, normalization or Holder preservation has been checked. The later theorem’s small t*max(|h1|,|h2|) restriction concerns class membership and remains separate from the displayed score specification.",
+        "statement_sha256": "8dcf44edf899128f37b306cb9c01b291272659a2595cc501a26074bb69184c3c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.ProbabilityMeasure",
+          "type": "(Ω : Type u) → [MeasurableSpace Ω] → Type u",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Measures bundled with total mass one, on an arbitrary supplied measurable space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L103-L104",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "Probability-law families and centered square-integrable functions can express the paths and scores abstractly; the inspected modules did not supply the source statistical differentiability construction."
+        }
+      ],
+      "gap": "The statistical path differentiability and score identities remain assumptions here because the particular path construction is deferred to excluded Appendix L."
+    }
+  },
+  {
+    "interface_id": "local-4bd7844b99be25987776",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:15:06.930304+00:00",
+    "source_interface_sha256": "ab45e11cf829b6ffa8e7496f8ac0715284196849248ffeec3b3bcf7ca10768c8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0966",
+        "local_id": "D33",
+        "comparison": "Work on the nonnegative half-line with a smooth real tau, AntitoneOn tau there, tau(x)=1 for x<1/2 in its domain, and tau(x)=0 for x>=1. Do not replace smoothness by the discontinuous indicator I(x<1); the surrounding text explicitly says the analysis needs a smooth cutoff. Nonincreasing behavior and the plateaus ensure values between zero and one. Continuity fixes the endpoint at 1/2 consistently even though the printed plateau inequality is strict; the zero plateau includes 1. Infinite differentiability within the half-line, or a compatible smooth extension, must reflect the source C-infinity(R_+) convention. This definition specifies an admissible function and does not require a particular bump-function formula or the later spectral eigenvalue weights.",
+        "statement_sha256": "8895d62af7c30fcc223acd632ceb347a56ba98d493679ce070f7c9aaa4b8033e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "AntitoneOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Nonincreasing behavior restricted to a given set, suitable for the density’s nonnegative half-line condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Daubechies, wavelet, Neumann, Holder spaces, density estimators and differentiability in quadratic mean in Analysis, MeasureTheory and Probability; inspected Fourier integral, evenness, compact support, convolution, integral, withDensity, HilbertBasis reconstruction, finite function sums, laplacianWithin, ContDiffOn, AntitoneOn, Gaussian variance and convergence in distribution; compared registered p0966 main-text pages 15,21,23-28 and recorded ambient/source issues.",
+          "result": "On-set antitonicity and infinite continuous differentiability express the cutoff shape alongside its two prescribed plateaus."
+        }
+      ],
+      "gap": "These predicates express the stated smooth cutoff after choosing a compatible half-line smoothness convention."
+    }
+  }
+]

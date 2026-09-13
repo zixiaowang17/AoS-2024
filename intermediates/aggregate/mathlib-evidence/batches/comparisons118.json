@@ -1,0 +1,87 @@
+[
+  {
+    "interface_id": "local-f940e228e69e3ae21782",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "MeasureTheory.condExp"
+    ],
+    "comparison": "Store source observations as an indexed batch of covariate, selected action/policy notation, and the reward from that selected arm, preserving repeated observations. Independence and common law P apply to the latent full covariate/reward vectors, not automatically to policy-dependent observed triples. The source reward functions are conditional means under P and bounded by the [0,1] reward model; do not identify them with target functions until the separate covariate-shift assumption. The later fixed-behavior iid covariate-arm condition is additional, not inferred from this paragraph. Retain n=max(n_Q,n_P), not their sum, and do not reveal unselected arm rewards or assert source-target sample independence from this statement alone.",
+    "gap": "Independent full-vector laws and conditional means support the batch model; selected-action data and later behavior-policy assumptions remain distinct.",
+    "searches": [
+      [
+        "Compare the source-batch statement with the target model and inspect iIndepFun, IdentDistrib and condExp",
+        "The primitives express the latent source law and conditional means; policy-dependent observed triples need their separate sampling assumptions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-4e29d22881a6a16bd338",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.Kernel",
+      "ProbabilityTheory.IsMarkovKernel",
+      "ProbabilityTheory.condDistrib"
+    ],
+    "comparison": "Represent a COMMON conditional reward kernel for each arm k across the two covariate marginals while retaining the explicit inequality P_X != Q_X. Equality of conditional arm laws implies equal conditional means for bounded rewards once the common version is chosen; equality of means alone is not the stated assumption. This armwise condition does not assert equality of the joint K-reward conditional distribution or armwise independence. Separate condDistrib versions are only fixed almost everywhere under their own covariate marginals, so they need not agree at target/source-null covariates without the source common-version assumption. Preserve the printed common reward functions for all x in the covariate domain, rather than deriving that pointwise statement solely from two unrelated almost-everywhere versions.",
+    "gap": "Common Markov kernels express the conditional-law assumption, with the different covariate marginals and all-domain version requirement retained.",
+    "searches": [
+      [
+        "Inspect Kernel, IsMarkovKernel and condDistrib against armwise shared conditional laws",
+        "The kernel constructor supports common versions, while generic disintegration alone does not identify versions across different covariate-null sets or equate joint reward laws."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-9b5a5db621830aa41492",
+    "status": "exact_reuse",
+    "names": [
+      "HolderOnWith"
+    ],
+    "comparison": "Use HolderOnWith C_beta beta for every arm reward on the covariate domain, with the ambient coordinate supremum metric and the ordinary real reward distance. Finite edist converts its displayed inequality to the source absolute-difference inequality with the SAME constants. The nonnegative library parameters additionally satisfy the source restrictions C_beta>0 and 0<beta<=1, shared across all arms. Do not switch to the Euclidean L2 metric without tracking constants, require differentiability, or weaken the quantifier to local pairs or almost-everywhere covariates.",
+    "gap": "HolderOnWith directly expresses the armwise condition with the source supremum metric and common parameter bounds.",
+    "searches": [
+      [
+        "Inspect HolderOnWith:54-59 and its extended-distance definition against the source global pairwise inequality",
+        "For finite real/supremum metrics the predicate matches the stated Hölder bound exactly after the nonnegative parameter coercions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-ab90c2d55b147819df62",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.Measure.compProd",
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "ProbabilityTheory.IsMarkovKernel"
+    ],
+    "comparison": "For a fixed measurable behavior kernel mu from covariates to the finite arm set, use the joint law P_X compProd mu and impose iid sampling of the observed covariate-action pairs across source indices. This is an additional restriction beyond independent latent bandit vectors and excludes replacing the fixed conditional behavior law by arbitrary history-dependent actions. The source writes pi_i^P both as a policy map and in the pair; retain that notation but use the evaluated action pi_i^P(X_i^P) for the joint finite-arm law, not a probability distribution over whole policy functions. Measurability and probability normalization are necessary for the kernel representation; no uniform exploration bound is part of this definition. It does not make selected rewards independent of covariates or imply equality of P_X and Q_X.",
+    "gap": "A measure-kernel composition and iid predicates express the fixed-behavior covariate-action sample once its measurable action-kernel representation is supplied.",
+    "searches": [
+      [
+        "Inspect Measure.compProd:40-44, IsMarkovKernel and iid predicates against the source covariate-arm assumption",
+        "The composition gives the joint covariate/action law while preserving conditional action dependence and distinguishing evaluated actions from whole policy maps."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-08d48cdaf93ee7b7859e",
+    "status": "composable",
+    "names": [
+      "le_csInf_iff",
+      "csInf_le",
+      "MeasureTheory.Measure.support",
+      "ProbabilityTheory.IsMarkovKernel"
+    ],
+    "comparison": "Take the real infimum of K times the singleton arm probability over every arm and EVERY covariate in the target support, not the source support or only observed covariates. With K>0, nonempty target support and a normalized finite-arm kernel, the value set is nonempty and bounded below by zero; at any supported x, at least one arm has probability at most 1/K, giving the upper bound one. The conditional infimum lemmas then apply with these premises. No strictly positive exploration or attained minimizer over x is asserted, and the infimum is not an essential infimum. Values of a behavior kernel outside its source-almost-everywhere determination matter here; preserve a specified version on the full target support rather than treating arbitrary disintegration extensions as equivalent.",
+    "gap": "Conditional infimum lemmas express the coefficient once a normalized behavior-kernel version on the nonempty target support is fixed.",
+    "searches": [
+      [
+        "Inspect csInf_le, le_csInf_iff, measure support and Markov-kernel normalization against the all-arm/all-support infimum",
+        "The infimum is well defined on a nonempty bounded-below value set, but its positivity, attainment and target-support version are not supplied by the order primitives."
+      ]
+    ]
+  }
+]

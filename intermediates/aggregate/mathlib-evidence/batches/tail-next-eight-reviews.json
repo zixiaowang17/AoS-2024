@@ -1,0 +1,86 @@
+{
+  "scope": "Manual comparisons against the archive-pinned mathlib source, with source bodies and neighboring definitions inspected. Generic building blocks do not establish implementation of the statistical API or its theorem guarantees.",
+  "rows": [
+    {
+      "interface_id": "local-f307d9a13d29140db7c2",
+      "related": ["Real.log", "Real.sqrt"],
+      "query": "Whole-Mathlib search for confidence sequence, AsympCS and Gaussian mixture; inspected Real.log and Real.sqrt bodies and the source's first-peeking-time formula.",
+      "result": "No named implementation of this tuning rule was located. Real.log extends to negative inputs via absolute value and is zero at zero; Real.sqrt is zero on negative arguments, so their total Lean values do not resolve the paper's statistical domain.",
+      "gap": "The first-peeking-time tuning formula and its positive-denominator and nonnegative-radicand domain still need to be defined and related to the stated coverage result.",
+      "comparisons": {
+        "D12": "Compose real logarithms, multiplication, division and square root with the variance estimate at m and m log(max(m,e)); rho_m is fixed from that starting time rather than recomputed at each t. Positive m and variance are needed for the intended denominator, and 0<alpha<1 alone does not automatically make the displayed numerator nonnegative. Mathlib's total logarithm, square root and division conventions cannot silently fill those missing statistical cases. The generic operations supply no sharp all-future-time coverage theorem."
+      }
+    },
+    {
+      "interface_id": "local-724b2079c209189ade7f",
+      "related": ["Real.log", "Real.sqrt"],
+      "query": "Whole-Mathlib search for Gaussian mixture, confidence sequence and AsympCS; inspected Real.log, Real.sqrt and the nearby Doob maximal_ineq statement in Probability/Martingale/OptionalStopping.",
+      "result": "The real-function primitives can express the displayed endpoints. The inspected Doob inequality bounds a finite-time maximum of a nonnegative submartingale and does not implement this estimated-variance Gaussian-mixture interval or its asymptotic simultaneous coverage.",
+      "gap": "The later-started interval with frozen rho_m, its domain conventions and its asymptotic simultaneous-coverage argument remain to be supplied.",
+      "comparisons": {
+        "D11": "The width uses t times the variance estimate inside t*sigmahat_t^2*rho_m^2+1, divides by t^2*rho_m^2 and takes the logarithm of its square root divided by alpha. Keep rho_m frozen from m, preserve both endpoint expressions, and do not replace this by variance times a fixed-rho boundary. Real.log and Real.sqrt allow an expression only after the intended domain is specified; they do not introduce the theorem's L1/L2/L3eta assumptions into the definition or prove its t>=m coverage."
+      }
+    },
+    {
+      "interface_id": "local-c13ce28c95761d2f2f85",
+      "related": ["Nat.find"],
+      "query": "Whole-Mathlib search for contextual bandit and successive elimination; inspected Nat.find, find_spec, find_min and find_min' alongside the paper's adaptive radius (17) and threshold (18).",
+      "result": "Nat.find gives the least satisfying natural number, including zero, after a decidable predicate and an existence proof are supplied. It neither defines U-hat nor establishes its square-root domain, nonempty crossing set or statistical meaning.",
+      "gap": "The adaptive crossing predicate, its finite-witness proof and the source's zero-pull radius conventions are still required before Nat.find represents this threshold.",
+      "comparisons": {
+        "D30": "Instantiate the predicate with Uhat_k(tau,B,D)<=2*Cbar_beta*|B|^betahat. Lean naturals already include zero; the minimum includes equality and is not a strictly positive first-crossing index. Nat.find requires proof that the set is nonempty and a decidability instance, which may be classical for real inequalities. Uhat's zero-pull branch uses ordinary log and the explicit 1/0=infinity convention; ordinary real division or log-plus would change the source. Do not import known beta, C_beta or the known-parameter confidence radius into this adaptive member."
+      }
+    },
+    {
+      "interface_id": "local-5d91e78875b43c816b7a",
+      "related": ["Nat.find"],
+      "query": "Whole-Mathlib search for multi-armed bandit and successive elimination; inspected Nat.find and its satisfaction/minimality lemmas against confidence radius (9) and threshold (10).",
+      "result": "The natural-number minimum primitive matches the index and minimality structure only when a witness exists. It supplies neither the source-data radius with extended zero-denominator convention nor the bandit's threshold guarantees.",
+      "gap": "The known-parameter radius predicate and a proof that it reaches the stated threshold remain to be supplied for the Nat.find construction.",
+      "comparisons": {
+        "D21": "Use the nonnegative natural predicate U_k(tau,B,D)<=2*C_beta*|B|^beta, retaining the weak inequality and possible zero minimum. The referenced U takes the maximum with the smoothness floor, uses log-plus and explicitly sets 1/0=infinity, so a naive real-valued implementation would not match. Nat.find captures the least witness after existence and decidability are provided; it does not establish those premises or turn this source-data-defined count into a stopping-time theorem."
+      }
+    },
+    {
+      "interface_id": "local-b1a01e4542ff6b7fa753",
+      "related": ["Finset.filter", "Finset.max'", "Nat.find"],
+      "query": "Whole-Mathlib search for bandit, multi-armed and successive elimination; inspected finite filter, nonempty finite maximum and natural minimum bodies, and both local Procedure 1 invocation contexts.",
+      "result": "Finite filtering, maxima and minimal pull thresholds provide individual state operations. No implementation of the paper's reward-updating, sequential elimination policy was located; max' returns a reward value rather than an arm argmax witness, and a one-shot filter is not the whole sequential procedure.",
+      "gap": "The stateful elimination policy, its reward sampling and update invariants, and its two distinct confidence-bound invocations still need implementation.",
+      "comparisons": {
+        "D22": "For the known-parameter invocation, retain source-data counts/means and equation (10) thresholds, the all-arms stopping test, arbitrary argmax tie breaking, and the separate exploitation versus sequential exploration updates. Finset.max' requires a nonempty finite score set and supplies its value, so selecting an arm needs an attaining witness; Finset.filter can encode eligibility but not automatically the changing lower bound inside the arm loop. Nat.find can represent thresholds only after their existence proof. No library result supplies active-set nonemptiness, policy measurability, reward-law construction or regret from these operations alone.",
+        "D22a": "The original Procedure 1 body is repeated verbatim, including its equation (10) initializer reference, but the archived adaptive invocation explicitly substitutes Uhat from (17), tauhat-star from (18) and the decision-making source-data subset. Preserve that recorded specialization rather than treating it as the known-parameter policy. Generic finite filtering, maxima and minimal indices leave the same state/selection invariants to implement and do not resolve the adaptive zero-pull logarithm or source initializer-reference mismatch."
+      }
+    },
+    {
+      "interface_id": "local-c384911c330e713e5306",
+      "related": ["Finset.filter", "Finset.max'", "Nat.find"],
+      "query": "Whole-Mathlib search for adaptive transfer learning, contextual bandit and successive elimination; inspected finite filter/max and Nat.find, then Algorithm 2 and Procedure 1's adaptive invocation context.",
+      "result": "The inspected declarations implement finite comparisons and least indices. They do not implement the smoothness-estimation exploration phase, data split, per-bin policy state, repeated child partition or adaptive confidence substitution of Algorithm 2.",
+      "gap": "The two-stage adaptive policy, source-data split, repeated partition updates and their termination and statistical invariants remain to be formalized.",
+      "comparisons": {
+        "D31": "Algorithm 2 first runs Procedure 2, keeps its policy before s_Q and forms source data from s_P onward, then starts the bin policy at s_Q using betahat and the adaptive Uhat/tauhat-star. It can split several times before one target arm pull, inherits surviving arms into children and resets local clocks/counts. Finset operations support individual updates and Nat.find the threshold minimum under a witness, but none supply the history-dependent recursion, repeated-split termination, source-boundary ownership, policy sampling or regret. The ordinary-log adaptive radius and unchanged reference inside the original Procedure 1 remain recorded source limitations."
+      }
+    },
+    {
+      "interface_id": "local-256936fb5d2a57bd5f2f",
+      "related": ["Finset.filter", "Finset.max'", "Nat.find"],
+      "query": "Whole-Mathlib search for transfer learning and contextual/multi-armed bandit; inspected finite filter/max and Nat.find, then Algorithm 1's full control hierarchy and confidence-bound dependency.",
+      "result": "The library provides elementary finite-state selection operations, but no located declaration implements this source-informed contextual partition policy or couples its per-bin successive-elimination states to sampled rewards.",
+      "gap": "The known-parameter contextual policy, nested splitting recursion and its bin-state and statistical invariants still need implementation beyond the finite-set primitives.",
+      "comparisons": {
+        "D23": "Keep the known beta/C_beta/gamma/kappa inputs, original source data, equation (10) limits and U from equation (9). The while condition requires more than one active arm and every active count above its threshold; the zero-threshold branch filters arms before inheritance, then each child gets a fresh policy and local counts. One target context may trigger multiple splits before the local clock advances and one reward is sampled. Finset.filter/max' and Nat.find supply only components, not a proof of bin uniqueness, repeated-split termination, nonempty survivors, measurable adaptive policy or the theorem's regret bound."
+      }
+    },
+    {
+      "interface_id": "local-6bee7991f4c7196dd2ea",
+      "related": ["ProbabilityTheory.Kernel.trajMeasure", "ProbabilityTheory.IsMarkovKernel", "MeasureTheory.integral"],
+      "query": "Whole-Mathlib search for Bellman and discounted value; inspected Kernel.trajMeasure and its probability-measure instance, IsMarkovKernel, Bochner integral and nearby contracting-map fixed-point APIs.",
+      "result": "trajMeasure constructs the infinite path law from an initial measure and history-dependent Markov kernels, and the Bochner integral supplies expectation after integrability. Generic contraction infrastructure is available, but no located declaration specializes it to the discounted reward/Bellman value operator.",
+      "gap": "The discounted reward functional, its convergence and integrability, and its Bellman fixed-point characterization still need to be connected to the constructed trajectory law.",
+      "comparisons": {
+        "D2": "Use a Dirac initial law at x and the stationary transition kernel applied to the latest history coordinate to instantiate trajMeasure. This represents a chain started at each x without choosing a conditional expectation on a potentially null event X0=x. With measurable bounded reward and a discount strictly below one, a geometric domination argument can justify the real infinite sum and its expectation; those proofs are not supplied by trajMeasure or the total Bochner integral, which returns zero outside integrability. The one-step Bellman identity and uniqueness on a specified bounded-function space require separate arguments. This true value is not the projected RKHS target except in the explicitly realizable source families."
+      }
+    }
+  ]
+}

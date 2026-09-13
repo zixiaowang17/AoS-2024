@@ -1,0 +1,63 @@
+"""Preserve symmetric tensor and statistical-identification source definitions."""
+import json
+from save_inventory import ROOT,PID,STATEMENTS
+interfaces=[];members={}
+def add(n,term,s,pages,deps,symbols,boundary,heading,kind='definition',context=None,context_page=None,phrases=None):
+    lid=f'D{n}'
+    m=dict(paper_id=PID,local_id=lid,local_label=heading,source_heading=heading,source_kind=kind,statement_original=s,relation='exact',depends_on=[f'D{i}' for i in deps],evidence=[dict(page=p,location=heading) for p in pages],highlight_symbols=symbols,highlight_phrases=phrases or [])
+    kw=dict(paper_id=PID,local_id=lid,source_text=term,label=term[0].upper()+term[1:],kind='term')
+    if term not in s:
+        assert context and term in context,(lid,term)
+        m['naming_context']=[dict(context_id=lid+'/name',text=context,evidence=[dict(page=context_page or pages[0],location='Original naming context')])];kw['context_id']=lid+'/name'
+    members[lid]=m
+    interfaces.append(dict(interface_id=PID+'/'+lid,rank_group='all',name=kw['label'],lean_role='definition',type_shape=boundary,semantic_boundary=boundary,members=[m],source_keywords=[kw],central_claim_uses=[],dependencies=[],theorem_explanations={}))
+add(1,'linear system',r'''Consider the linear system
+\[
+AY=\varepsilon,
+\]
+(1)
+where $Y\in\mathbb R^d$ is observed, $A\in\mathbb R^{d\times d}$ is invertible, and $\varepsilon$ is a mean-zero hidden random vector with uncorrelated components.''',[1],[],[r'AY=\varepsilon',r'A\in\mathbb R^{d\times d}'],'Observed distribution of Y and invertible unmixing matrix A; epsilon is hidden, centered and uncorrelated, with unit covariance imposed explicitly by the statistical theorems. A maps observations to latent components, so its ambiguity is left multiplication and acts on rows. Independence is not part of this model definition.','Section 1 — Linear system (1)')
+add(2,'symmetric tensors',r'''symmetric tensors, i.e. they are invariant under an arbitrary permutation of the indices.
+The space of real symmetric $d\times\cdots\times d$ order $r$ tensors is denoted by $S^r(\mathbb R^d)$. Writing $[d]=\{1,\ldots,d\}$, the set of indices of an order $r$ tensor is $[d]^r$. However, $S^r(\mathbb R^d)\subset\mathbb R^{d\times\cdots\times d}$ has dimension $\binom{d+r-1}{r}$ and the unique entries of $T\in S^r(\mathbb R^d)$ are $T_{i_1\cdots i_r}$ for $1\le i_1\le\cdots\le i_r\le d$.''',[5],[],[r'S^r(\mathbb R^d)',r'\binom{d+r-1}{r}'],'Real fully symmetric order-r arrays, invariant under every permutation of index positions, not arbitrary unsymmetrized arrays. The initial defining phrase is excerpted from the sentence describing moments/cumulants; those examples are not assumptions of this algebraic space.','Section 3 — Real symmetric tensor space')
+add(3,'moment and cumulant generating functions',r'''Consider the random vector $X=(X_1,\ldots,X_d)'$ and let $M_X(t)=\mathbb E e^{t'X}$ and $K_X(t)=\log\mathbb E e^{t'X}$ denote the corresponding moment and cumulant generating functions, respectively.''',[5],[],[r'M_X(t)=\mathbb E e^{t\prime X}',r'K_X(t)=\log\mathbb E e^{t\prime X}'],'Generating functions as printed. The source does not state a neighborhood-of-zero finiteness assumption for the MGF before its derivative formulas. Existence of the relevant moments/cumulants is implicit in the theorems; no analytic MGF or all-orders moment hypothesis is silently inserted.','Section 3 — Generating functions')
+members['D3']['highlight_symbols']=[r"M_X(t)=\mathbb E e^{t'X}",r"K_X(t)=\log\mathbb E e^{t'X}"]
+add(4,'moment tensor',r'''We write $\mu_r(X)$ to denote the $r$-order $d\times\cdots\times d$ moment tensor, that is an $r$-dimensional table whose $(i_1,\ldots,i_r)$-th entry is
+\[
+\mu_r(X)_{i_1\cdots i_r}=\mathbb E X_{i_1}\cdots X_{i_r}=\left.\frac{\partial^r}{\partial t_{i_1}\cdots\partial t_{i_r}}M_X(t)\right|_{t=0}.
+\]''',[5],[2,3],[r'\mu_r(X)_{i_1\cdots i_r}',r'\mathbb E X_{i_1}\cdots X_{i_r}'],'Raw order-r joint moments, not central moments unless centering happens to make them equal. The source includes the MGF derivative representation; its analytic applicability is recorded separately. The statistical theorems use a fixed selected order, not a requirement that all orders are diagonal.','Section 3 — Moment tensor')
+add(5,'cumulant tensor',r'''Similarly, the cumulant tensor $\kappa_r(X)$ is defined as
+\[
+\kappa_r(X)_{i_1\cdots i_r}=\operatorname{cum}(X_{i_1},\ldots,X_{i_r})=\left.\frac{\partial^r}{\partial t_{i_1}\cdots\partial t_{i_r}}K_X(t)\right|_{t=0}.
+\]''',[5],[2,3],[r'\kappa_r(X)_{i_1\cdots i_r}',r'\operatorname{cum}(X_{i_1},\ldots,X_{i_r})'],'Classical joint cumulant tensor, defined through derivatives of the log MGF. Moment-cumulant partition identities and broader cumulant notions are not silently substituted for the original definition. Under zero mean the third cumulant equals the third raw moment, but higher orders remain distinct.','Section 3 — Cumulant tensor')
+add(6,'moment or cumulant tensor',r'''The vast majority of results in this paper holds for both moment and cumulant tensors. To avoid excessive notation we denote a given $r$th order moment or cumulant tensor by $h_r(X)$. Whenever distinguishing between moments or cumulants is required we specify towards $\mu_r(X)$ or $\kappa_r(X)$.''',[5],[4,5],[r'h_r(X)',r'\mu_r(X)',r'\kappa_r(X)'],'Original notation for either the selected moment tensor or the selected cumulant tensor. The two dependency branches resolve the alternatives; they do not require that both tensors satisfy the same zero constraints simultaneously. h_r is not a synthesized tensor combining moments and cumulants.','Section 3 — Common moment/cumulant notation')
+add(7,'standard multilinear action',r'''where $A\bullet T$ for $T\in S^r(\mathbb R^d)$ denotes the standard multilinear action
+\[
+(A\bullet T)_{i_1\cdots i_r}=\sum_{j_1=1}^d\cdots\sum_{j_r=1}^d A_{i_1j_1}\cdots A_{i_rj_r}T_{j_1\cdots j_r}
+\]
+for all $(i_1,\ldots,i_r)\in[d]^r$, see, for example, Section 2.3 in Zwiernik (2016).
+Since $A\bullet T\in S^r(\mathbb R^d)$ for all $T\in S^r(\mathbb R^d)$ we say that $A\in\mathbb R^{d\times d}$ acts on $S^r(\mathbb R^d)$.''',[6],[2],[r'A\bullet T',r'A_{i_1j_1}\cdots A_{i_rj_r}T_{j_1\cdots j_r}'],'The same real matrix acts in every tensor mode. It is defined for every d-by-d matrix, independently of the statistical unmixing model; the theorem transformation Q is restricted to O(d) by the standing identification setting and G_T definition. At r=2 this is A T A-prime.','Section 3 — Tensor action following (6)')
+add(8,'potential candidates',r'''Since $AY=\varepsilon$ with $\mathbb E\varepsilon=0$ and $\operatorname{var}(\varepsilon)=I_d$, the variance of $Y$ satisfies $\operatorname{var}(Y)=(A'A)^{-1}$ and so it is enough to narrow down potential candidates for $A$ to the compact set
+\[
+\Omega:=\{QA:Q\in O(d)\}.
+\]
+Our main insight is as follows: Since $\varepsilon$ is unobserved, multiplying (1) by $Q\in O(d)$ gives an alternative representation $\widetilde A Y=\widetilde\varepsilon$, where $\mathbb E\widetilde\varepsilon=0$ and $\operatorname{var}(\widetilde\varepsilon)=I_d$. The goal is to define suitable additional restrictions on the distribution of $\varepsilon$ so that the distribution of $\widetilde\varepsilon=Q\varepsilon$ does not satisfy these restrictions unless $Q$ is very special.''',[6],[1],[r'\Omega:=\{QA:Q\in O(d)\}',r'\widetilde\varepsilon=Q\varepsilon'],'Source interpretation of identification from the observed distribution: admissible observational representations have the same Y law and normalized latent covariance, and differ by an orthogonal left factor. Additional selected tensor restrictions reduce this ambiguity. This is population identification, not finite-sample recovery or an estimation rate.','Section 4 — Identification candidates under covariance normalization',kind='source_passage')
+add(9,'general identification problem',r'''For $T\in\mathcal V$, we define
+\[
+\mathcal G_T(\mathcal V):=\{Q\in O(d):Q\bullet T\in\mathcal V\},
+\]
+(10)
+which is the subset of $\Omega$ that can be identified from $\mathcal V$. Below we sometimes drop $\mathcal V$, writing $\mathcal G_T$, if the context is clear. We always have $I_d\in\mathcal G_T(\mathcal V)$ but in general $\mathcal G_T(\mathcal V)$ will be larger.''',[7],[2,7],[r'\mathcal G_T(\mathcal V)',r'Q\in O(d):Q\bullet T\in\mathcal V'],'Set of orthogonal transformations taking the fixed tensor into the allowed subset V of symmetric tensors. This is not generally a group or the stabilizer Q*T=T. The source calls it a subset of Omega even though Omega contains QA; preserve that sentence and flag the Q-versus-QA distinction. V and T are the definition’s binders; no observational model is required to define the set.','Section 4.1 — Admissible tensor transformations (10)',context='We summarize the general identification problem as follows.')
+add(10,'signed permutation matrices',r'''We denote the set of $d\times d$ signed permutation matrices by $\operatorname{SP}(d)$. These are the $2^d d!$ matrices that are of the form $DP$, where $D,P\in O(d)$ with $D$ diagonal and $P$ a permutation matrix.''',[7],[],[r'\operatorname{SP}(d)',r'2^d d!',r'DP'],'Finite signed-permutation group: one ±1 entry per row and column, expressible as diagonal sign matrix times permutation. Left multiplication by DP permutes and changes signs of the rows of A. Scale ambiguity is removed by covariance normalization; arbitrary diagonal scaling is not allowed.','Section 4.1 — Signed permutation matrices')
+add(11,'Diagonal tensors',r'''A tensor $T\in S^r(\mathbb R^d)$ is called diagonal if it has entries $T_{\mathbf i}=0$ unless $\mathbf i=(i,\ldots,i)$ for some $i=1,\ldots,d$. We define $\mathcal V^{\mathrm{diag}}$ as the set of diagonal tensors in $S^r(\mathbb R^d)$.''',[8],[2],[r'\mathcal V^{\mathrm{diag}}',r'\mathbf i=(i,\ldots,i)'],'Only entries whose indices are all identical may be nonzero. No distinctness or nonzero diagonal assumption is included in this definition; those are theorem-specific genericity conditions. At a fixed order this does not imply independence of the latent components.','Definition 5.1 — Diagonal tensors',context='5.1. Diagonal tensors.')
+add(12,'Reflectionally invariant tensors',r'''A tensor $T\in S^r(\mathbb R^d)$ is called reflectionally invariant if the only potentially non-zero entries in $T$ are the entries $T_{i_1\cdots i_r}$ where each index appears in the sequence $(i_1,\ldots,i_r)$ even number of times. If $r$ is odd, the only reflectionally invariant tensor is the zero tensor. We define $\mathcal V^{\mathrm{refl}}$ as the set of reflectionally invariant tensors in $S^r(\mathbb R^d)$.''',[10],[2],[r'\mathcal V^{\mathrm{refl}}',r'T_{i_1\cdots i_r}'],'Entries with any coordinate label appearing an odd number of times must vanish. Even multiplicities may include off-diagonal entries such as T_iijj; this is not the same as diagonality for higher even order. Odd order permits only the zero tensor. The genericity contractions are a separate condition.','Definition 5.8 — Reflectionally invariant tensors',context='5.2. Reflectionally invariant tensors.')
+add(13,'genericity condition',r'''Let $l=(r-2)/2$ and suppose, in addition, that $T$ satisfies
+\[
+\sum_{i_1,\ldots,i_l}T_{i_1i_1\cdots i_li_ljj}\ne\sum_{i_1,\ldots,i_l}T_{i_1i_1\cdots i_li_lkk}\qquad\text{for all }j\ne k.
+\]
+(14)''',[11],[2],[r'l=(r-2)/2',r'T_{i_1i_1\cdots i_li_ljj}',r'T_{i_1i_1\cdots i_li_lkk}'],'Distinct repeated-pair contractions for each pair of remaining coordinate indices. Each summation index ranges over[d], inherited from the tensor convention. The source context takes even r; at r=2 the empty contraction gives T_jj≠T_kk. This is not simply distinct full diagonal entries when r>2. Theorem5.14 applies it to the chosen h_r(epsilon).','Theorem 5.10 — Genericity condition (14)',kind='theorem_excerpt',context='We emphasize that the genericity condition in (14) simply states that $T$ lies outside of explicit linear hyperplanes.',context_page=11)
+# Use the complete literal naming sentence, including its displayed count.
+members['D13']['naming_context'][0]['text']=r'We emphasize that the genericity condition in (14) simply states that $T$ lies outside of $\binom d2$ explicit linear hyperplanes in $S^r(\mathbb R^d)$.'
+def main():
+    (ROOT/'source-passages.json').write_text(json.dumps(dict(paper_id=PID,members=list(members.values())),indent=2,ensure_ascii=False)+'\n')
+    (ROOT/'interface-extraction.json').write_text(json.dumps(dict(paper_id=PID,interfaces=interfaces),indent=2,ensure_ascii=False)+'\n')
+if __name__=='__main__':main()

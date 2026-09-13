@@ -1,0 +1,167 @@
+{
+  "scope": "Eleven source-reviewed local interfaces in the heavy-tailed Bayesian nonparametric adaptation paper.",
+  "rows": [
+    {
+      "interface_id": "local-3707cae81fb27f9b25e0",
+      "related": [
+        "MeasureTheory.Measure.withDensity",
+        "MeasureTheory.lintegral",
+        "Real.rpow"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "withDensity constructs the weighted prior and lintegral gives its total mass; positive real powers encode likelihood tempering. These do not supply an ordinary sampling kernel for the powered likelihood or prove posterior contraction.",
+      "gap": "Define and normalize the measurable powered-likelihood update on its positive finite evidence domain, retaining the source range of rho.",
+      "comparisons": {
+        "D21": "Fix 0<rho≤1 and weight the prior by p_f^(n)(X)^rho, then normalize by its prior integral for each sample. This is an update from the prior and original likelihood; it does not require computing the ordinary posterior first. Treat the underlying likelihood as nonnegative and establish measurability and positive finite evidence before normalization; rpow and measure arithmetic fallback values do not resolve missing denominator conventions. Theorems 8–10 restrict rho<1 within the ambient positive range, and the rho=1 comparison does not prove their claims at that endpoint."
+      }
+    },
+    {
+      "interface_id": "local-297d4541951944bdad99",
+      "related": [
+        "Real.exp",
+        "Real.log",
+        "Real.rpow"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "The three inspected real functions directly express the exponential of a negative powered logarithm on positive integer indices. No special probability object or optimizer is involved.",
+      "gap": "Package the scale sequence with its positive index and parameter domains and preserve its theorem-specific rate dependence.",
+      "comparisons": {
+        "D4": "Use exp(-a*(log k)^(1+delta)) with k≥1 and a,delta>0. At k=1 the scale is one, since log 1=0 and 1+delta>0; no index-zero convention should be imported. This is the general second branch of Theorem 6 and its reference in Theorem 9, not universally the special exp(-(log k)^2) choice. Keep delta in the corresponding rate rather than identifying the two scale alternatives."
+      }
+    },
+    {
+      "interface_id": "local-e0d15a80490680e20b13",
+      "related": [
+        "ProbabilityTheory.gaussianReal",
+        "MeasureTheory.Measure.infinitePi",
+        "Asymptotics.IsBigO",
+        "Real.rpow"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "gaussianReal supplies each observation law, infinitePi supplies a countable independent array of probability components, and paired asymptotic bounds can represent the stated singular-value order.",
+      "gap": "Construct the Gaussian inverse sequence experiment with positive sample size and the source two-sided singular-value comparison.",
+      "comparisons": {
+        "D14": "For k≥1 use mean kappa_k*f_k and variance 1/n, with n>0, and take the countable product over k. Preserve nu≥0 including the direct case nu=0. The source kappa_k asymp k^(-nu) is two-sided order, so one IsBigO bound is insufficient; norm comparisons must also retain the intended singular-value sign/domain. No SVD for a particular forward operator, Volterra operator or sequence prior follows from these components, and no finiteness truncation of observations is imposed."
+      }
+    },
+    {
+      "interface_id": "local-be8cb15f07c1ff890c91",
+      "related": [
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "The measurable branch of Measure.map is exactly a pushforward by preimages. Its arbitrary-Dirac fallback for a nonmeasurable map is not an intended posterior transformation.",
+      "gap": "Prove the data-dependent centering map is measurable into M0 on the relevant domain and define its posterior pushforward.",
+      "comparisons": {
+        "D19": "For a fixed observed X^(n), map posterior draws f by tau(f)=sqrt(n)*(f-X^(n)) into the separable M0. In Pi composed with tau inverse, inverse means set preimage rather than a separately estimated inverse function. Membership and measurability in M0 must follow from the stated weights and almost-sure source conditions; do not substitute the whole bounded sequence space M. The map API does not prove the Bernstein–von Mises limit or resolve the level-zero weight discrepancy."
+      }
+    },
+    {
+      "interface_id": "local-17961bfb8a25e9612175",
+      "related": [
+        "Real.exp",
+        "MeasureTheory.integral",
+        "MeasureTheory.Measure.withDensity",
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "The real exponential and integral construct the positive normalization constant, withDensity constructs a measure with the resulting density, and map pushes an input prior through the density-valued transformation.",
+      "gap": "Construct the normalized exponential density map, prove its positive finite integral and measurable dependence on the input function, and push forward the selected prior.",
+      "comparisons": {
+        "D22": "For bounded measurable f on [0,1], exp(f) is positive with finite positive Lebesgue integral on the unit interval, so the displayed g_f is a normalized density after proving those bounds. A Bochner integral outside integrability would not give this interpretation; boundedness supplies the intended domain. For a prior, prove measurability of f↦g_f in the chosen density space before Measure.map. The map accepts the theorem-selected prior branch; its introductory (4),(5) example does not eliminate Theorem 8’s other branch."
+      }
+    },
+    {
+      "interface_id": "local-9fd7f60f3cfaec8841f1",
+      "related": [
+        "Real.sigmoid",
+        "MeasureTheory.Measure.map"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "Real.sigmoid has exactly the scalar formula (1+exp(-u)) inverse, and Measure.map supplies a prior pushforward through its pointwise composition with an input function.",
+      "gap": "Prove the pointwise logistic map is measurable between the chosen function spaces and push forward the theorem-selected prior.",
+      "comparisons": {
+        "D25": "Use h_f(x)=Real.sigmoid(f(x)), with values in (0,1), and map the input function prior through this pointwise transform. Scalar continuity does not by itself choose a measurable structure on arbitrary function spaces; specify it and prove the needed map measurability. Preserve Theorem 9’s prior selection through Theorem 6 and the recorded difference from the preceding wavelet-prior prose, including the unresolved multivariate domain convention. The pushforward does not fix an extra scale or infer posterior contraction."
+      }
+    },
+    {
+      "interface_id": "local-c58e1642175bc6edc63c",
+      "related": [
+        "ProbabilityTheory.bernoulliMeasure",
+        "MeasureTheory.Measure.withDensity"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "bernoulliMeasure with first point 1 and second point 0 assigns masses h_f(x) and 1-h_f(x), respectively. A joint withDensity measure can express its product with the marginal covariate density after measurability and normalization.",
+      "gap": "Construct the conditional Bernoulli joint data density on the covariate–response product and retain the source’s unresolved norm-domain use.",
+      "comparisons": {
+        "D26": "Keep y in {0,1}, the covariate marginal density g(x), and h_f(x)^y*(1-h_f(x))^(1-y). The Bernoulli probability argument is h_f(x) in [0,1], with point 1 first to obtain the correct success mass. Multiplying by g is a joint density against the covariate reference measure times counting measure on the two labels; do not square g or remove it from this definition merely because it cancels in inference on f. The theorem’s G,1 norm is described on covariates only while its integrand is a joint density difference; retain that discrepancy rather than replacing p_f with h_f."
+      }
+    },
+    {
+      "interface_id": "local-2991e418896fbd1dbcf0",
+      "related": [
+        "Memℓp",
+        "lp.norm_eq_ciSup"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "At exponent infinity, Memℓp requires bounded coordinate norms and the inspected norm theorem identifies the supremum. Flattening the finite wavelet levels and scaling each coefficient by its level weight gives a candidate isometric representation.",
+      "gap": "Construct the weighted coefficient-to-lp isometry and prove the level-maximum norm identity while preserving the source weight convention.",
+      "comparisons": {
+        "D16": "Index coordinates by pairs (l,k) and map x_lk to x_lk/w_l; with w_l≥1 and finite nonempty level index sets, the sup over all scaled coordinates equals sup_l max_k |x_lk|/w_l. Memℓp at infinity certifies boundedness, avoiding an unjustified real supremum for unbounded sequences. Retain monotone increasing weights and l≥0. Theorem 5’s printed power weights vanish at l=0, contrary to the definition; do not silently shift l or use totalized division by zero to reconcile them. The full M is not asserted separable."
+      }
+    },
+    {
+      "interface_id": "local-0a1292b7f19a900b3955",
+      "related": [
+        "ZeroAtInftyContinuousMap",
+        "Memℓp",
+        "lp.norm_eq_ciSup"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "ZeroAtInftyContinuousMap requires continuity and cocompact convergence to zero; on a discrete coefficient index type this is coordinate vanishing outside finite sets. The weighted lp infinity representation supplies the ambient norm.",
+      "gap": "Identify the weighted vanishing-level space with the corresponding c0 space and prove its closedness and separability for the paper’s coefficient indexing.",
+      "comparisons": {
+        "D17": "Flatten the scaled coordinates x_lk/w_l on the discrete union of finite wavelet levels. Because each initial finite collection of levels has finitely many coordinates, vanishing outside finite sets corresponds to max_k |x_lk|/w_l tending to zero as l→infinity; this equivalence and its norm compatibility need proof. Retain membership in M and its norm, then derive the claimed closed separable subspace using the countable finite-level structure. The generic C0 structure alone neither proves these identifications nor resolves the printed zero-level weight discrepancy."
+      }
+    },
+    {
+      "interface_id": "local-a5b0dfdcf4f24be868d8",
+      "related": [
+        "Memℓp",
+        "lp.norm_eq_tsum_rpow",
+        "Real.rpow"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "Weighted coefficients can be represented in lp at p=r, where Memℓp provides convergence of the power sum and norm_eq_tsum_rpow identifies its root. The searched sequence APIs do not establish a classical Besov-space wavelet characterization.",
+      "gap": "Define the weighted coefficient lp ball with its strict radius and prove equivalence to the printed nested sum under the chosen wavelet indexing.",
+      "comparisons": {
+        "D10": "For 1≤r≤2, beta,L>0, scale f_lk by 2^(l*(beta+1/2-1/r)); its r-power sum gives the source weight 2^(r*l*(beta+1/2-1/r)) after positive-base power algebra. Use summability or an extended nonnegative sum before a real tsum so divergence cannot become zero. Preserve the strict bound <L^r, rather than ≤, and equal inner/outer summability exponent r. Identification with classical Besov functions needs the appropriate basis regularity, and the extra beta>1/r-1/2 condition belongs to the consuming theorems, not this definition."
+      }
+    },
+    {
+      "interface_id": "local-7068e9c5c4feca669d5e",
+      "related": [
+        "MeasureTheory.tendsto_iff_forall_lipschitz_integral_tendsto",
+        "LipschitzWith",
+        "MeasureTheory.integral"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p1433 PDF pages 5,8,11–14 and paper-audit source_notes. Searched bounded-Lipschitz, Fortet–Mourier, zero-at-infinity and sequence-space APIs in pinned Mathlib. Inspected Portmanteau:685–705; lpSpace:64–92,428–466; ZeroAtInfty:31–48; Measure/Map:89–106; ProductMeasure:346–359; Bernoulli:39–48; Sigmoid:59–70; reused inspected Real exp/log/rpow, Gaussian law, withDensity and lintegral definitions. Opened newly cited sequence-space and Portmanteau links against the pinned archive.",
+      "result": "The inspected Portmanteau theorem characterizes weak convergence by integrals of every bounded Lipschitz function along countably generated filters. It neither defines a normalized supremum metric nor chooses between common bounded-Lipschitz norm conventions.",
+      "gap": "Specify the intended bounded-Lipschitz normalization and prove the corresponding probability metric and weak-convergence equivalence on M0.",
+      "comparisons": {
+        "D20": "The paper names beta_S but does not provide its test-function normalization; retain this absence rather than inventing a unit-ball formula. The library theorem applies to probability measures on a pseudoemetric measurable space with measurable opens and a countably generated convergence filter, and gives a test-integral characterization. To identify the paper’s metric one still needs a normalized test class and uniform-supremum argument; pointwise convergence of all these integrals is not itself a numerical metric definition. Its use in Theorem 5 is on the separable M0 and also involves a data expectation, neither supplied by the generic theorem."
+      }
+    }
+  ]
+}

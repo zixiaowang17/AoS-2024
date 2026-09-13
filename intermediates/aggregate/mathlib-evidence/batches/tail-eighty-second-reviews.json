@@ -1,0 +1,79 @@
+{
+  "scope": "Manual archive-pinned comparison of seven remaining interfaces from the approved-baseline paper aos-2024-v52-i04-p1616, preserving squared versus unsquared objectives and centering conventions.",
+  "rows": [
+    {
+      "interface_id": "local-112262d0e3c55e2a9488",
+      "related": ["MeasureTheory.Measure.map", "MeasureTheory.Measure.prod", "MeasureTheory.eLpNorm", "MeasureTheory.MemLp"],
+      "status": "composable",
+      "query": "Euclidean (2,2) Gromov-Wasserstein distortion infimum over probability couplings; whole-library bounded search and inspection of marginal pushforwards, binary product measures and L2 seminorm.",
+      "result": "Couplings can be specified by two marginal map equalities, and the L2 seminorm of the squared-distance discrepancy under the coupling's self-product defines each feasible cost. An extended nonnegative infimum gives the distance without assuming attainment.",
+      "gap": "The displayed distance is constructible from coupling constraints and the product L2 seminorm, while finiteness, attainment and metric properties require separate arguments.",
+      "comparisons": {
+        "D4": "For each coupling pi of mu on R^d_x and nu on R^d_y, take two independent draws from that same coupling via pi.prod pi and form ||x-x'||^2-||y-y'||^2. Its L2 seminorm is the square root of the integral of the squared discrepancy; infimize that quantity with no extra factor of one half or fourth root. The dimensions may differ, and fourth absolute moments of both marginals are the stated finiteness domain. Do not replace pi.prod pi by mu.prod nu inside the distortion or optimize two separate couplings. Mathlib's Gromov-Hausdorff constructions found by the broader search use a different notion of coupling and do not constitute a GW-distance implementation."
+      }
+    },
+    {
+      "interface_id": "local-0814391604e6c08d1837",
+      "related": ["MeasureTheory.eLpNorm", "MeasureTheory.Measure.prod", "InformationTheory.klDiv"],
+      "status": "composable",
+      "query": "Entropic regularization of squared GW distortion relative to the marginal product law; inspected extended L2 seminorm, product measures and ordered KL definition.",
+      "result": "For each feasible coupling, square its distortion L2 seminorm and add epsilon times KL from that coupling to the product of its fixed marginals, then take an extended nonnegative infimum.",
+      "gap": "The functional is definable from these ingredients for positive regularization, while its transport duality and empirical convergence results remain separate proofs.",
+      "comparisons": {
+        "D5": "Keep epsilon>0 and optimize the entire sum over a single pi with the required marginals. The distortion uses pi.prod pi, whereas KL uses pi as its first argument and mu.prod nu as its reference. Retain infinite KL for singular couplings and apply no square root to the full objective: S_epsilon has the scale of squared GW distance. This is not a debiased Sinkhorn divergence or symmetrized KL. The separate source convention S_0=D^2 should not be implemented by an unexamined zero-times-infinity penalty at epsilon=0."
+      }
+    },
+    {
+      "interface_id": "local-efc6f4f7429373317ba7",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.prod", "InformationTheory.klDiv"],
+      "query": "Entropic optimal transport with possibly negative lower-semicontinuous cost on Polish spaces; bounded entropic-transport search and inspection of real integration, KL and product measures.",
+      "result": "The cost integral and coupling-to-product KL supply the objective components. Because the source allows negative costs, a faithful general definition must handle the cost's extended-integral domain and cannot simply use nonnegative integration or a zero fallback for nonintegrable functions.",
+      "gap": "The remaining interface specifies the signed-cost integrability or extended-value convention and coupling infimum without adding unprinted nonnegativity or duality assumptions.",
+      "comparisons": {
+        "D3": "For epsilon>0 infimize integral c d pi plus epsilon*KL(pi||mu.prod nu) over probability couplings. Keep the source's real lower-semicontinuous cost on two Polish spaces, including negative values. On an integrable-cost domain the Bochner integral has the intended meaning; outside it an extended-real construction and treatment of conflicting infinities are needed, since the totalized real integral returns zero. The polynomial c_A application has its own fourth-moment bounds and should not be used to assume every general EOT cost is integrable. This primal definition does not establish Schrödinger equations or OT duality."
+      }
+    },
+    {
+      "interface_id": "local-ebb9b895c23032402f15",
+      "related": ["dotProduct", "Matrix.mulVec", "EuclideanSpace.norm_eq"],
+      "status": "composable",
+      "query": "Polynomial bilinear EOT cost indexed by a rectangular real matrix; inspected finite dot products, matrix-vector multiplication and Euclidean norms.",
+      "result": "The cost is a direct real polynomial in the two Euclidean vectors and the supplied matrix, using x dot (A mulVec y) for the bilinear term.",
+      "gap": "These declarations define the exact cost; integrability under transport couplings and the theorem's optimization over A require additional arguments.",
+      "comparisons": {
+        "D7": "Use A of shape d_x by d_y, first term -4*||x||^2*||y||^2 and second term -32*x^T*A*y. The vector norms are Euclidean, and A mulVec y has dimension d_x. Preserve both negative signs and constants; no nonnegative-distance-cost transformation or symmetrization is intended. The source's matrix box and Frobenius penalty occur in the subsequent theorem and are not part of this standalone cost definition or a restriction that A be square or positive semidefinite."
+      }
+    },
+    {
+      "interface_id": "local-09985a716e3ec38070ab",
+      "related": ["MeasureTheory.lintegral", "Real.exp", "Real.rpow", "EuclideanSpace.norm_eq"],
+      "query": "Radial beta-sub-Weibull exponential moment with parameter sigma squared; bounded sub-Weibull search and inspection of exponential-power nonnegative integration.",
+      "result": "The displayed exponential moment is directly expressible for a positive scale, with an extended nonnegative integral preserving divergence. The source's allowed sigma=0 endpoint has no specified quotient convention.",
+      "gap": "The moment condition is supported at positive scale, while the source's zero-scale endpoint needs an explicit interpretation rather than totalized division.",
+      "comparisons": {
+        "D9": "Integrate exp(||x||^beta/(2*sigma^2)) against rho and require a bound of two, retaining the Euclidean norm and exact denominator. Do not identify sigma squared with the covariance or variance of X or replace this radial moment condition by a centered directional MGF bound. The definition says sigma>=0 without giving a division-by-zero convention; Lean's real division at sigma=0 would incorrectly make the exponent zero for all x. The relevant theorem uses beta=4 and sigma squared>0, so its positive-scale instance avoids this endpoint. No extra tail equivalence or auxiliary MGF inequality is proved merely by expressing the integral."
+      }
+    },
+    {
+      "interface_id": "local-0b55f4fa8b38d45d23d2",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Zero population means and translation centering before the EGW decomposition; inspected vector Bochner integral and measure pushforward.",
+      "result": "Zero mean is a vector integral equality, and translation pushforwards can center integrable marginals. Invariance of the full EGW functional requires transporting its couplings and KL reference consistently.",
+      "gap": "The centering condition is supported by vector integration and translation pushforwards, while isometric invariance of the full transport functional remains a separate proof.",
+      "comparisons": {
+        "D12": "Require integral x d mu=0 and integral y d nu=0 for the two population laws. Fourth moments ensure meaningful first moments in the intended domain; avoid treating a zero fallback for a nonintegrable vector integral as centering. The condition is invoked before the displayed moment decomposition, whose raw second and fourth moments change under translation even though the full GW-based functional is invariant. It does not impose zero sample means on empirical measures in the later convergence theorems or silently rewrite Theorem 1's opening hypotheses."
+      }
+    },
+    {
+      "interface_id": "local-e7fe2d3cca6eee1cc10d",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.prod", "InformationTheory.klDiv", "Finset.sum_apply"],
+      "query": "Centered EGW marginal/coupling decomposition with cross-moment squares and entropic penalty; inspected product integrals, finite sums and ordered KL and compared the frozen centering and index conventions.",
+      "result": "The two displayed component formulas can be assembled from moments and a coupling infimum. Their equality to the original quadratic distortion requires expansion and marginal identities under the stated population-centering convention.",
+      "gap": "The component expressions are supported, while the decomposition identity needs its centered-moment proof and the source's dimension-index convention resolved explicitly.",
+      "comparisons": {
+        "D6": "S^1 contains the mu self-product fourth-distance moment, the nu self-product fourth-distance moment and -4 times the product-law squared-norm moment. S_epsilon^2 contains an infimum of -4 times the coupling squared-norm product moment, -8 times the sum of squared coupling cross-coordinate integrals, and epsilon*KL(pi||mu.prod nu). Its superscript 2 is a component label, not a square, and this component can be negative; a nonnegative integral or ENNReal-only representation of the whole component would be wrong. Keep the product-law and coupling-law moments distinct, preserve the printed d1/d2 versus d_x/d_y mismatch, and use the prior centering condition for the expansion. The equality S_epsilon=S^1+S_epsilon^2 is a mathematical identity to prove, not an immediate consequence of naming the components."
+      }
+    }
+  ]
+}

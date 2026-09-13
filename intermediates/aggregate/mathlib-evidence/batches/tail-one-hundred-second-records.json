@@ -1,0 +1,1127 @@
+[
+  {
+    "interface_id": "local-6e2f388fa763c01a7f36",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "ec3b4f62e32ba94281926024d7fbf3115e646964a1af9a6b9e63df89bc58b0a6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D1",
+        "comparison": "L_t is zero before Theta and one from Theta onward, while F_t is generated only by (X_s,Y_s) for 1<=s<=t and F_0 is trivial. Do not add the latent history to this observed filtration. Pi_t is the probability of state one at t conditional on L_{t-1}=0 together with F_{t-1} and X_t, not the posterior probability of already being changed. Conditional indicator expectations can express these probabilities, with versions on null survival events requiring care. Pi_0 is the unconditional initial mass at state one. A Bernoulli transition on the unchanged state must be combined with an absorbing changed-state transition, rather than an iid sequence of state labels.",
+        "statement_sha256": "25a991a5e6d322f90a081bb18c2058aab1d414637c994b2143afb67d8d1c7fce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Filtration",
+          "type": "{Ω : Type u} → (ι : Type v) → [Preorder ι] → MeasurableSpace Ω → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Process.Filtration",
+          "provides": "An increasing family of sub-sigma-algebras of a fixed ambient measurable space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Filtration.lean#L50-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory for treatment-controlled change points and posterior odds; inspect Filtration, condExp and bernoulliMeasure with their parameters and defining branches",
+          "result": "The observed filtration, conditional event probabilities and two-state transition law have checked ingredients; the absorbing hidden process and conditional survival hazard need a dedicated joint construction."
+        }
+      ],
+      "gap": "Construct the absorbing latent change process and its observed filtration, with hazards conditioned on survival and the current predictable treatment."
+    }
+  },
+  {
+    "interface_id": "local-a926a1e99e20e460d69a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "45bf71f62e5b036eea74117c731ba087b4af169db70f3f5a0be42c4ed17a68b0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D2",
+        "comparison": "K is finite and at least two, with treatment labels 1,...,K. X_t must be F_{t-1}-measurable for t>=1, not merely F_t-measurable, and X_1 is deterministic because the initial observed sigma-algebra is trivial. Adapted can be instantiated with the shifted filtration, while Kernel.deterministic represents a specified measurable history function without adding randomization. The source discusses randomized policies as a possible extension but does not include them in this admissible class. A Fin K implementation needs the usual one-based label identification.",
+        "statement_sha256": "bd8ef0a3e889907beb7263ee2d57590eae1bb8119f450b980b777410c4167c9f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Process/Adapted Adapted and Kernel/Basic deterministic with its measurability hypothesis; compare the one-step history shift and fixed first assignment",
+          "result": "Adaptedness on a shifted observed history and deterministic measurable kernels can encode the allowed policy; the source restricts a general randomized control class to these deterministic assignments."
+        }
+      ],
+      "gap": "Define the finite-treatment deterministic policy class with each treatment measurable before its corresponding response and a constant first treatment."
+    }
+  },
+  {
+    "interface_id": "local-8f7e81534a7a52776dd7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "7ca397f8b0de28c1756c3ab4a7d44664fc81f332f7bfe0178183e1ed2a265206",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D4",
+        "comparison": "Each pi_t maps the full finite treatment word in [K]^t into [0,1), and Pi_t equals pi_t(X_1,...,X_t) on the survival-conditioning interpretation from D1. The prior pi_0 also lies in [0,1). Dependence on responses can occur through the adaptive treatment word, but pi_t itself has no additional response-history argument. Zero hazards are permitted, whereas one is excluded; no universal positive lower bound or finite-memory condition is added. The distribution of Theta_scriptX depends on the policy, so comparisons across policies cannot hold the change time's law fixed by notation alone.",
+        "statement_sha256": "351aa3ab108af7e787ac60a321559b6426202b7a337be5c1d3360328eef1b9f8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect bernoulliMeasure and condExp; compare the complete-history hazard domain and the policy-dependent change-time notation",
+          "result": "A two-state hazard law and its conditional probability can be represented, but the complete treatment-history transition model is source-specific."
+        }
+      ],
+      "gap": "Construct the treatment-history hazard sequence and its policy-dependent absorbing change-time law with strictly subunit but possibly zero hazards."
+    }
+  },
+  {
+    "interface_id": "local-de1670dc1e64533e40c0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "dddc14a8968f457ed20976d5cb4c0e024bcaeb4345b44b475c5f9c9b798f92db",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D3",
+        "comparison": "All responses lie in a common Polish space with its Borel sigma-algebra and a common sigma-finite reference mu. WithDensity represents f_x or g_x after their nonnegativity, measurability and unit integrals are supplied. At time t the conditional response law depends only on X_t=x and L_t=i even when conditioning also on F_{t-1} and the preceding latent states; use f_x for i=0 and g_x for i=1. This conditional law does not make the unconditional responses independent or Gaussian, and it does not expose the latent states to the policy. Exact-state conditioning requires an appropriate version rather than interpreting an arbitrary null event literally.",
+        "statement_sha256": "8b6b6676448bcd333f09e48d3d76eca9d96440703358873ab203df2b6b59a4cd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PolishSpace",
+          "type": "(X : Type u) → [TopologicalSpace X] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Topology.MetricSpace.Polish",
+          "provides": "A second-countable completely metrizable topological space; the class does not include local compactness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Polish.lean#L62-L63",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect PolishSpace, withDensity, Kernel and condExp; compare the conditional response event law given treatment, current latent state and both observed and latent past",
+          "result": "Probability density measures on a Polish response space can form treatment/state-indexed response kernels; the precise conditional-independence identity and history construction require proof."
+        }
+      ],
+      "gap": "Assemble normalized treatment-specific pre/post density kernels and impose the displayed conditional response law on the enlarged conditioning history."
+    }
+  },
+  {
+    "interface_id": "local-f992475d65e11391be62",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "ae7a53a8c8a510e1feed685e8bc75a1b71746a4010035c2938b301e57a5aa005",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D15",
+        "comparison": "A block is an ordered word of positive length ell, retaining repeated treatment labels. Its extension satisfies Xi(j ell+i)=Xi(i) for every integer j and 1<=i<=ell, so negative indices must use an integer modulo convention compatible with one-based indexing. Function.Periodic with period ell captures the repeated extension once constructed, without asserting that ell is the smallest period. Xi(i:j) lists the consecutive extended positions from i through j; the source says arbitrary integers but does not separately spell out an empty-slice convention when i>j. A set of treatment labels would lose order and multiplicity.",
+        "statement_sha256": "2f3e9960352331104ee8b3bd94ab19f1bad6541ff30a56852aadf171b9eca6b5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.Periodic",
+          "type": "{α : Type u} → {β : Type v} → [Add α] → (α → β) → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Ring.Periodic",
+          "provides": "Translation by the specified period leaves the function unchanged at every argument; the period need not be minimal or nonzero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Ring/Periodic.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Algebra/Ring/Periodic Function.Periodic and compare the finite treatment word's integer extension and contiguous slice convention",
+          "result": "Integer translation invariance by the block length is directly expressible; construction of the one-based cyclic extension and its ordered slices remains to be supplied."
+        }
+      ],
+      "gap": "Define a nonempty finite treatment word's periodic extension to every integer and its source-ordered contiguous slices."
+    }
+  },
+  {
+    "interface_id": "local-1bad3ba801a5a81e89d6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "b64cd5269e434eeb19d1339c4c5471805ce33180153cfbe819e477ff9a568738",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D9",
+        "comparison": "At time t use P(L_t=1|F_t)/P(L_t=0|F_t), with the updated observed history after Y_t, rather than the survival-conditioned hazard Pi_t. At t=0 the ratio is pi_0/(1-pi_0), well-defined because pi_0<1 and allowed to be zero. Later response supports may force the denominator to zero even though every hazard is below one. The main-text definition supplies neither an infinite-odds state nor a zero-denominator convention, and totalized field division must not supply one. Policy dependence remains present even though the source suppresses its notation on Gamma_t.",
+        "statement_sha256": "753c902131f11d08b733a62ca4bd8de8827af74d64b5ad12b9b34756b6ad23e0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search posterior-odds interfaces; inspect condExp for event indicators and compare both conditional probabilities and the initialization in (5)",
+          "result": "The two posterior state probabilities can be represented as conditional expectations of bounded indicators; their odds ratio and its boundary convention are not provided by condExp."
+        }
+      ],
+      "gap": "Define the observed-history posterior state odds and resolve any zero unchanged-state posterior denominator without silently extending the printed state space."
+    }
+  },
+  {
+    "interface_id": "local-e52077ce257f9ba29e2d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "b823853beac3bab64fa4b2217cc5e43781f24912538daa71de02780d0086eb07",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D26",
+        "comparison": "For each initial length m>=0 and treatment word z of length m, form 1+sum_{t>=1} product_{s=1}^t(1-pi_{m+s}(z,Xi(1:s))), then take the supremum over all m,z. There is no factor 1-pi_0. The products describe survival after the prefix, naturally under a no-previous-change residual interpretation, while the source's explanatory sentence does not explicitly repeat that conditioning. Do not replace this by the initial expected change time lambda(Xi), the mean under one chosen prefix, or a sum using a single constant hazard. The supremum and series may be infinite; a real divergent tsum returning zero would lose the intended quantity.",
+        "statement_sha256": "6757df1c8aa49ea3c698ec8a6e86c4d2c7054629a889adb27dc2b120be89545b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "ENNReal.summable_toReal",
+          "type": "∀ {α : Type u} {f : α → ℝ≥0∞}, (∑' x, f x) ≠ ∞ → Summable (fun x => (f x).toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.ENNReal",
+          "provides": "Converts an explicitly finite extended nonnegative series into a summable real series; mere ENNReal summability is not the finiteness condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L350-L351",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory for survival-sum expected waiting times; inspect extended nonnegative integration and ENNReal.summable_toReal against the worst-history product series",
+          "result": "Extended nonnegative quantities preserve a potentially infinite waiting-time sum, and summable_toReal permits a real series only after finiteness is proved; no verified history-uniform residual-change-time formula was found."
+        }
+      ],
+      "gap": "Construct the history-dependent survival-product series and its supremum over every initial period, with a justified residual-time interpretation and explicit finiteness when converting to real values."
+    }
+  },
+  {
+    "interface_id": "local-f3d4dd980195239e39a9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "3666ba944e5daa8bdfa9fbd8886e569f006b91be5476621ee02b2e6debb5d588",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D7",
+        "comparison": "The admissible pair consists of the predictable assignment rule and T with {T=t} measurable in F_t for every t>=0. The countable-time conversion theorem gives IsStoppingTime, whose native events are {T<=t}; its WithTop Nat target permits infinity and does not assert almost-sure termination. The source's stopping constructions do not provide a comprehensive rule for all infinite endpoints, so this representation is not a new finiteness guarantee. C has no false-alarm tolerance or cost bound; C_alpha is a separate subclass. Policies cannot condition on the latent state through an enlarged filtration.",
+        "statement_sha256": "736727589cfa57fc3e1c8ef1d6ac788614f6308a6d38c94bbe5b4940def42628"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.IsStoppingTime",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → MeasureTheory.Filtration ι m → (Ω → WithTop ι) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Stopping",
+          "provides": "Stopping-time predicate using measurable events {tau≤i}, with an explicit possible infinite stopping value.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Stopping.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.isStoppingTime_of_measurableSet_eq",
+          "type": "∀ {Ω : Type u} {ι : Type v} {m : MeasurableSpace Ω} [Preorder ι] [Countable ι] {f : MeasureTheory.Filtration ι m} {τ : Ω → WithTop ι}, (∀ i, MeasurableSet[f i] {ω | τ ω = i}) → MeasureTheory.IsStoppingTime f τ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Process.Stopping",
+          "provides": "Converts the paper’s measurable equality-event condition to the library stopping-time predicate for countable discrete time.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Stopping.lean#L260-L261",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect IsStoppingTime and isStoppingTime_of_measurableSet_eq for countable discrete time, together with shifted policy adaptedness",
+          "result": "The source's measurable equality events imply the library's stopping-time predicate on natural time; the paired deterministic policy class still needs a definition."
+        }
+      ],
+      "gap": "Assemble admissible deterministic assignment/stopping pairs using the observed filtration and retain separate treatment of infinite stopping endpoints."
+    }
+  },
+  {
+    "interface_id": "local-40000542fca91adb86b1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "42bd0cb108e87254a265fb6f3cb26b124eb6d56c5377ad8fa754bac2c3efe55d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D20",
+        "comparison": "Let G_x and F_x be the normalized laws with densities g_x and f_x under mu. I_x corresponds to klDiv G_x F_x, averaging log(g_x/f_x) under G_x; J_x corresponds to klDiv F_x G_x, reversing both the ratio and the averaging law. The probability mass correction cancels, but absolute continuity and finite log integrals must be checked for real-valued use. Do not exchange I and J, assume they coincide, or read a singular-density real log fallback as finite information. The additional moment assumption is compared separately.",
+        "statement_sha256": "559dc2bcda00c3b597b5479cf47871a9c19444df582e351515dbd4f82a64c68b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InformationTheory.klDiv",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.InformationTheory.KullbackLeibler.Basic",
+          "provides": "Ordered extended KL divergence; infinity outside absolute continuity or log-likelihood integrability, with a mass correction that cancels for probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/InformationTheory/KullbackLeibler/Basic.lean#L57-L60",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.llr",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.LogLikelihoodRatio",
+          "provides": "Logarithm of the real-valued Radon–Nikodym derivative, with the numerator measure first.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean#L37-L37",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect klDiv, llr and withDensity, including the ordered Radon-Nikodym ratio, probability mass correction and infinite divergence branches",
+          "result": "The two ordered divergences match the displayed density integrals under the appropriate probability, absolute-continuity and integrability hypotheses; their equality or positivity is not part of the definition."
+        }
+      ],
+      "gap": "Identify the pre/post density measures and both likelihood-ratio integrals with ordered KL divergences while retaining the distinct averaging laws."
+    }
+  },
+  {
+    "interface_id": "local-def26ddb3323b09775e7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "8682e5240f03c967c4aa0474bb34909d59d6367adc3bacff3531f9e9bbf37179",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D21",
+        "comparison": "V_x^I integrates (log(g_x/f_x)-I_x)^2 under g_x mu and is explicitly strictly positive and finite. V_x^J integrates (log(f_x/g_x)-J_x)^2 under f_x mu and has only a finite upper bound printed in its display. Do not insert another strict positivity sign before V_x^J or replace these centered moments by uncentered squared log ratios. The opening They refers to information numbers (13), whose claimed positivity/finiteness is contextual rather than a library result obtained merely by naming variance. Integrable log ratios and finite second moments are needed because the library's real variance sends infinite extended variance to zero.",
+        "statement_sha256": "b031ca061fccae17155f87e7ae13a3e7d2ed67db724e909dd8e2610c1a796dbe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.llr",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.LogLikelihoodRatio",
+          "provides": "Logarithm of the real-valued Radon–Nikodym derivative, with the numerator measure first.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean#L37-L37",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Integrable",
+          "type": "{α : Type u} → {ε : Type v} → [TopologicalSpace ε] → [ContinuousENorm ε] → {mα : MeasurableSpace α} → (α → ε) → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.L1Space.Integrable",
+          "provides": "Almost-everywhere strong measurability together with a finite integral of the extended norm; for real variables it asserts absolute integrability rather than relying on a totalized integral value.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean#L59-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect variance's centered extended second-moment definition, llr and Integrable; compare the asymmetric explicit positivity and finiteness clauses in (14)",
+          "result": "Ordinary finite log-likelihood variances can be represented after identifying their means with I_x and J_x; the source's exact positivity assumptions must be retained separately."
+        }
+      ],
+      "gap": "Establish the finite centered log-likelihood moments in both directions and retain the positive lower bound explicitly printed only for V_x^I."
+    }
+  },
+  {
+    "interface_id": "local-5fde6c4b5f2d6044f92e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "b22b9a1b4f46a5909aea9dd6075290c2845dea36a0274b51a005f02f7aa29f0a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D28",
+        "comparison": "Take limits as alpha decreases to zero through its positive tolerance domain. Hazards and all listed block-derived quantities, block choices and lengths may vary with alpha and may have vanishing hazards, while the response densities f_x,g_x are fixed. The source defines o, O, the one-sided 1+o(1) comparisons and equivalence through limits or limsup/liminf of x/y. Preserve these multiplicative ratio meanings rather than treating a lower-bound phrase as an additive error or finite-alpha inequality. Denominator positivity/finiteness and appropriate extended or bounded real limit domains must be justified; an arbitrary signed-ratio O definition is not automatically the norm-based library IsBigO predicate. The list of varying procedure quantities does not make every theorem assume that procedure.",
+        "statement_sha256": "2e10fe874a898a9e941a0740528aece698c4cfeaeb9bd4482ea0e58259ef741d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.limsup",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit superior along an explicit filter; real-valued use needs the appropriate boundedness, while extended nonnegative values can retain infinite limits.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.liminf",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit inferior of a function along a filter; finite probability sequences lie in a bounded interval so their usual real limit inferior is meaningful.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L64-L67",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Tendsto, limsup and the generated liminf with their filter and boundedness requirements; compare all ratio-based conventions in the alpha-indexed source family",
+          "result": "Explicit ratio limits and one-sided limit inequalities can represent the source's asymptotic notation; the controlled change model and parameter-dependence convention are separate structure."
+        }
+      ],
+      "gap": "Parameterize the permitted change-model and procedure quantities by positive alpha tending to zero and implement the exact ratio-limit conventions with their domains explicit."
+    }
+  },
+  {
+    "interface_id": "local-531551800302137b5448",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "202864aeaf219c791468207a9477b4931d06b2b0eee55eab739700ae4548827a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D22",
+        "comparison": "Divide each of sum_i I_Xi(i), sum_i J_Xi(i), sum_i V^I_Xi(i) and sum_i V^J_Xi(i) by the same positive block length ell, over i=1,...,ell. Repeated treatments contribute once per position, rather than once per distinct label or according to an unrelated stationary distribution. These V inputs remain the centered log-likelihood moments defined in (14), despite the source calling them second moments in prose. The average of the V values is not asserted to be the variance of the block's total or average log-likelihood, which would also need a stochastic dependence calculation.",
+        "statement_sha256": "c51f0c3d818943c1d729508c0fdc39c74e17a43d9be336bccf606e97d972615e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Algebra/BigOperators/Field Finset.sum_div and compare the four position-weighted averages over a positive-length treatment block",
+          "result": "Finite-sum normalization supplies the averaging operation; the source's information numbers and centered second moments are the inputs rather than library-provided block statistics."
+        }
+      ],
+      "gap": "Assemble the four arithmetic block-position averages, preserving multiplicities and the centered interpretation of both V quantities."
+    }
+  },
+  {
+    "interface_id": "local-398ad141c2fb3a62a1a8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "fb7fb3106fe031f8335f5a08d1470fedd15e53b347dbcc67a5660404bbe76f09",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D25",
+        "comparison": "Lambda(Xi) is (1-pi_0) times [1+sum_{t>=1} product_{s=1}^t(1-pi_s(Xi(1:s)))]. The leading factor accounts for initial prior change mass and the unit term accounts for the first positive waiting time when initially unchanged. A fixed repeated block can still induce time/history-dependent hazards, so this is not automatically a geometric mean 1/pi. Distinguish it from tilde-lambda's worst-prefix residual bound, which lacks the prior factor. The source permits zero hazards and hence an infinite expected time; real conversion requires actual finiteness, not merely formal summation syntax.",
+        "statement_sha256": "9474d9d840024f5c34c3bac4e48add1700a322e4ced66d203a4c78983fbba7b7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "ENNReal.summable_toReal",
+          "type": "∀ {α : Type u} {f : α → ℝ≥0∞}, (∑' x, f x) ≠ ∞ → Summable (fun x => (f x).toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.ENNReal",
+          "provides": "Converts an explicitly finite extended nonnegative series into a summable real series; mere ENNReal summability is not the finiteness condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L350-L351",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search expected survival-sum formulas; inspect lintegral and ENNReal.summable_toReal against the initial block-repetition survival series",
+          "result": "An extended nonnegative expectation and series preserve potentially infinite change times; no verified formula specific to the treatment-controlled initial survival product was located."
+        }
+      ],
+      "gap": "Derive the expected change-time survival series under indefinite block repetition, retaining the initial unchanged-state probability."
+    }
+  },
+  {
+    "interface_id": "local-e594697262106d9d14a2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "9d68e1977b4b725e09eb4e185703e4e53d50b55412ae86cdd7e2f12d97072cbb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D31",
+        "comparison": "D-star(alpha)>0 is O(1), with no uniform positive lower bound added. N_epsilon,alpha is floor((1-epsilon)|log alpha|/D-star), and the normalized sum uses I_{X_{t+s}}+omega(Pi_{t+s}), where omega(x)=|log(1-x)|, before the supremum over all starts and policies and limsup alpha→0. The source prints every epsilon>0 even though epsilon>=1 gives a nonpositive window and epsilon=1 gives zero denominator; retain that caveat rather than silently replacing the range by (0,1). Its policy quantifier is repeated outside the supremum, and the random history terms do not come with a stated pathwise/probability interpretation. Neither uniform block stability nor a positive lower bound on D-star is imported to fill those gaps.",
+        "statement_sha256": "35c1b1db9dc96160b0d62481e359bb42d7883bbe991efff41524b564d5cc22ee"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.limsup",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit superior along an explicit filter; real-valued use needs the appropriate boundedness, while extended nonnegative values can retain infinite limits.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect limsup, Int.floor, IsBigO and Real.log; compare all quantifiers, the adjusted-information summands and the exact finite window in (29)",
+          "result": "The window and ratio-limit expression can be encoded, but no verified uniform controlled-information bound was located; the source leaves material window-domain and random-supremum interpretation issues."
+        }
+      ],
+      "gap": "Define the uniform adjusted-information window bound with a valid window domain and an explicit interpretation of its policy-dependent random supremum."
+    }
+  },
+  {
+    "interface_id": "local-8864d3b8a6f189338784",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "736cda7a3ea5e7bbf60eb59a250d2bb08fadf11e8e5dd2595648175e391f3eea",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D5",
+        "comparison": "Use blackboard-bold S_0=zeta_0 in R^kappa, Pi_t=Psi(X_t,S_{t-1}) and S_t=Phi(X_t,S_{t-1}) with fixed kappa>=0. The link takes values in [0,1), and the update preserves the same Euclidean state dimension. The recursion may summarize the entire treatment past and need not have finite treatment memory or a finite state set. Kernel.deterministic applies only once update measurability is supplied; the source does not explicitly assert global measurability of Psi or Phi here. Keep this S distinct from later stage endpoints and do not add a hidden-state observation to the policy.",
+        "statement_sha256": "a7c68419512f36bce29680284b5f8344d71665efc09f36943dcf72f1d98e6d15"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Kernel.deterministic and its required measurable update map; compare the source's sufficient-state recursion and named Markovian condition",
+          "result": "A measurable deterministic state update can be represented as a kernel, but the source only supplies named link/update functions and a fixed-dimensional sufficient state, not their full global regularity hypotheses."
+        }
+      ],
+      "gap": "Define the fixed-dimensional sufficient treatment-state recursion and establish any measurability needed to package its update as a stochastic kernel."
+    }
+  },
+  {
+    "interface_id": "local-270d93c044b408bec218",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "8b8d308c825bed48f57b6f89b8dca9c89de8b11cfbe2d540ea69f2c128b0a66e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D10",
+        "comparison": "At initial odds gamma>=0 and sufficient state zeta, minimize c E_{gamma,zeta}[T]+P_{gamma,zeta}(T<Theta_scriptX) for c>0. T is total sample size, not (T-Theta)^+ or conditional detection delay. The false-alarm cost is one and the domain is C, without a fixed alpha constraint or equality. Extended nonnegative expectations retain policies with infinite sample cost; using a real infimum requires the appropriate boundedness and nonempty class, whereas an extended domain can include infinity. No existence, measurable optimal policy or false-alarm calibration follows from these arithmetic ingredients.",
+        "statement_sha256": "13aff2307b0d43ef0fa4ca935442914732ad5943ea01f01b8bcd501237d3f7c4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect nonnegative lintegral, finite-measure real event probability and the nonempty bounded-below infimum criterion; compare the unconstrained total-cost objective",
+          "result": "Expected nonnegative sample count, false-alarm probability and an infimum can be represented; no verified optimal-control result for this source-specific cost model was located."
+        }
+      ],
+      "gap": "Construct the initial-state-indexed probability laws and minimize total observation cost plus unit false-alarm cost over the full admissible class."
+    }
+  },
+  {
+    "interface_id": "local-b879f7bea9c35524fbef",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "ac675d51f4237bd28a52cca83f255917cb7291957e63a72e992b6dea18937249",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D27",
+        "comparison": "For each time t>=0, prior word z of length t and phase j=1,...,ell, first maximize pi_{t+s}(z,Xi(j:j+s-1)) over s=1,...,2ell, then take the infimum over t,z,j. Ell is positive, so every inner finite maximum is nonempty; hazards lie in [0,1), giving a nonnegative outer lower bound and a nonempty history domain. The result may be zero even if some hazards are positive. Do not average the window, use only one block, or require every hazard to exceed zeta. The condition does not itself make reciprocal-zeta terms in later bounds finite.",
+        "statement_sha256": "34e66afb371e5caa21a6a9a8deb50f47ba8a3f0c17469b5bb87b8762b255a48b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite maximum existence and the lower-bound characterization of a nonempty bounded-below infimum; compare the order of the two-block hazard extrema",
+          "result": "The inner maximum over a finite positive-length window and the outer real infimum have checked order-theoretic ingredients; positivity of the source's worst-history quantity is not supplied."
+        }
+      ],
+      "gap": "Assemble the infimum of two-block maximum hazards over all starts, histories and cyclic phases without replacing it by a pointwise minimum hazard."
+    }
+  },
+  {
+    "interface_id": "local-3b18f3b76a9357ca505a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "8cf97c54a57d6be93639edbd2215598392ce7ed1a3887c751ac8c1a60d9bd876",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D6",
+        "comparison": "Pi_t=Psi(X_t) for one function Psi:[K]→[0,1), with no explicit time or earlier-treatment argument. This is the zero-dimensional sufficient-state special case, not a requirement that the treatment rule ignore observed history. Adaptive X_t can therefore induce a random time-varying hazard even with fixed Psi. Zero hazards are allowed, and the model is not an iid sequence of Bernoulli latent states because state one is absorbing. No universal geometric change-time law is asserted across adaptive policies.",
+        "statement_sha256": "6aca31ac8bb68628296f7f42023e2f51d03325eded7b9d23491db3c132bd9695"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect bernoulliMeasure and compare the current-treatment-only hazard with the general treatment-history and fixed-dimensional-state definitions",
+          "result": "A Bernoulli change transition can be indexed by the current finite treatment alone; this supplies a building block but not the entire adaptive absorbing process."
+        }
+      ],
+      "gap": "Instantiate the absorbing hazard model with one time-invariant link of the current treatment and relate it to the zero-dimensional sufficient-state specialization."
+    }
+  },
+  {
+    "interface_id": "local-76694ff684c847458425",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "6b9e26814ce7fe2465aad8fc9888f7fb815ef32591801fdef33f2cf40fd33bfc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D8",
+        "comparison": "For alpha in (0,1), keep (scriptX,T) in C and require P(T<Theta_scriptX)<=alpha. The event is strict, so stopping exactly at the change is not a false alarm. This is an overall false-alarm probability, not an average run length before false alarm, a per-time hazard or conditional false-alarm probability. Theta's law changes with the policy and the same joint controlled construction must define both T and Theta. The constraint does not assert equality to alpha or finite expected duration.",
+        "statement_sha256": "ca6318619639782fcdfe3e3e150ffff8927168254d6004e762708bc515bd49d3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.IsStoppingTime",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → MeasureTheory.Filtration ι m → (Ω → WithTop ι) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Stopping",
+          "provides": "Stopping-time predicate using measurable events {tau≤i}, with an explicit possible infinite stopping value.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Stopping.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite-law event probability and stopping-time predicate; compare the precise strict false-alarm event defining C_alpha",
+          "result": "The event probability and stopping-time requirement can be encoded; the constrained class and its controlled change-time coupling remain source-specific."
+        }
+      ],
+      "gap": "Define the subclass of admissible policies and stopping times whose probability of stopping strictly before their own policy-dependent change time is at most alpha."
+    }
+  },
+  {
+    "interface_id": "local-b324448988ae349b51f4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "a1f5f493b0356d59df54f5ea1623459c2cabb8a65c61fdc0abb03c5c4d700570",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D30",
+        "comparison": "Lambda-star is inf_scriptX E[Theta_scriptX] over assignment rules, not over stopping rules and not the infimum of detection delay. The condition asks for a block Xi such that alpha tilde-lambda(Xi)=o(lambda-star+|log alpha|). In the alpha-indexed setting the block may vary with alpha under the standing convention. The same block must control the worst-history residual quantity, not just its initial lambda. Applying real-valued little-o needs the intended finiteness and positive comparison scale; infinite waiting times cannot be converted to zero. This existence hypothesis does not restrict every policy in the universal lower bound to repeat Xi.",
+        "statement_sha256": "2a220e437a280fa37bcd7c996880bfc121923489771e63a3d999186cf18f9348"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect nonnegative expectation, IsLittleO, Real.log and infimum bounds; compare the existence-of-block residual-time condition with the all-policy expected-change-time infimum",
+          "result": "Expected change times, an infimum and a little-o comparison can be represented on an appropriate finite/extended domain; the particular block existence and uniform-history bound are not library results."
+        }
+      ],
+      "gap": "Define the optimal expected change-time infimum and establish existence of a block whose alpha-scaled worst-history residual duration is negligible at the stated scale."
+    }
+  },
+  {
+    "interface_id": "local-3627f959347cd2fe4e52",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "8296a30308355ca8b588721dc58e0fe52985a13da593d6c293a58261b70e1aac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D23",
+        "comparison": "For fixed nonempty Xi, average omega(pi_{t+s}(z,Xi(j:s+j-1))) over s=1,...,M with omega(x)=|log(1-x)| and target d(Xi)>=0. Since hazards are below one, log(1-x) is defined on a positive argument, but it need not be uniformly bounded. The same positive integer threshold M(Xi,epsilon) must work for all t,z,j and all M above it. It is a sufficient threshold, not asserted minimal. Pointwise convergence for each history alone is weaker. The source's d(Xi) is the log-hazard average and differs from the switching threshold d; Theorem 6.1 reuses omega without importing this block-stability assumption.",
+        "statement_sha256": "38550affff4985942c359abdef3b14a7769e7cbe0f2063565f3d41d93a766e00"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TendstoUniformlyOn",
+          "type": "{α : Type u} → {β : Type v} → {ι : Type w} → [UniformSpace β] → (ι → α → β) → (α → β) → Filter ι → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.UniformSpace.UniformConvergence",
+          "provides": "Convergence with one eventual index bound valid for every point of the specified set; the set need not be compact or bounded.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/UniformSpace/UniformConvergence.lean#L91-L92",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect TendstoUniformlyOn and Tendsto with the full history index domain; compare the source's Cesaro log-survival average and uniform threshold (15)-(16)",
+          "result": "Uniform convergence of a family of real averages is directly expressible, but the hazard sequence, block phase indexing and limiting value must be supplied and shown to satisfy it."
+        }
+      ],
+      "gap": "Construct the blockwise Cesaro log-survival averages and prove convergence uniformly over every starting time, treatment history and cyclic phase."
+    }
+  },
+  {
+    "interface_id": "local-b9ff541f05b937608637",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "e95dac250454739aee87b5bb9040857192df6ff43367ef9096c74a1e01c4d408",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D24",
+        "comparison": "Sans-serif D(Xi)=I(Xi)+d(Xi), using the arithmetic average of I_x and the log-hazard Cesaro limit from (15)-(16). Do not use J(Xi), the average raw hazard, or the scalar switching threshold d. Any finiteness or positivity needed later must come from the actual information and stability hypotheses; the sum notation alone proves no optimality or detection-delay bound.",
+        "statement_sha256": "03309bd04dc2d62db91352095453c82f521cfd2c0f8624a0feafd713b41b81e2"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/MeasureTheory for treatment-controlled change points, posterior odds and false alarms; compare the exact source definition of adjusted block information",
+          "result": "No verified packaged adjusted-information declaration was located; the scalar sum can be defined once its two separately audited inputs are supplied."
+        }
+      ],
+      "gap": "Define the adjusted information as the sum of block-average post/pre response information and the block log-survival limit.",
+      "no_related_reason": "This adjusted information is a source-specific sum of the block response information and log-hazard Cesaro limit; searches found no corresponding controlled-detection API, and generic scalar addition would not constitute a substantive match."
+    }
+  },
+  {
+    "interface_id": "local-8e13085a10e56c61beb5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "672ab66028349981f92d801f6be658b36fa6844b90c872eb5d45b1409ddcbd26",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D29",
+        "comparison": "There exists a fixed c in (0,1) such that for every sufficiently small alpha, all pi_t(z;alpha) are at most 1-c, uniformly over t>=0 and histories z in [K]^t. The source includes t=0, so the empty-word value must be related explicitly to the separately notated prior pi_0. The same c is not allowed to depend on t,z or alpha; bounding only the chosen blocks would be weaker. This excludes hazards approaching one uniformly in the indexed family but permits hazards equal to zero and says nothing about a positive lower hazard bound.",
+        "statement_sha256": "86bbca55a4d9fbe917e47ef3c5f918f00c5c0580ec05b3845f216717e3dfaf21"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect csSup_le_iff and its nonempty/bounded set hypotheses; compare the uniform all-history and small-alpha hazard upper bound (27)",
+          "result": "The supremum bound can be expressed as bounds on every hazard once the nonempty bounded family is identified; it is stronger than each individual hazard merely being below one."
+        }
+      ],
+      "gap": "Formulate one constant gap below one valid for every time and treatment history and all sufficiently small positive alpha, including the source's initial-prior convention."
+    }
+  },
+  {
+    "interface_id": "local-05911240eb83c166833c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:50:15.087314+00:00",
+    "source_interface_sha256": "4c642c8cbbd134a16272168e5cb7b9a9a3356dad5a9087191cd1fa7fbfe571b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D16",
+        "comparison": "Lambda_t is g_{X_t}(Y_t)/f_{X_t}(Y_t), with post-change density in the numerator and pre-change density in the denominator, evaluated at the current assigned treatment. It is not the posterior odds Gamma_t, the survival hazard Pi_t, or an accumulated likelihood product. rnDeriv of the post law with respect to the pre law agrees with such a ratio only under the appropriate domination and almost-everywhere interpretation; it otherwise represents an absolutely continuous part and can lose singular mass. The source supplies no pointwise convention where f vanishes. The original excerpt is from a main-text Lemma, which is not added to the Theorem inventory.",
+        "statement_sha256": "0708a518018d010d11c31b58f7c0abd6af74b2148b2b296e3ea1da7e428258df"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.rnDeriv",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → (α → ℝ≥0∞)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue",
+          "provides": "Radon–Nikodym density of the absolutely continuous part; singular mass is separate and must not be lost when defining divergence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.llr",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.LogLikelihoodRatio",
+          "provides": "Logarithm of the real-valued Radon–Nikodym derivative, with the numerator measure first.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/LogLikelihoodRatio.lean#L37-L37",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect rnDeriv and llr and compare the pointwise post/pre density ratio at the adaptively selected treatment and observed response",
+          "result": "The Radon-Nikodym derivative and its logarithm are related likelihood ingredients, but identifying the raw density ratio requires the correct domination and almost-everywhere support conditions."
+        }
+      ],
+      "gap": "Define the single-response post/pre likelihood ratio on its valid density domain and relate it to the measure derivative without inventing a zero-denominator convention."
+    }
+  }
+]

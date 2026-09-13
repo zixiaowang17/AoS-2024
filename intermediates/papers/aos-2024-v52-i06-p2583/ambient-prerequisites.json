@@ -1,0 +1,484 @@
+{
+  "paper_id": "aos-2024-v52-i06-p2583",
+  "unranked_auxiliary_passages": [
+    {
+      "local_id": "A1",
+      "statement_original": "$\\mathbf I_r$ represents the $r$-by-$r$ identity matrix. Let $\\mathbb O_{p,r}=\\{\\mathbf U\\in\\mathbb R^{p\\times r}:\\mathbf U^\\top\\mathbf U=\\mathbf I_r\\}$ and for any $\\mathbf U\\in\\mathbb O_{p,r}$, denote $P_{\\mathbf U}=\\mathbf U\\mathbf U^\\top$.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original main-text context A1"
+        }
+      ],
+      "scope_note": "Original orthonormal-frame and orthogonal-projector definitions, retained as ambient notation without inventing a source natural-language Stiefel title. Used by best Tucker approximation, geometry and OHOOI. No availability claim is made.",
+      "depends_on": []
+    },
+    {
+      "local_id": "A2",
+      "statement_original": "To this end, we adopt a rank over-parameterization scheme: we introduce a conservative guess of rank $\\mathbf r:=(r_1,\\ldots,r_d,r_{d+1},\\ldots,r_{d+m})\\ge(r_1^*,\\ldots,r_d^*,r_{d+1}^*,\\ldots,r_{d+m}^*)$ and solve the following tensor-on-tensor regression under the possibly over-parameterized regime:",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Original main-text context A2"
+        }
+      ],
+      "scope_note": "Standing componentwise input rank at least true rank, including the feasible-true-parameter convention for Theorem3. Theorem9 rebinds its rank-one testing distribution; Theorem10 states its own rank inequality.",
+      "depends_on": [
+        "D2",
+        "D6"
+      ]
+    },
+    {
+      "local_id": "A3",
+      "statement_original": "1: Input: $\\mathcal Y\\in\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$, $\\mathcal A_1,\\ldots,\\mathcal A_n\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$, $t_{\\max}$, input Tucker rank $\\mathbf r$, and initialization $\\mathcal X^0$ of Tucker rank $\\mathbf r$.\n2: for $t=0,1,\\ldots,t_{\\max}-1$ do\n3: (RGD Update) Compute $\\mathcal X^{t+0.5}=\\mathcal X^t-\\alpha_tP_{T_{\\mathcal X^t}}\\mathscr A^*(\\mathscr A(\\mathcal X^t)-\\mathcal Y)$, where $\\alpha_t$ is given in (6).\n(RGN Update) Solve the least squares problem\n\\[\n\\mathcal X^{t+0.5}=\\underset{\\mathcal X\\in T_{\\mathcal X^t}\\mathbb M_{\\mathbf r}}{\\operatorname{arg\\,min}}\\frac12\\|\\mathcal Y-\\mathscr A P_{T_{\\mathcal X^t}}(\\mathcal X)\\|_2^2.\n\\]\n(8)\n4: Update $\\mathcal X^{t+1}=\\mathcal H_{\\mathbf r}(\\mathcal X^{t+0.5})$. Here $\\mathcal H_{\\mathbf r}(\\cdot)$ is the retraction map onto $\\mathbb M_{\\mathbf r}$, e.g., ST-HOSVD and T-HOSVD.\n5: end for\n6: Output: $\\mathcal X^{t_{\\max}}$.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original main-text context A3"
+        }
+      ],
+      "scope_note": "Full original Algorithm1, including both alternatives and named retraction examples. D11 and D31 select the RGD and RGN branches, with common input/output; this full source remains intact and is not silently rewritten.",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D7",
+        "D8",
+        "D9",
+        "D10"
+      ]
+    },
+    {
+      "local_id": "A4",
+      "statement_original": "Then the projection operator onto $\\mathbf U_{k\\perp}^t$, the orthogonal complement of $\\mathbf U_k^t$, satisfies\n\\[\nP_{\\mathbf U_{k\\perp}^t}=\\mathbf I_{p_k}-P_{\\mathbf U_k^t}=\\mathbf I_{p_k}-P_{\\overline{\\mathbf U}_k^t}-P_{\\check{\\mathbf U}_k^t}=(\\mathbf I_{p_k}-P_{\\overline{\\mathbf U}_k^t})(\\mathbf I_{p_k}-P_{\\check{\\mathbf U}_k^t}).\n\\]\n(17)",
+      "evidence": [
+        {
+          "page": 19,
+          "location": "Original main-text context A4"
+        }
+      ],
+      "scope_note": "Original orthogonal-complement convention. The barred/check decomposition is separately A5. Theorem10 applies a complement to the ESTIMATED initial subspace, not the true factor. This notation passage is not an import of the proof lemma that follows.",
+      "depends_on": []
+    },
+    {
+      "local_id": "A5",
+      "statement_original": "for any $k\\in[d+m]$, the mode-$k$ singular subspace of $\\mathcal X^t$, denoted by $\\mathbf U_k^t$, can be decomposed as $\\mathbf U_k^t=[\\overline{\\mathbf U}_k^t\\ \\check{\\mathbf U}_k^t]$ where $\\overline{\\mathbf U}_k^t$ is composed of the first $r_k^*$ columns of $\\mathbf U_k^t$ and $\\check{\\mathbf U}_k^t$ is composed of the rest of the $(r_k-r_k^*)$ columns of $\\mathbf U_k^t$.",
+      "evidence": [
+        {
+          "page": 19,
+          "location": "Original main-text context A5"
+        }
+      ],
+      "scope_note": "Only the source notation accompanying the orthogonal-complement identity A4. Its use in a proof does not add a dependency of every theorem on Lemma3.",
+      "depends_on": [
+        "D2",
+        "D3"
+      ]
+    },
+    {
+      "local_id": "A6",
+      "statement_original": "we assume $R_{2\\mathbf r}\\le\\frac1{8(\\sqrt{d+m}+1)+1}$ and $\\lambda\\ge\\frac{2(1+R_{2\\mathbf r+\\mathbf r^*}-R_{2\\mathbf r})(\\sqrt{d+m}+1)(d+m)}{R_{2\\mathbf r}(1-R_{2\\mathbf r})}\\|(\\mathscr A^*(\\mathcal E))_{\\max(2\\mathbf r)}\\|_{\\mathrm F}$.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original main-text context A6"
+        }
+      ],
+      "scope_note": "Theorem1’s separate RGD TRIP upper and signal-to-noise lower bounds. These are assumed in T1 and are not transferred into T2 merely because lambda is defined there. The initialization conditions promised in T5/T6/T8 are separately D24/D25.",
+      "depends_on": [
+        "D5",
+        "D8",
+        "D12",
+        "D13"
+      ]
+    },
+    {
+      "local_id": "A7",
+      "statement_original": "Consider the (over-parameterized) matrix trace regression model in (12) with $r\\ge r^*$. Let $\\mathcal H_r$ be the rank $r$ truncated SVD. Suppose $\\mathscr A$ satisfies $2r$-RIP.",
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Original main-text context A7"
+        }
+      ],
+      "scope_note": "Corollary1’s surrounding context for the matrix initialization conditions referenced in T7. These hypotheses are distinguished from the closeness property guaranteed for its output.",
+      "depends_on": [
+        "D12",
+        "D19",
+        "D20"
+      ]
+    },
+    {
+      "local_id": "A8",
+      "statement_original": "In addition, we assume $R_{2r}\\le\\frac1{17}$ and $\\sigma_{r^*}(\\mathbf X^*)\\ge\\frac{4(1+R_{2r+r^*}-R_{2r})}{R_{2r}(1-R_{2r})}\\|(\\mathscr A^*(\\boldsymbol\\varepsilon))_{\\max(2r)}\\|_{\\mathrm F}$.",
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Original main-text context A8"
+        }
+      ],
+      "scope_note": "Additional RGD-only Corollary1 conditions, separate from its initialization-distance inequality and RGN branch. Preserve sharper matrix constants.",
+      "depends_on": [
+        "D3",
+        "D5",
+        "D8",
+        "D12"
+      ]
+    },
+    {
+      "local_id": "A9",
+      "statement_original": "The classic RGD/RGN methods are designed to optimize on smooth manifolds. This corresponds to minimizing the objective function in (3) with the fixed Tucker rank constraint $\\operatorname{Tucrank}(\\mathcal X)=\\mathbf r$ since $\\mathbb M_{\\mathbf r}$ is a smooth manifold. Note that $\\{\\mathcal X:\\operatorname{Tucrank}(\\mathcal X)\\le\\mathbf r\\}$ is not a smooth manifold while such bounded rank constraint is essential to handle over-parameterization, the classic theory no longer applies. Regardless, we propose to continue using Algorithm 1 even with the bounded rank constraint.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Original main-text context A9"
+        }
+      ],
+      "scope_note": "Remark1 explicitly distinguishes the smooth exact-rank manifold from the bounded-rank feasible set. Do not redefine the latter as smooth or quietly assume rank-deficient tangent/QR choices have been specified.",
+      "depends_on": [
+        "D2",
+        "D6",
+        "D7",
+        "D11",
+        "D31"
+      ]
+    },
+    {
+      "local_id": "A10",
+      "statement_original": "Throughout the paper, let $c(d)$ be a constant that depends on $d$ only, whose actual value varies from line to line; $c_1(m),c_2(d,m)$ are noted similarly. Finally, we denote $\\mathscr A^*$ as the adjoint of the linear operator $\\mathscr A$.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original main-text context A10"
+        },
+        {
+          "page": 8,
+          "location": "Original main-text context A10"
+        }
+      ],
+      "scope_note": "Dimension-dependent constants have only the displayed mode-order dependence, not a new dependence on sample size or ambient dimensions. The adjoint is defined explicitly in D8.",
+      "depends_on": [
+        "D8"
+      ]
+    }
+  ],
+  "statement_local_bindings": {
+    "T1": "True tensor X*, true rank r*, input r≥r*, initial X0, all t≥0, lambda and explicit RGD TRIP/signal assumptions are bound in the statement. Model1/2, rank, adjoint, best approximation, Algorithm1 RGD branch and tensor retraction choices are source-resolved. Exact initialization excerpt D24 is used as a property. No Gaussian model is assumed.",
+    "T2": "Same regression/rank conventions; Algorithm1 RGN branch, initialization D25 and lambda’s object definition fromT1. No RGD stepsize or additional T1 R2r upper/signal lower premise is inherited. Printed t=0 exponent issue retained.",
+    "T3": "Any estimator Xhat satisfying the printed rank and residual-loss inequality; model and standing r≥r* context A2. No initialization or algorithm requirement. Conclusion uses adjoint noise and best2r approximation.",
+    "T4": "Gaussian model, df, constants, min dimension and lower parameter space are bound inside the statement. The upper noise norm uses adjoint/best approximation. Only the upper estimator clause refers to T3; the lower minimax infimum remains over all estimators and uses expected unsquared norm.",
+    "T5": "Scalar-on-tensor specialization, Gaussian law, df, sample condition, high-probability event and log/loglog output thresholds. Algorithm2 returns X0 and guarantees both original initialization properties D24/D25; subsequent RGD and RGN use their distinct branches with tensor retractions.",
+    "T6": "Tensor-on-vector specialization, Gaussian law, df, sample condition containing+p1, high-probability event and log/loglog output thresholds. Algorithm3’s QR and inverse-R operations retained. Initialization guarantees are conclusions.",
+    "T7": "Matrix rank r,r*, df=(p1+p2-r)r, sigma_{r*}(X*) and sample condition. X0=P_r(A*(y)); matrix P_r also supplies the retraction. Corollary1’s two sharper closeness properties are output guarantees; no generic tensor T-HOSVD requirement is imported.",
+    "T8": "Rank-one model13 with even n and input rank1 fromSection4.4; Gaussian law, amplitude/signal convention, df=sum p_i, printed bar-p index mismatch, high-probability event and iteration bounds. Algorithm4 sample splitting preserved; T1/T2 initialization references are guarantees.",
+    "T9": "Testing distributions14 bind the planted signal and observations. Delta∈(0,1), degreeD, centered/unit-variance polynomial class, sample threshold and expectation supremum are statement-local. Polynomial degree, expectation, variance and vec are ambient. No Gaussian1/n, TRIP or algorithm-init dependency.",
+    "T10": "Deterministic tildeT,T,Z=tildeT-T, true Tucker decomposition and rankr*, input rankr≥r*, estimated orthonormal frames, operator-norm initial complement bound and final Frobenius error are statement-local. Orthogonal frames/projectors A1 and complement convention A4; OHOOI Algorithm5 and best-r approximation. No regression/Gaussian/TRIP or theorem-initialization premise."
+  },
+  "source_claim_references": [
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T5",
+      "target": "Theorems 1 and 2 — initialization conditions",
+      "reference_kind": "guarantee_reference",
+      "note": "The output initializer is asserted to satisfy D24/D25. These are referenced properties of the conclusion, not extra input assumptions or imports of full theorem conclusions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T6",
+      "target": "Theorems 1 and 2 — initialization conditions",
+      "reference_kind": "guarantee_reference",
+      "note": "The output initializer is asserted to satisfy D24/D25. These are referenced properties of the conclusion, not extra input assumptions or imports of full theorem conclusions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T8",
+      "target": "Theorems 1 and 2 — initialization conditions",
+      "reference_kind": "guarantee_reference",
+      "note": "The output initializer is asserted to satisfy D24/D25. These are referenced properties of the conclusion, not extra input assumptions or imports of full theorem conclusions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T7",
+      "target": "Corollary 1 — initialization conditions",
+      "reference_kind": "guarantee_reference",
+      "note": "Matrix-specific D27/D28 are the two promised output properties. Corollary1 remains outside the Theorem inventory."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T4",
+      "target": "Theorem 3 — qualified estimator",
+      "reference_kind": "estimator_reference",
+      "note": "Only the upper-bound estimator clause refers to the rank/loss/TRIP qualification D30. The lower minimax branch remains distinct."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T2",
+      "target": "Theorem 1 — lambda definition",
+      "reference_kind": "object_reference",
+      "note": "The least true-rank singular-value signal definition is used without importing the additional RGD assumptions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T5",
+      "target": "Theorem 1 — lambda definition",
+      "reference_kind": "object_reference",
+      "note": "The least true-rank singular-value signal definition is used without importing the additional RGD assumptions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T6",
+      "target": "Theorem 1 — lambda definition",
+      "reference_kind": "object_reference",
+      "note": "The least true-rank singular-value signal definition is used without importing the additional RGD assumptions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T8",
+      "target": "Theorem 1 — lambda definition",
+      "reference_kind": "object_reference",
+      "note": "The least true-rank singular-value signal definition is used without importing the additional RGD assumptions."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T5",
+      "target": "Theorem 10",
+      "reference_kind": "proof_only",
+      "note": "Main-text discussion says the perturbation result is used in establishing the theorem. Its hypothesis is not a statement dependency of this statistical theorem."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T6",
+      "target": "Theorem 10",
+      "reference_kind": "proof_only",
+      "note": "Main-text discussion says the perturbation result is used in establishing the theorem. Its hypothesis is not a statement dependency of this statistical theorem."
+    },
+    {
+      "claim_id": "aos-2024-v52-i06-p2583/T9",
+      "target": "Lemma 4 and Supplement G",
+      "reference_kind": "proof_only",
+      "note": "Hermite calculations, low-degree likelihood-ratio proof and testing-to-estimation reduction support proofs; no supplement body is read or imported."
+    }
+  ],
+  "source_issues": [
+    {
+      "issue_id": "registered-version-and-boundary",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 26,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Registered source is arXiv2206.08756v3 marked15Jan2024,65pages, submitted-to-AoS preprint. Main text ends with acknowledgements on page26 before REFERENCES y328.151; clip322. All supplementary bodies, starting32, are excluded. No assumption of identity with the published version is made."
+    },
+    {
+      "issue_id": "rgn-time-zero-factor",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 15,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Theorem2 prints2^(-2^t) for all t≥0, even without noise. At t=0 it implies e0≤e0/2 unless e0=0. The corresponding Corollary1 RGN factor has the same issue. Preserve the original; do not repair the exponent or shift the time range."
+    },
+    {
+      "issue_id": "theorem-four-target",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Theorem4’s upper expected error uses unstarred X although the surrounding true parameter is X*. Its lower bound deliberately ranges over X. Preserve the difference in the inventory; no silent star insertion."
+    },
+    {
+      "issue_id": "theorem-eight-dimension-index",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Theorem8 prints bar-p=max_{k=1,...,d+m} p_i, with mismatched indices. Its df is sum p_i, not the exact rank-one manifold dimension; retain both source expressions."
+    },
+    {
+      "issue_id": "testing-normalization-and-coupling",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Section5 preceding14 prints ||X*||F+sigma²=1, without a square on the norm. Equation14 instead sets X*=sqrt(1-sigma²) x* tensor-power d with unit-norm Rademacher x*, consistent with squared-norm normalization. Preserve both. A common random planted signal couples samples under H1, so the source iid wording is naturally conditional on that signal; explicit independence of the planted signal, designs and errors is not fully spelled out in14."
+    },
+    {
+      "issue_id": "testing-is-low-degree",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 18,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Theorem9 bounds the alternative expectation of null-centered, null-unit-variance polynomials of total degree at mostD. It does not prove an unconditional lower bound for all polynomial-time algorithms. The surrounding runtime equivalence is conjectural and the testing-to-estimation reduction is in an excluded supplement. Preserve the bound n≤(p/(dD))^(d/2)delta/[2(1-sigma²)] and variance of f, not f squared."
+    },
+    {
+      "issue_id": "rank-and-unfolding-conventions",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 8,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 9,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Detailed matricization/mode-product indexing and explicit tangent-space parameterization are deferred to SupplementB. Main-text formulas and dimensions are saved. Admissible nonempty Tucker ranks, singular-value ties and rank-deficient QR choices require conventions beyond the printed definitions; do not silently import an appendix."
+    },
+    {
+      "issue_id": "trip-rank-range",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Definition1 states1≤r_k≤p_k, whereas later constants use2r and2r+r*. Best-approximation subspaces also use ranks2r. A capping/extension convention may be needed when these exceed ambient sizes; the source does not specify it in these passages."
+    },
+    {
+      "issue_id": "rgd-zero-step-and-rgn-norm",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 21,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Stepsize6 is0/0 at zero projected gradient unless a stopping or zero-step convention is supplied. Algorithm1 Eq8 prints the2-norm for tensor responses, while the surrounding objective, Lemma2 and Section7 use Frobenius norm. Preserve the print; vectorization equivalence is an interpretation, not a source rewrite."
+    },
+    {
+      "issue_id": "retraction-scope-and-update-order",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 13,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 14,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 16,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 20,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "T-HOSVD/ST-HOSVD pseudocode lies in excluded Algorithms6/7. Main Algorithms2–5 consistently print old superscript0 factors both for j<k and j>k; do not change them to sequential updated factors. Matrix P_r is explicitly defined in the main text and does not need the excluded tensor-retraction pseudocode."
+    },
+    {
+      "issue_id": "rank-one-amplitude-and-qr",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 16,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Section4.4 introduces rank-one factors and amplitude lambda without explicitly restating unit norms for each u_k; the earlier least-nonzero-singular-value lambda convention suggests normalization but does not state each factor norm here. Algorithm3 uses R_A inverse, requiring full column rank, and Algorithm4 uses even n and two sample halves. These requirements remain documented separately from original theorem wording."
+    },
+    {
+      "issue_id": "iteration-count-domain",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 14,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 15,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 17,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "Theorems5–8 print log and loglog iteration thresholds truncated with vee0, using division by sigma and positive signal strength. At sigma=0 or where the inner logarithm is nonpositive, an extended/domain convention is needed; the max with0 does not itself define an undefined log. No corrective convention is inserted."
+    },
+    {
+      "issue_id": "source-references-and-branches",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 11,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 12,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 13,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 14,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 15,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 17,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 19,
+          "location": "Source scope or notation issue"
+        },
+        {
+          "page": 20,
+          "location": "Source scope or notation issue"
+        }
+      ],
+      "note": "T5/T6/T8 reference T1/T2 initialization conditions as guaranteed conclusions; T7 similarly references Corollary1. They do not assume the initializer is already good. T4 references the qualified estimator of T3 only in its upper branch; the minimax lower bound quantifies all estimators. T10 supplies a proof tool for T5/T6, but their theorem statements do not import its perturbation hypothesis."
+    }
+  ],
+  "ambient_prerequisites": [
+    "Finite real arrays and matrices, componentwise rank inequalities, Frobenius inner product/norm and matrix operator norm, singular values and QR, orthonormal frames and orthogonal complements as archived in A1/A4.",
+    "Mode products, contraction and matricization retain the available original definitions; unresolved detailed indexing is explicitly flagged rather than filled from excluded supplements.",
+    "Finite-dimensional Gaussian laws, iid/conditional sampling, expectations, probabilities, variances, polynomial total degree, Kronecker/outer products, empirical sample indexing and minimax quantifiers; no mathlib availability assertion."
+  ],
+  "validation_limits": "A source census preserves statements and dependencies. It does not prove the claims, repair the source, inspect excluded supplements, or perform mathlib search."
+}

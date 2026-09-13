@@ -1,0 +1,470 @@
+[
+  {
+    "interface_id": "local-be8496e2e2aadf87adfc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "380c1de278767655bba38f7edf4188d4b87103cd2fee65e0a3146a8deab58034",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D21",
+        "comparison": "For fixed positive truncation integer N, each t-th column contains t-1 zeros, the reversed coefficients a_(NT),...,a_0, then T-t zeros, yielding (N+1)T rows and T columns. Apply the construction separately to factor, e and epsilon filters. Use the Euclidean operator norm uniformly over T and the applicable sequence; an entrywise or Frobenius bound differs. The first trace condition is 1-tr(A^T A)/T little-o of T^(-2)*d^(-4), where the main text leaves bare d unresolved. Keep the second condition's printed tr(A^T A)^2 placement rather than choosing trace of the square or square of the trace. Preserve the other two distinct quantities 1^T(A^T A)^2 1/T^2 and 1^T A^T A 1/T^(3/2), with constants indexed by filter family. No positivity of the limiting constants or independence between factor and noise innovations is inferred.",
+        "statement_sha256": "0ae8af7a1f845bbbc821fe3f5517b70c4f91710c1e2ac359b37f53aaa2383f65"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.l2_opNorm_def",
+          "type": "{𝕜 m n : Type*} → [RCLike 𝕜] → [Fintype m] → [Fintype n] → [DecidableEq n] → (A : Matrix m n 𝕜) → ‖A‖ = ‖(Matrix.toEuclideanLin (𝕜 := 𝕜) (m := m) (n := n)).trans LinearMap.toContinuousLinearMap A‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "provides": "With Matrix.Norms.L2Operator scoped instances, the matrix norm is the operator norm of its map between Euclidean spaces, including rectangular matrices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/Matrix.lean#L198-L199",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched finite-filter/Toeplitz matrix and trace semantics; inspected trace, Gram multiplication, Euclidean operator norms and asymptotic predicates against the full RE1 construction.",
+          "result": "Finite matrix entries, Gram traces and quadratic-form sequences are available, but the printed trace-square and unindexed dimension conventions prevent an unqualified exact formulation of all limits."
+        }
+      ],
+      "gap": "Construct the three rectangular filter families and exact normalized limits while retaining the unresolved trace-square interpretation and bare dimension d."
+    }
+  },
+  {
+    "interface_id": "local-08b93281437f3a1cbaf7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "622d6438e7fee7a3bb31320a29600a92ce68fab6a477e7433650d81f6a798b7d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D23",
+        "comparison": "Construct check-g_-k*A_k*A_k^T plus sum_j q_j^2*Sigma_epsilon,j plus B*B^T, where B=sum_j q_j*Psi_j and q is the estimated other-mode direction. The source explicitly defines A^(tensor2) as A*A^T, so it is not a Kronecker or componentwise square. With q held as an argument, every other quantity is deterministic as stated. Substituting a data-dependent q yields a random matrix but does not make it E[empirical covariance | q], since conditioning changes the data law. The actual fixed-direction expectation identity would require the relevant moment and cross-term assumptions; do not add unprinted factor-noise independence or promote the source's pretending language to a conditional-distribution theorem.",
+        "statement_sha256": "54230048896707c0064def1fe71317e4541f90c5c2421f0bea2752fd62b1bd08"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected matrix Gram products, function-valued finite sums and covariance semantics against the explicit formula and its pretend-fixed-direction qualification.",
+          "result": "The displayed covariance-style matrix is a finite algebraic function of the supplied direction and population parameters, independent of any conditional-expectation interpretation."
+        }
+      ],
+      "gap": "Define the exact direction-indexed matrix algebraically and keep its pretend-fixed expectation interpretation separate from actual conditioning on a fitted direction."
+    }
+  },
+  {
+    "interface_id": "local-14bbaf24ba54648977b8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "7a2a17a79e0755378ff8fe60611eac0f5c070cc36be51c45881dc342708578f7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D22",
+        "comparison": "The diagonal entries of A_k*A_k^T are row squared norms; bounding every eigenvalue of that diagonal matrix away from zero and infinity is equivalent to uniform lower and upper row-energy bounds. Require common constants over the relevant j and dimension/time sequence, not full-rank or a lower bound on all eigenvalues of A_k*A_k^T itself. Retain r_k=o(d_k^(1-alpha_k1+alpha_krk)). Both max_j norm(Sigma_epsilon,j) and r_e*S_psi^(k) are separately little-o of the other-mode product of d_j^alpha_j1, and d_k=O(r_e*S_psi^(k)) is a further bound. Factor-strength exponents are supplied as notation; Theorem 8's use of RE2 does not thereby import all L1, E2, RE1 or Theorem 6 rate assumptions.",
+        "statement_sha256": "6c3622dd7a69532f0a3dbf0b8d9d68c657d189711bb3b91bdc827762c0b0bfd7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.l2_opNorm_def",
+          "type": "{𝕜 m n : Type*} → [RCLike 𝕜] → [Fintype m] → [Fintype n] → [DecidableEq n] → (A : Matrix m n 𝕜) → ‖A‖ = ‖(Matrix.toEuclideanLin (𝕜 := 𝕜) (m := m) (n := n)).trans LinearMap.toContinuousLinearMap A‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "provides": "With Matrix.Norms.L2Operator scoped instances, the matrix norm is the operator norm of its map between Euclidean spaces, including rectangular matrices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/CStarAlgebra/Matrix.lean#L198-L199",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected diagonal Gram entries, operator norms and separate little-o/big-O predicates against all RE2 loading and growth restrictions.",
+          "result": "Loading-row squared norms and scalar sequences express the uniform and asymptotic bounds, without importing broader model assumptions."
+        }
+      ],
+      "gap": "Package the uniform positive row-norm bounds and each separate dimension/noise rate using the supplied factor-strength notation."
+    }
+  },
+  {
+    "interface_id": "local-b7aa2949a6e76390d79a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "6f4c27080fb442f9837431689e2fc3f8906ab9290763cebc188e4215f3419976",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D6",
+        "comparison": "Use each actual column sum sum_i A_k(i,j), then s_k=sum_j (sum_i A_k(i,j))^2 and s_-k the product of other-mode s_l. Two norm-based big-O predicates express magnitude comparability, but alone would lose the sign and explicit c1*d^kappa<=column_sum<=c2*d^kappa conditions printed for random loadings. Preserve kappa in [0,1], the smallest-exponent wording and probability-one rather than merely high-probability bounds; existence of such a smallest exponent is not automatic. The final requirement is (d_-k/s_-k)*(1+d_k/T)=o(d_k^alpha_k,zk) with nonzero denominator and supplied z_k<=r_k. In Theorem 2 it is applied separately to each chosen random sample; the full-population condition is not automatically imposed by Theorem 4's maximum-sample version.",
+        "statement_sha256": "50fa0726f73ae82a1521b3b2d27da772c786e51c25ed4a9b10050d54cb2d61ec"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite sums, real powers and two-sided/asymptotic comparisons against column-sum growth, the smallest-exponent wording and the separate cancellation inequality.",
+          "result": "Column sums, squared sums and products are constructible; the source's signed growth and random smallest-exponent condition need their explicit quantifiers."
+        }
+      ],
+      "gap": "State the column-sum growth and full-fiber cancellation condition with its exact signed and almost-sure conventions, without transferring it to different sample-selection regimes."
+    }
+  },
+  {
+    "interface_id": "local-ea9d3003588117b1bf08",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "95a65aba9dd46c721daeb9afde9aec94f6c7aef719d48aaf565f652896507033",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D25",
+        "comparison": "For the supplied sample correlation matrix list eigenvalues in decreasing order and translate source index j=1,...,d_k to zero-based Fin indices. Select the largest j whose eigenvalue is strictly greater than 1+eta_T, retaining eta_T tending to zero. This counts threshold-exceeding eigenvalues only when ordering and a nonempty selected set are established; replacing an empty maximum by count zero would add a source-unspecified convention. Positive sample variances are needed for the preceding inverse-diagonal normalization. Do not substitute the maximum eigenvalue ratio procedure, a fixed positive threshold, or a >= comparison, and do not infer rank consistency from this construction alone.",
+        "statement_sha256": "fbb443555226b84840634f17b91478e5e10317bb05757ff8046d48ae4f0565fc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected decreasing Hermitian eigenvalues and nonempty finite maxima against the strict correlation-eigenvalue threshold and vanishing offset.",
+          "result": "The ordered spectrum and filtered index maximum express the estimator when the threshold-exceeding set is nonempty and the correlation matrix is defined."
+        }
+      ],
+      "gap": "Filter the ordered correlation eigenvalues by the strict threshold and justify nonemptiness and normalization before selecting the largest index."
+    }
+  },
+  {
+    "interface_id": "local-b2df82bdbc062c2477e7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "8f6adb9015b94fc37db9c880296ef239695c86753af4235f58094188d8f74dff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D13",
+        "comparison": "Choose an index j satisfying r_k+1<=j<=floor(c*min(T,d_k))-r_k and maximize ER_m,j=lambda_1/lambda_j across the sampled fiber subsets m. This is selection of a sample at a specified j, not simultaneous maximization over every ratio index or the later rank-threshold estimator. A finite maximizing-input theorem requires a nonempty sample collection and defined ratios; the allowable j range can be empty and a denominator eigenvalue can vanish. Return the already defined z_k-column PCA estimator associated with the chosen sample. Neither this choice nor noncomputable eigenbasis selection supplies source-unspecified ties, measurable selection, or the separate comparability s_l,m asymptotic to s_l,max assumed in a later restatement.",
+        "statement_sha256": "01e3a83044aefa9e4629841dfda2695fcde3b4a7a70f61cadd851e4e884695a7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected maximizing-input existence and ordered spectral primitives against the fixed-ratio-index selection among random samples.",
+          "result": "A finite maximizer of the supplied sample ratios can choose the sample whose associated PCA frame is returned, once the scores and index range are valid."
+        }
+      ],
+      "gap": "Choose a maximizing sample for an admissible fixed ratio index and return its PCA frame, with denominator, range and tie conventions explicit."
+    }
+  },
+  {
+    "interface_id": "local-3501fbf704fb33700295",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "07d9ae7bbc108e513955336b30061326e74aa38edc50d2292e44853336093f0c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D9",
+        "comparison": "Sum every mode-k fiber for x, f, e and mu, preserving the tilde on each summed term, then divide each by sqrt(s_-k) for its double-dotted version. Stack factor vectors as columns in r_k-by-T F-double-dot, but observation and noise vectors as rows in T-by-d_k X-double-dot and E-double-dot. This gives X-double-dot=ones_T*mu-double-dot^T+F-double-dot^T*A_k^T+E-double-dot under the supplied model and compatible unfolding. These are sums rather than averages by the number of fibers. Only the definitions of s are needed; the signal-cancellation little-o inequality is not an extra prerequisite to write the data, although s_-k>0 is required for the intended division. Do not invent the appendix-only tensor entry ordering or identify the bare d with a product that the main text leaves unbound.",
+        "statement_sha256": "bd6f54670e230fc882b6a869b32d8af30ede2153845aef6b79ce85869cb1496c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected function-valued finite sums, matrix products and positive square-root scaling against every full-fiber data, factor, noise and mean definition and equation (3.9).",
+          "result": "Finite sums and scalar normalization construct the stacked data and signal decomposition with the source's distinct row/column orientations."
+        }
+      ],
+      "gap": "Assemble the complete fiber sums and normalized stacks with the exact orientations and a nonzero square-root normalization."
+    }
+  },
+  {
+    "interface_id": "local-a298dc047c2df2df8d09",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:38:00.489873+00:00",
+    "source_interface_sha256": "f9dcf9d541b7b481ed85a2791b01b6c7e83fc35b72e7a6b834c7f5644f9e1c83",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D10",
+        "comparison": "Use X-tilde^T*(I_T-ones_T*ones_T^T/T)*X-tilde/T for T>0, not the double-dotted data or a denominator T-1. Select the first z_k eigenvectors of this symmetric PSD matrix, with z_k positive and no larger than the supplied r_k and ambient dimension, and keep Qhat^T Qhat=I_zk. V-tilde contains the leading ordered eigenvalues; V-double-dot=V-tilde/s_-k is a separate scalar normalization requiring nonzero s_-k. Population spectral distinctness does not choose signs or resolve sample ties, and a noncomputable eigenbasis alone does not establish measurable dependence on observations. This definition uses a supplied z_k; it does not estimate r_k by itself.",
+        "statement_sha256": "a20591da532e52957345c15ff9d212bbccf99b135c19a9f5ab82c68baa810b57"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.IsHermitian.eigenvalues₀",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {n : Type v} → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → A.IsHermitian → Fin (Fintype.card n) → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Spectrum",
+          "provides": "Hermitian-matrix eigenvalues in decreasing order, indexed by finite ordinal position with multiplicity.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Spectrum.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected centered Gram multiplication, decreasing eigenvalues and orthonormal eigenvector selection against the complete pseudo-data covariance and scaled-eigenvalue definitions.",
+          "result": "The centered sample Gram matrix has standard spectral ingredients for its leading frame and diagonal eigenvalue matrices."
+        }
+      ],
+      "gap": "Build the covariance from the unnormalized full-fiber sums, select the supplied number of leading orthonormal eigenvectors and scale only the specified eigenvalue matrix."
+    }
+  }
+]

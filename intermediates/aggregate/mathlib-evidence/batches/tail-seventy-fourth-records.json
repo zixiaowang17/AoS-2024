@@ -1,0 +1,926 @@
+[
+  {
+    "interface_id": "local-17f7b07662c8db92a1a7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "a86e936c5d95bd9aa97dfa850d442378216dd0a8ae96bb7a2db3719a2d064fe3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D7",
+        "comparison": "Retain I={1,...,n} with n>=1 and T={t in Z:t_s<=t<=t_e}, allowing a missing lower bound and/or upper bound; integer times form a contiguous interval, so an arbitrary sparse observed-time set is not automatically the time index set of this definition.",
+        "statement_sha256": "7a1f70ba71112d5e1fd86394358e23f3efd6e83b4b5e9780c77a4e621bb43129"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.prod",
+          "type": "{α : Type u} → {β : Type v} → Set α → Set β → Set (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Cartesian product of two sets, with membership equivalent to membership of each component.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L223-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Graph vertex space as finite variable indices times a contiguous integer interval with optional infinite endpoints; inspected Cartesian sets, closed intervals and arbitrary-vertex digraphs.",
+          "result": "A finite index type times an integer-interval subtype supplies the vertices, with optional lower and upper bounds representing the unbounded cases. The graph representation itself need not be finite."
+        }
+      ],
+      "gap": "These declarations suffice to encode the time-series vertex structure once the nonempty finite variable set and integer endpoint conventions are supplied."
+    }
+  },
+  {
+    "interface_id": "local-e967dd77031beb3b5123",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "14d6134e992f2347a8f7bd0e10d754bf6929fafb10ed99732499734a5c745a69",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D1",
+        "comparison": "Require at most one edge between distinct vertices, no self-adjacency and the disjoint decomposition into directed, bidirected, circle-head and circle-circle edges as part of graph data; a general digraph permits loops and opposite arrows, while a bare skeleton loses the edge types.",
+        "statement_sha256": "8f2e944181add85975c5c8ff2b59542507410a0eaaf1959f4d10a10aa8cef507"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "SimpleGraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Basic",
+          "provides": "A symmetric loopless adjacency relation on a specified labeled vertex type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Basic.lean#L95-L99",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Directed partial mixed graphs with four edge types, endpoint marks and unique loopless adjacencies; searched partial mixed/bidirected/edge marks and inspected SimpleGraph and Digraph.",
+          "result": "SimpleGraph supplies a loopless unique adjacency skeleton, while Digraph supplies oriented adjacency relations. Neither records the four-way edge partition or its compatible endpoint markings."
+        }
+      ],
+      "gap": "The directed partial mixed graph still needs its four edge-type relations and compatibility with one loopless skeleton assembled."
+    }
+  },
+  {
+    "interface_id": "local-c3b40034cade0d7037ae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "d2360cc133eef063a117c57bffbd51ad7364afc211c2d128d488885af28f5421",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D3",
+        "comparison": "Require i!=j together with i an ancestor of j and j an ancestor of i; the distinctness is essential because source ancestry is reflexive, and bidirected or circle-marked edges must not be included in the directed reachability relation.",
+        "statement_sha256": "9a54def9c1508519c405b9d93f41315e38d4244c75f29b7526bb540e43d1c43e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Directed cycle as mutual ancestry of two distinct vertices; inspected reflexive transitive closure and directed adjacency.",
+          "result": "Reflexive transitive closure of the directed-edge relation supplies finite directed reachability, including self-ancestry; the source cycle condition is mutual reachability for a distinct pair."
+        }
+      ],
+      "gap": "The existing relation closure suffices for this cycle predicate once directed edges and their path interpretation are supplied."
+    }
+  },
+  {
+    "interface_id": "local-7ca896f2817fc6e725b9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "6ce4f6dd7b72330e5bbf9d627f4bd0739a54fbd4cde8d7f02f5d54dec8e7118a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D2",
+        "comparison": "A directed mixed graph removes both partially directed and non-directed edges from the source's partial mixed graph; removing bidirected edges as well gives its directed-graph case, and a bidirected edge must not be encoded as two causal arrows without retaining its distinct type.",
+        "statement_sha256": "9c2d96376be93c43fbc9961d76d414999db2fbaafe1e4e46c5fb793e45b29e05"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "SimpleGraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Basic",
+          "provides": "A symmetric loopless adjacency relation on a specified labeled vertex type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Basic.lean#L95-L99",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Directed mixed graph restriction to directed and bidirected edges; inspected directed adjacency and loopless skeletons after searching mixed graph types.",
+          "result": "Directed adjacency can represent the arrow component and a symmetric relation the bidirected component, with the skeleton enforcing their combined single-edge restriction. No built-in mixed-graph structure matching the source was located."
+        }
+      ],
+      "gap": "The mixed-graph subtype still needs the two retained edge types and inherited compatibility constraints, with circle-marked types excluded."
+    }
+  },
+  {
+    "interface_id": "local-934f1d310a1b067e3db8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "d73da65a2a540310cd825e994dc104d4dd6d4ac450b10e92535db6b78b441fb0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D5",
+        "comparison": "Exclude directed cycles and any bidirected i<->j with i an ancestor of j; on an inducing path every interior vertex must be a collider and ancestor of at least one endpoint, and maximality rules out inducing paths between nonadjacent vertices; retain reflexive ancestry and translate the paper's vertex-count path length rather than using mathlib's edge count unchanged.",
+        "statement_sha256": "0cde43df5e83354bd4f521725cf1154398303e9aabb7eb6082f793a6660498af"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "SimpleGraph.Walk.IsPath",
+          "type": "{V : Type u} → {G : SimpleGraph V} → {u v : V} → G.Walk u v → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Paths",
+          "provides": "An undirected skeleton walk has no repeated vertices, with the inherited no-repeated-edge property; orientation and collider conditions are additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Paths.lean#L74-L75",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Directed maximal ancestral graph, almost directed cycle and collider inducing path; searched ancestral/DMAG/inducing paths and inspected skeleton paths and directed reachability.",
+          "result": "A skeleton path gives a finite no-repeated-vertex sequence, and directed reachability gives ancestry. The inducing-path condition additionally inspects endpoint marks at every interior vertex, and maximality excludes such paths for nonadjacent pairs."
+        }
+      ],
+      "gap": "The DMAG predicate still needs mixed-edge collider semantics, exclusion of almost directed cycles and the inducing-path maximality condition assembled."
+    }
+  },
+  {
+    "interface_id": "local-b945992000ce0f6dc778",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "67d27da0dd1801f928dcb64fa08bf76d3e3c42e98814f7d3f0c8aa774e2f6380",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D14",
+        "comparison": "Keep exactly the original vertex set and require the same typed edge at every common shift that keeps both endpoints present; apply the rule to all four edge types including circles, and use universal intersection rather than the union of translates or an operation that changes orientations.",
+        "statement_sha256": "4026bcfe6cfe6cf59722fe774108a28bb2d1a85c50399593b3cbe05b01ea685c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Stationarification as retaining edge types present under all admissible common time shifts; searched stationarification and inspected relation graphs and inverse images of edge sets.",
+          "result": "For each edge type, universal membership in the inverse images under admissible pair shifts defines the retained relation. The zero shift is admissible for existing vertices, so this retains rather than creates edges."
+        }
+      ],
+      "gap": "The operation is composable once the marked edge relations and admissible integer-shift maps are supplied."
+    }
+  },
+  {
+    "interface_id": "local-ee72304c00b60be36498",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "808afdcdd2fbf617618e6f4eae7285d76405200233f5f00ea45f4b82b99fa687",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D4",
+        "comparison": "Use only directed edges and exclude directed cycles as defined in D3; do not impose a finite vertex set, undirected forest structure or well-founded ancestry, since the later time-series DAGs have vertices at every integer time.",
+        "statement_sha256": "7eec4c9d68a618db7ea6edce74507ec0059b543f2f5e1b18d2c37d0a61968f24"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Directed acyclic graph with no finite directed cycles on possibly infinite vertices; inspected Digraph and reflexive reachability, and compared with undirected IsAcyclic.",
+          "result": "A loopless directed relation with no mutual reachability of distinct vertices represents the source DAG condition. Undirected acyclicity is stronger in a different way, and well-foundedness would exclude allowed infinite directed chains."
+        }
+      ],
+      "gap": "The DAG predicate is composable from the source's loopless directed-graph restriction and its directed-cycle exclusion."
+    }
+  },
+  {
+    "interface_id": "local-c4ad222a22eb7559986d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "16709d561d6bbcd921e837db4e880426df04607a5b68b971e3c2ea8061d1befd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D12",
+        "comparison": "Project the source DAG onto O to obtain a DMAG preserving ancestral relationships among observed vertices and matching observable d-separations with m-separations; this is not just the induced subgraph, and the printed G/D notation switch and external construction are retained without inventing missing path criteria.",
+        "statement_sha256": "880813ae7d0ce037628dde739e9511e48a7b613ad17a7471cf4a477a8198d0b5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        },
+        {
+          "name": "SimpleGraph.Walk.IsPath",
+          "type": "{V : Type u} → {G : SimpleGraph V} → {u v : V} → G.Walk u v → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Paths",
+          "provides": "An undirected skeleton walk has no repeated vertices, with the inherited no-repeated-edge property; orientation and collider conditions are additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Paths.lean#L74-L75",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "MAG latent projection preserving observed ancestry and d/m-separations; searched latent projection and separation criteria and inspected graph reachability and skeleton paths.",
+          "result": "The available graph and path primitives can represent inputs and some preservation predicates, but do not implement the cited MAG latent projection or its separation theorem. The frozen main-text source gives properties and an external reference rather than the complete algorithm."
+        }
+      ],
+      "gap": "The cited latent-projection construction and its ancestry/separation preservation results remain to be supplied; graph restriction and reachability alone do not implement them."
+    }
+  },
+  {
+    "interface_id": "local-7a92bdbe0ba06d5f7450",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "fe810e754224a636ab3ec43343fec1404e771e42a406ca1d90af1e1dafcf76a4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D11",
+        "comparison": "Regular sampling includes every t-tau for 0<=tau<=p, including both endpoints and p=0; regular subsampling keeps offsets with tau mod n=0 for n>=2, so the phase is tied to the reference t and the left endpoint need not be sampled when n does not divide p.",
+        "statement_sha256": "9669886dddb960cedc69e3e5b5883ae65f4ffb6282531255bad1f492320dc548"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.image",
+          "type": "{α β : Type*} → [DecidableEq β] → (α → β) → Finset α → Finset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Image",
+          "provides": "The finite set of outputs of a function on a finite input set; equal outputs are deduplicated, so an indexed sample should be retained separately when multiplicities matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Image.lean#L279-L280",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Finite regular integer-time sampling and modular subsampling in a backward window; inspected finite image/filter operations and inclusive intervals.",
+          "result": "Map integer offsets tau in [0,p] to t-tau; optionally filter offsets by divisibility by the sampling stride before taking the image."
+        }
+      ],
+      "gap": "These finite set operations suffice for both observed-time patterns with the stated nonnegative window and integer stride."
+    }
+  },
+  {
+    "interface_id": "local-f3774327b0b91ecbe675",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "3c2035975a5216143070cab1dc2b8f3106aa0587329c501602c541872a5f7125",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D9",
+        "comparison": "Every existing edge of each of the four types must also exist with the same type at every admissible common shift; this requires repeated adjacency as well as orientation and is stronger than merely agreeing in orientation when a shifted adjacency happens to exist.",
+        "statement_sha256": "a9e65cedecb7dd120e74b57329267e016a87af59faf447ba83b6a9a4bf69602d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Repeating typed edges under all admissible simultaneous time shifts; searched time-series graph stationarity and inspected inverse images of directed relations.",
+          "result": "A universal shift-invariance condition on each typed adjacency relation states repetition, restricted to endpoint pairs remaining inside the vertex interval."
+        }
+      ],
+      "gap": "The repeating-edge condition is composable after specifying the edge types and admissible common time shifts."
+    }
+  },
+  {
+    "interface_id": "local-7a61e20ce4d07151ca6c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "c6ae145873cf3a280e5c08015ed603a47fc99cc72993fd9d65a5d4abf8591400",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D8",
+        "comparison": "Require t_i<=t_j only for a directed edge (i,t_i)->(j,t_j), permitting contemporaneous directed edges; do not replace the weak inequality by a strict one or impose this condition on bidirected and circle-marked edges.",
+        "statement_sha256": "b719c64ddd7b9111d1090259bf28b9c7ebf3f6ced5171d45e15ac25ef47a04ec"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Set.prod",
+          "type": "{α : Type u} → {β : Type v} → Set α → Set β → Set (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Cartesian product of two sets, with membership equivalent to membership of each component.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L223-L223",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Time-ordered graph adjacency implies nondecreasing integer time coordinate; inspected digraph adjacency on Cartesian vertex types.",
+          "result": "A predicate over directed adjacent vertex pairs compares their second coordinates using the ordinary integer order."
+        }
+      ],
+      "gap": "The existing graph relation and product coordinates suffice to state the time-order condition."
+    }
+  },
+  {
+    "interface_id": "local-f535d851720aedc8a55c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "3f4da74b470e24babe0a357bdf79295d50d34a6847f057a5fee79ef9478237bb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D10",
+        "comparison": "Use all integer times, a finite nonempty variable index set, no directed cycles, nondecreasing time along arrows and exact repetition under integer shifts; no finite maximum lag, stationary stochastic solution, causal Markov property or faithfulness assumption belongs to this graphical definition.",
+        "statement_sha256": "f42183cc26dfb9fe7f92887ec068ae18451252cdf8d2ead54cb9208b6725ef61"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        },
+        {
+          "name": "Set.prod",
+          "type": "{α : Type u} → {β : Type v} → Set α → Set β → Set (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Cartesian product of two sets, with membership equivalent to membership of each component.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L223-L223",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Time-series DAG on finite variables times all integers with time order and repeating edges; inspected graph relations, finite reachability and Cartesian vertices.",
+          "result": "The structure combines the previously expressible graph predicates on I times Z. It needs neither a finite graph instance nor a bound on the longest time lag."
+        }
+      ],
+      "gap": "The time-series DAG class is composable from the directed-cycle, time-order and repeated-edge predicates on the specified infinite vertex type."
+    }
+  },
+  {
+    "interface_id": "local-eeb9b0e79faa6025755d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "f723fd3726f0f46eb5d44596e94588fe1da9229f8cd2bf31d4739ed20786a82f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D13",
+        "comparison": "Take O=I_O times T_O with I_O a variable subset and T_O one of the two permitted finite regular sampling patterns, treating every vertex outside O, including omitted times of observed variables, as latent; the output is a MAG projection, not an induced graph or a projection only over omitted variable indices.",
+        "statement_sha256": "90aa392f67e34443c45d4e88c8e65a4d6c56dae17acc3611e3052fd51d412efd"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D13p",
+        "comparison": "After the source's stated equivalence, M^p(D) specializes to regular sampling T_O={t-tau:0<=tau<=p}; keep the bound on tau in this definition and do not rewrite it using the inconsistent bound on t printed in the later theorem statements.",
+        "statement_sha256": "acebc873b3c631a9a0c614f7814365eb0107913d35343cbfc5f1ee36a4aaf789"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.prod",
+          "type": "{α : Type u} → {β : Type v} → Set α → Set β → Set (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Cartesian product of two sets, with membership equivalent to membership of each component.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L223-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Time-series DMAG from MAG latent projection onto an observed variable-time product and regular-sampling abbreviation; searched ts-DMAG/latent projection and inspected products, integer windows and directed reachability.",
+          "result": "The observed set and its complementary latent vertices are straightforward set constructions, but the DMAG result depends on the externally cited MAG projection that was not found in the searched library."
+        }
+      ],
+      "gap": "The observed-set construction is available, while the ts-DMAG operation still requires the cited latent projection and its graph guarantees."
+    }
+  },
+  {
+    "interface_id": "local-cb725d39bec394df0d41",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "3180f4e03aeb06adffaacb388a1527dc8efe97803cbfe84c7031073bb3ea9348",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D16",
+        "comparison": "Use only stationarified edges, latent labels (i,j,tau) from bidirected ((i,t-tau),(j,t)), and vertices (I union J) times Z; preserve all translates of the directed edge, latent (i,j,tau) at t+Delta -> i at t+Delta, and latent (i,j,tau) at t-tau+Delta -> j at t+Delta, without swapping the two latent-parent time shifts or strengthening the input acyclic mixed graph to an ancestral or maximal graph.",
+        "statement_sha256": "2de85d71d2534f051d6f57b9eb4f3a0faeb32fd1d444901e64d92360edc32870"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Set.prod",
+          "type": "{α : Type u} → {β : Type v} → Set α → Set β → Set (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Cartesian product of two sets, with membership equivalent to membership of each component.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L223-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Canonical time-series DAG from stationarified directed and bidirected edges with latent triple indices; searched canonical/latent graph construction and inspected arbitrary directed relations and set-index operations.",
+          "result": "Tagged original/latent variable indices times Z and a union of three explicitly shifted arrow families define a directed graph. Proving its DAG and projection properties requires additional arguments; the generic primitives do not provide a canonical ts-DAG theorem."
+        }
+      ],
+      "gap": "The canonical construction still needs its three source-specific edge families and the required time-series DAG and projection properties assembled and proved."
+    }
+  },
+  {
+    "interface_id": "local-cc1521c65ba2216e538e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "c044f42e47782261944ac49db2ad693c186932af5f84699fabfe8dee88483a24",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D6",
+        "comparison": "A directed arrow has tail at its source and head at its target, a circle-head edge has the corresponding circle and head, and the wildcard ranges over all three marks; only tails and heads are non-circle/unambiguous, with endpoint reversal preserved, rather than treating a circle as an absent edge or an arbitrary directed orientation.",
+        "statement_sha256": "24dc2c9d05aaffb998452bea19fc57199d33c7b64eb6cc60967eb61d59952d76"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Tail/head/circle endpoint marks, non-circle orientation and wildcard edge patterns; searched bidirected, edge mark, partial mixed, DPAG and DMAG in pinned graph/probability sources and inspected Digraph, SimpleGraph and path representations.",
+          "result": "The inspected graph types record adjacency and paths, but no declaration implementing these three endpoint marks or the wildcard/non-circle conventions was located. A finite enum and compatibility predicates could be written, but that is not an existing inspected match."
+        }
+      ],
+      "gap": "The tail/head/circle endpoint alphabet, non-circle classification and wildcard matching rules still require a custom marked-edge representation.",
+      "no_related_reason": "Bare adjacency and path declarations do not implement the endpoint-mark alphabet or its interpretation; no directly useful mark-specific declaration was found in the stated search scope."
+    }
+  },
+  {
+    "interface_id": "local-081085417fb834fe4c38",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "6dd7be029a05c46ef6477d76cb8ec2205da714a5005ca6c645450a2686fed41c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D15",
+        "comparison": "Set M_st^p(D)=stat(M^p(D)) in that order, retaining the explicit warning that the stationarified result need not be the MAG projection of any time-series DAG; do not identify it with a fresh ts-DMAG or commute stationarification with latent projection.",
+        "statement_sha256": "0c71c4586ef1a387e641a7ea51435452d558a6d0fad194d883e503229385a985"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Stationarified ts-DMAG as composition of stationarification with a finite-window latent projection; searched stationarification and inspected edge-relation inverse images.",
+          "result": "Once the projection and typed-edge stationarification operations are supplied, their composition directly gives the abbreviation. No closure of the ts-DMAG class under that operation follows from relation filtering."
+        }
+      ],
+      "gap": "The abbreviation is composable from the two supplied graph operations, with no guarantee that its result remains a ts-DMAG."
+    }
+  },
+  {
+    "interface_id": "local-6a2e6745f8547b3e3758",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "c6930498531e70f5be37679a8e96f9aca44cdcb63ed4c0a08ebf9976c6b95526",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D17",
+        "comparison": "Background knowledge is an arbitrary Boolean function on all DMAGs, with value one meaning consistent and zero inconsistent; it is not automatically a list of arrow constraints, a probability score or a guarantee that some graph is accepted.",
+        "statement_sha256": "de9af612e838fa0a7ad633b6d579dcb0c61d3d6c5b4259f147aee3163b13936e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Boolean background-knowledge predicate on DMAGs and its accepted subset; inspected set construction from a predicate.",
+          "result": "Given the DMAG domain and a Boolean-valued function A, the predicate A(M)=true defines exactly its consistent subset. No restriction on the form of the background function is required."
+        }
+      ],
+      "gap": "The existing predicate-to-set operation suffices to represent consistency for a supplied Boolean function on the DMAG domain."
+    }
+  },
+  {
+    "interface_id": "local-393d3462cf8cded1c55d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "44f5582c8dbc531d3fd57a5316f067c89af4c08c046f4de60a0140548e6e1fed",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D18",
+        "comparison": "Compare all m-separations of the two DMAGs, not merely skeletons, directed reachability, pairwise adjacency or a chosen observed probability distribution; equality of that entire signature is the graph-level definition, and the full path criterion remains an external source prerequisite.",
+        "statement_sha256": "b4a4fd5c76ade48cbc41e70e285cc360fffaa541130785e099c0c084f908965c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Setoid.ker",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Setoid α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Setoid.Basic",
+          "provides": "Equivalence relation identifying inputs with equal function values; its classes are the nonempty fibers.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Setoid/Basic.lean#L79-L80",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Markov equivalence as equality of graph m-separation signatures; searched m-separation and inspected equality-fiber setoid construction.",
+          "result": "If a DMAG-to-separation-signature map is supplied, its kernel setoid groups exactly the graphs with the same signature. This generic equivalence construction does not define the external m-separation criterion."
+        }
+      ],
+      "gap": "The equivalence relation is available as a kernel setoid once the source's external m-separation signature has been supplied."
+    }
+  },
+  {
+    "interface_id": "local-d038faf893c81f08dc5f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:44:01.488953+00:00",
+    "source_interface_sha256": "2f6812075f027c59b30e287d3f9a9930fd2536123d43cebc1bc3dff892857c56",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D19",
+        "comparison": "Preserve all four parts: a DPAG for M has its skeleton and only non-circle marks already in M; relative maximal informativeness requires each non-circle mark in every class member and both a tail witness and a head witness for each circle; P(M,A) uses the A-consistent subclass and the conventional case uses constant-one A, without asserting a total unique construction for an empty or inconsistent subclass.",
+        "statement_sha256": "b7a51d1d6b60f0a87a9f89950726f9507d09c75a74d06c011c1d734393b94562"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "SimpleGraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Basic",
+          "provides": "A symmetric loopless adjacency relation on a specified labeled vertex type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Basic.lean#L95-L99",
+          "link_checked": true
+        },
+        {
+          "name": "Setoid.ker",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Setoid α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Setoid.Basic",
+          "provides": "Equivalence relation identifying inputs with equal function values; its classes are the nonempty fibers.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Setoid/Basic.lean#L79-L80",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Set.EqOn",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Agreement of two functions on a specified set, allowing observed and supplied potential variables to be equated on received-treatment events without asserting any causal identification theorem.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L291-L291",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "DPAG skeleton, invariant endpoint marks and maximally informative representation of a background-filtered Markov class; searched DPAG/partial ancestral graphs and inspected skeletons, equivalence fibers, accepted subsets and function agreement.",
+          "result": "The class restriction and skeleton equality are expressible with existing sets and relations, and endpoint agreement can use equality on the relevant edge endpoints after a marked-graph representation is supplied. The classwide invariant/variable mark construction is not present in these primitives."
+        }
+      ],
+      "gap": "The DPAG construction still needs endpoint-mark semantics and its universal and witness conditions across the filtered class, with existence handled separately when background knowledge excludes every graph."
+    }
+  }
+]

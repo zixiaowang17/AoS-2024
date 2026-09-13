@@ -1,0 +1,692 @@
+[
+  {
+    "interface_id": "local-283a07b47fdb682e5e2d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "1f8827723ce439e79331dfc44fce471d0ede06672718e3aaf6d82c26439fe35b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D7",
+        "comparison": "For some z:[n]->[k], set off-diagonal M_ij to p when labels agree and q otherwise, and set each M_ii=0. Matrix.submatrix permits repeated labels and imposes no surjectivity, so communities can be empty or unbalanced. The block-level diagonal p must not become the vertex diagonal after reindexing; the latter is explicitly masked to zero. Require 0<=q<p<=1 as printed. q=0 or p=1 are valid members of this class even though later SNR formulas with q(1-p) need a positive denominator. No finite zero-division convention or low-SNR restriction is part of the class itself.",
+        "statement_sha256": "0ade0764d8c7614a6b15e4b524c818289c6fea55ffdb39d4111b8e815ed03056"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched stochastic block-model classes; inspected arbitrary matrix reindexing and bounded intervals against the two-level off-diagonal model (13).",
+          "result": "A two-level block matrix pulled back along arbitrary labels gives the off-diagonal probabilities, with a separate zero-diagonal mask."
+        }
+      ],
+      "gap": "Construct the two-level assortative block class with zero diagonal and arbitrary labels, retaining the permitted boundary probabilities."
+    }
+  },
+  {
+    "interface_id": "local-f50ab51ceec978c8346f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "9b1ad0092ca6193287925b7c6ec8542bf942b8f8c96fef341d5eb653bcf86c05",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D8",
+        "comparison": "For positive k, use n independent uniform labels in [k], then the deterministic map to M with within-label p and between-label q, symmetrically off diagonal and zero on the diagonal. The finite map is measurable, which is needed for Measure.map to represent its actual pushforward rather than its nonmeasurable fallback. Label counts are random, can be zero and are not conditioned on balance. The resulting prior is not generally uniform on distinct matrices or unlabelled partitions because preimage multiplicities can differ. The prior is a law on M; the risk experiment also samples conditionally independent Bernoulli edges from M. The auxiliary randomness of Algorithm 1 is a further layer, not already integrated merely by naming this signal prior.",
+        "statement_sha256": "807b86f997b1408f0af942100833c03805f9a4b47cef14730336d748f2cff12f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite uniform laws, finite product measures and measurable pushforwards; compared iid-label sampling with uniform distributions on partitions or matrices.",
+          "result": "The product of uniform label laws and its pushforward through the block-matrix map construct the stated prior, including variable community sizes."
+        }
+      ],
+      "gap": "Construct the iid-uniform-label pushforward prior on zero-diagonal SBM matrices, keeping the conditional adjacency law separate."
+    }
+  },
+  {
+    "interface_id": "block-probability-matrix-class",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "a0b104c59000d11903ed1bb3d7c2274e9f361eb81c46d39c4f190ea38a5e1edb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D6",
+        "comparison": "Choose symmetric Q in [0,1]^(k by k) and any z:[n]->[k]. Matrix.submatrix Q z z gives Q_z_i,z_j off diagonal, with M_ii separately set to zero. Labels need not use all k values, so neither balanced sizes nor exactly k occupied groups is required. Q is a freely varying symmetric connectivity matrix, not the special common-p/common-q form. The finite matrix parameter space does not itself prescribe a prior on labels or a graphon latent law; fixed-M worst-case risk later uses its own Bernoulli observation experiment.",
+        "statement_sha256": "0dec0a0ecbff42b3e1ffdd6e938d2c06173088c046da9315dc6a9ca60ef06b24"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D15",
+        "comparison": "With 0<rho<1, restrict Q and M entries to [0,rho], use the same arbitrary label pullback and zero diagonal. Sparse here bounds connection probabilities; it is not a fixed support-cardinality constraint or a requirement that most block entries be exactly zero. This retains all unbalanced and unused-label possibilities. Theorem 6 separately imposes rho>=c k^2/n and its n,k,D regime; those restrictions are not inserted into the definition of M_k,rho.",
+        "statement_sha256": "719349f20a0d87e66c4e0d24bd0de6a2794e32a32e7a13f3c00236c62acaa5c2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected matrix reindexing by arbitrary label maps and bounded block entries; compared general and sparse-density block probability classes.",
+          "result": "Both classes are pullbacks of symmetric block matrices followed by a zero-diagonal mask, with their respective entry bounds retained."
+        }
+      ],
+      "gap": "Assemble the two zero-diagonal block classes using their distinct [0,1] and [0,rho] bounds without adding label-balance or occupied-class requirements."
+    }
+  },
+  {
+    "interface_id": "local-76fe2d87c6bb640ce426",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "3be516273dabfc4074e82d15ceb59eb3db568152802161cb46880043b8fc11c5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D2",
+        "comparison": "f maps [0,1]^2 into [0,1] and is symmetric, with measurability required by the recorded probability-model context. xi_i are iid under an arbitrary unknown law supported on [0,1], not necessarily Lebesgue uniform. The finite evaluation map produces (M_f)_ij=f(xi_i,xi_j); its source definition may have nonzero diagonal, whereas the adjacency model uses zero diagonal. Off-diagonal loss makes that distinction immaterial to the target risk but does not justify rewriting the original matrix. Theorem 4 also supremizes over the latent law. No quotient by uniform measure-preserving relabellings, balanced latent partition, or fixed finite-block model is imposed by this definition.",
+        "statement_sha256": "b4463782245e1105c3d7ed1df108587f106752a9b038d2a8941978d7292ad860"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched graphon interfaces and inspected measurable-function, iid-law and pushforward ingredients; compared arbitrary latent laws with the commonly used uniform convention.",
+          "result": "A symmetric measurable probability-valued kernel evaluated at iid latent coordinates is expressible, but the full graphon experiment must be assembled with the source's arbitrary latent distribution."
+        }
+      ],
+      "gap": "Construct the symmetric graphon and iid latent evaluation under any supplied law on [0,1], preserving the off-diagonal target and observation conventions."
+    }
+  },
+  {
+    "interface_id": "local-f1037bbf212454e5a961",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "d0c20d5bb630faf102916edb92c71b653d6285f7d43588efaa83770e7ad4f158",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D20",
+        "comparison": "Sum (M-hat_ij-M_ij)^2 over all i in [n1] and j in [n2], then divide by n1*n2. The Frobenius norm instance uses nested L2 norms and yields this sum after squaring, unlike the default entrywise or induced operator norms. Both dimensions must be positive for the intended average. All entries count, including positions with equal numerical row and column indices when the rectangle overlaps a diagonal; no graph-style i<j restriction, symmetry factor or binomial(n,2) normalization applies. This is a deterministic loss functional before any expectation over signal or noise.",
+        "statement_sha256": "4622303b2a869b607e86ea816fef090327c5c96073257108b3fbf7081621e1f3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the Frobenius matrix norm instance and finite normalized sums; compared rectangular loss with upper-triangular graph loss.",
+          "result": "The squared Frobenius error divided by n1*n2 equals the displayed full rectangular average under the explicit Frobenius norm convention."
+        }
+      ],
+      "gap": "Assemble the full rectangular squared-error average with positive dimensions and the Frobenius norm, retaining every coordinate."
+    }
+  },
+  {
+    "interface_id": "local-3178ec65a2dd87e4aaa0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "526a7b96fc3f707af1691a338f3287836294759312de5190a787df1deb673f55",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D9",
+        "comparison": "Fill the diagonal with iid Bernoulli(p) variables independent of A, then A-tilde=A+Lambda-q 1 1^T; bernoulliMeasure with outcomes 1,0 gives mass p at 1. Generate independent iid N(0,1) entries of B. The source prints B in R^(p by r), although p is a probability and multiplication requires n by r; preserve that original and explicitly record the needed dimensional correction. For a compatible sketch compute A-tilde^t1 B, start W0=0 in R^(r by n), and apply W_(l+1)=W_l-eta B^T A-tilde^t1(A-tilde^t1 B W_l-A-tilde), then output A-tilde^t1 B W_t2+q 1 1^T. Symmetry makes the displayed transpose placement consistent; the exact recurrence omits the factor 2 of the unhalved squared objective's gradient, so its eta scale is retained. The source has no output clipping or diagonal reset. Integer iteration counts, independent auxiliary laws and parameter-only step size need specification. The recorded recurrence degree bounds differ from the printed 2 t1 t2 claim, though logarithmic iterations still give order log-squared n. No low-SNR lower-bound condition is imported into the algorithm.",
+        "statement_sha256": "92b3f81e4808781e8baffffb521167c2a0788e6a2422aba94126a257f5ef7532"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched power-iteration and gradient-descent graphon estimators; inspected product Gaussian/Bernoulli laws, matrix multiplication and Frobenius geometry against Algorithm 1 and its source issues.",
+          "result": "Random input laws and finite matrix recurrence ingredients exist, but the printed sketch dimensions prevent a literal typed implementation and the claimed finite polynomial degree needs separate correction."
+        }
+      ],
+      "gap": "Resolve the sketch-dimension typo and construct the exact randomized recurrence, preserving its scaling, iteration domains and recorded finite-degree discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-65be648adf03e51e3fda",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "900e9f770cef456c02cfac1f55792430c0c994a5979df2a4a81d089c93fee4a5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D13",
+        "comparison": "For p>q, each off-diagonal indicator of equal labels equals (M_ij-q)/(p-q), so the co-membership relation is determined by M. Simultaneous label permutations preserve M and show that the source's asserted unique z_M is not justified; unused labels can add further nonuniqueness. Matrix.submatrix of the equality-indicator block matrix represents the relation for any witness labeling, with a separate zero vertex diagonal. Z_M is n by n pairwise co-membership, not an n by k one-hot assignment matrix. The initial displayed M relation must be read off diagonal, since M_ii=0 in the model. The positive p-q denominator is valid here, but it does not resolve separate SNR denominators involving q(1-p).",
+        "statement_sha256": "b823543408ddfafa54086a7e161234bb1ade48ac3d03765395deebe59c47868c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected arbitrary label reindexing and compared invariant co-membership with the source's numeric-label uniqueness assertion.",
+          "result": "Pulling back the class-equality matrix gives co-membership off diagonal, which is recoverable from M despite nonunique numeric labels."
+        }
+      ],
+      "gap": "Construct the zero-diagonal co-membership matrix from (M_ij-q)/(p-q) off diagonal, preserving the recorded failure of unique numeric labels."
+    }
+  },
+  {
+    "interface_id": "local-434cacd77eda9a78888e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "e8c411f62264f67b70b02b0b48237424daa1005c6dc1cb304a76a5498770b2ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D18",
+        "comparison": "Take Q of size k1 by k2 with Q_ii=lambda for i<=min(k1,k2) and every other entry zero, then M=Q.submatrix z1 z2. Here z1:[n1]->[k1] and z2:[n2]->[k2]; the source shorthand Q_z_i,z_j requires those distinct label maps. Labels outside the shared class range are permitted by the class and give zero block signals. The following prior restricts both sides to the shared min(k1,k2) labels, so its support can be smaller than the full class. There is no zero mask on the data-matrix diagonal, no symmetry requirement and no [0,1] probability bound; lambda is a real Gaussian-model signal amplitude.",
+        "statement_sha256": "b60190164765b08adbc01a8f1f75c149ea81911eff1a7c2bec5f413825373c65"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected rectangular matrix pullbacks and compared diagonal block-level signals with vertex-level diagonal masking in graph models.",
+          "result": "A rectangular block matrix with lambda on the shared class diagonal and zero elsewhere gives the special biclustering class by independent row and column label maps."
+        }
+      ],
+      "gap": "Construct the diagonal-block biclustering class with separate label domains and the exact shared-class signal rule."
+    }
+  },
+  {
+    "interface_id": "local-8f87891d08b4234df21e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "4c6bc02df81624cfbbba55c7c8ae2b705d0da4627fd5f3990229eb29cec38bfe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D19",
+        "comparison": "Every row label and every column label is independent and uniform on {1,...,min(k1,k2)}; they are not separately uniform on all k1 and k2 labels. Use n1 row coordinates and n2 column coordinates as explicitly indexed, while preserving the original statement's two length-n vector declarations as a typo. Positive k1,k2 make the shared finite uniform law nonempty. Push the finite product through M_ij=lambda times the label-equality indicator, with no vertex-diagonal deletion or imposed balanced counts. This is a distribution on M, not automatically the joint (M,Y) law; the additive iid unit Gaussian observation noise and its intended independence from M must be supplied separately for the prior-risk experiment.",
+        "statement_sha256": "98ee096b0d3c10cfe725b24e5b1f7f8dd20d6f995cfcbc8c1637abd1b0761bf9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected uniform finite labels, finite product laws and pushforwards; compared shared-label support and the source's n versus n1/n2 vector-length typo.",
+          "result": "The product law of independent row and column labels uniform on the shared class range induces the stated signal prior after resolving the index-length notation."
+        }
+      ],
+      "gap": "Construct the biclustering signal prior from independent labels uniform on min(k1,k2), retaining the source's vector-length typo and the separate observation-noise law."
+    }
+  },
+  {
+    "interface_id": "local-55ace9e86cde71f03eae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "aeafea8bdb03f8ac6ff5ba51c56f905f0aca434f0b7c79bd18ac951e24a39375",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D17",
+        "comparison": "Choose arbitrary real Q of size k1 by k2, z1:[n1]->[k1] and z2:[n2]->[k2]; then M_ij=Q_(z1_i,z2_j). The source writes z_i,z_j while defining z1,z2, so retain the original shorthand and make its type interpretation explicit in the construction. Reindexing need not be injective or surjective, allowing arbitrary repeated labels, unused classes and unbalanced sizes. The class does not require symmetry, bounded entries, Gaussian noise or a diagonal mask; those would be additional or different model assumptions. The row and column dimensions and class counts remain independent.",
+        "statement_sha256": "555ec4b49881640b7154d8567d11f0cdf3cc6f0be4578dbb1e842df109dce302"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched biclustering parameter classes and inspected the full type/body of rectangular matrix submatrix reindexing with noninjective maps.",
+          "result": "Matrix.submatrix directly implements an arbitrary block matrix pulled back along separate row and column assignments."
+        }
+      ],
+      "gap": "Assemble the existential rectangular block class using Q.submatrix z1 z2, resolving the source's abbreviated row/column subscripts."
+    }
+  },
+  {
+    "interface_id": "local-a4d3b64d1588da8ecfc4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "2bd17d3717d0f4de5fa565fa6c3565ff6d9bde406883ec9d30294c5c1627491d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D16",
+        "comparison": "E has iid N(0,1) entries over every row-column pair and Y=M+E. gaussianReal 0 1 is the unit-variance real law, and its finite product over the rectangular index set gives independent entries; a measurable translation by fixed M yields the observation law. No symmetry ties E_ij to E_ji, and all entries, including a numerical diagonal, carry noise. M belongs to the rectangular biclustering class, not a bounded Bernoulli probability-matrix class. For random M in the later prior experiment the intended kernel corresponds to E independent of M; the source sentence does not separately spell out that independence, so it is identified as a model qualification rather than inferred solely from iid noise marginals.",
+        "statement_sha256": "97094b0a0a79188c0afe35f5c23ea2ba0763873071e464b4f7ffb5b2d11c00ef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected scalar Gaussian laws, finite product measures and translation pushforwards; compared fixed-signal observations with the random-signal prior experiment.",
+          "result": "A product of standard Gaussian entry laws translated by M constructs the fixed-signal observation kernel, which can then be combined with a signal prior."
+        }
+      ],
+      "gap": "Construct the rectangular unit-variance Gaussian observation kernel and make its independence from a random signal explicit when forming the prior-risk law."
+    }
+  },
+  {
+    "interface_id": "local-89ee15f6d0238d324e02",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "b614649dd5092802f239a19be0bf636e6dbae2ffe20c46c1145f438aedb49193",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D10",
+        "comparison": "On D={(x,y) in [0,1]^2:x>=y}, sum two terms: max over j+k<=floor(gamma) of sup_D |partial_x^j partial_y^k f|, plus max over j+k=floor(gamma) of the off-diagonal difference-quotient supremum with denominator (|x-x'|+|y-y'|)^(gamma-floor(gamma)). The first term includes f through partial_00; do not drop lower-derivative supremum bounds. This is l1 coordinate distance, not Euclidean distance with an unchanged radius. At integer gamma the exponent is ZERO and distinct points give denominator one, so the term is a bounded oscillation of floor(gamma)-order derivatives, not a Lipschitz condition on order gamma-1 derivatives. HolderOnWith supplies a bound predicate only after matching this metric and exponent; separate derivative existence and boundary/extension interpretation are needed for within-set multilinear derivatives to represent the printed partials. The exact two maxima are added, not replaced by a single maximum or independent radius bounds. Supremum finiteness or an extended-value treatment is required outside the finite-norm class.",
+        "statement_sha256": "420f5bc771bfe3f7d4e75a09e12faf7b78d257849b71e1ac02b296418440b5bf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedFDerivWithin",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → Set E → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivative within a set, as a continuous multilinear map; coordinate partials and uniqueness on the domain require their own identifications.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L398-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Holder continuity and within-set iterated derivatives; compared the lower-triangle l1 geometry, floor convention and two additive maximum terms of the printed Holder norm.",
+          "result": "Derivative and Holder predicates support component conditions, but they do not supply the exact sum of maxima and difference-quotient suprema with the source's integer-smoothness convention."
+        }
+      ],
+      "gap": "Construct the precise lower-triangle Holder norm with l1 coordinate distance, justified boundary derivatives and exponent zero at integer gamma."
+    }
+  },
+  {
+    "interface_id": "local-a8c4e5d9933a53d481b3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "e8b5d6bd678381d18f72931c45a7e9289bf5f825492a70351dc9b0ecddfdfdb7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D11",
+        "comparison": "For gamma>0 and L>0, H_gamma(L) means the symmetric functions whose D10 norm is at most L; the original set builder places the norm inequality before the colon and is retained as shorthand rather than a literal set of inequalities. Symmetry is f(x,y)=f(y,x) for x>=y and extends the lower-triangle representation to the square. Membership bounds the SUM of the two D10 terms, not each term independently by L. The source norm's floor-order derivative, l1 metric and integer-exponent-zero conventions remain. This class does not itself require 0<=f<=1; the next smooth-graphon class adds that restriction. Generic HolderOnWith is only a component bound, not an already verified equivalent norm ball.",
+        "statement_sha256": "910d22ac8969a9079ab62dfd197658de437bd1b27a96f4b1afeee947d47abfdb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedFDerivWithin",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → Set E → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivative within a set, as a continuous multilinear map; coordinate partials and uniqueness on the domain require their own identifications.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L398-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Holder and within-set derivative ingredients and compared the printed symmetric norm-ball shorthand with probability-valued graphons.",
+          "result": "The class can be specified once the exact source norm is constructed, with symmetry imposed separately and no probability-range restriction at this stage."
+        }
+      ],
+      "gap": "Construct the symmetric ball for the paper's exact Holder norm, preserving its lower-triangle boundary and integer-order conventions."
+    }
+  },
+  {
+    "interface_id": "local-3bd2e9387def13d57063",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:52:52.248977+00:00",
+    "source_interface_sha256": "207974d16cfc0e58bc861d1eac66cabfa85094398418fb1f75e39901099c262f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2318",
+        "local_id": "D12",
+        "comparison": "F_gamma(L) consists of functions in H_gamma(L) whose values are between zero and one everywhere. Set.Icc expresses the pointwise bound; an almost-everywhere range condition would be weaker when arbitrary latent laws may charge exceptional points. The Holder predicate is inherited through the exact D10 norm and D11 symmetry, including boundary and integer-order conventions, rather than replacing it with a conventional alternative. The class definition uses positive gamma and L; Theorem 4 separately requires gamma>1/2 and supremizes over arbitrary iid latent-position laws. No uniform latent law, finite-block representation or extra theorem rate is part of this class definition.",
+        "statement_sha256": "90505e6b564ab30f50d79da5356a62c12955ebc0cd86cd7c424972e4bff1ca0c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected bounded-value intervals and Holder component predicates; compared the smooth-graphon class with the separate latent-law and theorem smoothness restrictions.",
+          "result": "Intersecting the exact symmetric Holder class with pointwise values in [0,1] gives the stated class after the source norm is constructed."
+        }
+      ],
+      "gap": "Construct the pointwise probability-valued subset of the exact symmetric Holder ball, keeping latent-distribution choices and theorem-specific gamma restrictions separate."
+    }
+  }
+]

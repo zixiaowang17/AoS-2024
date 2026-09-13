@@ -1,0 +1,105 @@
+{
+  "scope": "Manual comparison of ten remaining interfaces of aos-2024-v52-i05-p2217, retaining raw-estimator scope, sample/population matrix distinctions and every term of the coefficient and testing normalizers.",
+  "rows": [
+    {
+      "interface_id": "local-6f6f171194c5952aa78f",
+      "related": ["Matrix.l2_opNorm_def", "Asymptotics.IsBigO"],
+      "query": "Inspected the Euclidean matrix operator norm and deterministic sequence bounds; compared the Discussion requirement with the printed test theorem hypotheses.",
+      "result": "A bounded population-correlation spectral-norm sequence is expressible, but relaxing that condition is explicitly outside the paper's proved scope.",
+      "gap": "Record a dimension-uniform population-correlation operator-norm bound as the Discussion's stated requirement, retaining the unbounded-norm case as future work.",
+      "comparisons": {
+        "D19": "The relevant norm is the induced Euclidean operator norm of the POPULATION R, implemented with Matrix.Norms.L2Operator, not entrywise maximum or Frobenius norm. For growing dimensions the requirement is a bounded norm sequence, not the trivial finite norm of each individual finite matrix. Asymptotics.IsBigO relative to one represents eventual boundedness with the source uniformity convention specified. This upper bound does not imply a uniform lower eigenvalue bound. The Discussion explicitly assigns this requirement to Theorems 2.3-2.4 although their displayed statements omit it; preserve the source passage separately rather than rewriting the transcriptions. The suggested extension following another paper is future work, not an established unbounded-spectrum version."
+      }
+    },
+    {
+      "interface_id": "local-e4eef6e0d50a80795a49",
+      "related": ["Matrix.trace", "Matrix.mul_apply", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected finite traces, ordered products and inverse identities; compared all null centering/variance terms and the elementwise A0 definition with D0.",
+      "result": "The scalar normalizers and cubic-entry matrix can be assembled from valid population R, but their role in null asymptotics is not supplied by generic matrix arithmetic.",
+      "gap": "Construct the exact null mu0 and sigma0-squared formulas with A0_ij=2 R_ij^3, retaining both trace corrections and their sample-size factors.",
+      "comparisons": {
+        "D16": "sigma0^2 starts with 2p n^2/n1^2+2p n^2/n2^2+4n^2 p/(n1 n2), then adds (n/n1^2+n/n2^2)[4 tr(R^2)+2 sum_h (R^2)_hh (R^-1)_hh]. Both diagonal factors and the matrix-square trace matter. mu0=np(1/n1+1/n2)+n(n-1)/(4(n-2)^2)(1/n1+1/n2) tr(R^-1 A0). A0 has ENTRYWISE cubes 2 R_hl^3, not the matrix cube 2R^3 and not the fourth-moment-corrected D0. No beta_w term is printed in these null formulas and none is added from the coefficient CLT. Use n=n1+n2, positive sample sizes, n>2 and a genuine population inverse; real totalized inverse/division are not substitute domains. These are population normalizers, with fitted versions defined separately."
+      }
+    },
+    {
+      "interface_id": "local-0739ae9120862b6e7d29",
+      "related": ["Matrix.diagonal", "Matrix.mul_apply", "CFC.rpow"],
+      "query": "Inspected diagonal construction, matrix multiplication and positive matrix powers; compared fitted inverse-correlation scaling with raw, corrected and penalized coefficient usages.",
+      "result": "Diagonal marginal rescaling of the fitted inverse-correlation combination is expressible, but valid sample scales and estimator-scope qualifications must be supplied.",
+      "gap": "Construct the precision estimate from the fitted basis combination and inverse square roots of sample marginal variances, preserving the raw-estimator theorem scope.",
+      "comparisons": {
+        "D14": "R-hat_L^-1=sum_k theta-hat_k A_k is the directly fitted inverse correlation. Omega-hat=diag(S)^-1/2 R-hat_L^-1 diag(S)^-1/2 uses the pooled sample covariance's diagonal, not a full matrix inverse square root of S. The diagonal entries must be positive for genuine marginal standardization; population positive definiteness does not make every finite-sample diagonal positive. Symmetric known bases make the combination symmetric but do not guarantee positive definiteness. The source reuses theta-hat for raw B^-1 b, a multiplicative bias correction and penalized fits, while the test theorems retain raw shrinkage c=(1+y)^-1. Preserve this scope conflict; no corrected or regularized estimate is silently substituted into the stated tests or their normalizers."
+      }
+    },
+    {
+      "interface_id": "local-ee6539d012dc85d6ba6f",
+      "related": ["Matrix.mulVec"],
+      "query": "Inspected quadratic matrix action and compared equation (7) with the motivating n-multiplied statistic (2) and theorem normalizations.",
+      "result": "The quadratic form of the sample-mean difference is directly expressible, retaining the missing n factor as a substantive source distinction.",
+      "gap": "Construct T_n as the unmultiplied fitted-precision quadratic form and preserve n T_n only where the theorem explicitly uses it.",
+      "comparisons": {
+        "D15": "T_n=(x-bar1-x-bar2)^T Omega-hat (x-bar1-x-bar2) in (7). The earlier T in (2) is n times such a quadratic form, despite the substitution wording, so T and T_n are not identified without that scaling. Matrix.mulVec and a finite dot product give the stated scalar; no factor n, n1*n2/n, or studentization is inserted into its definition. A symmetric fitted matrix need not be positive definite, so nonnegativity and test behavior require additional domain/estimator facts. Theorem normalizations involving n T_n are preserved literally, and data-dependent Omega-hat is not treated as independent of the same-sample means by construction."
+      }
+    },
+    {
+      "interface_id": "local-e1589ba4309223451e97",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected population inverse quadratic forms; compared the alternative hypothesis and delta_n definition with the later local-power restrictions.",
+      "result": "The Mahalanobis squared mean difference is expressible under positive-definite population covariance, while the theorem's alternative and local-comparison scopes remain distinct.",
+      "gap": "Construct delta_n from the population inverse covariance and mean difference, retaining H1 as a replacement for H0 and leaving later local-signal restrictions separate.",
+      "comparisons": {
+        "D18": "mu_d=mu1-mu2 and delta_n=mu_d^T Sigma^-1 mu_d is a POPULATION squared Mahalanobis signal, not a fitted quadratic form or Euclidean squared norm. Common positive-definite Sigma makes the inverse genuine and delta_n positive under nonzero mu_d, by the appropriate quadratic-form proof. c=(1+y)^-1 uses the limiting aspect ratio. Theorem 2.4 imports common conditions from 2.3 while replacing equal means by H1:mu1!=mu2; imposing both would make the theorem vacuous. No delta_n=o(1), fixed sample proportion or later trace restriction is printed in this full alternative passage; the later local-power discussion does not silently add them."
+      }
+    },
+    {
+      "interface_id": "local-51edc323d222719ac820",
+      "related": ["Matrix.trace", "Matrix.mul_apply"],
+      "query": "Inspected traces and ordered matrix products; compared the population B with the earlier sample B and the aspect-ratio outer-product correction.",
+      "result": "The population trace matrix and its rank-one correction can be constructed exactly, but invertibility is an additional condition.",
+      "gap": "Construct the population B with its y_(n-2) trace-product correction, keeping it distinct from the empirical trace matrix in (4).",
+      "comparisons": {
+        "D10": "B_kl=p^-1 tr(R A_k R A_l)+y_(n-2) p^-2 tr(R A_k) tr(R A_l). The second term is a product of traces and an aspect-ratio rank-one matrix; it is not another trace of the four-factor product. All R factors here are population correlation, and y_(n-2)=p/(n-2) is the finite-sample aspect ratio rather than its limit y. The earlier sample B lacks this correction and uses R-hat. Known symmetric bases and bounded entries/traces do not by themselves establish nonsingularity of the K-by-K population B; dependent bases can make it singular. Preserve its separate identity before forming the contrast weights."
+      }
+    },
+    {
+      "interface_id": "local-9eef557ae63e4075742b",
+      "related": ["Matrix.mul_nonsing_inv", "Matrix.diagonal", "CFC.rpow", "Matrix.trace"],
+      "query": "Inspected matrix inverse, diagonal powers and trace substitution; compared the fitted R-tilde construction with the sample correlation and the population A0 normalizers.",
+      "result": "The plug-in normalizers can be formed by a complete substitution of the restandardized fitted correlation, provided its inverse and diagonal scales are valid.",
+      "gap": "Construct R-tilde from the inverse fitted precision-basis combination and its own diagonal, then substitute it throughout both null normalizers.",
+      "comparisons": {
+        "D17": "First invert R-hat_L^-1=sum theta-hat_k A_k to obtain R-hat_L. Then use diag(R-hat_L)^-1/2 on BOTH sides to form R-tilde. This is not the ordinary sample correlation diag(S)^-1/2 S diag(S)^-1/2. The fitted combination must be invertible and the inverted matrix's diagonal positive for the intended normalization; symmetric bases alone do not guarantee either. Replace R consistently in mu0 and sigma0^2, including inverse, matrix squares, diagonal factors and the entrywise cubic A0 generated from the replacement. Keeping population A0 or mixing fitted and sample correlations would change the estimator. No nearest-positive-definite projection or regularization fallback is supplied by the source."
+      }
+    },
+    {
+      "interface_id": "local-41711833471eb41f8bf1",
+      "related": ["Matrix.mul_apply", "CFC.rpow"],
+      "query": "Inspected finite matrix-entry products and positive square roots; compared the fourth-moment corrections in D0 and g with the cubic A0 null matrix.",
+      "result": "The entrywise polynomial expressions in R and its positive square root are constructible, retaining the non-Gaussian fourth-moment parameter.",
+      "gap": "Construct D0 and g with their exact shared square-root-entry sums and beta_w=kappa-3 correction, without substituting the Gaussian or A0 special case.",
+      "comparisons": {
+        "D11": "Let s_ij=sum_l (R^1/2)_li^2 (R^1/2)_lj^2. Then D0_ij=2 R_ij^3+beta_w R_ij s_ij and g(i,j,beta_w,R)=2 R_ij^2+beta_w s_ij, retaining the source entry positions. These are elementwise powers, not matrix powers of R, and g differs from D0 by a factor R_ij in each term. beta_w=kappa-3 uses the standardized iid-coordinate fourth moment from D8 and is not assumed zero. R^1/2 is the positive symmetric matrix square root represented by CFC on the proper matrix algebra, not entrywise square roots or an arbitrary covariance factor. D0 is distinct from A0=2 entrywise R^3 used in the null normalizer; no beta_w correction is silently transferred between those source definitions."
+      }
+    },
+    {
+      "interface_id": "local-cc4d150b17bd70ada2ec",
+      "related": ["Matrix.mul_apply", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected row-vector matrix multiplication and inverse identities; compared contrast weights with the population B and the separate diagonal covariance D.",
+      "result": "The contrast-weighted symmetric basis combination is expressible when the population B inverse exists.",
+      "gap": "Construct eta as the row contrast times population B inverse and D1 as its weighted basis sum, retaining the distinct matrix identities and inverse domain.",
+      "comparisons": {
+        "D12": "The row vector eta=(pi1,...,piK) B^-1 uses the POPULATION B from Theorem 2.2, including its aspect-ratio correction. D1=sum_k eta_k A_k is p-by-p, while B is K-by-K. Preserve row multiplication order rather than replacing it by B^-1 times a column without proving symmetry/transposition equivalence. The inverse identity requires a unit determinant; known bases alone need not make B nonsingular. D1 is not the diagonal variance matrix D from the covariance decomposition and not D0. Arbitrary contrast constants include all zeros, in which case D1=0 and the later variance scale vanishes; that possibility is not excluded by this definition."
+      }
+    },
+    {
+      "interface_id": "local-542a7e222f1384be050c",
+      "related": ["Matrix.trace", "Matrix.mul_apply", "Matrix.mul_nonsing_inv", "CFC.rpow"],
+      "query": "Inspected matrix trace/products, inverse and fractional powers; manually compared all eleven centering terms and all eight additive variance terms with the frozen Theorem 2.2 formulas.",
+      "result": "The complete finite formulas have matrix-arithmetic ingredients, but their normalizing role, nonzero variance and excluded singular aspect ratios require additional assumptions and a central-limit proof.",
+      "gap": "Construct the literal eleven-term nu and eight-term sigma-squared formulas, preserving finite versus limiting aspect ratios, trace-power placement and all inverse/nonzero-scale qualifications.",
+      "comparisons": {
+        "D13": "Retain all eleven nu terms: tr(R D1); the n(n-1)/(4(n-2)^3) tr(D0 D1) correction; the positive n(2n-1)/((n-2)^2(n-2+p)) bracket; the negative tr(R D1)/(1+y_(n-2)) bracket with all five sample-size/kurtosis summands; the positive R D1 R trace and R^-1/2 entry correction; the positive tr(R D1)[2p+beta_w cubic-entry sum] term; its distinct negative 3n(n-1) fourth-entry-power correction; the negative 5n(n-1) bracket with diagonal R D1; and the three separate g-weighted double sums with R^-1 and R D1 R, with tr(R D1) R^-1 and R, and with D1 and R, respectively. Keep each denominator and the final 3n-6+p factor literally as archived. For sigma^2 retain the first three terms sharing ((1+2y)/(1-y))^2, including their positive quadratic forms and negative cross term, followed by five terms with (1+y)^-2: squared normalized trace times (2-2y-beta_w y), 2y times n^-1 tr(R D1)^2, squared normalized trace times [2n^-1 tr(R^2)+beta_w y], the negative product involving tr(R^2 D1), and the final diagonal-weighted sum. In particular tr[(R D1)^2], tr(R D1)^2 and [n^-1 tr(R D1)]^2 have different matrix/scalar powers and n factors. nu uses finite y_(n-2), while sigma^2 uses limiting y; no substitution is implicit. Fractional matrix powers need positive-definite population R, the contrast uses a genuine B inverse, n>2 is required, and y=1 makes the printed variance formula singular despite not being explicitly excluded by the preceding finite-y hypothesis. A zero contrast gives zero scale despite the source's arbitrary-contrast wording. Generic scalar totalization or cancellations do not establish a valid positive CLT normalizer or justify dropping terms."
+      }
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "scope": "Manual comparison of twenty-three remaining interfaces involving aos-2024-v52-i05-p2456, including three RKHS source variants, with the archive-pinned library and saved ambient source notes.",
+  "rows": [
+    {
+      "interface_id": "local-624be384bc6c910138a4",
+      "related": ["Matrix.PosSemidef"],
+      "status": "composable",
+      "query": "Inspected Matrix.PosSemidef on arbitrary index types and its finite-support quadratic-form definition, and the RKHS positivity construction.",
+      "result": "A real symmetric kernel is an arbitrary-index positive semidefinite matrix; finite-support sums express the source condition, including repeated sample points after collecting coefficients.",
+      "gap": "Identify the finite-list and finite-support quadratic forms, preserving nonstrict positivity and the supplied kernel domain.",
+      "comparisons": {
+        "D1": "Treat K as Matrix X X R, with X the supplied support subtype or abstract domain. Hermitian means symmetric over R; nonnegativity against every finitely supported coefficient family is equivalent to the finite n and x_i condition, with coefficients summed when x_i repeat. The printed positive definite means semidefinite: a zero quadratic form, duplicate points and a singular finite Gram matrix are allowed. Matrix.PosDef would be too strong. No continuity, characteristicness, bounded diagonal or measurability of K is supplied by this definition; the separately named measurable mean m does not add those properties."
+      }
+    },
+    {
+      "interface_id": "reproducing-kernel-hilbert-space",
+      "related": ["RKHS", "RKHS.kerFun_inner", "RKHS.OfKernel.kernel_ofKernel", "RKHS.equiv"],
+      "status": "composable",
+      "query": "Inspected the complete Reproducing RKHS class, evaluation adjoints, completion-based OfKernel construction and kernel identity, and isometric uniqueness with function equality; compared all three frozen source variants.",
+      "result": "The real scalar-valued RKHS interface, reproducing identity, construction from a PSD kernel and isometric uniqueness are supplied after the scalar kernel is represented by scalar-multiplication operators.",
+      "gap": "Specialize to real scalar functions and the named kernels, supply completeness and preserve each paper's domain, unit ball and separate analytic assumptions.",
+      "comparisons": {
+        "aos-2024-v52-i05-p1927/D6": "Use RKHS R H X R together with CompleteSpace H; the class itself only supplies the continuous injective function map, so completeness cannot be omitted. For v=1, kerFun_inner gives inner(kerFun H x 1,f)=f(x), and the kernel identity identifies kerFun H x 1 with K(.,x)=Phi_x. The construction and uniqueness apply to the supplied real symmetric PSD kernel after scalar-operator identification. The norm is H's own Hilbert norm; its completeness does not imply that its image is closed in L2(mu), so the later L2 projection issue remains separate.",
+        "aos-2024-v52-i05-p2349/D2": "Apply the complete scalar RKHS construction separately to kappa_U on Omega_U and kappa_Theta on Omega_Theta. The generated kernel equality and evaluation identity give the two spaces and their feature sections, without mixing their domains. Characteristicness, kernel measurability and embedding integrability, C2 regularity, boundedness and feature-Lipschitz conditions are distinct assumptions used by different theorems; none follows just from being an RKHS. The completed tensor product and Hilbert-Schmidt identification in D3 require a separate comparison.",
+        "aos-2024-v52-i05-p2456/D2": "Construct the complete real RKHS of covariance kernel K and define B_K as its norm-closed unit ball. RKHS.equiv gives uniqueness up to linear isometry for identical kernels, with the adjacent coe_equiv preserving functions; this is the appropriate interpretation rather than definitional equality of arbitrary Lean carrier types. The standing separability condition belongs to the dual-space passage and is not automatic for every kernel. The norm and inner product are those of H_K, not the residual-weighted L2(mu) geometry used in the projected-kernel spectral expansion."
+      }
+    },
+    {
+      "interface_id": "local-650b7b0d181bfc7252a8",
+      "related": ["StrongDual", "InnerProductSpace.toDual", "ContinuousLinearMap.le_opNorm", "MeasureTheory.TendstoInDistribution"],
+      "query": "Inspected StrongDual, the real Riesz isometry, continuous-linear operator norm and bound, and weak convergence of measurable random laws.",
+      "result": "Continuous scalar functionals on a Hilbert space carry the operator norm and are isometric to the Hilbert space; measurable-law weak convergence is available, but the full Hoffmann-Jorgensen convention is not identified automatically.",
+      "gap": "Identify the closed-unit-ball supremum norm and separable dual, then relate the stated Hoffmann-Jorgensen convergence to measurable-law weak convergence under appropriate measurability.",
+      "comparisons": {
+        "D3": "StrongDual R H_K is H_K ->L[R] R, whose operator norm equals sup over norm(a)<=1 of abs(S a). Riesz gives an isometric correspondence for complete real H_K, supporting transfer of separability when assumed. The source's separable-domain/continuous-kernel sufficient condition needs its own proof, not merely a separable carrier X. TendstoInDistribution uses almost-everywhere measurable random elements and ordinary weak convergence of their laws; a general Hoffmann-Jorgensen outer-expectation formulation can be broader. Keep that distinction and the operator-norm Borel topology. The arbitrary sequence S_n in the general theorem is not assumed to be the later fitted empirical process, and the bootstrap theorem concerns conditional distribution of a scalar squared norm."
+      }
+    },
+    {
+      "interface_id": "local-d3557b90a53d2c557969",
+      "related": ["Measurable", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "Searched conditional-moment models and inspected Measurable, indexed independence and identical distribution for joint random elements.",
+      "result": "A measurable parameterized moment function and iid joint observations can be assembled directly, without adding a conditional moment restriction.",
+      "gap": "Package the joint observation and scalar base moment model with iid sampling, keeping the vector-moment extension separate.",
+      "comparisons": {
+        "D7": "The known functional form epsilon maps Z times Theta to R^q, with unknown finite-dimensional theta0; the base theory specializes q=1, while the mentioned vector statistic sums the scalar component statistics. W contains the non-overlapping coordinates needed for both Z and X, so those subvectors may overlap and are not independent. Apply iIndepFun and IdentDistrib to W_i as whole observations with the law of W and n>=1. Neither these sampling predicates nor measurability says E[epsilon|X]=0; H0 is a separately recorded hypothesis. No estimator rate or unknown nonparametric conditional-score fit is included."
+      }
+    },
+    {
+      "interface_id": "local-0e4dcae959f9a02221b1",
+      "related": ["fderiv", "MeasureTheory.condExp", "Measurable.exists_eq_measurable_comp"],
+      "query": "Inspected fderiv, conditional expectation's integrability/sub-sigma-algebra requirements and measurable factorization through X; searched conditional-score interfaces.",
+      "result": "Coordinate derivatives and vector conditional expectation provide a score and a version depending on X, but their domain and integrability conditions need explicit assembly.",
+      "gap": "Define the genuine p-coordinate moment derivative and its integrable conditional expectation as a function of X, retaining the base known-score construction.",
+      "comparisons": {
+        "D9": "This score differentiates epsilon(Z,theta) with respect to theta, not a log likelihood. Coordinate evaluation of fderiv produces the p-vector when Frechet differentiability and the parameter-domain interpretation are justified. condExp with sigma(X) gives an integrable vector conditional expectation; measurable factorization yields a version g(X,theta0) under the stated standard-Borel codomain requirements. Its zero fallback for nonintegrable inputs cannot establish an intended conditional score. The base construction treats g as known up to theta; the later nonparametric g-hat extension is not folded into this definition, and no within-observation independence of Z and X is used."
+      }
+    },
+    {
+      "interface_id": "local-104089d4edb1a3f49cb4",
+      "related": ["Submodule.orthogonalProjectionOnto", "Matrix.mul_nonsing_inv", "MeasureTheory.integral", "MeasureTheory.MemLp"],
+      "query": "Inspected orthogonalProjectionOnto and its HasOrthogonalProjection premise, finite nonsingular inverse, L2 membership and integral definitions.",
+      "result": "The projection onto the orthocomplement of a finite score span exists in L2 once that span and its projection instance are supplied; the displayed Gram-inverse formula requires a separate identification.",
+      "gap": "Prove the score-span complement projection equals the supplied population Gram formula in L2(P_X), preserving genuine nonsingularity and almost-everywhere representatives.",
+      "comparisons": {
+        "D10": "The space is L2 of the covariate law P_X. The p coordinate functions g span a finite-dimensional subspace; project onto its orthogonal complement and include the result back into L2. With square-integrable scores and nonsingular Gamma=E[g g-transpose], the coefficients of the removed projection are G(a,theta0) Gamma-inverse, with G=E[a g-transpose]. The inverse theorem needs nonzero determinant and supplies no generalized inverse. An L2 element is an equivalence class, so the pointwise formula chooses versions rather than a value intrinsic to the class. Neither the H_K norm nor the residual-weighted L2(mu) norm can replace P_X geometry here."
+      }
+    },
+    {
+      "interface_id": "local-f61315c8b0fb2783edae",
+      "related": ["Matrix.mul_apply", "Matrix.mul_nonsing_inv", "Matrix.PosSemidef"],
+      "query": "Inspected finite matrix products, true inverse requirements and PSD kernel matrices; compared Algorithm1 normalization with the source's raw-Gram assumption.",
+      "result": "The score matrix, normalized Gram matrix and two-sided finite projection are explicit matrix expressions; sample nonsingularity is still required.",
+      "gap": "Construct the fitted score projection and apply it on both sides of the Gram matrix with exactly one factor 1/n, retaining singular-sample conventions.",
+      "comparisons": {
+        "D13": "The n-by-p matrix has row g(X_i,theta-hat)-transpose. Raw mathbb K has entries K(X_i,X_j)/n, and projected K-hat is P-hat-transpose mathbb K P-hat with P-hat=I-G(G-transpose G)-inverse G-transpose. The kernel's nonstrict PSD condition need not make either Gram matrix invertible; the score inverse needs full column rank or an equivalent nonsingularity condition. Preserve the left transpose and the raw versus projected matrix distinction. AssumptionB(ii) bounds the eigenvalue of the raw mathbb K, not K-hat. Population G(a,theta), its empirical average and this design matrix are separate objects."
+      }
+    },
+    {
+      "interface_id": "local-589ce4b7dbfb95f02462",
+      "related": ["MeasureTheory.condExp", "MeasureTheory.Measure.withDensity", "fderiv"],
+      "query": "Inspected vector/matrix conditional expectation, nonnegative scalar withDensity and fderiv, and compared the matrix-valued source weight with scalar measure requirements.",
+      "result": "Conditional score second moments and derivative arrays have ingredients; withDensity only handles a scalar nonnegative weight and cannot implement the full p-by-p measure as printed when p>1.",
+      "gap": "Resolve the matrix-valued score measure and kappa_s scalarization while retaining the original second-moment and neighborhood derivative conventions.",
+      "comparisons": {
+        "D18": "s is p-dimensional, so E[s s-transpose|X] is a p-by-p positive semidefinite conditional second-moment matrix, not generally a scalar variance. Multiplying it by F_X gives a matrix-valued measure, and integrating K(x,x) gives a matrix unless a scalarization is specified. The source's kappa_s<infinity supplies no trace, norm or componentwise convention; scalar withDensity is applicable directly only to a valid scalar case such as p=1. Dot g and dot s are parameter derivatives of the p-vector functions, requiring the original small neighborhood Theta0 interpretation. Neither fderiv totalization at a boundary nor silently taking a trace resolves these issues."
+      }
+    },
+    {
+      "interface_id": "local-9fc63d6ee03ee8ba66f8",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "MeasureTheory.integral", "MeasureTheory.integral_integral_swap"],
+      "query": "Searched Neyman-orthogonal/reduced kernels; inspected the population matrix product, inverse and product-integral ingredients and the saved independent-copy convention.",
+      "result": "The four-term projected kernel can be expressed using population integrals and the inverse score Gram; no verified library theorem directly supplies this L2(P_X) score-removal formula.",
+      "gap": "Construct Upsilon and the four population expectation terms, proving the required integrability and projected-kernel properties in the correct space.",
+      "comparisons": {
+        "D11": "Upsilon(x1,x2)=g(x1)-transpose Gamma-inverse g(x2). Keep both distinct subtracted terms and the final expectation of Upsilon(x_i,X) K(X,X-tilde) Upsilon(X-tilde,x_j) using independent replicated covariates; product integration is justified by that replication plus integrability. These are population expectations, not fitted sample sums. The L2(P_X) score complement projection need not be an orthogonal projection in the original RKHS norm, so a generic RKHS-submodule kernel theorem is not automatically the same formula. The source defining passage sits in Lemma3.3, which remains a definition source rather than a new inventoried Theorem."
+      }
+    },
+    {
+      "interface_id": "local-eb1c82eb2b95481c0f97",
+      "related": ["MeasureTheory.condExp", "MeasureTheory.Measure.withDensity", "MeasureTheory.integral"],
+      "query": "Inspected conditional expectation and scalar density-weighted measures and integrals, including the nonintegrable zero fallbacks.",
+      "result": "An integrable conditional residual second moment supplies a nonnegative weight for the covariate law, and the kernel-diagonal integral is a separate finiteness condition.",
+      "gap": "Construct the residual-second-moment weighted measure and enforce finite kappa-perp, without replacing the weight by conditional variance or normalizing the measure.",
+      "comparisons": {
+        "D16": "The weight is E[epsilon(Z,theta0)^2|X]; it equals conditional variance only if the conditional mean is zero, which is not part of this definition alone. Choose a measurable nonnegative version and use withDensity against F_X; mu need not have total mass one. The separate condition integral K-perp(x,x) dmu < infinity is about the nonnegative diagonal integral. Its real Bochner integral would default to zero if nonintegrable, so that fallback cannot be used to satisfy the condition. Retain the population true parameter and the weight mu for the later spectral space."
+      }
+    },
+    {
+      "interface_id": "local-4270461d11419c10952c",
+      "related": ["ContDiffOn", "Matrix.PosDef", "Matrix.IsHermitian.eigenvalues₀", "MeasureTheory.integral", "Filter.Tendsto"],
+      "query": "Searched conditional-moment and bootstrap regularity; inspected C2-on-domain, positive-definite matrices, Hermitian eigenvalues and integral/convergence primitives against all four source parts.",
+      "result": "Several analytic predicates are available, but no verified declaration packages these particular uniform moments, raw-Gram stochastic bound and fitted-parameter rate, and source ambiguities remain.",
+      "gap": "Assemble B(i)-(iv) with every uniform moment and stochastic rate, preserving the raw-Gram n-inverse scaling, matrix-valued kappa_s issue and boundary-domain convention.",
+      "comparisons": {
+        "D19": "Part(i) requires separable X, continuous K and finite E K(X,X). Part(ii) retains finite kappa-perp and kappa_s and lambda-max of the raw K(X_i,X_j)/n matrix = O_P(n^-1), not O_P(1) or a projected-matrix bound; kappa_s has the unresolved matrix-weight scalarization. Part(iii) is almost-sure C2 of epsilon on Theta, finite expectations of the Theta0 suprema of squared score, squared score derivative and squared epsilon, and positive definiteness of E[g(X,theta)g(X,theta)-transpose] for theta in Theta0. Part(iv) requires compact Theta and a root-n O_P estimator rate, not an asymptotic linear expansion or almost-sure rate. ContDiffOn and matrix predicates supply components only; deterministic BigO is not stochastic order, and totalized integrals must not pass divergent moment conditions. Preserve the implicit compact-boundary neighborhood convention. Later B(v), AssumptionC and H0 are not additional clauses of this definition."
+      }
+    },
+    {
+      "interface_id": "local-7b5eb678721a32cae7a0",
+      "related": ["MeasureTheory.integral", "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot", "HilbertBasis.hasSum_repr_symm"],
+      "query": "Searched trace-class and Hilbert-Schmidt operators; inspected the compact symmetric spectral completeness theorem, Hilbert basis reconstruction and the source integral-operator domain.",
+      "result": "Compact self-adjoint eigenspace completeness and Hilbert basis expansions are available, but construction and trace-class proof for this weighted integral operator and the kernel expansion are not verified as a combined interface.",
+      "gap": "Construct the K-perp operator on L2(mu), establish its analytic properties and derive the L2(product-mu) and almost-everywhere kernel expansion with the stated normalization.",
+      "comparisons": {
+        "D17": "The operator integrates K-perp(x1,x2) f(x1) against residual-second-moment weighted mu and returns an L2(mu) class. Boundedness, well-defined representatives, compactness and self-adjointness must precede use of the library spectral theorem; that theorem alone does not prove trace class or a summable sequence of nonnegative eigenvalues. Eigenfunctions here are orthonormal in L2(mu), not H_K. The source expansion is in L2(mu times mu) and separately asserted almost everywhere, so neither uniform pointwise convergence nor pointwise evaluation of arbitrary L2 classes is available automatically. Zero eigenvalues and their later RKHS representatives remain implicit, and the lambda normalization cannot be borrowed from the H_K covariance spectrum."
+      }
+    },
+    {
+      "interface_id": "local-97cfe3673a7fc54eebc4",
+      "related": ["Measurable"],
+      "status": "composable",
+      "query": "Inspected measurable-function composition for the known moment function and fitted parameter; searched residual interfaces for the conditional-moment setting.",
+      "result": "The residual vector is ordinary finite evaluation of the supplied moment function at each observation and the common fitted parameter.",
+      "gap": "Define residual coordinates epsilon(Z_i,theta-hat) and establish their measurability from that of the inputs.",
+      "comparisons": {
+        "D23": "Use the same fitted theta-hat in all n entries and retain the original index ordering. These are moment residuals, not necessarily y_i minus a linear prediction, and their definition imposes neither unbiasedness nor the B(iv) estimator rate. Joint measurability of epsilon and measurability of the supplied estimator support measurability of the composed vector. In the multiplier bootstrap the fitted parameter and these residuals are held fixed conditional on the original data; no new fit or resampled observation is required by this step."
+      }
+    },
+    {
+      "interface_id": "local-6dea41efbb40ec2c2046",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "Finset.sum_div"],
+      "query": "Inspected finite products, average normalization via sum_div and nonsingular inverse, comparing the sample and population score projections.",
+      "result": "The empirical projection formula is finite algebra using fitted scores and sample averages, with a missing convention for singular finite samples.",
+      "gap": "Assemble the fitted empirical averages and true inverse Gamma_n, retaining the source's eventual-nonsingularity claim separately from the definition.",
+      "comparisons": {
+        "D12": "G_n(a,theta) is n^-1 times the sum of g(X_i,theta)-transpose a(X_i), while Gamma_n uses g at the common theta-hat in both factors. The projected value subtracts G_n(a,theta-hat) Gamma_n-inverse g(X_i,theta-hat). For nonsingular Gamma_n this agrees with residualizing the vector of a evaluations against the fitted score design; it is not the population L2 projection. The source asserts nonsingularity for sufficiently large n under B but supplies no singular-small-sample rule. A totalized zero inverse or generalized inverse would introduce new behavior, and importing B into the body would create an artificial cycle."
+      }
+    },
+    {
+      "interface_id": "local-c03f0785eca52e2bf173",
+      "related": ["MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto"],
+      "query": "Searched bootstrap, conditional weak convergence and Hoffmann-Jorgensen terminology; inspected weak probability-measure convergence via bounded continuous test functions.",
+      "result": "Ordinary weak convergence of supplied conditional laws has an available test-function criterion; no verified declaration identifies the externally cited almost-sure bootstrap-consistency convention.",
+      "gap": "Specify the conditional bootstrap laws and the cited convergence convention before asserting almost-sure weak convergence over data realizations.",
+      "comparisons": {
+        "D21": "The a.s. qualifier applies to conditional distributional convergence along almost every original-data realization, not to pathwise convergence of the newly sampled bootstrap statistic. For defined conditional laws, the linked theorem characterizes weak convergence through all bounded continuous real test functions; it does not itself impose the outer almost-everywhere data quantifier or identify the source's external definition. Keep that missing convention visible rather than weakening the statement to convergence in probability. In particular the root-n O_P estimator condition elsewhere does not by itself establish this almost-sure assertion."
+      }
+    },
+    {
+      "interface_id": "local-2b9e352f2c34382c6b91",
+      "related": ["MeasureTheory.TendstoInDistribution", "ProbabilityTheory.gaussianReal", "HilbertBasis.hasSum_repr_symm", "Filter.Tendsto"],
+      "query": "Inspected scalar convergence in distribution, Gaussian variance including the zero case, Hilbert basis series and filter limits; searched Hilbert-valued Gaussian convergence assumptions.",
+      "result": "Scalar Gaussian weak limits, basis coordinates and nested probability limits have ingredients, but the full general dual-space tightness criterion is not a verified combined theorem.",
+      "gap": "State the continuous positive symmetric covariance form, one-basis trace summability and the exact lim-J limsup-n tail condition for the arbitrary dual-valued sequence.",
+      "comparisons": {
+        "D4": "For every a in H_K, the scalar S_n(a) tends in law to centered Gaussian with variance sigma(a,a)>=0; zero variance is allowed. sigma is a supplied continuous positive symmetric bilinear form. Part(ii) asserts finiteness of sum_j sigma(e_j,e_j) for some H_K orthonormal basis. Part(iii) has limit as J tends to infinity of limsup as n tends to infinity of P(sum over j>=J+1 of S_n(e_j)^2 >= epsilon), equal to zero for every epsilon>0. Retain that order, the nonstrict tail-event threshold, and the nonnegative infinite sum with its finiteness interpretation instead of a nonsummable real-tsum fallback. These are assumptions on arbitrary random bounded functionals; iid observations, CMR H0 and fitted-estimator assumptions do not enter this general criterion."
+      }
+    },
+    {
+      "interface_id": "local-88ec3e30708a6051b0d1",
+      "related": ["HasSum", "ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun"],
+      "query": "Inspected HasSum, scalar Gaussian law and indexed independence, comparing the applied L2(mu) eigenbasis series with the distinct abstract covariance-basis series.",
+      "result": "An iid standard-normal sequence and a specified Hilbert/dual series can be expressed; validity of the projected-RKHS coefficients and convergence require additional work.",
+      "gap": "Establish the limit functional's series and RKHS representatives with its printed lambda_j coefficients, including zero-mode conventions.",
+      "comparisons": {
+        "D22": "The coefficient is lambda_j times inner(varphi_j,Pi a) in the K-perp RKHS, multiplied by U_j, for a in H_K. varphi_j is normalized in L2(mu); it is not the H_K-orthonormal covariance basis, so replacing lambda_j by sqrt(lambda_j) changes the source formula. Membership of Pi a and suitable varphi_j representatives in the K-perp RKHS, especially when lambda_j=0, must be justified rather than multiplying an undefined inner product by zero. HasSum requires a real convergence proof to a bounded functional. U_j are iid standard normals by the standing convention. Reusing this definition in the bootstrap theorem does not add the H0 premise or AssumptionA from a different theorem."
+      }
+    },
+    {
+      "interface_id": "local-14622c8e5cb42340bd85",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "ProbabilityTheory.IndepFun", "Bornology.IsBounded", "StrongDual"],
+      "query": "Searched multiplier bootstrap interfaces and inspected independence, identical laws, boundedness and the continuous-dual representation of the finite fitted process.",
+      "result": "The finite multiplier-weighted functional and its sampling assumptions can be assembled, but no verified theorem supplies the source bootstrap convergence conclusion.",
+      "gap": "Construct the data-conditional multiplier law and bounded dual functional, retaining iid centered unit-variance bounded weights independent of the entire data.",
+      "comparisons": {
+        "D20": "The process is n^-1/2 sum_i (Pi-hat a)(X_i) V_i epsilon-hat_i. The fitted theta, residuals, score matrix and projection remain fixed for each original-data realization; only V_i are sampled. Require the multiplier family to be jointly iid and independent as a family of all original W_i, with zero mean, unit variance and bounded support. Pairwise independence alone is insufficient, and Gaussian weights violate the printed bounded-support requirement. StrongDual can encode the finite bounded linear functional once evaluation/projection continuity is established, but this construction does not certify almost-sure bootstrap consistency or settle the theorem's unprinted null scope. Optional two-point examples are not mandatory extra assumptions."
+      }
+    },
+    {
+      "interface_id": "local-ecc7cfef699a9ba8addb",
+      "related": ["MeasureTheory.condExp", "MeasurableSpace.comap", "MeasureTheory.Measure.real"],
+      "query": "Inspected conditional expectation relative to sigma(X), its integrability requirements and real event probabilities; searched conditional moment restrictions.",
+      "status": "composable",
+      "result": "The parameter-existence null and all-parameter alternative can be assembled from the conditional expectation and an almost-everywhere zero predicate when the moments are defined.",
+      "gap": "State the existential conditional-moment null and its all-parameter failure alternative with the necessary conditional-expectation domain conditions.",
+      "comparisons": {
+        "D8": "H0 is existence of theta0 in Theta with E[epsilon(Z,theta0)|sigma(X)]=0 almost surely; H1 requires for every theta in Theta that the probability of the equality-to-zero event be strictly less than one. Under integrability and a probability law these express complementary existence/failure statements. condExp's zero fallback on nonintegrable epsilon cannot be used to satisfy H0. Neither Z-X independence nor uniqueness of theta0 is required. H0 appears explicitly in Theorem4.3 but is not printed in Theorem4.4, so the definition must not insert it into that later statement by inference."
+      }
+    },
+    {
+      "interface_id": "local-eac1aa44a6bac476173d",
+      "related": ["StrongDual", "RKHS.norm_apply_le", "Finset.sum_div"],
+      "query": "Inspected finite sum normalization, RKHS evaluation bounds and continuous dual; compared fitted, infeasible and multiplier versions of the process.",
+      "result": "A finite linear combination of bounded RKHS evaluations can be bundled as a continuous functional once the fitted score projection is valid.",
+      "gap": "Build the fitted residual/projection functional with 1/sqrt(n) scaling and prove its boundedness on the original RKHS.",
+      "comparisons": {
+        "D14": "For fixed data and a valid finite-sample inverse, the projection of a's evaluation vector is linear in that vector, so the displayed finite weighted sum is linear in a. RKHS.norm_apply_le bounds each evaluation and hence the finite combination, yielding StrongDual R H_K. Coefficients use epsilon(Z_i,theta-hat) and fitted g, not the infeasible true-parameter process R_n(Pi a), and no V_i appear here. The normalization is n^-1/2. Measurability as a random dual element and nonsingular-sample conventions need explicit justification; neither a null hypothesis nor an asymptotic equivalence is part of this definition."
+      }
+    },
+    {
+      "interface_id": "local-a362c6f7f8d6daf84b66",
+      "related": ["Matrix.mulVec", "RKHS.kerFun_inner", "StrongDual"],
+      "query": "Inspected finite quadratic forms, the reproducing identity and dual operator norm; compared the statistic normalization with the saved auxiliary-lemma scaling issue.",
+      "result": "The empirical quadratic form and the squared norm of its RKHS-represented functional can be connected, but the equality must retain the source's exact normalization.",
+      "gap": "Prove the projected residual quadratic form equals the unit-ball supremum of the squared fitted functional with the single 1/n Gram scaling.",
+      "comparisons": {
+        "D15": "The statistic whose limit is asserted is n times Q-hat-K-perp, equal to epsilon-hat-transpose K-hat epsilon-hat. K-hat already contains raw K(X_i,X_j)/n and both fitted projections. The n^-1/2 empirical functional has squared dual norm sup over norm(a)<=1 of R-hat_n(a)^2, giving compatible scaling by the reproducing identity. Do not remove the factor n or insert a second 1/n. The source review's separate Lemma3.4 mismatch for a differently normalized representer is not used as proof of this identity. No Gaussian-process integration or bootstrap weights are needed to define the finite statistic."
+      }
+    },
+    {
+      "interface_id": "local-b6eae7edff34501b4711",
+      "related": ["InnerProductSpace.toDual", "RKHS.kerFun_inner", "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot"],
+      "query": "Inspected Riesz representation, RKHS evaluation and compact self-adjoint spectral completeness; searched trace-class operator interfaces for the supplied covariance form.",
+      "result": "Riesz representation can turn the continuous bilinear form into an operator with the displayed evaluations, and compact symmetric operators have spectral completeness; trace-class construction and the enumerated spectrum remain additional work.",
+      "gap": "Construct the H_K covariance operator from sigma and prove its trace/compactness properties and basis representation under AssumptionA.",
+      "comparisons": {
+        "D5": "For each a, the bounded functional b maps to sigma(a,b); its real Riesz representative T_sigma a satisfies evaluation at x = sigma(a,K_x) by reproducing. Continuity, symmetry and positivity of sigma are used to bundle a bounded symmetric positive operator. The linked spectral theorem requires compactness and gives completeness of all eigenspaces, including zero; it does not itself turn the one-basis diagonal summability assumption into trace class or an ordered countable eigenbasis. The mu_j and phi_j live in H_K and phi_j are orthonormal in that norm. They are distinct from lambda_j,varphi_j in weighted L2(mu); applying AssumptionA to the eigenbasis also requires the appropriate basis-independent justification."
+      }
+    },
+    {
+      "interface_id": "local-67233d363c2bb8fe3106",
+      "related": ["HilbertBasis.hasSum_repr_symm", "InnerProductSpace.toDual", "ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun"],
+      "query": "Inspected Hilbert-basis reconstruction from square-summable coordinates, Riesz duality and scalar iid Gaussian laws; searched infinite-dimensional trace-class Gaussian constructions.",
+      "result": "Square-summable random coefficients can define a Hilbert element and hence a bounded functional, but almost-sure summability, measurability and the Gaussian limit law need proof.",
+      "gap": "Construct the random square-summable coefficients sqrt(mu_j) U_j and transfer their basis series to the dual with the stated Gaussian law.",
+      "comparisons": {
+        "D6": "The coefficient is sqrt(mu_j) U_j against the H_K-orthonormal phi_j, yielding S_infinity(a)=sum_j sqrt(mu_j) inner(phi_j,a)_K U_j. Nonnegative summable covariance eigenvalues and iid standard normals are needed to prove square summability almost surely; HilbertBasis.hasSum_repr_symm applies once that l2 coefficient element is supplied, and the real Riesz isometry gives a bounded functional. Its theorem is deterministic and does not by itself establish the probability-one event, measurable choice on the complement or centered Gaussian law. Do not change sqrt(mu_j) to mu_j or transfer this basis normalization to the applied R_infinity series."
+      }
+    }
+  ]
+}

@@ -1,0 +1,695 @@
+{
+  "schema_version": "statistical-paper-audit-v1",
+  "paper_id": "aos-2024-v52-i02-p0729",
+  "status": "complete",
+  "audit_kind": "source_review",
+  "completed_at": "2026-09-09T10:56:34.760380+00:00",
+  "source": {
+    "pdf_path": "[local-workspace]/minimax/reference/aos2024/pdf/24-AOS2366.pdf",
+    "source_url": "https://projecteuclid.org/journals/annals-of-statistics/volume-52/issue-2/Inference-for-heteroskedastic-PCA-with-missing-data/10.1214/24-AOS2366.pdf",
+    "version": "Published version: The Annals of Statistics 52(2), 2024, pp. 729-756; DOI 10.1214/24-AOS2366",
+    "pdf_sha256": "1bac2c2780467d496262c698eeb684dfb14d962388374679ced15896cd44203c",
+    "pdf_pages": 28,
+    "main_text_last_pdf_page": 28,
+    "provenance_path": "evidence/source-provenance.json"
+  },
+  "enumeration": {
+    "theorem_ids": [
+      "aos-2024-v52-i02-p0729/T1",
+      "aos-2024-v52-i02-p0729/T2",
+      "aos-2024-v52-i02-p0729/T3",
+      "aos-2024-v52-i02-p0729/T4",
+      "aos-2024-v52-i02-p0729/T5"
+    ],
+    "method": "Independent inspection of printed THEOREM headings over all 28 journal pages finds exactly Theorems 1-5, with Theorem 5 continuing on PDF page 22. The supplement notice on page 25 links to a separate document and is followed by references through page 28. Citations to later-numbered supplement theorems and other result types are excluded.",
+    "printed_label_check": [
+      [
+        7,
+        "1"
+      ],
+      [
+        9,
+        "2"
+      ],
+      [
+        11,
+        "3"
+      ],
+      [
+        12,
+        "4"
+      ],
+      [
+        21,
+        "5"
+      ]
+    ],
+    "excluded_result_types": [
+      "Lemma",
+      "Proposition",
+      "Corollary",
+      "Remark"
+    ],
+    "appendix_material_used": false
+  },
+  "counts": {
+    "theorems": 5,
+    "interfaces": 18,
+    "source_members": 18,
+    "direct_theorem_uses": 35,
+    "related_theorem_connections": 48,
+    "unranked_auxiliary_passages": 10
+  },
+  "validation": {
+    "status": "passed",
+    "validator": "skills/statistical-paper-census/scripts/validate_census.py",
+    "checks": [
+      "Inventory and final census pass validation; inventory hash agrees with its source review, and all original claim fields survive unchanged.",
+      "Published title, three authors, volume/issue/page range, DOI, source URL, 28-page count and PDF digest were checked. No appendix or supplement body is embedded or used.",
+      "Five complete statements were checked visually on pages 7,9,11,12,21,22, including the full Theorem 1 covariance, its exact iteration bound, both confidence statements and all Theorem 5 residual bounds.",
+      "The PCA signal, random sampling and row-specific sub-Gaussian noise model were checked on pages 1-2; zero-filled matrix, projections and matrix-sign convention on pages 3-4; population spectral scales, Definition 1 and Assumption 1 on pages 5-6.",
+      "Algorithm 2 was checked against its source scaling, inclusive update loop and t_0 output. Algorithms 3/4 were checked in full, preserving the unknown S-star_jj term in Algorithm 4 and missing finite-sample failure conventions.",
+      "The two cases of the population entry variance in (3.10)-(3.11) were checked on page 10. Theorem 3’s log^7 and Theorem 4’s log^8 sampling conditions are not replaced by Theorem 1’s log^9 condition.",
+      "The general rectangular model, n=max(n_1,n_2), singular-value condition number, all three incoherence inequalities and complete bounded-noise Assumption 3 were checked on page 20. Its var(E_ij squared) expression and square index-range mismatch remain literal.",
+      "Algorithm 5, R_U and both zeta quantities were checked on page 21. Theorem 5’s star/natural mismatch in the iteration count remains unresolved rather than importing the PCA spectral model.",
+      "Independent local graph traversal confirms that Theorems 1-4 have no general-model assumptions and Theorem 5 has no PCA data/noise or variance-ratio assumptions. Only generic projection primitives are shared across the model branches.",
+      "The row confidence procedure belongs only to Theorem 2, and the entry confidence procedure only to Theorem 4. Theorem 2 gives uniform marginal coverage error, not a joint simultaneous coverage event.",
+      "Ten auxiliary source passages and twenty-two source-convention notes preserve the unusual constant-factor meaning of <<, norm conventions, signal footnote, iteration reference, rate abbreviations, optional sampling estimate and unresolved source formulas. All 35 direct uses and 48 related connections have source-backed explanations and selectors."
+    ]
+  },
+  "source_notes": [
+    "The source is the published journal paper, not a preprint. Main-text source fidelity does not certify correctness of its proofs or resolve its apparent typographical errors.",
+    "Algorithm 4’s population S-star_jj, Assumption 3’s var(E_ij squared), the rectangular noise-index mismatch and Theorem 5’s starred iteration parameter are preserved and explained separately.",
+    "The Gaussian signal statement is retained. Footnote 1’s unrestricted sub-Gaussian extension is archived without asserting unchanged fourth-moment-sensitive covariance-entry variance formulas.",
+    "Definition 1 and Assumption 2 remain distinct, as do the two noise models, condition numbers and HeteroPCA scalings. No conditions are transferred through proof-only use of Theorem 5.",
+    "No appendix or supplement was opened. Generalized supplement Theorems 11-14, external proof references and comparison results are excluded from the main-text inventory."
+  ],
+  "unresolved_source_references": [
+    {
+      "issue_id": "S1",
+      "description": "Algorithm 4 retains omega_i^2 S-star_jj in its off-diagonal plug-in variance formula, while the paired term uses S_ii without a star. S-star_jj is not an available input. The printed procedure is therefore not fully data-driven in that branch; the census preserves this instead of substituting S_jj.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S2",
+      "description": "Assumption 3 prints var(E_ij^2)=sigma_ij^2 rather than var(E_ij). Equation (6.7) subsequently treats sigma_ij^2 as ordinary entry variance. This mismatch is retained without changing the assumption or certifying the resulting Theorem 5.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S3",
+      "description": "Theorem 5’s iteration count uses sigma_1 with a star superscript, even though the entire general-subspace model and all other singular values use natural superscripts. The source does not identify this starred quantity in Section 6; the likely typo is not repaired or used to import the PCA model.",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S4",
+      "description": "The general model prints E=[E_ij] with both indices in [n], but M and M-natural are n_1 by n_2, and Assumption 3 has the rectangular index range. The source dimensional mismatch is preserved; the intended rectangular perturbation is stated separately in the interpretation.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S5",
+      "description": "The Gaussian-signal footnote asserts that all results extend to isotropic sub-Gaussian factors without specifying fourth-moment matching or modified variances. Covariance-entry fluctuations generally depend on these fourth moments. The Gaussian theorem statements remain authoritative, with the broader footnote archived separately.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 10,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S6",
+      "description": "The model independently specifies Gaussian columns, sampling indicators and noise entries, without explicitly asserting joint independence of the three collections. The conditional Gram expectation (2.2) uses that intended independence. It is documented as implicit model context, not inserted into original quotations.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 2,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S7",
+      "description": "Assumption 1 uses omega_max squared divided by omega_min squared. A finite ratio excludes a zero minimum when some row noise is positive; the all-zero 0/0 case has no printed convention. The census does not silently add noiseless cases to the inferential theorems.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S8",
+      "description": "The matrix-sign function is defined only for nonsingular H. Theorems 1/2 use H=U^T U-star, with no explicit rule at singular outcomes or eigenvector ties. A high-probability nonsingularity argument does not supply a total finite-sample definition.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 4,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S9",
+      "description": "Algorithms 2 and 5 use a loop t=0,...,t_0 and output quantities at t_0, after also computing G at t_0+1. This indexing is preserved. Both algorithms leave eigenvalue tie breaking, rank-r spectral selection details and square roots of nonpositive eigenvalues unspecified.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S10",
+      "description": "Algorithms 3/4 divide by the number of observed entries in a row and subtract S_ll to estimate a variance. Empty rows and negative variance estimates have no stated fallback. Estimated covariance square roots, inverse Sigma and scalar variance square roots can therefore be undefined on some finite-sample outcomes.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S11",
+      "description": "Algorithm 3 adds a row U_l to Sigma_U,l^(1/2) z written as a column-vector transformation. The source implicitly identifies row and column representations of R^r; the original expression is retained.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S12",
+      "description": "Theorem 2 bounds the largest marginal rowwise coverage error. It does not assert that all d row regions simultaneously cover with probability 1-alpha. Theorem 4 is likewise an entrywise statement, not simultaneous coverage of all matrix entries.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S13",
+      "description": "Theorem 1 says for all l and gives an o(1) convex-set error, while Theorem 2 explicitly places a supremum over l outside the coverage error. These printed quantifier forms are preserved rather than replaced by a single simultaneous-event claim.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S14",
+      "description": "Theorem 3 assumes ndp^2 at least a log^7 scale; Theorem 4 increases this to log^8. Theorem 1’s distinct log^9 requirement is not inherited by Theorem 3, despite nearby interpretive prose referring to conditions of Theorem 1.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S15",
+      "description": "The paper defines << as a sufficiently small constant-factor inequality. It does not mean little-o. Theorem 5’s zeta_op condition must retain this source meaning, and the constants in the other comparison symbols are not assigned numerical values.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S16",
+      "description": "The covariance model’s kappa is a ratio of eigenvalues, while kappa-natural in Section 6 is a ratio of singular values. Likewise n is the PCA sample count in Sections 1-3 and max(n_1,n_2) in Section 6. The two meanings are not merged.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 5,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S17",
+      "description": "Definition 1 has one eigenspace row-norm condition. Assumption 2 has left and right singular-space row bounds plus an entrywise signal bound. Assumption 3 is bounded-noise and does not require PCA’s finite heteroskedasticity ratio. These distinct conditions are not transferred across models.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S18",
+      "description": "Section 6 prints sigma_r-natural>=0 although it describes an exact rank-r matrix and uses its reciprocal. Exact rank r is the intended positive-singular-value setting; zero-rank or zero-denominator conventions are not supplied.",
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S19",
+      "description": "Algorithms 3/4 use a coverage input 1-alpha and quantiles, but the theorem statements do not separately quantify alpha or uniformity over varying alpha. Ordinary fixed 0<alpha<1 confidence levels are the interpretation; uniform shrinking-tail coverage is not asserted.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 9,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S20",
+      "description": "Theorem 5 gives an existential pair Z,Psi on an event of probability exceeding 1-O(n^-10), followed by all-row bounds. Its explicit formula fixes Z and the decomposition fixes Psi. It is not a conditional Gaussian theorem and does not depend on the PCA Gaussian-column assumption.",
+      "evidence": [
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 22,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S21",
+      "description": "The orthogonal Procrustes argmin is written as a single matrix in (6.9), with no selection rule for multiple minimizers. The orthonormal matrix set includes reflections; no determinant-one constraint is stated.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 21,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    },
+    {
+      "issue_id": "S22",
+      "description": "Proof expansions in Section 3.3 and Appendix references do not become statement dependencies. The main-paper reference to Theorems 11-14 in the separate supplement does not create additional inventoried theorems. No supplement body was opened.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 8,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 11,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 12,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 13,
+          "location": "Inspected main-text source convention"
+        },
+        {
+          "page": 25,
+          "location": "Inspected main-text source convention"
+        }
+      ],
+      "resolution_status": "source_preserved"
+    }
+  ],
+  "ambient_resolution": {
+    "shared": "Finite index sets, real Euclidean spaces, transpose, spectral/Frobenius/row norms, rank, eigendecomposition, SVD, diagonal matrices, real square roots, Gaussian probabilities and quantiles are resolved by the source notation and ordinary linear algebra/probability. Source << means a small fixed-factor inequality (A1). The sub-Gaussian norm is cited to Vershynin without an exact normalization, which is immaterial to the displayed O bounds but not silently assigned a numerical constant. All comparisons are along sequences satisfying the printed growth conditions.",
+    "1": "D1 and D4 supply Gaussian columns X and population S-star; D2 the sampling model; D3 through D9 the noise law. D6 supplies kappa, sigma_r-star and Sigma-star; D7 fixes mu-incoherence; D9 fixes kappa_omega, omega_max/min; D10 supplies Algorithm 2 and its t_0 output; D8 defines sgn. The theorem binds delta, the row l, R and the entire covariance Sigma_U,l-star with its d_li-star formula. Convex sets and Gaussian measure notation are in A3. The iteration condition is inline and archived as A5 for later numbered references.",
+    "2": "The reference to Theorem 1 supplies its model, noise, incoherence, sampling, comparability and iteration hypotheses. D11 defines the confidence regions from Algorithm 3, including noise/covariance estimates, chi-square quantile and ball. D8 defines the rotation; U-star is the target from D1. Alpha is an ordinary fixed coverage level (S19), and the theorem gives uniform marginal rowwise coverage error, not joint simultaneous coverage.",
+    "3": "The PCA data/noise/sampling model remains the standing model in Section 3. D6 resolves its spectral and condition-number quantities; D7 resolves mu-incoherence; D9 is Assumption 1; D10 is Algorithm 2; D12 gives the distinct off-diagonal/diagonal population v-star formulas. Delta, i,j and the lower bound on their row norms are theorem-local. Only the iteration condition (3.6), reproduced in A5, is referenced from Theorem 1; the stronger log^9 sampling restriction is not. Phi is the standard normal CDF.",
+    "4": "The reference imports Theorem 3’s actual hypotheses and adds ndp^2>=constant times log^8(n+d). D13 defines the entrywise interval from Algorithm 4; its population S-star_jj anomaly is preserved. The statement has the same selected pair i,j and fixed confidence level alpha. It does not require the row-confidence procedure in Algorithm 3.",
+    "5": "D14 supplies the separate fixed rectangular signal, its natural-marked SVD and n=max(n_1,n_2). D15/D16 are the complete Assumptions 2/3. D17 gives Algorithm 5, D18 the minimizing rotation R_U, and D5 the off-diagonal projection in the inline Z formula. A6 resolves zeta_op and zeta_op,m through sigma and sigma_m from Assumption 3. Z,Psi and all-row residual bounds are bound inside the theorem. The starred sigma_1 in the iteration condition remains unresolved source wording, not a dependency on the PCA model. Probability concerns the matrix perturbation under the printed assumptions."
+  },
+  "artifacts": {
+    "theorem-inventory.json": {
+      "path": "theorem-inventory.json",
+      "sha256": "e4ad2abcaef7a13206aa4c3ba9d2e29adf539717e23a631fff1c2e312506203e"
+    },
+    "unfinalized-census.json": {
+      "path": "unfinalized-census.json",
+      "sha256": "7fd32b7cfe00d8b65de300392eca39522934162b665c8c6bc9208ff006a6173a"
+    },
+    "ranked-interfaces.json": {
+      "path": "ranked-interfaces.json",
+      "sha256": "e15fad640b478029bef9d0e8ee8aa084f0c60782cca160786f930ad0d444d4e3"
+    },
+    "source-passages.json": {
+      "path": "source-passages.json",
+      "sha256": "a732c0498d36b587d6a904783ac64eeddde8f1e68cbaa1cf21689fc9d0fd6c34"
+    },
+    "ambient-conventions.json": {
+      "path": "ambient-conventions.json",
+      "sha256": "1a46cf40e2a4cfc99695bf1a39be27497de0943feb44468a987c0f1a55c8aa15"
+    },
+    "inventory-review.json": {
+      "path": "inventory-review.json",
+      "sha256": "2b9d2d74849dd48945f91c6c84578d71d978ea42e1840e2a672d23626918980f"
+    },
+    "interface-draft.json": {
+      "path": "interface-draft.json",
+      "sha256": "e681342fa9495e03d09a1723d22ffbff9c064481f83c88944a42e6f710f56a80"
+    }
+  },
+  "evidence": {
+    "iteration-crop.png": {
+      "path": "evidence/iteration-crop.png",
+      "sha256": "7a64e9b50737ec53e2b3f8b7cb0c5c2c496153af8a5c111b8448f38f24f68504"
+    },
+    "page-01.png": {
+      "path": "evidence/page-01.png",
+      "sha256": "a9a527516f16516ae61eb5ba87a42bf620404c6c76c754cb968b908761d90535"
+    },
+    "page-01.txt": {
+      "path": "evidence/page-01.txt",
+      "sha256": "645cba9eb2ce9dde92766a5eb61a5c6637b557e1fed9d02e1876d84b0256bb12"
+    },
+    "page-02.png": {
+      "path": "evidence/page-02.png",
+      "sha256": "9c7e46f8e5d0995ed50a7c47366d0b32d0bb2bf2669f12ff29697332746ee19f"
+    },
+    "page-02.txt": {
+      "path": "evidence/page-02.txt",
+      "sha256": "4969b2c3804222c69b89ff04fd8ee79530ce48546776c616ec1fda28e65bd5ff"
+    },
+    "page-03.png": {
+      "path": "evidence/page-03.png",
+      "sha256": "63c2516f6acff2a4e4c891c39c53d19b266ab0696e42c459a45e7f9980161916"
+    },
+    "page-03.txt": {
+      "path": "evidence/page-03.txt",
+      "sha256": "5bdec747ed08f349bd90cf7d9b643473ab0dbea5a020e6c90b64c213c0bfb717"
+    },
+    "page-04.png": {
+      "path": "evidence/page-04.png",
+      "sha256": "b831f568888cfa98d9ba4e1c764216395c5286ac063ebc81b015a3545083cdab"
+    },
+    "page-04.txt": {
+      "path": "evidence/page-04.txt",
+      "sha256": "a2689a634180c75e086848939d706b9647f69d4148896cd39dd204812cdf9c87"
+    },
+    "page-05.png": {
+      "path": "evidence/page-05.png",
+      "sha256": "91f540e73cb4687fc264073b69efe33c35ab68e7d7ad8a2a54ff36616ebc73af"
+    },
+    "page-05.txt": {
+      "path": "evidence/page-05.txt",
+      "sha256": "1041b88d251243980bb58aaaf6e6bc88509378a3a39ae0147bbe6dbba308d508"
+    },
+    "page-06.png": {
+      "path": "evidence/page-06.png",
+      "sha256": "4e5cd575b34e44e4a3728f00639f3adf73ebea35da9ced96b0632d0c247cce4d"
+    },
+    "page-06.txt": {
+      "path": "evidence/page-06.txt",
+      "sha256": "a8a152d8402ae2417a80bfa0b43b5208d3edbf26d360ded85a7fe01ac7c983af"
+    },
+    "page-07.png": {
+      "path": "evidence/page-07.png",
+      "sha256": "ffc01b4fb1d9167b3a67e218da3fc0a6b29ae32ab5b17d0736f13961e84bee87"
+    },
+    "page-07.txt": {
+      "path": "evidence/page-07.txt",
+      "sha256": "be50d1300141f9a8551abc3d22a892d170f7bd099fc831a9ced9ca5015c4d677"
+    },
+    "page-08.png": {
+      "path": "evidence/page-08.png",
+      "sha256": "241c6fba8957aed9e1b2302afc1e07caa984055973905b954793570b9f56fbf9"
+    },
+    "page-08.txt": {
+      "path": "evidence/page-08.txt",
+      "sha256": "5ee0ecedb71783b1df0867747c8c409c69957905f6561319e70abc4e03512bfb"
+    },
+    "page-09.png": {
+      "path": "evidence/page-09.png",
+      "sha256": "586099eec9f34730b1a3a25e7e303212200ff56a7ad835afd8fa24a5dca194e6"
+    },
+    "page-09.txt": {
+      "path": "evidence/page-09.txt",
+      "sha256": "cc449e12262d7398e8a1c4a3604cedf459991f7a642a73ba3487490c764ca7a8"
+    },
+    "page-10.png": {
+      "path": "evidence/page-10.png",
+      "sha256": "9466e21618b3edc4e4867256f0f5fe4693e9310308401a15fc3cc03c7bc11fb1"
+    },
+    "page-10.txt": {
+      "path": "evidence/page-10.txt",
+      "sha256": "f21c953e4da11a6116d6bb20ab82093574ce0b5a4753595a788ae5f88da42d2e"
+    },
+    "page-11.png": {
+      "path": "evidence/page-11.png",
+      "sha256": "c875c611e3a6e5cb7a727c166521403a14401df1b382cb48f58698619d4e3962"
+    },
+    "page-11.txt": {
+      "path": "evidence/page-11.txt",
+      "sha256": "b999c51fbb1e773192a4754a4e4810393ebadce2b144241b79c115cdfc9ae360"
+    },
+    "page-12.png": {
+      "path": "evidence/page-12.png",
+      "sha256": "9d677e8dacb10c6d49798397b383f78d206b77de5f811707100435a8a93f5088"
+    },
+    "page-12.txt": {
+      "path": "evidence/page-12.txt",
+      "sha256": "5ca5c3900f11421ec18460e0fd9567d6898e18b8974864cbf5c66d680493bb39"
+    },
+    "page-13.png": {
+      "path": "evidence/page-13.png",
+      "sha256": "95728c8dfd097ea257e7e62df7b25612fd00d7528724e866ac9cedebb43e82c6"
+    },
+    "page-13.txt": {
+      "path": "evidence/page-13.txt",
+      "sha256": "824dbbee44214d9a93e0dd86e05be78603ee6f6d75470eccf533d70c888816af"
+    },
+    "page-14.txt": {
+      "path": "evidence/page-14.txt",
+      "sha256": "1ce28cd0ff3b2c73c44ceda6d0455e908c400902f74bf598580f15c0f6b0c2d1"
+    },
+    "page-15.txt": {
+      "path": "evidence/page-15.txt",
+      "sha256": "255c0262dc7390cc5a26b498560d51a3fe89a33e8194e269df1b43f50b4c7860"
+    },
+    "page-16.txt": {
+      "path": "evidence/page-16.txt",
+      "sha256": "ec880544a52d5b1fc5c7056d5c22c4bdec4daa20e64b559769d1cc65c1e32249"
+    },
+    "page-17.txt": {
+      "path": "evidence/page-17.txt",
+      "sha256": "305b09639e01436aa09be0ea2726038363af562a8329f77375a3954a424b0cba"
+    },
+    "page-18.txt": {
+      "path": "evidence/page-18.txt",
+      "sha256": "8c12e5a81967faab0d9322bc0af85ec0f8184f3623ec7cda7bb785550b9b22c1"
+    },
+    "page-19.txt": {
+      "path": "evidence/page-19.txt",
+      "sha256": "cac1c936e2732f45fc7b403cd4842c21487f3d85ede1a016b39995682064b8a2"
+    },
+    "page-20.png": {
+      "path": "evidence/page-20.png",
+      "sha256": "c65de8a4f29a32c69b1efd25b37653f5903f9b1ef1cdb82c77ca78a7e2aef932"
+    },
+    "page-20.txt": {
+      "path": "evidence/page-20.txt",
+      "sha256": "4468dca9824ea6e0a07e67c52f10700f30f39eb9104133f1b3bc46f170880d61"
+    },
+    "page-21.png": {
+      "path": "evidence/page-21.png",
+      "sha256": "c74f755377b90250454561a93d55ce1a17a43a49e73c750ed80d533c4808e4a2"
+    },
+    "page-21.txt": {
+      "path": "evidence/page-21.txt",
+      "sha256": "bfc74fa262b5fe02570ea09497733aa4e715ab65d74437d5925a034188832b8e"
+    },
+    "page-22.png": {
+      "path": "evidence/page-22.png",
+      "sha256": "121036453ca0e79350c4b194137cb4f164001e420b98f436260737aceb336448"
+    },
+    "page-22.txt": {
+      "path": "evidence/page-22.txt",
+      "sha256": "a1283c86262a04d152558430f63bb084bc14cf0dd8da6e0e8d633705ce95b642"
+    },
+    "page-23.txt": {
+      "path": "evidence/page-23.txt",
+      "sha256": "d0f0870020121b84d10bb1412953d9e789b4fea76be1979d4500600208ff4bff"
+    },
+    "page-24.png": {
+      "path": "evidence/page-24.png",
+      "sha256": "470092be5e5b88f780017bfc6ac310a4aeee1930023739c2ff711d1173a549db"
+    },
+    "page-24.txt": {
+      "path": "evidence/page-24.txt",
+      "sha256": "8effac57ba91e85d1eb76750e026c318b584396ab7f3b9cbd72821e98b2afb09"
+    },
+    "page-25.png": {
+      "path": "evidence/page-25.png",
+      "sha256": "4dbacea5d23146ecd2f0cf6945090e883fea642397907a0dda5b37b5fa70c358"
+    },
+    "page-25.txt": {
+      "path": "evidence/page-25.txt",
+      "sha256": "a3223e3bf1b35409e963ec283b1362b7862dffeb5b35031b8381e10f1a46ff5e"
+    },
+    "page-26.txt": {
+      "path": "evidence/page-26.txt",
+      "sha256": "1c278efa599c0e5fae7d59f41d8b5c71be4538b1d917961f780f152decdf920e"
+    },
+    "page-27.txt": {
+      "path": "evidence/page-27.txt",
+      "sha256": "87b933714440992dad194047b4d6d06ce0cd27bd93faef06147f169ae7dc3484"
+    },
+    "page-28.png": {
+      "path": "evidence/page-28.png",
+      "sha256": "ef573f937799f5ab81125b279b9f494891474a959ef8d5b96af6fb67322df0ea"
+    },
+    "page-28.txt": {
+      "path": "evidence/page-28.txt",
+      "sha256": "6e2cc73c750d47b5b3932a2f15ae82d88534d5b1b9bb8cea9949a2bc704330aa"
+    },
+    "source-provenance.json": {
+      "path": "evidence/source-provenance.json",
+      "sha256": "026f0df07aec180d4e8ddcadb00ac2ac1b2265905be03e764282b4b0fe230d77"
+    }
+  },
+  "review_limits": [
+    "Main-paper source transcription and statement-dependency audit, not proof certification or source repair.",
+    "All appendix and supplement mathematics were excluded."
+  ]
+}

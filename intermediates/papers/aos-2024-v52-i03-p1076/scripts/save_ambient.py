@@ -1,0 +1,98 @@
+"""Save unranked notation, source qualifications and complete statement resolution."""
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];PID=ROOT.name
+aux=[]
+def add(lid,text,pages,location):
+    aux.append(dict(local_id=lid,statement_original=text.strip(),evidence=[dict(page=p,location=location) for p in pages]))
+add('A1',r'''
+For a topological space $\mathcal X$, $L^r(\mathcal X,\mu)$ denotes the Banach space of $r$-power ($r\ge1$) $\mu$-integrable function, where $\mu$ is a finite non-negative Borel measure on $\mathcal X$. For $f\in L^r(\mathcal X,\mu)=:L^r(\mu)$, $\|f\|_{L^r(\mu)}:=(\int_{\mathcal X}|f|^r\,d\mu)^{1/r}$ denotes the $L^r$-norm of $f$. $\mu^n:=\mu\times\overset{n}{\ldots}\times\mu$ is the $n$-fold product measure. $\mathscr H$ denotes a reproducing kernel Hilbert space with a reproducing kernel $K:\mathcal X\times\mathcal X\to\mathbb R$. $[f]_\sim$ denotes the equivalence class of the function $f$, that is the collection of functions $g\in L^r(\mathcal X,\mu)$ such that $\|f-g\|_{L^r(\mu)}=0$. For two measures $P$ and $Q$, $P\ll Q$ denotes that $P$ is dominated by $Q$ which means, if $Q(A)=0$ for some measurable set $A$, then $P(A)=0$.
+''',[5],'Section 2 — measure and function-space notation')
+add('A2',r'''
+Let $H_1$ and $H_2$ be abstract Hilbert spaces. $\mathcal L(H_1,H_2)$ denotes the space of bounded linear operators from $H_1$ to $H_2$. For $S\in\mathcal L(H_1,H_2)$, $S^*$ denotes the adjoint of $S$. $S\in\mathcal L(H):=\mathcal L(H,H)$ is called self-adjoint if $S^*=S$. For $S\in\mathcal L(H)$, $\operatorname{Tr}(S)$, $\|S\|_{\mathcal L^2(H)}$, and $\|S\|_{\mathcal L^\infty(H)}$ denote the trace, Hilbert-Schmidt and operator norms of $S$, respectively. For $x,y\in H$, $x\otimes_H y$ is an element of the tensor product space of $H\otimes H$ which can also be seen as an operator from $H\to H$ as $(x\otimes_H y)z=x\langle y,z\rangle_H$ for any $z\in H$.
+''',[5],'Section 2 — Hilbert operator notation')
+add('A3',r'''
+For constants $a$ and $b$, $a\lesssim b$ (resp. $a\gtrsim b$) denotes that there exists a positive constant $c$ (resp. $c'$) such that $a\le cb$ (resp. $a\ge c'b$). $a\asymp b$ denotes that there exists positive constants $c$ and $c'$ such that $cb\le a\le c'b$. We denote $[\ell]$ for $\{1,\ldots,\ell\}$.
+''',[5],'Section 2 — comparison and finite-index notation')
+add('A4',r'''First, we make the following assumption throughout the paper.''',[6],'Section 3 — scope of A0')
+add('A5',r'''Recall that our test statistic defined in Section 4.1 involves sample splitting resulting in three sets of independent samples, $(X_i)_{i=1}^n\overset{i.i.d.}{\sim}P$, $(Y_j)_{j=1}^m\overset{i.i.d.}{\sim}Q$, $(Z_i)_{i=1}^s\overset{i.i.d.}{\sim}\frac{P+Q}{2}$.''',[16,17],'Section 4.3 — independent sample groups across the page break')
+add('A6',r'''Note that $\widehat\eta_\lambda$ is not exactly a U-statistic since it involves $\widehat\Sigma_{PQ}$, but conditioned on $(Z_i)_{i=1}^s$, one can see it is exactly a two-sample U-statistic.''',[11],'Section 4.1 — conditional U-statistic qualification')
+add('A7',r'''
+\[
+\begin{aligned}
+\eta_\lambda(P,Q)&=4\langle\mathcal T g_\lambda(\mathcal T)u,u\rangle_{L^2(R)}\overset{(\dagger)}=4\langle\mathfrak I g_\lambda(\Sigma_{PQ})\mathfrak I^*u,u\rangle_{L^2(R)}\\
+&=4\langle g_\lambda(\Sigma_{PQ})\mathfrak I^*u,\mathfrak I^*u\rangle_{\mathscr H}=\langle g_\lambda(\Sigma_{PQ})(\mu_P-\mu_Q),\mu_P-\mu_Q\rangle_{\mathscr H}\\
+&=\left\|g_\lambda^{1/2}(\Sigma_{PQ})(\mu_P-\mu_Q)\right\|_{\mathscr H}^2,\tag{4.3}
+\end{aligned}
+\]
+''',[10],'Section 4 — population identity (4.3), not a further Theorem')
+add('A8',r'''
+\[
+\begin{aligned}
+\eta_\lambda(P,Q)&=\sup_{f\in\mathscr H:\langle\Sigma_{PQ,\lambda}f,f\rangle_{\mathscr H}\le1}\langle f,\mu_P-\mu_Q\rangle_{\mathscr H}\\
+&=\sup_{f\in\mathscr H:\|f-\mathbb E_Rf\|_{L^2(R)}^2+\lambda\|f\|_{\mathscr H}^2\le1}\int_{\mathcal X}f(x)\,d(P-Q)(x).\tag{4.4}
+\end{aligned}
+\]
+''',[10],'Remark 4.2 — printed unsquared variational formula in the Tikhonov case')
+add('A9',r'''
+\[
+D_{\mathrm{MMD}}^2(P,Q)=4\langle\mathfrak I^*u,\mathfrak I^*u\rangle_{\mathscr H}=4\langle\mathcal T u,u\rangle_{L^2(R)}=4\sum_{i\ge1}\lambda_i\langle u,\widetilde\phi_i\rangle_{L^2(R)}^2.\tag{3.2}
+\]
+''',[6],'Section 3 — squared-MMD spectral representation')
+add('A10',r'''Define $A(x,y):=K(\cdot,x)-K(\cdot,y)$.''',[11],'Section 4.1 — inline feature difference in the statistic')
+resolution={
+ 'shared':'D1 supplies the iid two-sample experiment, H0 and H1. A0 (D2) is stated to apply throughout the paper (A4), although the permutation level argument is explicitly generic in the statistic and adds no regularizer inequalities. D3,D7 supply the mean embedding, mixture R=(P+Q)/2, contrast u=dP/dR-1 and centered inclusion. D8 and D15 distinguish the centered L2 operator from the RKHS covariance; D9 distinguishes spectral equivalence classes from their fixed RKHS representatives. A10 resolves the inline feature difference A used by the statistic without assigning it the misleading section-title name Test statistic. A1–A3 supply Lp spaces, Radon–Nikodym notation, products, adjoints, tensor operators, trace/norms, index sets and comparison constants. These are mathematical conventions, not library availability claims. Matrix transpose, finite sums, scalar square roots/logarithms, infima and ordinary probabilities/expectations are ambient. Inverse powers are spectral operations on their domains; no global invertibility of T is added. Each theorem binds its rate constants and tuning parameters inline.',
+ '3.1':'D2 is the explicit A0 hypothesis. D5 defines the squared-MMD statistic, based on all original observations, and D11 defines P_{theta,Delta}. D33 resolves the source/inverse power, and D9 resolves lambda_i and the optional sup-norm bound on phi_i. Both gamma thresholds, all c_k rates, the exact full-permutation MMD quantile and the liminf conclusion are bound inside the statement. The MMD quantile uses all (N+M)! permutations and is not D28 or D29, which use the reserved-sample regularized statistic. N,M,D,k,alpha,delta,Delta are theorem-local. The smoothness bound is uniform over P, not an additional term inserted into the original class. Assumption B is not imported; the statement has its own nonstrict comparability.',
+ '3.2':'D9 defines lambda_i and the optional uniformly bounded phi_k representatives. L is a strictly decreasing positive spectral-decay comparison function bound inline; its inverse notation has no explicit range or generalized-inverse convention. D6 gives the exact finite-sample level-alpha class. R_Delta(phi) and R_Delta^* are defined completely inside this theorem from the product-sampling risk over D11. P^N times Q^M uses A1. D2 remains the explicit paper-wide setting. The nonstrict sample comparability is bound in the theorem, without inheriting later B. No MMD statistic, uniform source-radius condition (3.3), or particular regularized test is imposed on the infimum over all tests.',
+ '4.1':'D19 defines etahat_lambda, D17 resolves n,m,s and the retained sample groups, and D18 supplies Z_i and the covariance estimate. D13 resolves the spectral multiplier including g_lambda(0). The theorem itself defines the eigensystem, centering matrices, Gram matrices, divided-difference G, A1,A2 and the five circled terms; these are local matrix binders rather than extra reusable definitions. Bold centering H_s differs from the RKHS. A1,A2 matrices differ from assumptions A1,A2. D2 is the common kernel setting. Later regularizer inequalities and sample comparability B are not required by this statement. The printed A2-vector dimension mismatch and missing zero-eigenvalue convention remain source issues.',
+ '4.2':'D2,D21,D22 resolve exactly A0–A2. D19 is the regularized statistic, D15 the population covariance norm, D25 the N2 oracle threshold and N1 optional sample condition, and D9 the fixed eigenfunction representatives in C. D17 supplies n,m,s. The threshold gamma and lambda bounds are bound inline. A3,A4, smoothness alternatives P and sample comparability B are absent. The optional condition has a delta not quantified by the theorem; this remains unresolved rather than replaced by alpha.',
+ '4.3':'D2 and D21–D24 unpack A0–A4 separately; D23 defines qualification xi and the theorem defines tilde-theta=min(theta,xi). D26 is B; D17 supplies the split and the statement chooses s proportional to N and M. D11 and D33 resolve the alternative class and uniform source norm. D15 supplies the upper covariance-norm bound; D25 gives both effective dimensions. The power is for D19 at the fully specified oracle gamma. D9 resolves the optional bounded-eigenfunction branch. All three main separation inequalities, all three replacement conditions, and their sample-size conditions remain in the original statement. No empirical quantile is required.',
+ '4.6':'D19 and D29 supply the displayed statistic and sampled permutation quantile, through D27 with Z fixed. B here counts sampled permutations; it is not assumption B. The only newly imposed quantitative condition is the stated bound on that count. A0 is background for this concrete statistic, while the prose following the theorem explicitly says the level argument works for any statistic and does not require assumptions on g_lambda. Do not import A1–A4, eigenfunction smoothness, oracle dimensions or power requirements. The sum condition on w and tilde-w and the nonstrict threshold comparison are preserved exactly.',
+ '4.7':'The assumptions and spectral/sample objects are D2,D21–D26,D17,D11,D33,D15,D25 and D9, as in the oracle power theorem. The rejection statistic is D19 and its threshold is D29 with level 1-w alpha. The statement defines tilde-alpha=(w-tilde-w)alpha, tilde-theta, all sample-size bounds and the lower bound on permutation count B. Its optional conditions are replacements for the displayed Delta conditions, not additional simultaneous rate branches. The sample exponent involving C differs from Theorem 4.3 and remains literal.',
+ '4.10':'D30 defines the finite dyadic grid. D19,D29 supply each statistic and multiplicity-adjusted empirical quantile, with D27 the permutation construction. B is the permutation budget, and |Lambda| occurs both in that budget and the quantile. The union notation abbreviates a union of exceedance events. No smoothness alternatives, eigenvalue decay, A1–A4, oracle dimensions or sample-ratio assumption B are imported into this level-only statement.',
+ '4.11':'D2,D21–D24 and D26 give A0–A4 and B. D17 gives the split. D11,D33 resolve the uniform-in-theta source norm and class P; the conclusion uses theta>theta_l while the hypothesis takes the supremum over all theta>0. D9 supplies spectral decay and optional eigenfunction bounds, and D15 supplies the upper covariance norm in each primary branch. D19,D29,D30 supply the union test, adjusted empirical quantiles and grid. The theorem defines all endpoints, constants, tilde-theta and tilde-xi inline and retains all four polynomial/exponential and optional branches. N1,N2 conditions from the nonadaptive power theorem are not imported.',
+ '4.12':'D2,D21–D24,D26 and D17 give the kernel setting, regularizer conditions, comparability and split. D31 supplies the kernel-indexed class, with D33 for its powers. D9 and D15 apply to the current kernel in each branch. D32 supplies the joint kernel/regularization union test through D19,D29,D30. The triple uniform source bound and the triple power infimum have their original, different quantifier ranges. All kernel-specific symbols may depend on K; the original T without a K subscript in the hypothesis is preserved. Script A=log|K|, tilde-theta and the branch constants are inline binders. Pairs need not belong to the classes for all kernels simultaneously. The kernel family is finite in the defining passage; no unprinted uniform numerical constants or singleton correction is inserted.'
+}
+issues=[
+ 'The source is the pinned 75-page arXiv:2212.09201v3 dated 1 May 2024, not an assertion of exact equivalence to final journal typography.',
+ 'Numbered Section 7, Proofs, is main text. References end above Appendix A on shared page 55; only the region above y=601.6620483398438 is admitted. Appendix mathematics is excluded.',
+ 'Ten actual main-text Theorem environments are preserved, including complete continuations of 4.3, 4.11 and 4.12. Corollaries, lemmas, proof headings and the ordinary-font citation of 4.11 on page 22 are not new Theorems.',
+ 'A0 says second countable with the parenthetical completely separable. It does not add completeness, metrizability, Polishness or characteristicness of K. The source uses characteristicness only when describing MMD as a metric.',
+ 'The source uses distinct scripts for T, the RKHS, spectral dimensions and kernel family; blackboard-bold sample collections differ from individual observations. Fraktur inclusion I is not the identity.',
+ 'The centered L2 integral operator, uncentered Upsilon operator and centered RKHS covariance have different domains and compositions. The constant functions in the expanded centered operator are plain 1.',
+ 'The chosen pointwise eigenfunctions are I-star applied to the L2 class divided by lambda_i, not its square root. Their uniform sup-norm condition is version-specific; positive eigenvalues are assumed infinite in number.',
+ 'Rho squared is half the triangular-discrimination integral, not literally the squared Hellinger distance. The source only asserts topological equivalence to Hellinger distance.',
+ 'The original alternative class imposes range smoothness and separation but does not include a fixed uniform source radius. Uniform bounds in the theorem hypotheses are preserved separately with their original quantifiers.',
+ 'The introductory MMD spectral expansion on page 3 omits the factor four present in (3.2) on page 6. The source also describes eta_lambda tending to rho squared on page 4 despite its factor-four definition. These introductory normalization inconsistencies are not silently repaired.',
+ 'The source describes a spectral regularizer on the open positive half-line, but uses g_lambda(0) in (4.1) and on Gamma=[0,kappa] in A1–A4. Its initial domain does not specify that value.',
+ 'Formula (4.1) says any compact self-adjoint operator although the initially stated scalar domain excludes negative arguments. The nullspace multiplier g_lambda(0) is deliberately retained; it cannot be dropped from the functional calculus.',
+ 'Equation (4.3) defines a squared norm, while Remark 4.2 displays an unsquared variational supremum for eta_lambda in (4.4). The subsequent estimator prose refers to expanding (4.4). Both originals are retained without replacing one formula by a corrected version.',
+ 'Binary selection Z_i=alpha_i X_i^1+(1-alpha_i)Y_i^1 is printed even though the domain need not support linear combinations. Its sampling role is selection, without adding a vector-space hypothesis.',
+ 'The three sample groups are explicitly independent in Section 4.3. The regularized statistic is a U-statistic only conditional on the reserved mixture observations.',
+ 'A3 is a restricted-sublevel residual condition with B3 and qualification xi, not the usual inverse-problem residual bound with 1. Tikhonov and Showalter examples do not replace the general regularizer hypotheses.',
+ 'N1 is a trace and N2 is a Hilbert–Schmidt norm, not its square. Their different roles in the oracle and optional power conditions are retained.',
+ 'Assumption B uses strict inequalities M<N<DM, D>=1. Theorems 3.1 and 3.2 instead print nonstrict sample comparability; B is not applied retroactively.',
+ 'Theorem 3.2 writes L^{-1} for a strictly decreasing function without specifying its image, continuity or a generalized-inverse convention. The inline exponent 1/2theta is preserved without adding grouping.',
+ 'Theorem 4.1 prints 1_n on both sides of the m-by-m matrix A2 in its third circled term. This apparent dimension mismatch remains in the original statement.',
+ 'The divided difference in Theorem 4.1 is summed without a zero-eigenvalue exclusion or limiting-value convention, although the centering matrix is singular. No convention is supplied by the census.',
+ 'The optional branch of Theorem 4.2 contains delta in a logarithm but does not quantify delta. Alpha is not substituted for it.',
+ 'Theorem 4.3 prints e^{d1/272C^2} with an inline slash; Theorem 4.7 prints a stacked exponent d1/(272C). The difference is retained.',
+ 'The empirical permutation CDF uses only B sampled permutations. The B+1 construction including the original statistic is a separate remark, not the construction used in the displayed Theorems.',
+ 'Theorems 4.6 and 4.10 only constrain the sum w+tilde-w. Separate positivity is not implied by that condition, and no missing range is inserted.',
+ 'The rejection inequalities are nonstrict at left permutation quantiles. The main text does not specify randomized tie handling or exclude atoms; possible tie-related validity issues are preserved as source issues rather than repaired.',
+ 'Random permutations are described as randomly selected. Independent uniform draws are the interpretation needed for the stated empirical-distribution concentration argument, but those words are not added to the original passage.',
+ 'The dyadic grid definition imposes lambda_U=2^b lambda_L. The endpoint formulas in the adaptation Theorems do not give a rounding convention guaranteeing that exact relation.',
+ 'Each adaptive theorem has all four rate branches. In the exponential branches, log log(N+M) multiplies sqrt(log(N+M)) outside the square root.',
+ 'Theorem 4.12 prints script A=log|K|, which is zero for a singleton kernel family, and repeats alpha<=e^{-1}. Neither a max(1,log|K|) correction nor deletion of the repeated hypothesis is made.',
+ 'The kernel-adaptive theorem retains T without a K subscript in the source-norm hypothesis, while the class definition uses T_K. Kernel dependence is explained separately, not edited into the original.',
+ 'The adaptive uniform source-norm assumptions quantify over all theta>0, whereas their conclusions take an infimum over theta>theta_l. Uniformity of other implicit comparison constants across kernels and parameters is not fully specified by the source.',
+ 'Sample splits must have integer sizes, and the regularized U-statistic denominators require n,m,s at least two; not every statement explicitly repeats these construction requirements. No unprinted finite-sample domain conditions are added to the originals.',
+ 'No appendix-only definition is needed to state the ten results after resolving the main-text constructions. Referenced appendix lemmas justify identities or prove bounds and are not imported as statement dependencies.'
+]
+out=dict(paper_id=PID,scope='main_text_only',auxiliary_source_passages=aux,statement_resolution=resolution,source_issues=issues,excluded_references=[])
+def main():
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n')
+    print(f'Saved {len(aux)} auxiliary passages and {len(issues)} source notes.')
+
+if __name__ == "__main__":
+    main()

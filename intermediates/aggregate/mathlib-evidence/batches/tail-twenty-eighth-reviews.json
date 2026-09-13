@@ -1,0 +1,138 @@
+{
+  "scope": "Nine p1716 model, CUSUM, support and detection comparisons after the source-preserving D8 amendment.",
+  "rows": [
+    {
+      "interface_id": "local-ee88b5c894d5c1747323",
+      "related": [
+        "Set.indicator",
+        "Finset.sum_apply",
+        "Finset.sum_range_succ"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The indicator gives the post-break jump and finite sums give the subject averages; evaluating their function-valued sums commutes with finite summation. The corrected original passage uses nu_i inside the average defining nu-tilde_t, so the generic linearity identities do not resolve that notation.",
+      "gap": "Define the finite subject averages and retain the printed nu_i versus nu_it ambiguity in the asserted mean decomposition.",
+      "comparisons": {
+        "D8": "Use Set.indicator of {t | t>tau_i} applied to the constant jump function, preserving the strict breakpoint inequality. Average X_it and epsilon_it over all N subjects with N>0, without introducing subject independence. Page 6 defines nu_it first but prints sum_i nu_i for nu-tilde_t; D8 now preserves nu_i exactly after the source amendment. The identity X-tilde_t=nu-tilde_t+epsilon-tilde_t follows from finite linearity only after the intended mean summand is clarified, not from silently replacing its source subscript."
+      }
+    },
+    {
+      "interface_id": "local-43f0f02004b8321dcff4",
+      "related": [
+        "Int.floor",
+        "Finset.sum_range_succ",
+        "Real.sqrt"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The integer floor, finite partial-sum recursion and square root implement the subject-level centered sum. These definitions have no built-in temporal or functional CUSUM object.",
+      "gap": "Assemble the subject CUSUM with the source floor-centering and prove it stays in the specified L2 space for positive T.",
+      "comparisons": {
+        "D10": "For x in [0,1], sum X_i,s over s=1,...,floor(T*x), using shifted indices in Finset.range after proving 0≤floor(T*x)≤T. Subtract floor(T*x)/T times the full subject sum and scale by 1/sqrt(T). Retain T>0 for division; do not replace floor(T*x)/T with x. The observations are functions on the bounded integration domain C, not complex scalar values, and the source Hilbert quotient convention remains separate."
+      }
+    },
+    {
+      "interface_id": "local-6a5325ffdc1cc943e31d",
+      "related": [
+        "Int.floor",
+        "Finset.sum_range_succ",
+        "MeasureTheory.lintegral",
+        "Finset.max'",
+        "Real.sqrt"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The floor and finite sums build the process; lintegral can express its nonnegative squared integral without suppressing divergence, and max-prime gives the finite grid maximum once the values are finite and T is positive.",
+      "gap": "Construct the aggregated CUSUM and prove its integrated-square supremum equals the printed finite-grid maximum.",
+      "comparisons": {
+        "D9": "Use averaged observations X-tilde_s, normalization sqrt(N/T), and floor(T*x)/T centering. The same floored index controls both terms, making the process constant between grid changes; a proof can reduce its [0,1] supremum to grid times t/T, t=1,...,T, including the zero endpoint through the nonnegative objective and positive T. Use the squared L2 quantity or measurable lintegral with finiteness before conversion to real. Do not change the normalization to the subject-level one or use the x-centered deterministic mean process from (3.9)."
+      }
+    },
+    {
+      "interface_id": "local-6d5d5a18eb04ef20a148",
+      "related": [
+        "Set.indicator",
+        "MeasureTheory.lintegral",
+        "Finset.max'",
+        "Real.sqrt"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The scalar indicator retains the strict exceedance event, the nonnegative integral and finite maximum provide each subject criterion, and square root supplies the nonnegative scaling factor.",
+      "gap": "Build the strictly thresholded subject count from the CUSUM criteria with its prescribed sqrt(max(N,T)) scale.",
+      "comparisons": {
+        "D12": "Equation (3.6) counts every subject for which sup_x integral Z_iT(x,u)^2 du is strictly greater than xi_NT, then multiplies by sqrt(max(N,T)). Use the constant-one Set.indicator of that exact event; it counts subjects, not the excess magnitude. Preserve strict >, which differs from the detected set’s ≥ boundary. Establish the CUSUM integral and finite-grid identification and retain the sufficiently-large-index domain of the log-log threshold. The definitions establish a nonnegative component but not the claimed asymptotic size or power properties."
+      }
+    },
+    {
+      "interface_id": "local-210228648bd30b09dd5f",
+      "related": [
+        "Set.indicator",
+        "MeasureTheory.lintegral",
+        "Finset.max'"
+      ],
+      "status": "composable",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The inspected APIs supply ingredients of the two component statistics; after those are defined, the displayed combined statistic is their ordinary scalar sum.",
+      "gap": "Once both paper-specific component statistics are defined, their sum requires only ordinary real addition.",
+      "comparisons": {
+        "D13": "Equation (3.7) adds Z_NT from (3.4) and Z-diamond_NT from (3.6), with no new scaling, maximum or threshold. Preserve the aggregate-CUSUM and strict-exceedance-count component definitions. This algebraic definition alone does not assert a rejection rule, quantile, null limit, or size-distortion theorem."
+      }
+    },
+    {
+      "interface_id": "local-9a0db05acd91b56595b5",
+      "related": [
+        "Function.support"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "Function.support on the subject-indexed jump family is the set where the jump is nonzero; empty versus nonempty support expresses the null/alternative.",
+      "gap": "Express the null and alternative through jump support after fixing the source function-space equality convention.",
+      "comparisons": {
+        "D7": "H0 requires delta_i=0 for every i=1,...,N, while HA requires at least one nonzero jump; for a family indexed by the finite subject type these are support empty and support nonempty. This is a population hypothesis, not the thresholded estimated set. If the Hilbert space is realized as L2 equivalence classes, zero means almost-everywhere zero; the source itself omits that quotient convention, so do not conflate it with pointwise equality of arbitrary representatives."
+      }
+    },
+    {
+      "interface_id": "local-837f312e6cc9b7a790ad",
+      "related": [
+        "Function.support"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "Function.support gives the true broken-subject set and its complement gives the zero-jump subjects, independently of all observed CUSUM values.",
+      "gap": "Define the true support partition of the finite jump family with the intended function-space zero convention.",
+      "comparisons": {
+        "D15": "Identify C-bullet with support of i↦delta_i and C-circle with its complement in the subject universe. Nonzero here concerns the entire jump function, not one evaluation point or a positive empirical statistic. These two sets form the true partition even before a detection procedure is specified. Retain the unresolved pointwise-versus-L2-equivalence interpretation from the source Hilbert-space setup rather than silently adding a stronger signal threshold."
+      }
+    },
+    {
+      "interface_id": "local-0151f0cce89e2a14d008",
+      "related": [
+        "Finset.max'",
+        "MeasureTheory.lintegral"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "The finite maximum and squared integral provide the subject statistic after the grid reduction. Set comprehension with the ordinary real order then gives the two complementary threshold sets.",
+      "gap": "Construct the data-defined threshold partition, proving the CUSUM criterion is well-defined while retaining its non-strict detection boundary.",
+      "comparisons": {
+        "D16": "Use ≥xi_NT for C-hat-bullet and <xi_NT for C-hat-circle. The sets are complementary within all observed subject indices once each criterion is a real value. This convention differs at equality from the strictly-thresholded PE count. Neither the definition nor max-prime uses the true set C-bullet, and no finite-sample equality to it follows without the separate consistency theorem. Preserve the source threshold’s large-index domain and squared-L2/integrability requirements."
+      }
+    },
+    {
+      "interface_id": "local-20d4047d919ab695e14e",
+      "related": [
+        "IsMaxOn",
+        "Finset.max'",
+        "MeasureTheory.lintegral"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+      "result": "IsMaxOn expresses objective maximality without membership; max-prime gives the largest finite value, not a selected time. A finite nonempty candidate set gives attainment only after objective well-definedness, with ties still possible.",
+      "gap": "Define a measurable selected maximizer over the source time grid for detected subjects, retaining unspecified ties and missed-subject cases.",
+      "comparisons": {
+        "D17": "Equation (4.1) maximizes the subject’s integrated squared CUSUM at t/T over integer times 1≤t≤T. Require candidate membership separately from IsMaxOn and T>0. It returns a time index, not the maximum objective value or normalized time t/T. The source defines tau-hat_i only for i in C-hat-bullet; do not extend it to missed true subjects or choose an earliest/latest maximizer without a stated convention. The separate theorem’s maximum over true broken subjects does not itself supply such an extension."
+      }
+    }
+  ]
+}

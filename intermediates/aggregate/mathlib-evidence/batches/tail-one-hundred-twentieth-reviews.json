@@ -1,0 +1,47 @@
+{
+  "scope": "Manual comparison of four remaining interfaces of aos-2024-v52-i02-p0580, preserving the Chernoff location normalization, expected maximum lfdr and finite-sample constrained testing conventions.",
+  "rows": [
+    {
+      "interface_id": "local-6964cf81f7d9266d1841",
+      "related": ["ProbabilityTheory.IsBrownianReal", "IsMaxOn", "MeasureTheory.Measure.map"],
+      "query": "Searched Chernoff distribution and two-sided Brownian motion; inspected the nonnegative-time Brownian predicate, maximum predicate and measurable-law pushforward, distinguishing Chernoff tail bounds.",
+      "result": "Brownian and argmax ingredients exist, but the two-sided process, almost-sure unique maximizing location and its law require a specialized construction and proof.",
+      "gap": "Construct the location law of argmax over real t of W(t)-t^2 for standard two-sided Brownian motion, proving attainment, uniqueness and measurability with that exact normalization.",
+      "comparisons": {
+        "D11": "Z is the LOCATION attaining the maximum of W(t)-t^2 over all real t, not the maximum value or the argmax of a differently scaled drift. IsBrownianReal is indexed by nonnegative real time; a two-sided standard process needs compatible independent positive and negative Brownian halves joined at zero, not the same path reflected on both sides. IsMaxOn describes a maximizing point but gives no global attainment on the noncompact real line, a.s. uniqueness or measurable selection. Those require Brownian growth and argmax results beyond the inspected primitives. Measure.map gives the law only for an a.e.-measurable location map; its fallback must not hide a failed selection. The source's approximately 0.26 variance is a quoted property of this normalization and is not certified numerically by these declarations. Library Chernoff exponential tail bounds concern a different object."
+      }
+    },
+    {
+      "interface_id": "local-664ea26e3c3796f542b5",
+      "related": ["Finset.max'", "MeasureTheory.integral"],
+      "query": "Searched maximum local false-discovery risk; inspected nonempty finite maxima and expectation, comparing the explicit empty-set case with ordinary FDR.",
+      "result": "A case-defined finite maximum followed by expectation implements this risk for a measurable rejection procedure and a valid conditional-probability version.",
+      "gap": "Construct the expected maximum lfdr over the random rejection set, explicitly returning zero for an empty set and retaining the conditional-probability version requirements.",
+      "status": "composable",
+      "comparisons": {
+        "D4": "A procedure maps the p-value vector to a subset of [m]. For a nonempty set use the maximum of lfdr(p_i); for an empty set use the source's explicit zero, then average over the full two-groups experiment. Finset.max' requires the nonempty branch witness. Measurable rejection decisions and a measurable lfdr version valued in [0,1] make the resulting bounded random variable integrable; the density-ratio formula alone leaves zero-density point versions unspecified. This is an EXPECTATION, not the realized maximum, expected rejection proportion or ordinary FDR. Monotone lfdr permits the later largest-rejected-p-value characterization but is not required to define this maximum risk. The empty branch must not evaluate a nonexistent order-zero label."
+      }
+    },
+    {
+      "interface_id": "local-1439e1fdfa63661e92d1",
+      "related": ["Finset.filter", "Finset.card"],
+      "query": "Inspected finite threshold counting and compared the plus-one null-proportion estimator with clipping and the later arbitrary-estimator asymptotic theorem.",
+      "result": "The finite count formula is directly constructible for positive sample size and a cutoff strictly inside the unit interval.",
+      "gap": "Assemble the plus-one strict-upper-tail count divided by (1-lambda)m without clipping its value at one.",
+      "status": "composable",
+      "comparisons": {
+        "D8": "pi0-hat^lambda=(1+card{i:p_i>lambda})/((1-lambda)m), with fixed lambda in (0,1). Preserve the STRICT comparison and the numerator's plus one. For m>0 the denominator is positive, so the estimate is strictly positive but can exceed one; it is not truncated to [0,1]. Real casts of the finite count and sample size implement the formula. This is the particular estimator used by the finite-sample constrained procedure, whereas Theorem 6 permits an arbitrary estimator subject to its own one-sided condition. Neither that theorem's hypotheses nor a consistency assertion are part of this finite formula."
+      }
+    },
+    {
+      "interface_id": "local-b407cbf336736e0f47e1",
+      "related": ["Finset.filter", "IsMinOn", "Finset.max'"],
+      "query": "Inspected finite feasible-index filtering, minimum and last-minimizer selection; compared the constrained rule with the ordinary estimated-level procedure and source tie convention.",
+      "result": "The finite constrained minimum and largest minimizing index can be constructed with the source order-statistic conventions, preserving the weak cutoff and rejection threshold.",
+      "gap": "Construct the largest minimizing index among k=0,...,m with p_(k)<=lambda, using the exact estimated-proportion objective and source rejection-set rule.",
+      "comparisons": {
+        "D9": "Use p_(0)=0 and feasible indices 0<=k<=m satisfying p_(k)<=lambda, despite prose saying below lambda. Minimize pi0-hat^lambda p_(k)-ell k/m, then choose the LAST minimizer as specified in the standing procedure. k=0 makes the finite feasible set nonempty for lambda>0, so the minimum is attained for finite valid objectives; IsMinOn still needs feasible membership, and Finset.max' selects the largest index among minimizers. Reject all i with p_i<=p_(R_ell^lambda), retaining the original threshold and its treatment of ties rather than inventing a strict rejection inequality. The plus-one estimator is positive for m>0, allowing algebraic rescaling of the objective, but the cutoff restriction remains: this is not automatically the unconstrained SL procedure at ell/pi0-hat. Empty-rejection and zero-p-value interpretations follow the source model/conventions, not a silently altered set."
+      }
+    }
+  ]
+}

@@ -1,0 +1,722 @@
+[
+  {
+    "interface_id": "local-70335ebfd146011b33dc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "b819bd40d8715868daad49a6cfd2a05bf2d13dd73a7184c2c2a45b0f96994714",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D12",
+        "comparison": "R_n^j is nu(P-hat_n^j)+integral(phi_n^j,P0)-nu(P0), while D_n^j is integral(phi_n^j-phi0,P_n^j)-integral(phi_n^j-phi0,P0). Use a difference of integrals or a genuine signed-measure construction, not truncated subtraction of positive measures. Preserve the two complementary folds and the distinction between fitted-law EIF evaluation and integration under P0. Hilbert Bochner integrability and measurability are necessary for these intended expressions; totalized integrals do not establish the source's separate small-o assumptions.",
+        "statement_sha256": "63464c2685ba326eba76dfdb3d57f6b01996409d1c9c2eb58499ce8e10d48fff"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integral and its integrability fallback against both error definitions following (21), source page 13.",
+          "result": "Hilbert-valued population and empirical integrals express the two errors once the fitted functions and held-out measures are supplied."
+        }
+      ],
+      "gap": "Construct the population remainder and held-out empirical drift as separate integral expressions and prove their separate negligibility conditions."
+    }
+  },
+  {
+    "interface_id": "local-3bfc1385a8f59a90b78e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "a017c575455d2f78761c158e8288232538a4995d0fc51e5bae636941a43fa0bb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D17",
+        "comparison": "For beta in ell2 intersect [0,1]^N use the series sum beta_k*dot-nu_P^*(h_k)(z)*h_k, selecting scalar L2 representatives consistently and proving coefficient square summability almost surely before invoking HilbertBasis reconstruction. Riesz duality applies to a bounded pointwise functional, not merely a bounded map into L2. The source's middle sigma formula prints dot-nu_P(h_k) without the adjoint star and is type-inconsistent with its action-space argument; preserve that discrepancy rather than claiming exact formal equivalence of the entire displayed identity. Finite-dimensional zero padding requires a finite genuine basis plus zero tail, not a HilbertBasis indexed by infinitely many unit vectors. No original unregularized EIF is assumed.",
+        "statement_sha256": "cc162000fa65990a2f609cff06ea45db2a1267dd05e91ca1090d502fbc6b4e7b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.toDual",
+          "type": "(𝕜 : Type u) → (E : Type v) → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → (E ≃ₗᵢ⋆[𝕜] StrongDual 𝕜 E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Dual",
+          "provides": "The Frechet-Riesz conjugate-linear isometric equivalence between a Hilbert space and its continuous dual; over the reals it identifies a functional with its unique representing vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Dual.lean#L137-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hilbert-basis series reconstruction, Riesz duality, adjoint and L2 membership evidence against Lemma 1 and the preceding regularized functional, source page 8.",
+          "result": "Hilbert series, bounded-functional representation and square integrability have library ingredients, but the almost-sure pointwise series construction and its specific L2 bound need a proof."
+        }
+      ],
+      "gap": "Prove the regularized adjoint-coordinate series defines a common-version Hilbert-valued Riesz representative with the stated L2 bound while retaining the printed missing-adjoint issue."
+    }
+  },
+  {
+    "interface_id": "local-ed7d2ee588b29f11905e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "7c8a6c46a13a646962f34407829442b6163b98cbdc71e77ae46914f1e38a05b9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D14",
+        "comparison": "Represent Omega as H→L[ℝ]H and require the source's self-adjointness and inner(Omega h,h)>0 for h≠0. ContinuousLinearMap.IsPositive is semidefinite, so it supplies only the nonnegative part unless strict positivity is added. On the complete real Hilbert space its symmetry matches self-adjointness. Define w(h;Omega)=inner(Omega h,h). In infinite dimension this need not have a positive uniform lower bound on the unit sphere, and neither invertibility nor a bounded covariance inverse follows.",
+        "statement_sha256": "208554456b6678ee2b0a1a94b9858f7d306e6cf60b9b8c6328f4013db13c14c9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ContinuousLinearMap.IsPositive",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L[𝕜] E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Positive",
+          "provides": "Symmetry and nonnegativity of the quadratic form of a continuous linear operator; on a complete space symmetry is equivalent to self-adjointness, but strict positivity is additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Positive.lean#L273-L274",
+          "link_checked": true
+        },
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected continuous-operator positivity 273–274 and its complete-space self-adjoint characterization, together with the real inner product; compared the standardization operator definition on source page 14.",
+          "result": "The library positivity predicate provides symmetry and a nonnegative quadratic form; the source's positive definiteness additionally requires strict positivity on nonzero vectors."
+        }
+      ],
+      "gap": "Package the bounded self-adjoint operator with strict positivity of its quadratic form on nonzero vectors, without imposing coercivity or a bounded inverse."
+    }
+  },
+  {
+    "interface_id": "local-62ed2205e65ce77b499b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "4bbb586ddc5647b01b55cbf3113efaf8239be5d9f959daee822442467978dacc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D11",
+        "comparison": "For positive even n, fit P-hat_n^1 on the first half and integrate its EIF against P_n^1 from the second half; reverse these roles for j=2. Each empirical law is a uniform-index pushforward on n/2 observations with multiplicities. Average nu(P-hat_n^j)+P_n^j phi_n^j with the factor 1/2. P_n^j is not a j-fold product law or a training-fold mean. The constructor needs measurable, integrable fitted functions and does not by itself prove efficiency or asymptotic linearity.",
+        "statement_sha256": "5b4a8c00e73d96caac5c8c3cb34b289b735d2633f3f9e93c1e4a62d40bca1ed8"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite empirical pushforwards and Bochner integration against the two-fold one-step estimator on source page 9 and the explicit complementary-fold convention.",
+          "result": "Empirical integrals and a half-sum implement the two held-out corrections once the fitted laws and their EIFs are given."
+        }
+      ],
+      "gap": "Construct each complementary held-out empirical law and average its correction with the corresponding untransformed plug-in estimate."
+    }
+  },
+  {
+    "interface_id": "local-f101f26683ea39802a3e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "6623bbbc55e052a9582a9977866bca68d8339ebfbcd37a44b2d01dc0aeee20f8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D16",
+        "comparison": "Generate the first n/2 sharp observations iid from P_n^2, the second half iid from P_n^1 independently, and label the resulting measures P_n^{2,sharp} and P_n^{1,sharp} exactly as the source does. Form H_n^sharp=(sqrt(n)/2)*sum_j[(P_n^{j,sharp}-P_n^j)phi_n^j] as differences of integrals. Condition on all original observations, which fix the EIFs and Omega_n; no nuisance refitting is performed. Push the conditional product law through w to a real distribution and define its (1-alpha)-quantile with an explicit quantile convention. A finite Monte Carlo empirical quantile is an approximation, not the theorem's exact threshold definition. Generic CDF/disintegration APIs do not prove the bootstrap theorem or import Theorem 3's separately stated nondegeneracy into Theorem 4.",
+        "statement_sha256": "465899826b89099087799e5b0223520c6e5caedbee57432ea271a6550d099e2b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite independent products, empirical laws, conditional kernels and scalar CDF evidence against the exact split-bootstrap construction on source page 15.",
+          "result": "Existing probability constructions provide the conditional resampling law and scalar statistic distribution; the exact conditional quantile and its consistency require additional construction and hypotheses."
+        }
+      ],
+      "gap": "Build the two independent conditional half-sample resamples and exact quantile of the centered quadratic statistic while holding fitted EIFs fixed."
+    }
+  },
+  {
+    "interface_id": "local-c1c63d967adaa76b879b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "2ca6ce99d7f49df2cffa1ad68d48106c9b3a36a133208b9b27bef32c49d7be4f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D15",
+        "comparison": "For n>0 and zeta>=0 use {h | inner(Omega_n(bar-nu_n-h),bar-nu_n-h)<=zeta/n}, with Omega_n in the source's strictly positive self-adjoint class. Equality is included. Identity Omega gives the usual closed ball, but a general positive operator in infinite dimension does not guarantee bounded diameter in the original Hilbert norm. The target here is nu(P0); this is not the transformed-target sphere or its preimage. A fixed threshold and a data-measurable calibrated threshold have the distinct source roles, and construction alone does not imply coverage.",
+        "statement_sha256": "88dc492c4b7c751c1ceb2e86d89e172d4c4c50cad033e74dadca6f4d32ebf079"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.IsPositive",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L[𝕜] E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Positive",
+          "provides": "Symmetry and nonnegativity of the quadratic form of a continuous linear operator; on a complete space symmetry is equivalent to self-adjointness, but strict positivity is additional.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Positive.lean#L273-L274",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected inner-product and operator-positivity constructions against the confidence region (24), source pages 14–15.",
+          "result": "A quadratic-form sublevel set centered at the cross-fitted estimate is directly expressible with bounded operators and inner products."
+        }
+      ],
+      "gap": "Define the quadratic sublevel set at zeta/n with the source operator assumptions and keep coverage calibration as a separate theorem obligation."
+    }
+  },
+  {
+    "interface_id": "local-371767d3a263dac865e4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "4390133b46d69d14b0dd2a40d9e6159ca5f1f393a0e8dc5b4e71b1dc627461f0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D20",
+        "comparison": "D_n^{j,beta} is the empirical-minus-population integral of phi_n^{j,beta}-phi0^beta; R_n^{j,beta} evaluates R_P^beta at the fitted law. R_P^beta is nu(P)-nu(P0)+P0 phi_P^beta minus sum (1-beta_k)*inner(nu(P)-nu(P0),h_k)*h_k. Keep the subtraction sign and the full plug-in error inside the bias. The defining paragraph allows beta in ell2, whose bounded coordinates permit the relevant deterministic multipliers, while Lemma 1 and Theorem 5 use ell2-star. Do not expand the theorem domain, identify sample index n with coordinate k, or infer the required stochastic rates from these formulas.",
+        "statement_sha256": "99031793ed7d984298854c98cf8998dd0c66c0b4b3f3b99c7fc57bda1d4dbe4f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "lp.mapCLM",
+          "type": "{α : Type u} → {𝕜 : Type v} → {E : α → Type w} → {F : α → Type z} → [NontriviallyNormedField 𝕜] → [∀ i, NormedAddCommGroup (E i)] → [∀ i, NormedSpace 𝕜 (E i)] → [∀ i, NormedAddCommGroup (F i)] → [∀ i, NormedSpace 𝕜 (F i)] → (p : ℝ≥0∞) → [Fact (1 ≤ p)] → (T : ∀ i, E i →L[𝕜] F i) → {K : ℝ} → 0 ≤ K → (∀ i, ‖T i‖ ≤ K) → (lp E p →L[𝕜] lp F p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpHolder",
+          "provides": "A uniformly operator-norm-bounded family of coordinate maps induces a bounded linear map on lp, including bounded diagonal multipliers on square-summable coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpHolder.lean#L45-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner differences, Hilbert-series reconstruction and bounded coordinate multipliers against the complete regularized remainder and drift (26), source page 16.",
+          "result": "Population/empirical integrals and the complementary diagonal multiplier express the regularized errors; their rate conditions remain separate."
+        }
+      ],
+      "gap": "Construct the two regularized error terms, subtracting the full spectral bias from the population remainder and preserving the source beta-domain distinction."
+    }
+  },
+  {
+    "interface_id": "local-f400dd9ee70a80efea25",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "32a9aa70c9b97983e5eeda4f7a3fcfdd9bb3b67612eee2138977b693736de5de",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D6",
+        "comparison": "Use LinearMap.range of the underlying real linear map of dot-nu_P; it has underlying set equal to the actual image and inherits the ambient inner product. No topological closure is inserted. A bounded map from one Hilbert space to another can have nonclosed range, so completeness of this image is not supplied by the range constructor. Preserve the source assertion and its unresolved justification rather than replacing the image by its closure or adding an unstated hypothesis as if it were original.",
+        "statement_sha256": "5deaf80e184ffe9eeedd26f21568d5da58c26d5c3c1612050287a6f225978030"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.range",
+          "type": "{R : Type u} → {R₂ : Type v} → {M : Type w} → {M₂ : Type z} → [Semiring R] → [Semiring R₂] → [AddCommMonoid M] → [AddCommMonoid M₂] → [Module R M] → [Module R₂ M₂] → {τ₁₂ : R →+* R₂} → [RingHomSurjective τ₁₂] → (M →ₛₗ[τ₁₂] M₂) → Submodule R₂ M₂",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Module.Submodule.Range",
+          "provides": "The algebraic image of a semilinear map as a submodule, with underlying set equal to its actual range rather than its topological closure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Module/Submodule/Range.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected LinearMap.range 57–58 and coe_range 60–61 against the local-parameter-space passage, source page 5.",
+          "result": "The algebraic image of the local derivative is exactly a linear subspace, but the source's claim that it is closed does not follow from bounded linearity."
+        }
+      ],
+      "gap": "Establish a closed-range property for the particular local derivative before equipping its actual image with the claimed Hilbert-space completeness."
+    }
+  },
+  {
+    "interface_id": "local-5f937aa6256d6f1b2b16",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "c06498697b0965ca1eab2f36fa2ab6405b39f1ecf5587e9d982d22291cd7a479",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D9",
+        "comparison": "For a real scalar RKHS take K_t=(RKHS.kerFun Hlocal t) 1, embed it into the ambient H as necessary, and apply dot-nu_P^* before evaluating the selected L2 representative at z. Only the local parameter space needs to be an RKHS. The source says for each t, equality holds P-almost surely in z; a common full-measure event for all possibly uncountable t and a measurable H-valued candidate need justification from its version/separability setup. No bounded-kernel assumption from an example is imported. The theorem gives finite Bochner L2 norm as sufficient for EIF existence, not as a necessary condition for every EIF.",
+        "statement_sha256": "0475f3643d37fd6e544e52d31cf5a7d2e03b059e820f43b767070f06e91cbba2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.kerFun",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → X → (V →L[𝕜] H)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The kernel feature map as the adjoint of evaluation; in the scalar real case applying it to one gives K(·,x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L109-L109",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected RKHS.kerFun 109 as the adjoint of evaluation, the adjoint API and Bochner L2 membership against candidate (5), source page 6.",
+          "result": "The scalar RKHS feature vector is the evaluation-adjoint kernel function applied to one; the source candidate still needs compatible pointwise representatives and Hilbert-valued measurability."
+        }
+      ],
+      "gap": "Instantiate the local RKHS feature vectors and construct a compatible Hilbert-valued candidate from the adjoint evaluations with the source quantifiers intact."
+    }
+  },
+  {
+    "interface_id": "local-78c615c1245c1083f65c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "ea3f956803b1b010b1005adc55704bec2e6cc2631d2d8e2f564979a5d1982280",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D13",
+        "comparison": "For every tangent score, corresponding quadratic-mean differentiable submodel and admissible epsilon_n=O(n^-1/2), use the n-fold iid product of P_epsilon_n and center the estimator at nu(P_epsilon_n), not nu(P0). TendstoInDistribution permits the sample space and measure to vary with n. Tightness can be represented for the singleton limiting law via IsTightMeasureSet. The same law must work for all these choices; separate limits depending on direction would weaken regularity. The source submodels are one-sided, so the epsilon_n sequence must stay in their domain rather than presuming a two-sided extension.",
+        "statement_sha256": "661fd1740a1d721e8d90d26f5ebe08cb169475ad392478bf6307307d68a15080"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.IsTightMeasureSet",
+          "type": "{𝓧 : Type u} → {m𝓧 : MeasurableSpace 𝓧} → [TopologicalSpace 𝓧] → Set (MeasureTheory.Measure 𝓧) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Tight",
+          "provides": "Uniform tightness of a family of measures, equivalently a common compact set leaving arbitrarily small mass outside for every member of the family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Tight.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected convergence in distribution on varying sample spaces, tightness, finite product laws and asymptotic bounds against the regular-estimator definition on source page 14.",
+          "result": "The generic probability tools express local-alternative weak convergence, but the common limiting law quantified over all tangent scores, submodels and admissible local sequences is a custom statistical property."
+        }
+      ],
+      "gap": "Define the common tight limiting law and quantify convergence under every admissible n-observation local-submodel product law."
+    }
+  },
+  {
+    "interface_id": "local-9e23c7b7dc141a7cb1cb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "598c69c72bd673f2a937dd8b4d0bdaeca20d93aae31cb7fbe312137a6e2d5022",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D19",
+        "comparison": "Apply the bounded diagonal multiplier 1-beta_k to the coordinates of nu(P')-nu(P0), then reconstruct with the fixed basis. For beta in ell2-star the multiplier is bounded by one; it is not itself required to belong to ell2, since the input coordinates already do. The bias concerns the plug-in estimation error, not nu(P0) alone. Preserve the finite-dimensional zero-tail convention by separating a finite genuine basis from padding. Entrywise beta tending to one is a heuristic decay direction subject to conditions, not an imposed fixed-beta confidence-set result, and an original EIF is unnecessary to define this bias.",
+        "statement_sha256": "116c179bf083148057b4cabac263ea0c413bf2dada7ffefb7e059feae192bdd1"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "lp.mapCLM",
+          "type": "{α : Type u} → {𝕜 : Type v} → {E : α → Type w} → {F : α → Type z} → [NontriviallyNormedField 𝕜] → [∀ i, NormedAddCommGroup (E i)] → [∀ i, NormedSpace 𝕜 (E i)] → [∀ i, NormedAddCommGroup (F i)] → [∀ i, NormedSpace 𝕜 (F i)] → (p : ℝ≥0∞) → [Fact (1 ≤ p)] → (T : ∀ i, E i →L[𝕜] F i) → {K : ℝ} → 0 ≤ K → (∀ i, ‖T i‖ ≤ K) → (lp E p →L[𝕜] lp F p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpHolder",
+          "provides": "A uniformly operator-norm-bounded family of coordinate maps induces a bounded linear map on lp, including bounded diagonal multipliers on square-summable coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpHolder.lean#L45-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected square-summable Hilbert coordinates and uniformly bounded coordinate maps against the bias series following (9), source page 8.",
+          "result": "Multiplication of Hilbert coordinates by 1-beta_k and reconstruction gives the stated complementary spectral bias."
+        }
+      ],
+      "gap": "Construct the complementary diagonal operator on the actual plug-in error and prove any claimed decay under the chosen regularization regime separately."
+    }
+  },
+  {
+    "interface_id": "local-00c51a72cfc95c42eb93",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "142128a58c3dd52cf3d9aae4fb86d8f9691f81de1d41aea7908056bc29fe5a40",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D18",
+        "comparison": "Define phi_n^{j,beta} at P-hat_n^j and average nu(P-hat_n^j)+P_n^j phi_n^{j,beta} over the two folds with factor 1/2. The plug-in is untransformed; this bar estimator targets nu(P0) and carries the regularization bias. It is distinct from the tilde estimator using Gamma_beta nu(P-hat). The rate theorem permits beta_n in ell2-star, including zero coordinates, without assuming an original EIF or asserting a root-n Gaussian limit for every regularization sequence.",
+        "statement_sha256": "d0735a36540977a2f578f16ab2c3f102cb49a84b9099c12b196c85617ce15501"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hilbert-valued integral and regularized series evidence against the bar regularized estimator, source page 9.",
+          "result": "The regularized EIF correction can be inserted into the two held-out one-step averages while keeping the original plug-in target unchanged."
+        }
+      ],
+      "gap": "Combine the untransformed plug-in with each held-out regularized correction and retain its original-parameter target and bias."
+    }
+  },
+  {
+    "interface_id": "local-f542507466c92dc0620b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "ce6362c6b809462a4f2c05b699e712a25d07ef9399b481ec4a947cf51af12fba",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D21",
+        "comparison": "For beta in ell2-star use coordinate maps x↦beta_k*x with uniform operator bound one in lp.mapCLM at p=2, then compose with Hilbert-basis representation and reconstruction. This yields Gamma_beta h=sum beta_k inner(h,h_k)h_k. Define nu^beta=Gamma_beta composed with nu and candidate local derivative Gamma_beta composed with dot-nu_P; bounded linearity supplies a functional-analytic ingredient, not the full statistical lemma by itself. Beta is fixed here as n grows. Zero entries are allowed in the definition, so injectivity requires the later nonzero-coordinate condition; even then the inverse is only on the image and need not be bounded. The existence of phi_P^beta does not imply an original EIF.",
+        "statement_sha256": "7ff31231dc67b504844926b891663b0382eb3c1565fab4b2e5568140739be877"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "lp.mapCLM",
+          "type": "{α : Type u} → {𝕜 : Type v} → {E : α → Type w} → {F : α → Type z} → [NontriviallyNormedField 𝕜] → [∀ i, NormedAddCommGroup (E i)] → [∀ i, NormedSpace 𝕜 (E i)] → [∀ i, NormedAddCommGroup (F i)] → [∀ i, NormedSpace 𝕜 (F i)] → (p : ℝ≥0∞) → [Fact (1 ≤ p)] → (T : ∀ i, E i →L[𝕜] F i) → {K : ℝ} → 0 ≤ K → (∀ i, ‖T i‖ ≤ K) → (lp E p →L[𝕜] lp F p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpHolder",
+          "provides": "A uniformly operator-norm-bounded family of coordinate maps induces a bounded linear map on lp, including bounded diagonal multipliers on square-summable coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpHolder.lean#L45-L59",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected lp.mapCLM 45–59, Hilbert coordinate reconstruction and adjoint composition ingredients against Gamma_beta and the full Lemma 7 statement, source page 18.",
+          "result": "The diagonal transformation is a bounded Hilbert-space operator obtained by conjugating the coordinate multiplier by the basis representation; pathwise derivative and EIF claims need their statistical chain-rule proof."
+        }
+      ],
+      "gap": "Construct the fixed diagonal operator and prove the transformed parameter's pathwise derivative and regularized EIF, without assuming an EIF for the original parameter."
+    }
+  },
+  {
+    "interface_id": "local-7050fe8e18a4dede5e5b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:02:20.355419+00:00",
+    "source_interface_sha256": "1e8bcbb13a23bebef43a496ff76c097db040424b3fbb7d41dac062a1382d187c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D22",
+        "comparison": "The tilde estimator is one half of the sum of Gamma_beta(nu(P-hat_n^j))+P_n^j phi_n^{j,beta}; its target is nu^beta(P0), not nu(P0). The shared correction does not make it equal to the bar regularized estimator, whose plug-in is untransformed. Keep fixed beta and complementary held-out integration. Theorem 6 assumes asymptotic linearity for this transformed target and does not import Theorem 5's rate conditions, a data-adaptive beta result, or an original EIF.",
+        "statement_sha256": "292036779651d4aa07b36912f0744ac1c0b3e27351aea5ff77a60b6467864947"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "lp.mapCLM",
+          "type": "{α : Type u} → {𝕜 : Type v} → {E : α → Type w} → {F : α → Type z} → [NontriviallyNormedField 𝕜] → [∀ i, NormedAddCommGroup (E i)] → [∀ i, NormedSpace 𝕜 (E i)] → [∀ i, NormedAddCommGroup (F i)] → [∀ i, NormedSpace 𝕜 (F i)] → (p : ℝ≥0∞) → [Fact (1 ≤ p)] → (T : ∀ i, E i →L[𝕜] F i) → {K : ℝ} → 0 ≤ K → (∀ i, ‖T i‖ ≤ K) → (lp E p →L[𝕜] lp F p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpHolder",
+          "provides": "A uniformly operator-norm-bounded family of coordinate maps induces a bounded linear map on lp, including bounded diagonal multipliers on square-summable coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpHolder.lean#L45-L59",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hilbert coordinate multipliers and Bochner integration against the transformed-target one-step estimator, source page 18.",
+          "result": "Apply the fixed diagonal transformation to each plug-in value and add the held-out regularized EIF correction before averaging."
+        }
+      ],
+      "gap": "Build the two-fold estimator with the transformed plug-in and preserve the separate asymptotic-linearity assumption for the transformed target."
+    }
+  }
+]

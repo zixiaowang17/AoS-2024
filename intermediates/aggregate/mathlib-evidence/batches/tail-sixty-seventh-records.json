@@ -1,0 +1,578 @@
+[
+  {
+    "interface_id": "local-e488263de29ab00e00ee",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "e3a2d2b3c4029254bd79dd5506dc4d9eb2f4ab9b49fd86e7a6e68374b561480d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D30",
+        "comparison": "Use pointwise f_l<=f<=f_u and norm(f_u-f_l)<epsilon, with epsilon>0; bracket endpoints need not be members of G. Count brackets covering G without taking a logarithm, despite the word entropy. Nat.find only chooses a least finite count after an existence witness, and ordinary epsilon-ball covering is not a literal replacement.",
+        "statement_sha256": "3567462dd1692cf6109b1e0dc0a768eb4e0a4c79881cf040fd968abe823664ac"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for statistical bracketing and entropy; inspected function-space order intervals and least-natural selection against the bracket-width and covering-count definition.",
+          "result": "A pointwise bracket is an order interval of functions and one can minimize finite covering-family cardinality after proving a finite cover exists. Ordinary metric covering numbers do not enforce ordered endpoints or the same strict bracket-width condition."
+        }
+      ],
+      "gap": "The ordered bracket-cover predicate and its minimum cardinality need construction with the strict width bound and an explicit convention when no finite cover exists."
+    }
+  },
+  {
+    "interface_id": "local-b326f1f71410bbdb3487",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "26897c7b4129d91d818cc9f4058d7f539181f5e0f9f1cc1ead7f1b55ffe693ef",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D21",
+        "comparison": "Average (Y1+Y2)*phi(A1*f1(H1))*phi(A2*f2(H2)) divided by pi1(A1|H1)*pi2(A2|H2), retaining minus/plus-one actions and the two histories. Use the same record for both factors, not independent stage averages. This is empirical rather than population value, with the later known-propensity regime separate from any estimated-propensity extension.",
+        "statement_sha256": "16b7c1001ca39a5760e8ace2c19503348cf74ddaf4654cda8acbe090415f9579"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched empirical inverse-propensity surrogate values; inspected finite averaging and real integration against equation (16) and the saved Section 4 product-surrogate convention.",
+          "result": "An empirical measure integral or a normalized observation-index sum expresses the displayed reward-weighted surrogate value. The product surrogate and valid propensity denominators are supplied model ingredients, not consequences of integration."
+        }
+      ],
+      "gap": "The product surrogate, valid propensity values and measurable score functions must be supplied to form the empirical inverse-propensity objective."
+    }
+  },
+  {
+    "interface_id": "local-cef589ea2261cb53408c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "27461a20669408d7d77c3dd4d999fa779e0b8ab08b8f4be017d1c2d734cb9082",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D23",
+        "comparison": "Take the supremum of V_hat_psi over U_n and subtract its value at the fitted pair. Preserve the empirical objective and data dependence, do not set Opt_n=0 or replace it by population regret, and do not infer attainment from the supremum or a solver guarantee from the definition.",
+        "statement_sha256": "a1ccabb2727210a5d145eab12fc5ae23321d63f6d58f7d2ed6c378a830cf5190"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional supremum and maximizer predicates against the empirical optimization suboptimality formula and fitted-pair membership convention.",
+          "result": "For a nonempty feasible class with bounded empirical values, the supremum minus the fitted feasible value is directly expressible and nonnegative. No maximizer or algorithmic convergence is needed just to define this gap."
+        }
+      ],
+      "gap": "The optimization error is directly expressible once finite supremum and feasible fitted-value conditions are established; it need not vanish."
+    }
+  },
+  {
+    "interface_id": "local-cdd5d795722d155f1063",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "1e21e662eaa4600c93de825b9d6a209063aebcceaf7c4e973e4df419c81ed431",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D26",
+        "comparison": "Retain eta1 and eta2 bounded away from zero on their respective domains, not |eta_t-1/2| bounded below. A constant eta_t=1/2 satisfies the literal positive lower bound while lying exactly on the treatment boundary. Do not correct the center or introduce boundary separation into the cited theorems.",
+        "statement_sha256": "9d89dfd2bba73fd5e13a1b11e43449888c67248c66f8637b123ddbe632a6cf81"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched strong separation and inspected positive lower-infimum bounds against the literal condition on the two eta functions.",
+          "result": "Positive lower bounds on the eta functions over their domains are expressible directly or by infimum bounds under suitable nonemptiness. They do not separate eta from the decision threshold one half."
+        }
+      ],
+      "gap": "The printed positive lower bounds are directly expressible, but they do not establish separation from one half or the claimed infinite-noise-exponent interpretation."
+    }
+  },
+  {
+    "interface_id": "local-ef428d191b8103266017",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "315644e771553404bf3614b0b602cd6da2724cdf264025947cb9f8b23a0e6c9a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D25",
+        "comparison": "Use 0<|eta_t(H_t)-1/2|<=t at each stage with a common C and t0 but potentially different positive alpha1 and alpha2. The event excludes exact ties, so atoms at one half are allowed. Preserve the printed t<t0 omission rather than silently adding t>0 or relying on Real.rpow's negative-base convention; the later alpha=min(alpha1,alpha2) is separate.",
+        "statement_sha256": "7721953dfd82d9f06dad491dd43892f4fc4e05270cd375218ab1de27ad9e0820"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Tsybakov and small-noise conditions; inspected mapped margin distributions and real powers against both stage inequalities and the printed t range.",
+          "result": "Each inequality is a probability bound for a punctured small-margin event. The source's unrestricted t<t0 phrase does not specify the positive-radius domain required for the usual real-power margin condition."
+        }
+      ],
+      "gap": "The two margin-event bounds can be represented once the radius domain and eta versions are fixed, preserving the exclusion of mass exactly at the boundary."
+    }
+  },
+  {
+    "interface_id": "local-0547f7b3a04ddfdb390d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "3e0f58bef3925fd325f58339168bbfc79684bc3bd104d5e3abb33603c9f4b43e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D17",
+        "comparison": "Use UpperSemicontinuous h and closed sets {x | y<=h(x)} for every level y, preserving the source's concave convention. Do not substitute lower semicontinuity or closed sublevel sets from convex minimization. The theorem supports linearly ordered codomains and does not itself assert concavity or properness of h.",
+        "statement_sha256": "5a200d0192ddb8de6945b222a00cc4c40b74a92a285e31044044488714e4fce2"
+      }
+    ],
+    "library_audit": {
+      "status": "exact_reuse",
+      "related_declarations": [
+        {
+          "name": "upperSemicontinuous_iff_isClosed_preimage",
+          "type": "{α γ : Type*} → [TopologicalSpace α] → [LinearOrder γ] → {f : α → γ} → (UpperSemicontinuous f ↔ ∀ y, IsClosed (f ⁻¹' Set.Ici y))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Semicontinuity.Basic",
+          "provides": "Upper semicontinuity is equivalent to closed superlevel sets for a linearly ordered codomain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Semicontinuity/Basic.lean#L813-L816",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the upper-semicontinuity definition and the exact equivalence with closed superlevel preimages for a linearly ordered codomain.",
+          "result": "The theorem identifies upper semicontinuity with closed preimages of every upper closed ray, exactly the two characterizations of closedness used for the source's concave function convention."
+        }
+      ],
+      "gap": "mathlib already provides the stated upper-semicontinuity and closed-superlevel-set equivalence on the supplied domain and ordered codomain."
+    }
+  },
+  {
+    "interface_id": "local-323a4eb2cd947157c6c3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "1e6546494bbf8dc449b14f278ff480b60502140f710d3e70b27836f11a9dc143",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D16",
+        "comparison": "For every law satisfying I-IV and every sequence in the measurable score-pair class F, convergence of V_psi to V_psi-star must imply convergence of V to V-star. Preserve the universal sequence condition rather than existence of one sign-correct optimizer; supremal values may be approached without a measurable or existing maximizing score pair.",
+        "statement_sha256": "55fb2676c9acd4cdea2a8b0c59a1de3688727bfc58e3be93d969fae3fe19d391"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Fisher consistency for surrogate objectives and inspected sequence limits against Definition 1's universal law and sequence quantifiers and no-attainment note.",
+          "result": "The condition is expressible as an implication between two real sequence limits for every admissible law and every feasible score-pair sequence. No matching specialized calibration theorem was found, and the definition itself does not require optimizers."
+        }
+      ],
+      "gap": "The sequential consistency predicate is directly expressible from the supplied objectives and well-defined optimal values, with proofs for particular surrogates remaining separate."
+    }
+  },
+  {
+    "interface_id": "local-2ab737fa9158db7051b1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "34dc73ea5e825bc474072b6c3d6d92a0204ced60dcc95e94767ef4374a0c0808",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D29",
+        "comparison": "Retain min(x,y,1) with upper saturation at one and no lower truncation. Do not substitute min(x-1,y-1,0), a sign-reversed maximum, or a univariate sum/product hinge even though the paper uses those forms elsewhere.",
+        "statement_sha256": "efca7ebd98ac57bdfd087a0298d5efe674d8259cf4b2b3bac4553db6c4bbf859"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "min_le_iff",
+          "type": "{α : Type*} → [LinearOrder α] → {a b c : α} → (min a b ≤ c ↔ a ≤ c ∨ b ≤ c)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.Defs.LinearOrder",
+          "provides": "A minimum is below a threshold exactly when at least one argument is, giving the branch characterization of iterated minimum surrogates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Defs/LinearOrder.lean#L151-L152",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched bivariate hinge surrogates and inspected iterated-minimum branch characterization against the exact function used in Theorem 2.",
+          "result": "The scalar bivariate function is directly represented by min (min x y) 1; iterating the inspected order lemma describes its lower-threshold sets. This does not prove its Fisher inconsistency."
+        }
+      ],
+      "gap": "The function is directly expressible as the iterated minimum of x, y and one; its statistical inconsistency is a separate theorem."
+    }
+  },
+  {
+    "interface_id": "local-ed3bcd656d3def6ceb77",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "6934777361b452623829a8e65de306a0a234bc267c4a74c5a9ac982e92146639",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D20",
+        "comparison": "On the left take the absolute difference between conditional means of T(H2,d2-star(H2)) given A1=+1 and A1=-1 at h1; on the right add the two means with the opposite action -d2-star(H2). Keep T=Y1+E[Y2|H2,A2=a2], distinct from the treatment-contrast notation, and retain strict >. Do not difference the right terms, assume outcome shifts preserve this inequality or silently select conditional versions at null histories.",
+        "statement_sha256": "1318a20c27eceadba4b963b3540372e036ba1ffaf1cd847ab05cbbcb5cd8311b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional-distribution kernels and reward integrals against the two conditional action contrasts, the opposite-action sum and the definition of T.",
+          "result": "Chosen conditional reward versions can express all four terms and the strict inequality. The kernels only identify conditional laws almost everywhere, so the all-history interpretation and measurable optimal action choices require additional specifications."
+        }
+      ],
+      "gap": "The conditional reward versions and selected optimal second-stage rule must be supplied with integrability to express the strict all-history contrast-versus-sum condition."
+    }
+  },
+  {
+    "interface_id": "local-06fdbab73c2b2b6dd594",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "0f5521475d87c2e79f0db5628b0e10fdc530e986bc12a6c227a40cb2d3e7b18e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D18",
+        "comparison": "Preserve all x,y in dom(h), lambda in (0,1) and strict > exactly as printed. At x=y with finite h(x), the left and right sides coincide, unlike the library definition which explicitly assumes x!=y. Also retain the source's effective-domain and extended-value conventions rather than treating arbitrary infinity arithmetic as a real-valued StrictConcaveOn instance.",
+        "statement_sha256": "21218fa37a774d08db32348cdf1d2347ab2ca3b9f41a32152e185a21f7fe6417"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "StrictConcaveOn",
+          "type": "(𝕜 : Type*) → {E β : Type*} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Strict concavity on a convex set, requiring strict Jensen inequality only for distinct points and positive weights summing to one.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L69-L71",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected StrictConcaveOn's convex-domain conjunct, explicit distinct-point premise and positive-weight strict Jensen inequality against the literal source formula.",
+          "result": "The standard library predicate imposes the strict inequality only at distinct points. The source omits that restriction, yielding a contradiction at a repeated point with a finite function value, so literal equivalence is not asserted."
+        }
+      ],
+      "gap": "The source's omitted distinct-point restriction must remain flagged before its literal formula can be related to the standard strict-concavity predicate."
+    }
+  },
+  {
+    "interface_id": "local-138702c405adeded067a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "bb47638062af4875ef4e61579c24e85b20c1c57ce283bf77fa33b80737881b36",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D27",
+        "comparison": "Require B_phi>0, kappa>=2 and |phi'(x)|<B_phi*(1+|x|)^(-kappa) for every x!=0. Keep the strict inequality, the one-plus offset and the missing derivative requirement at zero; no global smoothness or polynomial bound on phi itself is substituted.",
+        "statement_sha256": "46f8b41d70a27d6916a1ca2d4f30c9eeb8f459b7ba0763d72ac7637299162436"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        },
+        {
+          "name": "deriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "Scalar derivative as the Frechet derivative evaluated at one, with the total derivative convention outside differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L153-L154",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched polynomial derivative-tail surrogate classes; inspected derivative existence versus totalized deriv and real powers against the strict type-A bound.",
+          "result": "Existence of the derivative away from zero and a strict polynomial envelope are expressible along with the separately supplied Condition 2. Using deriv alone would make nondifferentiable points default to zero and falsely satisfy a derivative bound."
+        }
+      ],
+      "gap": "Condition 2 and differentiability away from zero must accompany the strict polynomial derivative bound with the specified exponent range."
+    }
+  },
+  {
+    "interface_id": "local-d4ce87992f0379eefbd8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "a6a6caa20ec3191829511aa29e0585e668572f69bd145cb0627e640440ba9e0c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D28",
+        "comparison": "Require B_phi>0, kappa>0 and |phi'(x)|<B_phi*exp(-kappa*|x|) for x!=0, without imposing kappa>=2 or differentiability at zero. Keep the absolute value in the exponent and the bound on the derivative rather than on phi, and do not use totalized deriv to avoid derivative existence.",
+        "statement_sha256": "cdcf98b603d3e976a197b65fa7b548327bfbff1ea148feb5b3238bdf6514e2c6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        },
+        {
+          "name": "deriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "Scalar derivative as the Frechet derivative evaluated at one, with the total derivative convention outside differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L153-L154",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched exponential derivative-tail surrogate classes and inspected derivative existence and exponential evaluation against the strict type-B envelope.",
+          "result": "The exponential derivative-tail predicate is expressible with differentiability away from zero and Condition 2. It has a different decay form and exponent range from type A."
+        }
+      ],
+      "gap": "Condition 2 and differentiability away from zero must accompany the strict exponential derivative bound with positive decay parameter."
+    }
+  },
+  {
+    "interface_id": "local-da03b8294cb50aa8041e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:05:23.089603+00:00",
+    "source_interface_sha256": "aa3bcc888fb1c8194daa50e4f5641d2e4f2c45bd509893e8a83ef132074860ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0679",
+        "local_id": "D31",
+        "comparison": "Bound N_bracket(epsilon,U_tn,||.||infinity) by a constant times (A_n/epsilon)^rho_n separately for t=1,2, with positive A_n and rho_n. Do not take log N, replace the norm by empirical L2, or silently use the pair class. IsBigOWith can express a chosen range's bound, but the source does not specify that range or uniformity of its implicit constant; later theorem restrictions remain separate.",
+        "statement_sha256": "070468c2eff167f01ca3ace7fe9916cf7c103f8084f15901c8d4b5452f857d1e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched VC-type bracketing classes and inspected ordered function intervals, supremum norm, real powers and explicit-constant bound predicates against equation (21).",
+          "result": "The stagewise polynomial bracket-count bound can be expressed after defining the bracket number and the intended epsilon range. It is not automatically a VC-dimension claim, a log-entropy bound or an empirical L2 condition."
+        }
+      ],
+      "gap": "The bracket-count construction, epsilon range and implicit-constant uniformity must be supplied for the two stagewise supremum-norm bounds."
+    }
+  }
+]

@@ -1,0 +1,88 @@
+[
+  {
+    "interface_id": "local-7127780aff28ba557c49",
+    "status": "composable",
+    "names": [
+      "ContDiffOn"
+    ],
+    "comparison": "Apply twice continuous differentiability separately to theta_0 and varpi_0 as real functions of the treatment level. ContDiffOn R 2 represents C2 regularity on the chosen domain; on the full real line one can use its univ specialization. Preserve the actual treatment domain and the source interpretation at its boundary: compactness alone does not make the support an interval or justify a globally C2 extension. The within-domain predicate on an arbitrary set is not automatically identical to ordinary derivatives defined in a neighborhood, so retain that distinction if the source uses the latter. Do not require the conditional propensity pi_0(a|l) or the potential-outcome family itself to be C2 solely from this sentence, and do not replace continuous second derivatives by merely existing or almost-everywhere derivatives.",
+    "gap": "ContDiffOn supplies C2 regularity once the treatment-domain and boundary interpretation are fixed for both named functions.",
+    "searches": [
+      [
+        "Inspect ContDiffOn:472-473 and its within-set interpretation together with ContDiff:1068-1072",
+        "The smoothness predicates encode continuous derivatives up to order two but require the correct domain; no interval or global extension follows from compact support alone."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-cf64a68b3d1a998621f4",
+    "status": "composable",
+    "names": [
+      "Convexity.StdSimplex"
+    ],
+    "comparison": "Represent the predetermined environment weights as a finite real simplex vector with total one, and additionally require strict positivity at EVERY environment, since StdSimplex only supplies nonnegativity and permits zero weights. Predetermined means fixed for the analysis, not a fitted random vector chosen from the observations. Both uniform weights and fixed-sample-size weights are permitted examples; positive sizes and a positive total are needed for the latter to meet strict positivity. Preserve the general weighted definition separately from the Section 4 theorem specialization to equal weights and equal sample sizes. Do not replace these weights by estimated inverse variances or discard zero-sized environments silently. Nonempty environment support follows from normalization and is needed for the uniform example.",
+    "gap": "The simplex structure supplies normalized nonnegative weights; add the source's strict positivity and fixed-weight requirements.",
+    "searches": [
+      [
+        "Inspect Convexity.StdSimplex fields:56-62 after finding the deprecated stdSimplex alias",
+        "The current structure uses finitely supported weights and total mass one, but does not require every coordinate to be strictly positive or weights to be deterministic."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-f49aa08a04f572c04c2e",
+    "status": "composable",
+    "names": [
+      "Matrix.kronecker",
+      "Matrix.mulVec",
+      "Matrix.mul_apply"
+    ],
+    "comparison": "Center each tensor sample by the same empirical tensor mean, then apply its specified mode-k unfolding and multiply by the descending-mode product q_K tensor ... tensor q_(k+1) tensor q_(k-1) tensor ... tensor q_1. Matrix.kronecker uses ordered product indices; the unfolding/flattening bijections must preserve this exact mode order, rather than commuting factors. With ideal directions q_k=A_k*c_k and nonzero c_k, substitution and matrix associativity give the displayed expansion involving A_-k^T*A_-k*c_-k; no orthonormality reduction of that Gram factor is stated. The representation needs the same tensor-entry/index conventions as the source. The formula for ideal directions is not automatically an expansion with estimated directions lying in loading spaces, nor a conditional expectation given a data-dependent direction. No factor-noise independence is introduced by this deterministic algebra.",
+    "gap": "Kronecker products and matrix multiplication support the projection after the source's unfolding and ordered index identifications are supplied.",
+    "searches": [
+      [
+        "Inspect Matrix.kronecker and mulVec against the descending-mode product and saved projection/conditional-expectation qualifications",
+        "Kronecker preserves ordered product indices; unfolding conventions and the ideal-direction assumption must be retained to justify the expansion."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-f81e7fcffa4bcd609be2",
+    "status": "partial_match",
+    "names": [
+      "Matrix.mulVec",
+      "Matrix.vecMulVec",
+      "LinearMap.IsSymmetric.eigenvectorBasis"
+    ],
+    "comparison": "Keep the initialization from each preliminary direction and a fixed number of iterations. The source step 2 multiplies mode-k unfolding by check-q_k from the preceding iteration; its preceding projection formulas instead need the other-mode product check-q_-k, and these dimensions differ in general. Thus a typed implementation cannot be certified simply by substituting the preceding formula: preserve the printed step and its unresolved dimensional mismatch. Given well-typed projected data, the T^{-1} sum of outer products defines the matrix for positive T, and the finite self-adjoint eigenvectorBasis is ordered by decreasing eigenvalues so its first member supplies a leading eigenvector when dimension is positive. Its nonconstructive basis choice does not specify the source's sign/tie rule or a measurable samplewise selection. Do not infer convergence from stopping after a fixed number of repetitions, or use distinct population eigenvalues to assert uniqueness of all sample choices.",
+    "gap": "Finite covariance and eigenvector primitives are available, but the printed projection dimension and eigenvector-selection conventions remain unresolved.",
+    "searches": [
+      [
+        "Inspect mulVec, vecMulVec and eigenvectorBasis:295-307 against the four algorithm steps and saved source mismatch",
+        "The spectral basis gives ordered eigenvectors of a valid symmetric operator; it cannot repair the q_k versus q_-k dimension mismatch or fix statistical selection conventions."
+      ]
+    ]
+  },
+  {
+    "interface_id": "covariance-to-correlation",
+    "status": "composable",
+    "names": [
+      "Matrix.diag",
+      "Matrix.diagonal",
+      "Real.sqrt",
+      "Matrix.mul_apply"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0364/D24": "Extract the diagonal of the projected sample covariance at the specified iteration m+1 and mode k, take reciprocal positive square roots coordinatewise, place them on a diagonal matrix and multiply on both sides. Matrix.diag EXTRACTS a vector while diagonal BUILDS a diagonal matrix; these two operations must not be confused. Positive sample diagonal entries are needed for the intended unit-diagonal correlation matrix; Real.sqrt at a negative number and field division at zero are totalized, not source-approved fallbacks. Preserve the source sample covariance and iteration index, rather than substituting the population-style fixed-direction formula inside Theorem 8. The saved zero-variance and direction-selection qualifications are not resolved by algebraic normalization.",
+      "aos-2024-v52-i05-p2217/D3": "Use the diagonal population variances to form D, and define correlation by inverse-square-root diagonal congruence under their positivity. Then recover Sigma=D^(1/2)*R*D^(1/2) by cancellation. The earlier positive-definite population covariance supplies the appropriate population domain, whereas diag(S) is only a proposed estimator of D and can still have zero entries. Modeling R^{-1} concerns the precision of the correlation, not the correlation itself; its inverse relation to Sigma^{-1} needs invertibility. Keep D unrelated to the theorem-specific D0/D1 matrices and do not carry population nondegeneracy over to arbitrary sample estimates.",
+      "aos-2024-v52-i05-p2217/D5": "Normalize the pooled sample covariance S on both sides by the reciprocal square roots of its OWN diagonal, retaining the sample definition and its groupwise centering. On strictly positive sample variances the coordinate formula is S_ij/sqrt(S_ii*S_jj), with unit diagonal; zero sample variances can occur under permitted discrete observations despite a positive population covariance. Do not use totalized inverse/sqrt values to claim a valid correlation matrix at those samples, and do not silently add a ridge or replace sample variances by population variances. Even with positive diagonal entries the sample correlation can be singular, so downstream inverse modeling requires further conditions."
+    },
+    "gap": "Diagonal extraction and scaling express correlation on positive variances; sample nondegeneracy and downstream inverse existence require separate justification.",
+    "searches": [
+      [
+        "Inspect Matrix.diag, diagonal, Real.sqrt and mul_apply against all three original correlation variants",
+        "The matrix operations support positive-diagonal normalization but do not guarantee positive sample variances, a population/sample identity, or invertibility of the resulting correlation."
+      ]
+    ]
+  }
+]

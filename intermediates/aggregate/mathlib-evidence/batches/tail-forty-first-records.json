@@ -1,0 +1,68 @@
+[
+  {
+    "interface_id": "uniform-functional-dependence",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:07:12.853989+00:00",
+    "source_interface_sha256": "ef00ae79ffeeba4ecdb629869db41b93180999bbaf00d83227fd6ca530f63442",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0999",
+        "local_id": "D11",
+        "comparison": "Use the time-dependent measurable causal functions g_t and iid driving zeta_t from (10), on a product space carrying an independent copied driving sequence. Replace only innovation t-s, retaining every other past input; the earlier block-replacement recipe also explicitly leaves the history unchanged when the replacement time is in the future, so negative lag gives zero. At each positive real q use eLpNorm of Z_t minus its coupled version and take the supremum over ALL integer t. q may be below one: this is a moment quasi-seminorm, and no norm triangle inequality with unit constant may be assumed. The source uniform q-moment bound ensures coefficient finiteness, but cumulative Delta_(m,q) additionally sums lags s>=m for integer m and need not be finite without a tail assumption. Use an extended nonnegative sum or prove summability before a real tsum, rather than turning a divergent tail into a default zero. Do not import the stationary covariate model, its supremum over unit vectors, or a fixed-time stationary simplification into this scalar nonstationary variant.",
+        "statement_sha256": "92fc81051966bb6293544b063bf82dc52e6c2d645080a203059fa1b2e1e27bab"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2293",
+        "local_id": "D5",
+        "comparison": "For p>=1 and lag k>=0, replace epsilon_(i-k) by its independent identically distributed copy in the SAME function g_i, leaving the rest of the entire causal history unchanged. Product coordinates give an explicit coupling and IdentDistrib specifies equality with the original innovation law; an independent copy of the output X_i would instead replace too much randomness. Take the Lp effect and supremum over i, since g_i can vary with time and stationarity cannot reduce this to time zero. The coefficient itself does not include the cumulative Theta tail or an additional polynomial weight, both defined separately later. Positive finite moments or extended-valued suprema must be handled explicitly. Keep this innovation replacement distinct from mixing coefficients and from a block replacement of the entire past.",
+        "statement_sha256": "5eecd1a3548c0b86055f6f6ad19f1126fdc6032776343b392a2672660ee4c22c"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D3",
+        "comparison": "Index product innovations by time and a copy flag, assigning both flags at time i the law of e_i; this allows independent but NONIDENTICALLY distributed original innovations. The copied sequence is jointly independent and independent of the original sequence, with each e_i^dagger having its own corresponding law. For k>=0 replace exactly input e_(i-k) in g_(i,j), while k<0 is explicitly defined to leave X_(i,j) unchanged. Define the individual Lm difference for m>=1 and then take a supremum over both time i in Z AND coordinate j=1,...,d. The vector coordinate supremum is not the supremum over all unit-direction projections used by a different source definition. Copy identity and the zero-negative-lag convention hold row by row when the process depends on sample size T; no common time-invariant g or innovation law is imposed. Retain extended values until the relevant uniform moment bound establishes finiteness.",
+        "statement_sha256": "fcea8bacf1cb264a80a70772fd1318e495934c7dd183d0cde192c39efb957998"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg search for functional/physical dependence, independent-copy and update/independence interfaces in Probability and MeasureTheory returned no specialized declaration; inspected infinitePi, IdentDistrib, iIndepFun and eLpNorm; checked registered p0999 pages5-6, p2293 page5 and p2375 pages7-8 for all three source variants.",
+          "result": "Product probability spaces supply original and independent replacement innovations, equality of laws specifies each copy, and the extended Lp seminorm measures the single-coordinate replacement effect."
+        }
+      ],
+      "gap": "These building blocks express all three coefficients after constructing the source-specific causal replacement and handling finite suprema and tail sums correctly."
+    }
+  }
+]

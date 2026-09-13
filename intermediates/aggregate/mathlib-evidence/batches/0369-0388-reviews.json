@@ -1,0 +1,272 @@
+[
+  {
+    "interface_id": "local-83a60c548cb4bcd3b4a4",
+    "declarations": [
+      "MeasureTheory.SignedMeasure.totalVariation"
+    ],
+    "query": "rg mars|multivariate.adaptive in Analysis, Probability and LinearAlgebra; inspect SignedMeasure.totalVariation in VectorMeasure/Decomposition/Jordan.lean",
+    "result": "No MARS complexity declaration appeared in the searched modules; totalVariation is the sum of the positive and negative Jordan measures and can be evaluated on the punctured coefficient domain.",
+    "comparisons": [
+      "Evaluate each signed measure's totalVariation on the half-open cube with the all-zero atom removed, then sum over admissible interactions; whole-space variation would incorrectly penalize the unpenalized linear products, and descent from a representation to a function still needs justification."
+    ],
+    "gap": "mathlib supplies signed-measure total variation, while the interaction-indexed punctured-domain sum and its representation-independent interpretation as MARS complexity remain to be defined and justified."
+  },
+  {
+    "interface_id": "local-73eced999dbf1b4a023a",
+    "declarations": [
+      "MeasureTheory.Measure.withDensity",
+      "Real.cos"
+    ],
+    "query": "rg spherical|sphere.*measure|polar.*coord|surface.*measure|angular in MeasureTheory and Analysis; inspect withDensity and Real.cos",
+    "result": "The search found planar polar-coordinate integration infrastructure, and withDensity constructs a measure from a nonnegative extended density; no inspected declaration gives this arbitrary-dimensional angular reference density with its printed cosine powers.",
+    "comparisons": [
+      "The product of cosines and its normalization can be supplied to withDensity after restricting to the archived angular domain and proving nonnegativity and unit mass; its law is the fixed uniform-direction reference, not the observed angular marginal under an alternative."
+    ],
+    "gap": "The density primitives are available, but the paper's angular domain, normalization and identification with the uniform-sphere reference law require a dedicated construction."
+  },
+  {
+    "interface_id": "local-70a70baeb62d05ac2c45",
+    "declarations": [
+      "intervalIntegral",
+      "Real.sqrt"
+    ],
+    "query": "Inspect intervalIntegral in Integral/IntervalIntegral/Basic.lean and Real.sqrt in Analysis/Real/Sqrt.lean; search localized-statistic and kernel-estimator terminology in Probability and Analysis",
+    "result": "The inspected declarations provide oriented real-time integration and the nonnegative real square root; no paper-specific Lambda tolerance correction was found in the searched estimator infrastructure.",
+    "comparisons": [
+      "For nonnegative T and integrable path compositions, intervalIntegral gives both time integrals; the ratio must retain the printed 0/0=0 rule, while Lean's general totalized division must not settle any other source-unspecified singular case."
+    ],
+    "gap": "Time integration and square roots are available, but the kernel-path tolerance ratio and its source-specific denominator convention still need to be defined."
+  },
+  {
+    "interface_id": "local-4eaa8e3667bb4ce47a3a",
+    "declarations": [
+      "Finset.sum_div"
+    ],
+    "query": "rg nadaraya|kernel.regression|kernel.estimat in Probability, Analysis and LinearAlgebra; inspect Finset.sum_div in Algebra/BigOperators/Field.lean",
+    "result": "No Nadaraya-Watson or boundary-normalized marginal regression estimator appeared; Finset.sum_div supplies the finite-sum algebra for scaling the empirical numerator.",
+    "comparisons": [
+      "Finite sums express the numerator with the paper's boundary-normalized K_h and empirical marginal density; this algebra does not identify a regression estimator or resolve the source's zero-density denominator events."
+    ],
+    "gap": "Finite-sum scaling is available, while the boundary-normalized regression estimator and its unresolved zero-density convention require a paper-specific definition."
+  },
+  {
+    "interface_id": "local-3627fee579ee0ac21715",
+    "declarations": [
+      "PiTensorProduct.map",
+      "Matrix.mulVec"
+    ],
+    "query": "rg tensor.*contract|mode.*tensor and map_tprod; inspect PiTensorProduct/Basic.lean 469-487, Matrix.mulVec and Data/Holor.lean",
+    "result": "PiTensorProduct.map applies a family of linear maps to tensor factors, and mulVec implements the coordinate contraction; Holor supplies coefficient arrays and outer products but the inspected file has no named k-mode contraction.",
+    "comparisons": [
+      "Use the loading matrix as the linear map on factor k and identity maps elsewhere; the coefficient identity must match the printed left action U[j,i_k], changing only dimension k, rather than treating an abstract tensor product as already identical to the coefficient array."
+    ],
+    "gap": "Tensor-factor maps and matrix-vector contraction are available; the paper's indexed-array k-mode product needs the coordinate identification and its entrywise correspondence."
+  },
+  {
+    "interface_id": "tensor-factor-model",
+    "declarations": [
+      "PiTensorProduct.map",
+      "Matrix.mul_apply"
+    ],
+    "query": "rg tucker|tensor.factor|mode.product in Probability, Analysis and LinearAlgebra; inspect PiTensorProduct.map, Matrix.mul_apply and Holor coefficient-array operations",
+    "result": "The tensor-factor hits concern algebraic tensor factors, not a stochastic Tucker factor model; indexed tensor maps and matrix multiplication provide the loading operations, without model assumptions.",
+    "comparisons": [
+      "Apply one map per mode to the latent core and add the constant mean and noise tensor; the intercept is present in this source and cannot be dropped when grouping with the mean-free model.",
+      "The loading maps need full column rank as the paper assumes, not orthonormality; the abstract tensor map supplies the multilinear signal transformation but neither its latent time-series law nor the stated noise conditions.",
+      "For two positive factor counts, matrix multiplication represents R F C-transpose; the three printed zero-factor branches require separate definitions, since multiplying empty factor matrices would not yield the one-way models."
+    ],
+    "gap": "mathlib provides the tensor and matrix loading operations, while the stochastic factor models, intercept and rank requirements, and explicit one-way or zero-factor branches need variant-specific definitions."
+  },
+  {
+    "interface_id": "local-763e4f6dc9bb4c8ff16b",
+    "declarations": [
+      "Matrix.mulVec",
+      "CFC.rpow",
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.covariance"
+    ],
+    "query": "Inspect Matrix.mulVec, CFC.rpow, Independence/Basic.iIndepFun and Moments/Covariance.covariance; compare CovarianceBilin.covarianceOperator's explicitly uncentered convention",
+    "result": "Matrix action and positive functional calculus support the two noise terms, independence predicates support indexed innovations, and scalar covariance can describe covariance-matrix entries; covarianceOperator is uncentered and cannot be used as centered covariance without a mean check.",
+    "comparisons": [
+      "Construct each fiber as Psi_l e_t plus the positive square root of Sigma_l acting on epsilon_t,l; retain exactly the printed cross-family and cross-fiber independence, zero means, identity covariance, and dimension-uniform matrix bounds, without adding core-noise independence."
+    ],
+    "gap": "Matrix action, square roots, covariance and independence primitives are available, but the fiber decomposition with its precise independence pattern and aggregate dimension bounds remains a separate model assumption."
+  },
+  {
+    "interface_id": "local-6838e4e150bccc86d338",
+    "declarations": [
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "ProbabilityTheory.covariance",
+      "Filter.Tendsto"
+    ],
+    "query": "rg linear.process|weakly.stationary in Probability and Analysis; inspect iIndepFun, IdentDistrib, covariance and InfiniteSum/Defs.lean 89-115",
+    "result": "No named statistical linear-process declaration was found; joint independence and equal-law predicates are available, as are covariance and limits of partial sums, while InfiniteSum distinguishes unconditional and sequential summation conventions.",
+    "comparisons": [
+      "The normalized absolutely summable filter must act on the factor innovations with the printed zero means and unit variances; construct the series in a justified convergence mode and retain identity within-fiber covariance and zero cross-fiber covariance, without upgrading zero covariance to independence."
+    ],
+    "gap": "Independence, equal laws, covariance and convergence are available, while the filtered factor process, its convergence and the stated fiber covariance constraints need a dedicated construction."
+  },
+  {
+    "interface_id": "local-b283ff210720f3488f0d",
+    "declarations": [
+      "Matrix.PosDef",
+      "Filter.Tendsto",
+      "Asymptotics.IsLittleO"
+    ],
+    "query": "rg factor.strength in Probability, Analysis and LinearAlgebra; inspect Matrix.PosDef, Filter.Tendsto and Asymptotics.IsLittleO",
+    "result": "The inspected library contains positive-definite matrices, filter convergence and little-o growth, but no combined loading-factor-strength condition.",
+    "comparisons": [
+      "Express the diagonal-normalized Gram limit and factor-count growth with separate dimension/sample filters, plus the positive-definite spectral bounds and ordered strength exponents; positive definiteness of an individual matrix does not supply uniform eigenvalue bounds for a growing sequence."
+    ],
+    "gap": "Positive definiteness, limits and little-o growth are available, but the normalized Gram convergence and uniform spectral and power-growth requirements remain to be assembled with their original quantifiers."
+  },
+  {
+    "interface_id": "local-1962708c67bbcfce969e",
+    "declarations": [
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "Filter.Tendsto"
+    ],
+    "query": "rg linear.process|weakly.stationary in Probability and Analysis; inspect the iid predicates and InfiniteSum/Defs.lean's summation-filter conventions",
+    "result": "The search did not identify a named weakly stationary error linear-process model; iid properties and partial-sum convergence can be expressed with the inspected general predicates.",
+    "comparisons": [
+      "The two filters for common and idiosyncratic errors must separately satisfy l2 normalization and absolute summability; retain mutual independence between their innovation families and iid mean-zero unit-variance elements, while proving the chosen series construction and weak stationarity instead of assuming them from a totalized infinite sum."
+    ],
+    "gap": "The iid and convergence primitives are available, while the two filtered error processes and their summability, covariance and stationarity properties require construction and proofs."
+  },
+  {
+    "interface_id": "local-9dd5ed7a35c87c12d718",
+    "declarations": [
+      "MeasureTheory.eLpNorm",
+      "MeasureTheory.MemLp"
+    ],
+    "query": "Inspect eLpNorm and MemLp in Function/LpSeminorm/Defs.lean for exponent 4 and the distinction between membership and a common bound",
+    "result": "eLpNorm at exponent 4 measures the fourth absolute moment to the one-quarter power, while MemLp only asserts measurability and finiteness, not uniformity over a family.",
+    "comparisons": [
+      "Apply a single finite upper bound to the fourth moments across every stated factor and error innovation index; separate MemLp 4 membership for each variable is weaker and neither Gaussian tails nor independence should be added to this member."
+    ],
+    "gap": "mathlib supplies fourth-moment seminorms and integrability, while the single bound quantified uniformly over all three innovation families must be stated explicitly."
+  },
+  {
+    "interface_id": "local-75ef456b62738f80c882",
+    "declarations": [
+      "Set.pi",
+      "Set.powerset"
+    ],
+    "query": "Inspect Set.pi and Set.powerset for optional Cartesian fiber subsets; compare PMF.uniformOfFintype with the source’s unspecified random-sampling law",
+    "result": "Cartesian products and powersets of the finite index domain are available; a uniform finite law is constructible but the source passage does not specify uniformity or sample independence.",
+    "comparisons": [
+      "Represent S_m either directly as a fiber-index subset or as the Cartesian product of coordinate subsets; keep sample-local sums and normalizations and do not infer uniform sampling, independence, or the full-population loading condition from this description."
+    ],
+    "gap": "Subset and Cartesian-product infrastructure is available, but the paper's random subset scheme and sample-local estimators need definitions without inventing an unstated sampling law."
+  },
+  {
+    "interface_id": "local-37f7befca660e1f23c23",
+    "declarations": [
+      "LinearMap.IsSymmetric.eigenvalues",
+      "Matrix.mul_apply"
+    ],
+    "query": "rg eigenvalue.ratio in Mathlib; inspect Spectrum.lean 277-281 and Matrix.mul_apply for the centered sample Gram matrix",
+    "result": "The library's self-adjoint eigenvalues are already sorted in decreasing order; the search did not find the paper's sample-covariance ratio statistic.",
+    "comparisons": [
+      "Form the centered sample covariance using the printed 1/T normalization and divide its largest eigenvalue by its j-th eigenvalue; translate one-based j to Fin indexing and retain unresolved zero-denominator cases rather than asserting the later asymptotic comparison from the definition."
+    ],
+    "gap": "Ordered eigenvalues and matrix products are available, but the centered sample-covariance ratio needs its own definition and a source-consistent treatment of zero denominators."
+  },
+  {
+    "interface_id": "local-8eee376530e37cfcf3d8",
+    "declarations": [
+      "LinearMap.IsSymmetric.eigenvectorBasis",
+      "LinearMap.IsSymmetric.eigenvalues",
+      "Finset.sum_div"
+    ],
+    "query": "rg pre.averag|eigenvalue.ratio in Mathlib; inspect ordered eigenvalues and eigenvectorBasis in Spectrum.lean and finite-sum scaling",
+    "result": "The spectral API gives an orthonormal eigenbasis aligned with decreasing eigenvalues, and finite sums express averaged covariances; no selected-sample pre-averaging estimator was found.",
+    "comparisons": [
+      "Select M samples by the stated eigenvalue ratios, average their centered covariances, and take z_k leading orthonormal eigenvectors; selection/eigenspace ties and zero signal normalization require explicit handling, and neither R2 nor L2-prime follows from this estimator definition."
+    ],
+    "gap": "Ordered spectral bases and averaging algebra are available, while sample selection, the aggregate covariance estimator and signal rescaling require a dedicated construction with tie and denominator conventions."
+  },
+  {
+    "interface_id": "local-4c8a5140b001689684e0",
+    "declarations": [
+      "ProbabilityTheory.bernoulliMeasure",
+      "MeasureTheory.Measure.infinitePi"
+    ],
+    "query": "rg stochastic.block|block.model across Mathlib and binomial in Combinatorics/SimpleGraph; inspect bernoulliMeasure and Measure.infinitePi",
+    "result": "No stochastic-block-model declaration appeared; Bernoulli measures and indexed product measures construct independent binary edge variables for fixed parameters.",
+    "comparisons": [
+      "For fixed sigma and B_t, use a Bernoulli law with mass B_t(sigma_i,sigma_j) at 1 on each upper-triangular edge/layer index, then reflect to a symmetric zero-diagonal matrix; independence holds conditional on fixed latent parameters and does not persist automatically after mixing."
+    ],
+    "gap": "Bernoulli product laws are available, but the shared-community multilayer model and symmetric loop-free adjacency encoding remain to be defined with conditional independence preserved."
+  },
+  {
+    "interface_id": "local-8ae66bb019c704321052",
+    "declarations": [
+      "Matrix.smul_apply",
+      "ProbabilityTheory.bernoulliMeasure"
+    ],
+    "query": "Inspect Matrix.smul_apply and bernoulliMeasure's probability parameter; search stochastic-block-model terminology across Mathlib",
+    "result": "Entrywise matrix scaling expresses the two coefficient matrices and Bernoulli parameters require membership in [0,1]; the specific assortative/disassortative alternatives were not found as a named model.",
+    "comparisons": [
+      "Define the two 2-by-2 matrices with exactly the displayed diagonal/off-diagonal swap; rho in (0,2/3) proves all entries lie strictly between zero and one, and is not the same as permitting arbitrary symmetric layer matrices."
+    ],
+    "gap": "Matrix scaling and Bernoulli laws suffice as primitives, while the two explicit alternatives and their probability-range checks still need to be defined."
+  },
+  {
+    "interface_id": "local-810136ab7ba1682fe489",
+    "declarations": [
+      "PMF.uniformOfFintype",
+      "PMF.bind",
+      "ProbabilityTheory.bernoulliMeasure"
+    ],
+    "query": "Inspect uniformOfFintype, PMF.bind and bernoulliMeasure; search stochastic.block|block.model across Mathlib",
+    "result": "Uniform distributions on nonempty finite types and probability mixtures are available, together with binary conditional edge laws; no balanced latent two-community multilayer model was identified.",
+    "comparisons": [
+      "Uniform laws can range over the balanced-label subtypes after checking nonemptiness, and a mixture constructs conditional edge observations; retain both the full joint law of (A,sigma,tau) and its observation marginal, and do not silently treat the separate prior draws as an explicitly printed independence hypothesis."
+    ],
+    "gap": "Finite uniform laws and mixtures are available, but the balanced latent model needs a specified prior coupling, conditional edge construction, and a clear distinction between joint and observation laws."
+  },
+  {
+    "interface_id": "local-b509d8949f6c28a4e27a",
+    "declarations": [
+      "Matrix.mulVec",
+      "posPart_def"
+    ],
+    "query": "rg neural.network|relu|rectified.linear across Mathlib, then exact word-boundary neural-network/ReLU searches; inspect Holor, Matrix.mulVec and the additive positive-part definition",
+    "result": "The neural-network text hit describes tensor coefficient arrays in Holor, not an architecture class; matrix action and real positive part provide affine-layer and ReLU components but no depth/width/active-weight network class was identified.",
+    "comparisons": [
+      "Compose affine coordinate maps with positive-part activations as supported by the archived naming context, then count hidden layers, maximum width and nonzero weights; the passage leaves bias counting, exact versus bounded architecture sizes, and rounding conventions unspecified."
+    ],
+    "gap": "Linear-layer and ReLU primitives are available, while the network architecture class and its depth, width, sparsity and bias-counting conventions require an explicit source-faithful specification."
+  },
+  {
+    "interface_id": "local-c12fd546185be52e80df",
+    "declarations": [
+      "MeasureTheory.condExp",
+      "ProbabilityTheory.condDistrib",
+      "ProbabilityTheory.variance"
+    ],
+    "query": "rg non.degenerat|hoeffding|u.statistic in Probability; inspect condExp, condDistrib and variance for a first conditional kernel projection",
+    "result": "The probability hits concern Hoeffding concentration rather than U-statistic projection degeneracy; conditional expectations, regular conditional laws and real variance provide relevant components, subject to their measurability/integrability conventions.",
+    "comparisons": [
+      "Construct h1_i as a version of the conditional expectation given X1, uncentered as printed, then take its variance; ordinary conditional expectation is defined almost everywhere, and zeta1_i>0 is a coordinate-specific criterion rather than positivity of every coordinate."
+    ],
+    "gap": "Conditional expectation and variance are available, but the paper's first kernel projection and its coordinatewise non-degeneracy predicate need a version-aware definition."
+  },
+  {
+    "interface_id": "local-b84d15e8840dfd18483d",
+    "declarations": [
+      "MeasureTheory.eLpNorm",
+      "MeasureTheory.integral",
+      "ProbabilityTheory.variance"
+    ],
+    "query": "rg orlicz|hoeffding|u.statistic in Probability and Analysis; inspect SubGaussian.lean 25-39, eLpNorm, integral and variance",
+    "result": "SubGaussian.lean explicitly leaves the Orlicz-norm definitions as TODO; ordinary eLpNorm and variance cover polynomial moments but do not implement the general psi_beta exponential norm for beta in (0,2].",
+    "comparisons": [
+      "Retain all three bounds with a single D, the n-dependent nonnegative B_n and the dimension maximum; L4 control of the centered first projection and its variance are expressible, while neither ordinary Lp norms nor a beta=2 MGF predicate can replace the full psi_beta condition or remove the B_n=0 case."
+    ],
+    "gap": "Variance and fourth-moment primitives are available, while the general psi_beta norm and the combined dimension-uniform three-part bound need definitions preserving beta and B_n's stated ranges."
+  }
+]

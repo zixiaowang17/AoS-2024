@@ -1,0 +1,974 @@
+[
+  {
+    "interface_id": "local-6bc80b18e514b4766a68",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "d23d4afab31a930ecef8138f126a39d5aef9c99aec1bb15fb428595ab5f176a2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D2",
+        "comparison": "For nonempty Q in Euclidean space, Metric.infDist is the infimum of norm(y-x). On an empty set its toReal-based definition returns zero rather than an extended infinite distance, so the source's unspecified empty-set case must not be silently identified with that value. The projection is the set of y in Q satisfying IsMinOn of distance; membership must be included because IsMinOn alone does not require it. Closed nonempty Euclidean sets attain the infimum by IsClosed.exists_infDist_eq_dist, but their projection can contain multiple points. Tangent spaces are finite-dimensional linear subspaces with a unique orthogonalProjectionOnto. Projection onto the nonlinear embedded manifold is a different, locally single-valued object under the regularity/neighborhood hypotheses used later; it is not a global orthogonal linear projection.",
+        "statement_sha256": "8f8d055cae4ed719dbc41a3660ba3c44a1fd970f5ccaac07a798de9fc2cd79a4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.infDist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Real-valued infimum distance to a set, obtained from the extended distance; for the empty set its toReal convention gives zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L463-L464",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "IsClosed.exists_infDist_eq_dist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → {s : Set α} → [ProperSpace α] → IsClosed s → s.Nonempty → (x : α) → ∃ y ∈ s, Metric.infDist x s = dist x y",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "A nonempty closed subset of a proper metric space has a nearest point to every point; uniqueness and convexity are not required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L616-L624",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.orthogonalProjectionOnto",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (K : Submodule 𝕜 E) → [K.HasOrthogonalProjection] → E →L[𝕜] K",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Continuous linear orthogonal projection onto a submodule with an explicit HasOrthogonalProjection instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L121-L121",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected metric infimum distance, nearest-point attainment for closed nonempty sets in proper spaces, IsMinOn and orthogonal subspace projection against the source distance and projection definitions.",
+          "result": "Distance and the set of nearest points can be represented; closed-set attainment does not imply uniqueness, while tangent-subspace projection has a separate linear interface."
+        }
+      ],
+      "gap": "Define the possibly set-valued nearest-point map and supply the local manifold assumptions needed for single-valued projection where it is used."
+    }
+  },
+  {
+    "interface_id": "local-b012a88e4d86720f80e8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "35cb3ddd65b9d4c171d76e9cd4bd434311785f77fb4727a72df8b249ea480a9c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D1",
+        "comparison": "The source requires, at each point of M, an open ambient U and a C^p map from U to some R^n with surjective Jacobian at that point and M intersect U equal to its zero fiber. ContDiffOn and fderiv express the local regularity and derivative once the map on U is represented appropriately. IsManifold is a chart/groupoid predicate and is not itself the quoted regular-level-set characterization; its more general boundary/corner models must not be imported into this embedded Euclidean definition. A surjective derivative has a kernel of the tangent dimension, and the source normal space is that kernel's Euclidean orthogonal complement, after proving independence of the defining equations. The letter F here is a smooth defining map, distinct from the later set-valued variational map and Theorem 2.7's particular defining map G.",
+        "statement_sha256": "8c57a4379ee8cffdcfadf046b14342b693869d00c8b559ce9e9a03bba844fd3f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsManifold",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {H : Type w} → [TopologicalSpace H] → (I : ModelWithCorners 𝕜 E H) → (n : ℕ∞ω) → (M : Type z) → [TopologicalSpace M] → [ChartedSpace H M] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Geometry.Manifold.IsManifold.Basic",
+          "provides": "Compatibility of charts with a specified model with corners and differentiability order; embeddedness in an ambient Euclidean space and quantitative reach are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Geometry/Manifold/IsManifold/Basic.lean#L779-L783",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the chart-based IsManifold class, finite-order smoothness and derivative definitions; compared the source embedded zero-level-set definition and tangent/normal construction.",
+          "result": "Mathlib has chart-based manifolds and ambient derivatives, but identifying a regular local zero set with an embedded manifold and its tangent kernel needs an implicit-function argument."
+        }
+      ],
+      "gap": "Build charts from the source's local surjective defining equations and prove that the embedded tangent space is the Jacobian kernel with the stated orthogonal normal space."
+    }
+  },
+  {
+    "interface_id": "local-cfe7bedb92f11a893b90",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "6f11989fe0e191e7a7d4aeabad262540517edea72a268c0f92cb5d1647d98ec8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D10",
+        "comparison": "For each x, integrate z maps to A(x,z) under the fixed probability P to obtain the single-valued mean A(x). The sum A(x)+H(x) is Set.image of h maps to A(x)+h on H(x); zero membership is equivalent to -A(x) in H(x). Measurability of A alone does not ensure the vector expectation exists, so use the moment assumptions where applicable rather than the integral's nonintegrable zero fallback. H is arbitrary and need not be a subdifferential, monotone map or normal cone. Distinguish two-argument sampled A from one-argument mean A, and distinguish this H from the calligraphic H used in the earlier local theorem.",
+        "statement_sha256": "d91893320d23ae2977c77ae37f1ce6319ab18f3b467210b206ba7a5c0d4c5973"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integral and image membership definitions and compared the stochastic/mean A notation and arbitrary set-valued H in (3.1).",
+          "result": "A vector expectation and translation of each H(x) give the population inclusion, provided the expected map is genuinely integrable."
+        }
+      ],
+      "gap": "Define the mean stochastic map and translate H(x) by it, then require zero membership in the resulting set."
+    }
+  },
+  {
+    "interface_id": "local-51018a1be066c1055d74",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "b94ad4e783cfd5bf480943a0c1fb46d79b643b41a8c3f5100531bff0d606d693",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D12",
+        "comparison": "The order is exists U around x-bar, then for almost every z, for every x in U, A(.,z) is differentiable at x. It is stronger than a separate exceptional z-set for each x. fderiv supplies the Jacobian only on that differentiability domain; its zero fallback is not evidence of smoothness. MemLp of A(x,.) at exponent two and of its continuous-linear-map derivative at exponent two can express pointwise moment finiteness with appropriate measurability. In addition the expectations of their squared norms must be bounded uniformly in x by finite constants; pointwise MemLp alone does not suffice, and a real sSup default for an unbounded set must not make the displayed finiteness automatic. The Jacobian uses operator norm. This assumption does not give a random Lipschitz bound on the Jacobian, which Theorem 3.1 adds separately, or authorize adding that stronger hypothesis to Theorem 3.2.",
+        "statement_sha256": "98844dcf47abe0e530f27f4b8e89c4fb01312e10056a17e148a7ba102a9af0e6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "DifferentiableAt",
+          "type": "(𝕜 : Type*) → [NontriviallyNormedField 𝕜] → {E : Type*} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type*} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Existence of a continuous linear Frechet derivative at the supplied point, without asserting continuity of the derivative as the point varies.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L145-L146",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected differentiability, totalized derivatives, MemLp and bounded-supremum semantics against both clauses of the common-neighborhood assumption.",
+          "result": "Differentiability and square-integrability predicates are available, but the common almost-everywhere set and uniform neighborhood bounds must be explicitly quantified."
+        }
+      ],
+      "gap": "Impose one neighborhood with almost-every-z differentiability at every point and uniform finite second-moment bounds for values and operator-norm Jacobians."
+    }
+  },
+  {
+    "interface_id": "local-40677ca555c700ecd4c6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "58203ff28da1cdf33542c699ecff2ea4260b6825177b8b27c3ea59fa6774e80a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D11",
+        "comparison": "Definition 2.6 starts at (x-bar,v-bar) on graph F and requires local equality of graph F^-1 with graph sigma near (v-bar,x-bar). For the inclusion 0 in F(x-bar), the intended inverse graph is therefore near (0,x-bar), as explicitly localized in Theorem 3.1. Assumption A nevertheless calls F smoothly invertible at (0,x-bar), reversing the original definition's basepoint order. Function.graph represents the single-valued sigma side, while the inverse relation is {(v,x) | v in F(x)}; ContDiffOn expresses C1 on its input neighborhood. This condition does not assert that F is globally single-valued or globally invertible. The ordinary inverse-function theorem for a map with an invertible full derivative is a stronger special-case construction, not a replacement for this set-valued graph hypothesis.",
+        "statement_sha256": "595f68fd64c22aeabcaafaaba2f3c652ad71b9cb109ce4be984cdf63cfc2776f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.graph",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → SetRel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Basic.Rel",
+          "provides": "Graph of a single-valued function as the set of argument-value pairs satisfying f a = b.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Basic/Rel.lean#L564-L564",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected function graph and smoothness primitives and compared frozen Definition 2.6 with Assumption A and the recorded inverse-graph order issue.",
+          "result": "The local inverse graph can be required to coincide with the graph of a C1 function, but the source's basepoint notation is reversed relative to its own general definition."
+        }
+      ],
+      "gap": "Specify the C1 inverse-graph localization while explicitly retaining the source's (0,x-bar) versus (x-bar,0) graph-order discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-c2029d285fe83d4cbb78",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "1496c9134967798755a2a3790e00b10082e64870d61b5e63875f8fb7cb4c4e00",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D3",
+        "comparison": "For a genuinely C^p extension into R^m that agrees locally with F on M, fderiv at x restricted to the embedded tangent subspace yields a linear map T_M(x) to R^m. To call it the manifold derivative requires the usual proof that two such extensions agree on tangent directions. The source sentence instead prints extension codomain R^d although F has codomain R^m, does not explicitly state C^p regularity of that extension in the defining sentence, and alternates nabla F and nabla_M F. These are retained source issues, not grounds to silently type the printed map differently or infer differentiability from mere agreement. The construction is derivative restriction to the tangent domain, not automatic projection of the output into a tangent space.",
+        "statement_sha256": "e0597e5da7fa4cf6edc41f09cc00cd16b71959101c1e0a4b016dabb7e097feaf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected ambient derivative and local smoothness definitions and compared the literal covariant-Jacobian extension paragraph with its saved codomain and regularity issues.",
+          "result": "Restricting the ambient extension derivative to the tangent subspace is supported as linear algebra once a correctly typed smooth extension is supplied."
+        }
+      ],
+      "gap": "Resolve the extension's codomain and smoothness wording, then prove that its tangent-restricted derivative is independent of the chosen extension."
+    }
+  },
+  {
+    "interface_id": "local-579b064f824352e1d607",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "6996815a4a63586b71e1fb8171c1f003cd224d1a9a862ec054e5bb669dfcf047",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D4",
+        "comparison": "At x in dom f, f(x) is finite and v is a finite Euclidean vector. Require a local lower bound f(y)>=f(x)+inner(v,y-x)+r(y) with r=o(norm(y-x)) as y approaches x. IsLittleO describes this real remainder; the source inequality itself must allow f(y)=+infinity without subtracting infinite function values or encoding f as an everywhere-finite real function. A punctured-neighborhood formulation and the value at y=x must be reconciled when implementing it. This is the regular Frechet subdifferential, not a convex global supporting-hyperplane predicate or the later limiting subdifferential. Theorem 2.7 specifically requires -A(x-bar) in this regular set, so a limiting-criticality assumption cannot replace it.",
+        "statement_sha256": "e2e3ba0849b4273d5d10a00a43be44ad88844a3be302b12dcba97528a53f577a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the full pinned library for subgradient and subdifferential interfaces with no specialized regular subdifferential found; inspected IsLittleO's explicit small-constant norm bound.",
+          "result": "The first-order remainder can be encoded by a real little-o predicate, but the extended-valued regular subgradient set and its calculus are not supplied by the inspected interface."
+        }
+      ],
+      "gap": "Define regular subgradients through the local extended-valued lower inequality with a remainder little-o of distance to x."
+    }
+  },
+  {
+    "interface_id": "local-c551a39d49c0838cc4aa",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "471d6165686d5ba0ced32c2083f44fe69f7891b0a749e26782e7831a6fdc01bc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D18",
+        "comparison": "G takes a positive real step parameter, a Euclidean state and a Euclidean noise input. Starting at x0, compute x_(k+1)=x_k-alpha_k*G(alpha_k,x_k,nu_k), storing the next state through ordinary recursion or Function.update. The subscript alpha on G denotes its first argument, not a gradient derivative or a fixed step-independent operator. At this definition G is arbitrary; measurability and noise assumptions come later. It need not equal a subgradient, proximal map or forward-backward residual. Preserve the source's forward reference to Section 6 as a reference issue, and do not infer convergence, domain preservation or an optimization objective from the recurrence alone.",
+        "statement_sha256": "1d7807d345519f9e6ec7f8e31777c4d809061a479fb40d983dfbde92fcde6f5c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Function.update",
+          "type": "{α : Sort u} → {β : α → Sort v} → [DecidableEq α] → (∀ a, β a) → (a' : α) → β a' → (a : α) → β a",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Logic.Function.Basic",
+          "provides": "Replace exactly one coordinate of a possibly dependent function, leaving every other coordinate unchanged.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Function/Basic.lean#L645-L646",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for the generalized gradient update and inspected function-state replacement; compared the positive-step indexed map and exact recurrence.",
+          "result": "The recurrence is a direct finite-time recursive construction for any supplied G and positive control sequence; no specialized optimization interpretation is needed."
+        }
+      ],
+      "gap": "Define the iterate recursion from x0, positive alpha_k and the supplied noise sequence using the printed G update."
+    }
+  },
+  {
+    "interface_id": "local-44035824e880b014d247",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "7dd904c60787eed2a98d5613e55707d984b130af322a641e3163f852f8fff990",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D16",
+        "comparison": "Treat F as a function from R^d to sets of R^d and define its solution set as F-preimage of {S | 0 in S}. A fixed x-bar is assumed to belong, which implies F(x-bar) is nonempty and hence x-bar is in dom F. Other values of F may be empty or have multiple elements. No monotonicity, convexity, subdifferential structure or A+H decomposition is asserted by this inclusion; such examples elsewhere cannot become extra hypotheses for the abstract stochastic-approximation theorem. Membership is not the equality F(x)=0 or F(x)={0}.",
+        "statement_sha256": "d262efc907d0ea4bb5ee0cf7c378531cebf846912c4188c03be734320cf5c596"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected preimage membership and compared the abstract set-valued inclusion and fixed-solution statement with the source domain definition.",
+          "result": "The solution set is the preimage under F of sets containing zero, and fixing a member expresses exactly the source setup."
+        }
+      ],
+      "gap": "Define the solution predicate zero in F(x) and retain the chosen x-bar satisfying it without restricting the form of F."
+    }
+  },
+  {
+    "interface_id": "local-050187d6ea9a67a0b40f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "5e6fe27e36a49439ec9e7c3024a14898e824f228a24ef138ae1c072b1e4a2d96",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D5",
+        "comparison": "For a candidate v, require sequences x_i and v_i with v_i in the regular subdifferential at x_i and Tendsto x_i to x, Tendsto f(x_i) to f(x), and Tendsto v_i to v. The regular subgradient membership places x_i in the finite effective domain; function-value convergence must be retained in the appropriate finite/extended target space. Convergence of the graph pairs (x_i,v_i) alone omits the function-value-attentive condition and can enlarge the set. The resulting limiting subdifferential is not automatically convex and cannot be replaced by a convex subgradient set without additional assumptions and an equivalence theorem. The derivative or little-o primitive does not establish its graph closedness or calculus rules.",
+        "statement_sha256": "232aacc11a73593e741364452d3b824f79905dd32878705c9296a3333a6bb061"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for limiting subdifferentials and inspected the sequence-limit predicate; compared all three components of the source attentive limit.",
+          "result": "A conjunction of sequence limits can express the definition after regular subgradients and extended-function domains are constructed; no specialized limiting-subgradient API was verified."
+        }
+      ],
+      "gap": "Define the limiting set through regular-subgradient sequences with simultaneous point, function-value and vector convergence."
+    }
+  },
+  {
+    "interface_id": "local-e6e4e6e196a55874e9ff",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "966fe842a405136d34c273be09ba1eeda012d9979c782f52840df75972769509",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D6",
+        "comparison": "Require M subset dom f, x-bar in M and zero in the limiting subdifferential at x-bar. Smoothness concerns both the local embedded manifold and f restricted to it. Sharpness ranges over x outside M satisfying norm(x-x-bar)<epsilon and abs(f(x)-f(x-bar))<epsilon, and every v in the limiting subdifferential there. It is not separation over all nearby positions without the function-value condition. For a nonempty set of such subgradient norms, le_csInf_iff relates the infimum to a common lower bound; a real sInf default on an empty set would not supply the intended extended-infimum convention and must not be used silently. For the tilted version the sentence names bar-v but writes v in f_v=f-inner(v,.); preserve this notation issue while specifying the chosen subgradient parameter. This active-manifold property is not an unstated premise of the later abstract smooth-reduction assumption.",
+        "statement_sha256": "75e7a40147f37f7d9a368ff9b27eca42fe0c065eb621a98eb6d2889ce6e85ee9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for active manifolds and inspected local smoothness and positive infimum bounds; compared both smoothness/sharpness clauses, the function-value localization and the tilt notation.",
+          "result": "Local smoothness and a positive separation predicate can be assembled, but no active-manifold or limiting-subgradient separation theorem was found and empty-domain infima require care."
+        }
+      ],
+      "gap": "Combine local embedded smoothness with uniform positive limiting-subgradient separation off the manifold inside the position-and-value neighborhood."
+    }
+  },
+  {
+    "interface_id": "local-4c71fd330e8a32335e0a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "45377922bf741898c713958269f6941cf55a7689aa1d31bb16a851fe47fc31fd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D13",
+        "comparison": "For k>0 take iid z_i from P and form A_S(x)=(1/k) sum_i A(x,z_i). Keep sample indices even if values repeat; the printed braces around S do not permit deduplicating equal draws. Translate H(x) by this vector and require zero membership for x_k. The phrase assuming one exists is essential: neither independence nor the finite average proves solvability. Theorem 3.1 additionally asks for a measurable selected local solution with probability tending to one of remaining in its local ball; none of that follows merely from the SAA label, and no global convergence or unique solver is built into this definition.",
+        "statement_sha256": "5f78286c3411fc282ea5a4eba8bcc36bf0020a41e1d9fea9b08a197cafd48c13"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected iid predicates and translated set images and compared the empirical mean and explicit existence qualifier of the SAA definition.",
+          "result": "An iid indexed sample and its normalized finite vector sum define the empirical inclusion; selecting a solution is additional to writing that inclusion."
+        }
+      ],
+      "gap": "Define the indexed sample mean A_S and its translated inclusion, retaining existence and measurable local selection as separate obligations."
+    }
+  },
+  {
+    "interface_id": "local-9f812b24b614729cc04f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "d341e383bda91350ae546b04c310dfb3b1ac2a23089481a931a1faece3bf8e78",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D17",
+        "comparison": "For x on M near x-bar, take the image of F(x) under orthogonalProjectionOnto T_M(x), with its subtype output included back in R^d. C1 requires this image to be a singleton, including nonemptiness; it does not say F(x) itself is single-valued. Then F_M(x)+N_M(x) is the translate of the entire normal subspace by that tangent vector. C2 equates its graph with graph F only inside a neighborhood of (x-bar,0), not globally. The listed clauses give a C^p manifold but do not explicitly make F_M C^p; preceding prose says C1 smoothness. Do not infer the stronger derivative regularity used later or insert active-manifold sharpness as a missing condition. This is a set-valued local graph reduction, not just equality of zeros.",
+        "statement_sha256": "b3a8ed37477a85d1c6073b7284a79004be3722e524c3693ff1b4e0b637c09872"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.orthogonalProjectionOnto",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (K : Submodule 𝕜 E) → [K.HasOrthogonalProjection] → E →L[𝕜] K",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Continuous linear orthogonal projection onto a submodule with an explicit HasOrthogonalProjection instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L121-L121",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        },
+        {
+          "name": "Set.inter",
+          "type": "{α : Type u} → Set α → Set α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Conjunction of membership constraints on the same candidate-law family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L242-L242",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected subspace projection and set image/intersection semantics; compared the single-valued projected image and full local graph equality with the saved C1/Cp wording gap.",
+          "result": "Projecting each set F(x) to its tangent space and requiring a singleton image supports the reduction; local graph equality and its regularity remain source-specific assumptions."
+        }
+      ],
+      "gap": "Construct the singleton tangent projection and impose the graph equality with its normal-space extension, retaining the unproved regularity level of the reduced map."
+    }
+  },
+  {
+    "interface_id": "local-51c1bbe4ee2b51497a69",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "81f98247a8522351125a329853aaf91cbf93c58110f33d793c3f2dc924d2f6e7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D21",
+        "comparison": "J1 requires the full G map measurable. J2 bounds alpha_k above and below by positive constants times k^-gamma for positive indices, with gamma in (1/2,1]; it is not only an eventual upper rate or equality to one specific schedule, and k=0 needs separate initialization rather than division by zero. The history F_k contains x_j for j<=k and noise nu_j only for j<k. Thus nu_k is a difference with zero conditional mean before its new noise is revealed, not a process that should itself be called an F_k-adapted martingale. Require the strict conditional fourth-moment bound E[||nu_k||^4|F_k]<q(x_k), with q bounded on bounded sets, not necessarily globally bounded. Real condExp needs its integrability hypotheses or a justified localization/extended-moment treatment; its nonintegrable zero fallback cannot verify this bound. A conditional bound by random q(x_k) does not automatically imply a uniform unconditional fourth moment. J4 requires x_k in dom F for k>=1. Theorem 5.1 separately narrows gamma to (1/2,1) and assumes convergence, so those facts are not consequences of this standing definition.",
+        "statement_sha256": "5aa1b957cb4dac14eb039d27c20e2a9223f9c032d976197dad8e84337b8e795c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected measurability, conditional expectation, Lp and martingale definitions; compared J1-J4 under Assumption I including the strict fourth-moment inequality and positive-step power bounds.",
+          "result": "The noise and measurability primitives support the assumptions, but martingale differences, uniformity, indexing and conditional moment integrability must be stated explicitly."
+        }
+      ],
+      "gap": "Assemble the measurable update, two-sided stepsize bounds, history filtration and conditional noise bounds with domain membership, retaining the source exponent range."
+    }
+  },
+  {
+    "interface_id": "local-fc9fae61e4e9f489243f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "07982a6f80b68413c243dd4ed46e8a9dd823c8842adf132701cbca1dd1673211",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D22",
+        "comparison": "Write nu_k=nu_k^(1)+nu_k^(2)(x_k), where the second term is a random function on dom F. For every x near x-bar in that domain, bound E_k||U transpose nu_k^(2)(x)||^2 by C||x-x-bar||^2, and require both conditional means to be zero for every source-specified x. This bounds only the tangent-projected remainder, not its full ambient norm. The columns of U are stated to be an orthogonal basis, not necessarily orthonormal; U transpose is therefore not automatically an isometric coordinate inverse. The normalized sums of U transpose nu_i^(1) converge in distribution to the r-dimensional Gaussian with PSD covariance Sigma, where r is tangent dimension; a singular covariance is allowed. TendstoInDistribution supports that limit once laws and measurability are supplied. The source's later direct multiplication of this r by r Sigma by ambient Jacobians is dimensionally problematic when r<d, and no missing basis factors or orthonormalization are inserted here. The central limit assertion is an assumption, not a consequence of conditional mean zero alone.",
+        "statement_sha256": "8bada54980c20de582dda11d337607155e0be6a814d538a19f84da35d4b10bdd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional expectations, finite matrix-vector products, varying-law distributional convergence and multivariate Gaussian construction; compared the complete tangent-noise split and its saved coordinate discrepancy.",
+          "result": "The conditional tangent-projected remainder bound and tangent-coordinate Gaussian limit can be expressed, but their dimensions and basis normalization must be retained when comparing later ambient formulas."
+        }
+      ],
+      "gap": "Define the two noise components and their conditional bounds, then state the Gaussian limit in the coordinate space indexed by columns of U."
+    }
+  },
+  {
+    "interface_id": "local-37c27ec563ab3bc35da9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "44d35e67199ee8378c3515f8d064c84db554f1dce98a8ac65275315c299da243",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D19",
+        "comparison": "Choose one neighborhood U of x-bar and one positive C. For each nu in R^d and alpha>0, the norm-value set over U intersect dom F must be bounded above by C(1+||nu||). The fixed solution x-bar supplies nonemptiness when the neighborhood contains it; csSup_le_iff applies once genuine boundedness is supplied, rather than relying on a totalized real sSup for an unbounded image. The constants and neighborhood are common to all nu and alpha. This is a bound on G itself, not a Lipschitz condition comparing two x values, not only a bound at the realized noise nu_k and not a restriction to sufficiently small alpha. Multiplying by alpha gives an iterate-step estimate later, but no rate or convergence follows from this definition alone.",
+        "statement_sha256": "30703aaca3a2c4bc7b90394e5d72e3098a6b89a2c7ccf2d490c2a681bcd556f8"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the bounded nonempty supremum inequality and compared the source neighborhood, domain, noise and all-positive-step quantifiers.",
+          "result": "The bound is a uniform norm constraint on the local domain for each noise and step, expressible through a genuine bounded supremum or its pointwise equivalent."
+        }
+      ],
+      "gap": "State the uniform local-domain bound by one C times 1+||nu|| for every nu and every positive alpha."
+    }
+  },
+  {
+    "interface_id": "local-3fba83970195edb38982",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "52680ed534102f3b088e6721749b231eae3547133a7634b99748f145018fa34f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D20",
+        "comparison": "Use the local nearest-point y=P_M(x), and project G_alpha(x,nu)-nu onto T_M(y), subtracting the unique tangent projection F_M(y) supplied by C1. This gives meaning to the printed expression with set-valued F(y), without taking a norm of an arbitrary set or choosing an arbitrary F value. E1 bounds this norm by C(1+||nu||)^2*(dist(x,M)+alpha). E2 compares inner(G_alpha(x,nu)-nu,x-y) with mu*dist(x,M) minus (1+||nu||)^2 times both the little-o distance remainder and C*alpha. Preserve the linear distance leading term rather than squaring it, and do not move the noise factor off the C*alpha contribution. IsLittleO can express a scalar remainder small relative to distance near zero, but the common-neighborhood, all-nu and all-alpha quantifiers require appropriate uniformity instead of a separately chosen remainder for each noise. Constants C,mu are positive and x is restricted to U intersect dom F. Neither inequality is a generic consequence of projection or smoothness.",
+        "statement_sha256": "0c8c595d2a2cecea55150331ea998c4d5a7139671020b0dae1b1e36c1fe17c7a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.orthogonalProjectionOnto",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (K : Submodule 𝕜 E) → [K.HasOrthogonalProjection] → E →L[𝕜] K",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Continuous linear orthogonal projection onto a submodule with an explicit HasOrthogonalProjection instance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L121-L121",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.infDist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Real-valued infimum distance to a set, obtained from the extended distance; for the empty set its toReal convention gives zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L463-L464",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected tangent projection, set distance and little-o definitions and compared both complete E1/E2 displays against the single-valued projection clause of Assumption C.",
+          "result": "The geometric and asymptotic ingredients are available, but the local projection, unique tangent reduction and uniform remainder interpretation are needed to make the two source estimates precise."
+        }
+      ],
+      "gap": "Define the tangent comparison using the unique projected F value and the aiming inequality with the printed common squared-noise factor and little-o remainder."
+    }
+  },
+  {
+    "interface_id": "local-fbb2a2883d413eab1dbb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "b1cd82b05c72789f0d25aba7d46a59fff716dd3a068e0dfa7519140a1b55bebb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D7",
+        "comparison": "For every sequence (x_i,v_i) in graph of the limiting subdifferential and every limit (x-bar,bar-v) in that graph, require f(x_i) tend to f(x-bar) whenever the graph pairs converge. This quantifies over every such bar-v, not just one selected subgradient. Filter.Tendsto records these limits but supplies no subdifferential graph or theorem itself. It differs from the function-value convergence built into the definition of an individual limiting subgradient: here convergence of function values is a consequence demanded of every converging limiting-graph sequence. The property is not global continuity or lower semicontinuity of f, and it does not by itself assert that the subgradient graph is closed. The printed examples of domain-continuous and closed convex functions require separate supporting arguments.",
+        "statement_sha256": "246419028b5b29a8aaccbe6a8e9f9af186d2a66ca0a6ade116dcdefd70b4b51f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for subdifferential continuity and inspected the sequence-limit predicate; compared the full graph-pair and value convergence quantifiers.",
+          "result": "The source property is expressible as sequential continuity of the function-value assignment along the limiting-subgradient graph; no specialized interface was found."
+        }
+      ],
+      "gap": "Define value convergence along every limiting-subgradient graph sequence approaching any graph point over x-bar."
+    }
+  },
+  {
+    "interface_id": "local-da0ee1a854d6fa3419f0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "3d85da978d34eb847a7daeeb651a197e8a5fcf22d93b2c5f9e0e9ca64156dc36",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D14",
+        "comparison": "The derivative is dP'/dP and the outer measure is baseline P, so use P'.rnDeriv P, not the reverse. RN derivatives are extended nonnegative functions describing an absolutely continuous part; representing all of P' requires P' absolutely continuous with respect to P. Converting to a real ratio needs its almost-everywhere finiteness, while evaluating phi on (0,infinity) additionally requires positivity or a separately specified boundary extension. Absolute continuity alone permits zero density, and no singular contribution or zero-density convention is printed. ConvexOn and ContDiffOn at order three describe phi on the positive ray with phi(1)=0. Do not add phi'(1)=0, phi''(1)>0 or a fixed normalization; even a degenerate generator is allowed by the stated class. The real integral's nonintegrable zero fallback is not a divergence value. A specialized KL definition with its own extensions is not an exact replacement.",
+        "statement_sha256": "8b5fdc6154bf7ac7d00a12568b68604a389710e0a07d5001cdf6829c71cadd7e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.rnDeriv",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → (α → ℝ≥0∞)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue",
+          "provides": "Radon–Nikodym density of the absolutely continuous part; singular mass is separate and must not be lost when defining divergence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ConvexOn",
+          "type": "(𝕜 : Type u) → {E : Type v} → {β : Type w} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [AddCommMonoid β] → [PartialOrder β] → [SMul 𝕜 E] → [SMul 𝕜 β] → Set E → (E → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Convex.Function",
+          "provides": "Convexity of a function on a convex set; it does not impose existence or uniqueness of a minimizer.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Function.lean#L54-L56",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the full pinned library for f-divergence interfaces and inspected RN derivatives, real integration, convexity and smoothness primitives; only specialized KL references were found.",
+          "result": "The integral of a convex smooth generator of a density can be assembled on its valid positive-density domain, but the source supplies no zero-density or singular-law extension and no generator normalization beyond phi(1)=0."
+        }
+      ],
+      "gap": "Define the divergence on laws with a valid positive density and integrable generator value, explicitly retaining the unspecified boundary and singular-law cases."
+    }
+  },
+  {
+    "interface_id": "local-f6a71f575f838d2a778e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:44:14.356904+00:00",
+    "source_interface_sha256": "4395c0c061a87e4335028f672a2c0d5b1784c31bf50a700a3439c804955db4d4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1485",
+        "local_id": "D15",
+        "comparison": "For each probability P', require the source divergence Delta_phi(P'||P)<=epsilon on its defined domain and existence of x in the given local neighborhood U with zero in the translate of H(x) by integral A(x,z) dP'(z). The expectation now uses the perturbed law, so baseline integrability alone need not establish it. The existential condition does not assert that every solution lies in U, uniqueness within U, or a measurable map P' to a selected center. The notation x-bar_(P') names a solution without supplying those properties; a chosen center used later needs its own justification. Do not omit this solvability restriction or import the stronger SAA theorem hypotheses to make it automatic.",
+        "statement_sha256": "6bae07c64e6a4a9e5721cc303450a925a84cc820a27192830d1b095db8bb28b8"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.inter",
+          "type": "{α : Type u} → Set α → Set α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Conjunction of membership constraints on the same candidate-law family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L242-L242",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected law-class intersection, vector expectation and translated set images; compared the divergence bound and existential perturbed-solution clause.",
+          "result": "The admissible neighborhood is the intersection of a divergence sublevel with a solvability condition, not merely an unrestricted statistical distance ball."
+        }
+      ],
+      "gap": "Intersect the divergence sublevel with laws admitting at least one solution in U, keeping solution uniqueness and selection separate."
+    }
+  }
+]

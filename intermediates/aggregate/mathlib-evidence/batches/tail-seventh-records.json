@@ -1,0 +1,650 @@
+[
+  {
+    "interface_id": "local-3a150c3434bd06de1317",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "aaba6699164353d696769309f676e77c464c67edc126eb3732827290a35b1ceb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D28",
+        "comparison": "Keep the strict nP>nQ branch and its gamma-upper-bound-dependent l1/T formulas, versus uniform target-arm exploration when nP<=nQ; return the different sP/sQ splits and only the initial target policy. Preserve all ceilings, the half-grid points and the binwise empirical mean whose count denominator is max(1,count). Int.ceil uses non-strict mathematical rounding and does not resolve contrary prose or the printed grid membership-equality notation. The final smoothness expression uses ordinary log(b), with separate base-two iterated-log correction, before clipping to the supplied beta bounds. b=0, l1=0, invalid iterated logs or a requested T beyond available observations need source conventions; finite extrema and total real logs do not supply them. Inputs are bounds and tuning constants, not true unknown smoothness/transfer parameters.",
+        "statement_sha256": "611df4e7acd166bfc9d1bd350901b638138aaf3337d3b8bb2a09b6fbff07983e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.ceil",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "Smallest integer greater than or equal to the supplied value; equality stays at that integer rather than increasing it.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L252-L253",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.logb",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Base",
+          "provides": "Real logarithm in a supplied base, defined as log(x)/log(base); nonpositive-argument and degenerate-base extensions are totalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Base.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for bandit smoothness-estimation procedures; inspected integer ceiling, logarithm bases and finite filtering/maxima against all 21 source algorithm lines and both data-source branches.",
+          "result": "The rounding and finite operations are available, but no located implementation supplies the source selection, exploration policy, bin estimators and clipped smoothness estimate as one procedure."
+        }
+      ],
+      "gap": "The two-branch data collection, grid/bin estimator and sample-budget and logarithm-domain conventions still need to be implemented."
+    }
+  },
+  {
+    "interface_id": "local-6b0bacc8a100a1f3d711",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "b18ddba1c1c4374e816574e50975edb27ce11f91aeb3c45880a8e49a0b6bbb8e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0207",
+        "local_id": "D29",
+        "comparison": "Keep log-plus=max(log,1) only in the tau>0 branch, ordinary log(n*|B|^(d+2*betahat)) in the tau=0 branch, n=max(nP,nQ), and the maximum with 2*Cbar_beta*|B|^betahat in both. Count n_k^P comes from the supplied source subset. Real.sqrt returns zero for negative radicands and real division sends 1/0 to zero, neither matching an intended undefined negative root or the printed infinity rule. Do not replace log by log-plus, add clipping, use known beta or transfer parameters, or infer finite-sample confidence coverage from this arithmetic definition.",
+        "statement_sha256": "dee91d5d2b6082ce100c63623e19c6d4f30734363c2d64579936f1df2cb043a0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real logarithm, square-root and real-power definitions against both adaptive confidence-radius branches and the explicit infinity convention.",
+          "result": "The scalar functions support the finite valid-domain expressions. Their total real extensions do not encode the source's 1/0=infinity rule or justify changing the ordinary zero-pull logarithm."
+        }
+      ],
+      "gap": "The adaptive radius requires a compatible extended-value and square-root domain convention, especially in its zero-pull branch."
+    }
+  },
+  {
+    "interface_id": "local-16ede645a1058a51d59b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "cc7ffd78ec61139603ac1b6600b2ccf5ad5d4a08a09debd30f0c95c0322fc7dc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D9",
+        "comparison": "First weight the law of Theta by nonnegative ell_I(Theta)/E ell_I(Theta), then map theta to theta/ell_I(theta), for nonempty I and the stated positive expectation. This is not the pushforward under the original law. The rescaling can be assigned a harmless value on zero-weight angles only after showing those angles are null for the weighted law; its value is not specified by the source. withDensity and map require the relevant measurability/normalization arguments, and exponential tilting by total Real.log at zero would not preserve a zero weight. Keep the full spectral vector separate from its I-coordinate projection used in the specialized covariance.",
+        "statement_sha256": "0a884abeba1b8e2677b6d65caf2b2d2a50e0203f02e1e38f241aa2416bac8ebd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for spectral/tilted angular measures; inspected withDensity, pushforward and the exponential-tilt definition against the ell_I-weighted angular rescaling.",
+          "result": "Weighting the original angular law by ell_I divided by its expectation and then pushing forward represents the required order of operations. The existing exponential tilt is a different construction and a naive log-weight substitution mishandles zero weights."
+        }
+      ],
+      "gap": "The normalized angular weighting and almost-everywhere rescaling still need their measurability, finite-mass and zero-weight conventions specified."
+    }
+  },
+  {
+    "interface_id": "local-df2d8fb510cf4dd294e8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "686f6cf4fa0b3056b2798d9e45e3e696538d37b94924b5d63a0b1069f2ceb536",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D23",
+        "comparison": "Keep sqrt(n/a-star(u_n)) times Mhat/Phat-c over the printed simplex/stratified A_delta-prime/K domain. The denominator's zero-exceedance convention and the impossible literal positive-orthant proper-support strata remain source issues. TendstoInDistribution requires a measurable function-space representation and its topology; IsGaussianProcess alone supplies neither tightness nor a particular covariance. For beta=1 and s=1_I retain the full main-text covariance (1/tau_I)*Cov((v-transpose*Theta_I^I)^p1,(w-transpose*Theta_I^I)^p2) under the tilted law. Do not substitute the unweighted angular law or invent the excluded appendix's general covariance; bias assumptions remain a separate import, not consequences of naming this limit.",
+        "statement_sha256": "c958f90c192e9319a7eb2e966ce8208ab69663dd2f28bd3e3a246fcb97a6342b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected weak-law convergence, Gaussian-process and scalar covariance definitions against the ratio process and its explicitly supplied main-text covariance specialization.",
+          "result": "The library can state weak convergence on a chosen function space and Gaussian finite-dimensional laws. It does not provide the ratio-process limit, its tightness or the missing general covariance from these components."
+        }
+      ],
+      "gap": "The ratio process, valid function-space domain and tight Gaussian limit with the source's supplied covariance specialization remain to be constructed."
+    }
+  },
+  {
+    "interface_id": "local-c1700aeda833609c8b9d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "7cbe8af5973339985c285fc1dcff57a2b4f4fe06ce612b5f21276b6f57b5fb88",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D26",
+        "comparison": "Use one joint law for G, Gtilde and every Htilde_i, retaining the referenced G/Gtilde covariance and the full tau/alpha_i weighted expectation in (34). Preserve its min, logarithm, normalized Theta_J polynomial and zero-angle conventions. The p=0 restriction supplies G^0 and the appropriate H/G^0 cross term; the final source sentence gives zero H_i/Gtilde covariance only for i in J. Joint Gaussianity can make a specified zero block independent under suitable joint hypotheses, but does not permit replacing all components by mutually independent copies. Do not use the ambiguous vector/scalar formula (35) to alter the clean needed specialization, or infer joint convergence from the marginal library predicates alone.",
+        "statement_sha256": "5be4b9cbcb4cccf70c0e08a8443ba1981176593a05cb27f8f4472a1f40e35a7d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Gaussian-process, covariance and weak-convergence definitions against the joint Gaussian components and the exact equation (34)/zero-covariance specialization.",
+          "result": "Joint Gaussian laws and their cross-covariances can be specified, but separate marginal convergence statements or independent copies do not furnish the joint coupled limit."
+        }
+      ],
+      "gap": "The jointly coupled Gaussian limit and all required cross-covariances still need construction and a joint convergence proof."
+    }
+  },
+  {
+    "interface_id": "local-445c8d829d6f59bcf6cd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "5c0d09da4db20037d280ba47870a008c00ef553becdf10823d3d339725be0388",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D23",
+        "comparison": "Center at the transformed estimator nu-tilde_n^beta and retain the inequality norm(center-h)^2<=zetahat/n. For n>0 and zetahat>=0, norm/distance symmetry identifies this solid closed ball with radius sqrt(zetahat/n), not merely its boundary sphere. The source does not make a particular bootstrap threshold construction mandatory; Theorem 6 accepts a consistent threshold at fixed beta. The primitive does not prove threshold consistency or coverage, and a negative finite-sample threshold needs its actual empty-set behavior rather than a zero-radius fallback.",
+        "statement_sha256": "11e2a23ccd0963ba38efd10ed5046005abd79ff771a7081ae466889c1e9b0c2a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected metric closed balls and real square-root domains against the squared-Hilbert-norm confidence region (29).",
+          "result": "For a nonnegative threshold/n, the squared-norm inequality is a closed ball of radius its square root. A negative threshold gives an empty inequality set and cannot use Real.sqrt's zero extension without changing it."
+        }
+      ],
+      "gap": "The transformed estimator and threshold domain still need to be supplied to the closed-ball representation and its coverage theorem."
+    }
+  },
+  {
+    "interface_id": "local-7d04eb39bb1176c31b27",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "81115dd912e6ac92892f28b0e2064e0d9fc1cfd7f528179bfb0aca97b6476824",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1534",
+        "local_id": "D24",
+        "comparison": "Take Gamma_beta preimage of the transformed confidence set, with no requirement that Gamma_beta be onto or boundedly invertible. Expand its squared norm through basis coordinates using beta_k^2 and retain the half-sum over two fitted plug-in/influence corrections exactly as printed. If beta contains zeros, the corresponding directions are unrestricted; Theorem 6 separately fixes strictly positive entries but does not give uniform coercivity or a globally bounded inverse in infinite dimension. Parseval needs an actual Hilbert basis; the source's finite-dimensional zero-padded sequence must be handled by its stated finite basis convention, not by pretending zero vectors are unit basis vectors.",
+        "statement_sha256": "77aecf4beff808ac887d0face224a9c2469eaf13774316acedbdc06b8911d0f0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.tsum_inner_mul_inner",
+          "type": "{ι : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → {E : Type w} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (b : HilbertBasis ι 𝕜 E) → (x y : E) → (∑' i, inner 𝕜 x (b i) * inner 𝕜 (b i) y) = inner 𝕜 x y",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Parseval inner-product identity for a Hilbert basis; taking the same vector twice yields its squared norm from basis coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L471-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected set preimage and Hilbert-basis Parseval identity against the confidence-region inverse image and its explicit squared-beta series expansion.",
+          "result": "Set.preimage directly expresses the inverse image without any inverse operator; Parseval supports a coordinate expansion after the diagonal map and estimator coefficients are established."
+        }
+      ],
+      "gap": "The diagonal-map and estimator coefficient identities still need to be connected to the displayed series, without assuming a bounded inverse."
+    }
+  },
+  {
+    "interface_id": "local-b6f3d0ccf1b231a030f7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "dc98ac42e9fa054dbe78ae29e4f9b7be8b18fc5f5ba1c877f88e982ad64eedaf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D30",
+        "comparison": "For positive trace-class A and B, take their nonnegative operator square roots and the Hilbert-Schmidt norm of the difference. Embed into a suitable bounded-operator algebra for the positive half-power calculus, then prove the roots and difference lie in S2 and construct its basis-independent norm; Parseval is a component of such reasoning, not a ready Schatten-space implementation. Do not use the bounded-operator norm or assume finite-matrix Frobenius norms cover the infinite-dimensional source. Continuous positive functional calculus accommodates zero eigenvalues; it does not justify a holomorphic square-root derivative at zero or resolve the excluded appendix calculus conventions.",
+        "statement_sha256": "08d4c135a6255ccae6273ab22bd2e135f647a0ba73e4e81112d5e1908a4f8d33"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.tsum_inner_mul_inner",
+          "type": "{ι : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → {E : Type w} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (b : HilbertBasis ι 𝕜 E) → (x y : E) → (∑' i, inner 𝕜 x (b i) * inner 𝕜 (b i) y) = inner 𝕜 x y",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Parseval inner-product identity for a Hilbert basis; taking the same vector twice yields its squared norm from basis coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L471-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched analysis and probability sources for Hilbert-Schmidt/Schatten structures; inspected positive continuous functional-calculus square roots and basis Parseval against the trace-class square-root distance.",
+          "result": "Positive half-powers are available in an appropriate operator functional calculus, but no named Schatten/Hilbert-Schmidt API was located in the searched source, and the ordinary bounded-operator norm is different."
+        }
+      ],
+      "gap": "The trace-class to Hilbert-Schmidt square-root construction and its S2 norm still need to be supplied around the positive operator half-powers."
+    }
+  },
+  {
+    "interface_id": "local-8e9e6f97137da9ae28d5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "ab5464272a93d68a899b63d1d269b655e266a8ab6a9c1aaf4a4d313b75425fe0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D32",
+        "comparison": "Keep the frequency integral over [0,pi], population time integral over [0,1] and empirical average over U_M. Each dotted target is specified through the mean of operator square roots, not the square root of the mean spectral operator; noncommuting operators make that distinction substantive. The first population r_d argument lacks eta while (3.46) defines an eta-dependent mean root; preserve both without silently inserting eta or normalizing the deviation. The empirical spectral estimator's positive-cone/path claims and zero endpoint conventions are separately unresolved, and CFC's total fallback cannot repair them. Bochner integration requires a suitable Schatten target and integrability, with squared d_R using the S2 norm rather than operator norm.",
+        "statement_sha256": "85dc65152b1a4ae073c99160dfeafb5db3f426a03418ec1eab8fa3e89b5c0ed4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected operator half-powers, Bochner integration and finite averaging against the paired population/empirical restricted stationarity deviations and mean-square-root target (3.46).",
+          "result": "Generic square roots and integrals can form components once the Schatten-valued fields and positivity are valid. They do not resolve the population target's missing eta argument or establish empirical positive-cone membership."
+        }
+      ],
+      "gap": "The Schatten-valued root fields, integrability and population target's eta convention still need clarification before the paired deviations can be identified."
+    }
+  },
+  {
+    "interface_id": "local-bcb5f92350605b9ffb88",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "eec3b879925dc33780c9268125e7fc9c22089ff93eb1f4d2f0674bfa49150b1a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D11",
+        "comparison": "Use finite nonnegative posterior odds, a real kappa-vector and a binary termination flag, with action (next treatment,stop-now indicator). Preserve Delta_t=1{t>T} and the next-step OR update, rather than changing it to 1{t>=T}. If phi and its parameter measurability/normalization were supplied, withDensity followed by map could express the likelihood-ratio odds transition. The defining phi formula is appendix-only, and density zeros can create an infinite odds value outside the printed finite state space. Kernel/IsMarkovKernel predicates do not fill either gap or select versions of conditional laws at null states.",
+        "statement_sha256": "720afb0350d5edefb185410916e62830d186e8b0b2b104f41e1f852646f24f67"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched for controlled treatment-change models; inspected kernel, density and pushforward APIs against the encoded state/action spaces and source transition formula (7)-(8).",
+          "result": "The product state/action types and a measure-valued transition can be represented, but constructing its Markov normalization and measurability requires the predictive density missing from the admitted main text."
+        }
+      ],
+      "gap": "The predictive response law, odds-update domain and transition measurability remain required before this controlled Markov kernel is defined."
+    }
+  },
+  {
+    "interface_id": "local-d8a10a87c8ea20eb1031",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "bf870641b3332fdf855a3e16540cb87da166e9ca4b7bfb09a24b6e41a1bf3558",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D12",
+        "comparison": "Charge c for an active continuing action and 1/(1+Gamma) for an active stopping action, with zero cost whenever Delta=1. Sum conditional expected stage costs from t=0 to infinity and then take the infimum over the source's deterministic predictable procedures. An ENNReal formulation through lintegral/nonnegative sums preserves possible infinity; real Bochner totalization would not. The source conditions on an exact initial state without specifying common null-event versions, so a law initialized at each state still needs construction. This objective is sample-size cost plus false-alarm probability, not detection delay or a prescribed false-alarm equality, and the definition does not establish an optimal procedure exists.",
+        "statement_sha256": "a2c42fd536bc9b5be986141dc34aac68e99295b886d9d83a4083d4677bfb81cf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected indicator, extended nonnegative integration and infinite-sum convergence against the active-state stage cost, conditional total cost and infimum over admissible policies.",
+          "result": "Nonnegative integration can retain infinite total cost, and indicators encode absorbing zero costs. It does not construct policy-specific initialized laws or show the infimum is attained."
+        }
+      ],
+      "gap": "The initialized controlled laws and admissible-policy cost functional still need construction before its infimum and attainment can be analyzed."
+    }
+  },
+  {
+    "interface_id": "local-8788c773050fe1db469a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:35:48.941127+00:00",
+    "source_interface_sha256": "ff6ad86888c4efba0f2127fa72d6af534d9126a08fc83ceb72ea03412311ca44",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D13",
+        "comparison": "Use nonnegative measurable extended-valued J that vanishes on the terminated slice, add stage cost to the next-state kernel integral on active states, set the terminated slice to zero, and minimize over all treatment/stop actions. A finite ENNReal minimum can retain infinity, but requires a nonempty action set. The transition's appendix-only phi definition, state-domain and null-conditioning issues remain; generic lintegral and Kernel do not prove measurability or a Bellman fixed-point/optimality theorem. This undiscounted absorbing cost map is not automatically a contraction or an instance of the discounted value function from another paper.",
+        "statement_sha256": "ec201846f435193ad575a03d794f62b1350da5918c3ba70ef18d30b963ba321f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for Bellman operators; inspected kernels, nonnegative integration and finite minima against action-specific one-step costs on the absorbing value-function class.",
+          "result": "A kernel integral plus stage cost and finite action minimum provide the algebraic form. No located declaration implements this source-controlled Bellman map or proves it preserves the stated measurable function class."
+        }
+      ],
+      "gap": "The controlled transition kernel, measurable value-function closure and Bellman optimality properties still need to be supplied."
+    }
+  }
+]

@@ -1,0 +1,434 @@
+[
+  {
+    "interface_id": "local-dbeeda07e5c4409efe85",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "e63107ffec1f5383c1b49d3b1e8adb6b3a63abac37d4553a6dd160bbc920f49e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D5",
+        "comparison": "For each observation i and coordinate p, count all j with X_jp<=X_ip, including j=i and every tied observation. Divide this integer max-rank by n+1, not n; for n>=1 the pseudo-observations lie strictly between zero and one. Do not substitute average ranks, strict ranks, tie-broken ranks or the latent probability integral transform F_p(X_ip). The definition handles ties via the weak inequality, while continuous marginal cdfs and iid sampling imply the usual almost-sure absence of sample ties needed for the uniform rank law. Finset.filter must use the supplied <= predicate; it does not choose the rank convention. Cross-coordinate independence is a separate null hypothesis, not a property of rank normalization.",
+        "statement_sha256": "ce6375655e32351737d71628e31d73fb35493c660aa7e1425fdf7a187f0817f3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search max-rank, empirical rank and copula in Probability/MeasureTheory; inspect indicator generation and finite predicate filtering against the rank and pseudo-observation formulas.",
+          "result": "Indicator sums or the cardinality of a filtered sample-index set give max-ranks. No packaged copula pseudo-observation construction was located."
+        }
+      ],
+      "gap": "Finite indicators and filtering are available, but the coordinatewise max-rank transformation and its rank-law properties require the paper’s sample and continuity assumptions."
+    }
+  },
+  {
+    "interface_id": "local-8690384f9692a48f3acd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "7ecb86d9acfb5559d61ab3e24c1437d98783c607496a74954c77995e6c8334f8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D6",
+        "comparison": "Use n^-1/2 times the sum over observations of the product over p in A of indicator(Uhat_ip<=u_p)-U_n(u_p); neither the product nor its centering can be replaced by an ordinary multivariate empirical-cdf difference. Map the uniform law on n indices to {1/(n+1),...,n/(n+1)} to identify U_n on [0,1], assuming n>=1. The displayed minimum with one has no lower clamp and is not a valid cdf formula for arbitrary negative real arguments; preserve the stated coordinate domain rather than edit the source. Centering by u_p instead of U_n(u_p) changes finite-sample behavior. Under the displayed independent-coordinate null the rank distributions justify the product centering, but iid observations do not make the within-coordinate ranks mutually independent.",
+        "statement_sha256": "9598b70e1d3476bfc0f6ebf05d83b1f4cc9dcdeb24f615fe3a308d80be8e66b8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search empirical copula, rank centering and uniform rank processes in Probability/MeasureTheory; inspect uniformOfFintype 275-276, integer floor 248-249 and indicator generation 51-54.",
+          "result": "A uniform law on n rank indices and finite indicator products provide the centering components. No centered empirical copula process with this finite-grid correction was located."
+        }
+      ],
+      "gap": "Uniform finite laws and indicators are available, but the rank-grid centering and product empirical process need the paper-specific construction and null interpretation."
+    }
+  },
+  {
+    "interface_id": "local-65a1d9b7e079acf37ebf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "80e6f1ed08ae2127127e26cd502c74abfefe155d3cfeed40faa69e0a56a81792",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D7",
+        "comparison": "Integrate the squared centered process over the unit cube under the independence product measure Pi_A. Preserve the full double sum i,j=1,...,n with normalization 1/n, including diagonal terms; removing i=j or changing to a U-statistic normalization gives a different statistic. Each coordinate kernel includes (2n+1)/(6n), both R(R-1)/(2n(n+1)) terms, and minus max(R_ip,R_jp)/(n+1). This comes from integrating the two finite-grid-centered indicators and then factoring across coordinate integration variables, not from assuming the observed coordinates are independent for the algebraic identity. The finite rank sums are bounded for fixed n>=1, permitting the required integrability and sum/integral exchanges once measurability is established. The integral's zero fallback outside integrability does not establish the identity by itself.",
+        "statement_sha256": "379ba55865546a36a47ba742debe895cd0b9790acc698f41ce0541b0b3d69c7e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Cramer-von-Mises, copula and rank-kernel statistics in Probability/MeasureTheory; inspect the Bochner integral and normalized finite sums against the full integral/double-sum expression.",
+          "result": "Integration and finite sums express both representations, but no declaration establishes this centered-rank kernel identity with its exact finite-n coefficients."
+        }
+      ],
+      "gap": "Integration and finite sums are available, but the copula-process square must be expanded and integrated to prove the displayed rank-kernel formula."
+    }
+  },
+  {
+    "interface_id": "local-8ffc5cfdb95ed32496c6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "3783369045a64e29ae1a92e91171ce1a14a24055f2c7eba3d60523bde7e3c90c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D9",
+        "comparison": "Sum one S^M_{n,A} for each k-element subset A of {1,...,d}, with k in the stated range 2,...,m. powersetCard k on the finite coordinate set yields unordered subsets exactly once, and card_powersetCard gives choose(d,k); ordered tuples would multiply terms by k! and are not equivalent. Do not average by the number of subsets, include all cardinalities up to k or sample a subset family. Overlapping A use the same observations and can produce dependent statistics, so finite enumeration does not imply independence, a variance-sum formula or the theorem's Gaussian limits. The theorem's stronger H5 and H_(4m-3) assumptions and dimension growth remain separate from the definition of T_n(k).",
+        "statement_sha256": "31374329ce31b05c92a84906da8ca87982097ce68fc924c82cdebaa98759e987"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search copula aggregation and fixed-cardinality subset sums in Mathlib; inspect powersetCard 196-203 and card_powersetCard 210-214.",
+          "result": "powersetCard enumerates exactly the unordered k-element coordinate subsets, and its cardinal theorem supplies the binomial count. It does not establish distributional properties of the aggregated dependent statistics."
+        }
+      ],
+      "gap": "The subset indexing and count are available; the aggregate statistic and its joint moment or limit properties still require the paper’s rank-statistic construction."
+    }
+  },
+  {
+    "interface_id": "local-3a376239507ebb3de9bb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "ee22c665a7b6a621426090d01f3e98abd613f9172c89d440afd1739cee08734e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D8",
+        "comparison": "Interpret E_Hk and Var_Hk through a probability law satisfying the displayed copula equalities for k-coordinate subsets, together with iid sampling and continuous marginal cdfs. H_k is a class/hypothesis, not a single measure object; equality of these moments across its admissible laws must be proved using distribution-free ranks. The source calls this k-wise dependent and prints an inconsistent hypothesis-inclusion direction; use the displayed equalities for correspondence without changing the archived prose. It also writes A subset {2,...,d} while permitting k=d, so do not silently replace the range with {1,...,d}. The variance is centered around the statistic's expectation and is distinct from its raw second moment. Fixed-n bounded rank statistics give a route to finite moments; the library's conversion of infinite extended variance to zero is not the intended interpretation.",
+        "statement_sha256": "a9bb69f4704b08b9bb4daaad18fac13e13cc0ad91f2b9f6533c0c5974fd6e5d1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search null moments of copula/Cramer-von-Mises statistics in Probability/MeasureTheory; inspect Bochner integration and variance 58-64 against (2.2) and the recorded H_k/index conventions.",
+          "result": "Expectation and centered variance are available for an explicit probability law. Their finite-n values and invariance across admissible null distributions require the rank-law argument."
+        }
+      ],
+      "gap": "Expectation and variance are available, but the common null moments need the rank-distribution calculation and the source’s inconsistent subset range must remain explicit."
+    }
+  },
+  {
+    "interface_id": "local-70958f6d0c3ccf9c5921",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "aa6aa07cf04482da3f94292820206b35e9f2d4e2692862523dfe6997ef5723cf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D10",
+        "comparison": "Multiply the subset count choose(d,k) by the exact mean [(1/6-1/(6n))^k+(n-1)(-1/(6n))^k], preserving the sign of the second base for odd k. Keep bar-delta=sqrt(sigma_n^2(k) choose(d,k)) distinct from delta=sqrt((2/90^k) choose(d,k)); the latter is not a notational alias for finite-n variance. A count times individual variance is not automatically the aggregate's variance without handling covariance between overlapping subsets. Real.sqrt needs nonnegative input for the ordinary square-root interpretation, and later normalization also requires a nonzero scale; empty subset families or degenerate finite n must not be hidden by totalized zero behavior. Preserve the theorem's literal replacement of delta_n(m) by bar-delta_n(m), rather than silently extend that sentence to every k.",
+        "statement_sha256": "1f1883cadedf74cdf880a0e8c2d65dc68bff61372bd3ef4914a12ebdac9a3315"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search rank-statistic scaling and binomial subset counts in Mathlib; inspect card_powersetCard 210-214, real variance and square root against both scales in (3.2).",
+          "result": "Binomial counts, finite variance and square roots provide the algebraic components. No result equates these exact and asymptotic scales or proves the stated null limit."
+        }
+      ],
+      "gap": "The arithmetic components are available, but the explicit null mean and the relation between finite-sample and asymptotic scaling need the paper’s moment calculations."
+    }
+  },
+  {
+    "interface_id": "local-9defcadfbd46f7f320d5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "f7ef331be54aea642a1816e438e5f2d294c4c29466abc2b6a7b8bb5d964ebcf2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D13",
+        "comparison": "Use the stationary diffusion law P_b0 for the finite-T statistic T_T^b0, with its absolute local scores, multiscale penalty and retained denominator conventions. The threshold is the minimum of {r in R : P_b0(T_T^b0<=r)>=1-alpha}, not a limiting Gaussian quantile. IsLeast includes membership and therefore expresses the printed attained minimum; at an interior probability level the usual real-law CDF properties provide a route to attainment once the statistic is a finite measurable random variable. Do not invoke a generic real infimum without these conditions or add randomization for atoms. The simple-null equality is on [-A,A], and fixed-start laws from the later section are distinct from this stationary setup. Degenerate permitted kernels and source zero-ratio/log conventions remain part of establishing that the statistic is well-defined.",
+        "statement_sha256": "0fed7c050610797c0e8db01371fe88e2c2de64621aacd00eb5f0026c099542fb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "IsLeast",
+          "type": "{α : Type u} → [LE α] → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Bounds.Defs",
+          "provides": "Membership in a set together with being a lower bound of that set; expresses an attained least element.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Bounds/Defs.lean#L45-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search null-law quantile and multiscale test terminology in Probability/MeasureTheory; inspect CDF.lean 52-58 and Order/Bounds/Defs.lean 43-46 against the finite-T stationary null-law minimum.",
+          "result": "CDF and an attained least-element predicate express the quantile. No diffusion-specific quantile construction or theorem identifying the source's null distribution was located."
+        }
+      ],
+      "gap": "CDFs and least-element predicates are available, but the finite-T multiscale null law, admissible quantile level and attainment must be established for this statistic."
+    }
+  },
+  {
+    "interface_id": "local-b71f1989bb15cea9339f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "18d5a58e724e9c5841a37687a78773233459d85c3ac6bcd854beff0bb3676b64",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D14",
+        "comparison": "Define the binary test using the event T_T^b0(X)>kappa, with equality accepted. The two-sided nature comes from the absolute value of the local score inside the already defined supremum statistic, not from an extra pair of lower/upper rejection thresholds or splitting alpha again. If the chosen null quantile satisfies its defining non-strict CDF bound, this strict event has null probability at most alpha even when there are atoms; equality to alpha or randomization is not asserted. Retain the finite-T stationary null-law quantile rather than the later limiting similarity threshold, and do not treat the indicator definition as a proof of asymptotic power or as a fixed-start extension.",
+        "statement_sha256": "333b497a5f56d85aaf3937590409f9bd5a4af9a73dea0ca7d6ca4233ae80a87b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search multiscale diffusion tests and null-law rejection thresholds in Probability/MeasureTheory; inspect indicator generation and CDF semantics against (3.6).",
+          "result": "An indicator of the strict rejection event implements the binary test once the statistic and its null quantile are supplied. No corresponding asymptotic power theorem was located."
+        }
+      ],
+      "gap": "The rejection indicator is available, but the diffusion statistic and calibrated finite-T threshold still need construction and the power result requires the paper’s argument."
+    }
+  },
+  {
+    "interface_id": "local-56be9a479ef286c4d44a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:22:42.747315+00:00",
+    "source_interface_sha256": "f043b4038953089cc86fc963f46ec5810bf32c80a84abe18f8b19b286b04e5b0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D17",
+        "comparison": "For fixed starting t, apply hittingAfter to the offset process s↦Gamma_(t+s), the target [b,infinity), and initial index zero to express sigma. For tau use the separate cumulative product s↦prod_{j=1}^s Lambda_(t+j), target (-infinity,1/d] and initial index one. The likelihood ratio restarts at t, while the posterior odds retain their prior history. Both thresholds are non-strict and tau cannot trigger at s=0. hittingAfter returns WithTop infinity on no hit, whereas the source does not fully specify all downstream infinite-stage arithmetic; do not erase that issue by using a natural-number infimum's default value. At random stage starts one additionally needs the shifted filtration/measurability argument, and unrestricted response densities can leave posterior or likelihood-ratio denominators unresolved. The eventual policy's tie in favor of detection is supplied separately by its cycle rule.",
+        "statement_sha256": "de56ca435faf53b23dc31aaca4b09c12a87fc234c823f90eb72b61f1af6184c3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.hittingAfter",
+          "type": "{Ω : Type u} → {β : Type v} → {ι : Type w} → [Preorder ι] → [InfSet ι] → (ι → Ω → β) → Set β → ι → Ω → WithTop ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.HittingTime",
+          "provides": "First entry into a target set at or after the initial index, with infinity assigned when no entry occurs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/HittingTime.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.IsStoppingTime",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → MeasureTheory.Filtration ι m → (Ω → WithTop ι) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Stopping",
+          "provides": "Stopping-time predicate using measurable events {tau≤i}, with an explicit possible infinite stopping value.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Stopping.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search change-detection crossing times in Probability; inspect Process/HittingTime.lean 62-67 and Process/Stopping.lean 73-77 against the two offset-time infima and recorded reset conventions.",
+          "result": "Discrete hittingAfter can express both first crossings with an explicit no-hit infinity value. Stopping-time measurability needs an adapted process and the proper shifted filtration."
+        }
+      ],
+      "gap": "Hitting times are available, but the posterior and restarted likelihood-ratio processes require their distinct starting indices, threshold directions and source domain conventions."
+    }
+  }
+]

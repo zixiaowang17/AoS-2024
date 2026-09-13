@@ -1,0 +1,86 @@
+[
+  {
+    "interface_id": "local-6c9daf2641017de040d9",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.condDistrib",
+      "MeasureTheory.Measure.map"
+    ],
+    "comparison": "Form the finite tuple consisting of ALL Y_1,...,Y_n and the null X_i, condition its law on the alternative X_i tuple, and require invariance of that conditional law under every permutation of the first tuple's coordinates. condDistrib supplies a regular conditional kernel for the standard-Borel nonempty output cases covered by its signature, while a general source space needs the explicitly assumed conditional-law existence; do not silently strengthen all source spaces to Euclidean ones. Permutation invariance is required almost everywhere with respect to the conditioning law under a chosen conditional version, not automatically at null conditioning values. No iid law, conditional independence, no-ties condition or score-construction property follows merely from this exchangeability assumption. The source footnote on existence remains attached to the raw-observation condition.",
+    "gap": "Conditional kernels and permutation pushforwards express exchangeability, with conditional-law existence and version conventions supplied explicitly.",
+    "searches": [
+      [
+        "rg -i 'exchangeab' Mathlib/Probability; inspect condDistrib and Measure.map for the finite null/calibration tuple",
+        "No dedicated exchangeability declaration found in the searched tree; regular conditional kernels support the permutation-invariance predicate in their standard-Borel domain."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-1b501264cbcb18c3e778",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.condDistrib",
+      "MeasureTheory.Measure.map"
+    ],
+    "comparison": "Condition the tuple of calibration scores S_(k+1),...,S_n and null-test scores S_(n+i) on the alternative-test scores, and require invariance under all coordinate permutations of the conditioned tuple. These real-score tuples fit the regular conditional-distribution framework once the score maps are measurable; kernel pushforward expresses invariance without imposing conditional independence. Preserve the calibration range starting at k+1 rather than including the training scores S_1,...,S_k. This is an assumption on arbitrary scores, not a construction theorem showing that all data-dependent scoring rules preserve raw-observation exchangeability. It does not add the separate no-ties assumption or justify permutation-dependent optimizer tie selection. Keep the usual almost-everywhere conditional-version qualification.",
+    "gap": "Conditional laws and permutation pushforwards represent the score-exchangeability assumption, without proving that an arbitrary learned score construction satisfies it.",
+    "searches": [
+      [
+        "Inspect condDistrib and Measure.map with p0157 D10 and the saved distinctions between raw exchangeability, scores and ties",
+        "The kernel representation preserves the exact score index set and conditioning tuple; the assumption is separate from score-training equivariance."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-7e9cce3bf8cd393eade7",
+    "status": "composable",
+    "names": [
+      "Set.image",
+      "Finset.Icc",
+      "Finset.card"
+    ],
+    "comparison": "Construct the finite image of integer exponents j=0,...,b under j↦2^j*lambda_L, retaining the exact endpoint lambda_U=2^b*lambda_L. For positive lambda_L the map is injective, so the set has b+1 distinct values and the logarithmic cardinality formula follows after real casts and positivity. If lambda_L=0, all values collapse and the logarithmic ratio is undefined in the source sense; do not rely on totalized real division/logarithms. This declared exact grid does not supply a rounding convention when the adaptation theorem's separate endpoint formulas fail to have a power-of-two ratio. Preserve that compatibility issue rather than rounding either endpoint or adding a final irregular grid point.",
+    "gap": "Finite images and cardinality express the exact dyadic grid, while the separately specified theorem endpoints retain their unresolved power-of-two compatibility.",
+    "searches": [
+      [
+        "Inspect Set.image, finite integer intervals and Finset.card against p1076 D30 and the saved endpoint-rounding issue",
+        "Cardinality follows from positivity and injectivity of the dyadic map; finite-set primitives do not repair inconsistent endpoint choices."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-bead8d5473f3bc6ff9e7",
+    "status": "composable",
+    "names": [
+      "IsMinOn",
+      "fderiv",
+      "iteratedFDerivWithin",
+      "ContDiffOn"
+    ],
+    "comparison": "For a C2 function on the stated smooth manifold, require every constrained critical point to be either a global minimizer on the manifold or to have a tangent direction with strictly negative Hessian quadratic form. In a local chart, vanishing first derivative and the second iterated derivative provide a coordinate formulation; at a critical point the sign property is invariant under valid smooth chart changes, but proving that identification remains necessary. Restrict derivatives to tangent/chart coordinates rather than taking the ambient Hessian on normal directions. IsMinOn expresses the global value inequality and must be combined with membership in the manifold; it does not supply existence of a minimizer. Strict negativity must not become nonpositive curvature, and global benignity does not assert unique minima, nondegenerate minima or convergence of an arbitrary optimization algorithm. The source least-eigenvalue notation can be related to a negative direction in the finite-dimensional self-adjoint Hessian setting.",
+    "gap": "Minimizer predicates and chart derivatives express global benignity, with the manifold/chart Hessian and negative-direction identifications to be established.",
+    "searches": [
+      [
+        "Search Mathlib for globally benign; inspect IsMinOn, fderiv, iteratedFDerivWithin and the manifold derivative definitions",
+        "No dedicated global-benignity predicate found; generic derivatives require tangent/chart interpretation and do not imply optimization convergence."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-86b72b14ea73133c7fbc",
+    "status": "composable",
+    "names": [
+      "dotProduct",
+      "MeasureTheory.integral",
+      "Matrix.mul_apply"
+    ],
+    "comparison": "Represent f*(x) as the finite real dot product beta*·x and Y_i as f*(X_i)+epsilon_i, equivalently a design-matrix product plus noise. The centered-noise phrase requires finite expectations equal to zero; using a total real integral equal to zero without integrability would not express centering. Preserve that p may greatly exceed n and do not infer full column rank, invertibility or coefficient identifiability. This introductory decomposition does not itself impose independence of the noise and design, a Gaussian law, sparsity or a joint conditional product law. The saved later conditional-noise scope must remain separate, including the distinction between scalar conditioning on X_i and conditioning jointly on the full design.",
+    "gap": "Finite dot products and matrix multiplication directly express the regression decomposition, with integrable centering and later statistical assumptions kept separate.",
+    "searches": [
+      [
+        "Inspect dotProduct, matrix multiplication and integral against p0491 equation (1.1) and its saved conditional-noise qualification",
+        "The linear algebra represents the model for p>n without rank assumptions, while the formula alone provides no noise/design independence."
+      ]
+    ]
+  }
+]

@@ -1,0 +1,398 @@
+[
+  {
+    "interface_id": "local-0548d6f082313a9cd3f9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "bb1e8dcbfc4d4ed0483518626c48e28e31c213970db64fc9604e6388da132598",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D16",
+        "comparison": "Take ambient Lebesgue measure on R^D times a Haar measure on the real orthogonal group O(D), then apply withDensity to the nonnegative joint density h(mu,O). The inspected Haar constructor normalizes on a chosen positive compact set; on the compact group one can normalize the whole group, with any fixed alternative scaling absorbed consistently into h. Require h to integrate to one when H is used as a probability base; the inequalities alone do not assert normalization. The lower bound is a positive constant multiple of exp(-c1||mu||^b1), and the upper bound is a constant multiple of (1+||mu||)^-b2, uniformly for every location and orientation, with c1,b1>0 and b2>2D-1. A product reference measure does not imply the density factors or that location and orientation are independent. This condition applies to H in partial mixtures and H1 in hybrid mixtures; the independent-sampling example is not a universal assumption.",
+        "statement_sha256": "40a725bb48e2dfc134ff11b10fc8339d3196d632b4323b1cb864781e2cbab0aa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.haarMeasure",
+          "type": "{G : Type u} → [Group G] → [TopologicalSpace G] → [IsTopologicalGroup G] → [MeasurableSpace G] → [BorelSpace G] → TopologicalSpace.PositiveCompacts G → MeasureTheory.Measure G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Haar.Basic",
+          "provides": "A left Haar measure scaled to assign mass one to the chosen positive compact set; the whole compact group can be chosen for probability normalization.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Haar/Basic.lean#L521-L522",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.prod",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → MeasureTheory.Measure α → MeasureTheory.Measure β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Prod",
+          "provides": "Binary product of measures on the product measurable space; standard product-measure properties apply in particular to probability measures, which are s-finite.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Prod.lean#L171-L172",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected normalized Haar construction, product measures and density-weighted measures; compared the uniform location-orientation density bounds and their exponent thresholds.",
+          "result": "A density relative to Lebesgue times Haar measure constructs the base law, while its probability normalization and specified uniform tails are extra requirements."
+        }
+      ],
+      "gap": "Construct the location-orientation probability base from a nonnegative density relative to Lebesgue times Haar and impose the two uniform bounds."
+    }
+  },
+  {
+    "interface_id": "local-72c6d18a8aa5a1d1f742",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "159a8aa88db3daf0ff07af7f364dc29d4f3590f5ab2e8cd56feff781e879e680",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D11",
+        "comparison": "The contextual mixing space contains (mu,O,Lambda) with mu in R^D, O a real orthogonal matrix and Lambda diagonal with positive covariance eigenvalues. Preserve Sigma=O transpose Lambda O; Lambda here contains eigenvalues, unlike the standard-deviation Delta that is squared in A7. Construct P as a finite or countable sum of nonnegative p_k-scaled Dirac masses with total weight one, retaining duplicate atom contributions. Measure.bind with the measurable component law multivariateGaussian mu Sigma yields a mixture probability; identifying its Lebesgue density with the integral of phi_Sigma(x-mu) needs the density and integration arguments. The displayed integral label R^D omits orientation and scale coordinates, while dP explicitly includes them; retain that source mismatch rather than claiming P is only a location law. Singular covariance or nonsummable weights are not valid substitutions for the printed normalized Gaussian density mixture.",
+        "statement_sha256": "5fd58cedc9e53201980c34616d88d4910050828de01da45f66f48f859b3cb7e6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.sum",
+          "type": "{α : Type u} → {ι : Type v} → {mα : MeasurableSpace α} → (ι → MeasureTheory.Measure α) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Sum",
+          "provides": "Sum of an indexed family of measures; weighted component measures on a common ambient space yield a hierarchical mixture.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Sum.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.bind",
+          "type": "{α β : Type*} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → (α → MeasureTheory.Measure β) → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.GiryMonad",
+          "provides": "Integrate a measurable measure-valued transition against an input measure; bind_apply identifies its mass on measurable sets with the corresponding nonnegative integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/GiryMonad.lean#L228-L229",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected indexed measure sums, measurable measure binding and multivariate Gaussian construction; compared the full mixing variables, covariance orientation and finite/countable atom representation.",
+          "result": "A discrete probability measure can mix Gaussian component laws, but the exact density expression and its product parameter space must be connected by measurability and normalization arguments."
+        }
+      ],
+      "gap": "Define the discrete probability on location, orthogonal orientation and positive eigenvalues and bind it to the Gaussian component law, retaining the source's integration-label discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-202e28c0778bee7f3d14",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "8f330ba738182c0568b22a2b7e8c59be0c84c14aed891e5ab268091f8bf5ca8c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D13",
+        "comparison": "First draw the finite count K from pi_K; conditionally on that count draw a K-vector of weights with all Dirichlet concentration entries equal to the positive alpha_K, and draw K iid atoms from H. A dependent or disjoint-union sample space must retain the K-dependent vector length; Kernel and compProd can encode the conditional hierarchy once that Dirichlet kernel is defined and measurable. The finite measure sum then gives P=sum p_k delta_theta_k, with unit mass coming from simplex-valued weights. The source's natural-number convention must give a positive component count for this simplex construction; no zero-component probability law is invented. The saved count-tail condition (9) is an additional assumption in MFM theorem branches, with pi_K/Pi_K the source aliases, and is not imposed on Dirichlet-process alternatives. This is a prior mixing over finite mixture sizes, not a fixed-K model or the infinite stick-breaking DP prior.",
+        "statement_sha256": "c0425ce1691d4ecdbda5319560f5c4ee498b6d3c23411ac2487f24af42a7da7c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.sum",
+          "type": "{α : Type u} → {ι : Type v} → {mα : MeasurableSpace α} → (ι → MeasureTheory.Measure α) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Sum",
+          "provides": "Sum of an indexed family of measures; weighted component measures on a common ambient space yield a hierarchical mixture.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Sum.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the full pinned library for Dirichlet distributions/processes and mixture-of-finite-mixtures interfaces with no specialized result; inspected kernel, measure composition-product and indexed measure-sum bodies.",
+          "result": "Kernel-based hierarchical sampling and finite atomic measures are available, but the Dirichlet weight law and the complete MFM prior still require construction."
+        }
+      ],
+      "gap": "Construct the component-count law, conditional symmetric Dirichlet weights and iid base atoms, then map the hierarchy to its finite discrete probability measure."
+    }
+  },
+  {
+    "interface_id": "local-acbfcdb942373a21451b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "baef709d64420b259a0734fb1265e7cdeee4ff1897739a4a2f3e4a2fd4cb800d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D15",
+        "comparison": "Q2 is a random probability measure on the D eigenvalue coordinates, drawn once from the supplied tilde-Pi_Lambda law. Conditional on Q2, the mixing measure P uses the base H0=H1 on location/orientation product Q2 on eigenvalues and follows either a DP prior or an MFM prior. Measure.prod implements this conditional base and compProd can retain the joint law of Q2 and P once the selected prior kernel is constructed. Sharing a random base measure is not the same as drawing one eigenvalue vector and forcing it on every component: atoms can draw distinct eigenvalue vectors from the same Q2. Integrating out the shared Q2 can create dependence among component eigenvalues, so unconditional independent draws from a deterministic base cannot replace the hierarchy. The two prior families are alternatives, and the positive covariance domains and full product parameter space from (7) remain required.",
+        "statement_sha256": "99d284df9346e04ee06d7b4a288fb77b475bf41324425d0d93797c3927ea97ea"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.prod",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → MeasureTheory.Measure α → MeasureTheory.Measure β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Prod",
+          "provides": "Binary product of measures on the product measurable space; standard product-measure properties apply in particular to probability measures, which are s-finite.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Prod.lean#L171-L172",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected product base measures and hierarchical kernel composition after searching for specialized DP/MFM interfaces; compared the random Q2 base and its conditional P alternatives.",
+          "result": "A random probability base followed by a conditional prior on mixing measures fits kernel composition, but neither specialized prior family is supplied by the inspected primitives."
+        }
+      ],
+      "gap": "Construct the law of Q2 and a conditional DP or MFM kernel with base H1 product Q2, then integrate that hierarchy to the prior on mixtures."
+    }
+  },
+  {
+    "interface_id": "local-f9c4c68b582ea3800803",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "0eceff1c7ae6ab3da7490b54d7cd02e7460eb34340d56965fa2e7456e6d92827",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D18",
+        "comparison": "For every b>0 there exist B0,c2>0 such that for positive small x1,x2 with x1^2<=x2, the outer prior probability that Q2 assigns at least x1^B0 mass to [x1,x1(1+x1^b)]^d times [x2,x2(1+x1^b)]^(D-d) is bounded below by a positive constant multiple of exp(-c2*x1^(-d/2)). Both blocks use relative width x1^b, not x2^b in the second block, and x1^2<=x2 does not imply x1<=x2. This is a probability of a random-measure mass event, not the expected mass itself. The two additional conditions are expectations under the Q2 prior of Q2(min_i lambda_i<=x) for small x and Q2(max_i lambda_i>x) for large x, bounded by exp(-c3*x^(-b3)) and exp(-c4*x^b4) up to constants. Preserve the nonstrict lower-tail event and exponential upper tail, unlike the partial branch's strict lower event and polynomial upper tail. Finite extrema require D>0, and measure-evaluation measurability is needed to define the outer probability and expectations. H1 separately satisfies (10); the lowercase lambda prior alias does not define a second prior.",
+        "statement_sha256": "751e13d8c562f1eb0766c006196533bae8c147baf921bcc477ae5a8ae07b515a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite event-probability and integral semantics and finite extrema; compared each level of the random-measure small-ball and expected-tail inequalities with the partial-prior conditions.",
+          "result": "The conditions can be expressed as probabilities and expectations on a space of random measures, but measurability of the evaluation events and quantitative bounds are source-specific assumptions."
+        }
+      ],
+      "gap": "Define the random-base mass event and expected eigenvalue tails with the exact two-block box, threshold relations and exponential rates."
+    }
+  },
+  {
+    "interface_id": "local-b43c63a880e1b77f6b2c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "7607ab26752cedbc46d2b37ca59f280b3c6bee23486f5a90e1b2e171984e53ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D14",
+        "comparison": "P is a discrete probability on R^D times O(D), with finite or countably many location-orientation atoms. Fix one common positive diagonal Lambda and use covariance O_k transpose Lambda O_k for component k. Thus eigenvalues are shared but orientations and locations vary, and the covariance matrices need not all be equal. Measure.sum constructs the atom law and measurable binding constructs its Gaussian mixture; density identification and normalization remain to be proved. The displayed integral label R^D omits the orientation variable explicitly carried by dP(mu,O), an inherited notation issue. P follows either a DP prior or an MFM prior; dependency reach to both definitions is not a conjunction. This partial hierarchy differs from the hybrid random-Q2 hierarchy, which shares a law of eigenvalues rather than one eigenvalue vector.",
+        "statement_sha256": "2d59b204f419c00d694c924bc2c9b0c45833a154517c3e1d2e7ef9dae2062b7a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.sum",
+          "type": "{α : Type u} → {ι : Type v} → {mα : MeasurableSpace α} → (ι → MeasureTheory.Measure α) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Sum",
+          "provides": "Sum of an indexed family of measures; weighted component measures on a common ambient space yield a hierarchical mixture.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Sum.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.bind",
+          "type": "{α β : Type*} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → (α → MeasureTheory.Measure β) → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.GiryMonad",
+          "provides": "Integrate a measurable measure-valued transition against an input measure; bind_apply identifies its mass on measurable sets with the corresponding nonnegative integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/GiryMonad.lean#L228-L229",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected discrete measure sums and Gaussian mixture binding and compared the shared-eigenvalue formula with the full and hybrid mixture alternatives.",
+          "result": "Gaussian mixtures with one shared eigenvalue vector are representable, while component-specific rotations still allow different covariance matrices."
+        }
+      ],
+      "gap": "Define the location-orientation mixing law for fixed shared positive Lambda and bind it to components with covariance O-transpose Lambda O."
+    }
+  },
+  {
+    "interface_id": "local-545ef0347b93ec690d8e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:53:46.592241+00:00",
+    "source_interface_sha256": "0ff3d6a168a57669493b4f2abbd0b3fab5efb586227ed7247b64dd950c619119",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2081",
+        "local_id": "D17",
+        "comparison": "Use withDensity relative to Lebesgue measure for the joint eigenvalue prior Pi_Lambda with nonnegative normalized density pi_Lambda. For all positive coordinates sufficiently small, require a lower bound proportional to exp(-c2*sum_i lambda_i^(-d/2)); d is the manifold dimension, not ambient D, and this is a density bound rather than probability of a box. For small x>0 require Pi_Lambda(min_i lambda_i<x) at most a constant times exp(-c3*x^(-b3)), and for large x>0 require Pi_Lambda(max_i lambda_i>x) at most a constant times x^(-b4), with b4>D(D-1)/2 and c2,c3,b3>0. Keep both event inequalities strict as printed and retain the polynomial upper tail, not the hybrid exponential one. No independent coordinates, inverse-Gamma family or other example law is assumed. Condition (10) on the location-orientation base and condition (9) only for MFM branches are separate requirements, not implied by these eigenvalue tails.",
+        "statement_sha256": "119965c41b399928655daf0fbaf9569ebef6e2e86efa519b1bcc58e6c9c03afe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected density-weighted measures, finite probability evaluation and extrema, and compared all three partial-eigenvalue prior bounds with their exact exponents and thresholds.",
+          "result": "A Lebesgue-density prior and its minimum/maximum eigenvalue events can be constructed; the specified density lower bound and asymmetric tail rates are separate quantitative prior assumptions."
+        }
+      ],
+      "gap": "Construct the positive-eigenvalue prior with the stated small-coordinate density lower bound, exponential lower tail and polynomial upper tail."
+    }
+  }
+]

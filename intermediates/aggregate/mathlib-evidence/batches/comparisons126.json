@@ -1,0 +1,87 @@
+[
+  {
+    "interface_id": "local-fa836885470585645894",
+    "status": "composable",
+    "names": [
+      "LinearMap.IsSymmetric.eigenvalues",
+      "MeasureTheory.Measure.dirac",
+      "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto"
+    ],
+    "comparison": "Form the probability measure assigning mass 1/p_l to each eigenvalue of the real symmetric population block, indexed with multiplicity, and evaluate its closed lower half-lines to obtain the printed ESD. The positive dimension is needed for total mass one. The library eigenvalue enumeration is sufficient after identifying the matrix with its self-adjoint Euclidean operator; ordering does not affect the ESD. ProbabilityMeasure weak convergence expresses the assumption on each growing block and on the whole population covariance. Weak convergence does not assert CDF convergence at every discontinuity of H_l or H; preserve the source wording without strengthening it to pointwise convergence at all x. These are population spectral laws, not the separate sample spectral distributions. A mixture expression for the whole limit requires the block-weight limits and their appropriate finite-block regime; it is not supplied by the weak-convergence primitive.",
+    "gap": "Eigenvalue point masses and weak convergence represent these population spectral laws, with normalization and matrix/operator identifications still required.",
+    "searches": [
+      [
+        "Inspect eigenvalues, Measure.dirac and ProbabilityMeasure.tendsto_iff_forall_integral_tendsto for the population ESD/LSD statement",
+        "Real eigenvalues retain multiplicity and the weak topology uses bounded continuous test functions; this does not justify pointwise CDF convergence at limit atoms."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-4d677112ba0da0eee71f",
+    "status": "composable",
+    "names": [
+      "Filter.Tendsto"
+    ],
+    "comparison": "Use a common asymptotic index for the positive integer sample sizes and total/block dimensions. Require the minimum of n,n_z,n_w,p to diverge and each printed ratio, after casting numerator and denominator to the reals, to converge to its own strictly positive finite constant. The training, reference and testing denominators remain distinct. Filter.Tendsto represents each convergence directly, with atTop for divergence and real neighborhood filters for the ratios. Natural-number division would give a different condition. The per-block assumptions do not give uniform convergence over a growing number of blocks, and neither zero nor infinite limiting aspect ratios are admitted. Do not replace this simultaneous regime by one with equal cohort sizes.",
+    "gap": "Generic filter convergence expresses the full aspect-ratio regime once the dimension sequences and real-valued ratios are specified.",
+    "searches": [
+      [
+        "Inspect Filter.Tendsto definition against every total and block-specific aspect-ratio limit in Condition 1(d)",
+        "The generic map-of-filters predicate supports simultaneous divergence and finite real limits without conflating distinct sample sizes or imposing an unprinted uniform block regime."
+      ]
+    ]
+  },
+  {
+    "interface_id": "block-diagonal-sample-gram",
+    "status": "composable",
+    "names": [
+      "Matrix.blockDiagonal'",
+      "Matrix.mul_apply",
+      "Matrix.submatrix"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i03-p0948/D10": "Extract the training columns in each known block, form the uncentered real Gram matrix X_l^T X_l divided by its own positive training size n, then assemble variable-sized diagonal blocks. Matrix.blockDiagonal' uses a dependent sum of block indices, so an explicit reindexing gives the source contiguous p-column order. Off-block empirical cross-products are discarded; population block diagonality does not make those finite-sample cross-products identically zero. The formula inserts no sample-mean correction, and the sample matrices can be singular. The word approximated alone is not a norm-consistency theorem in this high-dimensional regime.",
+      "aos-2024-v52-i03-p0948/D11": "Use the external reference columns W_l and denominator n_w in the same uncentered Gram and block-diagonal construction, retaining the reference panel as a separate data object with aligned variant columns. Reindex the dependent block sum to the source column order. Neither replacing n_w with n nor assuming that a finite reference Gram matrix is positive definite is justified. Independence and approximation guarantees are separate model/theorem statements, not consequences of the blockDiagonal' operation.",
+      "aos-2024-v52-i03-p0948/D12": "Use the testing columns Z_l and denominator n_z in the uncentered Gram construction before block assembly and column reindexing. The testing data are reused for this estimate; this is not an independent external reference matrix merely because it shares the same algebraic formula. Preserve the distinct data role, possible singularity and absence of an empirical centering correction. No consistency assertion follows from matrix multiplication or block assembly alone."
+    },
+    "gap": "Matrix multiplication, column extraction and block assembly express all three estimators while their cohort roles and sample-size normalizations remain distinct.",
+    "searches": [
+      [
+        "Inspect Matrix.blockDiagonal' and registered matrix multiplication/submatrix primitives against training, external-reference and testing Gram formulas",
+        "Variable-size blocks are supported; assembly requires a column reindexing and does not supply statistical approximation or independence guarantees."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-a6762c2a2abf1ac5d72a",
+    "status": "composable",
+    "names": [
+      "Finset.powersetCard",
+      "Finset.card_powersetCard"
+    ],
+    "comparison": "Enumerate the m-element subsets of the n observation indices and evaluate the measurable symmetric vector-valued kernel from D2 on each subset's increasing enumeration. Finset.powersetCard enumerates each subset once and card_powersetCard proves the binomial normalizer. Retain m>0 and n>=m for a nonzero real denominator, together with the source iid input and finite kernel expectation. Ordered tuples would require a different multiplicity factor; repeated-index tuples define a different V-statistic. The summands of this complete U-statistic overlap in observations and are not mutually independent merely because the observations are iid. This definition does not require the stronger n>m domain needed by the later jackknife estimator.",
+    "gap": "Finite subset enumeration and its binomial cardinality construct the U-statistic, with the symmetric-kernel evaluation and nonzero normalization domain supplied explicitly.",
+    "searches": [
+      [
+        "Inspect Finset.powersetCard and card_powersetCard with source p0628 D1-D3 and saved sample-domain qualifications",
+        "The primitives enumerate unordered distinct-index subsets once; increasing enumeration plus kernel symmetry matches the printed statistic, without importing jackknife restrictions or independent summands."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c14adc238f412138c966",
+    "status": "partial_match",
+    "names": [
+      "Metric.externalCoveringNumber"
+    ],
+    "comparison": "The library external covering number is an extended-natural infimum of closed-radius covers with centers anywhere in the ambient pseudo-emetric space; the adjacent internal definition requires centers in the class. Identifying either with the source N requires fixing the source covering convention and the L2(Q) pseudometric/quotient and envelope norm. Preserve the supremum over all probability measures Q, not only finitely supported ones. The displayed polynomial bound is the source's stated VC consequence, not an interchangeable combinatorial shattering definition. Preserve and flag the printed range all tau>0: for finite positive C,v its right side becomes less than one for large tau, whereas any nonempty class needs at least one covering center. Do not repair the range to tau<=1 or claim the condition is satisfied. Zero or infinite envelope norms also require a meaningful radius convention, rather than silently coercing an extended value into the library finite nonnegative radius.",
+    "gap": "Covering-number infrastructure is available, but the source convention and L2 domain need identification and the printed all-positive-radius bound remains an unresolved source condition.",
+    "searches": [
+      [
+        "Inspect externalCoveringNumber and adjacent coveringNumber definitions against equation (2.8) and saved p1592 entropy notes",
+        "External and internal centers differ; neither definition removes the large-radius contradiction in the printed polynomial bound for a nonempty class."
+      ]
+    ],
+    "source_note_review": "Reviewed the saved equation (2.8)/E(A).3 all-positive-radius issue, envelope-normalized entropy scope and source norm qualification; originals unchanged."
+  }
+]

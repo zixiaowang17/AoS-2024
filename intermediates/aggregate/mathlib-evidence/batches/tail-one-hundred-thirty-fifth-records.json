@@ -1,0 +1,575 @@
+[
+  {
+    "interface_id": "local-a0834c786bc43f00d802",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "5fa0106a87dd8c81f9f8025d47d923cec496d8d4320d123955739bea0c40561e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D8",
+        "comparison": "For nonsingular square H, the candidate H*(H^T H)^(-1/2) can be built from CFC.rpow on the positive Gram matrix, then related to U_H V_H^T after a spectral/SVD argument. singularValues alone supplies no left/right singular-vector factorization. The output belongs to the full orthogonal group, including determinant minus one, not the determinant-one rotation group; it is not an entrywise sign or a symmetric spectral sign unless additional hypotheses apply. Later H=U^T U_star can be singular on some outcomes, and the source provides no extension there.",
+        "statement_sha256": "724b5ac8ec2577b8f5ece947ff7ff3e770f69e6a9e987cc63b3f4af4a082214d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched polar decomposition, SVD and Procrustes declarations; inspected singularValues, operator rpow and orthogonalGroup and compared the frozen nonsingular matrix-sign convention.",
+          "result": "Singular values and positive operator powers provide ingredients for the polar factor, but no inspected declaration directly supplies the SVD factor U_H V_H transpose with its required characterization."
+        }
+      ],
+      "gap": "Construct the nonsingular polar factor and prove its equivalence to the source's SVD product and orthogonality, keeping singular outcomes outside the printed domain."
+    }
+  },
+  {
+    "interface_id": "local-5db02b1ea93e4416a3be",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "17a9c151580e17202761f53442ab11cb607265a72c78873ebd8b5f1b805ce45a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D12",
+        "comparison": "For i!=j retain coefficients (2-p)/(np), (4-3p)/(np), the noise-signal sum divided by np, and two separate k-sums divided by np^2 with squared row inner products (U_star[k,:] dot U_star[j,:])^2 and its i/j counterpart. Each summand contains [omega_i_star^2+(1-p)S_star_ii]*[omega_k_star^2+(1-p)S_star_kk]+2(1-p)^2 S_star_ik^2. The diagonal branch instead uses (12-9p)/(np), 4/(np) and one k-sum scaled by 4/(np^2); it is not obtained by simply setting j=i in the other branch. Require positive n and sampling p in (0,1], preserve all population stars, and distinguish these proposed approximate variances from exact finite-sample variance identities or unchanged non-Gaussian fourth-moment formulas.",
+        "statement_sha256": "787cd869b7cd0471ed9cc65ecb1d9ce0b935d4e006c286f78457d3bfe429452a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite sums and matrix-vector products and compared every coefficient, row inner product and branch of frozen (3.10)-(3.11).",
+          "result": "The two population variance expressions can be encoded from matrix entries and finite sums, but identifying them as approximate estimator variances needs the paper's Gaussian signal, masking and perturbation analysis."
+        }
+      ],
+      "gap": "Define the distinct diagonal and off-diagonal population variance formulas with their exact sampling factors and prove their claimed asymptotic variance role under the intended joint model."
+    }
+  },
+  {
+    "interface_id": "local-d90259f18d98084b6890",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "884b26b48acba68ee2924470f57cffe9bdc875c6fa979cc1b54f2f72be660c10",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D14",
+        "comparison": "M_natural is n1 by n2 with orthonormal-column U_natural and V_natural and r singular values; vecMulVec represents each sigma_i u_i v_i^T term. singularValues is zero-indexed and includes zero values beyond rank, whereas the paper lists i=1..r. Exact positive rank r supports sigma_r>0 even though (6.2) prints >=0; kappa_natural divides by sigma_r and is a singular-value ratio, not the PCA eigenvalue ratio. Here n=max(n1,n2), not a sample-column count. M=M_natural+E requires E of rectangular shape, but the literal E_ij display indexes both axes by n; retain that discrepancy and do not assume a Gaussian random signal or a row-space estimation target.",
+        "statement_sha256": "80e065a0408329520c3bf66bd781bfc1f6731bfc1a1af42410fcd5f8773cd4ac"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched SVD interfaces and inspected singularValues' Gram-eigenvalue construction and matrix products; compared the full rectangular model and source S4/S16/S18.",
+          "result": "Singular values and rank-one products represent the signal decomposition's ingredients, but a thin SVD, rectangular perturbation law and condition-number domain require separate construction."
+        }
+      ],
+      "gap": "Build the rectangular rank-r signal and perturbation with a thin SVD, resolving the printed noise shape and positive smallest-singular-value requirements."
+    }
+  },
+  {
+    "interface_id": "local-7464b0b411ea27bf419f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "74aef57292b095ae6113d54684355e3c9c619896391691bac0536c8abff5ee97",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D16",
+        "comparison": "Use independent entries on [n1] by [n2], mean zero, and preserve Var(E_ij^2)=sigma_ij^2<=sigma_i^2<=sigma^2, rather than Var(E_ij); the later Gram expectation treats sigma_ij^2 as the latter, which remains a source inconsistency. Bounds |E_ij|<=B_i<=B and nonnegative scales accompany B_i bounded up to a constant by sigma_i*min(sqrt n2,(n1*n2)^(1/4))/sqrt(log n), with an analogous global B bound and n=max(n1,n2). Bounded entries can justify fourth moments after measurability, but the library's variance totalization cannot repair the mismatch. Preserve the unspecified comparison constant and logarithm domain, and do not import the PCA sub-Gaussian law or heteroskedasticity-ratio assumption.",
+        "statement_sha256": "fd71d95c8d8593295a1079a866b28985709f6b7224c1bdc2ca98847e78613f45"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected independent-family and variance definitions and real powers; compared the exact squared-noise variance and dimension factors in frozen Assumption 3 with source S2/A9.",
+          "result": "Independent bounded centered entries and the printed variance of their squares can be stated, but that variance differs from the ordinary entry variance used in the later Gram expectation."
+        }
+      ],
+      "gap": "Resolve the source's variance-of-squared-noise mismatch while retaining all rowwise/global bounds and their exact dimension and logarithm dependence."
+    }
+  },
+  {
+    "interface_id": "local-fce7c011915571a67a16",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "9537b7431898a9c04c3e506e6678131c34bc885b48586705d1592bd24d226239",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D15",
+        "comparison": "The left maximum row norm is bounded by sqrt(mu_natural*r/n1), the right by sqrt(mu_natural*r/n2), and max absolute signal entry by sqrt(mu_natural/(n1*n2))*norm(M_natural)_F. EuclideanSpace.norm_eq gives each row's square-root sum of squared entries; the Frobenius instance gives the full matrix sum-of-squares norm. The infinity notation here is an entrywise maximum, not maximum absolute row sum or spectral norm. Keep the additional entrywise signal condition and both singular spaces, rather than merging this assumption with the earlier covariance-model incoherence definition.",
+        "statement_sha256": "4cc72567e3cb261919df0fc587a5938b014a875dc224ee33e93779dd67b5b053"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched row-norm interfaces and inspected Euclidean row norm and Frobenius matrix norm; compared all three frozen incoherence inequalities.",
+          "result": "Row Euclidean norms, finite entry maxima and the Frobenius norm support the three conditions, which are stronger data than a single left-subspace row bound."
+        }
+      ],
+      "gap": "Define the two maximum-row norms and entrywise maximum explicitly and impose all three rectangular-signal incoherence bounds with their distinct dimensions."
+    }
+  },
+  {
+    "interface_id": "local-7d7cf1ef4524af8786b1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "e7326469eeffc60c640568a49d85265195819b61bdad1a6d6637f50d1014640e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D4",
+        "comparison": "X is d by n with column j equal to Gaussian signal x_j, N_lj=eta_lj, and Y_lj=X_lj+N_lj on Omega and zero elsewhere. Set.indicator on index pairs preserves the d by n shape and masks after noise addition, without inverse-p rescaling; Matrix.submatrix alone selects/reindexes rows and columns and cannot represent arbitrary entry masks. The separate model specifies independent signal columns, mask indicators and noise entries, but joint independence of the three collections is only implicit in the supporting conditional Gram formula and is not silently added to the original definition.",
+        "statement_sha256": "3abdbbaae9a491b850002c620b521ab970e9ebbe42bba0effb253a0ec82ad440"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected indicator support and matrix reindexing to distinguish masking from row/column restriction; compared frozen observed-data construction and source S6.",
+          "result": "An indicator on the full matrix index set implements zero-filled observations; selecting a submatrix would not preserve the same shape or masking operation."
+        }
+      ],
+      "gap": "Assemble signal columns and additive noise into the full-shaped masked data matrix, preserving the separate sampling law and its recorded joint-independence convention."
+    }
+  },
+  {
+    "interface_id": "heteropca-diagonal-imputation",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "56805c758509df159141db8b49cbf6aee963ff7f51c42d7a6123bdcf2933a787",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D10",
+        "comparison": "Initialize G0=(np^2)^-1 offdiag(Y Y^T), then for each t=0..t0 choose a top-r eigendecomposition of Gt and replace only its diagonal by diag(Ut Lambda_t Ut^T), leaving the scaled observed off-diagonal Gram fixed. The ordered eigenvalue/basis declarations give an abstract spectral choice after converting a real symmetric matrix to a Euclidean linear map; the source leaves top-r selection/ties unspecified, so decreasing-algebraic eigenvalues are a convention to justify rather than an unqualified match. Output U_t0, Lambda_t0^(1/2) and U_t0 Lambda_t0 U_t0^T even though the loop also computes G_(t0+1). Positive n,p and square-root admissibility remain necessary; an off-diagonalized Gram need not be PSD.",
+        "statement_sha256": "e0c9fdd764b6d0f1b3bb85401a637b2045542ef78c6fa1b30cfc2e6fe72bf945"
+      },
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D17",
+        "comparison": "Initialize G0=offdiag(M M^T) without the PCA factor (np^2)^-1, and use that same fixed off-diagonal matrix at every update; n1 determines G's square dimension and n=max(n1,n2) is only the general model's size abbreviation. The loop t=0..t0 and outputs at t0 match the printed general algorithm, including Lambda as an additional output and Sigma=Lambda^(1/2). Spectral primitives alone do not resolve rank-r tie selection or nonpositive retained eigenvalues; do not transfer PCA Gaussian/masking assumptions or its scaling into this rectangular bounded-noise model.",
+        "statement_sha256": "a96f78d57b846f55013f8cd5034f71c797d62205583fa9840a700b5774b62dbd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvalues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → Fin n → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Real eigenvalues of a symmetric finite-dimensional operator, sorted in decreasing order and indexed with multiplicity; extrema are meaningful for a nonempty dimension.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L279-L281",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched HeteroPCA and inspected ordered symmetric eigenvalues/eigenvector bases, indicator projections and operator powers; compared both complete frozen recursion members and source S9.",
+          "result": "Spectral choices and diagonal masking support both recursions, but the scaling, rank selection, eigenvalue ties and square-root domain must be specified and verified for the implemented algorithm."
+        }
+      ],
+      "gap": "Construct the rank-r diagonal-imputation recursion with each model's Gram scaling, source iteration/output indexing and explicit spectral-selection and square-root conventions."
+    }
+  },
+  {
+    "interface_id": "local-5830ac9394678e13df32",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "4b93f2c924d2411ac6401115af18d6ceb9986a7c420645694656b5a968513ac0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D13",
+        "comparison": "Compute omega_l^2 as the observed-row mean of y_lj^2 minus estimated S_ll; keep the indicator count denominator rather than replacing it by np, and do not truncate a negative estimate. The off-diagonal variance substitutes estimates in (3.10) except that the printed omega_i^2*S_star_jj term remains starred, while omega_j^2*S_ii is estimated; preserve this unavailable input instead of repairing it. Retain both k-sums and their U-row dot products, the separate diagonal formula with coefficients 12-9p and four, and the interval S_ij plus/minus Phi inverse(1-alpha/2)*sqrt(v_ij). Empty rows, negative estimated v and eigenvalue issues from the input algorithm have no source fallback; Real.sqrt's zero on negatives does not implement a valid statistical repair. Coverage is for the selected entry and fixed ordinary confidence level, not simultaneous coverage of all entries.",
+        "statement_sha256": "8b49c46c396ea5c12082e02d7f8c18d98fd5f0532f30166bd170b5ec18b490ed"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite indicator sums, standard normal law/CDF and real square root; compared every branch of frozen Algorithm 4 with population formulas (3.10)-(3.11) and source S1/S10/S12.",
+          "result": "Finite plug-in formulas and a normal critical value are representable, but the printed off-diagonal formula retains an unavailable population quantity and the procedure lacks several finite-sample domain conventions."
+        }
+      ],
+      "gap": "Resolve the retained population S-star_jj and define valid row-count and variance domains before claiming a data-computable interval or its marginal coverage."
+    }
+  },
+  {
+    "interface_id": "local-280df6e9204f6870a4e0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "14f152ff98e54958ee7d183f358bbffdfbfdb3cc9582dd442d3d2129a389f1da",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D11",
+        "comparison": "Use the untruncated observed-row variance estimates and form Sigma_U,l as [(1-p)/(np)*norm(U_l Sigma)^2+omega_l^2/(np)]*Sigma^-2 plus 2(1-p)/(np)*U_l^T U_l plus Sigma^-2 U^T diag(d_li) U Sigma^-2. Each d_li has the product of the row l/i noise-plus-missingness terms divided by np^2, plus 2(1-p)^2 S_li^2/(np^2); keep both outer inverse-square factors and distinguish Sigma (singular-value scale) from Lambda. The radius set is norm(z)^2<=tau_(1-alpha) for chi-square r, so its geometric radius is sqrt(tau), and the region is the image U_l+Sigma_U,l^(1/2) z, without adding another 1/sqrt(n). Reconcile row/column coordinate representation explicitly. CFC and inverse APIs need PSD/nonsingularity proofs, while empty rows or negative noise estimates can invalidate the construction; no clipping or pseudoinverse is silently introduced, and marginal coverage is not joint coverage across rows.",
+        "statement_sha256": "d3b73d8f7a2543042d0a3174cdb86d5da55f3093c9b9ef45eb2fca53de61fae7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched chi-square quantile declarations and inspected matrix powers, inverse cancellation, Euclidean norms and CDF; compared all covariance terms and the image-of-ball construction in frozen Algorithm 3.",
+          "result": "Matrix products and images of Euclidean balls provide geometric ingredients, but the estimated covariance, valid inverse/square roots and chi-square critical value need separate construction and domain handling."
+        }
+      ],
+      "gap": "Assemble the estimated row covariance and chi-square ball image with valid counts, inverse singular values and PSD square roots, then prove the stated marginal rowwise coverage."
+    }
+  },
+  {
+    "interface_id": "local-4dca7e2dc01bca7c6c36",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:17:47.898269+00:00",
+    "source_interface_sha256": "ee44679a96ba40157e93ed0065ea89efc6240105b48a83c58f51eded33414a0f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0729",
+        "local_id": "D18",
+        "comparison": "The target is a chosen R_U in the full r by r orthogonal group minimizing norm(U O-U_natural)_F^2. State membership as well as IsMinOn, since the latter omits it; compactness/continuity can supply existence after a finite-dimensional argument but do not choose a unique matrix. Reflections are allowed, and the source gives no determinant-one restriction or multiple-minimizer rule. Relating this to sgn(U^T U_natural) needs a separate polar/Procrustes theorem and the matrix-sign definition's nonsingular domain, not an assumed SVD formula at singular overlap.",
+        "statement_sha256": "7ee4099a2c006ddc7b3c004b6f86fa4e24f2a37257703b429c43d97633335827"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.orthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "The group of square matrices whose transpose is their inverse, packaged as a submonoid with a group instance on its subtype.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L295-L295",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Procrustes/polar decomposition results and inspected orthogonalGroup, IsMinOn and Frobenius norm; compared frozen rotation argmin with source S21 and A7.",
+          "result": "The orthogonal constraint and squared Frobenius objective can be stated; IsMinOn does not choose a minimizer or assert its membership, and singular overlap may prevent uniqueness."
+        }
+      ],
+      "gap": "Construct an orthogonal Procrustes minimizer with a selection rule where needed and prove its minimizing property for the squared Frobenius alignment objective."
+    }
+  }
+]

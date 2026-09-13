@@ -1,0 +1,85 @@
+[
+  {
+    "interface_id": "local-ff5fcb6d7f6ceda1c8fd",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.Filtration",
+      "MeasureTheory.Adapted",
+      "MeasurableSpace.comap"
+    ],
+    "comparison": "Build the decision-time information from the entire pre-collected source dataset, target observations strictly before t, and the current target covariate X_t. The policy action at t must be measurable with respect to that pre-reward information; current target rewards and future target data are excluded. Filtration and Adapted can encode this using correctly staged sub-sigma-algebras, while comap generates information from observed variables. The policy is data-dependent even though a realized policy is written as a function of the covariate; do not replace it by a deterministic covariate-only map or omit the source sample. Retain the saved lower-bound history-omission qualification rather than forcing every later displayed history to equal this complete definition.",
+    "gap": "Filtrations and adaptedness express the policy information constraint after the source data and pre-reward target history are included at the correct time.",
+    "searches": [
+      [
+        "Inspect Filtration:47-54, Adapted:55-61 and comap against the explicit source-plus-target history",
+        "The predicates express permitted information only when the filtration contains the current covariate but not the current reward, and includes all source data."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-5049538a1c8dffde2f91",
+    "status": "composable",
+    "names": [
+      "Finset.max'",
+      "IsMaxOn",
+      "MeasureTheory.integral"
+    ],
+    "comparison": "At each covariate, select an arm attaining the maximum reward function over the nonempty finite arm set, with arbitrary source tie-breaking. Finset.max' gives the maximum VALUE, while an attaining arm and a measurable policy choice are additional representation steps; the regret expression itself can use the maximum value and avoid depending on a tie convention. Integrate the finite sum of oracle-mean minus selected-arm mean for target rounds 1 through n_Q only. Bounded rewards make each term lie in [0,1], hence the expectation is finite under a measurable admissible policy. This is an expected target cumulative mean gap, not a high-probability bound, source-plus-target regret or realized reward difference identity without its conditional-expectation argument.",
+    "gap": "Finite maxima and integration express the expected target regret, with admissible action measurability and oracle attainment retained.",
+    "searches": [
+      [
+        "Inspect Finset.max', IsMaxOn and the real integral against both displayed expected-regret expressions",
+        "The maximum value is independent of tie-breaking, but the generic maximum predicate does not itself supply a measurable arm selector or a realized-reward identity."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-2c1e38b81c62c29da1e9",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.IsBrownianReal",
+      "ProbabilityTheory.IsGaussianProcess.iIndepFun_of_covariance_eq_zero"
+    ],
+    "comparison": "Use the underlying Brownian noise of the white-noise experiment together with the two independent auxiliary Brownian motions, retaining the displayed affine coefficients and the common deterministic integral drift. The three coefficient rows have squared norm three and are mutually orthogonal, so their normalized linear combinations have covariance min(s,t), continuous paths and joint Gaussian finite-dimensional laws. The inspected process-level theorem proves mutual independence once cross-covariances vanish for ALL s,t across distinct output processes; independence only at each common time would be insufficient. IsBrownianReal additionally requires almost-sure continuous paths and is indexed by nonnegative times, so restrict to the source interval [0,1] rather than assert an unprovided extension of interval-only processes. The resulting observation noise scale is sqrt(3)*epsilon. This is randomized orthogonal splitting of one observed process, not partitioning design points or asserting the three generated observations are independent of the original Y.",
+    "gap": "Brownian and Gaussian-process independence primitives support the splitting after the linear-combination covariance and path-continuity identities are proved.",
+    "searches": [
+      [
+        "Inspect IsBrownianReal:298-304 and IsGaussianProcess.iIndepFun_of_covariance_eq_zero:104-110 against the three-process construction",
+        "The process theorem controls cross-covariances at all pairs of times and gives mutual process independence; Brownian path continuity and the exact covariance normalization remain separate verifications."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-136561abd49aa2cc46c2",
+    "status": "composable",
+    "names": [
+      "Finset.Icc",
+      "Finset.min'",
+      "Finset.max'"
+    ],
+    "comparison": "Retain the dyadic grid m_j=2^{-j} and increments X_j,i=Y_l(t_j,i)-Y_l(t_j,i-1) on valid intervals; these are integrals of dY_l, not ordinary integrals of Y_l(t) dt. The maximum-index definition of the true cell assigns shared boundaries to the rightmost admissible containing cell, so the valid cell range and endpoint conventions must accompany the displayed max. Initialize i-hat_0=1 and minimize over the FOUR integer candidates from 2*i-hat_(j-1)-2 through 2*i-hat_(j-1)+1, keeping out-of-range increments as positive infinity rather than zero. Finite minimum/maximum values are available in the extended order, but choosing an attaining candidate and a measurable tie convention is additional; the source supplies no full tie rule. Preserve unbounded refinement levels here, unlike the finite regression horizon, and prove the induction that a finite valid candidate remains available instead of relying on empty/all-infinite totalizations.",
+    "gap": "Finite ordered intervals and extrema support the recursion, with source cell ranges, infinity sentinels and measurable argmin selection still to specify.",
+    "searches": [
+      [
+        "Inspect Finset.Icc, min' and max' against the dyadic recursion and source argmin/endpoint qualifications",
+        "The primitives supply finite objective extrema, not a candidate selector or domain convention; the observation increment uses dY rather than ordinary time integration."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-e1eaf07c2a3c35dd2272",
+    "status": "composable",
+    "names": [
+      "Finset.max'",
+      "Finset.min'"
+    ],
+    "comparison": "For a nonempty finite arm set, take the largest value; if some arm is strictly below it, take the maximum over exactly those strictly lower values, otherwise return the largest value itself. The branch test min!=max ensures the filtered set is nonempty, so max' applies without an empty-set fallback. This is the second DISTINCT reward level: for values [1,1,0.5], f_(2) is 0.5 rather than 1; if all arms tie it equals f_(1). Preserve that distinction for the gap and margin condition, and do not replace the construction with the second order statistic counting multiplicity or infer a unique best arm.",
+    "gap": "Finite extrema and filtering express the second distinct reward level with the source's all-tied fallback.",
+    "searches": [
+      [
+        "Inspect finite max/min definitions against the strict-below filter and branch test",
+        "The nonconstant branch yields a nonempty filtered value set; ties at the maximum do not count as a second distinct value."
+      ]
+    ]
+  }
+]

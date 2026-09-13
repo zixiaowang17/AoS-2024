@@ -1,0 +1,416 @@
+[
+  {
+    "interface_id": "local-a07d00366a3349ef9c0f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "274c2552bfa008387f48b20a37953dc91a0e83084443db62e364fa97e4180e67",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D7",
+        "comparison": "The chain theta-X-T follows from the measurable statistic T(X); the reverse chain theta-T-X expresses that the conditional law of X given T does not depend on theta. Represent this with one reverse Markov kernel compatible with every P_theta, or with conditional-independence assertions under suitably quantified parameter laws. Checking a single arbitrarily chosen prior or a single P_theta is not the model-wide condition. condDistrib is almost-everywhere determined under its conditioning marginal and requires a nonempty standard Borel output space; the paper’s arbitrary-space notation does not itself provide these conditions or compatible versions. Ordinary conditional expectation alone does not construct the reconstruction kernel.",
+        "statement_sha256": "cdd10fcd11dc35a4ed288ba02f5edd91fd2fcab83fd347297924b14da2ce0551"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "A deterministic Markov kernel represents taking T(X), and a reverse kernel can express the conditional reconstruction of X from T. condDistrib supplies regular conditional laws on the stated standard Borel spaces, but one obtained for a single law need not be a common version across the model."
+        }
+      ],
+      "gap": "Sufficiency still requires a parameter-independent conditional reconstruction kernel valid for the model, beyond the existence of separate conditional distributions."
+    }
+  },
+  {
+    "interface_id": "local-c108efd5d248419c5084",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "78a34a9e3377f0d1fb604d1d79493d1b6d50b3a62a6e9e6acbe76cfe18f537b9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D8",
+        "comparison": "Use a deterministic kernel for T_n, a Markov kernel for the source’s possibly randomized f, and a kernel from the target statistic space to the full (n+m)-sample space. Composition integrates over the intermediate randomness; a deterministic pushforward alone would omit it. The reconstruction kernel must be independent of the unknown parameter and have a compatible conditional version on statistic values that f(T_n) can attain. A condDistrib selected under one P0 is only specified almost everywhere under that P0 statistic law, so the source’s suggestion to use any P0 requires justification. Neither existence of individual conditionals nor their composition proves the stated TV equality or an executable sampling algorithm.",
+        "statement_sha256": "bf19e834841ae430a4a40a046f52b72ca09917b679fcfad8cceb82dbe806d860"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "Kernel composition represents the three-stage procedure: compute the statistic, apply the transformation/randomization and draw from a conditional reconstruction law."
+        }
+      ],
+      "gap": "The composed amplifier needs a measurable transformation and a common reconstruction kernel valid at the generated statistic values."
+    }
+  },
+  {
+    "interface_id": "local-850e9019fe19ae27dbc6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "5951fc48c01215095e0cea51efd021c26ee841f8ef49a055deb6e2e52031eb17",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D9",
+        "comparison": "For each theta use Z(theta)=integral exp(theta dot T(x)) dmu, with nonzero base measure and measurable T. On the domain 0<Z(theta)<infinity, A(theta)=log Z(theta) and Measure.tilted agrees with the displayed density. Real.log of the totalized Bochner integral cannot define the full natural domain: a divergent integral becomes zero before log, rather than A=+infinity. Keep the source Theta={A<infinity}, including any boundary points, and do not silently replace it with its interior. The tilted measure is zero when exponential integrability fails. The declaration normalizes a law; it does not prove T is sufficient/complete or that gradients and Hessians exist at every theta.",
+        "statement_sha256": "95287e7d5621751450499ac34fc19ddb22474f5278be24b39bf949fab2811b9f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.tilted",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Tilted",
+          "provides": "Exponentially tilted measure with density exp(f) divided by its integral; for nonzero base measure and integrable exp(f) it is a probability law, and nonintegrability gives the zero measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Tilted.lean#L42-L43",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "Tilting the base measure by x -> theta dot T(x) yields the normalized exponential density, and withDensity directly represents exp(theta dot T-A(theta)) once normalization is supplied."
+        }
+      ],
+      "gap": "The natural domain and log-partition normalization must be defined from a positive finite exponential integral, with sufficiency and derivative properties justified separately."
+    }
+  },
+  {
+    "interface_id": "local-ef553b3430bd994832ef",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "cdcfa913d54d98e5ac620b2ebf15bbb7f5a21bd05b75fd093a91307d2257de3f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D10",
+        "comparison": "Require interior(Theta).Nonempty in the natural Euclidean parameter space, without replacing Theta by that interior. For each theta in Theta, require (P_theta.map T) absolutely continuous with respect to d-dimensional Lebesgue measure. This concerns the sufficient statistic’s law, not necessarily absolute continuity of the original observation law against Lebesgue on its potentially different space. Measure.map needs measurability to have the intended pushforward semantics. Nonempty interior and absolute continuity do not by themselves supply boundary differentiability of A or an inverse Hessian at every theta.",
+        "statement_sha256": "ce83075fdb6dad3378ede613a60591e935775681c80f343dcc57dbd8ef026f8e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.AbsolutelyContinuous",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.AbsolutelyContinuous",
+          "provides": "Absolute continuity of one measure with respect to another, expressed by preservation of the latter measure’s null sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/AbsolutelyContinuous.lean#L50-L51",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "Measurable pushforward forms the law of T(X), and AbsolutelyContinuous states that this law assigns zero mass to Lebesgue-null sets; a separate topological condition expresses nonempty parameter interior."
+        }
+      ],
+      "gap": "These predicates suffice to state the assumption for every parameter, once the statistic’s measurable map and Euclidean target space are fixed."
+    }
+  },
+  {
+    "interface_id": "local-9493db37e306011d18c7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "c9d9451e44aa24b09a6a8fa396966e85882d22c1e321a2db637c7a7b7498914f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D11",
+        "comparison": "For the fixed positive integer k form the Euclidean norm of (Hessian A(theta))^(-1/2)*(T(X)-gradient A(theta)), raise it to k and integrate under P_theta. Encode the supremum-finite requirement by one finite C bounding the nonnegative integral for EVERY theta, not by pointwise finiteness or a separate arbitrary bound at each theta. The source uses all Theta even at natural-domain boundary points; gradient/fderiv zero fallbacks and CFC inverse-power conventions do not supply missing smoothness or nonsingularity there. Retain the source domain ambiguity, and do not strengthen the definition to require the sufficient self-concordance criterion from Lemma 4.4.",
+        "statement_sha256": "04f64db4ab320c59bced825daa509478b175b5d25f00f383a2b61197fb7679db"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "The calculus operations represent gradient and Hessian once derivatives exist, matrix real powers represent the inverse square root on a positive definite Hessian, and a nonnegative integral expresses its k-th normalized moment without discarding infinity."
+        }
+      ],
+      "gap": "Derivative domains, Hessian nonsingularity and one finite moment bound uniform over the entire stated parameter set must still be supplied."
+    }
+  },
+  {
+    "interface_id": "local-ebc089ddce520146abeb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "a4eae083d77bd522a62a5fe874e79b7eba30586401400782cf3378abb6587f60",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D12",
+        "comparison": "For positive n use T_n=(1/n) sum_i T(X_i), with a Euclidean vector sum and scalar reciprocal, rather than averaging the observations directly in an arbitrary observation space. The n and n+m statistics use their respective sample-size averages, but the algorithm transfers the observed value unchanged, T_hat_(n+m)=T_n; it does not rescale it by n/(n+m). The deterministic identity kernel expresses that step. Factorization/sufficiency for the iid exponential family, compatible conditional versions and the TV error bound require separate arguments. Preserve the source’s zero-sample-size limitations instead of interpreting real 1/0=0 as an intended statistic.",
+        "statement_sha256": "77974221e0f68b050b20a97f2d8a128d91bd75680de28953c6a51a2dc55d5619"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → {mγ : MeasurableSpace γ} → ProbabilityTheory.Kernel β γ → ProbabilityTheory.Kernel α β → ProbabilityTheory.Kernel α γ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.Comp",
+          "provides": "Composition in application order: the right kernel acts first, and the left kernel is integrated against its output law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/Comp.lean#L50-L52",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "A finite product forms the iid sample law, finite vector averaging defines T_n and the deterministic identity kernel preserves its numerical value between statistic spaces."
+        }
+      ],
+      "gap": "The sample-average sufficiency and the common conditional reconstruction must be proved for this exponential family before the identity map gives an amplifier."
+    }
+  },
+  {
+    "interface_id": "local-fa8755071c9b51f5e8f1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "dc5a42d802074f8780a3eddef74e790f11b88b916fd309df4d69c75531919d79",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D13",
+        "comparison": "At theta=(theta_1,...,theta_d), assign coordinate i its own one-dimensional exponential-family law p_(theta_i) and take Measure.pi over i=1,...,d. Coordinates are independent but need not have identical distributions, sufficient statistics, base measures or log-partition functions. This is a product within one observation, distinct from the n-fold iid sample product. Per-component continuity and moment conditions are extra assumptions in the later theorem; the product definition does not automatically provide a moment constant uniform over growing d.",
+        "statement_sha256": "f12bdf0942e85fd959d83e0d236c8a272bd20d594be248485b9e9f3e1d19cd53"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.tilted",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Tilted",
+          "provides": "Exponentially tilted measure with density exp(f) divided by its integral; for nonzero base measure and integrable exp(f) it is a probability law, and nonintegrability gives the zero measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Tilted.lean#L42-L43",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "Finite product measures combine separately normalized one-dimensional exponential families into the stated coordinate-product model."
+        }
+      ],
+      "gap": "The product construction supplies the model after each coordinate’s natural exponential family and parameter domain are specified."
+    }
+  },
+  {
+    "interface_id": "local-c57c9faa4048a94395c9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T20:02:20.145360+00:00",
+    "source_interface_sha256": "1f73c647dc617888d145dbbf224017f9ec40dfdb0aa9b3d29151b388d54ff685",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2767",
+        "local_id": "D18",
+        "comparison": "Quantify every a in R^d and require that a dot T(x)=0 for mu-almost every x implies a=0. This is independence of coordinate functions modulo mu-null sets; pointwise Function-space linear independence is not identical without passage to the almost-everywhere quotient. Most importantly, the source excludes only the zero combination, not a dot T(x)=constant. Adding a constant statistic would not necessarily violate its wording, so do not claim this condition alone establishes the usual affine-minimal exponential-family criterion or positive definite covariance.",
+        "statement_sha256": "eac13c55c15e431fb5253a972b0d1b1e27de213198ebde3042ccdf582d05d9a4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned local rg search for sufficient statistics, exponential families and related kernels; inspected Kernel.deterministic, Kernel.comp, condDistrib, Measure.tilted and withDensity, map/absolute-continuity, CFC.rpow and calculus definitions; checked registered p2767 PDF pages 9-13 and 18 and saved source issues.",
+          "result": "The real finite dot product and an almost-everywhere equality directly express the source’s coefficient-identifiability implication."
+        }
+      ],
+      "gap": "The dot product with almost-everywhere quantification suffices to state linear independence, without strengthening it to affine independence."
+    }
+  }
+]

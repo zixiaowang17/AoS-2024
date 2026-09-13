@@ -1,0 +1,98 @@
+[
+  {
+    "interface_id": "local-38ea06db90f9075d418b",
+    "declarations": ["ProbabilityTheory.IsMarkovKernel", "RKHS.kernel", "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot"],
+    "query": "rg markov.reward|bellman|temporal.difference in Probability, MeasureTheory and Analysis, followed by a whole-Mathlib search; inspect Kernel.Defs, RKHS.kernel and the compact self-adjoint spectral theorem",
+    "result": "No named Markov-reward/Bellman family was found at this revision; Markov kernels, RKHS evaluation kernels and compact self-adjoint eigenspace completeness provide components, not the prescribed-spectrum family.",
+    "comparisons": ["Regime A fixes reward and RKHS, requires true-value realizability and both (29b) bounds, bounds the reward uniformly by one, prescribes equality of every covariance eigenvalue, and bounds every associated eigenfunction by two; the stationary-law covariance and value process still require construction, and a spectral decomposition theorem does not provide these exact numerical constraints."],
+    "gap": "Markov kernels, RKHS structure and compact spectral theory are available, while the stationary value-function family with its exact spectrum, reward bound and uniform eigenfunction constraints needs a dedicated specification."
+  },
+  {
+    "interface_id": "local-f050cd943e33b8d16182",
+    "declarations": ["ProbabilityTheory.IsMarkovKernel", "RKHS.kernel", "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot"],
+    "query": "Search markov.reward|bellman across Mathlib and inspect Markov kernels, RKHS kernels and compact eigenspace completeness against the Regime B clauses and its local (29b) dependency",
+    "result": "The inspected general infrastructure does not define the Regime B stationary MRP family or impose the given upper spectral envelope.",
+    "comparisons": ["Regime B adds gamma times the stationary-law L2 norm of the value at most one, true-value realizability and (29b), but only upper-bounds eigenvalues for j>=2; retain the uniform eigenfunction bound without inserting Regime A's exact spectrum, j=1 envelope or reward-supremum restriction."],
+    "gap": "The kernel, RKHS and spectral primitives are available, but Regime B's value bound and one-sided spectral-envelope family must be defined separately from Regime A."
+  },
+  {
+    "interface_id": "local-c1ffa6c8abab027cb74f",
+    "declarations": ["MeasureTheory.Measure.fst", "MeasureTheory.Measure.snd", "MeasureTheory.lintegral", "Distribution.lineDerivCLM"],
+    "query": "Search Wasserstein|Kantorovich|optimal.transport|Benamou across Mathlib; inspect measure marginals, nonnegative integration and Distribution.lineDerivCLM",
+    "result": "No named Wasserstein or Benamou-Brenier declaration was found; Gromov-Hausdorff coupling hits concern metric-space embeddings, not probability couplings, while marginal maps and extended integration support the static cost and distributional derivatives support a weak continuity equation.",
+    "comparisons": ["Define the coupling set by its two measure marginals and use nonnegative extended integration for squared displacement, since the stated probability-measure domain does not ensure a finite second moment; the dynamic formulation additionally needs endpoint/admissibility conventions and proof of equality with the static infimum."],
+    "gap": "Marginals, extended quadratic costs and distributional differentiation are available, while the Wasserstein construction and its Benamou-Brenier equivalence with the stated admissible curves remain to be formalized."
+  },
+  {
+    "interface_id": "local-7dd6499a33187d259857",
+    "declarations": ["Distribution.ofFun", "Distribution.lineDerivCLM", "gradient"],
+    "query": "Search gradient.flow|continuity.equation|Wasserstein throughout Mathlib; inspect Distribution.ofFun, its local-integrability rule, directional derivatives and gradient",
+    "result": "Distribution.ofFun and lineDerivCLM encode weak measure/flux derivatives, and gradient differentiates spatial scalar functions; no Wasserstein likelihood gradient-flow definition was identified.",
+    "comparisons": ["The spatial gradient acts on the first variation of the likelihood and the divergence term is interpreted weakly against the evolving measure; these operations do not turn the measure functional into an ordinary Euclidean gradient or prove that a PDE solution is a Wasserstein steepest-descent curve."],
+    "gap": "Spatial and distributional derivatives are available, but the likelihood first variation, weak transport equation and its Wasserstein gradient-flow interpretation require a separate construction."
+  },
+  {
+    "interface_id": "local-43a939a5f7308e971fbd",
+    "declarations": ["MeasureTheory.lintegral", "MeasureTheory.integral", "Distribution.ofFun", "Distribution.lineDerivCLM"],
+    "query": "Search Wasserstein|Fisher.Rao|Benamou|continuity.equation across Mathlib; inspect extended action integrals and function-induced distributions with directional differentiation",
+    "result": "The inspected primitives can express nonnegative action and weak measure evolution, but no transport-plus-centered-reaction distance was found under those names or mechanisms.",
+    "comparisons": ["Both action and reaction use alpha_t minus its rho_t mean, which preserves total probability mass and differs from an uncentered unbalanced-transport action; its formula requires integrable centering, admissible endpoint curves and finite/infinite action conventions, not a sum of two independently supplied component distances."],
+    "gap": "Action integration and weak derivatives are available, while the probability-preserving centered-reaction admissibility class and Wasserstein-Fisher-Rao action infimum still need definition and metric analysis."
+  },
+  {
+    "interface_id": "local-0f47ae7f8ae7fd76cc4b",
+    "declarations": ["Distribution.ofFun", "Distribution.lineDerivCLM", "gradient"],
+    "query": "Search Wasserstein.Fisher.Rao|gradient.flow in Mathlib and inspect Distribution.ofFun, lineDerivCLM and the spatial gradient against the likelihood PDE",
+    "result": "Function-weighted measures and distributional derivatives support the reaction and transport terms, but the inspected library has no identified likelihood WFR gradient-flow construction.",
+    "comparisons": ["Retain the exact reaction coefficient -(1+delta ell_N(rho_t)) together with the divergence of rho_t times its spatial gradient; local integrability and the P2 curve domain must be supplied, and probability conservation depends on the likelihood variation rather than arbitrary reaction coefficients."],
+    "gap": "The weak reaction and transport terms can use existing distributional primitives, while the likelihood-specific probability-preserving PDE and its WFR gradient-flow interpretation remain to be constructed."
+  },
+  {
+    "interface_id": "local-461839214bbe3f6a7dbb",
+    "declarations": ["Finset.filter", "Finset.sum_div", "ProbabilityTheory.avgRisk"],
+    "query": "Search classification.loss|false.discovery|multiple.testing|Bayes across Mathlib; inspect finite filtering/scaling and Decision/Risk/Defs.lean 43-55",
+    "result": "Finite-set operations express rejection and false-discovery counts, and avgRisk supports nonnegative extended losses; no named normalized multiple-testing loss was found, and avgRisk's codomain cannot directly encode its negative values.",
+    "comparisons": ["The deterministic loss ((1+omega)V-R)/m assigns negative value to true discoveries and zero to rejecting nothing; it does not need a law or independence assumption on H, while comparison with avgRisk must instead use the source's nonnegative misclassification cost and justify its decision-independent shift and positive scaling."],
+    "gap": "Counting and risk primitives are available, but the signed normalized loss needs its own real-valued definition and an explicit conversion to the nonnegative cost used by mathlib's risk API."
+  },
+  {
+    "interface_id": "local-b161b971019115b9b286",
+    "declarations": ["Finset.filter", "ProbabilityTheory.IsArgminEstimator.isBayesEstimator"],
+    "query": "Search false.discovery|Bayes in Mathlib; inspect Decision/BayesEstimator.lean 103-138 and its measurability, posterior-argmin and finite-measure assumptions",
+    "result": "The BayesEstimator API proves that a measurable posterior-loss argmin attains Bayes risk; it does not contain the paper's lfdr threshold rule or automatically identify the signed normalized loss with its nonnegative cost.",
+    "comparisons": ["Filter indices using lfdr(p_i)<=1/(1+omega), preserving the inclusive tie rule; the general Bayes theorem becomes relevant after defining the two-groups observation law and a measurable rule, proving posterior-cost minimization and transferring optimality through the source's cost normalization."],
+    "gap": "mathlib has a general posterior-argmin optimality theorem, while the lfdr threshold specialization, measurability and normalized-cost correspondence still require verification."
+  },
+  {
+    "interface_id": "local-509ef91e843761bd52da",
+    "declarations": ["MeasureTheory.integral", "ProbabilityTheory.avgRisk"],
+    "query": "Search excess.risk|regret|Bayes in Mathlib; inspect avgRisk and Decision/Risk/RiskIncrease.lean 46-56 alongside Bochner integration",
+    "result": "avgRisk describes a procedure's prior-averaged nonnegative loss, and integral can represent the signed finite loss difference; riskIncrease instead compares optimal risks before and after discarding observations, so it is not this arbitrary-procedure regret.",
+    "comparisons": ["Integrate the actual data-dependent rejection rule and oracle loss on the same joint sample; replacing this by a population risk evaluated at an independently chosen or random threshold would change the definition, and an ENNReal risk difference needs finite-cost and normalization correspondence before using real subtraction."],
+    "gap": "Expected loss and average risk are available, while the same-sample signed excess loss relative to this oracle requires its own definition and finite-cost correspondence."
+  },
+  {
+    "interface_id": "local-e4b0299376ac8e54915d",
+    "declarations": ["PMF.uniformOfFintype", "ProbabilityTheory.cdf", "Set.indicator"],
+    "query": "Search permutation.test|quantile throughout Mathlib; inspect finite uniform laws and Probability/CDF.lean 54-93 for the closed-lower-set CDF convention",
+    "result": "A uniform law on all permutations and a pushforward by the statistic yield a real probability measure with cdf equal to the probability of values <=x; no named quantile implementation was identified by the whole-library search.",
+    "comparisons": ["Condition on all three archived samples, enumerate every permutation with weight 1/D, and take the left threshold infimum at level 1-alpha; ties use <= in the CDF and >= in the quantile set, and neither Monte Carlo approximation nor the different inline MMD quantile bound can replace this construction."],
+    "gap": "Uniform finite laws and CDFs are available, while the statistic pushforward and its full-enumeration left-quantile convention need a dedicated construction."
+  },
+  {
+    "interface_id": "local-b4d924e2f95509f3d150",
+    "declarations": ["cfc", "Asymptotics.IsBigO"],
+    "query": "Search spectral.regulariz throughout Mathlib; inspect cfc's spectrum-continuity check and zero fallback, and Asymptotics.IsBigO versus IsEquivalent",
+    "result": "Continuous functional calculus applies scalar functions continuous on the full operator spectrum; IsBigO can express comparability bounds, whereas IsEquivalent encodes the stronger difference-little-o condition and cannot replace the printed asymp relation without justification.",
+    "comparisons": ["The source introduces g_lambda only on positive arguments and prints a limiting comparability-to-one condition; preserve that wording without asserting exact convergence to one, and do not infer a value at zero or continuity on a spectrum that includes zero from this preliminary definition."],
+    "gap": "Functional calculus and asymptotic bounds are available, but the positive-domain regularizer, its printed limiting convention and the missing zero-spectrum extension require explicit specification."
+  },
+  {
+    "interface_id": "local-048afc3fc50726b75c70",
+    "declarations": ["cfc", "MeasureTheory.L2.inner_def"],
+    "query": "Search spectral.regulariz in Mathlib; inspect continuous functional calculus and L2.inner_def against the population operator quadratic form",
+    "result": "cfc supplies a continuous scalar function of a suitable operator and L2.inner_def supplies the measure-based inner product; no named regularized discrepancy with this operator and factor four was identified.",
+    "comparisons": ["Construct 4 times the L2(R) inner product of T*g_lambda(T)u with u, retaining the factor four and population nature; the calculus needs its actual spectral domain and regularity, and the archived inconsistent unsquared supremum is not an established equivalent definition or a new theorem dependency."],
+    "gap": "Operator functional calculus and L2 inner products are available, while the paper's population discrepancy needs its operator construction, spectral-domain conditions and exact factor-four normalization."
+  }
+]

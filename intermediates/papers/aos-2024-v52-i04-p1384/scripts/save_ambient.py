@@ -1,0 +1,84 @@
+"""Save source-backed ambient conventions, auxiliary passages and unresolved source issues."""
+import json
+from pathlib import Path
+from save_inventory import PID
+ROOT=Path(__file__).resolve().parents[1]
+aux=[]
+def passage(lid,pages,heading,text,note):
+    aux.append(dict(local_id=lid,source_heading=heading,statement_original=text.strip(),evidence=[dict(page=p,location=heading) for p in pages],note=note))
+passage('A1',[7],'Section 2.2 — epsilon notation',r'''
+In this section, we use the notation $\epsilon=d/\sqrt n$.
+''','Scale abbreviation used in Theorems 2.1, 2.2 and 4.1. It does not impose a separate convergence assumption.')
+passage('A2',[5],'Notation — suppressed constants',r'''
+The notation $a\lesssim b$ means there is constant $C>0$ such that $a\le Cb$. Unless indicated otherwise, the suppressed constant is absolute.
+''','Theorem-specific final sentences and the subscript R_g override the default absolute-constant convention.')
+passage('A3',[6],'Notation — Gaussian L2 norm',r'''
+$\|f\|_2=(\int f^2d\gamma)^{1/2}$.
+''','Gaussian L2 norm used for f_0 in Theorem 4.1; ordinary integration and scalar centering remain ambient operations.')
+passage('A4',[16],'Section 4.2 — centered observable',r'''
+Let $f_0=f-\gamma(f)$, so that $\Delta_f=\int f_0d\rho$.
+''','Resolves f_0 in Theorem 4.1 from the main-text proof outline. The need to define this symbol is a statement dependency; other proof quantities are excluded.')
+passage('A5',[7],'Lemma 2.1 — original canonical-pair characterization',r'''
+Let Assumptions 1 and 2 be satisfied and let $H_V=\nabla^2V(m_*)=n\nabla^2v(m_*)$. Then there exists a unique $(m,S)=(\hat m,\hat S)$ in the set
+\[
+\mathcal R_V=\left\{(m,S)\in\mathbb R^d\times\mathbf S_{++}^d:\ S\preceq2H_V^{-1},\ \|H_V^{1/2}S^{1/2}\|^2+\|H_V^{1/2}(m-m_*)\|^2\le8\right\}
+\]
+which solves
+\[
+\mathbb E[\nabla V(m+S^{1/2}Z)]=0,\qquad\mathbb E[\nabla^2V(m+S^{1/2}Z)]=S^{-1}.
+\]
+Moreover, $\hat S$ satisfies
+\[
+\frac23H_V^{-1}\preceq\hat S\preceq2H_V^{-1}.\tag{2.6}
+\]
+''','Theorem 2.1 explicitly references this pair. The lemma is retained as supporting context, not counted as a Theorem.')
+passage('A6',[9],'Section 2.3 — parameter dependence',r'''
+The function $v$ is allowed to depend on both $n$ and $d$, so that the constants from the assumptions — $a_3,a_4,q,c_0$ — may also depend on both $n$ and $d$. Our results hold as long as these quantities and $d$ and $n$ are constrained by (2.4). However, for the logistic regression example, we will see that $a_3,a_4,q,c_0$ can all be chosen to be absolute constants.
+''','General finite-parameter bounds do not silently require v or all constants to be fixed across n or d.')
+passage('A7',[1],'Section 1 — initial Gaussian VI minimization (1.1)',r'''
+\[
+\hat\pi=\mathcal N(\hat m,\hat S)\in\operatorname*{argmin}_{p\in\mathcal P_{\mathrm{Gauss}}}\operatorname{KL}(p\mathbin{\|}\pi),\tag{1.1}
+\]
+where $\mathcal P_{\mathrm{Gauss}}$ denotes the family of non-degenerate Gaussian distributions on $\mathbb R^d$.
+''','Historical definition within this paper, explicitly replaced in Section 2. It is not imported as an extra condition or theorem demand for global minimization. No KL formula is supplied in the main text.')
+passage('A8',[17],'Section 4.2 — affine example in linear branch',r'''
+If $f(x)=a^Tx+b$ then $0=\int f_0p_3d\gamma=\int f_0r_4d\gamma$ automatically, but we also have $\int f_0p_3^2d\gamma=0$ since $f_0(x)=a^Tx$ is odd and $p_3^2$ is even.
+''','The source uses linear to include an affine intercept. The proof-only r_4 remains an unranked context symbol and is not made a theorem dependency.')
+NOTES=[
+'The registered 49-page source is arXiv:2301.02168v2. The arXiv stamp is dated 7 January 2024 and the title page 9 January 2024; both are preserved. The filename and export URL in the register refer to the same pinned bytes.',
+'Main text ends after Acknowledgments on page 22, before the appendix notation prelude at y=297.2278137207031. That prelude and all appendix bodies are excluded. Theorem 4.1 is within main text and is included despite appearing in a proof section.',
+'The Gaussian approximation is redefined in Section 2 as the canonical solution of the first order equations in R_V. Global KL minimization is not required by these theorem statements; (1.1) is retained only as historical context.',
+'Assumption 1 and the displayed growth conditions use a superscript star m^*, whereas the region and Lemma 2.1 use m_*; their source role is the same unique minimizer. The quotes keep their printed forms.',
+'Assumption 2 prints q,a3,a4>0. The logistic specialization explicitly uses q=0 in Section 3.2 and Corollary 3.1. This boundary-value inconsistency is retained rather than changing the assumption to q>=0.',
+'The weighted tensor supremum in (1.11) has no absolute value. For even tensor order this is not generally the usual norm. Preserve the formula and its stated equality to the multi-vector expression; do not silently insert absolute values or certify the cited assertion.',
+'The region uses the norm of H_V^(1/2) S^(1/2), which need not be a symmetric matrix. The paper also uses standard matrix operator norms; do not restrict that product to the symmetric-tensor domain of (1.11).',
+'Condition (2.7) involves the centered expectation and controls only the exterior of an ellipsoid. No explicit local measurability or integrability condition is stated there. Treat ordinary existence of expectations and variance as analytic well-formedness requirements rather than silently adding hypotheses to the original theorem.',
+'The constants a3,a4,q,c0 and the potential v may depend on n and d in the general results. The suppressed constants have the dependencies named in each theorem; no unmentioned uniform asymptotic regime is inserted.',
+'Theorem 3.1 inherits the logistic model, Gaussian design, bounded true coefficient and bounded prior precision from the paragraph immediately before it. Those assumptions are not present in the four-line opening alone and must remain attached to the theorem.',
+'The final display for labels in Section 3 omits a conditioning bar, but preceding prose and (3.1) define the conditional Bernoulli law. The quoted display is not edited to add conditioning. The joint iid sampling interpretation is corroborated in Lemma 3.2.',
+'Sigma denotes prior covariance in (3.2) and the local setup, but posterior covariance in the final part of Theorem 3.1. In the flat-prior case the source formally uses Sigma inverse equal to zero; this is not an ordinary finite covariance Gaussian prior.',
+'The source writes b_i(theta)=E_{theta~hat pi}[psi-triple-prime(theta^T X_i)]. The external-looking argument is also bound by the expectation, so the resulting coefficient is constant in the argument used by Q. Preserve this notation collision rather than inventing a new source expression.',
+'Theorem 3.1 defines bar-theta as the posterior mean but then uses bar-m in (3.12). Bar-m was introduced for the same role earlier in the paper. The original theorem is retained unchanged.',
+'Theorem 3.1 uses B_{s,hat m} for symmetric Borel sets, while page 8 names the class S_{hat m}. The correspondence follows the symmetric-set bound being specialized; the original source symbols remain distinct in quotes.',
+'Theorem 4.1 uses f_0 before its explicit definition in the following main-text proof outline. The saved ambient passages resolve f_0 and the Gaussian L2 norm without an invented named interface.',
+'Theorems use linear while the proof explicitly considers f(x)=a^T x+b. This includes affine functions in the source convention; do not silently narrow the branch to zero-intercept linear maps.',
+'The defining p3 formula on page 15 contains 1/6 and bold A3,H3. The informal page-18 heuristic omits 1/6. The census preserves the defining formula and does not substitute the heuristic expression.',
+'The main text gives Hermite tensor indexing and the Rodrigues representation (4.13), so the third-order polynomial class can be identified without reading Appendix E. Theorem 4.1 includes orthogonality to the entire third-order class, not just even functions.',
+'Theorem 3.1 makes its conclusions on a single stated high-probability event. The model is random, while the general potential results are conditional analytic bounds. No proof event construction is substituted for the original assertion.',
+'The full census preserves source statements and resolves their dependencies. It does not certify proofs, correct every source formula or establish availability in mathlib.'
+]
+RESOLUTION={
+'shared':'d is dimension and n the positive sample-size/scale parameter; V=nv, pi proportional to exp(-V). The unweighted vector norm is Euclidean and ordinary matrix norms use the standard operator convention. Positive definite symmetric matrices, Loewner order, derivatives, tensor products, scalar integration and Borel sigma-algebras are ambient. The source gives weighted norms and tensor inner products in D3. Finite normalizing integrals and well-defined displayed expectations are analytic requirements, not inserted source quotations.',
+'2.1':'Assumptions 1-3 are D4-D6; the canonical Gaussian is D9 via equations D7 and region D8. The g condition is D11, variance D12, epsilon A1 and suppressed constants A2. g is bound locally and its even-about-hat-m and linear branches remain in the theorem. q,a3,a4,C(q),c0 originate in assumptions; R_g is bound in (2.7).',
+'2.2':'The same assumptions, Gaussian, g condition, variance and epsilon apply. The local binder Q in (2.11) is also archived as D13 because it is referenced by the logistic construction. Its third derivative and tensor contraction use V and D3; the correction has a positive one-half and negative one-sixth term.',
+'3.1':'The local law is D16 through logistic response D14 and prior/design D15. On the stated common event, the canonical solution is defined by D7-D9. The g condition is specialized to c0=1/8; Q is the logistic D17 with b_i from (3.6), linked to the generic D13. Symmetric Borel classes are D18 with the original notation switch. Posterior mean and covariance are bound in the theorem; bar-m/bar-theta and prior/posterior Sigma roles are disambiguated in notes. General Assumptions 2-3 are consequences of the model in the source, not separate required hypotheses added to this theorem.',
+'4.1':'Theorem 2.1 conditions supply D4-D6,D9,D11. f, Delta_f are locally bound. T,rho,V0 come from D19; p3 and A3 are D22, and the third-order Hermite class is D21. f_0 is defined in A4 and its L2 norm in A3, with epsilon A1 and constant conventions A2. No proof-only r3,r4,L(f),E(f),Implicit Function Theorem or contraction-map construction is required to state this theorem.'
+}
+def main():
+    data=dict(paper_id=PID,scope='Main text only; appendices excluded.',unranked_auxiliary_passages=aux,source_issues=NOTES,statement_resolution=RESOLUTION,unresolved_source_references=[
+      dict(reference='Appendix notation prelude and all appendix bodies',status='excluded_not_opened',reason='The requested scope excludes appendix content, including a prelude before the first lettered heading.'),
+      dict(reference='Appendix E',status='excluded_not_opened',reason='The main-text Hermite indexing and representation suffice to identify the statement dependency; further details are not imported.'),
+      dict(reference='Appendices A, B, D, F and G',status='excluded_not_opened',reason='Referenced proofs, norm details and simulation procedures are outside scope.'),
+      dict(reference='External cited results, including [20] and [31]',status='external_not_imported',reason='They motivate or justify equations already printed in main text; no external proof content is needed for the original theorem inventory.')])
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
+if __name__=='__main__':main()

@@ -1,0 +1,86 @@
+[
+  {
+    "interface_id": "local-f831e8b6a376f481c03e",
+    "status": "composable",
+    "names": [
+      "Set.Ioo",
+      "Asymptotics.IsBigO"
+    ],
+    "comparison": "Define pairs alpha,beta in the open interval (C1,0.5) with 1-alpha-beta=gamma, retaining fixed 0<C1<0.5 and possible dimension-dependent gamma. These strict bounds force 0<gamma<1-2*C1, so the nominal larger interval (0,1] does not make every class nonempty; in particular the unnoised gamma=1 case is outside this class. Two opposite IsBigO relations can express the asserted comparability of privacy level pi and gamma along a specified sequence, with constants allowed to depend on the fixed C1 as in the source. That notation does not prove a privacy bound or fix the privacy definition, and does not justify uniformity over varying C1. Preserve the quoted reference-based comparability separately from the elementary parameter-domain predicate.",
+    "gap": "Open intervals and two-sided asymptotic bounds express the restriction and comparability, while the privacy calculation and nonempty parameter domain remain explicit obligations.",
+    "searches": [
+      [
+        "Inspect Set.Ioo and IsBigO/IsBigOWith against the strict parameter class and pi asymptotic comparability",
+        "The class equations force a narrower nonempty gamma range; the asymptotic predicates state comparison of two quantities but do not certify a privacy theorem."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-b3f6626a13c1fec5b68c",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.integral",
+      "Real.log",
+      "Finset.card"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i02-p0708/D6": "For binary tau, phi_1(z)=z-alpha and phi_0(z)=1-beta-z are signed functions of the released edge. Under the source fresh release channel, E(phi_1(Z))=gamma*P(X=1) and E(phi_0(Z))=gamma*P(X=0); divide only when gamma=1-alpha-beta is nonzero. These corrected values are not pointwise probabilities and may be negative. The generic real integral supports the identities for bounded edge variables, but independent noise coordinates alone do not establish the needed input-noise conditioning; retain the saved channel-interpretation qualification.",
+      "aos-2024-v52-i02-p0708/D7": "Average the expected three-edge products over unordered pairs i<j excluding ell, with the exact 1,0,1 versus 0,1,0 edge labels and normalizer |H_ell|. For p>=3 the pair set is nonempty. Under independent unordered beta-model edges and fresh release noises, product expectations factor; for each triangle their positive population ratio is exp(2*theta_ell), so the same ratio holds after averaging and the one-half logarithm recovers theta_ell. These are expectations of products on three distinct edges, not a statement that different triangles are independent. Preserve gamma positivity and the population law assumptions; no sample estimator or finite-sample validity follows from this population identity.",
+      "aos-2024-v52-i02-p0708/D8": "Replace each population expectation by its observed triangle product, retaining all overlapping triangles, the same pair-count normalization and the factor one-half before log. The empirical ratio needs nonzero denominator and positive ratio for the intended real logarithm; signed corrected edge values make failure possible on finite samples. Real.log extends to log(abs(x)) for negative x and zero at x=0, and field division also totalizes zero, so these library extensions must not serve as an unstated fallback. Do not truncate moments, add pseudocounts, assume independent triangles or certify a total estimator from its asymptotic theorem; keep the source undefined-outcome qualification."
+    },
+    "gap": "Integration, finite averages and logarithms support the moment construction on its valid domain, while fresh-noise assumptions and empirical log-ratio failures remain explicit.",
+    "searches": [
+      [
+        "Inspect real integral, Real.log:38-45 and finite cardinality against the three component passages and saved graph-channel issues",
+        "Population identities require the stated channel and beta-model factorization; the library logarithm has nonpositive-input extensions that do not resolve the empirical estimator domain."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-97b2eb25947bc5517af6",
+    "status": "composable",
+    "names": [
+      "EuclideanSpace",
+      "Set.Icc"
+    ],
+    "comparison": "Represent G as a family indexed by theta in Theta and frequency lambda in the closed interval [-pi,pi], with values in EuclideanSpace R (Fin p) and the source coordinate functions g_j,theta. The printed domain order [-pi,pi] times Theta and the G_theta(lambda) notation are reconciled by an explicit argument-order convention, not by changing the functions. This bare definition adds no bounded variation, differentiability or moment-identification equality. Integration with the spectral density requires separate measurability/integrability hypotheses, and the script M_theta moment target need not vanish or equal theta.",
+    "gap": "A function on the closed frequency interval and parameter domain with finite Euclidean codomain represents the estimating-function family.",
+    "searches": [
+      [
+        "Inspect EuclideanSpace and Set.Icc against the frequency/parameter domain and saved moment-target qualification",
+        "The primitives give the domain and vector representation without imposing the later true-parameter variation or moment equation."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-0a4cee524a7a7fdd9bed",
+    "status": "exact_reuse",
+    "names": [
+      "BoundedVariationOn"
+    ],
+    "comparison": "For each component j, assert BoundedVariationOn (g_j,theta0) on the closed real interval [-pi,pi]. The predicate requires finite total variation measured over ordered finite partitions and directly matches the real scalar condition. It imposes the condition only at the true parameter theta0, not at every theta or uniformly over a parameter neighborhood. No differentiability, Lipschitz constant, absolute continuity, continuity at endpoints or common variation bound across dimensions is added.",
+    "gap": "BoundedVariationOn directly expresses each component's variation condition at the true parameter.",
+    "searches": [
+      [
+        "Inspect BoundedVariationOn and eVariationOn:58-67 against the componentwise true-parameter assumption",
+        "The definition is finiteness of variation on the specified ordered interval; no parameter-uniform or differentiability condition is included."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-81b0d752cbfd2e1276b9",
+    "status": "composable",
+    "names": [
+      "Finset.card",
+      "Finset.min'"
+    ],
+    "comparison": "Count positive, negative and null votes over indexed entries, then evaluate the exact three-branch signed formula. Convert natural counts to integers or reals BEFORE subtraction so the null branch remains nonpositive rather than being truncated to zero. The minimum in that branch is over two explicit values and is nonempty. Retain the source duplicated N_plus in the introductory list as a recorded typo, while using the separately defined three counts. The formula is a signed vote margin, not the minimal flip count described in the prose: three positive votes give score 3 although two flips can change the majority. Keep it distinct from the later null-sign utility, whose minimum has the opposite sign, and do not replace it by Hamming distance or absolute stability.",
+    "gap": "Finite counts, signed arithmetic and a two-value minimum express the printed score, but its claimed identification with a minimal flip count is not valid in general.",
+    "searches": [
+      [
+        "Inspect finite cardinality/minimum primitives and the saved p1671 signed-score discrepancy",
+        "The arithmetic formula is directly expressible; its negative null branch and the three-positive-vote example preclude treating it as a nonnegative minimal flip count."
+      ]
+    ]
+  }
+]

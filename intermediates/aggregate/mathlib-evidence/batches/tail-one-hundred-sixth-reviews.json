@@ -1,0 +1,202 @@
+{
+  "scope": "Manual review of nineteen remaining interfaces involving aos-2024-v52-i06-p2714, including the two-paper log-likelihood interface, against pinned mathlib source and frozen source-review notes.",
+  "rows": [
+    {
+      "interface_id": "local-f8895db501f1fc5bb9d1",
+      "related": ["MeasureTheory.ProbabilityMeasure", "MeasureTheory.Measure.rnDeriv", "MeasureTheory.Measure.withDensity"],
+      "status": "composable",
+      "query": "Searched InformationTheory and Probability for statistical experiments and KL projections; inspected ProbabilityMeasure, rnDeriv with its decomposition condition, and withDensity.",
+      "result": "Probability measures indexed by n and theta and a common sigma-finite dominating measure can be assembled; Radon-Nikodym derivatives supply densities under absolute continuity.",
+      "gap": "Package the n-indexed true and model laws with their shared dominating measure, without adding iid sampling, parameter measurability or correct specification.",
+      "comparisons": {
+        "D1": "Use a probability measure P0_n and a family Ptheta_n indexed by theta in the specified subset of R^d on the data space for each n. Both are absolutely continuous with respect to the same sigma-finite mu_n; the finite laws have the decomposition needed by rnDeriv, and withDensity reconstructs them once the singular part vanishes. Domination by mu_n does not imply P0_n is absolutely continuous with respect to every Ptheta_n. The density is a version, and joint measurability in theta is an additional requirement for a kernel construction, not a consequence of the family notation. No product/iid law or theta with Ptheta_n = P0_n is imposed."
+      }
+    },
+    {
+      "interface_id": "local-fb0c7e2227fc059d6d0d",
+      "related": ["InformationTheory.klDiv", "IsMinOn"],
+      "query": "Searched KL projection terminology and inspected klDiv's ordered arguments, extended-infinity branch and mass correction, plus IsMinOn.",
+      "result": "An extended KL objective and a minimizer predicate express the projection relation, but neither existence nor parameter-level uniqueness is supplied.",
+      "gap": "Define a feasible KL minimizer with the true law as the first argument, keeping existence, parameter uniqueness and possible n dependence separate.",
+      "comparisons": {
+        "D2": "The objective is klDiv P0_n (Ptheta_n), not its reverse; the finite-measure mass correction cancels for these probability measures, and lack of relative absolute continuity or integrable log ratio gives infinity. IsMinOn over theta in Theta plus theta-star membership expresses a supplied minimizing parameter; alternatively the minimization can be stated over the image family of measures. Distinct parameters may yield the same minimizing distribution, so those two uniqueness notions differ. A common dominating measure does not guarantee finite KL or an attained minimum. Preserve theta-star without an n subscript as printed while recording that the n-dependent objective need not have a common minimizer automatically."
+      }
+    },
+    {
+      "interface_id": "local-cd35eddbf6d677652c0b",
+      "related": ["InformationTheory.klDiv", "IsMinOn"],
+      "status": "composable",
+      "query": "Inspected klDiv and IsMinOn and compared the source's parameter-uniqueness assumption with minimization over a family of measures.",
+      "result": "Unique existence of a feasible parameter satisfying the KL minimizer predicate is directly expressible; it is an assumption, not a theorem following from domination.",
+      "gap": "State uniqueness at the parameter level for the supplied KL projection, without substituting identifiable correctly specified truth.",
+      "comparisons": {
+        "D11": "For the supplied theta-star, require membership and minimality together with equality theta = theta-star for every feasible minimizing theta, or package this as unique existence. IsMinOn alone omits membership and uniqueness. The assumption is stronger than uniqueness of Ptheta-star when the parameterization is noninjective and does not imply Ptheta-star equals the true distribution. It also does not by itself impose that theta-star is interior, finite KL, or an n-independent minimizing parameter; those are separate source/context questions."
+      }
+    },
+    {
+      "interface_id": "model-log-likelihood",
+      "related": ["Real.log", "ENNReal.log", "Matrix.det", "Matrix.mulVec", "Matrix.mul_nonsing_inv"],
+      "query": "Searched likelihood interfaces; inspected Real.log and ENNReal.log boundary conventions, determinant, finite matrix-vector products and nonsingular inverse, and both frozen model variants.",
+      "result": "Model-density logarithms and the explicit Gaussian determinant/quadratic objective have ingredients; domain and density-version conventions must be supplied before claiming equivalence to statistical log likelihood.",
+      "gap": "Build each model's exact objective and normalization while retaining zero-density and covariance-domain issues and allowing non-Gaussian or misspecified truth.",
+      "comparisons": {
+        "aos-2024-v52-i06-p2714/D3": "The likelihood is log of the chosen model density ptheta_n at observed X^n, with no iid factorization and no equality to the true density. Real.log agrees on positive finite inputs but log 0 = 0 would misrepresent a zero likelihood; ENNReal.log can represent negative infinity there and positive infinity at an infinite density. A derivative-based real objective needs the corresponding local positive finite density domain and compatible version. The common dominating measure alone does not certify these pointwise conditions uniformly in theta.",
+        "aos-2024-v52-i06-p2956/D9": "Retain -n/2 log(2 pi), -1/2 log(det V), and -1/2 times the residual transpose V-inverse residual, with residual y-X xi. Vertical bars mean determinant, not a matrix norm or an instruction to take abs(det V). Matrix inverse identities require nonsingularity; a Gaussian Lebesgue-density interpretation needs positive-definite covariance, and the archived source review leaves the full Omega domain unspecified. Real.log of a negative determinant and the zero inverse of a singular matrix are not valid replacements for that missing domain. This is the working Gaussian objective even when the true random effects are non-Gaussian; it does not supply Gaussian information equality or the later adjusted-likelihood score signs."
+      }
+    },
+    {
+      "interface_id": "local-6f7c7d741575000df366",
+      "related": ["ProbabilityTheory.posterior", "ProbabilityTheory.posterior_eq_withDensity", "MeasureTheory.Measure.map"],
+      "query": "Inspected posterior as disintegration of the swapped prior-sampling joint law, the almost-everywhere Bayes formula and all its measurable-space/absolute-continuity assumptions, and Measure.map.",
+      "result": "The library has a posterior kernel and an almost-everywhere density formula once a suitable measurable sampling kernel and prior are supplied; the source passage itself only establishes notation.",
+      "gap": "Connect the named prior/posterior to a suitable Bayes construction and coordinate pushforwards, accounting for density versions and predictive-null observations.",
+      "comparisons": {
+        "D4": "A finite prior and finite sampling kernel on the stated standard-Borel/nonempty parameter space support posterior; the density theorem further assumes countable-or-countably-generated measurable spaces and sampling-law absolute continuity with respect to the predictive law for prior-almost every parameter. Its equality holds predictive-almost everywhere, not at arbitrary data values or automatically P0_n-almost everywhere under misspecification. The source's notation does not itself add those conditions or an explicit normalization formula. Later overloads of Pi_n/pi_n for rescaled coordinates require a measurable pushforward and the density Jacobian, not merely reusing the theta-density as a function of h."
+      }
+    },
+    {
+      "interface_id": "local-2cfa3336282c84c34946",
+      "related": ["ContDiffOn", "Real.log"],
+      "query": "Inspected ContDiffOn's neighborhood-within-set definition at finite order two and Real.log's positive-input and totalized boundary behavior.",
+      "result": "Local C2 regularity of a real log-prior and the explicit positive finite density value can be stated; this is distinct from an abstract first-order prior expansion.",
+      "gap": "Choose the source neighborhood and interpret a genuine finite log-prior there, preserving positivity at theta-star and not replacing the abstract expansion assumption.",
+      "comparisons": {
+        "D16": "Use ContDiffOn R 2 for log pi on the specified neighborhood of theta-star and separately 0 < pi(theta-star) < infinity. On an open ambient neighborhood, the within-set regularity has the usual C2 meaning; using an arbitrary thin set could weaken it. Real.log's values at zero or negative inputs are not the statistical log-prior, so that extension cannot establish the hypothesis vacuously where the density vanishes. This condition is stronger regular-parametric information than the abstract prior coefficient in Assumption3; the recorded sufficient-condition implication is not reversed. No global prior smoothness is asserted."
+      }
+    },
+    {
+      "interface_id": "local-1fc1feee49ea3609cbc1",
+      "related": ["Filter.Tendsto", "MeasureTheory.Measure.real", "EuclideanSpace.norm_eq", "csSup_le_iff"],
+      "query": "Searched posterior contraction and likelihood-separation interfaces; inspected Filter.Tendsto, finite real event probabilities and csSup_le_iff with boundedness/nonemptiness premises.",
+      "result": "The varying-law probability limit and Euclidean excluded neighborhood are expressible, while the uniform log-likelihood supremum and its strict separation remain a model assumption.",
+      "gap": "State the for-every-diverging-radius separation event with its strict supremum bound, handling likelihood domains, measurability and empty-region conventions.",
+      "comparisons": {
+        "D17": "For every sequence M_n tending to positive infinity, a positive c5 is chosen before the probability limit; the event uses sup over theta in Theta with norm(theta-theta-star) > M_n/sqrt n of (ell(theta)-ell(theta-star))/n strictly less than -c5 M_n squared/n. c5 may depend on the sequence but not on n. Take Tendsto of P0_n.real of these events to one; a fixed-measure convergence-in-measure definition does not automatically encode the varying experiments. A strict supremum inequality is stronger than merely saying every point has a strict bound without a uniform margin. csSup_le_iff only describes nonstrict real suprema under boundedness and nonemptiness, so it does not resolve empty far regions or unbounded/extended log likelihoods. M_n is arbitrary here, not the particular logarithmic radius used elsewhere."
+      }
+    },
+    {
+      "interface_id": "local-6079e9329bf99be8f37d",
+      "related": ["IsMaxOn", "Real.log"],
+      "query": "Searched maximum-a-posteriori and argmax interfaces; inspected IsMaxOn's membership caveat and the real log-prior domain.",
+      "result": "A feasible global maximizer of likelihood plus log prior can be specified, but a selected maximizer and its interior stationarity do not follow from the predicate.",
+      "gap": "Represent a selected feasible posterior mode with existence and measurability conditions, without treating vanishing posterior score as part of argmax by definition.",
+      "comparisons": {
+        "D18": "The objective is ell(theta) + log pi(theta), not ell alone. IsMaxOn over Theta together with theta-hat in Theta states global maximality; it neither selects among modes nor proves one exists or is a measurable statistic. The later source assertion that likelihood score plus prior score vanishes needs an interior differentiable maximizer and cannot be deduced for an arbitrary constrained Theta from this definition. Positive/finite log-domain conditions or extended-objective conventions also remain necessary; Real.log 0 = 0 must not turn impossible prior values into finite posterior modes."
+      }
+    },
+    {
+      "interface_id": "local-99aa5c95fe453cd93944",
+      "related": ["EuclideanSpace.norm_eq", "MeasureTheory.Measure.real", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Searched MAP concentration interfaces and inspected EuclideanSpace.norm_eq, Measure.real and Filter.Tendsto.",
+      "result": "The exact proximity event and its vanishing error sequence can be assembled directly as a hypothesis under the n-indexed true laws.",
+      "gap": "Package the every-diverging-sequence event with radius M_n sqrt(d)/sqrt(n), retaining its strict probability inequality and separate error sequence.",
+      "comparisons": {
+        "D22": "For each M_n tending to infinity, form the measurable MAP event norm(theta-hat-theta-star) <= M_n sqrt d/sqrt n and posit some epsilon-hat-n,0 tending to zero with P0_n(event) > 1-epsilon-hat-n,0. Keep the nonstrict norm boundary but strict probability comparison and the sqrt d factor. The sequence of errors may be chosen for the supplied M_n; it is not identified with the eigenvalue or derivative error sequences in Assumption10. This states a concentration assumption for a measurable selected MAP, rather than proving a rate from its argmax definition or replacing the quantifier by one chosen radius."
+      }
+    },
+    {
+      "interface_id": "local-aeeb09fa90305f2f1e68",
+      "related": ["EuclideanSpace", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected the finite Euclidean-space representation and measurable pushforward construction for the affine root-n coordinate change.",
+      "result": "Subtracting the realized MAP and scaling by sqrt n defines a measurable affine map on finite Euclidean space for each fixed data set.",
+      "gap": "Define the MAP-centered affine coordinate and its posterior pushforward, using positive n when an invertible rescaling or density Jacobian is needed.",
+      "comparisons": {
+        "D19": "The coordinate is sqrt n times (theta-theta-hat), where theta-hat depends on data, not theta-star. EuclideanSpace supplies R^d and ordinary vector operations; for fixed data this map is continuous and its measure map has the intended pushforward meaning. Positive n makes the affine change invertible, while n=0 would collapse it. A transformed posterior density requires the n^(-d/2) Jacobian and the transformed parameter domain. Nothing here identifies this root-n MAP coordinate with the general delta_n coordinate centered at the KL projection."
+      }
+    },
+    {
+      "interface_id": "local-a3ad2e77cd402914f4e5",
+      "related": ["fderiv", "iteratedFDeriv"],
+      "query": "Inspected fderiv's zero fallback and iteratedFDeriv's recursive continuous-multilinear-map body; compared the archived first through fourth coordinate derivative arrays.",
+      "result": "Frechet derivatives evaluated on coordinate basis vectors provide candidates for the score and higher arrays under sufficient differentiability, not unconditional derivative existence or the abstract expansion coefficients.",
+      "gap": "Identify the coordinate partial arrays with actual Frechet derivatives at the specified evaluation point while preserving the source's printed derivative notation.",
+      "comparisons": {
+        "D5": "Apply the first derivative to each standard basis vector and the order-two/three/four multilinear derivative to tuples of basis vectors, with all array indices ranging over 1,...,d. Their first evaluation point is theta-star; later arrays explicitly evaluated at theta-hat use that random MAP instead. The single partial symbol in the printed higher-order numerators is retained, with the standard iterated-derivative reading documented rather than a changed quotation. Bare existence of coordinate partials need not give the Frechet smoothness needed for this identification, and totalized derivatives equal zero when missing. The actual derivative arrays are not automatically the abstract Delta, V and third-order array of Assumption2, nor does this definition alone give their symmetry or a Taylor remainder bound."
+      }
+    },
+    {
+      "interface_id": "local-269df61550798b44d98d",
+      "related": ["Real.log", "fderiv", "iteratedFDeriv"],
+      "query": "Inspected the log-domain convention, fderiv and iteratedFDeriv, and the source's separate log-prior derivative and abstract-expansion passages.",
+      "result": "The first and second coordinate derivatives of a genuine local real log-prior can be represented via Frechet derivatives; existence and their relation to abstract coefficients are separate.",
+      "gap": "Construct the log-prior score and Hessian at the named point under the needed local domain and differentiability conditions.",
+      "comparisons": {
+        "D7": "These arrays differentiate log pi, not pi, and are initially evaluated at theta-star. Order-one and order-two Frechet derivatives evaluated on basis directions provide the corresponding components when the analytic identification is justified; the printed higher-partial notation is not silently rewritten. Assumption10 instead evaluates the prior Hessian at generic local theta and bounds it without division by n. Assumption3's own first-order vector is abstract and does not inherit differentiability merely through a similar symbol. Real.log totalization at a zero prior density and fderiv totalization without a derivative cannot supply the missing regularity."
+      }
+    },
+    {
+      "interface_id": "local-52ee83127fb29b04baf7",
+      "related": ["iteratedFDeriv"],
+      "query": "Searched Fisher information and inspected iteratedFDeriv for the second derivative underlying the observed-information matrix.",
+      "result": "The negative coordinate Hessian of the supplied likelihood is constructible, but no verified Fisher-information interface identifies it with expected information or a covariance.",
+      "gap": "Define observed information as the negative likelihood Hessian at the requested point, keeping expected information and prior curvature separate.",
+      "comparisons": {
+        "D6": "For each coordinate pair s,t, J(theta-star) has entry minus the order-two likelihood derivative evaluated on the corresponding basis vectors, with actual differentiability needed for this representation. At the MAP, replace the evaluation point only; do not differentiate the full posterior objective and do not average over data. The source's expected information I(theta-star) = E0_n J(theta-star) is auxiliary separate context, and misspecification prevents automatically replacing it with a score covariance. Positivity, invertibility and an information-equality identity are not supplied by the definition."
+      }
+    },
+    {
+      "interface_id": "local-824f5682be798f0475f2",
+      "related": ["iteratedFDeriv", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected likelihood second derivatives, nonsingular matrix inverse and its singular zero branch, and the MAP-evaluated normalization in the frozen source.",
+      "result": "The scaled observed likelihood information V-hat and its inverse Omega-hat can be represented, but inverse and covariance meaning require separate domain conditions.",
+      "gap": "Define V-hat = J(theta-hat)/n and Omega-hat as its genuine inverse where valid, retaining separate high-probability regularity assumptions.",
+      "comparisons": {
+        "D20": "Entries of V-hat are j(theta-hat,s,t)/n; Omega-hat is its inverse and is used as the Gaussian covariance, while V-hat is the precision. Preserve this direction despite the interface's short title. The inverse theorem requires unit determinant, which over real matrices means nonzero determinant; the zero matrix returned by a singular totalized inverse is not a source-defined fallback. The source uses only likelihood curvature at the MAP, not the posterior Hessian or expected Fisher information. Positive sample size and later spectral events justify particular operations, but importing those events into this definition would create the dependency cycle the census explicitly avoids."
+      }
+    },
+    {
+      "interface_id": "local-69e4d65d830677e9b96e",
+      "related": ["Matrix.IsHermitian.eigenvalues₀", "iteratedFDeriv", "MeasureTheory.Measure.real", "Filter.Tendsto"],
+      "query": "Searched tensor spectral norms and MAP regularity; inspected sorted Hermitian eigenvalues, multilinear derivatives and varying event-probability limits.",
+      "result": "Finite symmetric eigenvalues and derivative arrays support parts of the assumption; no verified result supplies its full pair of probability events or resolves the named spectral tensor norm.",
+      "gap": "State both spectral and joint local-derivative events with their original constants and error sequences, resolving tensor-norm and inverse-domain conventions explicitly.",
+      "comparisons": {
+        "D23": "The first event simultaneously bounds the minimum eigenvalue of Omega-hat-inverse strictly above eta-bar1 and the maximum strictly below eta-bar2, with probability >1-epsilon-hat-n,1. eigenvalues-zero are sorted real eigenvalues only for a Hermitian matrix and need positive dimension for extrema. The second event is a separate intersection of three strict supremum bounds on B_delta(theta-hat) = Theta intersect the open Euclidean ball around the random MAP: the unscaled log-prior Hessian, likelihood third derivative divided by n, and likelihood fourth derivative divided by n. Constants delta,L_pi2,L3,L4 are fixed positive numbers; its probability error epsilon-hat-n,2 tends to zero separately. The source names spectral norms for higher tensors without specifying whether diagonal or independent-unit-vector contraction is intended, so the ordinary continuous-multilinear operator norm cannot be asserted equal without review. No fixed center theta-star, shrinking radius, deterministic global derivative bound or independent-event product replaces the stated conditions."
+      }
+    },
+    {
+      "interface_id": "local-7b6b901fd92112b52771",
+      "related": ["Filter.Tendsto", "EuclideanSpace", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected generic Filter.Tendsto, Euclidean coordinate operations and measurable pushforward, and compared the general-rate and MAP-specialized source conventions.",
+      "result": "A positive norming sequence tending to zero and the theta-star-centered affine rescaling are directly expressible without choosing a root-n rate.",
+      "gap": "Package the general delta_n rate and inverse affine coordinate, with the appropriate transformed domain and density scaling when used for the posterior.",
+      "comparisons": {
+        "D8": "Tendsto delta atTop (nhds 0) states the limit; the ambient positive norming-rate interpretation is needed for division and log(delta_n inverse), since convergence alone permits zeros. Define h = delta_n inverse times (theta-theta-star) and push forward the posterior through that continuous affine map for fixed n and data. A density under a positive delta_n needs the delta_n^d Jacobian in the inverse change theta = theta-star + delta_n h. Neither a root-n rate, MAP centering, nor an actual posterior contraction theorem follows from this coordinate definition. Retain the distinct general logarithmic radius convention used later."
+      }
+    },
+    {
+      "interface_id": "local-1e7dd80458b029ac3bc9",
+      "related": ["Finset.filter", "Finset.card", "EuclideanSpace"],
+      "status": "composable",
+      "query": "Inspected finite filters, cardinality and finite Euclidean coordinate types for a subset/complement decomposition.",
+      "result": "A finite index subset, its cardinality, complement and restricted coordinate functions are directly constructible, including empty index types.",
+      "gap": "Define the coordinate split with a consistent enumeration, preserving empty and full subsets for later Gaussian conventions to handle.",
+      "comparisons": {
+        "D24": "Represent C as a subset of the finite d-coordinate type and its complement within that type, not the complement in all natural numbers. Finset.card gives d_C, and restricting h-hat to the C and complement subtypes gives the two blocks; a chosen enumeration identifies them with R^d_C and R^(d-d_C). No covariance or Gaussian assumption is required. The original arbitrary subset quantifier permits C empty or full; finite Euclidean types can encode those cases, but that fact does not by itself validate the later empty-block inverse, density or integration conventions absent from the source."
+      }
+    },
+    {
+      "interface_id": "local-d8508cac53a3a2918409",
+      "related": ["MeasureTheory.Measure.fst", "MeasureTheory.integral", "MeasureTheory.integral_integral_swap"],
+      "query": "Inspected first marginal as pushforward, Bochner integral and its nonintegrable zero fallback, and Fubini interchange under product integrability.",
+      "result": "The true coordinate marginal measure and the integral of a joint density over complementary coordinates have library ingredients, subject to density/integrability and coordinate-identification work.",
+      "gap": "Identify the rescaled posterior with its coordinate-product representation and justify the marginal density integral, independently of any Gaussian approximation.",
+      "comparisons": {
+        "D29": "After the C/complement split, first marginal is pushforward along the C projection, and its density is the integral of the true rescaled posterior density pi_n(h-hat) over complement-coordinate Lebesgue measure, with zero extension if the transformed Theta is not a product. This is not integration of the approximating joint SKS density or the separate F-of-conditional-mean approximation. Nonnegative integration and Fubini/Tonelli reasoning give the marginal density up to the usual almost-everywhere versions; a Bochner integral needs integrable sections and otherwise returns zero, which is not a blanket pointwise density certification. Empty complementary coordinates require their unit-mass zero-dimensional convention. No Gaussian covariance is a prerequisite of this definition."
+      }
+    },
+    {
+      "interface_id": "local-76d6e25e99d4fe0d8258",
+      "related": ["Matrix.submatrix", "Matrix.mul_apply", "Matrix.mul_nonsing_inv", "ProbabilityTheory.multivariateGaussian"],
+      "query": "Searched Gaussian conditional laws and Schur complements; inspected covariance submatrices and finite products, nonsingular inverse, and multivariateGaussian including its non-PSD Dirac fallback.",
+      "result": "Covariance blocks and the Schur-complement expressions can be assembled, and Gaussian measures are available, but the full conditional Lebesgue-density factorization was not verified as a library declaration.",
+      "gap": "Establish the Gaussian density factorization with the MAP covariance and its Schur complement on a valid positive-definite domain, retaining boundary-case conventions.",
+      "comparisons": {
+        "D25": "Use Omega-hat = inverse(J(theta-hat)/n), then its CC, complement-complement and cross blocks; Lambda_C = Omega_complement,C times inverse(Omega_CC), and barOmega subtracts Omega_complement,C inverse(Omega_CC) Omega_C,complement from Omega_complement,complement. The conditional mean is Lambda_C h-hat_C and covariance barOmega. The left quadratic exponent has Einstein sums over s,t and factor 1/(2n); its proportionality omits the Gaussian normalizer, while the displayed density product is an equality. A valid nondegenerate Gaussian density needs positive-definite full covariance and corresponding invertible blocks; multivariateGaussian's Dirac fallback on a non-PSD matrix or a singular measure is not that density. No complement-of-high-probability-event fallback is supplied by the paper, and empty/full C cases need separate zero-dimensional conventions. This MAP likelihood covariance is distinct from the theoretical covariance in the general theorem and from a full posterior Hessian inverse."
+      }
+    }
+  ]
+}

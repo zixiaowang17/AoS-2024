@@ -1,0 +1,142 @@
+{
+  "scope": "Manual source-variant-aware mathlib comparison of the nine remaining p0261 interfaces; source PDF consulted only to preserve conventions, no extraction changed.",
+  "rows": [
+    {
+      "interface_id": "local-da33da4379f8098dcd20",
+      "related": [
+        "ProbabilityTheory.minimaxRisk",
+        "Asymptotics.IsBigOWith",
+        "MeasureTheory.Measure.pi"
+      ],
+      "status": "partial_match",
+      "query": "Inspected Probability/Decision/Risk/Defs minimaxRisk body, Analysis/Asymptotics/Defs IsBigOWith and MeasureTheory/Constructions/Pi finite product; checked source conventions on PDF page 6 against the retained census.",
+      "result": "minimaxRisk takes a parameter-to-data kernel and ENNReal loss, then infimizes over Markov-kernel estimators and supremizes over parameters; Measure.pi forms N independent sample laws. Two explicit IsBigOWith inequalities can express two-sided comparisons, using the principal filter of the admissible regime for bounds throughout that regime. None fixes this paper’s estimator class, model, loss or allowed constant dependence.",
+      "gap": "The sample kernel, rotation loss, estimator-class interpretation and two uniform bounds with constants depending only on the stated fixed parameters must still be supplied.",
+      "comparisons": {
+        "D6": "Encode the N observations of model (5), with the parameter type restricted to Theta_beta and output space R^(2K); expected nonnegative rotation loss can be extended-valued, so a real Bochner integral is not automatically equivalent without finiteness. The paper says all estimators based on the observations; mathlib explicitly allows randomized Markov kernels, so identify this class or restrict to deterministic kernels rather than silently equating the infima. Quantify comparison constants after beta, lower/upper magnitude constants and c0, but before varying K, sigma and N in the stated regime; a generic eventual asymptotic assertion would be weaker."
+      }
+    },
+    {
+      "interface_id": "local-af92129dd3fc66399b98",
+      "related": [
+        "Real.rpow",
+        "EuclideanSpace.norm_eq"
+      ],
+      "status": "composable",
+      "query": "Inspected Real.rpow in Analysis/SpecialFunctions/Pow/Real and EuclideanSpace.norm_eq in Analysis/InnerProductSpace/PiL2; searched probability/analysis/linear algebra for multireference and bispectrum constructions; checked equation (7).",
+      "result": "Positive real powers and finite Euclidean magnitudes directly support the predicate defining this class; native set comprehension and universal finite-index quantification retain the two-sided bounds. The searched sources do not package this Fourier parameter class.",
+      "gap": "These declarations suffice to express the class by imposing both power-law bounds on every positive frequency magnitude.",
+      "comparisons": {
+        "D5": "Use a real two-coordinate Euclidean block for each k=1,...,K and define r_k by its norm, then form the set with lower_c * (k:Real)^(-beta) <= r_k <= upper_c * (k:Real)^(-beta). Keep beta in [0,1/2), both constants positive, and all phases unrestricted. Do not replace the lower bound by an upper-only smoothness condition, include k=0, or assume the class is nonempty if the lower constant exceeds the upper constant."
+      }
+    },
+    {
+      "interface_id": "local-7cf6008ddeba7a6c8c19",
+      "related": [
+        "EuclideanSpace.norm_eq"
+      ],
+      "status": "composable",
+      "query": "Inspected EuclideanSpace.norm_eq and the source Assumption 5.1 on PDF page 15, comparing its quantified subset-energy condition with equation (7).",
+      "result": "The Euclidean norm identity expresses total and block energies by finite squared coordinate sums; finite subsets, cardinality, existential real constants and inequalities directly express the assumption. This is an assumption on the given signal, not a consequence of a generic norm identity.",
+      "gap": "Finite subset quantification and the Euclidean energy identity suffice to state the condition, while proving it for a chosen signal class remains separate.",
+      "comparisons": {
+        "D13": "Quantify one c_gen>0 before every B subset of {1,...,K}, and cast cardinalities to reals in |B|>=K/2 (or use 2*|B|>=K) to avoid truncated integer division. Compare the energy over B with c_gen times the squared full R^(2K) Euclidean norm, not the function-space supremum norm. Preserve the half-frequency energy requirement rather than strengthening it to bounds at every frequency. The zero signal satisfies this inequality; nonzero signal requirements in subsequent rate expressions do not follow from Assumption 5.1 alone."
+      }
+    },
+    {
+      "interface_id": "local-c8dbafaefb8e3e1f06d3",
+      "related": [
+        "ProbabilityTheory.gaussianPDFReal",
+        "MeasureTheory.integral",
+        "Real.log",
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Inspected gaussianPDFReal, Bochner integral, Real.log and IsMinOn bodies; checked the rotation-mixture density and unconstrained MLE in source equation (35), PDF page 14.",
+      "result": "Products of positive-variance Gaussian coordinate densities give the isotropic 2K-dimensional Gaussian density; a restricted-volume integral over the rotation interval followed by multiplication by 1/(2*pi) yields the mixture formula. Real.log and a finite average express the empirical objective; IsMinOn on the whole parameter space states minimization but provides no chosen estimator.",
+      "gap": "The rotation-mixture density and empirical objective must be assembled and shown well-defined, with existence and measurable selection of an unconstrained minimizer established separately.",
+      "comparisons": {
+        "D12": "Use variance sigma^2, multiply 2K real Gaussian coordinate densities centered at g(alpha) theta, and integrate over alpha with uniform weight 1/(2*pi); prove integrability and positivity for sigma>0 before applying the statistical logarithm. The finite mean is over the N observed samples. Optimize over every real 2K-vector, not Theta_beta and not a separate alpha for each optimized term; the latent alpha is marginalized. IsMinOn does not choose a minimizer or prove existence/uniqueness. The true-signal-aligned representative later used in the proof is not a data-computable MLE definition, and rotational nonuniqueness remains explicit."
+      }
+    },
+    {
+      "interface_id": "local-97eb2ab98f164d9e3b70",
+      "related": [
+        "AddCircle.equivIco",
+        "AddCircle.norm_eq"
+      ],
+      "status": "composable",
+      "query": "Inspected AddCircle.equivIco in Topology/Instances/AddCircle/Defs and AddCircle.norm_eq with its nearest-integer proof in Analysis/Normed/Group/AddCircle; checked equation (8).",
+      "result": "For positive period 2*pi, equivIco with a=-pi identifies quotient classes with exactly the source half-open interval. The quotient norm of the difference equals the absolute residual after subtracting a nearest integer multiple of the period, hence the minimum over all integer shifts used in (8).",
+      "gap": "These declarations realize the stated circular distance after identifying the interval representatives with AddCircle (2*pi).",
+      "comparisons": {
+        "D8": "Map phi and phi_prime to AddCircle (2*pi) and take their distance, equivalently the norm of their difference. The norm_eq nearest-integer representative realizes min_j |phi-phi_prime+2*pi*j| after changing the sign of the integer shift. equivIco selects [-pi,pi) without altering the metric. This is the quotient-circle metric transported to the interval, not the ordinary absolute-difference metric on a real half-open subspace."
+      }
+    },
+    {
+      "interface_id": "local-f38eb7b85058f5560ca7",
+      "related": [
+        "Complex.arg",
+        "AddCircle.equivIco",
+        "ProbabilityTheory.gaussianReal",
+        "MeasureTheory.Measure.pi",
+        "Complex.exp"
+      ],
+      "status": "partial_match",
+      "query": "Inspected Complex.arg endpoint/zero conventions, Complex.exp, AddCircle.equivIco, gaussianReal, Measure.pi, and the PiL2 inner-product implementation; checked equations (11)-(14).",
+      "result": "Complex arithmetic and exp express coefficient pairs and the frequency-dependent rotation. Independent real standard Gaussian coordinates can be packaged by Measure.pi and mapped to complex pairs. Complex.arg uses (-pi,pi] and arg 0=0; equivIco can convert its class to [-pi,pi). Mathlib complex inner products conjugate the first argument, unlike the paper’s convention.",
+      "gap": "The representation needs the paper’s argument branch, inner-product convention and paired real-Gaussian noise law connected explicitly, including a convention for zero arguments.",
+      "comparisons": {
+        "D7": "Encode theta_tilde_k=theta_k1+i*theta_k2 and exp(i*(phi_k+k*alpha)); the same random alpha rotates all frequencies in one sample. Form independent variance-one real and imaginary Gaussian coordinates across both k and m, so E|epsilon_tilde|^2=2 rather than variance two in each real part. Transport Complex.arg through AddCircle.equivIco (2*pi) (-pi), handling negative-real branch endpoints and retaining the source’s unspecified Arg(0). The paper’s inner product is linear in its first slot; either use its explicit sum u_k*conj(v_k) or reverse mathlib’s slots before proving the symmetrized real identity. The checked declarations do not themselves bundle these conventions into the statistical model."
+      }
+    },
+    {
+      "interface_id": "local-fe1230427a8e71f4dcf2",
+      "related": [
+        "Real.sqrt",
+        "Complex.arg",
+        "IsMinOn",
+        "Finset.sum_div"
+      ],
+      "status": "partial_match",
+      "query": "Searched probability, analysis and linear algebra for bispectrum, multireference, phase retrieval and least-squares constructions; inspected Real.sqrt, Complex.arg, IsMinOn and finite-sum division, comparing all three steps of equations (16)-(18).",
+      "result": "Real.sqrt of the nonnegative part gives the magnitude estimate, finite complex arithmetic gives the empirical bispectrum, and IsMinOn can express the real least-squares objective. These declarations do not implement the combined estimator or determine its explicitly ambiguous phase lifts.",
+      "gap": "The empirical bispectrum, real phase lifts, least-squares solution and trigonometric reconstruction still need to be assembled with an explicit estimator-selection convention.",
+      "comparisons": {
+        "D9": "Keep the positive-part square root of the empirical squared magnitude minus 2*sigma^2, and Bhat_kl=(1/N) sum_m y_(k+l)*conj(y_k)*conj(y_l) for 1<=k,l and k+l<=K, including k=l. Choose real lifts congruent to the source argument modulo 2*pi, then minimize the ordinary squared REAL residuals over R^K and reconstruct both sine/cosine coordinates. Replacing the residual by circular distance changes the procedure. IsMinOn states a relation rather than constructing a least-squares solution; the base procedure deliberately leaves the phase-lift choice ambiguous, and source Arg at zero and selection/measurability need explicit treatment."
+      }
+    },
+    {
+      "interface_id": "local-7157e6f1ab6730894d28",
+      "related": [
+        "AddCircle.compactSpace",
+        "IsCompact.exists_isMinOn",
+        "AddCircle.equivIco",
+        "Finset.max'",
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Inspected AddCircle.compactSpace, IsCompact.exists_isMinOn, equivIco, Finset.max' and IsMinOn; checked the pilot/lifting/reconstruction in equation (31) and the global K>=2 assumption on PDF page 5.",
+      "result": "The positive-period circle is compact; its finite product supports the continuous finite maximum of circular residuals, so the extreme value theorem provides a pilot minimizer once continuity is proved. K>=2 gives a nonempty pair set. equivIco then supplies the half-open real representatives and centered lifts; IsMinOn states the subsequent real least-squares minimization.",
+      "gap": "The pilot objective’s continuity, representative-dependent centered lifts, final real least-squares reconstruction and measurable choice of minimizers still need to be connected.",
+      "comparisons": {
+        "D11": "Perform the pilot optimization on (AddCircle (2*pi))^K with max over the nonempty pair family I; Finset.max' computes the maximum value and does not choose the minimizing phase vector. Circle compactness is appropriate, whereas [-pi,pi) with its ordinary real subspace topology is not compact. First select pilot coordinates in [-pi,pi), then calculate their bispectrum differences in R; take a second equivIco representative in [Phi_tilde-pi,Phi_tilde+pi), and only then run equation (18). Do not substitute the oracle true phases or the separate frequency-marching procedure. The extreme value theorem yields existence but no unique or measurable choice, and the source’s zero-bispectrum argument convention remains unspecified."
+      }
+    },
+    {
+      "interface_id": "local-4bbee55652498c25f3fc",
+      "related": [
+        "AddCircle.equivIco",
+        "Complex.arg",
+        "Complex.exp"
+      ],
+      "status": "partial_match",
+      "query": "Inspected equivIco, Complex.arg and Complex.exp; compared the real true-phase differences, complex population bispectrum and centered oracle lift in equations (20)-(22), PDF page 9.",
+      "result": "Complex products and exponentials express the population bispectrum, while equivIco with a=Phi_kl-pi selects the unique representative of a given argument class in the required centered interval. Complex.arg alone has the opposite branch-endpoint convention and its default value at zero does not justify the displayed rotation identity.",
+      "gap": "The centered representative must be tied to the nonzero bispectrum identity and the real least-squares reconstruction, while preserving its dependence on unknown true phases.",
+      "comparisons": {
+        "D10": "Choose each true phase in [-pi,pi), compute Phi_kl=phi_(k+l)-phi_k-phi_l in R, and represent the estimated argument class in [Phi_kl-pi,Phi_kl+pi). For nonzero population and empirical bispectra, the branch-adjusted argument of Bhat/B gives the centered difference; the positive Fourier-magnitude assumptions ensure the population bispectrum is nonzero, but do not define Arg(Bhat) at Bhat=0. Preserve that source ambiguity rather than importing mathlib arg0=0 as though it proves (22). Feed the resulting lifts to the same real least-squares/reconstruction stages of (18). This is explicitly an oracle depending on true phases, not an estimator that can be computed from observations alone."
+      }
+    }
+  ]
+}

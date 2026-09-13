@@ -1,0 +1,281 @@
+[
+  {
+    "interface_id": "local-fcc696a90b940c5f483d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "3b14fc44f0900495829e356b0c3dd1fc701850b2d18c07d068f8ef5c17545b29",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D10",
+        "comparison": "On the RKHS form C_hat=n^-1 sum Phi_x tensor Phi_x and C_cross_hat=n^-1 sum Phi_x tensor Phi_xprime, preserving the order of the cross factors. The equation is (C_hat+lambda_n I-gamma C_cross_hat) theta_hat=(C_hat+lambda_n I)r. In particular, regularization also acts on the reward side; replacing it by C_hat r changes the estimator. The reward must belong to the operator domain H as recorded in footnote 3; its proposed projection alternative is not inserted into the original formula. Rank-one operators and finite sums express C_hat/C_cross_hat, but the latter need not be self-adjoint. Positive lambda_n alone is not a proved invertibility certificate for the full operator. ContinuousLinearMap.inverse returns zero without a continuous linear equivalence, so that fallback cannot define a solution to this equation. Preserve the potentially infinite-dimensional setting, n>0 and the theorem's actual parameter regime.",
+        "statement_sha256": "45e91819cc41a5806585b1a2cc6eb48f65f62b0baa31f338c520a59c3330b2db"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.inverse",
+          "type": "{R : Type u} → {M : Type v} → {M₂ : Type w} → [TopologicalSpace M] → [TopologicalSpace M₂] → [Semiring R] → [AddCommMonoid M] → [Module R M] → [AddCommMonoid M₂] → [Module R M₂] → (M →L[R] M₂) → (M₂ →L[R] M)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Invertible",
+          "provides": "The inverse of a continuous linear equivalence, returned as a continuous linear map; returns zero when no such equivalence exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Invertible.lean#L42-L43",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search LSTD, Bellman and temporal-difference across Mathlib; inspect InnerProductSpace/LinearMap.lean 322-325 and ContinuousLinearMap/Invertible.lean 38-49 against the empirical covariance/cross-covariance dependency.",
+          "result": "Rank-one continuous operators, sums and continuous-linear-map inverses support the algebraic equation. No regularized kernel LSTD estimator or universal invertibility theorem for this nonsymmetric empirical operator was located."
+        }
+      ],
+      "gap": "The operator primitives are available, but the regularized kernel LSTD equation needs its empirical construction, reward domain and valid existence/uniqueness argument."
+    }
+  },
+  {
+    "interface_id": "local-a892c9d8110039ad37f7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "3a62428bb2fd52b90f35d460fd8e94b154d3c58b69888ac907cbff1aa88c7be9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D18",
+        "comparison": "Measure squared prediction error in L2(mu), not the RKHS norm, and compare it with c1 R^2 times (delta^2+lambda_n/(1-gamma)). Retain probability at least 1-2 exp(-c2 n delta^2 (1-gamma)^2/b^2), including the factor 2 and squared discount gap. The probability is over n iid stationary transition pairs; it is not automatically a single dependent trajectory result. The target theta-star is the projected fixed point, so this estimation bound alone does not control its approximation error to the true value function. Both branches share the displayed event but have different permitted delta/lambda choices and critical-radius assumptions; universal constants c1,c2 come from this preceding passage. eLpNorm is extended-valued and its real conversion requires finiteness. Preserve the radius's two constraints, discount/kernel nondegeneracy and zero-noise critical-radius caveat instead of filling them with totalized division or exponential conventions.",
+        "statement_sha256": "6e124287e7405a20729e662e6f0c43227bcc2a46ef1b130784fe385e7cc94820"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search LSTD/Bellman concentration bounds in Mathlib; inspect LpSeminorm/Defs.lean 83-87, MeasureSpaceDef.lean 99-102 and the real exponential declaration against bound (17) and its data/radius assumptions.",
+          "result": "L2 seminorms and finite event probabilities express the event and its exponential lower probability; no kernel-LSTD bound with these critical-radius and regularization regimes was located."
+        }
+      ],
+      "gap": "The norm and probability primitives are available, but the stated high-probability error bound requires the paper’s LSTD concentration argument and branch-specific admissible parameters."
+    }
+  },
+  {
+    "interface_id": "local-0b849aa9d645ca47345b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "3c829bb295f1d9c31923fa64b4ea9f95bb2a0638045c44d258ca570c5e444d66",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D21",
+        "comparison": "The source explicitly counts a vertex as its own ancestor, so Relation.ReflTransGen of the directed-edge relation has the appropriate reflexive convention; bidirected edges are not traversed as directed causal arrows. For every integer shift Delta t, require ancestry of the shifted endpoints whenever both remain in V=I times T. This is a condition on reachability, not merely on shifted single-edge existence; it does not assert that an existing path can be shifted vertex by vertex within the finite window. The underlying graph is a DMAG, carrying directed acyclicity, absence of almost-directed cycles and maximality conditions that a plain Digraph does not supply. The time set may have infinite endpoints, and the paper imposes no universal finite maximum lag. Keep this condition separate from repeating orientations and from probabilistic stationarity or faithfulness assumptions not part of the graphical statement.",
+        "statement_sha256": "68e4baade35203f7144e316f684db7662319a71027839d5993e277d37009d984"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search DMAG, ancestral graph, repeating ancestry and latent projection across Mathlib; inspect Digraph/Basic.lean 40-50 and Logic/Relation.lean 317-321; check the registered paper’s main-text ancestor convention and time-series vertex domain.",
+          "result": "A directed adjacency relation and its reflexive transitive closure express ancestry, including self-ancestry. No DMAG or repeating-ancestry interface was located."
+        }
+      ],
+      "gap": "Directed reachability is available, but the DMAG structure and shift-invariance of its ancestral relation over the permitted time window still need development."
+    }
+  },
+  {
+    "interface_id": "local-755c1e64d90a2e04c435",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "9c1eb2bae033627ac5e57cc5b6b65d61d972f82c9079e1bbd53742b219b57993",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D20",
+        "comparison": "Represent the source's four edge types as additional marked relations with the disjointness and no-self-adjacency/single-edge constraints; a plain Digraph allows loops and lacks endpoint marks. If an original ordered endpoint pair has a particular type and the shifted pair is adjacent, require the shifted pair to have that same type. The premise explicitly requires the shifted adjacency to exist: the condition does not create missing shifted edges and is weaker than repeating adjacencies. Preserve both circle-bearing edge types and endpoint orientation, rather than turning a bidirected edge into two ordinary arrows. Shifts are integer translations on the supplied time window, with no added finite-lag restriction. The statement concerns partial mixed graphs, not only ancestral/maximal graphs, and must not be merged with repeating reachability.",
+        "statement_sha256": "d68fbc9fa8841ac0457d75403ccc9c8d3bdc2f6bc1be455cefbaa404bdbbe229"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search partial mixed graph, DPAG, repeating orientations and stationarification across Mathlib; inspect Digraph/Basic.lean 40-50 and compare the archived four-mark decomposition and time-series domain.",
+          "result": "Digraph provides an underlying binary relation, but no partial mixed graph with directed, bidirected, circle-arrow and circle-circle endpoint marks was located."
+        }
+      ],
+      "gap": "Binary graph relations are available, but the four edge types and their conditional shift-consistency require a partial mixed graph construction."
+    }
+  },
+  {
+    "interface_id": "local-35cc098bb706566adc43",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "5af117224f8514f41df68efcaff12decd1b89efbd8ceba9272146bb119b107b6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0103",
+        "local_id": "D22",
+        "comparison": "Keep four Boolean predicates on DMAGs, interpreted as truth conditions and then reflected into Bool if desired. A_D(M) asserts existence of a ts-DAG with M equal to its observed finite-window latent projection, equivalently membership in the projection map's image once that map exists. A_D^stat instead uses the stationarified projection; the source explicitly warns that this resulting class need not be the class of ts-DMAGs, so the first two cases are not equated. A_ta combines time order with repeating ancestral reachability; A_to combines time order with repeating marked orientations, not repetition of all adjacencies. Directed time order permits same-time arrows since the inequality is <=. The needed latent projection preserves ancestral and separation information, which Set.image alone does not construct or prove. Do not add stochastic stationarity, causal Markov/faithfulness or finite maximum edge-lag premises to these graph predicates.",
+        "statement_sha256": "76b3ee586127b670d39dad19da0917a22885e4971aeca8eab7b10ee1b8ef75c8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Digraph",
+          "type": "(V : Type u) → Type u",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Combinatorics.Digraph.Basic",
+          "provides": "A directed graph represented by a binary adjacency relation; self-loops are allowed and edge-mark or acyclicity restrictions must be added separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/Digraph/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Relation.ReflTransGen",
+          "type": "{α : Type u} → (α → α → Prop) → α → α → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Logic.Relation",
+          "provides": "Reflexive transitive closure of a relation, expressing a finite chain of directed edges including the zero-edge self-relation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Relation.lean#L319-L321",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search ts-DAG, DMAG/DPAG, stationarification, background knowledge and latent projection across Mathlib; inspect digraph, relation-closure and Set.image declarations against all four archived cases and projection dependencies.",
+          "result": "Graph relations, ancestry closure and images of maps provide representations for parts of the predicates; no time-series latent-projection or stationarification API was located."
+        }
+      ],
+      "gap": "The logical and graph primitives are available, but all four background-knowledge predicates require the paper’s distinct ts-DAG projection, stationarification, time-order and repetition constructions."
+    }
+  },
+  {
+    "interface_id": "local-2b7b02942776fed52f37",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:16:37.672419+00:00",
+    "source_interface_sha256": "7503548d402fe231d01120f1335187b3a320e36483bf7b8f544f3b0235e23e26",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D31",
+        "comparison": "Form sum_{j=1}^d Pi_j composed with F as an ambient-space operator; starProjection has the correct codomain, unlike a projection whose output is only the subspace subtype. Under the eigenspace properties this equals the sum of lambda_j Pi_j over the retained distinct eigenvalues. The archived Pi_j projects onto the whole eigenspace for the j-th distinct eigenvalue, whereas the dotted sequence counts eigenvectors with multiplicity. Thus the formula can retain more than d individual components unless the appropriate simple-spectrum conditions apply; do not replace it with an arbitrary basis-vector cutoff. Finite nonzero eigenspaces of the compact self-adjoint operator admit the needed projections. The empirical version uses the sequential estimator's own corresponding eigenspaces, not fixed population projections, and retains its eta/index/denominator issues. Spectral completeness alone does not provide ordered eigenvalue selection, uniform eigengaps or the trace-class process limit and differentiability arguments used downstream.",
+        "statement_sha256": "27c7e261513b62321e9aefe2bc770c1d3ae0d62387abc33c062de7a4122a3328"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {E : Type v} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E] {T : E →L[𝕜] E}, IsCompactOperator T → T.IsSymmetric → (⨆ μ, Module.End.eigenspace (T : Module.End 𝕜 E) μ)ᗮ = ⊥",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Compact self-adjoint spectral completeness, including the zero eigenspace; it does not define an arbitrary spectral multiplier or remove its nullspace term.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L443-L445",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search principal-component restriction, compact spectral truncation and eigenspace projections in Mathlib; inspect InnerProductSpace/Spectrum.lean 441-445 and Projection/Basic.lean 129-133 against (2.3) and the retained multiplicity conventions.",
+          "result": "Orthogonal projections and compact self-adjoint spectral completeness support the population construction. No full functional spectral-density restriction/empirical eigenprojection interface with the paper's parameter dependence was located."
+        }
+      ],
+      "gap": "Spectral projections are available, but the ordered eigenspace truncation and its empirical counterpart require the paper’s multiplicity, separation and sequential-estimator conditions."
+    }
+  }
+]

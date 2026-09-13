@@ -1,0 +1,125 @@
+{
+  "scope": "Manual source-aware comparisons for twelve remaining interfaces; operator norms, measure transformations, conditional laws and algorithm conventions are kept distinct.",
+  "rows": [
+    {
+      "interface_id": "local-3a150c3434bd06de1317",
+      "related": ["Int.ceil", "Real.log", "Real.logb", "Finset.filter", "Finset.max'"],
+      "query": "Searched for bandit smoothness-estimation procedures; inspected integer ceiling, logarithm bases and finite filtering/maxima against all 21 source algorithm lines and both data-source branches.",
+      "result": "The rounding and finite operations are available, but no located implementation supplies the source selection, exploration policy, bin estimators and clipped smoothness estimate as one procedure.",
+      "gap": "The two-branch data collection, grid/bin estimator and sample-budget and logarithm-domain conventions still need to be implemented.",
+      "comparisons": {
+        "D28": "Keep the strict nP>nQ branch and its gamma-upper-bound-dependent l1/T formulas, versus uniform target-arm exploration when nP<=nQ; return the different sP/sQ splits and only the initial target policy. Preserve all ceilings, the half-grid points and the binwise empirical mean whose count denominator is max(1,count). Int.ceil uses non-strict mathematical rounding and does not resolve contrary prose or the printed grid membership-equality notation. The final smoothness expression uses ordinary log(b), with separate base-two iterated-log correction, before clipping to the supplied beta bounds. b=0, l1=0, invalid iterated logs or a requested T beyond available observations need source conventions; finite extrema and total real logs do not supply them. Inputs are bounds and tuning constants, not true unknown smoothness/transfer parameters."
+      }
+    },
+    {
+      "interface_id": "local-6b0bacc8a100a1f3d711",
+      "related": ["Real.log", "Real.sqrt", "Real.rpow"],
+      "query": "Inspected real logarithm, square-root and real-power definitions against both adaptive confidence-radius branches and the explicit infinity convention.",
+      "result": "The scalar functions support the finite valid-domain expressions. Their total real extensions do not encode the source's 1/0=infinity rule or justify changing the ordinary zero-pull logarithm.",
+      "gap": "The adaptive radius requires a compatible extended-value and square-root domain convention, especially in its zero-pull branch.",
+      "comparisons": {
+        "D29": "Keep log-plus=max(log,1) only in the tau>0 branch, ordinary log(n*|B|^(d+2*betahat)) in the tau=0 branch, n=max(nP,nQ), and the maximum with 2*Cbar_beta*|B|^betahat in both. Count n_k^P comes from the supplied source subset. Real.sqrt returns zero for negative radicands and real division sends 1/0 to zero, neither matching an intended undefined negative root or the printed infinity rule. Do not replace log by log-plus, add clipping, use known beta or transfer parameters, or infer finite-sample confidence coverage from this arithmetic definition."
+      }
+    },
+    {
+      "interface_id": "local-16ede645a1058a51d59b",
+      "related": ["MeasureTheory.Measure.withDensity", "MeasureTheory.Measure.map", "MeasureTheory.integral"],
+      "query": "Searched for spectral/tilted angular measures; inspected withDensity, pushforward and the exponential-tilt definition against the ell_I-weighted angular rescaling.",
+      "result": "Weighting the original angular law by ell_I divided by its expectation and then pushing forward represents the required order of operations. The existing exponential tilt is a different construction and a naive log-weight substitution mishandles zero weights.",
+      "gap": "The normalized angular weighting and almost-everywhere rescaling still need their measurability, finite-mass and zero-weight conventions specified.",
+      "comparisons": {
+        "D9": "First weight the law of Theta by nonnegative ell_I(Theta)/E ell_I(Theta), then map theta to theta/ell_I(theta), for nonempty I and the stated positive expectation. This is not the pushforward under the original law. The rescaling can be assigned a harmless value on zero-weight angles only after showing those angles are null for the weighted law; its value is not specified by the source. withDensity and map require the relevant measurability/normalization arguments, and exponential tilting by total Real.log at zero would not preserve a zero weight. Keep the full spectral vector separate from its I-coordinate projection used in the specialized covariance."
+      }
+    },
+    {
+      "interface_id": "local-df2d8fb510cf4dd294e8",
+      "related": ["MeasureTheory.TendstoInDistribution", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.covariance"],
+      "query": "Inspected weak-law convergence, Gaussian-process and scalar covariance definitions against the ratio process and its explicitly supplied main-text covariance specialization.",
+      "result": "The library can state weak convergence on a chosen function space and Gaussian finite-dimensional laws. It does not provide the ratio-process limit, its tightness or the missing general covariance from these components.",
+      "gap": "The ratio process, valid function-space domain and tight Gaussian limit with the source's supplied covariance specialization remain to be constructed.",
+      "comparisons": {
+        "D23": "Keep sqrt(n/a-star(u_n)) times Mhat/Phat-c over the printed simplex/stratified A_delta-prime/K domain. The denominator's zero-exceedance convention and the impossible literal positive-orthant proper-support strata remain source issues. TendstoInDistribution requires a measurable function-space representation and its topology; IsGaussianProcess alone supplies neither tightness nor a particular covariance. For beta=1 and s=1_I retain the full main-text covariance (1/tau_I)*Cov((v-transpose*Theta_I^I)^p1,(w-transpose*Theta_I^I)^p2) under the tilted law. Do not substitute the unweighted angular law or invent the excluded appendix's general covariance; bias assumptions remain a separate import, not consequences of naming this limit."
+      }
+    },
+    {
+      "interface_id": "local-c1700aeda833609c8b9d",
+      "related": ["ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.covariance", "MeasureTheory.TendstoInDistribution"],
+      "query": "Inspected Gaussian-process, covariance and weak-convergence definitions against the joint Gaussian components and the exact equation (34)/zero-covariance specialization.",
+      "result": "Joint Gaussian laws and their cross-covariances can be specified, but separate marginal convergence statements or independent copies do not furnish the joint coupled limit.",
+      "gap": "The jointly coupled Gaussian limit and all required cross-covariances still need construction and a joint convergence proof.",
+      "comparisons": {
+        "D26": "Use one joint law for G, Gtilde and every Htilde_i, retaining the referenced G/Gtilde covariance and the full tau/alpha_i weighted expectation in (34). Preserve its min, logarithm, normalized Theta_J polynomial and zero-angle conventions. The p=0 restriction supplies G^0 and the appropriate H/G^0 cross term; the final source sentence gives zero H_i/Gtilde covariance only for i in J. Joint Gaussianity can make a specified zero block independent under suitable joint hypotheses, but does not permit replacing all components by mutually independent copies. Do not use the ambiguous vector/scalar formula (35) to alter the clean needed specialization, or infer joint convergence from the marginal library predicates alone."
+      }
+    },
+    {
+      "interface_id": "local-445c8d829d6f59bcf6cd",
+      "related": ["Metric.closedBall", "Real.sqrt"],
+      "query": "Inspected metric closed balls and real square-root domains against the squared-Hilbert-norm confidence region (29).",
+      "result": "For a nonnegative threshold/n, the squared-norm inequality is a closed ball of radius its square root. A negative threshold gives an empty inequality set and cannot use Real.sqrt's zero extension without changing it.",
+      "gap": "The transformed estimator and threshold domain still need to be supplied to the closed-ball representation and its coverage theorem.",
+      "comparisons": {
+        "D23": "Center at the transformed estimator nu-tilde_n^beta and retain the inequality norm(center-h)^2<=zetahat/n. For n>0 and zetahat>=0, norm/distance symmetry identifies this solid closed ball with radius sqrt(zetahat/n), not merely its boundary sphere. The source does not make a particular bootstrap threshold construction mandatory; Theorem 6 accepts a consistent threshold at fixed beta. The primitive does not prove threshold consistency or coverage, and a negative finite-sample threshold needs its actual empty-set behavior rather than a zero-radius fallback."
+      }
+    },
+    {
+      "interface_id": "local-7d04eb39bb1176c31b27",
+      "related": ["Set.preimage", "HilbertBasis.tsum_inner_mul_inner"],
+      "query": "Inspected set preimage and Hilbert-basis Parseval identity against the confidence-region inverse image and its explicit squared-beta series expansion.",
+      "result": "Set.preimage directly expresses the inverse image without any inverse operator; Parseval supports a coordinate expansion after the diagonal map and estimator coefficients are established.",
+      "gap": "The diagonal-map and estimator coefficient identities still need to be connected to the displayed series, without assuming a bounded inverse.",
+      "comparisons": {
+        "D24": "Take Gamma_beta preimage of the transformed confidence set, with no requirement that Gamma_beta be onto or boundedly invertible. Expand its squared norm through basis coordinates using beta_k^2 and retain the half-sum over two fitted plug-in/influence corrections exactly as printed. If beta contains zeros, the corresponding directions are unrestricted; Theorem 6 separately fixes strictly positive entries but does not give uniform coercivity or a globally bounded inverse in infinite dimension. Parseval needs an actual Hilbert basis; the source's finite-dimensional zero-padded sequence must be handled by its stated finite basis convention, not by pretending zero vectors are unit basis vectors."
+      }
+    },
+    {
+      "interface_id": "local-b6f3d0ccf1b231a030f7",
+      "related": ["CFC.rpow", "HilbertBasis.tsum_inner_mul_inner"],
+      "query": "Searched analysis and probability sources for Hilbert-Schmidt/Schatten structures; inspected positive continuous functional-calculus square roots and basis Parseval against the trace-class square-root distance.",
+      "result": "Positive half-powers are available in an appropriate operator functional calculus, but no named Schatten/Hilbert-Schmidt API was located in the searched source, and the ordinary bounded-operator norm is different.",
+      "gap": "The trace-class to Hilbert-Schmidt square-root construction and its S2 norm still need to be supplied around the positive operator half-powers.",
+      "comparisons": {
+        "D30": "For positive trace-class A and B, take their nonnegative operator square roots and the Hilbert-Schmidt norm of the difference. Embed into a suitable bounded-operator algebra for the positive half-power calculus, then prove the roots and difference lie in S2 and construct its basis-independent norm; Parseval is a component of such reasoning, not a ready Schatten-space implementation. Do not use the bounded-operator norm or assume finite-matrix Frobenius norms cover the infinite-dimensional source. Continuous positive functional calculus accommodates zero eigenvalues; it does not justify a holomorphic square-root derivative at zero or resolve the excluded appendix calculus conventions."
+      }
+    },
+    {
+      "interface_id": "local-8e9e6f97137da9ae28d5",
+      "related": ["CFC.rpow", "MeasureTheory.integral", "Finset.sum_div"],
+      "query": "Inspected operator half-powers, Bochner integration and finite averaging against the paired population/empirical restricted stationarity deviations and mean-square-root target (3.46).",
+      "result": "Generic square roots and integrals can form components once the Schatten-valued fields and positivity are valid. They do not resolve the population target's missing eta argument or establish empirical positive-cone membership.",
+      "gap": "The Schatten-valued root fields, integrability and population target's eta convention still need clarification before the paired deviations can be identified.",
+      "comparisons": {
+        "D32": "Keep the frequency integral over [0,pi], population time integral over [0,1] and empirical average over U_M. Each dotted target is specified through the mean of operator square roots, not the square root of the mean spectral operator; noncommuting operators make that distinction substantive. The first population r_d argument lacks eta while (3.46) defines an eta-dependent mean root; preserve both without silently inserting eta or normalizing the deviation. The empirical spectral estimator's positive-cone/path claims and zero endpoint conventions are separately unresolved, and CFC's total fallback cannot repair them. Bochner integration requires a suitable Schatten target and integrability, with squared d_R using the S2 norm rather than operator norm."
+      }
+    },
+    {
+      "interface_id": "local-bcb5f92350605b9ffb88",
+      "related": ["ProbabilityTheory.Kernel", "ProbabilityTheory.IsMarkovKernel", "MeasureTheory.Measure.withDensity", "MeasureTheory.Measure.map"],
+      "query": "Searched for controlled treatment-change models; inspected kernel, density and pushforward APIs against the encoded state/action spaces and source transition formula (7)-(8).",
+      "result": "The product state/action types and a measure-valued transition can be represented, but constructing its Markov normalization and measurability requires the predictive density missing from the admitted main text.",
+      "gap": "The predictive response law, odds-update domain and transition measurability remain required before this controlled Markov kernel is defined.",
+      "comparisons": {
+        "D11": "Use finite nonnegative posterior odds, a real kappa-vector and a binary termination flag, with action (next treatment,stop-now indicator). Preserve Delta_t=1{t>T} and the next-step OR update, rather than changing it to 1{t>=T}. If phi and its parameter measurability/normalization were supplied, withDensity followed by map could express the likelihood-ratio odds transition. The defining phi formula is appendix-only, and density zeros can create an infinite odds value outside the printed finite state space. Kernel/IsMarkovKernel predicates do not fill either gap or select versions of conditional laws at null states."
+      }
+    },
+    {
+      "interface_id": "local-d8a10a87c8ea20eb1031",
+      "related": ["Set.indicator", "MeasureTheory.lintegral", "HasSum"],
+      "query": "Inspected indicator, extended nonnegative integration and infinite-sum convergence against the active-state stage cost, conditional total cost and infimum over admissible policies.",
+      "result": "Nonnegative integration can retain infinite total cost, and indicators encode absorbing zero costs. It does not construct policy-specific initialized laws or show the infimum is attained.",
+      "gap": "The initialized controlled laws and admissible-policy cost functional still need construction before its infimum and attainment can be analyzed.",
+      "comparisons": {
+        "D12": "Charge c for an active continuing action and 1/(1+Gamma) for an active stopping action, with zero cost whenever Delta=1. Sum conditional expected stage costs from t=0 to infinity and then take the infimum over the source's deterministic predictable procedures. An ENNReal formulation through lintegral/nonnegative sums preserves possible infinity; real Bochner totalization would not. The source conditions on an exact initial state without specifying common null-event versions, so a law initialized at each state still needs construction. This objective is sample-size cost plus false-alarm probability, not detection delay or a prescribed false-alarm equality, and the definition does not establish an optimal procedure exists."
+      }
+    },
+    {
+      "interface_id": "local-8788c773050fe1db469a",
+      "related": ["ProbabilityTheory.Kernel", "MeasureTheory.lintegral", "Finset.min'"],
+      "query": "Searched all Mathlib for Bellman operators; inspected kernels, nonnegative integration and finite minima against action-specific one-step costs on the absorbing value-function class.",
+      "result": "A kernel integral plus stage cost and finite action minimum provide the algebraic form. No located declaration implements this source-controlled Bellman map or proves it preserves the stated measurable function class.",
+      "gap": "The controlled transition kernel, measurable value-function closure and Bellman optimality properties still need to be supplied.",
+      "comparisons": {
+        "D13": "Use nonnegative measurable extended-valued J that vanishes on the terminated slice, add stage cost to the next-state kernel integral on active states, set the terminated slice to zero, and minimize over all treatment/stop actions. A finite ENNReal minimum can retain infinity, but requires a nonempty action set. The transition's appendix-only phi definition, state-domain and null-conditioning issues remain; generic lintegral and Kernel do not prove measurability or a Bellman fixed-point/optimality theorem. This undiscounted absorbing cost map is not automatically a contraction or an instance of the discounted value function from another paper."
+      }
+    }
+  ]
+}

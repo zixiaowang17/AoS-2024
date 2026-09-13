@@ -1,0 +1,276 @@
+[
+  {
+    "local_id": "D1",
+    "original_tex": "Before introducing our method, we set up the problem with more details. Specifically, we consider a graph $\\cG = (\\cV_1, \\cV_2, \\cE)$ with the node sets $\\cV_1,\\cV_2$ and the edge set $\\cE$. Let $d_1=|\\cV_1|$, $d_2=|\\cV_2|$ and denote its weight matrix by $\\bTheta \\in \\RR^{d_1\\times d_2}$. In the undirected graph where $\\cV_1 = \\cV_2:=\\cV$, $\\bTheta$ is a square matrix and its element $\\bTheta_{jk}$ is nonzero when there is an edge between node $j$ and node $k$, zero when there is no edge. \n\nIn a bipartite graph where $\\cV_1 \\ne \\cV_2$, elements of $\\bTheta$ describe the existence of an edge between node j in $\\cV_{1}$ and node $k$ in $\\cV_{2}$. Without loss of generality, we focus on one of the node sets and denote it by $\\cV$ with $|\\cV|:=d$. We would like to select those nodes among $\\cV$ whose degree exceeds a certain threshold $k_{\\tau}$, \\rev{based on the $n$ data samples $\\bX_1, \\cdots \\bX_n \\stackrel{i.i.d.}{\\sim}  \\bX  \\in \\RR^d $}. And the selection problem is equivalent to simultaneously testing $d$ hypotheses:\n\\begin{equation} \\label{eq:problem_setup}\nH_{0j}: \\text{degree of node } j < k_{\\tau} \\text{  v.s.  }  H_{1j}:  \\text{degree of node } j \\ge k_{\\tau},\n\\end{equation}\nfor $j \\in [d]$.",
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2 — graph selection problem, equation (2.1)"
+      }
+    ]
+  },
+  {
+    "local_id": "D2",
+    "original_tex": "Let $\\psi_j = 1$ if $H_{0j}$ is rejected and $\\psi_j = 0$ otherwise, then for some multiple testing procedure with output $\\{\\psi_j\\}_{j\\in[d]}$, the false discovery proportion (FDP) and FDR can be defined as below:\n\\[\n   {\\rm FDP} = \\frac{\\sum_{j \\in \\cH_0}^d \\psi_j}{\\maxof{1}{\\sum_{j=1}^d \\psi_j} },\\quad {\\rm FDR}  := \\EEE[{\\rm FDP} ],\n\\]\nwhere $\\cH_0 = \\{j \\mid  \\text{degree of node } j < k_{\\tau} \\}$. \\rev{Given the data $\\bX_1, \\cdots \\bX_n$ from the graphical model}, we aim to propose a multiple testing procedure such that the FDP or FDR can be controlled at a given level $0 < q < 1$.",
+    "evidence": [
+      {
+        "page": 5,
+        "location": "Section 2 — false discovery proportion and FDR"
+      }
+    ]
+  },
+  {
+    "local_id": "D3",
+    "original_tex": "Denote this generic estimator by $\\tTheta$ (without causing confusion in notation), the maximum test statistic over a given subset $E$ of $\\cV \\times \\cV$ will be\n\\begin{equation}\\label{eq:T_E}\n  T_{E}:= \\max_{(j,k)\\in E}\\sqrt{n}\\abr{\\tTheta_{jk}  }  \n\\end{equation}",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — maximum test statistic, equation (2.2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4a",
+    "original_tex": "and its quantile is defined as\n$\n{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\RR \\; | \\; \\PPP \\left( T_E \\le t  \\right) \\ge 1-\\alpha    \\right\\}\n$, which is often unknown. Assume it can be estimated by $\\hat{c} (\\alpha,E)$ from some procedure such as the Gaussian multiplier bootstrap",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Section 2.1 — upper-tail quantile"
+      }
+    ]
+  },
+  {
+    "local_id": "D5",
+    "original_tex": "\n\n \\textbf{Input:} $\\{\\tTheta_e \\}_{e \\in \\cV \\times \\cV}$, nominal FDR level $q$.\n\n\n\n\n\\textbf{for} $j\\in[d]$ \\textbf{do}\n\n\n\n\n\n\n\n\n\n\n We order the elements in $\\{|\\tTheta_{j\\ell}|: \\ell \\neq j\\}$ as\n\n$\n|\\tTheta_{j, (1)}| \\ge |\\tTheta_{j, (2)}| \\ge \\ldots \\ge |\\tTheta_{j, (d-1)}|,\n$ where $|\\tTheta_{j, (\\ell)}|$ is the $\\ell$th largest entry.\n Compute $\\alpha_j = \\max_{1 \\le s \\le  k_{\\tau}} \\hat{c}^{-1}(\\sqrt{n}|\\tTheta_{j, (s)}|,E^{(s)}_j)$ where $E^{(s)}_j:=\\{ (j,\\ell):\\ell \\neq j, |\\tTheta_{j\\ell}| \\le |\\tTheta_{j, (s)}|\\}$.\n\\textbf{end for}\n\n\n Order $\\alpha_j$ as $\\alpha_{(1)} \\le \\alpha_{(2)} \\le \\dots \\le \\alpha_{(d)} $ and set $\\alpha_{(0)}=0$, let $j_{\\max} = \\max\\{0\\le j\\le d:\\alpha_{(j)} \\le {qj}/{d}\\}$.\n\n\n\n \\textbf{Output: $S =\\{j: \\alpha_j \\le \\alpha_{(j_{\\max})}\\}$} if $j_{\\max}>0$; $S =\\emptyset$ otherwise.",
+    "evidence": [
+      {
+        "page": 6,
+        "location": "Algorithm 2 — StarTrek Filter"
+      }
+    ]
+  },
+  {
+    "local_id": "D6",
+    "original_tex": "Let $U,V\\in \\RR^{d}$ be two centered Gaussian random vectors with different covariance matrices $\\bSigma^U=(\\sigma_{jk}^U)_{1\\le j,k\\le d},\\bSigma^V=(\\sigma_{jk}^V)_{1\\le j,k\\le d}$.",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 3 — centered Gaussian random vectors"
+      }
+    ]
+  },
+  {
+    "local_id": "D7",
+    "original_tex": "Recall that the maximal difference of the covariance matrices is $\\maxdiff:= ||\\bSigma^U-\\bSigma^V||_{\\max}$",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 3 — maximal covariance difference"
+      }
+    ]
+  },
+  {
+    "local_id": "D8",
+    "original_tex": "and the elementwise $\\ell_0$ norm difference of the covariance matrices is denoted by $\\zerodiff:= \\nbr{\\bSigma^U-\\bSigma^V}_{0} = \\sum_{j,k\\in [d]}\\Indrbr{\\sigma^U_{jk}\\ne \\sigma^{\\rev{V}}_{jk}}$.",
+    "evidence": [
+      {
+        "page": 7,
+        "location": "Section 3 — elementwise covariance difference"
+      }
+    ]
+  },
+  {
+    "local_id": "D9",
+    "original_tex": "Consider the multitask regression problem with linear models, we have $n$ i.i.d. pairs of the response vector and the predictor vector, denoted by $(\\bY_1,\\bX_1), (\\bY_2,\\bX_2), \\dots, (\\bY_n,\\bX_n)$, where\n$\\bY_i \\in \\RR^{d_1},\\bX_i \\in \\RR^{d_2}$ satisfy the following relationship,\n\\begin{eqnarray}\\label{eq:mul_linear_model}\n\\bY_i = \\bTheta \\bX_i + \\bE_i,  \\text{ where } \\bE_i\\sim \\cN(0,\\Db_{d_1\\times d_1}  ) \\text{ and }\\bX_i \\independent \\bE_i,\n\\end{eqnarray}\nwhere $\\bTheta  \\in \\RR^{d_1 \\times  d_2}$ is the parameter matrix and $\\Db$ is a $d_1$ by $d_1$ diagonal matrix whose diagonal elements $\\sigma_j^2$ is the noise variance for response variable $\\bY^{(j)}$. Let $\\bX$ be the design matrix with\nrows $\\bX_1^{\\top},\\dots, \\bX_n^{\\top}$, shared by different response variables, and assume the noise variables are independent conditional on the design matrix $\\bX$.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 4 — multitask regression model, equation (4.1)"
+      }
+    ]
+  },
+  {
+    "local_id": "D10",
+    "original_tex": "Let $s = \\max_{j\\in [d_1]}\\norm{\\bTheta_{j}}_0$ be the sparsity level of the parameter matrix $\\bTheta$, we want to select columns of the parameter matrix which has at least $k_{\\tau}$ nonzero entries, i.e., select nodes with large degree among $[d_1]$ in the bipartite graph $\\cG = (\\cV_1, \\cV_2, \\cE)$.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 4 — sparsity level"
+      }
+    ]
+  },
+  {
+    "local_id": "D11",
+    "original_tex": "For each response variable $\\bY^{(j)}, j \\in [d_1]$, we compute the debiased Lasso estimator, denoted by $\\tdTheta_{j}$ as \n\\begin{align}\\label{eq:dlasso}\n\\tdTheta_j = \\hat \\bTheta_j + \\frac{1}{n}\\, \\Mb \\bX^{\\top}(\\bY^{(j)} - \\bX \\hat  \\bTheta_j), \n\\text{ where  }\\hat\\bTheta_j= \\arg\\min_{\\beta\\in\\RR^{d_2}}\n\\Big\\{\\frac{1}{2n}\\|\\bY^{(j)}-\\bX\\beta\n\\|^2_2+\\lambda\\|\\beta\\|_1\\Big\\}\\, .  \n\\end{align}\n\n\n\n\nNote the above $\\Mb$ is defined as $\\Mb = (m_1,\\dots,m_{d_2})^{\\top}$ where \n\\begin{align}\n\\label{eq:optimization}\nm_i = &\\argmin_m  m^{\\top} \\hSigma m, \\quad \\text{s.t. }  \\|\\hSigma m - e_i \\|_{\\infty} \\le \\mu\\,,\n\\end{align}\n\nand here $\\hSigma = (\\bX^{\\top} \\bX)/n$. \n\n\nThen the debiased estimator of the parameter matrix, defined by $\\tdTheta := (\\tdTheta_{1}, \\cdots, \\tdTheta_{d_1})^\\top$, will be used the input $\\{\\tTheta_e\\}_{e \\in \\cV_1 \\times \\cV_2}$ of Algorithm \\ref{algo:startrek}.",
+    "evidence": [
+      {
+        "page": 9,
+        "location": "Section 4 — debiased Lasso estimator, equations (4.2) and (4.3)"
+      }
+    ]
+  },
+  {
+    "local_id": "D12",
+    "original_tex": "As the noise variance $\\sigma_j$ is unknown, the scaled Lasso is used for its estimation \\cite{javanmard2014confidence,sun2012scaled}, given by the following joint optimization problem,\n\\begin{equation}\\label{eq:scaled_lasso}\n    \\{\\hat\\bTheta_j,\\hat\\sigma_j \\} = \\arg \\min_{\\beta \\in \\RR^{d_2}, \\sigma > 0}\\Big\\{\\frac{1}{2\\sigma n}\\|\\bY^{(j)}-\\bX\\beta\n    \\|^2_2+ \\frac{\\sigma}{2} +\n    \\lambda\\|\\beta\\|_1\\Big\\}.\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 4 — scaled Lasso, equation (4.5)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4b",
+    "original_tex": "Regarding our testing problem, intuitively we can use the quantile of the Gaussian maxima of $ \\cN(0,\\hat \\sigma_j^2 M\\hSigma M^{\\top})$ to approximate the quantile of maximum statistic $T_{E} =\\underset{(j,k)\\in E}{\\max}\\sqrt{n} |\\tdTheta_{jk}|$ for some given subset $E$. Specifically, let $Z_j\\mid \\bX, \\bY^{(j)}\\sim  \\cN(0,\\hat \\sigma_j^2 M\\hSigma M^{\\top})$ where $Z_j \\in \\RR^{d_2}$ and consider the subset $E \\subset \\{j\\}\\times \\cV_2$, we approximate the quantile of $T_E$ by the following\n \n\\begin{equation}\\label{eq:dlasso_chat}\nT^{\\cN}_{E} := \\underset{(j,k)\\in E}{\\max} \\; | Z_{jk} |,\\quad \\hat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\RR : \\PPP_{Z} \\left( T^{\\cN}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\}.\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 4 — Gaussian quantile approximation, equation (4.6)"
+      }
+    ]
+  },
+  {
+    "local_id": "D13",
+    "original_tex": "The following assumptions are from the ones of Theorems 7 and 8 in \\cite{javanmard2014confidence}.\n \\begin{itemize}\n     \\item Let $\\bSigma = \\EE{\\bX_1 \\bX_1^\\top}\\in\\RR^{d_2\\times d_2}$ \n    be such that $\\sigma_{\\min}(\\bSigma) \\ge C_{\\min} > 0$, and\n    $\\sigma_{\\max}(\\bSigma) \\le C_{\\max} < \\infty$,\n    and $\\max_{j\\in [d_2]}\\bSigma_{jj}\\le 1$.\n    Assume $\\bX\\bSigma^{-1/2}$ have independent subgaussian  rows, with\n    zero mean and subgaussian norm $\\|\\bSigma^{-1/2} \\bX_i\\|_{\\psi_2} = \\kappa$, for some\n    constant $ \\kappa \\in(0, \\infty)$.\n    \\item  $\\mu =a\\sqrt{(\\log d_2)/n}$, and $n\\ge \\max(\\nu_0s\\log (d_2/s), \\nu_1\\log d_2)$,\n    $\\nu_1 = \\max(1600\\kappa^4, a/4)$,\n    and \n    $\\lambda = \\sigma\\sqrt{(c^2\\log\n    d_2)/n}$.\n    \n \\end{itemize}",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Assumption 4.1 — Debiased Lasso with random designs"
+      }
+    ]
+  },
+  {
+    "local_id": "D14a",
+    "original_tex": "Recall that $\\cH_0 = \\{j\\in [d_1]: \\norm{\\bTheta_{j}}_0 < k_\\tau\\}$ with $d_0 = |\\cH_0|$, we consider the following rows of $\\bTheta$,\n\\begin{equation}\\label{eq:strong_Y_set}\n    \\cB:=\\{j\\in \\cH_{0}^{c}:\\forall k \\in \\text{supp}(\\bTheta_j),|\\bTheta_{jk}|>c\\sqrt{{\\log d_2}/{n}}\\},\n\\end{equation}\nand define the proportion of such rows as $\\rho = |\\cB|/d_1$.\nIn the context of multitask regression, $\\rho$ measures the proportion of hub response variables whose non-null parameter coefficients all exceed certain thresholds, thus characterizes the overall signal strength.",
+    "evidence": [
+      {
+        "page": 10,
+        "location": "Section 4 — non-hub responses and signal strength, equation (4.8)"
+      }
+    ]
+  },
+  {
+    "local_id": "D15",
+    "original_tex": "This section focuses on the hub node selection problem on Gaussian graphical models \\rev{where $\\bX_1,\\ldots, \\bX_n  \\stackrel{\\mathrm{i.i.d.}}{\\sim} N_d (0,\\bSigma)$. Let the weight matrix be the precision matrix $\\bTheta = \\bSigma^{-1}$. Given some estimator $\\hat{\\bTheta}$ (e.g., the graphical Lasso (GLasso) estimator \\cite{friedman2008sparse} or the CLIME estimator \\cite{cai2011constrained}),}",
+    "evidence": [
+      {
+        "page": 11,
+        "location": "Section 5 — Gaussian graphical models and initial estimator"
+      }
+    ]
+  },
+  {
+    "local_id": "D16",
+    "original_tex": "we consider the following one-step estimator $\\{\\dTheta_{e}\\}_{e\\in \\cV \\times \\cV}$:\n\\begin{equation}\n\\label{eq:ggm_tdTheta}\n\\dTheta_{jk} := \\hat{\\bTheta}_{jk} - \\frac{\\hat{\\bTheta}_{j}^{\\top} \\left( \\hat{\\bSigma} \\hat{\\bTheta}_k - \\eb_k\\right)}{\\hat{\\bTheta}_j^{\\top} \\hat{\\bSigma}_j},\n\\quad\n\\tdTheta_{jk}:={\\dTheta_{jk}}/{\\sqrt{\\dTheta_{jj}\\dTheta_{kk}}}.\n\\end{equation}\nwhere $\\eb_k$ denotes the $k$th canonical basis in $\\RR^d$.\nthen use its standardized version $\\{\\tdTheta_{e}\\}_{e\\in \\cV \\times \\cV}$ as the input of Algorithm \\ref{algo:startrek}.\n",
+    "evidence": [
+      {
+        "page": 11,
+        "location": "Section 5 — one-step estimator, equation (5.1)"
+      }
+    ]
+  },
+  {
+    "local_id": "D4c",
+    "original_tex": "The quantiles are approximated using the Gaussian multiplier bootstrap \\cite{chernozhukov2013gaussian}: given the Gaussian multipliers $\\xi_i \\stackrel{\\mathrm{i.i.d.}}{\\sim} N(0,1)$, we compute\n\\begin{equation}\\label{eq:ggm_chat}\n\\hat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\RR : \\PPP_\\xi \\left( T^{\\cB}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\},\n\\end{equation}\nwhere $T^{\\cB}_{E} := \\underset{(j,k)\\in E}{\\max} \\; \\frac{1}{\\sqrt{n~ {\\hat{\\bTheta}_{jj}\\hat{\\bTheta}_{kk}}}}   \\big|\\sum_{i=1}^n  {\\hat{\\bTheta}^{\\top}_j \\left( \\bX_i \\bX_i^{\\top} \\hat{\\bTheta}_k - \\eb_k  \\right)} \\xi_i \\big|$.",
+    "evidence": [
+      {
+        "page": 11,
+        "location": "Section 5 — Gaussian multiplier bootstrap quantiles, equation (5.2)"
+      }
+    ]
+  },
+  {
+    "local_id": "D14b",
+    "original_tex": "Similarly, the set of non-hub nodes is denoted by $\\cH_0 = \\{j\\in [d]: \\norm{\\bTheta_{j}}_0 < k_\\tau\\}$ with $d_{0}=|\\cH_{0}|$.\n\nAnd similarly as in Section \\ref{sec:bipartite_selection}, we define $\\rho$ to measure the signal strength, i.e., $\\rho = |\\cB|/d$, where $\\cB:=\\{j\\in \\cH_{0}^{c}:\\forall k \\in \\text{supp}(\\bTheta_j),|\\bTheta_{jk}|>c\\sqrt{{\\log d}/{n}}\\}$.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 5 — non-hub nodes and signal strength"
+      },
+      {
+        "page": 13,
+        "location": "Section 5 — non-hub nodes and signal strength"
+      }
+    ]
+  },
+  {
+    "local_id": "D17",
+    "original_tex": "Now we consider the following set, \n\n\n\n\n\n\n\\begin{equation}\\label{eq:dep_term_set}\n\nS = \\{(j_1,j_2,k_1,k_2): j_1,j_2\\in \\cH_0, j_1\\ne j_2,k_1 \\ne k_2 , \\bTheta_{j_1 j_2} = \\bTheta_{j_1 k_1} = \\bTheta_{j_2 k_2} = 0, \\bTheta_{j_1 k_2} \\ne 0, \\bTheta_{j_2 k_1}\\ne 0\\}.\n\\end{equation}\n\nRemark that in the above definition, $k_1$ can be the same as $j_2$ and $k_2$ can be the same as $j_1$.",
+    "evidence": [
+      {
+        "page": 12,
+        "location": "Section 5 — dependence set, equation (5.3)"
+      }
+    ]
+  },
+  {
+    "local_id": "D18",
+    "original_tex": "In addition to $|S|$, we also characterize the dependence level via the connectivity of the graph, specifically let $p$ be the number of connected components.",
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Section 5 — number of connected components"
+      }
+    ]
+  },
+  {
+    "local_id": "D19",
+    "original_tex": "\\label{asp:tradeoff_fdp}\n{Suppose that $\\bTheta \\in \\cU(M,s, r_0)$ and the following conditions hold:}\n\n\n\n\\begin{enumerate}[(i)]\n    \n    \n    \n    \\item Signal strength and scaling condition.\n    \\begin{eqnarray}\\label{eq:cond1}\n    \\frac{\\log d }{\\rho}\\rbr{\n    \\frac{(\\log d)^{19/6}}{n^{1/6}} + \\frac{ (\\log d)^{11/6}}{\\rho^{1/3} n^{1/6}} + \n    \n    \\frac{{s(\\log d)^{3}}}{{n}^{1/2}}\n    } = o(1).\n    \\end{eqnarray}\n    \n    \\item Dependency and connectivity condition.\n\n    \n    \\begin{eqnarray}\\label{eq:cond2}\n   \\frac{\\log d}{\\rho d_0} + \\frac{({\\log d})^{2}|S|}{\\rho d_0^2 p} = o(1).\n    \\end{eqnarray}\n\\end{enumerate}",
+    "evidence": [
+      {
+        "page": 13,
+        "location": "Assumption 5.1"
+      }
+    ]
+  },
+  {
+    "local_id": "D20",
+    "original_tex": "Recall that in Section \\ref{sec:startrek}, we denote $\\bTheta$ as the weight matrix of the general graphical models, i.e.,  $\\bTheta_{e} \\neq 0$ if and only if $e \\in \\cE$ where $\\cE$ is the edge set, and $\\tilde \\bTheta$ is the generic estimator of $\\bTheta$. Since Algorithm \\ref{algo:startrek} requires the quantile of the maximal statistics in \\eqref{eq:T_E}, we need the estimator $\\tilde \\bTheta$ to be asymptotically Gaussian. In specific, for each $e \\in \\cV \\times \\cV$,  there exist $n$ i.i.d. mean zero random vectors $\\bY_1(e),\\cdots,\\bY_n(e)$ such that $\\tilde \\bTheta_e - \\bTheta_e = n^{-1}\\sum_{i=1}^n \\bY_i(e) + o_P(1/\\sqrt{n})$.",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 6 — generic estimator and linear representation"
+      }
+    ]
+  },
+  {
+    "local_id": "D4d",
+    "original_tex": "We can then estimate the quantile of $T_E = \\max_{e \\in E} \\sqrt{n}|\\tilde\\bTheta_e - \\bTheta_e|$ by some Gaussian multiplier bootstrap statistic $T^{\\cB}_{E}$, i.e.,\n\\begin{equation}\n\\label{eq:ggm_gen}\n\\hat{c} (\\alpha,E) = \\inf \\left\\{ t\\in \\RR : \\PPP_\\xi \\left( T^{\\cB}_{E} \\le t  \\right) \\ge 1-\\alpha    \\right\\},\n\\end{equation}",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 6 — generic Gaussian multiplier quantiles, equation (6.1)"
+      }
+    ]
+  },
+  {
+    "local_id": "D21",
+    "original_tex": "\\label{asmp:zeta12} \nThere exist $\\zeta_1 \\ge 0$ and $\\zeta_2  \\ge 0$ such that for any edge set $E \\subseteq \\cV\\times \\cV$, we have\n \\begin{align}\\nonumber\n \n    &\\mathbb{P}(|T_E-T_{0E}|>\\zeta_{1})<\\zeta_{2}, \\text{ where } T_{0E}= \\max_{e\\in E}\\Big| \\frac{1}{\\sqrt{n}}\\sum_{i=1}^{n}\\bY_{i} (e) \\Big| ,\\\\ \\nonumber\n \\label{eq:TW_zetas}&\\mathbb{P}(\\mathbb{P}_{\\cqt}(|T_E^{\\cB}-T_{0E}^{\\cB}|>\\zeta_{1})>\\zeta_{2})<\\zeta_{2}, \\text{ where } T_{0E}^{\\cB} = \\max_{e\\in E} \\Big| \\frac{1}{\\sqrt{n}}\\sum_{i=1}^{n}\\bY_{i} (e) \\xi_i  \\Big|,\n\\end{align}\nwhere the i.i.d. mean zero random vectors $\\bY_1(e),\\cdots,\\bY_n(e) \\sim \\bY(e)$ satisfy $\\min_{e \\in \\cV \\times \\cV} \\mathbb{E}[ \\bY^2(e)]>c$, $\\max_{e \\in \\cV \\times \\cV}  \\norm{\\bY(e)}_{\\psi_1} \\le C$ and $\\max_{e \\in \\cV \\times \\cV}  \\norm{\\bY^2(e)}_{\\psi_1} \\le C\\sqrt{n/\\log d}$ for some positive constants $c$ and $C$, the multiplier variables $\\xi_{i}\\stackrel{i.i.d.}{\\sim}\\cN(0,1)$ are independent from the data and $\\mathbb{P}_{\\cqt}$ is the measure only on $\\xi_1, \\ldots, \\xi_n$.",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Assumption 6.1"
+      }
+    ]
+  },
+  {
+    "local_id": "D22",
+    "original_tex": "Similar to \\eqref{eq:dep_term_set}, for the general case, we also need to define a dependency set $S$  as\n\\[\n\nS=\\{(j_1,j_2,k_1,k_2): j_1, j_2\\in \\cH_0, j_1 \\ne j_2, \\bTheta_{j_1k_1} =\\bTheta_{j_2k_2}=0,\n\\cov(\\bY((j_1,k_1)),\\bY((j_2,k_2))) \\neq 0\\}.\n\\]",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Section 6 — dependency set"
+      }
+    ]
+  },
+  {
+    "local_id": "D23",
+    "original_tex": "\\label{asp:tradeoff_fdp_gen}\n{Suppose that $\\bTheta \\in \\cU(M,s, r_0)$ and the following scaling \n condition holds:}\n\\begin{eqnarray} \\nonumber \n\n    \\frac{\\log d }{\\rho}\\rbr{\n    \\frac{(\\log d)^{19/6}}{n^{1/6}} + \\frac{ (\\log d)^{11/6}}{\\rho^{1/3} n^{1/6}} + \n   \\zeta_1 \\log d + \\frac{\\zeta_2}{\\rho}\n    } + \\zeta_2 d^4  +   \\frac{\\log d}{\\rho d_0} + \\frac{({\\log d})^{2}|S|}{\\rho d_0^2} = o(1),\n\n\n    \\end{eqnarray}\n where the definitions of $d_0$ and $\\rho$ are the same as in Section \\ref{sec:hub_selection}.",
+    "evidence": [
+      {
+        "page": 14,
+        "location": "Assumption 6.2"
+      }
+    ]
+  }
+]

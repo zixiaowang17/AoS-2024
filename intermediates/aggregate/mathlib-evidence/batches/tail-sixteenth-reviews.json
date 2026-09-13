@@ -1,0 +1,86 @@
+{
+  "scope": "Manual variant-aware review of five LASSO neighborhood/screening interfaces and three batching coverage-expansion interfaces against archive-pinned mathlib; original census statements and recorded source ambiguities retained.",
+  "rows": [
+    {
+      "interface_id": "local-c446b035c08416f6b1de",
+      "related": ["Matrix.mulVec", "Metric.closedBall", "Set.preimage", "Set.image"],
+      "status": "composable",
+      "query": "Searched LASSO, polyhedral and closed-ball infrastructure; inspected Matrix.mulVec, Metric.closedBall, Set.preimage, Set.image and the finite-product sup norm in Analysis/Normed/Group/Constructions.lean.",
+      "result": "The finite Pi space has the sup norm. Preimaging its closed ball centered at X-transpose times y under X-transpose times the input gives precisely the displayed non-strict neighborhood, and taking its image under the supplied selector gives all plausible models. This assembly does not require X-transpose to be injective, nor does it make the outcome neighborhood bounded. No statistical calibration or LASSO selection theorem follows from these set operations.",
+      "gap": "With the LASSO selector and radius supplied, these declarations directly express the transformed closed neighborhood and its image as the plausible-model set.",
+      "comparisons": {
+        "D23": "Use the ordinary finite function-space sup norm on the transformed d coordinates, not the Euclidean norm; closedBall includes equality at s_nu. Matrix.mulVec represents X-transpose y and X-transpose y-prime, Set.preimage preserves the possible kernel directions, and Set.image existentially collects selector outputs. The source radius 2q^nu and selected-model map remain inputs from D21/D22, including any unresolved selector convention; the comparison adds neither a finite enumerator nor a calibration claim."
+      }
+    },
+    {
+      "interface_id": "local-ec3a3762e269c7ae77e4",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv"],
+      "query": "Searched the pinned Mathlib tree for LASSO, polyhedron/polyhedra, Moore-Penrose and pseudoinverse; inspected Matrix.mulVec and the inverse definition and mul_nonsing_inv proof, plus PointedCone.DualFG and cone-face infrastructure as alternative halfspace representations.",
+      "result": "Matrix operations supply the finite coordinate formulas and invertible Gram-matrix identities. NonsingularInverse explicitly excludes generalized pseudoinverses and totalizes singular square inverses to zero. DualFG concerns homogeneous cones and does not directly represent the printed affine strict-inequality regions. No searched declaration identifies a LASSO model/sign event with these particular blocks.",
+      "gap": "The LASSO event equivalence, rectangular pseudoinverse identities and rank, penalty, uniqueness and strict-boundary conventions remain beyond the inspected matrix operations.",
+      "comparisons": {
+        "D24": "Encode each printed strict inequality separately as forall row, (A *v y) row < b row; the strict order of a product need not mean strictness in every coordinate. Keep the three A blocks and all b signs unchanged. The square Gram inverse agrees with an actual inverse only under the determinant condition, whereas (X_M-transpose)^+ is rectangular and cannot be replaced by mathlib's square totalized inverse. Establishing Pi_M as the intended projection and the selection-event equality requires hypotheses absent from the bare display; neither closure nor an almost-sure boundary exception is silently inserted."
+      }
+    },
+    {
+      "interface_id": "local-1e74809392d54cacf170",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "IsMinOn"],
+      "query": "Searched LASSO, affine-map and nonsingular-inverse infrastructure; inspected Matrix.mulVec, mul_nonsing_inv with its determinant hypothesis, and IsMinOn with its principal-filter definition.",
+      "result": "Finite matrix multiplication and subtraction express the displayed affine candidate on any outcome vector. The inverse identity requires an invertible Gram matrix. IsMinOn expresses optimality for a supplied LASSO objective, but proves neither optimality nor uniqueness of this candidate. The searched affine infrastructure does not supply its equality with the LASSO fit on a selected region.",
+      "gap": "The affine formula can be represented, but its regional LASSO optimality and the source's active-coordinate versus full-vector convention still need justification.",
+      "comparisons": {
+        "D27": "The candidate has |M| coordinates and includes the constant offset from lambda times s, so it is affine even though the source calls it locally linear. It is evaluable outside P(M,s), as stated, but the equality with beta-hat is asserted only inside that region. Gram invertibility is needed for the inverse interpretation, and an embedding into all d coordinates is not provided by the original notation. IsMinOn alone supplies no minimizer existence, membership or tie rule and cannot establish this formula."
+      }
+    },
+    {
+      "interface_id": "local-fe4768ad1f3f6cf06731",
+      "related": ["IsExposed", "Finset.filter"],
+      "query": "Searched IsFace, IsExposed, extreme sets and polyhedral adjacency; inspected Analysis/Convex/Exposed.lean, Analysis/Convex/Extreme.lean, Geometry/Convex/Cone/Face/Basic.lean and Finset.filter.",
+      "result": "IsExposed characterizes the full maximizer set of a continuous linear functional and allows the empty set; cone faces apply to pointed cones. These are related face notions, not a model-sign adjacency operation. Finset.filter can retain model/sign pairs satisfying a separately supplied common-face predicate. The paper uses strict regions while referring to their shared faces, leaving closure/nonempty/proper-face conventions to resolve.",
+      "gap": "A common-face adjacency predicate and its enumeration for the LASSO regions remain to be defined with the source's boundary and local-neighborhood conventions made explicit.",
+      "comparisons": {
+        "D25": "A finite universe of supports and sign assignments can be filtered by an established adjacency test; IsExposed supplies supporting-functional geometry but does not itself require a nonempty proper face or codimension one. The source's strict P(M,s) does not include its boundary, so exposed subsets of that open region cannot automatically stand for boundary faces. Preserve the distinction between B(M,s), defined by all neighboring regions, and the later ExactScreening restriction inside B_nu-infinity; no local restriction or closure is added to D25."
+      }
+    },
+    {
+      "interface_id": "local-f251c63233f23e237cbf",
+      "related": ["Matrix.mulVec", "Finset.filter"],
+      "query": "Searched redundant constraints, linear programs and polyhedra; inspected Matrix.mulVec, Finset.filter, PointedCone.DualFG, cone duality scope, and the linarith SimplexAlgorithm PositiveVector stateLP/findPositiveVector bodies.",
+      "result": "Finite predicates and matrix-vector inequalities can describe the retained constraint system. Linarith's simplex code seeks rational positive-vector certificates inside Lean.Meta.MetaM; it is not the paper's verified real-parameter redundancy-pruning and model-entry/exit algorithm. No complete such screening routine was found in this searched scope. The main text specifies one LP per checked constraint but excludes the actual Appendix Algorithm 3 from this census.",
+      "gap": "Verified redundancy tests, feasibility-preserving pruning and the link from retained constraints to neighboring LASSO models remain to be supplied.",
+      "comparisons": {
+        "D26": "Preserve P(M,s) intersect B_nu-infinity, mixing the printed strict selection inequalities with the closed transformed neighborhood. Filtering by a supplied predicate does not decide redundancy, prove minimality or provide a safe deletion order; simultaneous removal of individually redundant duplicate constraints need not preserve the region. The inspected linarith oracle is not a proof of the screening specification for arbitrary real design matrices. Only the main-text description is compared; no omitted Appendix Algorithm 3 steps are reconstructed."
+      }
+    },
+    {
+      "interface_id": "local-47b8fc93e68eaea67740",
+      "related": ["iteratedFDeriv", "fderiv", "Real.sqrt"],
+      "query": "Searched sectioning, Edgeworth and Taylor derivatives; inspected iteratedFDeriv's recursion and parameters in ContDiff/FTaylorSeries.lean, fderiv's fallback behavior, and Real.sqrt; reviewed the available one-variable Taylor remainder theorem signatures as a scope comparison.",
+      "result": "Iterated Frechet derivatives yield the multilinear maps needed for first-, second- and third-order contractions, with the paper's factorial scales inserted explicitly. Derivatives of coefficient functions and the square root are available separately. These deterministic definitions do not establish the ratio expansion, nonzero denominator or O_p(n^-3/2) remainder, and do not resolve the source's inconsistent symbols.",
+      "gap": "The sectioning-specific coefficient identities and stochastic remainder require proof after resolving the source's inconsistent cubic coefficient and batch-variable notation.",
+      "comparisons": {
+        "D27": "Use derivatives at the intended population mean for u, v=second derivative/2 and w=third derivative/6, with coordinate contractions identified under smoothness. The original alternates A_i and X_i, leaves m/f_0 locally unexplained, and writes b_2=[v,A_0,A_0,A_0] despite v being bilinear; keep this text rather than silently replacing v by w. The coefficients lambda and e are those of the squared denominator, E_2 is its leading term, and the extra inline 2 in lambda-prime is multiplication. Existing calculus objects do not certify these formulas, their first-coordinate derivatives or their probabilistic remainder."
+      }
+    },
+    {
+      "interface_id": "local-61dd95d4a9c5c4da306c",
+      "related": ["MeasureTheory.integral", "Matrix.mul_nonsing_inv", "ProbabilityTheory.multivariateGaussian"],
+      "query": "Searched joint cumulants, cumulant-generating functions, Edgeworth, Hermite and multivariate Gaussian density infrastructure in the pinned tree; inspected Moments/Basic.lean cgf, MeasureTheory.integral, Matrix.mul_nonsing_inv and multivariateGaussian's affine pushforward definition.",
+      "result": "Integrals can express the finite central-moment products underlying third/fourth joint cumulants under the necessary moment assumptions; the scalar cgf is not already a joint-cumulant tensor API and requires stronger MGF conditions for derivative arguments. The Gaussian measure and invertible covariance operations are available, but the inspected multivariateGaussian declaration is a measure, not the source's density-weighted contraction formulas. No packaged expressions (7) or Edgeworth implementation was found by these searches.",
+      "gap": "The joint-cumulant contractions and density-weighted expressions (7), including their covariance-invertibility and density assumptions, remain to be formalized.",
+      "comparisons": {
+        "D25": "Keep the constant 1 in p_1, both Gaussian-density factors and every fourth- and squared-third-cumulant contraction as printed. These whole functions are not ordinary polynomials despite the source label. Repeated indices range independently over 1 through d. The cumulants belong to the original observation law, not the fresh Gaussian simulation; multivariateGaussian does not supply a nonsingular Lebesgue density for a merely PSD covariance, and totalized matrix inversion cannot remove the invertibility requirement. Finite-moment definitions need not assume an MGF exists."
+      }
+    },
+    {
+      "interface_id": "local-d657b631306bbde9e113",
+      "related": ["iteratedFDeriv", "fderiv", "ProbabilityTheory.gaussianPDFReal", "Set.indicator", "MeasureTheory.integral"],
+      "query": "Searched unbiased simulation, sectioning and Edgeworth interfaces plus calculus/Gaussian ingredients; inspected iteratedFDeriv, fderiv, gaussianPDFReal and its zero-variance lemma, the to_additive source of Set.indicator, and the Bochner integral definition.",
+      "result": "The inspected declarations supply multilinear and first derivatives, the scalar Gaussian density, restriction by the exact coverage event, and an expectation operation for an integrable estimator. None supplies Algorithm 1's boundary derivatives, Schur-complement conditional-density calculation, coverage coefficient or unbiasedness. The printed formula has several preserved ambiguities that prevent treating it as an already executable estimator.",
+      "gap": "The boundary-correction estimator and its unbiasedness remain unverified until the source's formula ambiguities and denominator, conditional-variance and integrability requirements are resolved.",
+      "comparisons": {
+        "D28": "Preserve the unexplained c in F_xx, the missing first-gradient-coordinate normalization in F_plus/minus, the positive-side y_x used in the negative-side second derivative, the missing connector in ER, the p_1(x(A)) dimension issue and the asymmetric phi-prime term. gaussianPDFReal uses variance, matching the source's N(0,sigma) convention only with a valid positive conditional variance; its zero-variance fallback is not a Dirac density. The exact non-strict C event can be represented by Set.indicator. Mean-zero Gaussian simulation uses original-law covariance/cumulants as inputs; integrability and E[ER]=the coefficient c of (6) remain substantive requirements. Appendix formulas for other batching schemes are outside scope."
+      }
+    }
+  ]
+}

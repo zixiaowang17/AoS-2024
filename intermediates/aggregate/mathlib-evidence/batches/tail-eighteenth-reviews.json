@@ -1,0 +1,87 @@
+{
+  "scope": "Manual comparisons for prior expansion and posterior concentration, graph connectivity/scaling, episodic value-iteration and subsampling, and parameter-indexed spectral bootstrap profiling.",
+  "rows": [
+    {
+      "interface_id": "local-cc9b3c642dfc09812b45",
+      "related": ["Asymptotics.IsBigO", "csSup_le_iff", "Real.log"],
+      "query": "Searched Bernstein-von Mises, posterior concentration and skew approximation infrastructure; inspected Asymptotics.IsBigO/IsBigOWith, conditional supremum bounds and Real.log's full defining extension; compared the retained Assumption 3 source notes.",
+      "result": "IsBigO expresses the deterministic coefficient and remainder bounds along a specified limiting filter. A real supremum needs the nonempty bounded residual-value set for its usual order properties. Real.log supplies the scalar operation but does not disambiguate the printed log pi(...)/pi(theta-star), and no inspected definition supplies this paper-specific prior expansion.",
+      "gap": "The uniform prior expansion still needs its logarithm scope and local-coordinate domain resolved before the generic supremum and big-O predicates can represent the intended assumption unambiguously.",
+      "comparisons": {
+        "D13": "Preserve the abstract vector log-pi^(1), the repeated-coordinate contraction, component O(1) and deterministic O(delta_n^2 M_n^c2) supremum bound with c2>0. Do not identify the coefficient with a derivative or import the stronger twice-continuously-differentiable Assumption 7. The source leaves the ratio outside explicit log parentheses and uses h in K_n after K_n was defined using theta-distance; both issues remain recorded. Big-O here is deterministic, unlike the stochastic likelihood remainder in Assumption 2, and Real.log's zero/negative extensions do not justify density logarithms outside their intended positive domain."
+      }
+    },
+    {
+      "interface_id": "local-a3777a92c3c6d4a98980",
+      "related": ["ProbabilityTheory.Kernel", "ProbabilityTheory.IsMarkovKernel", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Searched posterior concentration/Bayes infrastructure and inspected Kernel's measurable measure-valued function, IsMarkovKernel's pointwise probability requirement, and Filter.Tendsto's filter-map definition.",
+      "result": "For each n, a supplied posterior probability kernel maps the observed data to a probability measure on parameters. Evaluating it on the strict tail set and taking the P0^n probability of the strict threshold event gives a scalar probability sequence; Tendsto states its convergence to one. The varying sampling spaces can be handled separately at each n, without imposing an iid law or a common random-variable realization.",
+      "gap": "With the posterior kernels and sampling laws supplied, the nested probability condition is directly expressible as convergence of a scalar probability sequence to one.",
+      "comparisons": {
+        "D15": "The inner event is norm(theta-theta-star)>M_n delta_n; the outer data event is posterior mass < delta_n^2, with both strict inequalities retained. The limit is over a specified positive norming sequence delta_n tending to zero, not an automatic n^-1/2 substitution. Kernel measurability supplies measurable evaluation on measurable parameter-tail sets; its Markov property makes those evaluations finite probabilities. This states an assumption and does not prove posterior contraction, invoke correct specification or assume independence of observations."
+      }
+    },
+    {
+      "interface_id": "local-6d03f98f1836d8298cd8",
+      "related": ["SimpleGraph.ConnectedComponent", "Nat.card"],
+      "status": "composable",
+      "query": "Searched connected-component cardinality; inspected SimpleGraph.ConnectedComponent as the quotient by Reachable, Reachable as existence of a walk, the finite quotient instance, the computable finite-connectivity instance and Nat.card's cardinal-to-natural definition.",
+      "result": "For a finite graph, Nat.card of its ConnectedComponent quotient counts precisely the connected components, including isolated vertices. The quotient is finite whenever the vertex type is finite. Nat.card's zero value on infinite types does not intervene for the paper's finite graph.",
+      "gap": "The graph component count is directly represented by Nat.card of SimpleGraph.ConnectedComponent for the supplied finite graph.",
+      "comparisons": {
+        "D18": "Use the graph determined by the paper's precision-matrix edge convention on its full finite vertex set. Reachability includes length-zero walks, so an isolated vertex contributes its own component. The output p counts connected components, not vertices, edges or the Gaussian block-partition count also denoted p in Theorem 3.3. The representation does not infer a dependence bound merely from component count."
+      }
+    },
+    {
+      "interface_id": "local-5d1cdf1c395081b7bee8",
+      "related": ["Asymptotics.IsLittleO", "Real.log", "Real.rpow", "SimpleGraph.ConnectedComponent", "Nat.card"],
+      "query": "Searched StarTrek, graph connectivity and asymptotic-rate infrastructure; inspected IsLittleO/IsBigOWith, Real.log, Real.rpow and its nonnegative-base convention, plus the connected-component quotient and finite cardinality.",
+      "result": "IsLittleO relative to the constant-one sequence expresses each displayed o(1) condition along the chosen asymptotic sequence. Real logarithms and real powers preserve the fractional exponents, and finite graph cardinality supplies the component factor p. These generic operations do not encode the precision-matrix parameter class or prove the specific signal/dependence restrictions or their statistical consequences.",
+      "gap": "The paper's precision-matrix class and exact signal/dependence conditions must be assembled using the generic asymptotic and graph components.",
+      "comparisons": {
+        "D19": "Retain membership in U(M,s,r0) and two separate o(1) restrictions. Equation (5.4) has outer log(d)/rho and powers 19/6, 11/6, 1/6, 1/3 and 1/2 exactly as printed. Equation (5.5) has rho*d0 in its first denominator and rho*d0^2*p in its second; p is the component count and |S| counts the ordered configurations from (5.3). Track d,rho,d0,s,p and |S| along n as appropriate, and require intended positive denominators rather than inheriting totalized real division. These are deterministic scaling requirements, not stochastic little-o assertions or the different Section 6 condition."
+      }
+    },
+    {
+      "interface_id": "local-8b17bbf3ba77ec79b857",
+      "related": ["List.foldlIdxM", "Matrix.mulVec", "Finset.max'", "IsMaxOn"],
+      "query": "Searched Bellman and backward value-iteration infrastructure; inspected List.foldlIdxM's sequential accumulator body, Matrix.mulVec, Finset.max' and IsMaxOn's objective-bound definition.",
+      "result": "A fold over the explicit stage list H,H-1,...,1 can carry the next-stage value and the accumulated policy. Matrix-vector multiplication and finite maxima supply each Q/V update, with membership plus IsMaxOn expressing greedy action selection. The fold index itself is not the stage h and must not reverse the recurrence. No complete VI-LCB implementation was found in the searched tree.",
+      "gap": "The empirical stage kernels, Bernstein penalties, exceptional-count conventions and greedy choices must be assembled and verified around the generic backward fold.",
+      "comparisons": {
+        "D23": "Initialize only V_(H+1)=0 and visit each stage in descending order. Compute Q_h from the already-computed V_(h+1), clip only below at zero, then take the rowwise action maximum and save pi_h before proceeding. This finite-horizon recursion has no discount gamma and no stationary policy output. Keep the kernel (51) zero-count uniform fallback, the distinct penalty (55) capped at H and its unresolved positive-over-zero expressions; do not copy the discounted penalty's inner maximum or 5/N addition. The total N remains the supplied D0 transition count."
+      }
+    },
+    {
+      "interface_id": "local-d697b84313147b350e8a",
+      "related": ["Finset.filter", "Finset.powersetCard", "PMF.uniformOfFintype", "PMF.bind"],
+      "query": "Searched finite subsampling, fixed-cardinality subsets and discrete sampling; inspected Finset.filter, powersetCard and its membership equivalence, uniformOfFintype, and PMF.bind's mixture formula.",
+      "result": "Filtering indexed transition records forms each eligible (state,stage) group. powersetCard enumerates subsets of a supplied integer size and uniformOfFintype can sample uniformly from a nonempty such family; bind can combine sequential choices. These components neither choose the source's unspecified rounding nor determine an unstated joint sampling law or prove the wrapper's guarantee.",
+      "gap": "The wrapper needs integer split/trimming conventions and a precise indexed subsampling law before it can be assembled with the finite sampling components and VI-LCB.",
+      "comparisons": {
+        "D24": "Split at the trajectory level: K counts trajectories, not NH or KH independently sampled transitions. Retain the first/remaining K/2 split printed in the algorithm, while recording that the prose describes a random split. Equation (56) produces a potentially noninteger threshold; neither odd-K rounding nor conversion of min(N_trim,N_main) to a sample size is stated. Keep repeated equal transitions distinct via record indices when selecting subsets. A uniform fixed-size subset is available infrastructure, not proof that this is the uniquely specified joint law; do not assume independence across stages inherited from trajectories. Delta is required by the formula/called algorithm despite its omission from the wrapper input line, and N in the subsequent algorithm is not silently replaced by the original KH."
+      }
+    },
+    {
+      "interface_id": "local-4cf5bf609a885fad3788",
+      "related": ["PMF.uniformOfFintype", "MeasureTheory.Measure.infinitePi", "Multiset.map"],
+      "query": "Searched overlapping-block spectral bootstrap and function-indexed resampling; inspected uniformOfFintype, infinitePi's probability branch and finite-cylinder product formula, and Multiset.map's preservation of multiplicities.",
+      "result": "For fixed observed data, sample N independent indices uniformly from the nonempty finite set of n-b+1 starts. Each sampled index selects the entire supplied theta-indexed block-statistic function, so every theta shares the same bootstrap experiment. Mapping an index multiset preserves repeated selected blocks. This avoids requiring decidable equality on the whole function space merely to sample.",
+      "gap": "The shared-index resampling is available, while the data-dependent function-valued law and its spectral empirical-likelihood process still require construction and verification.",
+      "comparisons": {
+        "D25": "Take N=floor(n/b) indices with replacement from all overlapping starts and hold each draw fixed across theta. Do not draw new indices independently at every candidate theta, and do not substitute the single fitted-parameter collection from Section 5.2. Repeated starts and coincident whole functions keep their multiplicities. The source samples periodogram sub-average functions, not independent time points or a concatenated series. For a full random function-space statement, specify its sigma algebra and relevant measurability; fixed-data finite-index sampling alone does not establish bootstrap process convergence."
+      }
+    },
+    {
+      "interface_id": "local-fd9a0ea35649ccd723bd",
+      "related": ["Set.preimage", "IsMaxOn", "Real.log"],
+      "query": "Searched profile likelihood and constrained maximization; inspected Set.preimage, IsMaxOn with its separate membership requirement, and Real.log's definition at positive, zero and negative arguments.",
+      "result": "The fiber h(theta)=vartheta-hat_n is the preimage of a singleton. Membership in that fiber plus IsMaxOn expresses an attained maximum of the supplied bootstrap likelihood on it. The real logarithm gives the normalized statistic on positive likelihoods but not an extended infinite value at likelihood zero. The searched declarations do not establish existence of the profile maximum or bootstrap validity.",
+      "gap": "Attainment and positivity of the constrained bootstrap likelihood, together with the shared resampled likelihood process, remain to be established for the printed profile statistic.",
+      "comparisons": {
+        "D26": "Profile over the full h-fiber at vartheta-hat_n=h(theta-hat_n); it need not reduce to theta-hat_n or a finite set. The source prints max, so an arbitrary supremum must not replace an attained maximum without justification. Every candidate theta uses the same function-valued resampling from D25. Keep N^N and -2 log normalization and distinguish the fitted smooth parameter from the true vartheta_0 used for the comparison distribution. IsMaxOn by itself does not supply fiber membership, an optimizer or a selection rule, and Real.log 0=0 is not the intended extended log-ratio convention."
+      }
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+"""Keep source conventions and unresolved source issues outside the original statements."""
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];PID=ROOT.name
+aux=[]
+def add(lid,text,pages,location):
+    aux.append(dict(local_id=lid,statement_original=text.strip(),evidence=[dict(page=p,location=location) for p in pages]))
+add('A1',r'''In the rest of the paper, we assume that the explanatory variables $x_1,\ldots,x_d$ all belong to $[0,1]$. The observed data is $(x^{(1)},y_1),\ldots,(x^{(n)},y_n)$ where $x^{(i)}\in[0,1]^d$ and $y_i\in\mathbb R$.''',[2],'Section 1 — common domain and observations')
+add('A2',r'''
+\[
+\prod_{j=1}^d(b_j(x_j))^{\alpha_j}=\prod_{j:\alpha_j=1}b_j(x_j)\tag{1}
+\]
+with $\alpha=(\alpha_1,\ldots,\alpha_d)\in\{0,1\}^d$ and
+\[
+b_j(x_j)=(x_j-t_j)_+\text{ or }(t_j-x_j)_+\text{ for some real number }t_j.
+\]
+''',[1],'Section 1 — original two-sided MARS basis')
+add('A3',r'''Typically, one only considers terms (1) for which the interaction order $|\alpha|$ is smaller than a pre-chosen integer $s\le d$ (most commonly $s=1$ or $s=2$).''',[2],'Section 1 — interaction-order tuning parameter')
+add('A4',r'''where we use the notation $[p:q]:=\{p,p+1,\ldots,q\}$ for two integers $p\le q$.''',[7],'Section 2 — integer intervals')
+add('A5',r'''
+For each $k\in[d]$, let $\mathcal U_k$ denote the finite subset of $[0,1]$ consisting of the points $0,x_k^{(1)},\ldots,x_k^{(n)},1$ (recall here that $x_k^{(i)}$ denotes the $k$th coordinate of the $i$th design point $x^{(i)}=(x_1^{(i)},\ldots,x_d^{(i)})$). As there could be ties among $0,x_k^{(1)},\ldots,x_k^{(n)},1$, we will write, for some $n_k\in[n+1]$,
+\[
+\mathcal U_k=\{u_0^{(k)},u_1^{(k)},\ldots,u_{n_k}^{(k)}\}\quad\text{where }0=u_0^{(k)}<\cdots<u_{n_k}^{(k)}=1.
+\]
+Note specially that the cardinality of $\mathcal U_k$ is $n_k+1$, that $u_0^{(k)}$ is always $0$, and that $u_{n_k}^{(k)}$ is always $1$.
+''',[6],'Section 2 — observed-data knot grid, distinct from the approximate grid')
+add('A6',r'''
+Let
+\[
+J=\left\{(\alpha,l):\alpha\in\{0,1\}^d\setminus\{\mathbf0\},|\alpha|\le s,\text{ and }l\in\prod_{k\in S(\alpha)}[0:(n_k-1)]\right\}
+\]
+and let $M$ be the $n\times|J|$ matrix with columns indexed by $(\alpha,l)\in J$ such that
+\[
+M_{i,(\alpha,l)}=\prod_{k\in S(\alpha)}(x_k^{(i)}-u_{l_k}^{(k)})_+\qquad\text{for }i\in[n]\text{ and }(\alpha,l)\in J.
+\]
+''',[7],'Proposition 2.2 — original observed-knot instantiation of (13)')
+add('A7',r'''
+The problem (7) can have multiple solutions, but every solution $\widehat f_{n,V}^{d,s}$ satisfies
+\[
+\widehat f_{n,V}^{d,s}(x^{(i)})=\widehat a_0+(M\widehat\gamma_{n,V}^{d,s})_i=\widehat a_0+\sum_{(\alpha,l)\in J}(\widehat\gamma_{n,V}^{d,s})_{\alpha,l}\cdot\prod_{k\in S(\alpha)}(x_k^{(i)}-u_{l_k}^{(k)})_+
+\]
+for every $i\in[n]$.
+''',[7,8],'Proposition 2.2 — common fitted values despite possible nonuniqueness')
+resolution={
+ 'shared':'A1 fixes the unit-cube domain and the observed-data notation; d is the number of covariates and s the interaction cutoff discussed in A3. D1,D2 resolve hinge positive parts and binary supports/orders. D3 uses only nonempty binary interactions of order at most s and finite signed Borel measures on half-open knot cubes. Bold zero is a vector; scalar zero, the intercept index and nonzero-knot exclusion are distinguished. D4 is signed-measure variation, not Hardy–Krause variation. A4 gives integer interval notation. Integrals, expectations, finite products/sums, Euclidean norms, argmin membership, signed measures and probability notation are ambient. Scalar constants, n,N and dimension/rate exponents are local binders. The source does not explicitly spell out every positivity convention needed for its logarithmic rate formulas.',
+ '3.1':'D3 and D5 are the two explicit truth-class assumptions. D12 supplies the full lattice design (15), including nonuniform allowed spacings and rho. D13 supplies the independent sub-Gaussian model (16) and sigma; independence does not mean identical error distributions. D6 is the exact constrained estimator (7); D14 is expected squared empirical loss under fixed covariates. All constants and rate expressions are given inline. The function class depends on D1,D2,D4 through its representation and complexity. Metric entropy, bracketing entropy and integrated Brownian sheets are proof ingredients rather than statement prerequisites.',
+ '3.2':'D15 defines D_m as products of m positive-part hinges integrated against a signed measure of variation at most one on the closed cube. D22 identifies log N as metric entropy in Lebesgue L2 distance. N is the conventional covering number; the main text does not independently define its center or open/closed radius convention. Epsilon and dimension-dependent constants are bound inside the theorem; the m=1 sentence is part of its conclusion. No covariate lattice, error law, original MARS estimator, smoothness characterization or Brownian process is needed to state this entropy bound.',
+ '3.4':'D3,D5,D12,D13,D14 are the same truth, fixed-design model and expected-risk objects as in Theorem 3.1. The estimator is D11, reconstructed by (14), D10, from the approximate optimization D9 using the formula D7 and preselected grids D8. N is defined inline as min_k N_k. The reference to the same form as (13) changes J,M and the knot values as explicitly stated on pages 8–9; it does not inherit the observed-data grids A5,A6. The additional 8V^2/N^2 term remains in the bound. Problem (7) contributes its feasible class D3,D5 and the coefficient objective D7. The chosen exact estimator D6 is not needed to define the approximate solution and is not inherited as a prerequisite.',
+ '3.5':'D3,D5,D6 give the truth class, complexity bound and exact estimator. D16 gives iid covariates with density upper bound B, and D17 gives iid mean-zero errors independent of those covariates and the finite L^{5,1} tail integral. D18 gives the population L2 loss. O_p denotes boundedness in probability after dividing by the displayed rate, not an expectation bound. The section studies n tending to infinity with the model parameters fixed; no lower density bound, Gaussian restriction, fixed lattice or approximation-grid condition is imported.',
+ '3.6':'D15 is the same signed-hinge integral class as in Theorem 3.2. D21 identifies its epsilon-bracketing number under Lebesgue L2. Bracketing means covering by lower/upper function brackets of bounded L2 width under the standard convention; the main text does not independently specify endpoint versions or pointwise versus almost-everywhere ordering. The absolute logarithm and the all-epsilon range are retained. Its location in the random-design section does not impose sampling or noise assumptions on this analytic statement.',
+ '3.8':'D3,D5 are the truth-class hypotheses. D11 is the approximate estimator, with the explicit optimization/reconstruction and fixed-grid instantiation resolved as for Theorem 3.4. D8 supplies N_k, and the theorem defines N=min_k N_k and the precise lower growth condition Omega(n^{4/15}) with a constant allowed to depend on B,d,V. D16,D17 are the surrounding random-design and L^{5,1} noise conditions. D18 is the squared population loss, whose rate is in probability. The fixed-design N of order n^{2/5} discussed after Theorem 3.4 is not substituted for the different rate condition in this theorem.',
+ '3.9':'D19 defines fraktur M as the infimum over every estimator based on the full random-design sample, with a supremum over D3,D5 and expected loss D18 under model D17. D20 supplies the additional Gaussian error law and the prose lower-density restriction, while D16 retains the upper bound B. The printed sup-norm inequality used to explain the lower bound is preserved but does not mathematically express boundedness below; that remains a source ambiguity. C_{b,B,s}, c_{B,s}, sigma,V and the sample threshold are local quantities in the bound. Neither exact nor approximate MARS fitting, its computational grids, entropy inequalities, Hardy–Krause variation nor Assouad proof constructions restrict the all-estimator infimum.'
+}
+issues=[
+ 'Pinned source is arXiv:2111.11694v5 dated 13 October 2024, 108 pages, with a Published in the Annals of Statistics header. Exact final-journal equivalence is not asserted.',
+ 'All seven actual Theorems are in pages 9–13 and are individually complete on their listed pages. Ordinary-case references and results labeled Proposition, Lemma or Remark are not extra Theorems.',
+ 'Main text and references end on page 25. The appendix roadmap and Appendix A heading on page 26 were inspected only for the boundary; all appendix mathematics is excluded.',
+ 'The original MARS basis permits both orientations of the hinge, while the infinite-dimensional class uses only positive hinges with knots in [0,1). The source explains the linear-span reduction; no original formula is rewritten to include the other orientation.',
+ 'The source describes an integer interaction cutoff s<=d and uses |alpha|<=s in all class/optimization formulas. Its informal phrase smaller than a pre-chosen integer is not substituted as a strict cutoff.',
+ 'The class F_{infinity-mars}^{d,s} uses finite signed Borel measures, not probability measures or nonnegative mixtures. Their total variation and all-zero atoms have different roles in the complexity.',
+ 'V_mars excludes the all-zero knot vector in every interaction measure. The intercept and all multilinear products of coordinates remain unpenalized; the constraint is not an l1 bound on every coefficient.',
+ 'The source proves uniqueness of the signed-measure representation in Appendix E.1, but its complete definition and the complexity formula are in the main text. The appendix proof is unnecessary for statement resolution and is not read.',
+ 'The exact estimator is any argmin solution of (7); Proposition 2.2 states that fitted values agree even when the function solution is not unique. The source does not specify a measurable tie-selection rule or uniqueness away from observed points.',
+ 'The coefficient objective (13) and reconstruction (14) are explicitly reused for the approximate estimator with a different grid, J and M. The observed-data knot instantiation is retained separately, not imported into approximate-estimator requirements.',
+ 'The grid sets include the right endpoint 1, while the half-open measure domain and coefficient indices omit that endpoint. A hinge at the right endpoint vanishes on the domain.',
+ 'The observed-data grid count n_k in Section 2 gives n_k+1 points and an obligatory endpoint 1. Section 3.1 reuses n_k for the fixed lattice with n_k points and no obligatory right endpoint. The approximate method uses separately chosen positive integers N_k.',
+ 'The fixed lattice only requires a positive lower spacing bound and a zero left endpoint; it need not be equally spaced. Its displayed equality is an equality of sets, without separately specifying a no-repeated-observations convention.',
+ 'Fixed-design errors are independent and sub-Gaussian with a shared mgf bound, but not explicitly identically distributed. Random-design errors are iid and independent of iid design variables, with finite Lorentz L^{5,1} norm.',
+ 'The tail-integral condition (21) is not merely a finite fifth moment. The source states the distinction in the main text; it is preserved in the noise assumption.',
+ 'Theorems 3.1 and 3.4 bound expected empirical loss. Theorems 3.5 and 3.8 bound random population loss in probability. Theorem 3.9 instead bounds an expected minimax population risk.',
+ 'D_m uses a closed knot cube and total variation at most one on the entire cube, including the zero atom. It has no free intercept or unpenalized multilinear part. It is not identified with the original MARS complexity ball.',
+ 'The main text names metric entropy and bracketing numbers but does not fully define covering centers, open/closed radii, bracket versions or almost-everywhere versus pointwise order. These remain explicitly noted conventional ambient meanings.',
+ 'Theorem 3.2 includes the m=1 removal of the logarithmic factor. Theorem 3.6 is stated for every epsilon>0 with an absolute logarithm, and both analytic statements are retained without regression assumptions.',
+ 'The approximate-grid condition in Theorem 3.8 is Omega(n^{4/15}); the fixed-design discussion uses a different n^{2/5} sufficient scale. They are not conflated.',
+ 'The paragraph preceding Theorem 3.9 says p0 is bounded below by b but prints ||p0||_infinity>=b. A sup-norm lower bound does not establish a density lower bound; neither prose nor formula is silently corrected.',
+ 'Fraktur M denotes the minimax risk. Script R denotes fixed-design risk, script F,D the function classes, and script U the knot sets. Bold zero/one vectors and the bold indicator in the interaction order are preserved.',
+ 'V is positive in the estimator definition. Rate formulas also divide by sigma or V and use logarithms, without all theorem statements restating positive nondegenerate parameter ranges. No additional hypotheses are inserted into the originals.',
+ 'The minimax lower bound has a logarithm without an added 2; its unspecified sufficiently-large sample constant must make the displayed fractional-power expression meaningful. The source bound is retained as written.',
+ 'Hardy–Krause variation occurs in alternative smoothness characterizations, and integrated Brownian sheets occur in entropy proofs. Neither is a statement dependency of these seven Theorems under their original main-text definitions.'
+]
+out=dict(paper_id=PID,scope='main_text_only',auxiliary_source_passages=aux,statement_resolution=resolution,source_issues=issues,excluded_references=[])
+def main():
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n')
+    print(f'Saved {len(aux)} auxiliary source passages and {len(issues)} notes.')
+
+if __name__ == "__main__":
+    main()

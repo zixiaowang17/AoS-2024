@@ -1,0 +1,515 @@
+[
+  {
+    "interface_id": "local-fde2f57dfa20498d02f9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "ec19c8642b7abcc73d96170c684267dcff70876e9f25c79f9c79af77192eea7b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D2",
+        "comparison": "Take QuasiconvexOn real univ L, L(-v)=L(v), L(v)>=0 and L(0)=0 for a scalar-valued loss on R^d. Symmetry here is central evenness, not rotational invariance or a radial norm loss; quasiconvexity does not require convexity of the function itself. The library definition does not include symmetry or L(0)=0 and alone does not establish measurability/integrability needed by a risk expectation.",
+        "statement_sha256": "8c71b01cae1e593a0cb7b7620c0e1ac2972d7a40ccdd2a08db68da17eeca07d9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "QuasiconvexOn",
+          "type": "(𝕜 : Type*) → {E β : Type*} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [LE β] → [SMul 𝕜 E] → Set E → (E → β) → Prop",
+          "declaration_kind": "definition",
+          "module": "Mathlib.Analysis.Convex.Quasiconvex",
+          "provides": "Quasiconvexity as convexity of every sublevel set within the given domain; symmetry, nonnegative values and zero loss at the origin are separate conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Quasiconvex.lean#L49-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched and inspected QuasiconvexOn including its ordered-semiring domain and sublevel-set definition; compared the complete frozen loss condition.",
+          "result": "QuasiconvexOn supplies exactly the convex-sublevel property, while the loss's symmetry, nonnegative codomain and origin normalization are separate predicates."
+        }
+      ],
+      "gap": "Bundle quasiconvexity on the full Euclidean parameter space with evenness, nonnegative values and the specified zero at the origin."
+    }
+  },
+  {
+    "interface_id": "local-c27f76e52248295a4965",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "f4bfeb3b14b95297ede7aeebfba7324a882ef24c4d91b54bac47df64aa9346f7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D3",
+        "comparison": "Keep P0 fixed; for each P1 in P take an infimum jointly over the estimator and Q in the channel class of the maximum of the two risks at P0,P1, then take the outer supremum over P1. This permits the chosen procedure to depend on the two-point problem and is not inf-over-procedures followed by sup-over-all-P. The observed law Q composed with P is the marginal private sequence generated from iid raw X_i and history-dependent Q kernels, not automatically a product of one-observation output laws. avgRisk at a Dirac prior can express one fixed-P risk after constructing that experiment, but a prior average is not the displayed maximum. Nonnegative extended integrals avoid treating infinite loss expectations as the Bochner integral's default zero; empty estimator/channel classes and finite-real extrema need their own conventions.",
+        "statement_sha256": "b95b10e6461d072d7ab201051b7344b75f4d57309f139f4dbe8c2aad9d12e6c4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.avgRisk",
+          "type": "{Θ : Type u} → {𝓧 : Type v} → {𝓨 : Type w} → {mΘ : MeasurableSpace Θ} → {m𝓧 : MeasurableSpace 𝓧} → {m𝓨 : MeasurableSpace 𝓨} → (Θ → 𝓨 → ℝ≥0∞) → ProbabilityTheory.Kernel Θ 𝓧 → ProbabilityTheory.Kernel 𝓧 𝓨 → MeasureTheory.Measure Θ → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Decision.Risk.Defs",
+          "provides": "Prior-averaged risk of an estimator kernel under a data-generating kernel for a nonnegative extended-real loss.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Decision/Risk/Defs.lean#L47-L49",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected kernel and average-risk definitions and nonnegative integration; compared the frozen quantifier order and sequential-channel observation law.",
+          "result": "Kernel-based expected loss can be represented, but the source's local two-point minimax criterion has a specific supremum/infimum order not supplied by an average-risk primitive."
+        }
+      ],
+      "gap": "Construct the interactive privatized experiment and local two-point minimax risk with the exact order of optimization and appropriate extended nonnegative risk values."
+    }
+  },
+  {
+    "interface_id": "local-a04101dd16c296972fa9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "2fa3aec7566473efb86fa8ac12c56be44cf681f778e67262e14b348c23bfe33d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D5",
+        "comparison": "For finite alpha>1 preserve (alpha-1)^-1 log integral (dP/dQ)^alpha dQ, with the RN derivative an ENNReal function and meaningful handling of an infinite integral. The source assigns the alpha=1 limit to KL and alpha=infinity to ess sup log(dP/dQ); neither is obtained by substituting one into the displayed quotient or by replacing essential supremum with an ordinary point supremum. RN derivatives capture only the absolutely continuous component unless P<<Q, so singular mass requires an explicit divergence convention. For probability laws the mass-correction terms in klDiv cancel and its infinite branch handles non-absolute-continuity/integrability; the library definition alone does not prove the Renyi limit or license real-log/toReal fallbacks at infinity.",
+        "statement_sha256": "1bbda715ffa9d79c6fa9087098d4d90e7b8d603db6ac60ab596363e3251a1cb7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.rnDeriv",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → (α → ℝ≥0∞)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue",
+          "provides": "Radon–Nikodym density of the absolutely continuous part; singular mass is separate and must not be lost when defining divergence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "InformationTheory.klDiv",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.InformationTheory.KullbackLeibler.Basic",
+          "provides": "Ordered extended KL divergence; infinity outside absolute continuity or log-likelihood integrability, with a mass correction that cancels for probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/InformationTheory/KullbackLeibler/Basic.lean#L57-L60",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Renyi/Reyni names in Probability and InformationTheory; inspected RN derivative, lower integral and KL-divergence bodies and compared both source endpoints.",
+          "result": "RN derivatives and integration provide finite-order ingredients and klDiv supplies the alpha=1 divergence for probability laws, but no inspected Renyi family or endpoint-limit theorem was found."
+        }
+      ],
+      "gap": "Define the extended Renyi divergence with absolute-continuity conventions and prove the alpha-down-to-one and infinite-order essential-supremum endpoint identifications."
+    }
+  },
+  {
+    "interface_id": "local-4cec79799762c963b0ad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "80d4cd1caf6493036e7731a2ae168ed343de5a4691bd95b7f8c27d73f1f74260",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D6",
+        "comparison": "For each step i compare Q(.|x,z_1:i-1) to Q(.|x',z_1:i-1) at the same history and impose D_alpha<=epsilon for all ordered x,x' and histories. A Markov-kernel condition is needed in addition to Kernel's measurability; KL handles only the alpha=1 endpoint after the divergence bridge. The source writes z_1:i-1 in Z even though the standing interactive setup has an (i-1)-tuple, so retain that binding issue rather than reducing histories to one output. The condition is local per-observation privacy, not a bound on the full transcript divergence, average privacy, or central dataset-level privacy.",
+        "statement_sha256": "0d65ee494a2d4ec318ba31fec793aa9541f1323bcc9492078c46d7dea5fa9e5d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "InformationTheory.klDiv",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.InformationTheory.KullbackLeibler.Basic",
+          "provides": "Ordered extended KL divergence; infinity outside absolute continuity or log-likelihood integrability, with a mass correction that cancels for probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/InformationTheory/KullbackLeibler/Basic.lean#L57-L60",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched locally differential privacy and Renyi interfaces; inspected kernel and KL definitions and compared frozen Definition 2 with the sequential-history equation.",
+          "result": "History-indexed probability kernels and the KL endpoint are available, while the uniform conditional Renyi-divergence privacy predicate remains paper-specific."
+        }
+      ],
+      "gap": "Define the per-step Renyi privacy constraint for every input pair and private history after resolving the history type and divergence domain."
+    }
+  },
+  {
+    "interface_id": "local-1af6d4b2b575310e4033",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "db25cbbd5ca18ad5385dbcec94709703a942ce2ab8cc27e841cab9c8fcb7f765",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D12",
+        "comparison": "Use ContDiffOn real 1 psi univ for psi:R^d to real and evaluate a nonnegative scalar loss L at psi_hat-psi(theta(P)). QuasiconvexOn real univ L and evenness encode the stated shape condition; the error is scalar rather than the original vector loss argument. C1 refers to psi in Euclidean parameter space, not to theta as a map on laws; no Hessian, quadratic-mean-differentiability or vector-valued psi is imposed. Expected loss still needs measurable/integrable or extended-nonnegative treatment.",
+        "statement_sha256": "d96748e61912542ba9bc5d5a0531a94da18963808b8f4b8a3fe25e16610f8aef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "QuasiconvexOn",
+          "type": "(𝕜 : Type*) → {E β : Type*} → [Semiring 𝕜] → [PartialOrder 𝕜] → [AddCommMonoid E] → [LE β] → [SMul 𝕜 E] → Set E → (E → β) → Prop",
+          "declaration_kind": "definition",
+          "module": "Mathlib.Analysis.Convex.Quasiconvex",
+          "provides": "Quasiconvexity as convexity of every sublevel set within the given domain; symmetry, nonnegative values and zero loss at the origin are separate conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Convex/Quasiconvex.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected C1 smoothness on univ, quasiconvex sublevels and expectation; compared the scalar functional/loss setup immediately preceding the frozen theorem.",
+          "result": "C1 scalar functionals and scalar symmetric quasiconvex loss can be stated; differentiability of the distribution-to-parameter map and a private lower bound require further arguments."
+        }
+      ],
+      "gap": "Assemble the scalar target psi composed with theta and its symmetric quasiconvex loss under the stated C1 and expected-loss domain conditions."
+    }
+  },
+  {
+    "interface_id": "local-831733e928721878c45c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "74f7d343b986fb230af6f0501d01b91aea9c5ac3ce874a691c38ef4ebe99cb0a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D8",
+        "comparison": "For g in L1(P0), form the signed measure with density g against P0, subtract it after scaling by h from P_h-P0, and evaluate totalVariation on the whole space; this matches integral |dP_h-dP0-h g dP0|. The source's separate TV distance is sup_A|P(A)-Q(A)|, half the total variation mass for probability differences, so the two normalizations should not be conflated. Use a local h-to-zero filter with norm of h in the little-o comparison; no common dominating density or square-root-density expansion is needed. Mean-zero score is a consequence to prove from normalization and the expansion, not a replacement for L1 integrability.",
+        "statement_sha256": "bc3424e956b6c8dd608baae4a7c418e25c89bc3b688b4fd65d4a674d624bebae"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected signed-measure total variation, norm-based little-o and L1 membership; compared the full frozen signed-measure expansion with the separate TV-distance convention.",
+          "result": "Signed-measure total variation can represent the first-order residual norm and IsLittleO its rate, without requiring quadratic-mean differentiability or domination of every submodel by P0."
+        }
+      ],
+      "gap": "Construct the finite signed residual P_h-P0-h g P0 and require its total mass variation to be little-o of absolute h for a genuine L1 score."
+    }
+  },
+  {
+    "interface_id": "local-4ecf31cf6c4c0614aa07",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "16bed1da43c74948a70ce777832fcdf89a2d51108e4777e5d16bc39074e42066",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D7",
+        "comparison": "At fixed P0 take the supremum of L((theta(P0)-theta(P))/2) over P in the model satisfying sup_A|P(A)-P0(A)|<=delta. For probability laws, signed totalVariation of their difference has twice that event-supremum mass; retain both the TV normalization and the separate factor 1/2 inside L. There is no expectation over P or a Lipschitz constant here. The constrained set is nonempty when P0 belongs to the model and delta>=0, but a finite real supremum also needs boundedness; csSup_le_iff makes those requirements explicit rather than imposing an automatic finite modulus.",
+        "statement_sha256": "b14e832ad4cfcf17299b6e6aa8dc48bdf06c337d66f1ec92495ee7d01df85207"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected total variation mass and bounded real supremum conditions; compared the frozen loss modulus with D4's event-supremum TV definition.",
+          "result": "A supremum over the TV-constrained law set is representable, but the source uses a loss-scaled displacement and half-variation probability-distance convention."
+        }
+      ],
+      "gap": "Define the loss modulus over the exact TV neighborhood with its factor-one-half parameter displacement and a suitable convention for unbounded suprema."
+    }
+  },
+  {
+    "interface_id": "local-dbc0d5a13dfa39b5a864",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "09a2e40e384cecce89e6ea9de92c23395960e60597a48bf44ce5170dfdf16f1d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D9",
+        "comparison": "Collect precisely the scores from the chosen one-dimensional submodels through P0, use MemLp.toLp at exponent one, then (Submodule.span real scores).topologicalClosure in the L1 norm topology. This is neither the pointwise closure of representatives nor an L2 tangent space, and it need not equal all centered L1 functions. Dependence on the collection of admissible submodels is part of the definition; no quadratic-mean condition is imported from the source's analogy.",
+        "statement_sha256": "cf63de31cc6818ac7d749721ffec1cc5a00c2c22861e6a364409a4b58b829cfd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.MemLp.toLp",
+          "type": "{α : Type u} → {E : Type v} → {m : MeasurableSpace α} → {p : ℝ≥0∞} → {μ : MeasureTheory.Measure α} → [NormedAddCommGroup E] → (f : α → E) → MeasureTheory.MemLp f p μ → MeasureTheory.Lp E p μ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+          "provides": "The Lp equivalence class of a function with an explicit finite-moment and measurability witness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSpace/Basic.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.topologicalClosure",
+          "type": "{R : Type u} → {M : Type v} → [Semiring R] → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → [ContinuousConstSMul R M] → [ContinuousAdd M] → Submodule R M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.Basic",
+          "provides": "Topological closure of a submodule, with the submodule structure retained; applied to a real span in L2 it gives the closed linear span.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/Basic.lean#L159-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Lp quotient injection, algebraic span and submodule topological closure; compared the frozen family-of-scores tangent-space definition.",
+          "result": "The closed linear span is supported directly as an L1 submodule construction once the admissible score family is supplied."
+        }
+      ],
+      "gap": "Map all selected L1-differentiable-submodel scores into L1(P0) modulo almost-everywhere equality and take their norm-closed real linear span."
+    }
+  },
+  {
+    "interface_id": "local-07dbfed75e54085162ac",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "50a5161c96e677301bb00d5041238f457e769b039b568f5cd057921b4f803ea7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D10",
+        "comparison": "The domain is the previously defined closed submodule of L1(P0), not all raw functions, and phi is real-linear and continuous into finite-dimensional Euclidean R^d. StrongDual directly describes each scalar coordinate functional; assembling the vector-valued map requires coordinate compatibility. For every submodel with score g, the vector theta(P_h)-theta(P0)-h*phi(g) is little-o of h in Euclidean norm as h tends to zero; phi must depend only on the L1 score class, not the path's other features. This is pathwise differentiability relative to that tangent family, not a global Fréchet derivative on all probability measures.",
+        "statement_sha256": "8eee0a483acdf1c53d45c8fcaeeef8ae944c09b7e7cd3fb1f34f4ef27e784fb4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.topologicalClosure",
+          "type": "{R : Type u} → {M : Type v} → [Semiring R] → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → [ContinuousConstSMul R M] → [ContinuousAdd M] → Submodule R M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.Basic",
+          "provides": "Topological closure of a submodule, with the submodule structure retained; applied to a real span in L2 it gives the closed linear span.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/Basic.lean#L159-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected continuous-linear functional type, norm-based little-o and closed subspaces; compared the frozen derivative expansion along every admissible L1 submodel.",
+          "result": "Continuous linear maps on the L1 tangent subspace and vector remainders can express the pathwise derivative, but a common map for all admissible scores is a substantive assumption."
+        }
+      ],
+      "gap": "Construct a continuous linear map from the L1 tangent subspace to R^d and verify the shared first-order expansion along every admissible scored submodel."
+    }
+  },
+  {
+    "interface_id": "local-d727bd0f18e8def80006",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T07:25:53.234361+00:00",
+    "source_interface_sha256": "7506e7626f2e7efeee5c7c9cd8335b379b4432c54b0586f33455456feda25f76",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0001",
+        "local_id": "D11",
+        "comparison": "Apply exists_extension_norm_eq separately to each coordinate of phi on the L1 tangent subspace; continuity alone extends only to a closure and does not automatically extend from an arbitrary proper closed subspace to all L1. Scalar Hahn-Banach supplies the full-space extensions, without claiming a vector operator-norm-preserving extension. The remaining duality step must produce each coordinate of theta_dot0 in L-infinity(P0) and prove phi(g)=integral theta_dot0(x)*g(x) dP0, with L1 times L-infinity integrability and ae representatives handled. The influence representation need not be unique off the tangent space or centered by this definition, and the Hilbert-space L2 Riesz map is not a substitute for L1/L-infinity duality.",
+        "statement_sha256": "5084a9557a4e3739b1b92a5c59e1fe6af543ad1df06ea46b4a6bce88034aed4f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "exists_extension_norm_eq",
+          "type": "{𝕜 E : Type*} → [NontriviallyNormedField 𝕜] → [IsRCLikeNormedField 𝕜] → [SeminormedAddCommGroup E] → [NormedSpace 𝕜 E] → (p : Subspace 𝕜 E) → (f : StrongDual 𝕜 p) → ∃ g : StrongDual 𝕜 E, (∀ x : p, g x = f x) ∧ ‖g‖ = ‖f‖",
+          "declaration_kind": "theorem",
+          "module": "Mathlib.Analysis.Normed.Module.HahnBanach",
+          "provides": "Norm-preserving Hahn-Banach extension of a scalar-valued continuous linear functional from a subspace; vector-valued finite-dimensional extension can be constructed coordinatewise, but this theorem does not supply an L-infinity density representation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Module/HahnBanach.lean#L44-L52",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "StrongDual",
+          "type": "(R : Type u) → [Semiring R] → [TopologicalSpace R] → (M : Type v) → [TopologicalSpace M] → [AddCommMonoid M] → [Module R M] → Type (max u v)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic",
+          "provides": "The space of continuous linear scalar-valued functionals on a topological module, with the strong-dual topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/ContinuousLinearMap/Basic.lean#L96-L97",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Hahn-Banach extension theorem and proof, Lp/Holder pairing and L1-dual searches, plus bounded-moment and integral definitions; compared the frozen influence representation.",
+          "result": "Hahn-Banach extends each scalar coordinate functional from the tangent subspace; the inspected Holder pairing constructs bounded-density functionals but does not supply the converse L1-dual representation needed here."
+        }
+      ],
+      "gap": "Extend the coordinate functionals and prove their L-infinity density representation on the probability space, then assemble the vector influence function and verify its action on every tangent score."
+    }
+  }
+]

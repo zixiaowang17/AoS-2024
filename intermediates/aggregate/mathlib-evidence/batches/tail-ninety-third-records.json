@@ -1,0 +1,236 @@
+[
+  {
+    "interface_id": "local-974490c2d3c4bf1b7914",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:08:37.046393+00:00",
+    "source_interface_sha256": "b213368a96cf3a2ff69568698522780393e9c597c0035b10e17ca4edd95c2b60",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0948",
+        "local_id": "D13",
+        "comparison": "For X with n observation rows and feature columns, set Sigma-hat=(1/(n:Real)) times X-transpose*X. Matrix.mul_apply yields entry (j,k)=(1/n)*sum_i X_ij*X_ik. No sample mean is subtracted and the divisor is n, not n-1; a source model that has centered variables does not change this matrix formula. Keep every off-block cross product, rather than replacing the matrix by a block-diagonal approximation. The functional needs no ridge estimator, causal-response model or outcome values; n>0 gives the intended arithmetic instead of an unstated zero-row convention.",
+        "statement_sha256": "a5dd1c4c5cc18cef4785620e62ba8dd787e086e480ec5b8cf7141db945df3944"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Matrix.mul_apply in Data/Matrix/Mul against the exact full training Gram formula in p0948 D13.",
+          "result": "Matrix multiplication directly gives the finite entrywise sums of the full uncentered Gram matrix, with the source's scalar normalization supplied separately."
+        }
+      ],
+      "gap": "Define the full uncentered training Gram matrix scaled by 1/n, retaining its cross-block entries and positive sample-size convention."
+    }
+  },
+  {
+    "interface_id": "local-72a38dfdf3c8e4849782",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:08:37.046393+00:00",
+    "source_interface_sha256": "788b4ff0a1e8e006c9c2933421e8d9fae8b05853f2557adee5a5d51ba488f4fd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p0869",
+        "local_id": "D6",
+        "comparison": "Use a measurable map from the observation space to the real closed interval [0,1], or a measurable real function with pointwise range bounds. The value u(y) is the conditional rejection probability; it need not be binary and a uniform-coin implementation is not part of the definition. Under a null law, integrate u for type-I error; under an alternative law, integrate 1-u for type-II error. Boundedness gives integrability for probability laws. Keep the observation space abstract enough for the n-observation and J-group instantiations and do not insert iid sampling, a Bayesian prior, a level guarantee or an MCMC mechanism into this generic test convention.",
+        "statement_sha256": "bd52cdb3302625411eb979cb6a03228b24d2be3407d60c9602cd0ba27569d376"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Measurable, closed interval membership and Bochner expectation against the randomized-test definition in p0869 D6.",
+          "result": "A measurable unit-interval function and its expectations express rejection probabilities, without requiring a particular testing procedure, prior or sampler."
+        }
+      ],
+      "gap": "Package a measurable [0,1]-valued rejection-probability function on the chosen observation space and its null/alternative error integrals."
+    }
+  },
+  {
+    "interface_id": "local-f87ba2d72d95ee59b4c3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:08:37.046393+00:00",
+    "source_interface_sha256": "b2b674c5b31eb008caf79f167b94a36dbac272c8ff082441868293b40de737fb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0184",
+        "local_id": "D8",
+        "comparison": "Multiply sum_{k=1}^p sum_{l=1}^q U-hat_h^(kl) by Delta_h/C(d,2) and sqrt(C(n,2)); d is the U-kernel order, not p+q or the number of coordinate pairs. Keep all p*q cross-vector coordinate pairs, with no extra average over them, variance division or centering. The source gives (d,Delta_h)=(5,40),(6,60),(4,2/3) for its three kernels. C(d,2)>0 for d>=2, and valid pairwise U-statistics require their sample-size conventions. The underlying U-statistic passage's nonstrict printed sample indices and distinct-combination wording remain a separate source discrepancy; this aggregate does not silently repair that definition. Computing the statistic does not assume the independence null or grant its null distribution.",
+        "statement_sha256": "833ef2387d932e34c08da611f047c667b6c8940ae9a0b301c925621d49b40508"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite-sum evaluation and sqrt against p0184 D8, with its kernel-order D2 and adjustment-factor D7 dependencies read in full.",
+          "result": "A double finite sum and scalar factors express the aggregate statistic, while each pairwise U-statistic retains its separately audited source definition."
+        }
+      ],
+      "gap": "Assemble the unstudentized pairwise aggregate with its kernel-specific adjustment, reciprocal kernel-order binomial factor and sample-pair square root."
+    }
+  },
+  {
+    "interface_id": "local-5bc09ae56be3fdb056a9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:08:37.046393+00:00",
+    "source_interface_sha256": "a48cc6856e77fb89939ed4fd553af29009ea4be41d449f592bbcf358c8c056d8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D1",
+        "comparison": "For u define mu0+sum_k gamma_k*1{u>=u_k}; the nonstrict indicator includes the jump at its location and keeps the source's right-continuous step convention. Observe Y_t=mu(t/n)+epsilon_t at real-scaled time t/n. Order the change points strictly between endpoints u0=0 and u_{K+1}=1, and take the minimum gap over all K+1 intervals, including the boundary intervals. K may grow with n and the positive gap may shrink; no fixed-K or uniform spacing lower bound is inserted. Jump sizes use the Euclidean norm of the full vector, and individual coordinates need not all jump. Retain noise stationarity and zero vector mean as given; the indicators and integral primitives do not provide a stationary process construction or imply temporal/cross-coordinate independence. The separate linear-noise and cross-sectional conditions must not be folded into this model by default.",
+        "statement_sha256": "d4f10687fb79f0c3fdda4ce8fca78c3bbcb1a7c9425fc67f29c878d00fa5b668"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability and Dynamics for stationary-process predicates and inspected indicator, finite sums and expectations against p0602 D1's full trend/noise model.",
+          "result": "The finite jump expansion and zero-mean noise components are expressible, but the stationary process assumption and change-point asymptotics remain separate model structure."
+        }
+      ],
+      "gap": "Define the vector step trend with ordered change locations and minimum spacing, then combine it with the stated stationary zero-mean noise model."
+    }
+  },
+  {
+    "interface_id": "local-ff82c4b4bdae5a161fb1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:08:37.046393+00:00",
+    "source_interface_sha256": "8a885023de6a6163fb36436745b768625c63840aaacafe2694e40873e9d36654",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2714",
+        "local_id": "D9",
+        "comparison": "Require a real probability CDF F with F(-x)=1-F(x) for every x, so F(0)=1/2, and express F(x)-1/2-eta*x=O(x^2) along x tending to zero using IsBigO on the corresponding neighborhood or punctured-neighborhood filter. This is a deterministic local remainder, not stochastic order or merely little-o(x). The expansion identifies the derivative at zero as eta, and CDF monotonicity implies eta>=0, but the printed eta in Real does not exclude eta=0. Later polynomials dividing by eta therefore need an unresolved extra convention or restriction rather than a silent eta>0 assumption. The exact reflection equation is stronger than carelessly invoking symmetry with unspecified atom conventions. An admissible CDF may reach 0 or 1, so the source's later open-interval skewing-weight statement is not automatic, and no logistic or Gaussian CDF is selected by this generic definition.",
+        "statement_sha256": "8a978725d9d976ac2150318f7bd7b016ce65d9a69dffcbb6251061995acef053"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for skew-normal/skewing constructions and inspected cdf and IsBigO against p2714 D9 and its recorded zero-slope and endpoint issues.",
+          "result": "A probability CDF and an ordinary deterministic quadratic remainder can be specified, but the reflection identity and admissible zero slope require explicit handling in later skewing formulas."
+        }
+      ],
+      "gap": "Specify a CDF with the exact reflection identity and local linear expansion, retaining the allowed zero-slope case when downstream expressions divide by eta."
+    }
+  }
+]

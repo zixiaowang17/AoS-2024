@@ -1,0 +1,235 @@
+[
+  {
+    "interface_id": "local-6d7f7ca642f74e29228a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:48:20.256544+00:00",
+    "source_interface_sha256": "c26bd1c0a8a23b668ae08b69153f375a59e49a22655659c5139dbbcfb58e8c1a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D20",
+        "comparison": "The residual is the raw lag product X_i X_(i-j) minus sigmahat_j, defined only for j=0,...,d and i=j+1,...,T. The retained sigmahat_j is T^-1 times the same available lag-product sum, not division by T-j and not a covariance centered by the sample mean. In particular the sum of these residuals over their T-j observed indices is j times sigmahat_j, so it need not be zero for nonzero lag. Generic empirical centering to force a zero sum would change the bootstrap input. Preserve the observed boundaries with no circular wrapping or padding; the population setup has mean-zero X and weak stationarity, not necessarily strict stationarity or identical full laws.",
+        "statement_sha256": "8d7170f818b143b0a9357abf647a2d82e9d1af6d6fff729e226f439bf427ea69"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search second-order residuals, autocovariance, autocorrelation and bootstrap in Probability and MeasureTheory; inspect finite-sum division 26-27 and the archived lag-product mean and residual definitions.",
+          "result": "Normalized finite sums support the sample autocovariance subtracted from each lag product; no second-order wild-bootstrap residual interface was located."
+        }
+      ],
+      "gap": "Finite sums are available, but the lag-indexed residual family must retain the source’s T-normalized centering and observed-data boundaries."
+    },
+    "retained_source_notes_reviewed": "Inspected original members, dependency definitions and saved source notes; registered local PDFs resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-833cf5187dac27ed8b06",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:48:20.256544+00:00",
+    "source_interface_sha256": "c5883332b7054e14ac2de5912afc34f10b445104bfd74b961f1120397405cbe0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D22",
+        "comparison": "For each lag j, add T^-1 times the sum from i=j+1 to T of epsilonhat_i^(j) times the same multiplier epsilon_i to the observed sigmahat_j. The multiplier vector is jointly centered Gaussian with covariance K((i-l)/k_T), not a family of independent Gaussian weights and not a separate draw for each lag. multivariateGaussian supplies that law after proving the kernel matrix PSD; its fallback for a non-PSD matrix is not an admissible bootstrap definition. Given the observed data the residuals are fixed, and the Gaussian draw supplies the bootstrap randomness. Preserve T rather than T-j normalization and the unpadded lag boundaries. Conditional bootstrap approximation and finite-replicate simulation error remain separate from the algebraic definition.",
+        "statement_sha256": "9d54aa2437f74345d59636a3c90b9405586461013f9114c7cff3bcd38f5d23ba"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search bootstrap and autocovariance in Probability/MeasureTheory; inspect Gaussian/Multivariate.lean 160-174, finite normalized sums and the archived joint multiplier covariance definition.",
+          "result": "A multivariate Gaussian law with a PSD covariance matrix and normalized finite sums can express the multiplier perturbation; no second-order wild-bootstrap procedure was located."
+        }
+      ],
+      "gap": "Gaussian laws and finite sums are available, but the dependent multiplier construction and lagwise residual perturbations need to be assembled with their conditional-law interpretation."
+    },
+    "retained_source_notes_reviewed": "Inspected original members, dependency definitions and saved source notes; registered local PDFs resolved; no source text changed."
+  },
+  {
+    "interface_id": "autocovariance-normalized-autocorrelation",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:48:20.256544+00:00",
+    "source_interface_sha256": "aa817887ca8cc3186e27a6dc9df288a9751d026859526b30eb97edfb89d0ea59",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D8",
+        "comparison": "In the source mean-zero weakly stationary process, sigma_j=E[X_i X_(i-j)] equals the centered covariance once the mean and integrability hypotheses hold; sigma_0 is its variance. Divide by sigma_0 to obtain the population autocorrelation. The autocorrelation inference branch has the lower bound sigma_0>c. This is weak stationarity, potentially for a triangular array changing with T, and does not require a linear AR data-generating model or strict stationarity.",
+        "statement_sha256": "341838fcac95ecdb572fe932e1915ac721a5df0afefaa571ec843080c7757567"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D9",
+        "comparison": "Use sigmahat_j=T^-1 sum_{i=j+1}^T X_i X_(i-j) and sigmahat_0=T^-1 sum_{i=1}^T X_i^2 in the ratio. Do not replace it by a sample-mean-centered Pearson correlation or use the lag-dependent T-j denominator. Population nondegeneracy does not define every sample when all observations vanish. The source does not specify the resulting zero-denominator value; totalized field division must not be presented as a supplied statistical convention.",
+        "statement_sha256": "b3d6ba4d0bf4b71792095c3f7fdb35be6a0de9b660132e537e0ae88993262d9f"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D23",
+        "comparison": "Use both bootstrap autocovariances from the same joint multiplier vector, including the random perturbed lag-zero denominator, and restrict the requested lags to I. Do not leave the denominator at the unbootstrapped sigmahat_0 or reuse the population lower bound to claim bootstrap positivity. The Gaussian perturbation may give a zero or negative lag-zero estimate and need not generate a PSD covariance sequence, so the ratio need not automatically lie in [-1,1]. The original source leaves its zero-denominator case unspecified; conditional-law inference and outer probability rates are not part of the bare ratio equality.",
+        "statement_sha256": "d2e1a7456be41854ab12c8651f6161e6ed784baf568acbec540d7017e1fe8db3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search autocorrelation/autocovariance across Probability and MeasureTheory; inspect Moments/Covariance.lean 42-45, finite-sum normalization and the three archived ratio definitions with their dependencies.",
+          "result": "Centered population covariance and finite sums supply the respective numerators; the same scalar ratio shape has distinct population, sample and conditional-bootstrap inputs and domains."
+        }
+      ],
+      "gap": "Covariance and finite sums are available, but the three lag-ratio constructions need their respective inputs and denominator conditions, including the source’s undefined sample/bootstrap zero cases."
+    },
+    "retained_source_notes_reviewed": "Inspected original members, dependency definitions and saved source notes; registered local PDFs resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-60a4aeb28bfdbee16bef",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:48:20.256544+00:00",
+    "source_interface_sha256": "6cf3a5fd1de7f0fef261f83defa7e700cff41d710b2fc18b8657cb2628322698",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D24",
+        "comparison": "Build the p-by-p real symmetric matrix with entry sigmahat-star at lag |j-k| and the vector with lags 1,...,p, preserving the one-based source indices when using Fin p. Its symmetry follows from the absolute lag difference even when the multiplier-perturbed covariance sequence is not positive semidefinite. The definition explicitly uses the Moore–Penrose inverse, which acts by reciprocal nonzero eigenvalues and zero on the nullspace; Matrix.IsHermitian.cfc applied to the real reciprocal function supplies that spectral candidate. Its four Penrose identities and multiplication by gammahat-star still need to be established. The ordinary nonsingular inverse is zero for a singular matrix in mathlib and is therefore not this pseudoinverse. Do not add invertibility or PSD merely to avoid the singular case, nor transfer the pseudoinverse convention to the distinct original sample Yule–Walker system. The coefficients describe a general-process Yule–Walker approximation, not a required linear AR data-generating restriction.",
+        "statement_sha256": "f7a3d082caf5688f62de7fd8e2b7da324bc9ec501ca251fd8b6ad20a9dff5896"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.IsHermitian.cfc",
+          "type": "{n : Type u} → {𝕜 : Type v} → [RCLike 𝕜] → [Fintype n] → [DecidableEq n] → {A : Matrix n n 𝕜} → Matrix.IsHermitian A → (ℝ → ℝ) → Matrix n n 𝕜",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.HermitianFunctionalCalculus",
+          "provides": "Applies a real scalar function to the eigenvalues of a finite Hermitian matrix through unitary diagonalization, retaining its eigenspaces.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean#L132-L133",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Moore/Penrose, pseudo-inverse, generalized inverse, Toeplitz and Yule-Walker across LinearAlgebra and Analysis; inspect NonsingularInverse.lean introduction and HermitianFunctionalCalculus.lean 126-133.",
+          "result": "No Moore–Penrose inverse implementation was located; NonsingularInverse expressly excludes pseudoinverses. Hermitian spectral calculus can construct one for this real symmetric lag matrix by reciprocal eigenvalues with zero retained at zero."
+        }
+      ],
+      "gap": "Hermitian spectral calculus provides a route to the pseudoinverse, but its Moore–Penrose identities and the bootstrap Toeplitz matrix/vector construction still need proof."
+    },
+    "retained_source_notes_reviewed": "Inspected original members, dependency definitions and saved source notes; registered local PDFs resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-1ba61359b8dcfdac982b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:48:20.256544+00:00",
+    "source_interface_sha256": "a164e61d3575ef95deedd6a7e07188bd527f19e4efd7dc1e190a925b0b2f7f42",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D5",
+        "comparison": "Expand the retained DS.0 dependency for every stage k: a known nonempty S'_k contained in A, target history law absolutely continuous with respect to the source-mixture history law, and equality of next-component conditional laws for each a in S'_k for target-almost-every history on the stated support. Then add exactly 0 in A and 0 in every S'_k. The domination direction is from target to source-mixture; it is not automatically mutual absolute continuity. cond supplies the law on A in S'_k only with a positive conditioning mass for its probability interpretation, while condDistrib requires its standard-Borel/measurable-variable setting and only determines versions almost everywhere. Domination controls target versus mixture null sets; equality of each class-specific conditional version on target histories remains a separate explicit assumption and does not follow from mixture domination alone. Evaluating a continuous history's null singleton event does not resolve those version choices. No extra bounded-odds assumption is part of DS.0-dagger itself; the later efficient-influence identification states that separately.",
+        "statement_sha256": "0b6445ce99a2ef4f5d83f4cd0e0d83fb248096d020b1f943761f5fff4e42e4e0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.AbsolutelyContinuous",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.AbsolutelyContinuous",
+          "provides": "Absolute continuity of one measure with respect to another, expressed by preservation of the latter measure’s null sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/AbsolutelyContinuous.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search sequential conditional, data fusion and conditional distribution in Probability and MeasureTheory; inspect Measure/AbsolutelyContinuous.lean 48-51, Kernel/CondDistrib.lean 58-74 and ConditionalProbability.lean 71-77 against archived DS.0 and DS.0-dagger.",
+          "result": "Absolute continuity, event-conditioned measures and regular conditional distributions express the constituent requirements. No bundled sequential conditionals assumption was located."
+        }
+      ],
+      "gap": "The measure-theoretic components are available; DS.0-dagger needs the stagewise domination and target-law agreement together with explicit target inclusion and valid conditioning versions."
+    },
+    "retained_source_notes_reviewed": "Inspected original members, dependency definitions and saved source notes; registered local PDFs resolved; no source text changed."
+  }
+]

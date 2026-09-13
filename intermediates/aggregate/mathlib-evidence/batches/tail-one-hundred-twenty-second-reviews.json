@@ -1,0 +1,117 @@
+{
+  "scope": "Manual comparison of eleven remaining p0793 interfaces, with frozen theorem context and all source-note comparison limits; inspected pinned probability, calculus, matrix, projection and shifted-Legendre sources.",
+  "rows": [
+    {
+      "interface_id": "local-417e35216b5917ce6a15",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected iIndepFun and IdentDistrib with their measurable-space parameters and law-equality field, and Measure.map's measurable and fallback branches; searched Probability and Analysis for conditional-average-treatment and R-learner interfaces.",
+      "result": "Independent identically distributed measurable triples and their covariate marginal can be assembled directly from the inspected probability primitives.",
+      "gap": "Instantiate the bounded-covariate, binary-treatment, real-outcome sample space and define the covariate marginal and any additionally required density.",
+      "comparisons": {
+        "D1": "Use n measurable observations valued in [0,1]^d times a two-point treatment type times the reals, with iIndepFun across observations and IdentDistrib for their common joint law. These predicates concern whole triples and do not require X, A and Y within one observation to be independent. The source's blackboard P is the true joint law; a generic model law P and the covariate distribution F are distinct. F is obtained by measurable projection to X using Measure.map, with its multivariate distribution function defined from lower coordinate rectangles. A covariate density is needed only where asserted and requires absolute continuity; bounded covariate support alone provides neither such a density, positivity near x0, treatment overlap nor outcome moments. The totalized map branch for nonmeasurable functions is not an observation-law construction."
+      }
+    },
+    {
+      "interface_id": "local-ed22a58c6e93249a93b1",
+      "related": ["ContDiffOn", "iteratedFDerivWithin", "HolderOnWith"],
+      "query": "Inspected ContDiffOn, iteratedFDerivWithin and HolderOnWith definitions and parameters; compared the frozen strict-floor definition and its source-note limits to the calculus and metric formulations.",
+      "result": "Continuous differentiability and Holder continuity primitives are available, but the particular multi-index derivative bounds and strict-floor convention need an explicit class definition and derivative-coordinate comparison.",
+      "gap": "Define the fixed-radius multi-index Holder class using the largest integer strictly below s and prove its relation to the inspected derivative and Holder predicates.",
+      "comparisons": {
+        "D4": "For positive s let r be the largest integer strictly below s: at integer s, r=s-1 and the residual exponent is one, rather than taking an order-s derivative with exponent zero. ContDiffOn at finite order r gives the continuous differentiability component, while iteratedFDerivWithin evaluated on coordinate directions can represent the multi-index partial derivatives after the required within-domain uniqueness and coordinate identifications are proved. Bound every derivative of order at most r, including g itself at order zero, by the common finite C, and apply HolderOnWith exponent s-r to every order-r partial derivative. Use the Euclidean metric specified in the paper; the default supremum norm on a raw coordinate function space is not literally that norm. The multi-indices alpha and beta here are not the scalar nuisance smoothness indices. The omitted Holder radius stays fixed independently of n; the declarations alone provide neither its value nor a uniform bound across unrestricted functions."
+      }
+    },
+    {
+      "interface_id": "local-0d2ccbfbf15dd8cb7503",
+      "related": ["MeasureTheory.condExp"],
+      "query": "Inspected condExp's sub-sigma-algebra, sigma-finiteness and integrability branches and the observed-law definitions; searched Probability for conditional average treatment and R-learner interfaces.",
+      "result": "Conditional expectations represent the propensity indicator and the marginal or treatment-conditioned outcomes on the sample space; pointwise covariate versions and the division identity require further hypotheses.",
+      "gap": "Construct chosen covariate-indexed conditional versions and establish the mixture and division identities on their valid integrability and positive-propensity domain.",
+      "comparisons": {
+        "D2": "Conditional expectation of the indicator A=1 given sigma(X) supplies pi(X); conditioning Y on sigma(X) supplies eta(X), and conditioning Y on sigma(X,A) supplies mu_A(X), once Y is integrable and suitable factorized versions are chosen. condExp is a random-variable representative determined almost everywhere, not automatically a uniquely defined function at every x or every treatment value. Its nonintegrable fallback zero is not a valid source regression. The mixture identity eta=pi*mu1+(1-pi)*mu0 yields tau=(eta-mu0)/pi where pi is positive; the definition provides no zero-propensity convention and the lower-bound model does not import Theorem 2's overlap condition. The smooth nuisance in the main theorem statements is the control regression mu0, not the marginal eta. No potential-outcome interpretation is implied by these conditional-expectation primitives."
+      }
+    },
+    {
+      "interface_id": "local-402a33483b492abde679",
+      "related": ["MeasureTheory.integral", "MeasureTheory.lintegral"],
+      "query": "Inspected Bochner integral and nonnegative lower integral bodies and compared the frozen pointwise contrast with both theorem statements and source-note limits on conditioning and causal interpretation.",
+      "result": "Expectation of a finite integrable absolute error is a real integral, or an extended nonnegative integral if finiteness has not been shown; the pointwise regression versions and statistical estimator remain to be specified.",
+      "gap": "Specify the pointwise conditional-regression versions and measurable sample estimator, then integrate its absolute error under the sampling law.",
+      "comparisons": {
+        "D3": "Define tau(x0)=mu1(x0)-mu0(x0) for the chosen versions at the interior point x0, and integrate the absolute difference from the sample-dependent estimate. The expectation is over the data, including any random training inputs in the estimator's joint experiment, not an average over new covariates x0. MeasureTheory.integral returns zero outside its integrability domain, so it can express a real mean absolute error only after measurability and first-error-moment finiteness are established; lintegral of the nonnegative error embeds the possibly infinite risk faithfully. A density upper bound alone does not make a conditional regression identifiable at every fixed point. This is an observed-data contrast; the separately stated assumptions needed to identify a potential-outcome CATE are not necessary to write the statistical functional and are not inferred here."
+      }
+    },
+    {
+      "interface_id": "local-86ea40bfd59c8e131bba",
+      "related": ["MeasureTheory.Measure.restrict", "MeasureTheory.Measure.map"],
+      "query": "Inspected event restriction and measurable pushforward definitions; compared frozen D10 and the localization source-note limits covering normalization, ball versus cube, and radius h versus h/2.",
+      "result": "Restricting a covariate measure and pushing it forward by the affine localization map supplies candidate local measures, but the source does not determine a unique normalization and domain convention.",
+      "gap": "Resolve the source's local domain and normalization convention before identifying F-star with a particular restricted affine pushforward.",
+      "comparisons": {
+        "D10": "For nonzero bandwidth the affine map from x to 1/2+(x-x0)/h is measurable; Measure.map applied after Measure.restrict represents an unnormalized local image measure. Its total mass equals the mass of the restricted region rather than automatically one. Conditional normalization would require a further positive-mass rescaling, and h^-d rescaling is another distinct choice; neither factor is inserted by the printed differential notation dF(x0+h(v-1/2)). The quoted h-ball, the kernel's Euclidean h/2-ball and the integration cube are not identical descriptions under this map. Consequently these two primitives support the transformation mechanism without certifying any single candidate as the exact F-star in the source's norms or density ratios. Do not resolve the ambiguity by switching to a supremum-norm ball or by changing Gram eigenvalue scales."
+      }
+    },
+    {
+      "interface_id": "local-bbb47487065d3a0ae018",
+      "related": ["Polynomial.shiftedLegendre", "Set.indicator"],
+      "query": "Located ShiftedLegendre.lean via rg --files and inspected its complete polynomial definition, coefficient proof, degree and reflection results; inspected Set.indicator and compared the literal source coefficients and total-degree basis.",
+      "result": "A shifted Legendre polynomial family exists, with a different degree-dependent sign and without the paper's normalization; the inspected file does not establish the required L2 orthonormality or localized multivariate construction.",
+      "gap": "Convert the library polynomial by the degree sign and normalization factor, build the total-degree product basis and affine localization, and prove its stated orthonormality.",
+      "comparisons": {
+        "D5": "Polynomial.shiftedLegendre m has integer coefficient (-1)^ell choose(m,ell) choose(m+ell,m). The source rho_m has coefficient (-1)^(ell+m) sqrt(2m+1) choose(m,ell) choose(m+ell,ell), so after evaluation in the reals it is (-1)^m sqrt(2m+1) times the library polynomial, using binomial symmetry. The sign matters already at m=1: the library yields 1-2x, while the normalized source yields sqrt(3)(2x-1). The inspected algebraic results give no orthonormality theorem on [0,1]. Form products indexed by multi-indices of total degree at most the strict floor of gamma; their count is choose(d+r,r), not (r+1)^d. Compose with 1/2+(x-x0)/h to obtain rho_h. Set.indicator represents the closed Euclidean h/2-ball kernel with the external h^-d multiplier; retain the source's Euclidean convention despite later cube language, and require positive bandwidth for the intended localization."
+      }
+    },
+    {
+      "interface_id": "local-a849f0e6e723cac6d742",
+      "related": ["IsMinOn", "Matrix.vecMulVec", "Matrix.mul_nonsing_inv", "Submodule.starProjection_minimal"],
+      "query": "Inspected IsMinOn's domain semantics, outer-product and inverse bodies, and the full orthogonal-projection minimal-distance proof; compared the source weighted objective, Q and R with Theorem 2's spectral assumptions.",
+      "result": "Least-squares minimization, Gram outer products and a genuine inverse are supported as ingredients; a weighted-L2 normal-equations argument must connect them under the paper's integrability and nondegeneracy conditions.",
+      "gap": "Construct the weighted polynomial projection and prove that its unique coefficients solve Q theta=R with invertible Q.",
+      "comparisons": {
+        "D9": "Use the nonnegative weight K_h*pi*(1-pi) under the covariate law to form a weighted L2 space and the span of the q localized polynomial coordinates. Matrix.vecMulVec constructs rho_h rho_h transpose for Q; R contains the same weight times rho_h*tau. Projection minimality gives the geometric least-squares characterization once the functions lie in L2 and the finite-dimensional span is represented with its projection instance. A normal-equations and nonsingularity proof then gives theta=Q^-1 R and tau_h(x0)=rho_h(x0) transpose theta. IsMinOn alone is a predicate, not a chosen minimizer or an attainment proof; Matrix.mul_nonsing_inv requires a unit determinant. The eigenvalue lower bound on Q in Theorem 2 can supply nondegeneracy, but the definition alone has no singular convention. Q is q by q and differs from the k by k correction Gram matrix Omega. The projection does not assert that tau is exactly a polynomial or that tau_h(x0)=tau(x0)."
+      }
+    },
+    {
+      "interface_id": "local-5436667345eb04ebe392",
+      "related": ["Set.indicator"],
+      "status": "composable",
+      "query": "Inspected Set.indicator's generated additive definition and evaluated its membership branches against the source's localized vector-valued basis formula.",
+      "result": "Indicator applied to the affine composition gives the exact localized k-vector for a supplied basis and valid bandwidth.",
+      "gap": "Define the affine composition of the supplied k-dimensional basis and apply the indicator of the closed Euclidean h/2-ball.",
+      "comparisons": {
+        "D6": "Set.indicator accepts the vector-valued function x maps to b(1/2+(x-x0)/h), returning that vector inside the set norm(x-x0)<=h/2 and zero outside, exactly reproducing multiplication by the scalar indicator. The ball includes its boundary and uses the source's Euclidean norm. No h^-d factor belongs in b_hk itself; that factor occurs separately in K_h. Supply positive h for a meaningful stretch and retain k as the possibly sample-size-dependent input dimension, separate from the fixed q-dimensional Legendre family rho. This pointwise construction neither proves basis independence in the local L2 measure nor supplies the approximation rate later required of b."
+      }
+    },
+    {
+      "interface_id": "local-e46356442fe05d4f1e78",
+      "related": ["Submodule.starProjection", "Asymptotics.IsBigOWith"],
+      "query": "Inspected starProjection's ambient endomorphism body and HasOrthogonalProjection parameter, and IsBigOWith's eventual norm inequality; compared D11, D12 and the fixed-radius source Holder convention.",
+      "result": "L2 projection residuals and an explicit-constant rate predicate are available; the optimal k^(-s/d) approximation rate is an extra basis assumption and is not a consequence of generic orthogonal projection.",
+      "gap": "Build the basis spans in the chosen F-star L2 spaces and state or prove the k^(-s/d) residual bound with the required uniform constants.",
+      "comparisons": {
+        "D12": "After choosing the unresolved local measure convention, place g and the k basis coordinates in L2(F-star) and take starProjection onto their finite-dimensional span. The norm of g minus its projection expresses the printed residual, independently of which coefficient vector represents the projected function. IsBigOWith can record a constant bound along k tending to infinity, but an eventual bound for each g with arbitrarily varying constants is not the uniform approximation property needed across the relevant fixed-radius Holder class and bandwidths. If the condition is intended for every admissible k, retain that stronger explicit quantifier rather than only eventuality. Here s denotes any positive smoothness index and need not equal (alpha+beta)/2. General projection minimality supplies no k^(-s/d) convergence rate, and local measure normalization affects the L2 scale, so neither can be hidden by the primitive declarations."
+      }
+    },
+    {
+      "interface_id": "local-464928b8f4dda4dbf1ee",
+      "related": ["ProbabilityTheory.IndepFun", "Matrix.vecMulVec", "MeasureTheory.integral"],
+      "query": "Inspected IndepFun, vector outer products and Bochner integral bodies; compared frozen D7 and its source notes on independent training, transformed estimated measure and empirical Gram singularity.",
+      "result": "The random nuisance inputs, independent training experiment and matrix-valued Gram integral can be expressed from library primitives, but their construction, transformed-measure convention and invertibility are not provided.",
+      "gap": "Specify measurable independently trained nuisance estimators and the local estimated measure, then form the Gram integral and establish any inverse conditions separately.",
+      "comparisons": {
+        "D7": "IndepFun can encode independence of the complete training sample D^n and the evaluation sample used by U_n; measurable fitted (F-hat, pi-hat, mu0-hat) inherit independence from that experiment. It does not supply their estimation algorithms or imply cross-fitting. Matrix.vecMulVec constructs b(v)b(v) transpose and the integral gives a k by k matrix on v in [0,1]^d, provided the entries are integrable under the transformed estimated measure. The source's dF-hat(x0+h(v-1/2)) contains no explicit conditional or h^-d normalization, and the cube must not be silently replaced by the kernel ball. The integral's fallback zero for nonintegrable functions is not a Gram estimator. An empirical F-hat may yield a singular matrix at the chosen k; no clipping, ridge term or singular inverse fallback is specified. The q by q Q-hat is a separate matrix, and this definition alone does not construct nuisance estimators satisfying all of Theorem 2's simultaneous conditions."
+      }
+    },
+    {
+      "interface_id": "local-30214b088820508e06b7",
+      "related": ["Matrix.mulVec", "Matrix.vecMulVec", "Matrix.mul_nonsing_inv"],
+      "query": "Searched Probability and Analysis for R-learner, local-polynomial and higher-order learner interfaces with no specialized result; inspected matrix-vector, outer-product and inverse bodies and compared each of the four source kernels and aggregation terms.",
+      "result": "Finite matrix algebra supports the estimator's arithmetic, but the ordered-pair correction, trained kernels and source-specific formula must be defined; no specialized estimator or risk theorem was verified.",
+      "gap": "Implement the four printed kernels and normalized empirical and ordered-pair sums, retaining the source's Q-hat index discrepancy and proving both inverse domains.",
+      "comparisons": {
+        "D8": "Build Q-hat as the 1/n sample average of rho_h(X) K_h(X) A(A-pi-hat(X)) rho_h(X) transpose plus the 1/[n(n-1)] sum over ordered distinct pairs of rho_h(X1) K_h(X1) phi_a2(Z1,Z2) K_h(X2) rho_h(X1) transpose. Retain that final X1 literally: equation (9) later has X2 and does not authorize replacing the definition. The first-order a kernel is A times its residual, not the squared residual. The y kernel is (Y-mu0-hat(X))(A-pi-hat(X)). The second-order a kernel is minus (A1-pi-hat(X1)) times b_hk(X1) transpose Omega-hat^-1 b_hk(X2) times A2; its y counterpart replaces the terminal A2 by Y2-mu0-hat(X2). R-hat averages rho_h K_h times the y kernel and adds its ordered-pair correction with both K_h factors and no final rho transpose. Finally use rho_h(x0) transpose Q-hat^-1 R-hat. The q by q and k by k inverses are distinct, each needs nonsingularity, and the library's totalized singular inverse would invent a source fallback. Pair normalization needs n>=2; it cannot be replaced by an unordered-pair average without a symmetry argument. All fitted inputs share the separate independent training sample. Matrix primitives do not prove the claimed risk bound, repair the formula discrepancy or provide the missing nuisance-estimation implementation."
+      }
+    }
+  ]
+}

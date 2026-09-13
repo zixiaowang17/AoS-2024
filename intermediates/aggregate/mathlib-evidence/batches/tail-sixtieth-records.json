@@ -1,0 +1,506 @@
+[
+  {
+    "interface_id": "local-c1eb9d14c558349d4a01",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "d43ec698c75687006bef64ad155199e3bd4dbf5bceb5b67ed564712d1c3e01c7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D16",
+        "comparison": "In each stratum select an m_h-element subset of M_h cluster indices uniformly, then in each selected cluster select an r_h-element subset of its N_hj units uniformly. Use nonempty feasible subset types and independent draws across strata and within-stage cluster selections; drawing with replacement or independently retaining every unit is different. Map each triple (h,j,l) to the source's cumulative global population index and take the union. Combinatorial symmetry gives pi_i=(m_h/M_h)*(r_h/N_hj), hence the normalized inverse-inclusion weight M_h*N_hj/(N*m_h*r_h), once the counting proof and positive size conditions are supplied. Keep the superpopulation law separate: it is iid within a stratum even across its clusters, independent between strata, and can differ by stratum, rather than globally iid.",
+        "statement_sha256": "938319716dd285f600dd10a29ac4fd24c27aa673ec633e14633084dbc165ccc4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card_powersetCard",
+          "type": "{α : Type u} → (n : ℕ) → (s : Finset α) → (Finset.powersetCard n s).card = Nat.choose s.card n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The number of n-element subsets of a finite set is the corresponding binomial coefficient.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L212-L214",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected fixed-cardinality subsets and binomial counts, uniform finite laws and independent products against both stages and the exact inclusion probability.",
+          "result": "Uniform laws on fixed-size subsets construct SRSWOR at both levels; finite products and the population index map combine the design."
+        }
+      ],
+      "gap": "Construct the stratified two-stage subset law and prove its unit inclusion probability and weights with the stated independent sampling structure."
+    }
+  },
+  {
+    "interface_id": "local-0665309eb88dbd7b8d66",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "29a21ac6ef5422b3642aab4c518013dd2f91fcfd37ed271256844713a6e53921",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D20",
+        "comparison": "For every K>0 require the real nonnegative series sum_nu exp(-K*H_nu) finite; an ENNReal encoding must require the sum not equal infinity, since extended summability alone is insufficient. Bound the maximum of n*M_h*N_hj/(m_h*N), bound the average sum_h M_h^4/H, and require the maximum across strata of the within-stratum average squared cluster-size deviation to tend to zero. Keep each n, N and H dependence and positive denominator domain explicit. An average fourth-power bound does not mean a uniform bound on every M_h, and finite exponential sums are stronger than merely declaring H tends to infinity. This replaces Assumption 6 in the growing-H branch and does not inherit its fixed-H positive limiting stratum proportions.",
+        "statement_sha256": "3d75c4931776210d57646acbe9fe60fa31fe1e7bc4207f019f6215a5d45312f0"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ENNReal.summable_toReal",
+          "type": "∀ {α : Type u} {f : α → ℝ≥0∞}, (∑' x, f x) ≠ ∞ → Summable (fun x => (f x).toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.ENNReal",
+          "provides": "Converts an explicitly finite extended nonnegative series into a summable real series; mere ENNReal summability is not the finiteness condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L350-L351",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite nonnegative-series evidence, asymptotic boundedness, limits and finite maxima against each growing-H condition in Assumption 9.",
+          "result": "Scalar series, finite sums/maxima and sequence predicates express the growing-strata restrictions directly."
+        }
+      ],
+      "gap": "State all four growing-H sequence conditions with their exact normalizations and quantifiers, without importing the fixed-H sampling-fraction or stratum-share limits."
+    }
+  },
+  {
+    "interface_id": "local-6e17d3806583a896b6ec",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "1d8da6c58942a4859fb7cfd088ae43458fe9b360dd344792ce88bed92e9bc50d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D17",
+        "comparison": "For each fixed h and every K>0 require summability of exp(-K*M_h(nu)). State 0<liminf m_h/M_h<=limsup m_h/M_h<1 and the corresponding positive liminf of the within-stratum minimum r_h/N_hj and upper limsup of its maximum below one. These bounds do not assert either fraction sequence has a limit. Separately require n_h/n tending to lambda_h>0 and N_h/N tending to Lambda_h>0, where n_h=m_h*r_h and N_h=sum_j N_hj. Retain the maximum over strata of average N_hj^4 as O(1) and average squared size deviation tending to zero. All ratios use feasible positive design sizes, so their bounded real liminf/limsup are meaningful. No corresponding fixed positive share for every stratum is transferred to a growing-H regime.",
+        "statement_sha256": "7f7be8e166a6f91e2d5e8f55acda3795206b07750f01e431a2df2cae11d78629"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.liminf",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit inferior of a function along a filter; finite probability sequences lie in a bounded interval so their usual real limit inferior is meaningful.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L64-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.limsup",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit superior along an explicit filter; real-valued use needs the appropriate boundedness, while extended nonnegative values can retain infinite limits.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "ENNReal.summable_toReal",
+          "type": "∀ {α : Type u} {f : α → ℝ≥0∞}, (∑' x, f x) ≠ ∞ → Summable (fun x => (f x).toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.ENNReal",
+          "provides": "Converts an explicitly finite extended nonnegative series into a summable real series; mere ENNReal summability is not the finiteness condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L350-L351",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected bounded-ratio liminf/limsup, sequence limits, fourth-moment bounds and finite nonnegative series against all of fixed-H Assumption 6.",
+          "result": "Existing scalar asymptotic predicates express each fixed-stratum requirement without asserting convergence of the sampling fractions."
+        }
+      ],
+      "gap": "Package the fixed-H conditions with their liminf/limsup, positive limiting shares, fourth-power bounds and vanishing cluster-size variation kept distinct."
+    }
+  },
+  {
+    "interface_id": "local-a2413b9b75c248695a9c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "0f267692443727ce60ffce9bb22c2887088d00571a3ae2048b06cd619b328073",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D19",
+        "comparison": "The paper's univariate support means the open interval between the extended endpoints where its CDF leaves zero and reaches one, not mathlib's closed topological measure support. Reuse that convention for C_y in the reals and C_x in the positive reals, common across h and nu. Require each F_y,h and F_x,h continuous on the whole real line and differentiable with the specified positive continuous density only on its corresponding interval. HasDerivAt states the derivative relation; continuity and strict positivity must accompany it. Do not require endpoint differentiability, a globally uniform positive lower density bound, or identical distributions across strata.",
+        "statement_sha256": "ae04989244593d646529a56f0dd3198a76a7b535ee0ff8b196c10ef095972925"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected probability CDF and scalar derivative predicates against the inherited source open-support convention and stratum-specific density conditions.",
+          "result": "Each stratum CDF can be paired with a positive continuous derivative on its common source support interval; equality of stratum distributions is unnecessary."
+        }
+      ],
+      "gap": "Define the common open CDF-support intervals using the source convention and impose continuity and positive continuous derivatives separately for every stratum and population index."
+    }
+  },
+  {
+    "interface_id": "local-4f7dae034f1a70de5a58",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "b264b9095e29549b2a02197a2d4a8083c8b98f9ab9f8b819c1663d310e375af6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D18",
+        "comparison": "For each stratum negate Collinear real of the support of the joint (Y-prime,X-prime) law; this excludes affine lines, not just lines through the origin, and does not require an everywhere positive joint density. Separately put W-prime=(X-prime,Y-prime,X-prime*Y-prime,(X-prime)^2) in Euclidean four-space and require MemLp at two. Its squared norm includes X^2, Y^2, X^2*Y^2 and X^4, so second moments of X and Y alone do not suffice. The laws may differ by stratum and the source does not demand a dimension-uniform moment bound here. Referencing the same W vector in the growing-H Assumption 10 does not import this entire noncollinearity and finite-expectation assumption.",
+        "statement_sha256": "c9846bb3cc74c03cf8291263c28599b4e0b326a1842027062cddb612054967ce"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Collinear",
+          "type": "(k : Type u) → {V : Type v} → {P : Type w} → [DivisionRing k] → [AddCommGroup V] → [Module k V] → [AffineSpace V P] → Set P → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.AffineSpace.FiniteDimensional",
+          "provides": "Collinearity of a set via affine-direction rank at most one; its negation expresses noncollinearity of a planar support.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/AffineSpace/FiniteDimensional.lean#L434-L435",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.support",
+          "type": "{X : Type u} → [TopologicalSpace X] → [MeasurableSpace X] → MeasureTheory.Measure X → Set X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Support",
+          "provides": "Topological support: every neighborhood of a support point has positive measure; this preserves support containment rather than merely almost-sure membership.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Support.lean#L59-L59",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected affine collinearity, planar measure support and vector L2 membership against the four-component moment condition of Assumption 7.",
+          "result": "Negated support collinearity and square integrability of the supplied four-vector express the two separate requirements."
+        }
+      ],
+      "gap": "Require noncollinearity of each stratum's joint support and L2 membership of its complete four-component moment vector."
+    }
+  },
+  {
+    "interface_id": "local-ad6ce8f6872bba26f44b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "1f02b81c9ca7ce7e585063e0a443338d8572ea70b926bda9b164565652bed544",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D21",
+        "comparison": "Use weights N_h/N summing to one, not sample shares n_h/n or equal stratum weights, to define F_y,H and F_x,H. Their quantiles use the inherited infimum of {t:F(t)>=p} for 0<p<1, and the densities are their stated derivatives. Each G-prime has 2k indicators with thresholds at mixture quantiles, but its expectation and covariance are under the particular stratum law. A coordinatewise covariance matrix is the intended E[(G-EG)^T(G-EG)] for row vectors; the printed placement of expectation on the first factor alone remains a recorded ambiguity, not an exact identity certified by the covariance API. These are superpopulation mixture CDFs and stratum random vectors, not empirical distributions or independently generated indicator coordinates.",
+        "statement_sha256": "197900ead10565c42e4301b4602461fed36457ce7712d38b081a1a4d3050a50e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected CDFs, generalized-inverse infima, derivatives and centered indicator covariance against the size-weighted mixture quantities and saved expectation-grouping caveat.",
+          "result": "Finite mixtures, their generalized inverses and coordinate covariance supply the intended statistical objects, with the source's covariance typography still requiring qualification."
+        }
+      ],
+      "gap": "Construct the population-size-weighted mixture CDFs, quantiles and indicator covariance while preserving the printed expectation-parenthesis ambiguity."
+    }
+  },
+  {
+    "interface_id": "local-45a94355b3aa50f2ff74",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "225b8eb2b15d5d4fcaf5ca212f3bca4b44ba16daab2c3a0500aab3891bd45cc6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D23",
+        "comparison": "For every real t impose F_y,H(t) tending to Ftilde_y(t) and F_x,H(t) tending to Ftilde_x(t). Separately use TendstoUniformlyOn for density convergence over all of C_y or C_x, not just each compact subset or each point. In the real metric setting this matches the stated sup-error-to-zero interpretation once supremum-domain conditions are respected and avoids arbitrary real supremum values for unbounded sets. The limits are distribution functions with the same source-defined open CDF supports and positive continuous derivatives there; the x support is positive. These growing-H mixture limits do not make all stratum CDFs converge to one common law or replace their separate Assumption 8 regularity.",
+        "statement_sha256": "071bb9028380920941f4c6fc3c4d40b05f392020170d84cd26f9e8cc6d688fa9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "TendstoUniformlyOn",
+          "type": "{α : Type u} → {β : Type v} → {ι : Type w} → [UniformSpace β] → (ι → α → β) → (α → β) → Filter ι → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.UniformSpace.UniformConvergence",
+          "provides": "Convergence with one eventual index bound valid for every point of the specified set; the set need not be compact or bounded.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/UniformSpace/UniformConvergence.lean#L91-L92",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected pointwise filter convergence and uniform convergence on arbitrary sets, plus derivative predicates, against Assumption 11's two distinct convergence modes.",
+          "result": "Pointwise CDF limits and uniform density limits over their full open intervals are expressible separately, including unbounded intervals."
+        }
+      ],
+      "gap": "Require pointwise convergence of each mixture CDF and uniform convergence of its density on the whole common source support, with the stated positive continuous limiting derivatives."
+    }
+  },
+  {
+    "interface_id": "local-af6230278f20542f02c6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:32:16.059240+00:00",
+    "source_interface_sha256": "08c3a47286bb70cb4c47cf77ac9bc300859f7777802224c8917da92342551786",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2194",
+        "local_id": "D22",
+        "comparison": "For each k and grid p_1,...,p_k require convergence of sum_h N_h*(N_h-n_h)*Gamma_h/(n_h*N) and sum_h N_h*Gamma_h/N to the respective 2k-by-2k strictly positive definite matrices. The formula has no n/N^2 prefactor here; that belongs to the later covariance kernel. Duplicate probabilities duplicate indicator coordinates and give a nonzero null direction in both covariance sequences and their limits, conflicting with PosDef; do not add distinctness to the source quantifier. Separately, on a P-probability-one event, require the population average W-prime to tend to Theta and the average squared norm to be O(1), with Theta_1>0. These are pathwise empirical restrictions rather than an asserted common expectation or a uniform L2 bound, and use of W-prime's formula alone does not import Assumption 7.",
+        "statement_sha256": "359f59d3d26b2c803cd6af1a19e628f98ef1272ea33d72c1052d25f48056e710"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite matrix convergence, strict positive definiteness, almost-sure scalar sequence bounds and moment-vector semantics against all clauses of Assumption 10.",
+          "result": "Matrix limits and almost-sure empirical vector bounds can be stated, but arbitrary repeated quantile indices make the demanded strict covariance definiteness inconsistent."
+        }
+      ],
+      "gap": "Preserve the two weighted covariance limits and almost-sure moment-vector conditions while flagging the repeated-quantile conflict with positive definiteness."
+    }
+  }
+]

@@ -1,0 +1,77 @@
+{
+  "scope": "Manual comparison of eight remaining p0364 tensor-factor interfaces; preserve finite-filter dimensions, trace-square ambiguity, fixed-direction covariance, cancellation regimes and spectral selection conventions.",
+  "rows": [
+    {
+      "interface_id": "local-be8496e2e2aadf87adfc",
+      "related": ["Matrix.trace", "Matrix.mul_apply", "Matrix.l2_opNorm_def", "Asymptotics.IsLittleO", "Filter.Tendsto"],
+      "status": "partial_match",
+      "query": "Searched finite-filter/Toeplitz matrix and trace semantics; inspected trace, Gram multiplication, Euclidean operator norms and asymptotic predicates against the full RE1 construction.",
+      "result": "Finite matrix entries, Gram traces and quadratic-form sequences are available, but the printed trace-square and unindexed dimension conventions prevent an unqualified exact formulation of all limits.",
+      "gap": "Construct the three rectangular filter families and exact normalized limits while retaining the unresolved trace-square interpretation and bare dimension d.",
+      "comparisons": {"D21": "For fixed positive truncation integer N, each t-th column contains t-1 zeros, the reversed coefficients a_(NT),...,a_0, then T-t zeros, yielding (N+1)T rows and T columns. Apply the construction separately to factor, e and epsilon filters. Use the Euclidean operator norm uniformly over T and the applicable sequence; an entrywise or Frobenius bound differs. The first trace condition is 1-tr(A^T A)/T little-o of T^(-2)*d^(-4), where the main text leaves bare d unresolved. Keep the second condition's printed tr(A^T A)^2 placement rather than choosing trace of the square or square of the trace. Preserve the other two distinct quantities 1^T(A^T A)^2 1/T^2 and 1^T A^T A 1/T^(3/2), with constants indexed by filter family. No positivity of the limiting constants or independence between factor and noise innovations is inferred."}
+    },
+    {
+      "interface_id": "local-08b93281437f3a1cbaf7",
+      "related": ["Matrix.mul_apply", "Finset.sum_apply", "ProbabilityTheory.covariance"],
+      "status": "composable",
+      "query": "Inspected matrix Gram products, function-valued finite sums and covariance semantics against the explicit formula and its pretend-fixed-direction qualification.",
+      "result": "The displayed covariance-style matrix is a finite algebraic function of the supplied direction and population parameters, independent of any conditional-expectation interpretation.",
+      "gap": "Define the exact direction-indexed matrix algebraically and keep its pretend-fixed expectation interpretation separate from actual conditioning on a fitted direction.",
+      "comparisons": {"D23": "Construct check-g_-k*A_k*A_k^T plus sum_j q_j^2*Sigma_epsilon,j plus B*B^T, where B=sum_j q_j*Psi_j and q is the estimated other-mode direction. The source explicitly defines A^(tensor2) as A*A^T, so it is not a Kronecker or componentwise square. With q held as an argument, every other quantity is deterministic as stated. Substituting a data-dependent q yields a random matrix but does not make it E[empirical covariance | q], since conditioning changes the data law. The actual fixed-direction expectation identity would require the relevant moment and cross-term assumptions; do not add unprinted factor-noise independence or promote the source's pretending language to a conditional-distribution theorem."}
+    },
+    {
+      "interface_id": "local-14bbaf24ba54648977b8",
+      "related": ["Matrix.mul_apply", "Matrix.l2_opNorm_def", "Asymptotics.IsLittleO", "Asymptotics.IsBigO"],
+      "status": "composable",
+      "query": "Inspected diagonal Gram entries, operator norms and separate little-o/big-O predicates against all RE2 loading and growth restrictions.",
+      "result": "Loading-row squared norms and scalar sequences express the uniform and asymptotic bounds, without importing broader model assumptions.",
+      "gap": "Package the uniform positive row-norm bounds and each separate dimension/noise rate using the supplied factor-strength notation.",
+      "comparisons": {"D22": "The diagonal entries of A_k*A_k^T are row squared norms; bounding every eigenvalue of that diagonal matrix away from zero and infinity is equivalent to uniform lower and upper row-energy bounds. Require common constants over the relevant j and dimension/time sequence, not full-rank or a lower bound on all eigenvalues of A_k*A_k^T itself. Retain r_k=o(d_k^(1-alpha_k1+alpha_krk)). Both max_j norm(Sigma_epsilon,j) and r_e*S_psi^(k) are separately little-o of the other-mode product of d_j^alpha_j1, and d_k=O(r_e*S_psi^(k)) is a further bound. Factor-strength exponents are supplied as notation; Theorem 8's use of RE2 does not thereby import all L1, E2, RE1 or Theorem 6 rate assumptions."}
+    },
+    {
+      "interface_id": "local-b7aa2949a6e76390d79a",
+      "related": ["Finset.sum_apply", "Real.rpow", "Asymptotics.IsBigO", "Asymptotics.IsLittleO"],
+      "status": "partial_match",
+      "query": "Inspected finite sums, real powers and two-sided/asymptotic comparisons against column-sum growth, the smallest-exponent wording and the separate cancellation inequality.",
+      "result": "Column sums, squared sums and products are constructible; the source's signed growth and random smallest-exponent condition need their explicit quantifiers.",
+      "gap": "State the column-sum growth and full-fiber cancellation condition with its exact signed and almost-sure conventions, without transferring it to different sample-selection regimes.",
+      "comparisons": {"D6": "Use each actual column sum sum_i A_k(i,j), then s_k=sum_j (sum_i A_k(i,j))^2 and s_-k the product of other-mode s_l. Two norm-based big-O predicates express magnitude comparability, but alone would lose the sign and explicit c1*d^kappa<=column_sum<=c2*d^kappa conditions printed for random loadings. Preserve kappa in [0,1], the smallest-exponent wording and probability-one rather than merely high-probability bounds; existence of such a smallest exponent is not automatic. The final requirement is (d_-k/s_-k)*(1+d_k/T)=o(d_k^alpha_k,zk) with nonzero denominator and supplied z_k<=r_k. In Theorem 2 it is applied separately to each chosen random sample; the full-population condition is not automatically imposed by Theorem 4's maximum-sample version."}
+    },
+    {
+      "interface_id": "local-ea9d3003588117b1bf08",
+      "related": ["Matrix.IsHermitian.eigenvalues₀", "Finset.max'", "Filter.Tendsto"],
+      "status": "partial_match",
+      "query": "Inspected decreasing Hermitian eigenvalues and nonempty finite maxima against the strict correlation-eigenvalue threshold and vanishing offset.",
+      "result": "The ordered spectrum and filtered index maximum express the estimator when the threshold-exceeding set is nonempty and the correlation matrix is defined.",
+      "gap": "Filter the ordered correlation eigenvalues by the strict threshold and justify nonemptiness and normalization before selecting the largest index.",
+      "comparisons": {"D25": "For the supplied sample correlation matrix list eigenvalues in decreasing order and translate source index j=1,...,d_k to zero-based Fin indices. Select the largest j whose eigenvalue is strictly greater than 1+eta_T, retaining eta_T tending to zero. This counts threshold-exceeding eigenvalues only when ordering and a nonempty selected set are established; replacing an empty maximum by count zero would add a source-unspecified convention. Positive sample variances are needed for the preceding inverse-diagonal normalization. Do not substitute the maximum eigenvalue ratio procedure, a fixed positive threshold, or a >= comparison, and do not infer rank consistency from this construction alone."}
+    },
+    {
+      "interface_id": "local-b2df82bdbc062c2477e7",
+      "related": ["Finset.exists_max_image", "Matrix.IsHermitian.eigenvalues₀", "LinearMap.IsSymmetric.eigenvectorBasis"],
+      "status": "partial_match",
+      "query": "Inspected maximizing-input existence and ordered spectral primitives against the fixed-ratio-index selection among random samples.",
+      "result": "A finite maximizer of the supplied sample ratios can choose the sample whose associated PCA frame is returned, once the scores and index range are valid.",
+      "gap": "Choose a maximizing sample for an admissible fixed ratio index and return its PCA frame, with denominator, range and tie conventions explicit.",
+      "comparisons": {"D13": "Choose an index j satisfying r_k+1<=j<=floor(c*min(T,d_k))-r_k and maximize ER_m,j=lambda_1/lambda_j across the sampled fiber subsets m. This is selection of a sample at a specified j, not simultaneous maximization over every ratio index or the later rank-threshold estimator. A finite maximizing-input theorem requires a nonempty sample collection and defined ratios; the allowable j range can be empty and a denominator eigenvalue can vanish. Return the already defined z_k-column PCA estimator associated with the chosen sample. Neither this choice nor noncomputable eigenbasis selection supplies source-unspecified ties, measurable selection, or the separate comparability s_l,m asymptotic to s_l,max assumed in a later restatement."}
+    },
+    {
+      "interface_id": "local-3501fbf704fb33700295",
+      "related": ["Finset.sum_apply", "Matrix.mul_apply", "Real.sqrt"],
+      "status": "composable",
+      "query": "Inspected function-valued finite sums, matrix products and positive square-root scaling against every full-fiber data, factor, noise and mean definition and equation (3.9).",
+      "result": "Finite sums and scalar normalization construct the stacked data and signal decomposition with the source's distinct row/column orientations.",
+      "gap": "Assemble the complete fiber sums and normalized stacks with the exact orientations and a nonzero square-root normalization.",
+      "comparisons": {"D9": "Sum every mode-k fiber for x, f, e and mu, preserving the tilde on each summed term, then divide each by sqrt(s_-k) for its double-dotted version. Stack factor vectors as columns in r_k-by-T F-double-dot, but observation and noise vectors as rows in T-by-d_k X-double-dot and E-double-dot. This gives X-double-dot=ones_T*mu-double-dot^T+F-double-dot^T*A_k^T+E-double-dot under the supplied model and compatible unfolding. These are sums rather than averages by the number of fibers. Only the definitions of s are needed; the signal-cancellation little-o inequality is not an extra prerequisite to write the data, although s_-k>0 is required for the intended division. Do not invent the appendix-only tensor entry ordering or identify the bare d with a product that the main text leaves unbound."}
+    },
+    {
+      "interface_id": "local-a298dc047c2df2df8d09",
+      "related": ["Matrix.mul_apply", "Matrix.IsHermitian.eigenvalues₀", "LinearMap.IsSymmetric.eigenvectorBasis"],
+      "status": "composable",
+      "query": "Inspected centered Gram multiplication, decreasing eigenvalues and orthonormal eigenvector selection against the complete pseudo-data covariance and scaled-eigenvalue definitions.",
+      "result": "The centered sample Gram matrix has standard spectral ingredients for its leading frame and diagonal eigenvalue matrices.",
+      "gap": "Build the covariance from the unnormalized full-fiber sums, select the supplied number of leading orthonormal eigenvectors and scale only the specified eigenvalue matrix.",
+      "comparisons": {"D10": "Use X-tilde^T*(I_T-ones_T*ones_T^T/T)*X-tilde/T for T>0, not the double-dotted data or a denominator T-1. Select the first z_k eigenvectors of this symmetric PSD matrix, with z_k positive and no larger than the supplied r_k and ambient dimension, and keep Qhat^T Qhat=I_zk. V-tilde contains the leading ordered eigenvalues; V-double-dot=V-tilde/s_-k is a separate scalar normalization requiring nonzero s_-k. Population spectral distinctness does not choose signs or resolve sample ties, and a noncomputable eigenbasis alone does not establish measurable dependence on observations. This definition uses a supplied z_k; it does not estimate r_k by itself."}
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "schema_version": "statistical-paper-audit-v1",
+  "paper_id": "aos-2024-v52-i01-p0157",
+  "status": "complete",
+  "audit_kind": "source_review",
+  "completed_at": "2026-09-09T06:06:05.566921+00:00",
+  "source": {
+    "pdf_path": "[local-workspace]/minimax/reference/aos2024/pdf/23-AOS2338.pdf",
+    "source_url": "https://arxiv.org/pdf/2208.06685v3",
+    "version": "arXiv:2208.06685v3",
+    "pdf_sha256": "1f2c3e1419251a520ad3479f27419f2bd810afcb2d4b9f2c9e80e098b28e8619",
+    "pdf_pages": 58,
+    "main_text_last_pdf_page": 27,
+    "matching_tex_archive_sha256": "573d4e3f7c8de8702e3e8d488108df9b66aad232595d65ac2f4b1b5e01bf168c"
+  },
+  "enumeration": {
+    "theorem_ids": [
+      "aos-2024-v52-i01-p0157/T3.3",
+      "aos-2024-v52-i01-p0157/T3.4",
+      "aos-2024-v52-i01-p0157/T3.6",
+      "aos-2024-v52-i01-p0157/T4.1",
+      "aos-2024-v52-i01-p0157/T5.1",
+      "aos-2024-v52-i01-p0157/T5.4"
+    ],
+    "method": "Six uncommented Theorem environments in matching-version TeX before the appendix command, checked against PDF pages 9, 10-11, 13, 18 and 20. Main-text references end on page 27; only the Appendix A heading on page 28 was inspected to confirm the boundary.",
+    "excluded_result_types": [
+      "Lemma",
+      "Proposition",
+      "Corollary",
+      "Remark"
+    ],
+    "supplementary_material_used": false
+  },
+  "validation": {
+    "status": "passed",
+    "validator": "skills/statistical-paper-census/scripts/validate_census.py",
+    "checks": [
+      "The complete six-Theorem inventory was checked against the PDF and independently validated before interface extraction.",
+      "All 27 source entries and six ambient passages were reviewed against the main text. Mathematical displays and source numbering were checked visually, with matching-version TeX aiding transcription.",
+      "The finalizer derived the same-paper dependency graph and aggregate counts. A separate validator process accepted the census against its pinned inventory.",
+      "All 43 direct uses and 69 related-theorem connections were reviewed for statement correspondence, including setting references, arbitrary-score versus fitted-score uses, and the oracle BH alternative.",
+      "Every source member has a meaning-bearing highlight in its body or source label. All selectors match that source or a linked same-paper theorem.",
+      "Source keywords use author terminology. Adjacent naming contexts preserve original prose; inline p in p-value and 0-1 in loss are plain typographic transcriptions in naming context only."
+    ]
+  },
+  "counts": {
+    "theorems": 6,
+    "interfaces": 27,
+    "source_members": 27,
+    "direct_theorem_uses": 43,
+    "related_theorem_connections": 69
+  },
+  "source_notes": [
+    "The inspected version is arXiv:2208.06685v3, stamped 25 October 2023, with PDF footer date 26 October 2023. Published-layout identity is not assumed.",
+    "Assumptions 1 and 2 impose conditional exchangeability of raw observations and scores respectively. Assumption 3 excludes ties; Assumptions 4 and 5 separately impose independence and positive densities.",
+    "The first assertions of Theorems 3.3 and 3.4 concern arbitrary score families. Their final AdaDetect specializations introduce the fitted construction; its permutation invariance is not imposed on the arbitrary-score definition.",
+    "Theorem 3.3 concerns score-based p-values, so its AdaDetect correspondence stops before the BH rejection step. PRDS is not added as a premise of Theorems 3.4 or 3.6 merely because it can prove FDR control.",
+    "The setting reference in Theorem 3.6 imports the score assumptions from Theorem 3.4, not the random-variable FDR identity. The setting reference in Theorem 5.1 imports the independent-density model from Theorem 4.1, not its optimality conclusion.",
+    "Empirical p-values use a strict greater-than comparison and the added one in (10). The fitted score is invariant in the mixed argument, not necessarily in the held-out training argument.",
+    "Equation (13) retains the common uniform vector, conditional iid null coordinates, zero alternative coordinates, selected null at 1/(ell+1), and descending order statistics. The displayed tabular text is transcribed as a mathematical array without changing its content.",
+    "The average densities in (15)-(17) do not assert iid sampling from a random two-group mixture. The alternative marginals may differ.",
+    "Theorem 4.1 retains higher TPR and the parenthetical existence assumption for a threshold attaining mFDR exactly alpha. The ambiguous mFDR numerator is preserved, not corrected using commented-out TeX.",
+    "Theorem 5.1 retains both subparts, the delta dependence of constants, all three restrictions in (29), and both conclusions. Risks distinguish null g>=0 from alternative and mixed g<0 errors.",
+    "Theorem 5.4 retains the complement on the inclusion event, the enlarged alpha-prime, and its additional assertion for BH on oracle p-values.",
+    "Storey and quantile estimators, density estimators, specific neural-network classes, cross-validation procedures, proof-only lemmas and appendix constructions are not counted as requirements of these six theorem statements."
+  ],
+  "unresolved_source_references": [
+    {
+      "source": "Theorem 4.1 and Section 4.2",
+      "issue": "TPR is not explicitly defined in the inspected main text, and the mFDR passage uses calibration indices in its numerator while rejection sets use test indices. The printed higher TPR comparison and exact-level threshold existence clause are preserved."
+    },
+    {
+      "source": "Section 4.1, equations (16) and (18)",
+      "issue": "The average alternative density divides by m1 and the claimed range r in (0,1) implicitly requires nondegenerate mixture proportions. The source does not add those restrictions to Assumption 5; they are not silently inserted."
+    },
+    {
+      "source": "Section 3.2 — PRDS",
+      "issue": "Conditional probabilities given p_i=u require a version, including at unattained values of these discrete p-values. The main-text definition does not select one. Assumption 1 separately includes its conditional-distribution existence footnote."
+    },
+    {
+      "source": "Section 3.4, equation (13)",
+      "issue": "The cdf expression uses an indicator to restrict the order-statistic term to 1/(ell+1)<=x<1; outside that interval the subscript may be out of range. Preserve the source expression; do not replace it with an unquoted piecewise definition."
+    },
+    {
+      "source": "Section 5.1, equations (25)-(29)",
+      "issue": "The main text does not specify optimizer existence, measurable selection or permutation-invariant tie selection for the argmin formulas, nor the induced set-class convention for VC dimension of real-valued scores. Denominators involving ell and M also retain their printed domain limitations."
+    },
+    {
+      "source": "Section 4.2, equation (19)",
+      "issue": "The prose says strictly monotone transformation, while the displayed condition says increasing continuous Psi. Both are retained; neither strictness nor a change in direction is silently imposed."
+    },
+    {
+      "source": "Section 5.2, equations (33)-(36)",
+      "issue": "The inverse tail, its range and attainment of the maximum in zeta retain the printed conventions. Theorem 5.4 separately assumes continuity and strict decrease. No generalized-inverse convention or level clipping is inserted."
+    }
+  ],
+  "ambient_resolution": [
+    "These ambient passages are retained outside the ranked interface list. TDR/TDP are archived to distinguish the source terminology from the undefined TPR in Theorem 4.1; their equivalence is not asserted.",
+    "Probability, expectation, indicators, finite index sets, floors, ceilings, minima, maxima, inverse functions, measurable functions and iid uniform variables are ambient mathematical notions. Their specialized source formulas are retained in the corresponding interfaces.",
+    "Super-uniform is used in Theorem 3.3 without a main-text formula. It is recorded as ambient terminology rather than supplied with a fabricated original definition.",
+    "Theorem 3.4 binds random variables K_i with range {1,...,m}; the main text does not construct them. No appendix construction is imported.",
+    "G in Theorem 3.6, r-prime and c-prime in Theorem 4.1, and epsilon0, Delta, M, the event R and alpha-prime in Theorems 5.1 and 5.4 are bound or defined inside their statements.",
+    "Theorem 5.1 inherits the independent positive-density model from the setting of Theorem 4.1. It does not invoke that theorem as a proved premise or use its mFDR-optimality conclusion.",
+    "Theorem 3.3 needs the AdaDetect score and p-value construction for its final specialization; the subsequent BH rejection step is not a requirement for its conclusion about the p-values."
+  ],
+  "artifacts": {
+    "theorem-inventory.json": {
+      "path": "theorem-inventory.json",
+      "sha256": "d25cf90e2ccae447e188b800a5515af30dc3e8c9239124430c6f4466f87f1d31"
+    },
+    "unfinalized-census.json": {
+      "path": "unfinalized-census.json",
+      "sha256": "c8391fc39905c035b0156432ba7993da8f9303d0d7d40dcb5375436d8a55b02b"
+    },
+    "ranked-interfaces.json": {
+      "path": "ranked-interfaces.json",
+      "sha256": "cabed39e4d2e57e4aaa9a267e38d34c6f0e127db25e2bf216068a83367417e2a"
+    },
+    "source-passages.json": {
+      "path": "source-passages.json",
+      "sha256": "5349e5f631fa5f3979c730c3c3530ea9faa1fdec51888f5485ef49ee371fa90e"
+    },
+    "ambient-conventions.json": {
+      "path": "ambient-conventions.json",
+      "sha256": "7ad59ca3daa40083302ae879a57e3d8c248eaf8a5158b238c8d6e2849254a5e7"
+    },
+    "inventory-review.json": {
+      "path": "inventory-review.json",
+      "sha256": "2b4a52e73625fdaafc0ab11f03086de7c979b0d386fa3fc939bebad020d15d94"
+    }
+  },
+  "evidence": {
+    "appendix-heading.png": {
+      "path": "evidence/appendix-heading.png",
+      "sha256": "9d39be10d530e96c0ca4a8ad669178ae6b57cd4ae536ba0b2e501fdf2a36d32d"
+    },
+    "enumeration.json": {
+      "path": "evidence/enumeration.json",
+      "sha256": "1b67b4a2e0db1d6bbcec6f0321cbc48e6249a4029ada213907383eea563f563c"
+    },
+    "macros.tex": {
+      "path": "evidence/macros.tex",
+      "sha256": "ad65032b6f92654e3543958b582902a1dcf24114f9c53ce9bf6225a3d33f650e"
+    },
+    "main-only.tex": {
+      "path": "evidence/main-only.tex",
+      "sha256": "ec8d7c81b7922fd1381ad9b0336a9f630bb4becb9976d118697f935444d8785d"
+    },
+    "page-01.png": {
+      "path": "evidence/page-01.png",
+      "sha256": "ff0917823fa57f0e0cbfe009a4685ecb3faddd0bc651b759e5d5cd91b47e9d30"
+    },
+    "page-05.png": {
+      "path": "evidence/page-05.png",
+      "sha256": "4b98e1421ff8c72cdb1363a832e62cf04fc1c5f6550d3fa73654fc26f3d92029"
+    },
+    "page-06.png": {
+      "path": "evidence/page-06.png",
+      "sha256": "85f214b43793ecdc386c24498a3686b6edacead6146afc7dfa5e2ab46b7f84b9"
+    },
+    "page-07.png": {
+      "path": "evidence/page-07.png",
+      "sha256": "b7147503df3e1adc51eccd95d15334cf75f856a49c3e277f079dfbca726aceca"
+    },
+    "page-08.png": {
+      "path": "evidence/page-08.png",
+      "sha256": "1d6d3c81f40e28634d4ee100f8a6c874ebd9b0a882a8f55f18bac3b743711abd"
+    },
+    "page-09.png": {
+      "path": "evidence/page-09.png",
+      "sha256": "67516e8ab7b5a16a91d3e84330fb458f3e4b3de1381e4d1d2621ce6916e47406"
+    },
+    "page-10.png": {
+      "path": "evidence/page-10.png",
+      "sha256": "6591c62feb5ed87ba66658f4c1a44765fdc13c334990f30c79d8595e6134528c"
+    },
+    "page-11.png": {
+      "path": "evidence/page-11.png",
+      "sha256": "58c0e109266247e48405bd28b6d76bba2d5d000748ca8c07fe080fb5f1975fad"
+    },
+    "page-12.png": {
+      "path": "evidence/page-12.png",
+      "sha256": "96544be776e43864fdced9acb9068f0a9ff4a5609541d25c96b9c37ce2d483aa"
+    },
+    "page-13.png": {
+      "path": "evidence/page-13.png",
+      "sha256": "62e13392d7c690433b19b303f1e716d7cb22e97b68f2bbc0e7cd51f5c5ca6bc4"
+    },
+    "page-14.png": {
+      "path": "evidence/page-14.png",
+      "sha256": "a430ccf961bdc061399d2181cc56fa3357ce2905ae0e9e5f4a2620bbcc5bcfc8"
+    },
+    "page-17.png": {
+      "path": "evidence/page-17.png",
+      "sha256": "ca8d2cb1443193c8b25ab0b3ab512cf7b92821aa21dadc430a2028deeeb86078"
+    },
+    "page-18.png": {
+      "path": "evidence/page-18.png",
+      "sha256": "9211b51505f9024f17cbb1e438b5e5aa8613b6543d48ae3d9c8f9a5e841b1124"
+    },
+    "page-19.png": {
+      "path": "evidence/page-19.png",
+      "sha256": "deb957b2af3a25a1c6d2265c5a8f83ed1c497e8fc838f57f48ce3ae3982a0241"
+    },
+    "page-20.png": {
+      "path": "evidence/page-20.png",
+      "sha256": "a752f155e45f77e21eb872098bb8f4e135414dd5f15dc9e507e99a51e3e70ad7"
+    },
+    "page-27.png": {
+      "path": "evidence/page-27.png",
+      "sha256": "4005e44624a49022841616094a440f65e507ff7983fa2705fc1b56a117449b5d"
+    },
+    "source-passages-tex.json": {
+      "path": "evidence/source-passages-tex.json",
+      "sha256": "aa772dc09f23e0c778ff86d667b69d18e4ca472d9087ad6d20bdd2881b913fbe"
+    }
+  },
+  "review_limits": [
+    "This is a source-fidelity and statement-dependency audit, not a certification of proofs or a resolution of the paper's ambiguities.",
+    "No appendix body was read or used. The original main-text wording is retained where the excluded appendix is cited."
+  ]
+}

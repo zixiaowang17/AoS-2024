@@ -1,0 +1,233 @@
+{
+  "scope": "Manual p2375 time-series, Yule-Walker, dependence and bootstrap comparisons; shared cross-paper dependence interface deferred for separate review.",
+  "rows": [
+    {
+      "interface_id": "local-8d06582ff6a066c1671c",
+      "related": [
+        "ProbabilityTheory.covariance",
+        "MeasureTheory.integral"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Centered covariance agrees with the displayed raw second moment when both process coordinates have mean zero and the needed moments exist.",
+      "gap": "The zero-mean and time-invariant second-moment predicates express the weakly stationary autocovariance setting.",
+      "comparisons": {
+        "D6": "For each sample-size row T use an integer-indexed real process with finite second moments, means zero and E[X_i*X_(i-j)]=E[X_0*X_(-j)] for every relevant i,j. Then covariance of X_i and X_(i-j) equals this raw product expectation. The lag may be represented by integer subtraction, so i-j must not be clamped to zero by natural subtraction. The process and sigma_j may depend on T; suppressing that index in the source does not make them a common fixed law across sample sizes. Weak stationarity is a second-order property and does not assert shift invariance of all finite-dimensional laws or iid/strictly stationary innovations. Bochner integration alone does not guarantee the required second moments."
+      }
+    },
+    {
+      "interface_id": "local-f39200d6d69ce0992f37",
+      "related": [
+        "Finset.sum_apply",
+        "Finset.sum_div"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "A finite lag-product sum divided by the sample size expresses the estimator exactly.",
+      "gap": "The finite sum directly represents the estimator with its original lag endpoints and denominator.",
+      "comparisons": {
+        "D7": "For positive T and the intended nonnegative lag j, sum X_i*X_(i-j) over integer indices j+1,...,T and divide by T, not T-j. At j=0 this is the average of X_i squared. No sample-mean subtraction appears because the population model is mean zero. There is no circular wrapping, zero padding or use of pre-sample observations in this estimator. This is distinct from the ideal centered sums over i=1,...,T used in the Gaussian approximants. If a lag leaves the observed range, the finite sum is empty; retain the applicable lag/sample-size domain rather than changing its bounds. Positive T is needed to avoid assigning the totalized reciprocal-zero value to a statistical sample."
+      }
+    },
+    {
+      "interface_id": "local-ff65396e092a59640d2f",
+      "related": [
+        "Matrix.mulVec",
+        "Matrix.mul_nonsing_inv"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Finite matrices and vectors express the Toeplitz covariance matrix, coordinate vectors and diagonal-band selector matrices.",
+      "gap": "The explicit entry formulas and nonsingularity assumption suffice to construct these objects, with invertibility justified separately for each order.",
+      "comparisons": {
+        "D14": "Use p-by-p real matrices indexed by positions 1,...,p, with Sigma[j,k]=sigma_(abs(j-k)), and gamma[j]=sigma_j. Absolute lag is the symmetric integer difference (or natural distance), not abs of already truncated natural subtraction. e_i is the coordinate vector here, distinct from the innovation with the same name earlier. T_i[j,k] is one exactly when abs(j-k)=i for i=0,...,p-1; T_0=I and positive i select BOTH off-diagonal bands. Preserve the stated nonsingularity for every positive order p; a real nonzero determinant provides the IsUnit determinant premise for actual matrix inversion. The later theorem’s uniform smallest-eigenvalue bound is a stronger separate assumption, not supplied by this notation."
+      }
+    },
+    {
+      "interface_id": "local-b35a4abbd7dfbb35ba0c",
+      "related": [
+        "Matrix.mulVec",
+        "Matrix.mul_nonsing_inv"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "The matrix equation Sigma times a equals gamma expresses the Yule-Walker system, and a nonsingular covariance matrix permits the inverse formula.",
+      "gap": "The linear system expresses the coefficient definition, while uniqueness or an inverse formula requires a nonsingularity premise beyond mere existence.",
+      "comparisons": {
+        "D12": "For a positive integer p form Sigma[k,j]=sigma_(abs(k-j)) and gamma[k]=sigma_k, and require mulVec Sigma a=gamma. The displayed definition supposes a solution exists; it does not itself state uniqueness or an invertible covariance matrix. When nonsingularity is separately available, a=Sigma inverse times gamma is the unique solution. These are prediction coefficients for a general weakly stationary process, including nonlinear processes; do not add an AR(p) data-generating equation with independent noise. The source’s positive spectral-density condition is offered as sufficient in prose, not part of every coefficient definition."
+      }
+    },
+    {
+      "interface_id": "local-e3e1e722e093b6bebbad",
+      "related": [
+        "Matrix.mulVec",
+        "Matrix.mul_nonsing_inv"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Replacing population entries by the displayed sample autocovariances gives a finite linear system for the moment estimator.",
+      "gap": "The sample system requires an existence/selection convention when singular; the source does not specify a pseudoinverse here.",
+      "comparisons": {
+        "D13": "Construct sample Sigma[k,j]=sigma_hat_(abs(k-j)) and sample gamma[k]=sigma_hat_k using the T-denominator estimator (16), and solve sample Sigma times a_hat=sample gamma. An inverse expression is valid only after the sample matrix is shown nonsingular. The original sample definition provides neither a Moore-Penrose convention nor a value when the system has no unique solution; the explicit pseudoinverse appears later for the BOOTSTRAP estimator and must not be imported into this definition. The nonsingular-inverse operation’s singular fallback is likewise not an authorized estimator convention. Retain this domain issue and do not conflate moment fitting with sample least squares under a different endpoint convention."
+      }
+    },
+    {
+      "interface_id": "local-8318e08a560d728eb473",
+      "related": [
+        "MeasureTheory.integral"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "The displayed influence variable is an explicit linear combination of the centered lag-zero and lag-j products.",
+      "gap": "The algebraic expression gives the autocorrelation linearization once the positive population lag-zero variance and moments are supplied.",
+      "comparisons": {
+        "D11": "Define Z_i,j=-(sigma_j/sigma_0^2)*(X_i^2-sigma_0)+(1/sigma_0)*(X_i*X_(i-j)-sigma_j). The denominator sigma_0 is the lag-zero SECOND MOMENT, so sigma_0^2 is its square, not a replacement notation for the variance. The autocorrelation theorem assumes sigma_0>c>0; retain that domain instead of extending with real division by zero. This is a POPULATION linearization with population centering and coefficients, not an estimated residual and not the different Z used for AR coefficients or general linear combinations. Weak stationarity and mean zero justify the centered products; no claim that this equals the nonlinear estimator for finite samples is part of the definition."
+      }
+    },
+    {
+      "interface_id": "local-339ed0355d4808f9231e",
+      "related": [
+        "Matrix.mulVec",
+        "Matrix.mul_nonsing_inv"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Matrix inversion and ordered matrix-vector products express all p+1 columns of the derivative matrix.",
+      "gap": "The column formulas are directly expressible under the nonsingularity of Sigma, preserving the distinct endpoint columns.",
+      "comparisons": {
+        "D15": "Build a p-by-(p+1) matrix whose columns are indexed 0,...,p: b0=-(Sigma inverse)*(Sigma inverse)*gamma; for 1<=i<=p-1, bi=Sigma inverse*e_i-Sigma inverse*T_i*Sigma inverse*gamma; and bp=Sigma inverse*e_p. Matrix multiplication is ordered; do not commute T_i past Sigma inverse or square inverse entries elementwise when interpreting Sigma^(-2). For p=1 the interior column range is empty but the two endpoint columns remain. The real covariance matrix is assumed nonsingular, justifying inverse identities. B here is a derivative matrix, not the growth exponent or bootstrap replicate count denoted by the same symbol elsewhere."
+      }
+    },
+    {
+      "interface_id": "local-fa4ce120ab22fc40b355",
+      "related": [
+        "Matrix.mulVec",
+        "Finset.sum_apply"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Matrix-vector multiplication expresses the finite AR linearization once its centered-product vector is specified.",
+      "gap": "The finite sum is available, but the printed time-indexed centering sigma_k^(i) has no main-text definition and must remain an explicit source issue.",
+      "comparisons": {
+        "D16": "For j=1,...,p sum b_jk*(X_i*X_(i-k)-sigma_k^(i)) over k=0,...,p, including the squared-observation term k=0. The coefficients are the population B from the preceding definition, not estimated or bootstrap coefficients. The source prints sigma_k^(i), whose definition was not found in the main text. Under weak stationarity the natural inferred center is E[X_i*X_(i-k)]=sigma_k, but this is an interpretation, not a verified source definition; do not silently delete the superscript or claim mean zero before resolving it. Given a specified centering vector, mulVec B supplies precisely the finite linear combination."
+      }
+    },
+    {
+      "interface_id": "local-d03761680fd5c09a5f5b",
+      "related": [
+        "Real.rpow",
+        "Real.log"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Real powers, logarithms and a three-way case split express the bandwidth-dependent rate.",
+      "gap": "The displayed sequence is directly expressible on positive bandwidths with alpha greater than two and the separate divergence condition.",
+      "comparisons": {
+        "D18": "For each positive sample size take k_T>0 with k_T tending to positive infinity, and define v_T=k_T^(2-alpha) for 2<alpha<3, log(k_T)/k_T for alpha=3, and 1/k_T for alpha>3. The equality case has its own logarithmic factor; do not absorb it into either neighboring branch or extend the definition to alpha<=2. Positive bandwidths avoid nonpositive-base and zero-division defaults. In Theorem4 use alpha=alpha_X as directed, importing this numeric sequence alone rather than every assumption or conclusion of Lemma3. These bandwidths grow because they are dependence-lag windows, not shrinking density-estimation bandwidths."
+      }
+    },
+    {
+      "interface_id": "local-81bdcdf40f3701771c7f",
+      "related": [
+        "ProbabilityTheory.cdf",
+        "MeasureTheory.Measure.map",
+        "ProbabilityTheory.multivariateGaussian"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Pushing a finite-dimensional Gaussian law through the maximum absolute-coordinate function yields the real CDF used for each reference distribution.",
+      "gap": "The three Gaussian covariance targets must be kept distinct, with the autocovariance target’s printed lag-index ambiguity retained.",
+      "comparisons": {
+        "D25": "For each branch take the Gaussian vector defined in its referenced theorem, map it to max of absolute coordinates over H for autocovariances, I for autocorrelations, or 1,...,p for AR coefficients, then evaluate the resulting real probability CDF on (-infinity,x]. The sets are nonempty; H can include lag zero while I excludes it. Coordinates generally are correlated, so the law is not a product of univariate Gaussian CDFs. All target covariances and hence H_tau may depend on T even though notation suppresses this. Theorem2(i) prints an unbound j in both covariance factors; retain that issue rather than silently using j1 and j2, even though the intended two-lag formula appears correctly later. These H_tau are population Gaussian reference laws, not the conditional bootstrap CDF or a fixed limiting distribution independent of T."
+      }
+    },
+    {
+      "interface_id": "local-075ee174caa710f916dd",
+      "related": [
+        "VectorFourier.fourierIntegral",
+        "Function.Even",
+        "AntitoneOn",
+        "ContDiffOn"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Fourier integration and symmetry, differentiability and monotonicity predicates express the kernel assumptions with additional integrability and sign constraints.",
+      "gap": "The combined predicates express the kernel class once the real-valued nonnegative Fourier transform and both integrability conditions are specified.",
+      "comparisons": {
+        "D17": "Use K:R→R with K>=0, Function.Even K, continuously differentiable K, K(0)=1, integrable K and AntitoneOn K on [0,infinity). The phrase decreasing is interpreted in its nonincreasing kernel sense. The negative-sign Fourier transform uses character exp(2*pi*i*t) in fourierIntegral with pairing t*x and Lebesgue measure; for real even K the imaginary part vanishes, and the Fourier nonnegativity assertion concerns that real-valued transform. Require its integrability too. K(0)=1 is NOT integral K=1, and compact support is not required. Positive-semidefiniteness of the matrix K((i-j)/k_T) is a consequence needing the Fourier argument, not provided merely by nonnegative entries or evenness. Preserve the printed spelling in the source statement without changing these mathematical predicates."
+      }
+    },
+    {
+      "interface_id": "local-8094db65529956881202",
+      "related": [
+        "Matrix.mulVec",
+        "MeasureTheory.integral",
+        "Asymptotics.IsBigOWith"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Finite matrix-vector multiplication gives the centered linear combinations, while explicit uniform order bounds express the coefficient and dimension controls.",
+      "gap": "The definition is expressible with the stated uniform growth bounds and time-specific expectations, allowing all arrays to depend on sample size.",
+      "comparisons": {
+        "D10": "For each T form a p1-by-(d+1) deterministic real coefficient array, with uniformly bounded row squared-Euclidean norms and p1=O(T^alpha_p1), alpha_p1>=0. Define Z_i,k by multiplying row k into the vector X_i*X_(i-j)-E[X_i*X_(i-j)] for j=0,...,d. The expectation may depend on i because this section need not be weakly stationary; do not replace it by sigma_j from a later section. Coefficients and d,p1 may vary with T, and p1 need not equal d. The source notation defines deterministic O by a constant valid for all positive sample sizes; encode that using an existential positive constant and IsBigOWith on the principal filter of positive sizes, or explicitly justify any equivalent eventual form. Moment existence and uniformity over both indices remain needed."
+      }
+    },
+    {
+      "interface_id": "local-219b445e12d1ab760178",
+      "related": [
+        "MeasureTheory.eLpNorm",
+        "MeasureTheory.integral",
+        "Asymptotics.IsBigOWith"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Lp seminorms, mean integrals and uniform norm bounds provide the numerical pieces of the medium-range dependence condition.",
+      "gap": "The causal replacement coupling and its finite uniform tail bounds must be supplied without replacing them by independence or stationarity.",
+      "comparisons": {
+        "D4": "Retain the causal construction (2), mean zero for every integer time and coordinate, m>=4, alpha>1 and beta>=0. Uniformly bound the m-norms over all i in Z and j=1,...,d, then bound sup over k>=0 of (1+k)^alpha times the tail sum over l>=k of delta_m(l) by a constant times T^beta. delta_m itself takes the supremum over time and coordinates of the single-innovation-replacement Lm effect, and may depend on T. Prove finiteness before converting eLpNorm, infinite sums or suprema to real values, since totalization must not turn an infinite dependence tail into zero. Respect the source all-positive-T order convention with uniform constants; beta=0 is the short-range specialization, while beta>0 allows dependence to increase with sample size. The construction permits independent nonidentically distributed innovations and time-dependent generating functions; neither strict nor weak stationarity is part of this definition."
+      }
+    },
+    {
+      "interface_id": "local-968bb0cb262e1c05cfe3",
+      "related": [
+        "MeasureTheory.eLpNorm",
+        "Asymptotics.IsBigOWith"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "The explicit beta-zero specialization can use the same uniform dependence-tail predicate, but the following printed sum uses a different summand.",
+      "gap": "The intended beta-zero specialization is expressible, while the literal constant-summand display must remain unresolved rather than silently corrected.",
+      "comparisons": {
+        "D5": "The prose explicitly specializes Definition1 to beta=0, retaining m>=4, alpha>1, zero means, uniformly bounded moments and a uniform weighted tail sum. However the printed remark sums delta_m(k) as l ranges from k to infinity, instead of summing delta_m(l) as in Definition1. For nonnegative coefficients this literal constant-summand series diverges whenever delta_m(k)>0 and is inconsistent with the intended condition. Record both versions and identify the beta-zero reading as an interpretation, not a transcription repair. In particular Lean real tsum on a nonsummable constant sequence can default to zero, so it must not be used to make the erroneous literal condition appear satisfied. No polynomial-mixing or iid condition is an interchangeable substitute for the defined replacement dependence."
+      }
+    },
+    {
+      "interface_id": "local-f73a1f20ef3aa271ba8b",
+      "related": [
+        "MeasureTheory.condExp",
+        "ProbabilityTheory.condDistrib"
+      ],
+      "status": "composable",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "Conditional expectation relative to the sigma-algebra generated by the observed sample gives E-star, and conditional indicators or a regular conditional distribution give Prob-star.",
+      "gap": "These conditional constructions express the bootstrap law with measurable variables, integrability and the usual almost-everywhere version interpretation.",
+      "comparisons": {
+        "D19": "Condition on the entire observed vector (X1,...,XT), using its generated sub-sigma-algebra. E-star of an integrable bootstrap quantity is condExp with respect to that sigma-algebra; Prob-star of an event is the conditional expectation of its indicator, or the event mass under a regular conditional bootstrap kernel. It is not conditioning on an equality event with positive probability assumed, and not merely conditioning on a fitted statistic. The conditional value is a random function of the observed data; the bootstrap randomness is integrated out. On the finite probability space setting the trimmed measure is finite, but measurability and integrability still need to be satisfied rather than using condExp’s zero fallback. Conditional kernels identify versions only almost everywhere under the data law, not at every imaginable sample vector."
+      }
+    },
+    {
+      "interface_id": "local-111c564f191c166d652e",
+      "related": [
+        "ProbabilityTheory.multivariateGaussian",
+        "Matrix.PosSemidef"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+      "result": "The multivariate Gaussian constructor realizes a centered multiplier vector with the specified kernel covariance once that matrix is PSD.",
+      "gap": "The Fourier-based PSD argument and bootstrap-randomness construction must be supplied to obtain the intended conditional multiplier law.",
+      "comparisons": {
+        "D21": "For the given positive bandwidth k_T form C[j1,j2]=K((j1-j2)/k_T) on indices 1,...,T and use the centered Gaussian law with covariance C. K(0)=1 makes each marginal variance one; the vector is generally correlated, not T independent standard Gaussians. Nonnegative entries and symmetry alone do not imply PSD: the source’s nonnegative integrable Fourier transform provides the missing quadratic-form argument. Singular PSD covariance is allowed; positive definiteness is not required. multivariateGaussian maps a non-PSD input to a degenerate fallback, so checking PSD is essential to assert the prescribed covariance. To realize the bootstrap, generate fresh multiplier randomness with this law conditional on the observed data, independent of observations for fixed tuning parameters, rather than treating the source data as the Gaussian multipliers themselves."
+      }
+    }
+  ]
+}

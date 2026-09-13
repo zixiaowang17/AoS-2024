@@ -1,0 +1,426 @@
+{
+  "paper_id": "aos-2024-v52-i02-p0654",
+  "auxiliary_passages": [
+    {
+      "auxiliary_id": "A1",
+      "statement_original": "To streamline our presentation, we make an assumption that the source samples share the same design type as the target sample. Additionally, we assume that both the target and source samples exhibit identical characteristics, including the number of subjects and design points per subject. In other words,\n\\[\nn^{[t]}=n_t\\text{ and }m_i^{[t]}=m_t\\quad\\text{for any }i=1,\\ldots,n^{[t]},\n\\]\n\\[\nn^{[s,k]}=n_s\\text{ and }m_i^{[s,k]}=m_s\\quad\\text{for any }i=1,\\ldots,n^{[s,k]}\\text{ and }k=1,\\ldots,K.\\tag{4}\n\\]",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Section 1.2 — balanced counts, equation (4)"
+        }
+      ],
+      "resolution": "Counts are constant across target subjects and separately across all source populations. Equation (4) does not say n_t=n_s or m_t=m_s, despite the imprecise preceding prose. Both use the same design type, but not necessarily the same grid or design density."
+    },
+    {
+      "auxiliary_id": "A2",
+      "statement_original": "Throughout the paper, we consider subject size $(n_t,n_s)$, sampling frequency $(m_t,m_s)$ and the number of source samples $(K)$ as the primary asymptotic components while all other quantities are treated as constants. We adhere to the standard for big-Oh($O$), big-Omega($\\Omega$) and big-Theta($\\Theta$) notations. On occasion, for brevity, we use the symbols $\\lesssim$, $\\gtrsim$ and $\\asymp$ as replacements for big-Oh($O$), big-Omega($\\Omega$) and big-Theta($\\Theta$), respectively. Similarly, we follow the convention for the little-Oh($o$) notation and briefly express $a\\ll b$ or $b\\gg a$ if and only if $a=o(b)$ is true. Although the constant term is only allowed in the standard big-Oh($O$), big-Omega($\\Omega$) and big-Theta($\\Theta$) notations, their tilde-variants, big-Oh-tilde($\\widetilde O$), big-Omega-tilde($\\widetilde\\Omega$) and big-Theta-tilde($\\widetilde\\Theta$) accept logarithmic polynomial terms of $n_t,n_s,m_t,m_s$ and $K$. For any function $f:[0,1]\\to\\mathbb R$, it is straightforward to define functional $\\mathcal L^2$-norm, $\\|f\\|_{\\mathcal L^2(I)}$, and $\\mathcal L^\\infty$-norm, $\\|f\\|_{\\mathcal L^\\infty(I)}$, restricted on some interval $I\\subset[0,1]$. When $I$ stands for the whole domain $[0,1]$, we follow the convention of leaving out $I$ in the norm notation.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Section 1.3 — asymptotic and norm conventions"
+        }
+      ],
+      "resolution": "The loss is the ordinary squared functional L2 norm on [0,1], with Lebesgue integration, not an empirical norm or a norm weighted by the design density. The paper names rather than explicitly integrates this norm. Positive fixed smoothness/radius and tail constants may enter the implicit constants. Tilde rates suppress polynomials of logarithms of the sample-size components."
+    },
+    {
+      "auxiliary_id": "A3",
+      "statement_original": "Apart from the assumption regarding design points, we maintain the same set of assumptions outlined in Section 2. In essence, these assumptions encompass the requirements for the mean and difference functions, as indicated in Equation (3), and the fulfillment of the uniform sub-Gaussian condition (Assumption 1). Lastly, it is assumed that the collection of target and source samples, $\\{\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]}\\}$, are independent.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Section 3 — inheritance with replacement of design"
+        }
+      ],
+      "resolution": "This inherits the full observation/regularity/tail model, but explicitly replaces the design. It does not inherit the common-grid conditions or upper-bound algorithm choices. The lower-bound theorem does not explicitly assume the two-sided density bounds later used in the upper-bound statements."
+    },
+    {
+      "auxiliary_id": "A4",
+      "statement_original": "The basic idea is to decompose the target mean function $f^{[t]}$ into the source part $f^{[s]}:=K^{-1}\\sum_{k=1}^K f_k^{[s]}$ and the difference part $\\delta^{[s]}:=f^{[t]}-f^{[s]}$ and to estimate them separately.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Section 2.1 — source average and residual"
+        }
+      ],
+      "resolution": "This explains the target of the pooled source fit in Algorithm 2. The source changes f^[s,k] to f_k^[s] in this display. The algorithm itself specifies its fitted functions and residual observations completely; the population decomposition is retained as context."
+    },
+    {
+      "auxiliary_id": "A5",
+      "statement_original": "Suppose\n\\[\n\\max_{1\\leq j\\leq m_t+1}(T_j^{[t]}-T_{j-1}^{[t]})\\leq\\frac{C_t}{m_t}\n\\quad\\text{and}\\quad\n\\max_{1\\leq j\\leq m_s+1}(T_j^{[s]}-T_{j-1}^{[s]})\\leq\\frac{C_s}{m_s}\n\\]\nwhere $C_t,C_s>0$ are some constants as well as $T_0^{[t]}=T_0^{[s]}=0$ and $T_{m_t+1}^{[t]}=T_{m_t+1}^{[s]}=1$. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of the algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- Any bandwidth $b_t=\\lceil m_t/2B_t(d_t+1)\\rceil^{-1}$ for constant $B_t\\geq C_t$,\n- The threshold $M_t=\\log n_t$.\n\nPlus, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Any bandwidths $b_s=\\lceil m_s/2(d_s+1)B_s\\rceil^{-1}$ and $b_\\delta=\\lceil m_t/2(d_\\delta+1)B_\\delta\\rceil^{-1}$ for any given constants $B_s\\geq C_s$ and $B_\\delta\\geq C_t$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Theorem 2.2 — assumptions and base-estimator specifications"
+        },
+        {
+          "page": 9,
+          "location": "Theorem 2.2 — assumptions and base-estimator specifications"
+        }
+      ],
+      "resolution": "Theorem 2.4 and Algorithm 3 reuse these common-design gap, degree, bandwidth and threshold conditions. All ceilings and the incorrect source endpoint indexed by m_t+1 remain literal. The later oracle choice between risk expressions is not the adaptive empirical choice."
+    },
+    {
+      "auxiliary_id": "A6",
+      "statement_original": "\\[\nR_C(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^2m_t^{-2\\alpha_m}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_C(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_\\delta^2m_t^{-2\\alpha_\\delta}+\\frac{\\log^2(n_tn_s)}{n_t}\n+L_m^2m_s^{-2\\alpha_m}+\\frac{\\log^2(Kn_s)}{Kn_s}.\n\\]",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Theorem 2.2 — definitions of R_C"
+        }
+      ],
+      "resolution": "These are the two explicit scalar risk bounds reused in Theorem 2.4. R_C is not an expectation-based functional newly applied to arbitrary estimators; the source defines it only at the two named candidates. Their complete formulas remain local inherited definitions, separate from the adaptive estimator."
+    },
+    {
+      "auxiliary_id": "A7",
+      "statement_original": "Suppose the distributions $\\eta_t$ and $\\eta_s$ for target and source design points are dominated by the Lebesgue measure, and their densities are bounded from below by a constant $C_t,C_s>0$ and from above by $\\Gamma_t,\\Gamma_s>0$, respectively. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- For any constant $B_t\\geq\\Gamma_t$, bandwidth:\n\\[\nb_t=\\left\\lceil(L_m^2m_tn_t)^{1/(2\\alpha_m+1)}(\\log n_t)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_tm_t\\rceil^{-1},\n\\]\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- The threshold $M_t=\\log n_t$.\n\nBesides, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- For any constants $B_s\\geq\\Gamma_s$ and $B_\\delta\\geq\\Gamma_t$, bandwidths:\n\\[\nb_s=\\left\\lceil(L_m^2Km_sn_s)^{1/(2\\alpha_m+1)}\\big(\\log(Kn_s)\\big)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_sKm_s\\rceil^{-1},\n\\]\n\\[\nb_\\delta=\\left\\lceil(L_\\delta^2m_tn_t)^{1/(2\\alpha_\\delta+1)}\\big(\\log(n_tn_s)\\big)^{-2/(2\\alpha_\\delta+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_\\delta m_t\\rceil^{-1}.\n\\]\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Theorem 3.2 — assumptions and base-estimator specifications"
+        },
+        {
+          "page": 14,
+          "location": "Theorem 3.2 — assumptions and base-estimator specifications"
+        }
+      ],
+      "resolution": "Theorem 3.4 inherits these independent-design hypotheses: absolute continuity and positive lower/upper density bounds, plus the stated base-estimator specifications. Algorithm 4 uses its own printed candidate grid. The conflict between that grid and the theorem-optimal bandwidth formulas is documented, not repaired."
+    },
+    {
+      "auxiliary_id": "A8",
+      "statement_original": "\\[\nR_I(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2 n_t}{m_tn_t}\\right)^{2\\alpha_m/(2\\alpha_m+1)}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_I(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2(Kn_s)}{Km_sn_s}\\right)^{2\\alpha_m/(2\\alpha_m+1)}\n+\\frac{\\log^2(Kn_s)}{Kn_s}\n+L_\\delta^{2/(2\\alpha_\\delta+1)}\n\\left(\\frac{\\log^2(n_tn_s)}{m_tn_t}\\right)^{2\\alpha_\\delta/(2\\alpha_\\delta+1)}\n+\\frac{\\log^2(n_tn_s)}{n_t}.\n\\]",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Theorem 3.2 — definitions of R_I"
+        }
+      ],
+      "resolution": "These two explicit scalar rate expressions give the right side in Theorem 3.4. Every exponent, radius factor, logarithm, source count K and denominator is retained. They are not identified with R_C or with observed empirical validation losses."
+    },
+    {
+      "auxiliary_id": "A9",
+      "statement_original": "It is further assumed for brevity that the target sample $\\mathcal D^{[t]}$ contains $2n_t$ subjects, which does not affect the rate of convergence.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Sections 2.3 and 3.3 — adaptive sample-size convention"
+        },
+        {
+          "page": 16,
+          "location": "Sections 2.3 and 3.3 — adaptive sample-size convention"
+        }
+      ],
+      "resolution": "Both adaptive sections use 2n_t total target subjects, split into training and test groups of n_t each. This is an explicit convention change, not a missing factor in the stored theorems. Repetitions reuse the observed data; the statements do not claim new independent samples at each repetition."
+    },
+    {
+      "auxiliary_id": "A10",
+      "statement_original": "Although the design points of the target sample are fixed, we have assumed $\\max_{j=1,\\ldots,m_t+1}(\\Delta T_j^{[t]})=o(m_t^{-1})$, ensuring that the Riemann sum serves as a robust proxy for the functional $\\mathcal L^2$-loss.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "After Algorithm 3 — stated mesh claim"
+        }
+      ],
+      "resolution": "The printed little-o conflicts with Theorem 2.2’s big-O mesh condition and is impossible for an ordered grid with endpoints 0 and 1: the m_t+1 gaps sum to one. The actual theorem inherits the bound in Theorem 2.2, not a silently corrected version of this prose."
+    },
+    {
+      "auxiliary_id": "A11",
+      "statement_original": "It should be noted that the lists of candidate bandwidths proposed in Algorithm 4 always include the optimal bandwidths, presented in Theorem 3.2, for the conventional and transfer learning algorithms.",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Section 3.3 — candidate-bandwidth claim"
+        }
+      ],
+      "resolution": "Algorithm 4 prints positive dyadic values, whereas its called base algorithm requires reciprocal positive integers and Theorem 3.2 uses reciprocal ceilings. Even a reciprocal-dyadic repair would not generally give literal inclusion of arbitrary reciprocal ceilings. No replacement grid is invented."
+    },
+    {
+      "auxiliary_id": "A12",
+      "statement_original": "We have never made any specific assumptions or constraints regarding the relationships between smoothness parameters, $\\alpha_m$ and $\\alpha_\\delta$.",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Section 1.1 continuation — unrestricted smoothness order"
+        }
+      ],
+      "resolution": "The subsequent discussion of useful transfer learning assumes alpha_delta>alpha_m for that comparison. It does not narrow the eight theorem statements or the full parameter class."
+    }
+  ],
+  "unresolved_source_conventions": [
+    {
+      "key": "noise_centering_and_design_independence",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Observation models and Assumption 1"
+        },
+        {
+          "page": 5,
+          "location": "Observation models and Assumption 1"
+        },
+        {
+          "page": 6,
+          "location": "Observation models and Assumption 1"
+        },
+        {
+          "page": 12,
+          "location": "Observation models and Assumption 1"
+        }
+      ],
+      "note": "The main-text formulas call the noises independent and bound their uncentered absolute tails, but do not explicitly state zero means or independence between design points, curves and noises. A tail bound alone does not give mean-zero errors; these omissions can matter for identifying f^[t] from Y. The census does not supply extra assumptions or certify the rates under a repaired model."
+    },
+    {
+      "key": "subgaussian_pointwise_scope",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Assumption 1"
+        },
+        {
+          "page": 6,
+          "location": "Assumption 1"
+        }
+      ],
+      "note": "The bounds hold for each given x with a common proxy, not for the supremum over x inside probability. Only subject/noise indices 1 and 11 are printed in the tail formulas. Subject copies are identically distributed, but identical noise laws are not stated explicitly in the observation prose. The original quantifier scope is preserved."
+    },
+    {
+      "key": "balanced_count_wording",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Equation (4)"
+        }
+      ],
+      "note": "The prose suggests identical target and source counts, while the equations use distinct n_t,n_s,m_t,m_s. Subsequent formulas depend on their distinction. The exact equations control the recorded convention; no equalities across target and source are added."
+    },
+    {
+      "key": "conventional_class_projection",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Theorems 2.1 and 3.1"
+        },
+        {
+          "page": 6,
+          "location": "Theorems 2.1 and 3.1"
+        },
+        {
+          "page": 12,
+          "location": "Theorems 2.1 and 3.1"
+        }
+      ],
+      "note": "The symbol P is introduced for the full transfer model and reused when n_s=0. The source does not separately formalize the projected law class. D17 preserves the original paragraph plus both no-source passages, and records its target-only application without importing source observations or transfer algorithms."
+    },
+    {
+      "key": "holder_and_degree_convention",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Hölder class and polynomial degrees"
+        },
+        {
+          "page": 7,
+          "location": "Hölder class and polynomial degrees"
+        },
+        {
+          "page": 9,
+          "location": "Hölder class and polynomial degrees"
+        },
+        {
+          "page": 17,
+          "location": "Hölder class and polynomial degrees"
+        }
+      ],
+      "note": "Omega(alpha) is the largest integer strictly below alpha. Algorithm 1 separately requires a positive integer degree, even where omega(alpha)=0. The degree constraints in both adaptive procedures still refer to unknown smoothness; a fixed known upper smoothness bound is not stated in these passages. Adaptivity is not strengthened beyond the source’s actual conditions."
+    },
+    {
+      "key": "threshold_radius_overload",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Equation (3) and estimator thresholds"
+        },
+        {
+          "page": 3,
+          "location": "Equation (3) and estimator thresholds"
+        },
+        {
+          "page": 9,
+          "location": "Equation (3) and estimator thresholds"
+        },
+        {
+          "page": 14,
+          "location": "Equation (3) and estimator thresholds"
+        }
+      ],
+      "note": "M_delta first denotes a fixed supremum bound for a difference function, and later denotes a growing algorithm threshold log(n_t n_s). These roles are distinguished in the analysis while retaining the same source symbol. They are not equated as model parameters."
+    },
+    {
+      "key": "common_source_endpoint",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Theorem 2.2"
+        }
+      ],
+      "note": "The source design endpoint is printed T_[m_t+1]^[s]=1 although the source gap maximum runs to m_s+1. The m_t index is retained in the original statement and inherited hypothesis archive; it is not changed to m_s."
+    },
+    {
+      "key": "bandwidth_slash_scope",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Theorem 2.2 bandwidths"
+        },
+        {
+          "page": 9,
+          "location": "Theorem 2.2 bandwidths"
+        }
+      ],
+      "note": "The common bandwidths use slash notation such as ceil(m_t/2 B_t(d_t+1))^-1 without denominator parentheses. The literal typeset expressions are preserved rather than choosing a new operator grouping in the original statement."
+    },
+    {
+      "key": "packing_covering_existence",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Algorithm 1, step 4"
+        }
+      ],
+      "note": "The source requires a 1/m-packing and 1/(2m)-covering subcollection of arbitrary design points. Simultaneous existence is not established by the printed instruction, and it is not the standard maximal-packing radius pair. No replacement separation or coverage radius is substituted."
+    },
+    {
+      "key": "empty_interval_selection",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Algorithm 1, steps 2,4,6"
+        },
+        {
+          "page": 13,
+          "location": "Algorithm 1, steps 2,4,6"
+        }
+      ],
+      "note": "Uniform selection from each subject’s observations in each interval is undefined when that set is empty. This can occur for independent designs even under positive bounded densities, especially with the displayed small bandwidths. The later least-squares fallback does not define the preceding empty-set draw. No implicit skip rule is added."
+    },
+    {
+      "key": "least_squares_free_index",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Algorithm 1, step 8"
+        }
+      ],
+      "note": "The regression basis contains q-1 even though the interval index is r and q is not bound. Step 9 instead uses r-1. The free q is preserved and separately flagged."
+    },
+    {
+      "key": "algorithm_selection_conventions",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Algorithms 1 and 2"
+        },
+        {
+          "page": 8,
+          "location": "Algorithms 1 and 2"
+        }
+      ],
+      "note": "The source does not specify interval endpoint assignment or a measurable tie-break among nonunique polynomial fits. It specifies zero when a solution is unavailable. Its set notation for pooled data also requires preserving multiplicities and distinct subject identities to represent K n_s subjects. These implementation conventions are recorded as unresolved, not inserted into source quotations."
+    },
+    {
+      "key": "adaptive_mesh_little_o",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Prose after Algorithm 3"
+        }
+      ],
+      "note": "The claimed max gap=o(1/m_t) is incompatible with m_t+1 nonnegative gaps summing to one. The theorem’s actual inherited bound is at most C_t/m_t. The weighted empirical loss itself sums only j=1,...,m_t and leaves the final endpoint gap out, as printed."
+    },
+    {
+      "key": "independent_lower_bound_source_index",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Theorem 3.3"
+        }
+      ],
+      "note": "The estimator’s last source argument is D^[s,ell], while the experiment and rate use K source populations. Ell is not defined in this theorem. The original ell remains; the mismatch is not silently repaired."
+    },
+    {
+      "key": "adaptive_positive_dyadic_bandwidths",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Algorithm 4, steps 5 and 11"
+        },
+        {
+          "page": 17,
+          "location": "Algorithm 4, steps 5 and 11"
+        }
+      ],
+      "note": "The candidate sets use 2^r for positive r, incompatible with b in 1/Z+ required by the called base algorithm. The claimed literal inclusion of the theorem-optimal bandwidths also does not follow from a dyadic grid. Both source passages are retained."
+    },
+    {
+      "key": "adaptive_duplicate_threshold",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Algorithm 4, step 10"
+        }
+      ],
+      "note": "Both assignments are to M_s: log n_s and log n_t n_s. M_delta is subsequently passed to A_TL but is not assigned by this step. The second M_s is preserved."
+    },
+    {
+      "key": "adaptive_density_constants",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Theorem 3.2 versus Algorithm 4"
+        },
+        {
+          "page": 17,
+          "location": "Theorem 3.2 versus Algorithm 4"
+        }
+      ],
+      "note": "Theorem 3.2 requires B_t,B_delta at least Gamma_t and B_s at least Gamma_s, the upper density bounds. Algorithm 4 instead prints the lower bounds C_t,C_s. Moreover, its B constants do not appear in the candidate-grid formulas. No substitution is made."
+    },
+    {
+      "key": "logarithm_and_positive_input_domains",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Algorithms and upper-bound specifications"
+        },
+        {
+          "page": 8,
+          "location": "Algorithms and upper-bound specifications"
+        },
+        {
+          "page": 9,
+          "location": "Algorithms and upper-bound specifications"
+        },
+        {
+          "page": 13,
+          "location": "Algorithms and upper-bound specifications"
+        },
+        {
+          "page": 14,
+          "location": "Algorithms and upper-bound specifications"
+        }
+      ],
+      "note": "Positive thresholds and negative powers of logarithms require suitable positive sample sizes, in particular n_t,n_s>1 where these choices are used. This fits eventual asymptotic use but is not a claim of well-definedness for every small integer sample size. Conventional n_s=0 formulas do not invoke the source-logarithm prescriptions."
+    }
+  ],
+  "standard_ambient_resolution": {
+    "shared": "The target random-function experiment is D1 and the source experiment D2. Equation (4) in A1 resolves the balanced sample sizes and common design type. D3 is the bounded Hölder class, including the strict-integer function omega. D4 is the mean/difference restriction and D6 is the pointwise tail assumption; these are conditions on supplied functions/variables, with the observation interpretation fixed separately by P. D7 is the full transfer law class; D17 records the source-backed conventional target-only restriction. Common and independent designs are D8 and D9. A2 resolves functional norms, asymptotic constants and tilde notation. Standard ambient objects are expectation, probability, Lebesgue density/integration, iid sampling, finite sums, min/max, suprema/infima, argmin, ceilings, indicator functions, logarithms and positive integers. No appendix or separate supplement was used.",
+    "2.1": "The target-only class D17 and sample D1 are explicit through n_s=0. D8 is restricted to the target grid. C_t, endpoints and max-gap bound are inline, as are the infimum over all target-data estimators and its risk formula. Alpha_m,L_m come from D4/D3; tau and fixed supremum bounds are in the model. The tilde rate and squared L2 norm are A2. No particular regression algorithm is required to state the all-estimator minimax result.",
+    "2.2": "D7 supplies the transfer model and D8 the common design. The target/source gap inequalities, endpoints, all degree/bandwidth/threshold choices, the oracle selection rule and both R_C expressions are fully inline in the original theorem. D11 and D12 resolve the named candidate estimators and hence D10. Omega is D3. A5 and A6 preserve reusable hypothesis/rate passages for the adaptive theorem. The common source-endpoint index and slash notation remain literal.",
+    "2.3": "The theorem ranges over arbitrary estimators based on target D1 and source D2 data, with full class D7 and common design D8. Its rate is inline. It does not require the particular upper-bound algorithm, the upper spacing bounds of Theorem 2.2, its logarithmic thresholds or oracle comparison. The mean/difference regularity is inherited through P, not through a proof reference.",
+    "2.4": "The opening reference inherits the full common-design hypotheses and base-estimator specifications of Theorem 2.2, archived in A5. Algorithm A_ALC is D14, with target total 2n_t from A9 and the spacing-weighted empirical comparison. R_C is resolved by A6. The positive repetition count and averaging formula (5) are inline; repeated algorithm randomizations are not assumed to produce independent new data. The impossible little-o mesh remark A10 is not added as a theorem hypothesis.",
+    "3.1": "Section 3.1 explicitly supplies n_s=0, so P is the target-only specialization D17. The design law eta_t comes from D9 and the statement explicitly adds absolute continuity and positive lower C_t/upper Gamma_t density bounds. The estimator quantifier is target-data only. Its rate is inline; neither source-density conditions nor a specific algorithm are needed. The statement’s concluding estimator clause continues onto page 13.",
+    "3.2": "The model is D7 with the independent design D9, by A3’s explicit design replacement. The statement binds both two-sided density bounds, every bandwidth ceiling/cap, the constant degree conditions, thresholds, oracle choice and R_I formulas. D11,D12 resolve the named outputs and D3 resolves omega. A7/A8 archive the inherited specifications and rates. These choices differ from the common-design theorem and are not merged.",
+    "3.3": "The full transfer class D7 and independent design D9 are imposed. The infimum is over arbitrary estimators of target and source data, not the proposed algorithm. The rate and all factors K are inline. The lower-bound statement does not explicitly assume the upper-bound density conditions. The last source index ell is preserved and unresolved rather than replaced by K.",
+    "3.4": "The opening reference inherits Theorem 3.2’s hypotheses, archived in A7, while A_ALI is the distinct candidate-grid procedure D16. A9 supplies 2n_t total target subjects. The right-hand R_I quantities are defined in A8, and r_max plus the averaging formula (6) are inline. The source algorithm’s positive dyadic grid, duplicate M_s and density-constant mismatch remain documented. No common-design packing branch or weighted validation loss is imposed as an independent-design assumption."
+  }
+}

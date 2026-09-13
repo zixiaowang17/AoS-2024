@@ -1,0 +1,1019 @@
+[
+  {
+    "interface_id": "local-c3d6a31130e861436db0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "8d09bfd49bc20e8344e9e3e18097a55a374613f127373e2b2fbc85dd94ffb560",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D1",
+        "comparison": "For positive u, map the law of X-star by x↦u^(-1)x and scale its mass by a-star(u), retaining measurability and nonnegative scaling. Test integrals can express vague convergence only after the cone, locally finite/Radon measure conventions and compactly supported test class have been fixed; the scaled measures are not probability measures. Homogeneity of order -1 means mu-star(c A)=c^(-1)mu-star(A) for positive c on the appropriate measurable sets and is additional structure. The source prints E=[0,infinity)^d including zero, leaving the usual origin-exclusion/topology issue unresolved. Do not silently repair E, infer unit marginal normalization from this clause alone, or require the separate non-standard model just to state regular variation of X-star.",
+        "statement_sha256": "eb18ce5256c75c9c719b4e3498b041fcc8818287e670d863b09a168cf1115a19"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched MeasureTheory, Probability and Analysis/Asymptotics for vague convergence and regular variation; inspected map, integral and Tendsto, and contrasted the probability-measure weak-convergence characterization.",
+          "result": "Pushforward, scaling, test integrals and convergence provide ingredients, but the bounded search found no specialized multivariate regular-variation predicate; weak convergence of probability measures is not the displayed vague convergence of scaled tail measures."
+        }
+      ],
+      "gap": "Specify the origin-excluded cone or intended topology, then define vague convergence of the scaled pushforward laws to a nonzero homogeneous exponent measure."
+    }
+  },
+  {
+    "interface_id": "local-42ce7ede46d6c6b38be6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "41cdc371201c9b4f173e0804462766f109c38e3c9dfaa8aa326c8f21f2ca583c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D4",
+        "comparison": "Evaluate mu-star on {x in E: max-norm(x)>1}, then state convergence of a-star(u)*P(max-norm(X-star)>u) to that mass. The exponent measure can have infinite total mass; only the particular tail event must have finite mass before using Measure.real, whose toReal would otherwise erase infinity. Under the separately stated unit marginal normalization the full coefficient satisfies 1<=tau<=d. Use the maximum norm on nonnegative coordinates, not a Euclidean norm introduced by convenience, and preserve the explicit scale tau in later spectral expectations. Neither existence of the limit nor its equality follows from the real-event-mass constructor alone.",
+        "statement_sha256": "066b45ee420652b582751308a6afcc885fdb9881c3c786a4391b0c63ef868eac"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Measure.real and Tendsto against the full-coordinate extremal coefficient D4 and the normalized-margin source context.",
+          "result": "Real mass of a finite tail event and the scalar tail limit are expressible; the extremal coefficient and its relation to the spectral probability law require a statistical definition and proof."
+        }
+      ],
+      "gap": "Define the full maximum-norm exponent mass and establish its tail-limit identity and normalization bounds without absorbing it into the spectral probability law."
+    }
+  },
+  {
+    "interface_id": "local-c67a0338097bf6889256",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "cf255cefaa12bdeec0deb3f87210d4fbe1b9087ca36023ce8fbc6c566e2fc424",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D2",
+        "comparison": "For each i require mu-star({x:x_i>1})=1 and Tendsto (fun u => a-star(u)*P(X-star_i>u)) atTop (nhds 1), using real event masses only where finite. The same a-star applies to all coordinates. The equivalent asymptotic reciprocal-tail statement needs eventual nonzero tails and a consistent scalar equivalence convention. Keep the inverse in a-star(u)~1/P(X-star_i>u); later source prose omits it and is recorded as a discrepancy. Neither this condition nor D1 asserts that X-star_i already has the exact standard Pareto law at finite thresholds.",
+        "statement_sha256": "946e85e9c3a926118cac77ba9f4af9c65b204b8ff00ab048a8274ce973925c0e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real event mass and scalar convergence against D2 and the source note contrasting equation (3) with the later missing-inverse prose.",
+          "result": "Coordinate tail masses and their scaled limits to one are straightforward ingredients; they impose asymptotic marginal normalization rather than exact finite-threshold Pareto distributions."
+        }
+      ],
+      "gap": "State the unit exponent mass and scaled-tail convergence for every coordinate, with the reciprocal-tail equivalence and its eventual positivity justified."
+    }
+  },
+  {
+    "interface_id": "local-eab2f02234e3fc69eb4f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "8e0f66b64fe53c4bc6eb2f215270e5f975700dfb9cbfa5828327a5e93821a295",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D3",
+        "comparison": "Take Y with paretoMeasure 1 1, use IndepFun Y Theta, and require Theta nonnegative with norm one almost surely. The paper subsequently fixes the maximum norm; equivalence of finite-dimensional norms does not make the numerical spectral law identical for different norms. For each sufficiently large u condition the source law on {norm(X-star)>u}, requiring positive event probability, and push forward by division by u. The weak-convergence lemma applies after these are bundled as probability measures and to the law of Y*Theta, not to the unnormalized exponent measures of D1. The spectral probability law is separate from mu-star and tau. Later covariance factors use the same jointly sampled Y and Theta, not two independent copies.",
+        "statement_sha256": "f849e793a825812e92c7cef9452aad6105a81a10afbac1e34191339f51ae0df7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.paretoMeasure",
+          "type": "ℝ → ℝ → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Pareto",
+          "provides": "Pareto measure with scale and shape parameters, defined by its density against Lebesgue measure; positive parameters give a probability law, and scale one and shape one give the unit Pareto radial law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Pareto.lean#L118-L119",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto",
+          "type": "{Ω : Type*} → [MeasurableSpace Ω] → [TopologicalSpace Ω] → [OpensMeasurableSpace Ω] → {γ : Type*} → {F : Filter γ} → {μs : γ → MeasureTheory.ProbabilityMeasure Ω} → {μ : MeasureTheory.ProbabilityMeasure Ω} → (Filter.Tendsto μs F (nhds μ) ↔ ∀ f : Ω →ᵇ ℝ, Filter.Tendsto (fun i ↦ ∫ ω, f ω ∂(μs i : MeasureTheory.Measure Ω)) F (nhds (∫ ω, f ω ∂(μ : MeasureTheory.Measure Ω))))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Weak convergence of probability measures is equivalent to convergence of integrals against all bounded continuous real test functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L364-L368",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Located and inspected paretoMeasure and its density/probability theorem; inspected IndepFun, event conditioning and probability-measure weak convergence against D3.",
+          "result": "The unit Pareto law, independence, positive-event conditioning and weak probability convergence are available as components; the spectral law and the regular-variation equivalence remain to be established."
+        }
+      ],
+      "gap": "Construct an independent unit-Pareto radial variable and sphere-supported spectral probability law, and prove weak convergence of the conditioned scaled observations."
+    }
+  },
+  {
+    "interface_id": "local-c00dd866db165194d142",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "bd8e01cb3d8b5121f1e69ee30a81b7d16c3ed621ad0e193ea87cb06f0c6add76",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D5",
+        "comparison": "Use PiLp 1 for the sum-of-absolute-values norm or explicitly require all v_i>=0 and sum_i v_i=1. A plain function-space norm is a maximum norm and would change the set. The printed nonnegative orthant permits zero weights despite the prose word positive; do not require strictly positive coefficients. The set is the l1-unit boundary in that orthant, not the l1 ball with sum<=1. Masking outside I can lower the sum below one and is not automatically another member of this simplex without an explicit domain extension.",
+        "statement_sha256": "75b5c85f662a111bef1a83cd0764ab122841231e0999699095f4a1a1f0047017"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiLp.norm_eq_of_L1",
+          "type": "{ι : Type u} → [Fintype ι] → {β : ι → Type v} → [∀ i, SeminormedAddCommGroup (β i)] → (x : PiLp 1 β) → ‖x‖ = ∑ i : ι, ‖x i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.PiLp",
+          "provides": "The finite L1 product norm equals the sum of coordinate norms, giving the full sum-of-absolute-coefficients penalty for real vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/PiLp.lean#L759-L760",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected PiLp.norm_eq_of_L1 and Set.ofPred against the source's l1-boundary context and nonnegative weight domain D5.",
+          "result": "The finite l1 norm identifies the nonnegative unit sphere with vectors whose coordinates sum to one; a new domain predicate records the exact simplex convention."
+        }
+      ],
+      "gap": "Define the nonnegative l1-unit weight simplex, allowing zero entries and keeping it distinct from its coordinate-masked images."
+    }
+  },
+  {
+    "interface_id": "local-7a5320e9a9bc8ee58392",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "09061ff5b04ec97db8d71587b2a466d3636e1803e0ed8fc1b629478108a0bc31",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D27",
+        "comparison": "Map x to the vector with coordinate r_i^(-1)*x_i^(alpha_i), requiring nonnegative x_i and positive r_i and alpha_i. Real.rpow has the intended nonnegative-base meaning, including zero to a positive exponent; map needs measurability. Require the transformed law to satisfy the separate D1 condition with the common a-star and homogeneous exponent measure. The original marginal indices may differ; the passage does not impose pairwise unequal indices as an additional condition. Theorem 8's unindexed power alpha conflicts with the surrounding coordinatewise model and its own alpha_i*alpha_j covariance; preserve both texts rather than silently making all indices equal.",
+        "statement_sha256": "e53e15eff826297266e05ee9f51480089ccf77f934afedfcd9deabd1313d97ed"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Real.rpow and map after the bounded regular-variation search; compared coordinate-indexed standardization D27 with the retained unindexed-alpha discrepancy in Theorem 8.",
+          "result": "Positive coordinate powers and pushforward laws express the standardization map, but do not prove regular variation or justify replacing the coordinate indices by one common exponent."
+        }
+      ],
+      "gap": "Define the coordinate-specific positive power/scaling transformation and impose index-one regular variation on its law while retaining the theorem's inconsistent exponent notation."
+    }
+  },
+  {
+    "interface_id": "local-36df4d5f206ee74807a7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "c4fb3d1e4e67765d988cc15a91da2cf5b34dd90ba6cacbfc1450cbcdee6afba0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D10",
+        "comparison": "Keep (s-circle-X-star)^(1/beta) coordinatewise as s_i^(1/beta_i)*X-star_i^(1/beta_i), with beta_i in the positive closed interval [(1+delta)^(-1),1+delta] and delta>=0. A_delta,I simultaneously requires every coordinate strictly positive and coordinates off I equal zero; for proper I this is literally empty. The intended masked nonnegative interpretation is recorded separately, not substituted. Retain the unions over nonempty subsets, the active-coordinate interval bounds and the product with the beta box. Zero inactive coordinates would be compatible with positive rpow exponents under an amended nonnegative domain, but full coordinate derivatives at inactive zeros or boundaries still need a relative/extension convention.",
+        "statement_sha256": "204ee596df185a50c7e1ad69fd6608f0d231484477fc59de0bb2b88ab1ef6993"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real powers, closed intervals and predicate-defined sets against the full D10 perturbation formula and the positive-orthant/source-support conflict.",
+          "result": "Coordinatewise powers, products and finite support strata are representable, but the literal source domain excludes all proper-support strata and cannot be silently corrected by a library set constructor."
+        }
+      ],
+      "gap": "Define the perturbation and printed index domains while recording the orthant inconsistency and the additional domain conventions needed at masked coordinates."
+    }
+  },
+  {
+    "interface_id": "local-1c6c289e97736b96510d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "a04618a2ebdc5e3d09830c4069e5a1c2c985c513bbfefdf9ca0c48bdfc8e5f3a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D20",
+        "comparison": "For each i choose positive A-star_i(t) tending to zero as t tends to infinity; for every scalar s>0 require the displayed quotient to converge to K_i(s). Its denominator is A-star_i(a-star(x)), not A-star_i(x), and the numerator is a-star(x)*P(X-star_i>x*s)-s^(-1). Nontrivial means K_i is not identically zero for each coordinate, not K_i(s)!=0 at every s; in particular no such pointwise nonzero condition is added at s=1. The limit is pointwise in s unless more is explicitly assumed. Theorem 8 separately adds sqrt(k_n)*A-star_i(n/k_n) tending to zero; Theorem 5 does not inherit either condition, while Theorem 10 imports the relevant assumptions through Theorem 8.",
+        "statement_sha256": "e179b895685b7193d6d0e30d299e6e215a020f74e60dc98523c727988b2cc621"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected scalar convergence and real event mass against every argument in the second-order condition D20 and its theorem-specific rate imports.",
+          "result": "The positive auxiliary functions and scalar limits can be stated with Tendsto; no specialized second-order multivariate-tail condition was found in the bounded search."
+        }
+      ],
+      "gap": "Assemble the coordinatewise second-order tail limits with positive vanishing auxiliary functions and nontrivial limit functions, keeping additional sequence-rate assumptions separate."
+    }
+  },
+  {
+    "interface_id": "local-17f213afa7acee1f465e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "0257c02eea6f89bcf0ac0b275c8a56efff0b142eda83eccb005f6edfddd7d63a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D11",
+        "comparison": "For each l form z_l=(s-circle-X-star_l/u)^(1/beta) coordinatewise, take (dotProduct v (z_l/norm(z_l)))^p, and average only on the strict exceedance event. Use the maximum norm, u>0 and beta_i>0 so norm(z_l)>1 iff norm(s-circle-X-star_l)>u; this equivalence is not valid merely by notation for arbitrary signed inputs or nonpositive powers. A guarded Set.indicator can evaluate the angular ratio only on the exceedance set, where its norm denominator is positive; the source does not specify all zero-angle behavior outside it. p is a nonnegative integer and the normalization is 1/n, not reciprocal exceedance count. Evaluation on data does not require iid assumptions, which belong to the theorem. Retain the separately noted literal defect in A-prime_delta.",
+        "statement_sha256": "c2e60f0b74d674c55a30c0140957b606e9671857995f4909f84cad96e3061ff1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected dotProduct, indicator, real powers and finite sums against both displayed forms of the generalized deterministic-threshold moment D11.",
+          "result": "The weighted angular power and guarded finite average are composable ingredients; the source's zero-angle convention and perturbation-domain defect need explicit treatment."
+        }
+      ],
+      "gap": "Define the guarded powered angular sample average with deterministic threshold and prove the two exceedance predicates agree on the positive-power domain."
+    }
+  },
+  {
+    "interface_id": "local-aba2e88973f2bddbecf9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "1cf3bc0ac170beeda1b807275a4c3eb5dce868aa6f7b6b84818aa39933965b8b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D6",
+        "comparison": "Take the finite nonempty I and maximize i↦x_i in the real linear order; the theorem supplies an attaining coordinate and equality of the maximum value is independent of ties. The expression has no absolute values, so on unrestricted signed vectors it is not the usual sup norm; the paper's vectors are nonnegative. For a proper subset it ignores all coordinates outside I and is not a norm on all d coordinates. Do not replace it by a sum, a full-coordinate maximum or an empty-set default; nonempty I is retained in the theorem and estimator domains.",
+        "statement_sha256": "ab543a4bb90a4a3ce21ba9e8400bc967232bf3a343a83b669c93ff490c338aa7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.exists_max_image including its proof and linear-order/nonempty hypotheses against the subset functional ell_I in D6.",
+          "result": "A coordinate maximum over a nonempty finite subset is attained; a definition selecting its value and the paper's domain restrictions remain to be supplied."
+        }
+      ],
+      "gap": "Define ell_I as the nonempty finite coordinate maximum, keeping it distinct from a norm on the full coordinate space."
+    }
+  },
+  {
+    "interface_id": "local-4c21233bdc63472abbb6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "b99401a562c1735be492a24639c4426ac78de26c6bc5e7bf7887822aff9b2736",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D8",
+        "comparison": "For nonempty I evaluate mu-star({ell_I(x)>1}) and the limit of a-star(u)*P(ell_I(X-star)>u); finite mass of this tail set is required even though mu-star need not be finite globally. The equality tau_I=tau*E[ell_I(Theta)] uses the original spectral probability law and full coefficient tau, and the range is [1,card(I)]. It is not a rescaled probability law silently absorbing tau. The full-coordinate case recovers tau and the singleton case is one under unit marginal normalization. tau_ij is the set {i,j} coefficient, so for i=j the set is a singleton, not a two-element multiset; this matters for covariance diagonals.",
+        "statement_sha256": "81c86f78dfc4e0cdae088a6601ca7cd70ebe454d1653ca9a74042bd8b5313c86"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected event mass, expectation and scalar convergence against both subset coefficient identities (13) and (14), including the pair specialization.",
+          "result": "The tail mass, scaled probability limit and spectral expectation are available as ingredients, but their equality and the subset normalization bounds require the extreme-value model."
+        }
+      ],
+      "gap": "Define the subset extremal coefficient and prove its tail-limit and tau-times-spectral-expectation identities with bounds for every nonempty subset."
+    }
+  },
+  {
+    "interface_id": "local-9c6ce87928a43ac88bb5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "9638ee7a6833ef0bb653698e26aeb9f386dd4b23f4c9e88bce3a543a77e5aa38",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D16",
+        "comparison": "For each coordinate sort the multiset of n observed values in descending real order and select zero-based position k-1 for 1<=k<=n. A finset of values would discard ties and change ranks. Form the vector of these coordinatewise statistics rather than selecting one jointly ranked observation vector, and retain X_{k:n,i}>0 for every coordinate before taking ratios. Strictly exceeding the kth upper value yields k-1 observations in a tie-free sample and possibly fewer with ties; neither k/n nor an unstated no-tie condition may replace the actual exceedance proportion. That proportion is independently defined, not dependent on Hill fitting.",
+        "statement_sha256": "e0aabb9d7bb48d1c74c50c4aaed87db820906e9d7ea052396866216d3ce95230"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Multiset.sort",
+          "type": "{α : Type u} → (s : Multiset α) → (r : α → α → Prop) → [DecidableRel r] → [IsTrans α r] → [Std.Antisymm r] → [Std.Total r] → List α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Multiset.Sort",
+          "provides": "Sorts a multiset into a list under a total antisymmetric order while preserving multiplicities; implemented by quotient-lifted merge sort.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Multiset/Sort.lean#L30-L34",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Multiset.sort and its multiplicity-preserving quotient/merge-sort body, contrasting Finset.sort with D16's kth upper sample order statistic.",
+          "result": "A sorted multiset preserves repeated observed values and can supply the kth upper value in each coordinate; positivity and a valid rank are additional source conditions."
+        }
+      ],
+      "gap": "Define coordinatewise kth upper order statistics with multiplicities, valid rank indices and positive denominator assumptions, preserving strict exceedances and ties."
+    }
+  },
+  {
+    "interface_id": "local-e95078bee9f280a7d9ff",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "494d5fb0e4d20c7c45128a0a3e707586d3180e48731498d0a2667b6532decfa9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D19",
+        "comparison": "For singleton {i}, ell_{i}(X_l/X_{k:n}) is the coordinate ratio X_li/X_{k:n,i}. On its strict >1 event the logarithm is positive and well-defined, so a guarded indicator can avoid relying on Real.log's extension at zero outside the event. Divide the n-normalized sum of these log exceedances by the actual P-tilde_{n,k,{i}}, not k/n; this equals the average over observed exceedances only when their count is positive. k=1 or ties can leave no exceedances, an unresolved source case rather than a reason to adopt total real division silently. The displayed functional defines 1/alpha-hat, and recovering alpha-hat requires another reciprocal. Prose k,n versus display n,k is retained; the vector estimate and its inverse are coordinatewise, not matrix operations.",
+        "statement_sha256": "f37fc672d4a46237d9b2aa1f6e757b00a864c3f03083c9a647088c19a134ed36"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for Hill estimators and inspected log, indicator and finite sums against D19 and the independently archived exceedance denominator.",
+          "result": "A guarded average of logarithmic coordinate ratios is representable, but the estimator requires positive order statistics and a nonzero strict-exceedance denominator."
+        }
+      ],
+      "gap": "Define the reciprocal Hill estimate using the actual strict-exceedance proportion and explicit zero-denominator conventions while preserving the source's index-order discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-abd1b98ac98d4d25f2e5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "9f1a688167b844dda302d07ac4a948d7a4b4a6537cdcd47776902110025ae469",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D24",
+        "comparison": "Set the mean to zero and covariance entry C_ij=tau*E[min(Theta_i,Theta_j)]/(alpha_i*alpha_j)=(2-tau_{ij})/(alpha_i*alpha_j), retaining the coordinate-specific positive tail indices. The pair coefficient is a subset coefficient; its diagonal singleton value one gives C_ii=1/alpha_i^2. The matrix may be singular and no positive-definite assumption is added, but PSD is essential because multivariateGaussian returns an unrelated Dirac law for non-PSD input. The vector is the limit law for reciprocal Hill estimators, not an assumption of exact Gaussianity of finite-sample estimates. Its correlations with the other limit processes are separately specified; constructing this marginal law alone does not prove joint independence or convergence.",
+        "statement_sha256": "a0202bf8f7df470cde7c8ce0ec69a1fe10a0b2ed77c48d303f86222417c3d519"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected multivariateGaussian including its non-PSD fallback, scalar covariance and integration against both covariance formulas for the reciprocal-Hill Gaussian limit D24.",
+          "result": "A centered finite-dimensional Gaussian can be built from the stated covariance matrix once PSD is proved; the source's two covariance expressions and joint convergence are not supplied by the constructor."
+        }
+      ],
+      "gap": "Establish the covariance identity and positive semidefiniteness, then construct the centered Hill-limit vector and its required joint coupling separately."
+    }
+  },
+  {
+    "interface_id": "local-e5bf9275c575ff26a4e4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "3e2a3f7acf0339c2911edbdd05c9a1b40440ba2e9008f9691c1691f00099107b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D13",
+        "comparison": "The denominator is E[norm(s-circle-Theta)], and the numerator is E[(v dot ((Y*s-circle-Theta)^(1/beta)/norm((Y*s-circle-Theta)^(1/beta))))^p * 1{Y*norm(s-circle-Theta)>1}], using the same independent radial Y and spectral Theta. Keep Y inside the coordinate powers in the angular factor; with unequal beta_i it cannot generally be canceled as one common scalar. Guard zero angles and prove the denominator positive on the intended nonempty active strata before real division. The scale tau cancels between the original numerator and denominator, so it does not appear here. The source defines v on the simplex but later evaluates at v_I whose weights need not sum to one; homogeneous extension and coordinate derivatives at stratum boundaries are not automatically part of this definition.",
+        "statement_sha256": "59c98122eaefabd7dd85ae3c0c00393390062b09c4e945a02716090eb255b272"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected integration, dotProduct, indicator and real powers against every factor of the target moment ratio c in D13 and its domain-extension source note.",
+          "result": "A ratio of spectral/Pareto expectations can be defined with these components, but positivity of the normalizer and extensions for masked weights and partial derivatives require additional work."
+        }
+      ],
+      "gap": "Define the normalized spectral/Pareto moment with its nonzero normalizer and guarded angular term, keeping any masked-weight or derivative-domain extension explicit."
+    }
+  },
+  {
+    "interface_id": "local-8ec4a47098b9cec5c083",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "9c3052719873c818dea5b3dfb584a1f2f6d1a2cc1182264c0a8ca554cbf5b81a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D14",
+        "comparison": "For every p in finite K union {0}, retain sqrt(n/a-star(u_n))*abs(a-star(u_n)*E[M-hat]-tau*E[norm(s-circle-X-star)]*c) tending uniformly to zero over the printed v and (s,beta) domains. TendstoUniformlyOn supplies one eventual n bound valid for all domain points, not pointwise convergence. The source uses X-star, not Theta, in the centering expectation and writes an undefined partial-B1-star domain rather than the defined plus simplex; both remain unresolved instead of being repaired. E[norm(s-circle-X-star)] can be infinite, for example for standard Pareto margins, although index-one regular variation alone does not force an infinite mean; Bochner's zero fallback for nonintegrable inputs is not an interpretation of that source expression. Preserve the imported Theorem 5 assumptions and finite K, and do not impose this bias condition on the expectation-centered Theorem 5 itself.",
+        "statement_sha256": "a30997eec37a1f14f01194aedff7d3f8dbf43552b4647bde310230bb115f8ea3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TendstoUniformlyOn",
+          "type": "{α : Type u} → {β : Type v} → {ι : Type w} → [UniformSpace β] → (ι → α → β) → (α → β) → Filter ι → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.UniformSpace.UniformConvergence",
+          "provides": "Convergence with one eventual index bound valid for every point of the specified set; the set need not be compact or bounded.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/UniformSpace/UniformConvergence.lean#L91-L92",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected TendstoUniformlyOn, integral and sqrt against Corollary 6's exact bias expression D14 and the archived X-star/Theta and starred-domain discrepancies.",
+          "result": "Uniform convergence of a specified real bias function can be expressed, but the printed target includes an unresolved domain and an expectation not guaranteed finite by regular variation."
+        }
+      ],
+      "gap": "Resolve the undefined starred weight domain and integrability of the printed X-star centering before asserting the full uniformly vanishing bias condition."
+    }
+  },
+  {
+    "interface_id": "local-e9c98c3998e87b478407",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "d4a7ca35b303620077e87c5e9406cf27122d8a71da7738cc01bb690292a943ef",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D22",
+        "comparison": "Use the entire tuple (v,s,beta,p) as process index. Covariance is tau times one expectation of both powered angular factors, evaluated with the same Y and Theta, multiplied by 1{Y*min(norm(s-circle-Theta),norm(t-circle-Theta))>1}; it is not a product of separate expectations or independent radial samples. Keep the separate componentwise reciprocal powers beta and gamma and nonnegative integer p1,p2. Guard each angular denominator outside the simultaneous exceedance event and retain the maximum norm. IsGaussianProcess certifies neither zero means nor tightness nor this covariance formula by itself. The p=0 restriction G-zero(s)=G(dot,s,dot,0) must be shown independent of the ignored weight/power arguments under the source convention. Its coupling with G-tilde and H-tilde is separately constrained, and referencing G does not import Corollary 6's bias assumption.",
+        "statement_sha256": "11b58f1068b4d1f871f9173402c57da4e9c0ac1b5187c460ef11f722dd910082"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsGaussianProcess and scalar covariance/integral against the complete covariance (25), its p=0 restriction and the retained joint-limit coupling notes.",
+          "result": "Gaussian finite-dimensional marginals and covariance predicates are available, but centering, tightness in the process space and the paper's full covariance kernel require separate construction and proof."
+        }
+      ],
+      "gap": "Construct the centered tight Gaussian process with the exact shared-radial covariance kernel and prove the required process-space and joint-coupling properties."
+    }
+  },
+  {
+    "interface_id": "local-95dddf92f10462aab016",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "2f60c79255c8ea94f3f626d6060c32e15b239694025f0ac9fd1e825549c441ac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D7",
+        "comparison": "Use I.indicator v, returning v_i on I and zero outside, and I.indicator (fun _ => 1) for 1_I; the all-ones vector remains one on every coordinate. Expanding dotProduct gives (v_I) dot X-star=sum_{i in I} v_i*X-star_i=v dot (1_I-circle-X-star). Masking twice by the same I changes nothing. The surviving coefficients are not divided by their sum; for simplex v their total can be below one or zero. Thus later evaluations at v_I need the recorded domain extension rather than automatic simplex membership.",
+        "statement_sha256": "225b80d2caa88dfcd32a79f8e4840cff487972d7eec45c8473ea465094e0fe7d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected generated Set.indicator and dotProduct against D7's coordinate mask and its retained all-ones/indicator-vector naming context.",
+          "result": "Set.indicator on the finite coordinate type directly gives the masked vector, and dotProduct gives the full finite coordinate sum; the masked-sum identities still need to be established."
+        }
+      ],
+      "gap": "Define the coordinate mask and prove its dot-product and idempotence identities without renormalizing its surviving weights."
+    }
+  },
+  {
+    "interface_id": "local-7e470ab51802a83afc28",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "c732a16ae244668bb60463d315b74a498c9ffe77fdf6e3f329199d325f8a4da5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D17",
+        "comparison": "Compute X_l/X_{k:n} coordinatewise using the positive kth upper marginal statistics, then raise each coordinate to its own fitted alpha-hat_i. Normalize this powered vector by ell_I of the powered vector and take its dot product with masked v_I, then integer power p. Both numerator and denominator indicators use the unpowered strict event ell_I(X_l/X_{k:n})>1. The denominator is the actual n-normalized count of that event and does not depend on the Hill estimate or angular numerator, avoiding a circular definition; do not replace it by k/n. Valid positive fitted powers and a nonzero denominator need explicit treatment, especially under ties or no exceedances. Replacing v by v_I again has no effect through idempotent masking, but never renormalizes weights to a simplex.",
+        "statement_sha256": "f3aa1607ba635e3f34209f7460cf3e609a7f8040b857e44e69860b25e50f4b49"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real powers, dotProduct, guarded indicators and sums against D17's full numerator and independently defined unpowered exceedance denominator.",
+          "result": "Coordinatewise threshold ratios and Hill powers can be assembled into the angular moment average, but valid Hill estimates and nonzero empirical denominator conventions remain necessary."
+        }
+      ],
+      "gap": "Construct the random-threshold powered angular ratio with its actual unpowered exceedance count and explicit order-statistic, Hill-power and zero-denominator conditions."
+    }
+  },
+  {
+    "interface_id": "local-109c005dcfe5b097cd24",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:57:44.842349+00:00",
+    "source_interface_sha256": "31bcbc48db84cfc4268d3e4bbaaadbb20a009243e87083654de0965a954692f9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2529",
+        "local_id": "D12",
+        "comparison": "Set p=0 with the source's explicit 0^0=1 and use a guarded summand to obtain n^(-1)*sum_l 1{norm(s-circle-X-star_l)>u}. The positive coordinate-power domain and maximum norm justify removal of beta from the exceedance condition; v disappears because the angular power is zero. Retain P-hat_{n,u,I}=P-hat_{n,u}(1_I) with no rescaling of the mask. This is a proportion over all n observations, not a conditional moment normalized by its own count, and the count can be zero at finite samples. A later division by P-hat needs an explicit convention that is not supplied by the zero-power convention alone.",
+        "statement_sha256": "c92c61ecda7de4cd1ef1630f7f6484aa98d4a9eb0003cd49e56714ddeb42232c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected indicator and finite-sum evaluation against D12's zero-power convention and the two exceedance forms of its D11 dependency.",
+          "result": "The zeroth angular moment reduces to a sample exceedance proportion under the source's zero-power convention; this provides neither positive counts nor well-defined later ratios automatically."
+        }
+      ],
+      "gap": "Define the zeroth empirical moment as the strict deterministic-threshold exceedance proportion and prove its independence from v and beta under the stated domain conventions."
+    }
+  }
+]

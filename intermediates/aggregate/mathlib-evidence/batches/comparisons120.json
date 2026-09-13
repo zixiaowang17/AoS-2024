@@ -1,0 +1,87 @@
+[
+  {
+    "interface_id": "local-57124ac168c441b40f21",
+    "status": "composable",
+    "names": [
+      "Set.Ioc",
+      "MeasureTheory.Measure.map"
+    ],
+    "comparison": "Measure under Q_X the event that the gap f_(1)-f_(2) lies in (0,delta], for every 0<delta<=1, with one exponent alpha>=0 and constant C_alpha>0. Set.Ioc gives exactly the strict-zero/inclusive-delta endpoints, and a measurable pushforward of the gap or its direct preimage expresses the event. Keep the source second DISTINCT reward level: ties among best arms with some lower arm can still give positive gap, unlike the usual second order statistic with multiplicity. All-arms-tied covariates have zero gap and are excluded, so their probability is unrestricted by this inequality. Do not replace Q_X by P_X, include zero-gap mass, require alpha>0 or extend the condition to radii greater than one.",
+    "gap": "Measurable events and interval membership express the target margin condition with its exact gap definition and endpoints.",
+    "searches": [
+      [
+        "Inspect Set.Ioc and the previously reviewed gap/source measure representation against the margin event",
+        "The source excludes zero gap and uses the second distinct reward level, so a standard multiplicity-based margin condition is not interchangeable."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-ac48d38a4c0fe40085e0",
+    "status": "exact_reuse",
+    "names": [
+      "Matrix.add_apply"
+    ],
+    "comparison": "Represent Y=A+E as addition of equally shaped real matrices, pointwise in the sample outcome when E is random. Matrix.add_apply is exactly the entrywise observation equation. It imposes no distribution, centering, coordinate independence, variance, low-rank assumption or symmetry by itself. Preserve the separate introduction Gaussian law and Section 6 sub-Gaussian law in their own theorem contexts; the shared equation does not transfer Gaussian rotational invariance to the sub-Gaussian results or require A to be diagonal.",
+    "gap": "Ordinary matrix addition directly expresses the observation equation; noise-law assumptions remain separate.",
+    "searches": [
+      [
+        "Inspect Matrix.add_apply:298-299 and saved p1334 Gaussian/sub-Gaussian scope qualifications",
+        "The entrywise identity is distribution-free and does not select a noise law or an invariant diagonalized representation."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-9d1ab83f70810a6b3b54",
+    "status": "composable",
+    "names": [
+      "SimpleGraph",
+      "SimpleGraph.adjMatrix",
+      "Digraph"
+    ],
+    "comparison": "Use the fixed labeled vertex type Fin p with a recorded one-based source-label correspondence, without quotienting by graph isomorphism. SimpleGraph directly supplies undirected symmetry and absence of loops, and adjMatrix yields a binary symmetric matrix with zero diagonal under a decidable adjacency relation. For the directed introductory branch, Digraph is an adjacency relation with at most one directed edge per ordered pair but permits loops, so add the source loopless condition; do not use SimpleGraph there and impose unwanted symmetry. The beta-model uses the undirected branch. Empty and single-vertex graphs are representable, while later parameter-estimation formulas may need stronger size domains.",
+    "gap": "SimpleGraph and adjacency matrices match the undirected representation; the directed representation additionally requires an explicit no-loop condition.",
+    "searches": [
+      [
+        "Inspect SimpleGraph:95-99, adjMatrix:238-239 and Digraph:44-50",
+        "SimpleGraph is symmetric and loopless; Digraph permits self-loops and therefore needs an additional source condition for the directed branch."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-d28efd9955fabb6437cb",
+    "status": "composable",
+    "names": [
+      "Real.sigmoid",
+      "ProbabilityTheory.bernoulliMeasure",
+      "ProbabilityTheory.iIndepFun"
+    ],
+    "comparison": "For each unordered pair i<j, assign an independent Bernoulli edge with probability sigmoid(theta_i+theta_j), algebraically exp(eta)/(1+exp(eta)), then mirror the edge and set the diagonal to zero. Independence applies to unordered edges, not to both mirrored matrix entries separately. Multiplying the Bernoulli masses gives the printed likelihood, and collecting exponents gives sum_i U_i*theta_i with degrees counting each incident edge once. Retain the partition factor product_(i<j)(1+exp(theta_i+theta_j))^{-1}: it is constant in X for fixed theta but DEPENDS on theta and cannot be dropped when optimizing the parameter likelihood. Real sigmoid yields probabilities strictly between zero and one for finite real node parameters. The model name beta does not rename the node parameter theta or identify it with the separate beta replacement probability.",
+    "gap": "Sigmoid probabilities and independent Bernoulli laws express the beta-model and likelihood, with unordered-edge indexing and parameter-dependent normalization retained.",
+    "searches": [
+      [
+        "Inspect Real.sigmoid and Bernoulli/iIndepFun definitions against the edge probabilities and product likelihood",
+        "The primitives match independent unordered edges; the degree exponential factor does not eliminate the theta-dependent partition function."
+      ]
+    ]
+  },
+  {
+    "interface_id": "binary-edge-perturbation",
+    "status": "composable",
+    "names": [
+      "PMF.ofFintype",
+      "PMF.bind",
+      "ProbabilityTheory.iIndepFun"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i02-p0708/D3": "Build a three-point noise law with probabilities beta at -1, 1-alpha-beta at 0 and alpha at +1, using alpha,beta in [0,0.5] to ensure nonnegative total-one weights. The indicator formula replaces the edge by zero, preserves it, or replaces it by one respectively; it is not a Bernoulli XOR with one common flip probability. Under a fresh-noise release-kernel interpretation the conditional flip probabilities are alpha for input zero and beta for input one. Independence among the noise coordinates alone does not prove independence from X, and the source leaves that latter point implicit; keep the displayed conditional identities and the saved qualification. Sample one noise per permitted edge and mirror it for undirected graphs, never draw the two orientations independently. Neither a privacy guarantee nor recovery of X follows just from this construction.",
+      "aos-2024-v52-i02-p0708/D12": "Use the same three-point channel on the ALREADY released Z with weights delta,1-2*delta,delta, retaining strict 0<delta<0.5 and theorem-specific sequences delta when applicable. Independent noise over unordered edges is mirrored symmetrically. Conditional on a fixed first-stage graph, a fresh-noise interpretation defines the bootstrap channel and sequential PMF composition, but independence from the first-stage data is an implicit source convention rather than an explicitly quoted hypothesis. The second graph is neither an independent original beta-model draw nor generally independent of Z. Do not promote this sampling construction to a conditional bootstrap limit theorem or replace the population centering/scaling in the paper's later results."
+    },
+    "gap": "Finite probability laws and sequential sampling express both channels, with fresh-noise conditioning and the distinct first-stage/bootstrap inputs preserved.",
+    "searches": [
+      [
+        "Inspect PMF.ofFintype, bind and iIndepFun against both three-point replacement laws and saved fresh-noise qualification",
+        "The finite distributions are normalized in the stated parameter domains, while independent coordinates alone do not establish independence from the input graph or any bootstrap asymptotic guarantee."
+      ]
+    ]
+  }
+]

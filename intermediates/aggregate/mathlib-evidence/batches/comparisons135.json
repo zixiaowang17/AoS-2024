@@ -1,0 +1,86 @@
+[
+  {
+    "interface_id": "local-6538e8faf045c80f7a95",
+    "status": "composable",
+    "names": [
+      "Matrix.PosDef",
+      "Real.sqrt",
+      "dotProduct"
+    ],
+    "comparison": "Use the vector norm sqrt((x-m*)^T H_v (x-m*)) with the positive-definite Hessian H_v supplied by D4, retaining the dimension/sample-size casts and positive d,n domain. Require one positive c0 such that the linear lower bound holds for every x at distance at least (1/2)*sqrt(d/n). The boundary is inclusive and the coefficient is c0*sqrt(d/n); replacing either scale by its reciprocal changes the condition. This is a lower-growth assumption outside a specified ellipsoid, not global convexity, global strong convexity or a quadratic lower bound. The vector weighted norm does not inherit the separate signed higher-order tensor-norm convention. Matrix and scalar primitives express the bound without proving it from the local positive Hessian alone.",
+    "gap": "Positive-definite quadratic forms and real arithmetic express the exact exterior growth condition, which remains a separate assumption from local Hessian positivity.",
+    "searches": [
+      [
+        "Inspect PosDef, Real.sqrt and dotProduct against p1384 D3-D6 and equation (2.5)",
+        "The components give the weighted vector distance; local Hessian positivity does not itself supply the global exterior lower bound."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-91b40a3e029fa7835646",
+    "status": "composable",
+    "names": [
+      "LipschitzOnWith"
+    ],
+    "comparison": "Instantiate LipschitzOnWith L f on the closed real interval [-1,1], using a finite nonnegative constant and the usual absolute-value metric. This is exactly the all-pairs inequality on the full link domain, not merely local Lipschitzness or an almost-everywhere derivative bound. The existence of some finite L and a theorem whose constants may depend on a named L are distinct quantifier presentations; preserve those theorem-specific uses. An upper Lipschitz bound does not provide a positive lower derivative near zero, monotonicity or injectivity.",
+    "gap": "LipschitzOnWith directly represents the link regularity condition with the specified interval and finite constant.",
+    "searches": [
+      [
+        "Inspect LipschitzOnWith definition against p2557 D10 and the theorem-specific constant scope",
+        "The declaration is the required all-pairs bound on a set and supplies no lower-slope or monotonicity condition."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-cd82238a2cd46911a3bc",
+    "status": "partial_match",
+    "names": [
+      "MeasureTheory.Measure.withDensity",
+      "MeasureTheory.Measure.dirac",
+      "Real.sqrt"
+    ],
+    "comparison": "Construct the printed absolutely continuous measure from the nonnegative square root of the positive-part product, divided by 2x on its meaningful positive domain, and add the atom of mass (1-y_hat)_+ at zero. Preserve the exact absence of pi in the denominator and the source parameter convention rather than substituting a standard Marchenko-Pastur density. A value assigned to the density at x=0 affects no Lebesgue mass and does not remove the separately specified atom. The generic withDensity constructor produces a measure but does not certify total mass one; the printed continuous normalization is the recorded source ambiguity. Keep y_hat nonnegative as admitted for the square roots, and do not use the real-square-root fallback to extend the statistical law to negative parameters. This member extracts a measure formula and imposes no random-matrix assumptions or convergence theorem. No named Marchenko-Pastur declaration was located in the full pinned Mathlib search.",
+    "gap": "Density-plus-atom primitives represent the printed measure, but its missing normalization factor prevents certifying it as the standard Marchenko–Pastur probability law.",
+    "searches": [
+      [
+        "rg -i 'marchenko|pastur' Mathlib; inspect withDensity, dirac and Real.sqrt against p1873 equation (16)",
+        "No dedicated law found; generic measure construction does not repair or validate the source's printed normalization."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c39198321ad51a04d853",
+    "status": "composable",
+    "names": [
+      "Maximal",
+      "IsGreatest",
+      "ConvexOn"
+    ],
+    "comparison": "After equipping the admitted probability-measure space with the correctly defined convex-order relation and proving its partial-order properties, Maximal (membership in N) mu says mu belongs to N and no strictly larger distinct feasible measure dominates it. IsGreatest N mu instead requires membership and domination of every member of N. Their generated dual definitions use only an LE relation; antisymmetry is the extra property that turns mutual comparability in Maximal into equality, so it must not be skipped for an inadequately defined convex order. The generic greatest-element predicate includes feasibility even where the source prose abbreviates it. A maximal measure can be incomparable with another maximal measure, and neither constructor proves existence. Preserve the SHINE theorem's maximality guarantee unless a maximum is independently established.",
+    "gap": "Maximal and IsGreatest directly supply the two order notions once convex order and its partial-order laws are established on the source measure domain.",
+    "searches": [
+      [
+        "Inspect the generated order duals Maximal and IsGreatest against p2241 D9",
+        "The definitions distinguish absence of strict feasible improvement from domination of every feasible measure; neither asserts existence or constructs the underlying convex order."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-701e16c4abf821a8a915",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "Matrix.rank",
+      "ProbabilityTheory.HasCondSubgaussianMGF"
+    ],
+    "comparison": "For each finite sample, require mutually independent identically distributed design rows, full ROW rank n almost surely, and separately iid scalar noise terms. Matrix.rank is the dimension of the image of the matrix linear map; rank n is compatible with p>=n and does not assert full column rank or a unique coefficient vector. Independence and identical distribution are separate predicates for each family. These two marginal iid statements do not imply independence of the design and noise families or a conditional product law for the entire noise vector given the full design. The subsequent scalar conditional-MGF display conditions on X_i; its saved conditioning and integrability qualifications remain separate rather than replacing the prose joint-parameter phrase with an unproved vector inequality.",
+    "gap": "IID predicates and matrix rank express the model assumptions, while the source's rowwise versus full-design conditional-noise scope remains explicitly qualified.",
+    "searches": [
+      [
+        "Inspect iIndepFun, IdentDistrib, Matrix.rank and HasCondSubgaussianMGF with p0491 D2-D3",
+        "The components retain full row rank and separate marginal iid families; no conditional joint-noise independence follows from those primitives."
+      ]
+    ]
+  }
+]

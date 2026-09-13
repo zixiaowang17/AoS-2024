@@ -1,0 +1,53 @@
+{
+  "scope": "Manual comparison of all six remaining p1076 kernel-testing interfaces with pinned mathlib declarations, preserving infinite-dimensional operator and permutation-calibration limitations.",
+  "rows": [
+    {
+      "interface_id": "local-2f6a2b7f25501a70b9bb",
+      "related": ["ContinuousLinearMap.IsPositive", "ContinuousLinearMap.inverse"],
+      "query": "Inspected the continuous-linear positivity and inverse definitions against D16 and the centered mixture covariance D15.",
+      "result": "The shift is expressible by ordinary operator addition and scalar multiplication, while positivity and a genuine bounded inverse require the positive lambda and covariance hypotheses.",
+      "gap": "Define the shifted covariance operator and prove its positive lower bound and invertibility before using inverse or fractional inverse operations.",
+      "comparisons": {"D16": "On the RKHS set Sigma_PQ,lambda=Sigma_PQ+lambda times the identity, with lambda>0 in its regularization use. I is the identity endomorphism, not the source's distinct Fraktur inclusion map. The covariance is centered under R, not an uncentered feature second moment. Positivity of Sigma gives the quadratic lower bound lambda*norm(x)^2, from which bounded invertibility must be established; ContinuousLinearMap.inverse returns zero when no continuous equivalence exists and cannot substitute for that proof. The shifted operator is not equal to the unshifted covariance and in infinite dimension need not remain trace-class merely because the covariance is trace-class."}
+    },
+    {
+      "interface_id": "local-a0780d967a03132da767",
+      "related": ["CFC.rpow"],
+      "query": "Searched Analysis, Probability and LinearAlgebra for trace-class/Hilbert-Schmidt norm definitions and inspected CFC.rpow; contrasted the finite-matrix trace API with D25's infinite-dimensional quantities.",
+      "result": "Continuous functional calculus provides an ingredient for the inverse square roots of a positively shifted covariance; no matching infinite-dimensional trace-class and Hilbert-Schmidt norm package was verified in the bounded search.",
+      "gap": "Construct the regularized covariance sandwich with valid inverse square roots and define its trace and Hilbert–Schmidt norm as distinct infinite-dimensional quantities.",
+      "comparisons": {"D25": "Both quantities use A=Sigma_lambda^(-1/2)*Sigma*Sigma_lambda^(-1/2). Positivity, spectrum bounded away from zero for Sigma_lambda and the operator-algebra instances are needed before applying the negative half-power; the source is not asking for an unbounded inverse of Sigma itself. Under the trace-class spectral setting, N1 is sum_i tau_i/(tau_i+lambda), while N2 is sqrt(sum_i(tau_i/(tau_i+lambda))^2), not the latter sum without its square root. The nullspace contribution of A is zero. Matrix.trace applies only after a justified finite-dimensional restriction and is not an implementation of the paper's general trace; the continuous-operator norm is also not the Hilbert-Schmidt norm. Preserve N1 and N2's separate oracle/power roles and establish summability rather than erasing infinite values through a totalized finite trace."}
+    },
+    {
+      "interface_id": "local-50f97a4232182031ce23",
+      "related": ["Measurable", "MeasureTheory.Measure.real", "Filter.Tendsto"],
+      "query": "Inspected measurable maps, real event probabilities and convergence against D6's binary-test and two level-class conventions, including Theorem 3.2's class choice.",
+      "result": "Binary measurable rejection events and null rejection-probability bounds are available as components; finite-sample and asymptotic classes remain different objects with their own quantifiers.",
+      "gap": "Define the binary exact and asymptotic level-alpha test classes with their sample-size and null-family conventions kept separate.",
+      "comparisons": {"D6": "Use a measurable decision with values zero and one on the two-sample observation space, and evaluate null rejection probability as P(phi=1). Do not enlarge the source class to arbitrary [0,1]-valued randomized rejection probabilities. Phi_{N,M,alpha} constrains the specified finite sample sizes, whereas Phi_alpha refers to sequences with asymptotic level and needs its appropriate limiting sample-size/null quantifiers; the displayed naming clause alone does not identify the two. Theorem 3.2 optimizes over the exact finite-sample class, not over asymptotically valid procedures or one particular asymptotic MMD calibration. Generic convergence predicates do not by themselves prove a level bound or specify a tie rule."}
+    },
+    {
+      "interface_id": "local-f9ac4f13f121c1d73483",
+      "related": ["Set.mem_iUnion₂", "MeasureTheory.measure_iUnion_fintype_le"],
+      "query": "Inspected double-union membership and the finite union bound against D32, the dyadic grid and B-permutation empirical left quantile definitions.",
+      "result": "A union of rejection events over the finite parameter/kernel product and its probability bound are available; valid calibration of each empirical-quantile event is a separate requirement.",
+      "gap": "Construct the joint grid/kernel rejection event with its cardinality-adjusted empirical quantiles and establish per-event calibration before applying the union bound.",
+      "comparisons": {"D32": "Reject if there exists (lambda,K) in Lambda times the finite kernel family with eta-hat_{lambda,K}>=q-hat^{B,lambda,K}_{1-w*alpha/(card Lambda*card Kfamily)}. Retain both cardinality factors and the nonstrict comparison; nonempty families and an admissible quantile level need explicit domains. Each quantile comes from only B sampled permutations in the displayed construction, not the separate B+1 remark. A finite union bound needs no independence across kernels or regularization choices, but does not prove individual rejection probabilities are calibrated when empirical left quantiles have ties; the source leaves tie handling unresolved. Covariance operators, eigenfunctions and effective dimensions depend on K separately and must not be numerically shared across the kernel family."}
+    },
+    {
+      "interface_id": "local-ffec14f77ae1e1f1434f",
+      "related": ["MeasureTheory.integral", "InnerProductSpace.toDual", "csSup_le_iff"],
+      "query": "Searched the kernel/MMD terminology in Analysis and Probability, inspected Hilbert-space Riesz duality, integration and supremum bounds, and compared D4 with its kernel-mean definition D3.",
+      "result": "The norm of a difference of Bochner kernel means and Hilbert duality provide the MMD components; the variational identity and characteristic-kernel separation require their own proofs.",
+      "gap": "Define the kernel-mean norm discrepancy and derive the unit-RKHS-ball variational identity, keeping characteristicness separate from existence of the discrepancy.",
+      "comparisons": {"D4": "Set MMD(P,Q)=norm(mu_P-mu_Q) with mu_P the integral of K(dot,x); retain measurability and the supplied integral-of-sqrt-diagonal moment condition for the embedding. This is the norm, not its square. Reproducing evaluation identifies the difference of expectations with the real Hilbert pairing against mu_P-mu_Q, and Riesz duality plus a unit-ball extremum argument gives the displayed supremum without an absolute value because the ball is symmetric. Interpret integration against P-Q as the difference of integrable expectations or a properly defined signed measure, not subtraction in the nonnegative measure type. Characteristicness is needed to infer that zero discrepancy implies P=Q; A0 alone does not require it, and the variational formula does not establish it."}
+    },
+    {
+      "interface_id": "local-b97c9a40e028fac8e10f",
+      "related": ["Finset.filter", "Finset.sum_apply", "MeasureTheory.integral"],
+      "query": "Inspected finite filtering/sums and expectations against every within- and cross-sample term of D5's squared-MMD U-statistic.",
+      "result": "The off-diagonal pair sums and cross-product sum are finite algebraic components; unbiasedness needs the sample-independence and integrability assumptions and does not imply a nonnegative realized value.",
+      "gap": "Construct the squared-MMD U-statistic with exact pair indexing and denominators and prove unbiasedness under the stated sampling laws.",
+      "comparisons": {"D5": "Use ordered distinct pairs i!=j within X and within Y, dividing by N*(N-1) and M*(M-1), and subtract 2/(N*M) times every X-Y cross pair. If implemented with unordered pairs, an additional factor two would be needed rather than silently keeping the same denominators. Require N,M>=2 for the intended estimator. There is no diagonal correction or absolute value, and its finite-sample value may be negative despite estimating MMD squared; do not take a square root or truncate at zero. Independent samples and integrable kernel evaluations give the usual unbiased expectation identity, which the finite-sum constructor alone does not prove. The source's cited asymptotic null test does not replace Theorem 3.1's separately bound threshold."}
+    }
+  ]
+}

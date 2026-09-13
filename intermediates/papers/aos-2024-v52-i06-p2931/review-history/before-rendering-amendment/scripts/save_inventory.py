@@ -1,0 +1,74 @@
+"""Reproduce all six original main-text Theorems in the registered published PDF."""
+import argparse,hashlib,json,subprocess,sys
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+REPO=next(p for p in ROOT.parents if (p/'scripts/resolve_paper_pdf.py').is_file())
+PID='aos-2024-v52-i06-p2931'
+SHA='1e445bc7a71779b979cd5423ce02150734fc113f22583068f7564734bf080130'
+URL='https://www.songxichen.com/Uploads/Files/Publication/AOS2452.pdf'
+NUMBERS=['1','2','3','4','5','6']
+PAGES=[[8],[10],[12],[13,14],[15],[17]]
+STATEMENTS=[r'''Under Assumptions required in Lemma 1 and for all $1\le\tau\le t\le T$ and $K\ge1$, the consensus error in the DFL algorithm satisfies
+\[
+\begin{aligned}
+\frac1K\mathbb E\left(\|\hat{\boldsymbol\Theta}_t(\boldsymbol I-\boldsymbol J)\|_F^2\right)
+&\le3b_2^2Q\left(2(L_\xi+1)\delta(t,\tilde\rho^2,\tau)+\left((\tau-1)+\frac{\mathbb I_{\{\tilde\rho>0\}}}{1-\tilde\rho}\right)\delta(t,\tilde\rho,\tau)\right)\\
+&\quad+2\sigma^2b_2^2\delta(t,\tilde\rho^2,\tau),
+\end{aligned}\tag{13}
+\]
+where $b_2$ is the constant such that $w_kK\le b_2$ for all $k$, $\tilde\rho=\rho^{1/\tau}$,
+\[
+Q=\begin{cases}
+\kappa^2+2L^2R_d^2&\text{if }\boldsymbol\Phi\text{ is bounded by diameter }R_d=\sup_{\boldsymbol\theta_1,\boldsymbol\theta_2\in\boldsymbol\Phi}\|\boldsymbol\theta_1-\boldsymbol\theta_2\|_2<\infty,\\
+\kappa^2+L^2(B_{\mathrm{MSE}}+B_{\mathrm{CE}})&\text{if }\boldsymbol\Phi=\mathbb R^d,
+\end{cases}
+\]
+\[
+\delta(t,a,\tau):=\left(\sum_{s=t-\tau+2}^t\eta_s^2\right)+\frac{\mathbb I_{\{a>0\}}}{1-a}\left(\eta_1^2a^{(t-\tau+1)/2}+\eta_{\lfloor(t-\tau+1)/2\rfloor}^2\right)
+\]
+for any $a\in(0,1)$, and $B_{\mathrm{MSE}}$ and $B_{\mathrm{CE}}$ are constants defined in Lemma 1.''',
+r'''Under Assumptions 2.1–2.2, 3.1 with $v=1$, and Assumptions 3.2–3.4, let $\boldsymbol\Delta_t=\hat{\bar{\boldsymbol\theta}}_t-\boldsymbol\theta_K^*$, then the following results hold.
+
+(i) For all $0\le t<T$ and $K\ge1$,
+\[
+\mathbb E(\|\boldsymbol\Delta_{t+1}\|_2^2)\le(1-\mu_{R_d}\eta_{t+1})\mathbb E(\|\boldsymbol\Delta_t\|_2^2)+\eta_{t+1}\left(c_1\frac{\eta_{t+1}}K+c_2\frac1K\mathbb E\left(\|\hat{\boldsymbol\Theta}_t(\boldsymbol I-\boldsymbol J)\|_F^2\right)\right),\tag{18}
+\]
+where $c_1=b_2\sigma^2+3b_2^3L_\xi\kappa^2$ and $c_2=3b_2(L+\mu)$.
+
+(ii) If $D>2/\mu_{R_d}$ and $\gamma>0$ such that $\eta_1\le D/(D\mu_{R_d}-1)$, and let $c_0$ be a positive constant such that $K^{-1}\mathbb E(\|\hat{\boldsymbol\Theta}_t(\boldsymbol I-\boldsymbol J)\|_F^2)\le c_0\eta_t^2$ as implied in Theorem 1, then
+\[
+\mathbb E(\|\boldsymbol\Delta_t\|_2^2)\le v_1\frac{\eta_t}K+v_2\eta_t^2,\tag{19}
+\]
+where $v_1=c_1D/(D\mu_{R_d}-1)$ and $v_2=\max\{c_2c_0D/(D\mu_{R_d}-2),(\gamma+1)^2\|\hat{\boldsymbol\theta}_0-\boldsymbol\theta_K^*\|_2^2D^{-2}\}$.
+
+(iii) For each fixed $K$, $\hat{\bar{\boldsymbol\theta}}_T-\boldsymbol\theta_K^*\to\boldsymbol0_d$ almost surely as $T\to\infty$.''',
+r'''Under assumptions required in Theorem 2 and Assumptions 4.1, 4.2 and 4.3, if $K$ is either finite or diverges at the rate $o(T^{2\alpha-1})$ with $\alpha<1$ and $\sup_{K\ge1}\|\boldsymbol\theta_K^*\|_2<\infty$, we have
+\[
+\sqrt{TK}\boldsymbol S^{-1/2}\boldsymbol H\left(\hat{\bar{\bar{\boldsymbol\theta}}}_T-\boldsymbol\theta_K^*\right)\xrightarrow{d}\mathcal N(\boldsymbol0,\boldsymbol I)\quad\text{as }T\to\infty,\tag{21}
+\]
+where $\boldsymbol H=\nabla^2F(\boldsymbol\theta_K^*)$ is the population Hessian matrix, $\boldsymbol S=\mathbb E(\boldsymbol\epsilon(\boldsymbol\theta_K^*)\boldsymbol\epsilon(\boldsymbol\theta_K^*)^T)$ is the covariance matrix of the aggregated gradient noise, and $\boldsymbol\epsilon(\boldsymbol\theta)$ is defined in Assumption 4.2.''',
+r'''Under assumptions required in Theorem 2 and Assumptions 4.1, 4.2 and 4.4, if $K=o(T^{2\alpha-1})$ and $Ka(T)\to\infty$, $\alpha<1$, $\sup_{K\ge1}\|\boldsymbol\theta_K^*\|_2<\infty$ and $\sup_{K\ge1}\max_{1\le k\le K}\|\nabla F_k(\boldsymbol\theta_K^*)\|_2<\infty$, then $\|\hat{\boldsymbol\Sigma}-\boldsymbol H^{-1}\boldsymbol S\boldsymbol H^{-1}\|_2=o_p(1)$ and for any $\beta\in(0,1)$,
+\[
+\mathbb P\left(TK\left(\hat{\bar{\bar{\boldsymbol\theta}}}_T-\boldsymbol\theta_K^*\right)^T\hat{\boldsymbol\Sigma}^{-1}\left(\hat{\bar{\bar{\boldsymbol\theta}}}_T-\boldsymbol\theta_K^*\right)\le\chi^2_{d,\beta}\right)\to1-\beta\quad\text{as }T\to\infty,\tag{25}
+\]
+where $\chi^2_{d,\beta}$ is the upper $\beta$ quantile of the $\chi^2_d$ distribution, $\hat{\boldsymbol\Sigma}=\hat{\boldsymbol H}^{-1}\hat{\boldsymbol S}\hat{\boldsymbol H}^{-1}$.''',
+r'''Under Assumptions 2.1–2.2, 3.1 with $v=2$, 3.3–3.4, 4.1 and 4.3, if the parameter space $\boldsymbol\Phi$ is bounded with $R_d<\infty$, $K=o(T^\alpha)$ if $\frac12<\alpha<1$ and $K=o(\log(T)T^{1-\zeta})$ if $\alpha=1$, where the constant $\zeta\in(0,1/2)$ is defined in (31), then as $T\to\infty$
+\[
+\mathbb E\left(\|\tilde{\boldsymbol H}^{\mathrm{reg}}-\boldsymbol H\|_F\right)\to0.
+\]''',
+r'''Under assumptions of Theorem 2 and Assumptions 4.1, 4.2 and 4.4, if $\alpha=1$ and $\sup_{K\ge1}\|\boldsymbol\theta_K^*\|_2<\infty$, then the one-step estimator $\hat{\bar{\bar{\boldsymbol\theta}}}^{\mathrm{os}}_T$ defined in (33) admits the following expansion:
+\[
+\sqrt{TK}\boldsymbol S^{-1/2}\boldsymbol H\left(\hat{\bar{\bar{\boldsymbol\theta}}}^{\mathrm{os}}_T-\boldsymbol\theta_K^*\right)=\boldsymbol S^{-1/2}\frac1{\sqrt T}\sum_{t=1}^T\sum_{k=1}^K\sqrt K w_k\nabla F_k(\boldsymbol\theta_K^*;\boldsymbol\xi_t^k)+O_p\left(\sqrt{\frac KT}+\frac1{\sqrt K}\right).
+\]
+Consequently, if $K=o(T)$, $\sqrt{TK}\boldsymbol S^{-1/2}\boldsymbol H(\hat{\bar{\bar{\boldsymbol\theta}}}^{\mathrm{os}}_T-\boldsymbol\theta_K^*)\xrightarrow{d}\mathcal N(\boldsymbol0,\boldsymbol I)$ as $T$ and $K\to\infty$.''']
+def inventory():
+    cs=[dict(claim_id=PID+'/T'+n,paper_id=PID,claim_kind='theorem',label='Theorem '+n,source_order=i,statement_original=s,evidence=[dict(page=p,location='Theorem '+n+' — original statement'+(' continued' if j else '')) for j,p in enumerate(ps)]) for i,(n,ps,s) in enumerate(zip(NUMBERS,PAGES,STATEMENTS),1)]
+    paper=dict(paper_id=PID,title='Statistical inference for decentralized federated learning',authors=['Jia Gu','Song Xi Chen'],version='Published version, The Annals of Statistics 52(6), 2024, pp. 2931–2955; DOI 10.1214/24-AOS2452',pdf_pages=25,pdf_sha256=SHA,source_url=URL,main_text_last_pdf_page=24,main_text_boundary=dict(location='Main discussion and Funding end on PDF page 24 before Supplementary Material heading at y=166.43. Main-text evidence on page 24 is clipped at y=160. The supplement is a separate linked file and is not read; references occupy the remainder of pages 24–25.',shared_page_with_appendix=False),intake_review=dict(status='complete',theorem_ids=[c['claim_id'] for c in cs],zero_theorems_confirmed=False,method='Independently enumerate actual uppercase small-cap THEOREM 1–6 headings across pages 1–24, excluding Lemma 1, Corollary 1 and narrative references. Visually compare all complete statements, including the continuation of Theorem 4 onto page 14.'))
+    return dict(schema_version='statistical-theorem-inventory-v1',scope=dict(paper_count=1,theorem_scope='main_text_only',source_policy='Registered published local PDF pinned by SHA-256; main text ends with Funding on page 24, and the separate supplement is excluded.',normalization_policy='Normalize line wrapping and mathematical typesetting only. Preserve all constants, quantifiers, estimator accents, branching conditions and complete statements. In particular retain the printed uppercase F_k with a data argument in Theorem 6; record its apparent notation inconsistency separately.'),papers=[paper],claims=cs)
+def main():
+    p=Path(subprocess.check_output([sys.executable,str(REPO/'scripts/resolve_paper_pdf.py'),PID],text=True).strip());assert hashlib.sha256(p.read_bytes()).hexdigest()==SHA
+    ROOT.mkdir(parents=True,exist_ok=True);(ROOT/'theorem-inventory.json').write_text(json.dumps(inventory(),indent=2,ensure_ascii=False)+'\n');print('Saved all six original main-text Theorems; independent inventory review remains separate.')
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--output-dir',type=Path);a=ap.parse_args()
+    if a.output_dir:ROOT=a.output_dir.resolve()
+    main()

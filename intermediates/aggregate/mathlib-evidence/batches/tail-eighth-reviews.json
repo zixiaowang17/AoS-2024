@@ -1,0 +1,173 @@
+{
+  "scope": "Manual variant-aware comparisons for sequential conditional data-fusion and coarse volatility estimator interfaces; source originals and retained qualifications inspected.",
+  "rows": [
+    {
+      "interface_id": "local-1f02280ceff5b7a34cc0",
+      "related": [
+        "ProbabilityTheory.condDistrib",
+        "ProbabilityTheory.cond",
+        "Finset.sum_div"
+      ],
+      "query": "Search conditional odds, Bayes and cond_apply in Probability/ConditionalProbability.lean; inspect cond 76-77, Bayes 275-277 and Kernel/CondDistrib.lean 58-74; inspect finite sum normalization.",
+      "result": "Conditional distributions and event conditioning supply probabilities; Bayes is available for events, but the history-density identity requires domination and the target-included model. No sequential data-fusion odds interface was located.",
+      "gap": "Conditional probabilities are available, but the sequential odds and their density-ratio identity require the paper’s target-inclusion, domination and denominator conditions.",
+      "comparisons": {
+        "D9": "condDistrib can express the conditional class probabilities given the history, up to the usual almost-everywhere version and measurable-variable hypotheses. Sum over S_k, which excludes the target class 0, before dividing by its conditional probability. Under DS.0-dagger the target contributes to S'_k and the marginal-weight formula for lambda follows from the appropriate conditional-law/Radon–Nikodym argument, not by replacing history conditioning with a possibly null singleton event. Event Bayes alone does not establish that identity for continuous histories. The source's nonempty population sets do not guarantee positive probability; retain positive conditioning masses, valid density-ratio versions and the source's limited 0/0 convention rather than importing Lean's totalized nonzero/zero division. The general unobserved-target model cannot be silently treated as target-included."
+      }
+    },
+    {
+      "interface_id": "sequential-conditional-product-bias",
+      "related": [
+        "ProbabilityTheory.cond",
+        "MeasureTheory.integral",
+        "Finset.sum_div"
+      ],
+      "query": "Search product bias, cross-fit and pseudo-loss in Probability and MeasureTheory; inspect conditional measure 76-77, Bochner integral 158-161 and finite-sum division 26-27.",
+      "result": "Normalized restricted measures and Bochner integration express both expectation terms, with explicit integrability and positive conditioning masses. No packaged foldwise product-bias formula was located.",
+      "gap": "The conditional integrals are available, but both bias terms and the qualified density-ratio-to-odds substitution still require the paper-specific construction.",
+      "comparisons": {
+        "D19": "Use integral under cond P_* {A in S'_k} for the product of the density-ratio estimation error and h-minus-ell error; preserve the leading true-to-estimated source-mass ratio R_k. Add the separate (R_k-R_1) times Q-expectation correction, which is not absorbed into the first product and is not automatically zero. The general target is Q and may be unobserved, so it cannot always be replaced by P_* conditioned on A=0. Conditional-event positivity and integrability of the product/difference are needed for the statistical reading of the totalized library operations; source conditioning and regression-version issues remain.",
+        "D20": "Retain both the estimated and true odds-derived density-ratio fractions inside their difference, the outer R_k factor, and the separate (R_k-R_1) correction under P_* conditioned on A=0. This specializes D19 only with the exact estimated nuisance transformation in (4), the corresponding true identity, and DS.0-dagger identifying the target law. Freely chosen odds and density-ratio estimators need not give equal biases. Neither fold-specific estimated positive masses nor integrability follows merely from the displayed formula; the source's limited zero-division convention must not be broadened."
+      }
+    },
+    {
+      "interface_id": "sequential-conditional-pseudo-loss",
+      "related": [
+        "Set.indicator",
+        "Finset.sum_div"
+      ],
+      "query": "Search pseudo-loss, sequential conditional and cross-fit in Probability/MeasureTheory; inspect Set.indicator generation 51-54 and finite-sum normalization 26-27.",
+      "result": "Indicators and normalized finite sums implement the algebraic ingredients, but no sequential conditional pseudo-loss with these nuisance arguments was located.",
+      "gap": "Indicators and sums are available; the sequential nuisance-weighted increments, initial term and qualified equivalence of the two parameterizations remain to be assembled.",
+      "comparisons": {
+        "D11": "Construct the finite sum for k=2,...,K, preserving each population indicator, its own marginal mass, lambda evaluated on the previous history, and the difference ell^k-minus-ell^(k-1). Keep the separate first-stage weighted ell^1 term and terminal ell^K=ell. This is a map for arbitrary supplied nuisance collections, not only their true values, and no telescoping cancellation is licensed across different weights. A nonempty population set does not imply positive population mass; use the recorded source convention/domain rather than infer one from field division.",
+        "D12": "The odds parameterization has denominator pi^0(1+theta^(k-1)) in each increment and pi^0(1+theta^0) initially. It agrees algebraically with D11 only after the exact lambda substitution, nonzero cancellation conditions and theta^0=sum_{S_1}pi/pi^0 with S'_1=S_1 union {0}. The statistical true-nuisance interpretation is under the target-included model. Arbitrary unrelated nuisance inputs are not interchangeable; preserve all history indices and the initial term."
+      }
+    },
+    {
+      "interface_id": "local-20cee48db5d762710a10",
+      "related": [
+        "MeasureTheory.TendstoInMeasure",
+        "MeasureTheory.eLpNorm"
+      ],
+      "query": "Search stochastic order, little-o in probability, product bias and cross-fit throughout Mathlib; inspect Asymptotics/Defs.lean 73-86,169-170, ConvergenceInMeasure.lean 57-59 and LpSeminorm/Defs.lean 83-87.",
+      "result": "TendstoInMeasure expresses convergence in probability for a fixed probability space; eLpNorm at exponent two supplies the inner population seminorm. Deterministic Landau predicates do not themselves express the displayed stochastic rates.",
+      "gap": "Convergence in probability and L² seminorms are available, but ST.1 needs the foldwise normalized bias and random nuisance-discrepancy construction with the correct sampling law.",
+      "comparisons": {
+        "D21": "For every fold v, require sqrt(n) times the signed sum of B_{k,v} to converge to zero in probability; the source controls the sum and permits cancellation, not a separate n^-1/2 rate for each k. In the second condition the L2(P_*) integral is over a fresh observation while the fitted nuisances remain random through the training/fold data. Preserve the estimated first-population mass multiplying the fitted pseudo-loss and the true mass multiplying the true pseudo-loss, with the general or odds branch as displayed. eLpNorm takes values in ENNReal; establish the finite, measurable random-norm interpretation before taking toReal. TendstoInMeasure uses a fixed measure; a common infinite-sample realization can encode growing samples, otherwise formulate probability-tail limits for their varying laws. Do not substitute deterministic IsLittleO, assume every nuisance has a limit, or impose DS.0 on every drift-corrected theorem branch."
+      }
+    },
+    {
+      "interface_id": "local-8e6d4a602f19e3a2c4b2",
+      "related": [
+        "MeasureTheory.TendstoInMeasure",
+        "MeasureTheory.eLpNorm",
+        "MeasureTheory.IsTightMeasureSet"
+      ],
+      "query": "Search bounded in probability, stochastic orders and tightness throughout Mathlib; inspect Asymptotics/Defs.lean 73-86, ConvergenceInMeasure.lean 57-59 and Measure/Tight.lean 45-65.",
+      "result": "Convergence in measure supplies o_p(1); tightness of real-valued laws supplies a route to O_p(1), subject to measurability/finiteness and the eventual-versus-whole-family quantifiers. No packaged ST.2 predicate was located.",
+      "gap": "The probability-limit and tightness primitives are available; ST.2 still needs its precise foldwise bias and random L²-discrepancy conditions.",
+      "comparisons": {
+        "D22": "Retain the entire ST.1 construction, changing only the first rate to o_p(1) and the second to O_p(1). The signed bias sum is unscaled and tends to zero in probability; the random L2 discrepancy is merely bounded in probability and need not vanish or converge. IsTightMeasureSet applied to its real-valued laws expresses uniform compact-tail control; relating this to asymptotic O_p(1) requires the usual eventual tail quantifiers and accounting for finitely many initial real-valued laws. It cannot be applied after mapping an infinite eLpNorm toReal=0 to disguise lack of finiteness. Fixed V and each-fold quantification are retained, along with the general/odds alternatives, regression versions and source mass conditions. Deterministic IsBigO and arbitrary added nuisance limits would change the assumption."
+      }
+    },
+    {
+      "interface_id": "local-5373960663c77b189cb7",
+      "related": [
+        "Set.indicator",
+        "Finset.sum_div"
+      ],
+      "query": "Search cross-fit, classifier, regression estimator and pseudo-loss in Probability and MeasureTheory; inspect indicator and finite-sum normalization declarations and retained Algorithm 1-dagger source notes.",
+      "result": "Finite-index indicator sums provide marginal proportions and weighted aggregation; no data-fusion cross-fitting algorithm with the specified fitting directions and nuisance recursion was located.",
+      "gap": "Finite-sample sums are available, but the fold partition, classifier/regression interfaces, backward fitting and odds pseudo-loss must be assembled with the source’s fitting and domain conventions.",
+      "comparisons": {
+        "D17": "Represent approximately equal random folds I_v and population subsets J_k explicitly, with fixed V. Fit conditional odds out of fold on ([n] minus I_v) intersect J_{k+1}, classifying target against relevant sources using the history. In contrast, the displayed algorithm fits pi^a from observations inside I_v; retain this despite the preceding blanket out-of-fold prose and the optional alternative in Remark 2. Set terminal ell^K to the fixed loss and regress backward from K-1 to 1 using the already fitted next-stage response on the same specified out-of-fold populations. Compute each in-fold pseudo-loss mean, then weight fold estimates by |I_v|/n; an unweighted average is not exact when sizes differ. Empty folds, absent training classes and estimated zero denominators need the recorded source qualifications. This main-text Algorithm 1-dagger is distinct from the supplement's general Algorithm 1 and the later feature-shift Algorithm 1; its motivating DS.0-dagger label does not erase the theorem's drift analysis under model failure."
+      }
+    },
+    {
+      "interface_id": "sequential-conditional-influence-function",
+      "related": [
+        "Set.indicator",
+        "Finset.sum_div",
+        "MeasureTheory.integral"
+      ],
+      "query": "Search efficient influence function, semiparametric and sequential conditional terminology throughout Mathlib; inspect indicators, finite sums and integration alongside both source parameterizations.",
+      "result": "The algebraic maps and their means can be expressed, but no model-specific efficient-influence-function or tangent-space identification was found in the searched revision.",
+      "gap": "The algebraic components are available, but the two influence maps and their model-qualified mean-zero and efficiency properties need development.",
+      "comparisons": {
+        "D13": "Subtract r times the first-population indicator divided by its total mass from the general pseudo-loss, for arbitrary nuisance arguments and scalar r. This centering is not simply subtraction of the constant r at every observation. The map is identified as an efficient influence function only at true nuisances and r_*, under DS.0 and the paragraph's density ratios uniformly bounded away from zero and infinity. Generic nuisance choices do not imply zero mean or efficiency. Integration supplies an expectation operation, not regular asymptotic linearity or tangent-space optimality; the excluded supplementary regularity definitions remain excluded.",
+        "D14": "Use the odds pseudo-loss and the centering denominator pi^0(1+theta^0), with theta^0 defined from the source-population marginal odds. Equivalence with D13 requires the exact nuisance transformation and first-population identity on their proper domains. The efficient interpretation additionally uses true nuisances, target inclusion under DS.0-dagger and bounded odds from the identifying paragraph. Do not propagate those qualifications into every theorem branch or infer a unique regression version under model failure; arbitrary supplied nuisances still define the displayed algebraic map."
+      }
+    },
+    {
+      "interface_id": "local-a3719a25d9ff7178ca71",
+      "related": [
+        "MeasureTheory.integral",
+        "ProbabilityTheory.variance_of_integral_eq_zero",
+        "ProbabilityTheory.variance"
+      ],
+      "query": "Search efficient influence, semiparametric and asymptotic variance across Mathlib; inspect Moments/Variance.lean 58-64,155-174 and the Bochner integral body.",
+      "result": "Raw second moments and the mean-zero variance identity are present; neither establishes the semiparametric lower bound over regular asymptotically linear estimators.",
+      "gap": "Second-moment and mean-zero variance formulas are available, but the model-specific efficient influence function and optimal asymptotic-variance interpretation still require proof.",
+      "comparisons": {
+        "D15": "The displayed quantity is the raw second moment of D_GSC at true nuisances and r_* under P_*, and analogously D_SC in the target-included model. variance_of_integral_eq_zero gives the equality to real variance once almost-everywhere measurability and mean zero are proved. The statistical finite-variance reading additionally requires square integrability; both real variance and the Bochner integral have totalized behavior outside it. The efficiency claim inherits the preceding source identification's ratio/odds bounds and model scope, and needs a regularity/tangent-space argument not supplied by a moment definition. Do not infer positivity of sigma from nonnegativity of a square; Theorem 1's division by sigma retains its recorded zero-variance issue and the limited 0/0 convention."
+      }
+    },
+    {
+      "interface_id": "local-ada052d6a95a9d0bc62c",
+      "related": [
+        "ProbabilityTheory.gaussianReal",
+        "ProbabilityTheory.iIndepFun",
+        "Real.log",
+        "Finset.sum_div"
+      ],
+      "query": "Search chi-square, chi-squared, chisq and fractional Brownian throughout Mathlib; inspect Gaussian/Real.lean 219-231, Independence/Basic.lean 132-146 and Log/Basic.lean 39-50.",
+      "result": "Standard Gaussian laws, joint independence, finite sums and real logarithms supply the noise-law ingredients. No chi-square or fractional-Brownian signal-plus-noise model was found by the named and semantic searches.",
+      "gap": "Gaussian and logarithm primitives are available, but the block-observation decomposition, log-chi-square noise law and its independent coupling to the fractional-Brownian signal require development.",
+      "comparisons": {
+        "D9": "Take m=n delta_n as a positive integer, with n=2^N in the surrounding setup. Build the noise as the log of the average of m squared jointly independent standard Gaussian variables; gaussianReal 0 1 gives each marginal and iIndepFun is joint independence rather than pairwise independence or identical distribution. Positivity of the sum of squares holds almost surely for m>=1 and justifies the ordinary log and exp inversion; mathlib's log on nonpositive inputs does not supply the source's statistical conventions. To identify the observation, use the blockwise constant volatility identity for the Brownian increments and the source-normalized sigma_0^2=1, together with independence of the price Brownian driver and fractional-Brownian driver. Preserve the block index i<delta_n^-1 and integer degrees of freedom n delta_n. No appendix trigamma formula or replacement observation grid is introduced."
+      }
+    },
+    {
+      "interface_id": "local-dde03aec5806f22c5158",
+      "related": [
+        "Finset.sum_div",
+        "Real.rpow",
+        "Measurable"
+      ],
+      "query": "Search empirical second differences, wavelet coefficients and fractional Brownian terms in Mathlib; inspect normalized finite sums and existing Real.rpow/Measurable source declarations.",
+      "result": "Finite linear combinations, real powers and measurability predicates support the formula after valid observation indices are provided; they do not resolve the retained mismatch between the block-observation grid and the printed dyadic indices.",
+      "gap": "Finite sums and measurability are available, but the exact empirical coefficient and its source-grid compatibility must be established without changing the printed indices.",
+      "comparisons": {
+        "D10": "Preserve normalization 2^(-j/2-p), the l=0,...,2^p-1 sum and the second-difference weights 1,-2,1 at the three printed shifted indices. The condition p+j<=N makes dyadic fractions compatible with integer index arithmetic, but does not by itself prove these indices belong to the available block grid i<delta_n^-1 when n=2^N and m=n delta_n is arbitrary. This unresolved source issue must not be hidden with natural-number truncation, arbitrary out-of-range extension or a redefinition of N. Measurability follows from finite combinations of data-measurable coordinates only after the indexing/availability issue is settled. Real.rpow supports the fractional exponent in the scale, while finite integer powers handle the number of terms."
+      }
+    },
+    {
+      "interface_id": "local-0b9b69dbd220faae3cc4",
+      "related": [
+        "ProbabilityTheory.variance",
+        "Finset.sum_range_succ",
+        "Real.rpow"
+      ],
+      "query": "Search noise-corrected energy, second-difference and chi-square terminology across Mathlib; inspect variance 58-64, finite range-sum recursion and real powers.",
+      "result": "Variance and finite sums supply the estimator components; no coarse-model noise-corrected energy statistic with the displayed coefficient was located.",
+      "gap": "Variance and finite sums are available; the coarse energy statistic needs its exact noise correction, valid coefficient indices and log-noise moment justification.",
+      "comparisons": {
+        "D11": "For each k, first square the empirical second-difference coefficient and subtract 6 Var(bar epsilon_m)2^(-j-p); then sum k=0,...,2^(j-1)-1. The hatted d-squared is an estimate of a square, not the square of a debiased coefficient. The coefficient 6 and coarse log-average-of-squares noise law differ from the later general-model correction, so neither may be replaced by the other. Real variance gives the intended moment only with finite log-noise second moment, which must be justified from the retained main-text law without importing the excluded appendix formula. The resulting energy can be negative; the sum and variance definitions do not establish positivity for downstream logarithms. Retain the empirical coefficient's unresolved grid compatibility."
+      }
+    },
+    {
+      "interface_id": "local-2fe50700aee38bbed9d3",
+      "related": [
+        "Finset.max'",
+        "Real.log"
+      ],
+      "query": "Search energy-level scale selection and Hurst estimator terminology in Mathlib; inspect Finset/Max.lean 128-142 and Log/Basic.lean 39-50; compare the recorded coarse and general estimator source conventions.",
+      "result": "A nonempty finite maximum and ordinary real logarithm are available; the selector's explicit range/fallback and the estimator's admissible ratio domain remain paper-specific.",
+      "gap": "Finite maxima and logarithms are available, but the exact scale selector and estimator require the source’s explicit fallback, valid energy indices and unresolved logarithm-domain/base conventions.",
+      "comparisons": {
+        "D12": "Construct the candidate set of integer scales 2<=j<=N-1 satisfying the non-strict energy threshold Qhat_{j,N-j-1,n}>=nu_0 2^j/n, with nu_0>0. Use max' when nonempty and explicitly return 2 otherwise; a maximum with bottom value is not the stated fallback. Keep the same p=N-J*-1 in both numerator and denominator, even though the numerator's first index is J*+1. Preserve -1/2 times the printed ordinary log, rather than silently substitute log base two from the later general estimator. The source's intended base and consistency remain a recorded ambiguity. Corrected energies may be nonpositive, division may be undefined statistically, and small-N fallback may fall outside the nominal range; Lean's totalized log/division and truncated natural subtraction must not fill those gaps without source authority. No extra clamping is introduced."
+      }
+    }
+  ]
+}

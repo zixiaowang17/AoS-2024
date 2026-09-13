@@ -1,0 +1,88 @@
+[
+  {
+    "interface_id": "local-8d06582ff6a066c1671c",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.covariance",
+      "MeasureTheory.integral",
+      "MeasureTheory.MemLp"
+    ],
+    "comparison": "For each sample size T retain an integer-indexed mean-zero weakly stationary process with finite second moments. The centered library covariance then equals the printed product expectation, and lag invariance gives E[X_i X_(i-j)]=E[X_0 X_(-j)]. Without the zero-mean assumption, this uncentered expectation would not be covariance. The allowed dependence of the underlying process on T must be represented explicitly rather than forcing one fixed infinite process for all sample sizes. No strict stationarity or independent increments follows. This source passage belongs to the Section 3 autocovariance setting and must not be imported into Theorem 1's more general nonstationary products.",
+    "gap": "Centered covariance and moment predicates express the lag-only quantity under the stated mean-zero weak stationarity, retaining its possible sample-size dependence.",
+    "searches": [
+      [
+        "Inspect covariance, integral and MemLp against p2375 D6 and its Section 3 scope",
+        "Zero mean identifies the printed product expectation with covariance; finite moments, lag invariance and the T-dependent process remain explicit."
+      ]
+    ]
+  },
+  {
+    "interface_id": "spiked-model-gram-mmse",
+    "status": "composable",
+    "names": [
+      "Matrix.frobeniusNormedAddCommGroup",
+      "MeasureTheory.lintegral",
+      "MeasureTheory.condExpL2",
+      "MeasureTheory.condExp"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i04-p1460/D12": "Use the joint symmetric experiment (Lambda,Y) and squared Frobenius loss for the Gram matrix Lambda Lambda^T, normalized by positive n squared. The Frobenius matrix norm must be selected explicitly; the default matrix norm need not be Frobenius. The source writes a minimum and separately asserts posterior-expectation attainment. condExpL2 is an orthogonal projection and supports the least-squares argument when the Gram target is square integrable; transferring it to a measurable function of Y requires the observation-sigma-algebra factorization. Fourth-order control of Lambda entries is a sufficient finite-dimensional target-L2 condition and must be checked in the admitted prior hypotheses rather than supplied by a totalized condExp. Use nonnegative extended expectation for risks outside a justified finite domain. The primitive does not prove attainment or the experiment-specific MMSE value by itself.",
+      "aos-2024-v52-i04-p1460/D16": "Use the asymmetric experiment (Lambda,Theta,A) and infimize normalized expected squared Frobenius error over measurable matrix estimators of A. This is the same Gram loss as the symmetric member but a different observation experiment and prior dependence, so equal loss definitions do not imply equal risks. Preserve an infimum rather than silently asserting an attained minimum. Nonnegative extended integration avoids interpreting nonintegrable real losses as zero; finite-risk or posterior optimality arguments require their own target moment conditions. The later sub-Gaussian/third-moment comparison assumptions are not inserted into this definition. Neither condExp nor generic conditional L2 projection alone proves the asymmetric-to-symmetric comparison."
+    },
+    "gap": "Frobenius loss and conditional L2 projection support the MMSE construction, while moment-domain, observation-factorization and attainment claims require experiment-specific justification.",
+    "searches": [
+      [
+        "Inspect Frobenius norm instance, condExpL2 projection and condExp domain; search Probability/ConditionalExpectation for MMSE-related declarations",
+        "The conditional L2 operator is orthogonal projection, but its domain and measurable-observation factorization must be supplied; the two experiments retain different risk values."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-8d39129925d733ea217c",
+    "status": "partial_match",
+    "names": [
+      "Set.indicator"
+    ],
+    "comparison": "Given a specified measurable threshold t_hat(alpha), Set.indicator represents each decision 1{|X_i|>=t_hat}; retain the absolute-value statistic and inclusive comparison. The admitted main text only calls the threshold a specific intersection of an empirical upper-tail curve and a noise quantile curve, deferring the actual convention to excluded Section S-7. Consequently the full BH rule is not determined by this passage: do not import a textbook p-value sorting formula, pick first versus last intersection, resolve ties or prescribe a no-intersection fallback. The library indicator supplies the final comparison once the threshold is defined, but neither its construction nor an FDR theorem. No dedicated Benjamini-Hochberg match was located in the inspected Probability/Analysis/conditional-expectation searches.",
+    "gap": "Indicators express the decisions conditional on a threshold, but the source's excluded threshold construction prevents a complete comparison of this BH procedure.",
+    "searches": [
+      [
+        "rg -i 'benjamini|hochberg' Mathlib/Probability Mathlib/Analysis/Matrix Mathlib/LinearAlgebra/Matrix Mathlib/MeasureTheory/Function/ConditionalExpectation; inspect Set.indicator",
+        "No dedicated rule found in the searched modules; the generic indicator cannot recover the source's deferred intersection convention."
+      ]
+    ],
+    "source_note_review": "Reviewed the retained D11/S-7 source limitation; threshold/intersection and supplemental formula S-18 remain explicitly unresolved and are not replaced by a conventional BH definition."
+  },
+  {
+    "interface_id": "local-f5b56eba8f411e24854d",
+    "status": "composable",
+    "names": [
+      "Matrix.trace",
+      "Matrix.mul_apply",
+      "Asymptotics.IsBigO"
+    ],
+    "comparison": "Form the ordered product R A_i R A_j and divide its scalar trace by the positive real dimension p. Represent the asymptotic boundedness of this sequence by IsBigO relative to one, retaining all index pairs i,j in the source range. A pointwise finite matrix trace is not the required uniform bound as p grows. Do not replace trace of the product by product of traces, a Frobenius norm or an entrywise bound; individual nonsymmetric products do not inherit positive definiteness. The phrase under the conditions of Theorem 2.1 carries inherited theorem assumptions handled by the saved dependency graph, and the arbitrary pi constants occur in the subsequent conclusion, not as extra arguments of a recursively defined trace. If K grows, pairwise and uniform-over-indices bounds need distinction rather than an unprinted strengthening.",
+    "gap": "Matrix products, trace and asymptotic boundedness express the normalized trace condition with its dimension and index quantifiers retained.",
+    "searches": [
+      [
+        "Inspect trace, matrix multiplication and IsBigO against p2217 D9 and the inherited-assumption boundary",
+        "The primitives encode the ordered normalized product and eventual bound; they do not turn pointwise finiteness into uniform asymptotic control."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-d4092971b115b5a87caf",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.minimaxRisk"
+    ],
+    "comparison": "This is exactly the source sample-complexity function T*(f,d,epsilon) specialized to epsilon=1/2. Retain Definition 1's expected signed-correlation loss 1-<theta_hat,theta_star>, unit-sphere parameter and estimator domains, infimum over both adapted actions and final history-measurable estimators, then the smallest qualifying sample size. Generic minimaxRisk supports a fixed-experiment infimum over Markov estimator kernels, but an adaptive experiment depends on the action policy; optimizing policies and relating deterministic/randomized estimator conventions must be constructed explicitly. Preserve the source minimum convention when the qualifying set is empty, rather than choosing a finite fallback. The exact constant 1/2 is not arbitrary big-O notation. High-probability recovery, squared sign-invariant overlap and the cost of a specified algorithm are different objects from this expected-loss minimax definition.",
+    "gap": "The burn-in definition is a direct specialization of sample complexity, whose adaptive-policy experiment and minimum-attainment conventions still need an explicit bridge to generic minimax risk.",
+    "searches": [
+      [
+        "Inspect minimaxRisk against p2557 Definition 1 and D6's epsilon=1/2 specialization",
+        "The library infimizes Markov estimators for a fixed experiment; it does not independently supply the adaptive action-policy optimization or least sample-size convention."
+      ]
+    ]
+  }
+]

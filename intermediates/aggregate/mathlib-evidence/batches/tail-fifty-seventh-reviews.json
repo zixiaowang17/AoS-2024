@@ -1,0 +1,62 @@
+{
+  "scope": "Manual comparison of six remaining p2004 spectral-clustering interfaces and seven variants; preserve exact global k-means, adaptive threshold, finite singular-value endpoints and fixed-separation scope.",
+  "rows": [
+    {
+      "interface_id": "local-b74fbb314b15cad93a78",
+      "related": ["LinearMap.singularValues", "LinearMap.card_support_singularValues", "Matrix.rank"],
+      "status": "composable",
+      "query": "Inspected singularValues 94-98 and ordered positive-support/rank consequences 141-207, together with matrix rank, against the population signal definition.",
+      "result": "Ordered singular values and their positive-support cardinality provide the population spectrum and rank after translating matrix representation and indexing.",
+      "gap": "Identify the population signal map and translate its rank and one-based singular-value indices while retaining the source's unspecified finite-sequence endpoint convention.",
+      "comparisons": {"D8": "Use the Euclidean linear map associated with the p-by-n signal matrix P, not the noisy X. Set kappa to its rank and impose 1<=kappa<=k, allowing kappa<k. The library's zero-indexed singularValues are nonnegative, decreasing and positive exactly below the rank; the source lambda_j corresponds to index j-1. Thus lambda_kappa is positive and the next library value is zero. However the paper initially gives only min(p,n) values and may refer to lambda_(kappa+1) at an endpoint: the library's infinite zero padding is an available convention, not evidence that the source stated it. Keep population values distinct from empirical hatted ones."}
+    },
+    {
+      "interface_id": "local-2d5ab52cc4cff6572ed0",
+      "related": ["ProbabilityTheory.HasSubgaussianMGF"],
+      "status": "composable",
+      "query": "Inspected HasSubgaussianMGF's scalar exponential-integrability and all-real-parameter bound against D13 and the separately retained direct-MGF scalar definition D12.",
+      "result": "A common scalar sub-Gaussian predicate over every unit direction expresses the given vector definition without coordinate independence.",
+      "gap": "Quantify the scalar MGF predicate over all Euclidean unit directions with the common variance proxy sigma squared.",
+      "comparisons": {"D13": "For every unit u in Euclidean d-space require HasSubgaussianMGF (fun omega => inner(u,X(omega))) sigma^2 under the probability measure. D12 bounds the uncentered scalar MGF directly, so this implies centered projections rather than using X-E X as a different definition. Encode finite exponential expectation with integrability so the Bochner MGF fallback cannot satisfy the bound spuriously. The same sigma^2 must work for all directions. It is a variance proxy, not necessarily the actual variance, and this property neither requires independent coordinates nor supplies independence across different observations."}
+    },
+    {
+      "interface_id": "local-d2c1255f659c40e15a84",
+      "related": ["MeasureTheory.Measure.pi", "MeasureTheory.Measure.map", "ProbabilityTheory.iIndepFun"],
+      "status": "composable",
+      "query": "Inspected finite iid product laws and matrix-valued pushforwards against the symmetric two-center observation model and its recorded real-delta issue.",
+      "result": "A product of the scalar noise law plus the label-selected opposite centers constructs the specified finite mixture experiment.",
+      "gap": "Assemble the opposite-center model with iid noise across all sample-coordinate pairs while preserving the unrestricted real delta and its source sign/rank caveat.",
+      "comparisons": {"D15": "For every pair (i,j) draw epsilon_ij independently from the same scalar law F, and translate each sample by its chosen center delta*ones or -delta*ones. This is stronger entrywise independence than a general sub-Gaussian vector assumption. Keep the source's delta in the reals; negative delta swaps the center signs and delta=0 collapses the centers. Adjacent claims Delta=2*sqrt(p)*delta, lambda_1=delta*sqrt(n*p) and rank one omit absolute values or a nonzero restriction and are recorded source issues, not properties established for every allowed delta. Do not silently impose positive separation in this model definition or introduce random uniform label counts where the model supplies a label assignment."}
+    },
+    {
+      "interface_id": "spectral-projection-k-means",
+      "related": ["LinearMap.IsSymmetric.eigenvectorBasis", "Matrix.mul_apply", "IsMinOn", "Finset.exists_min_image"],
+      "status": "composable",
+      "query": "Searched k-means and squared-centroid-loss semantics; inspected sorted Gram eigenvectors, matrix projection and finite/global optimizer predicates against both exact spectral-clustering variants.",
+      "result": "Spectral coordinates and squared-distance objectives are constructible; exact k-means can be reduced to finite assignments after minimizing centers within each nonempty cluster.",
+      "gap": "Construct the empirical spectral coordinates and exact global assignment-center minimizer, with empty-cluster and measurable-selection choices handled explicitly.",
+      "comparisons": {
+        "D9": "For valid r choose the leading r left singular vectors of X, using the sorted eigenbasis of XX^T and the source SVD convention, then project each column into real r-space. Minimize the unnormalized sum of squared distances jointly over labels in [k]^n and k centers. For a fixed labeling, nonempty cluster means minimize the center loss; empty centers can be arbitrary because they contribute nothing. This gives a finite assignment optimization but still needs the reduction proof and a selection convention. The full center domain is not compact merely because labels are finite. Preserve exact global k-means, not a Lloyd local minimum or the approximate routine discussed later, and keep theorem-specific r=kappa versus r=k choices separate. Singular-vector ties and measurability are not supplied by a noncomputable basis constructor.",
+        "D16": "Specialize to k=2 and the empirical leading left singular vector uhat_1, with scalar scores uhat_1^T X_i and two scalar centers. Minimize the same joint squared-loss objective. This is two-means with an estimated spectral direction, not signs of the scores, not a known zero threshold, and not projection onto the true population vector. Nonunique labels/centers or a tied leading singular space require selection handling. Retain the symmetric-model conditions from D15 and do not strengthen its unrestricted delta to a positive parameter merely to simplify the estimator."
+      }
+    },
+    {
+      "interface_id": "local-18d3e9834ccb1e661729",
+      "related": ["ContDiffOn", "deriv", "MeasureTheory.Measure.withDensity", "MeasureTheory.MemLp", "MeasureTheory.integral"],
+      "status": "composable",
+      "query": "Searched Fisher-information terminology; inspected continuous differentiability, scalar derivative, density measures and L2 score integrability against the full imported regularity condition.",
+      "result": "A positive C1 density, a mean constraint and square-integrable density score express this scalar Fisher information and its regularity requirements.",
+      "gap": "Package the normalized positive C1 density with zero mean and square-integrable score, retaining the fixed-separation condition of the imported lemma.",
+      "comparisons": {"D17": "Let F be Lebesgue measure with density f, with total mass one, f(x)>0 for every real x and ContDiffOn real 1 f over the whole line. Define the score as deriv f/f and Fisher information as its squared integral under F, equivalently the displayed Lebesgue integral with factor f. C1 regularity gives a genuine derivative and positivity prevents division-by-zero issues; MemLp score 2 F certifies finite information and avoids the nonintegrable Bochner zero fallback. Mean zero additionally requires an integrable first moment and its zero integral. The sign convention of a location score is immaterial only after squaring. Preserve Delta constant in the lemma imported by Theorem 3.5; a growing-separation limit or a proof of its optimal-if-and-only-if conclusion is not established by these definitions."}
+    },
+    {
+      "interface_id": "local-fb8e4fab2f1144692138",
+      "related": ["LinearMap.singularValues", "Finset.max'", "LinearMap.IsSymmetric.eigenvectorBasis", "IsMinOn", "Finset.exists_min_image"],
+      "status": "partial_match",
+      "query": "Inspected ordered singular values, nonempty finite maxima, Gram eigenbases and exact optimization ingredients against all three adaptive algorithm steps and the recorded endpoint/empty-set notes.",
+      "result": "The adaptive rank and projected k-means can be constructed when a qualifying gap exists and the neighboring singular values are defined; generic finite maxima do not supply those source conditions.",
+      "gap": "Select the largest index satisfying the printed non-strict gap test and then solve exact k-means, explicitly handling missing endpoint, nonemptiness and selection conventions.",
+      "comparisons": {"D14": "Compute the empirical SVD, filter indices a in [k] by lambda-hat_a-lambda-hat_(a+1)>=T, and take the largest qualifying index. This is not the largest gap's location or the first crossing. Preserve the >= formula and flag the prose's greater-than discrepancy. Finset.max' requires a nonempty set; the source has no fallback, and a reference to an excluded appendix does not supply a reviewed existence proof. Likewise the library's padded singularValues make endpoints available formally but do not show that the finite source sequence adopted zero extension. Project onto the resulting leading-rhat left space and globally minimize k-means, including the same exactness, ties and center-selection qualifications as Algorithm 1. Import only its SVD step, not its fixed-r clustering result."}
+    }
+  ]
+}

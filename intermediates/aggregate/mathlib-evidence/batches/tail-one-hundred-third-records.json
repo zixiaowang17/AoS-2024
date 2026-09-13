@@ -1,0 +1,1100 @@
+[
+  {
+    "interface_id": "local-65bc2ad0a934d0521c4a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "ac51e6c4d295dedf6c86984709858baefdb05a41138290b641bfad8eaa8d5856",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D1",
+        "comparison": "On a smooth open bounded Lambda in R^d, A_theta is sum_{i=1}^p theta_i A_i plus the known nuisance operator A_0, with zero spatial Dirichlet boundary conditions and additive noise coefficient one. The unknown parameter is the p-vector theta, not a noise intensity or initial state. Each known parameter operator has order n_i in {0,1,2}. A closed partial linear map can retain an unbounded L2 generator domain; an everywhere bounded continuous linear map or ordinary ODE would change the model. PosDef can encode the finite principal coefficient condition but does not provide the PDE realization or stochastic integral.",
+        "statement_sha256": "f491533c88f51d6566d507011cd33f3b3b32dcc0778eeb43d1fc2859dba8ff48"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearPMap.IsClosed",
+          "type": "{R E F : Type*} → [CommRing R] → [AddCommGroup E] → [AddCommGroup F] → [Module R E] → [Module R F] → [TopologicalSpace E] → [TopologicalSpace F] → (E →ₗ.[R] F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.LinearPMap",
+          "provides": "Closedness of the graph of a partially defined linear operator in the ambient product topology, without requiring a bounded operator on the full space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/LinearPMap.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/Analysis/Topology for cylindrical noise, stochastic integration, analytic semigroups and closed operators; inspect LinearPMap.IsClosed and Matrix.PosDef against the affine elliptic generator family",
+          "result": "Partially defined closed operators and positive-definite coefficient matrices have checked representations; no verified complete linear parabolic SPDE with cylindrical forcing and Dirichlet realization was located."
+        }
+      ],
+      "gap": "Construct the affine elliptic Dirichlet operator family and its additive space-time-white-noise evolution with the specified initial condition."
+    }
+  },
+  {
+    "interface_id": "local-42d8466a296398bd593a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "c6e924f3862088d5ea211e6cf767d17bc50cd13914a74c311bf59f7851b3b01a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D2",
+        "comparison": "A_i acts as div(a^(i) grad)+div(b^(i) times the argument)+c^(i), with symmetric constant a^(i), constant b^(i) and scalar c^(i). For each i>=1 exactly one coefficient type is nonzero, giving pure order two, one or zero, while A_0 may mix them. The formal adjoint keeps diffusion and reaction and reverses transport. IsFormalAdjoint expresses the pairing identity on supplied partial domains; it does not by itself identify the full Hilbert adjoint domain. Do not read div b alone as zero just because b is constant, since the term acts on the function, and do not force the total generator to be self-adjoint when transport is present.",
+        "statement_sha256": "d331034ca69fe053c388f840f72a1ac98b29c4d771c0a90ca3dfe0093011a5ab"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearPMap.IsFormalAdjoint",
+          "type": "{𝕜 E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →ₗ.[𝕜] F) → (F →ₗ.[𝕜] E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearPMap",
+          "provides": "The adjoint pairing identity for two partially defined linear operators on their supplied domains; equality with the maximal Hilbert-space adjoint domain is separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearPMap.lean#L74-L75",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect LinearPMap.IsFormalAdjoint and derivative primitives; compare constant-coefficient differential operators and the formal integration-by-parts signs",
+          "result": "Differential expressions and a partial-domain adjoint identity can be represented; the source's concrete integration-by-parts calculation and exact operator domains require additional proofs."
+        }
+      ],
+      "gap": "Build the homogeneous constant-coefficient operators and prove their formal adjoint identities with the correct transport sign and boundary domains."
+    }
+  },
+  {
+    "interface_id": "local-3a0c5d314c35181d0922",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "6b84719fcb89b173f5ab96a5dc552a22689d02e5c919b1eee10010457dd8dfcb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D3",
+        "comparison": "Require a_theta positive definite for every theta in Theta, without adding one lower ellipticity constant uniform over the entire parameter space. The generator domain is H_0^1(Lambda) intersect H^2(Lambda), and the formal adjoint is asserted on that same domain. Whole-space Bessel Sobolev membership does not impose a zero boundary trace. ContinuousLinearMap.adjoint applies to each bounded S_theta(t), not directly to unbounded A_theta. The source permits nonsymmetric transport and does not assert stationarity here; semigroup generation and domain equality are substantive analytical results beyond the checked predicates.",
+        "statement_sha256": "33cf8596d57197aa14dc9e55a4667c3a6cc2f0d237ca12337d3778a1b22e3ea4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "LinearPMap.IsClosed",
+          "type": "{R E F : Type*} → [CommRing R] → [AddCommGroup E] → [AddCommGroup F] → [Module R E] → [Module R F] → [TopologicalSpace E] → [TopologicalSpace F] → (E →ₗ.[R] F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.LinearPMap",
+          "provides": "Closedness of the graph of a partially defined linear operator in the ambient product topology, without requiring a bounded operator on the full space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/LinearPMap.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "LinearPMap.IsFormalAdjoint",
+          "type": "{𝕜 E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →ₗ.[𝕜] F) → (F →ₗ.[𝕜] E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearPMap",
+          "provides": "The adjoint pairing identity for two partially defined linear operators on their supplied domains; equality with the maximal Hilbert-space adjoint domain is separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearPMap.lean#L74-L75",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search analytic and strongly continuous semigroup results; inspect PosDef, partial-operator closedness/formal adjoint and the bounded ContinuousLinearMap.adjoint definition",
+          "result": "Coefficient positivity, closed partial operators and bounded adjoints of the eventual semigroup maps are available ingredients; the analytic Dirichlet generation theorem and adjoint-domain identification were not located."
+        }
+      ],
+      "gap": "Realize the elliptic generator on H0^1 intersect H2, prove analytic semigroup generation and identify the adjoint generator and semigroup on their stated domains."
+    }
+  },
+  {
+    "interface_id": "local-17852f365dd5f1666f96",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "c5368d76652f4e273cd4faccf14c62a902d29abe6b435ef98895154c30a0d694",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D4",
+        "comparison": "The mild expression is S_theta(t) X_0 plus the stochastic integral from 0 to t of S_theta(t-t') against cylindrical W on L2(Lambda), with X_0 only F_0-measurable here. The embedding iota into a larger H_1 must satisfy integral_0^t norm_HS(iota S_theta(t'))^2 dt'<infinity. This is not an ordinary time integral or a scalar Brownian integral multiplied by one fixed vector. The printed claim of values in L2 subset H_1 is retained as a source caveat; rough cylindrical forcing does not justify assuming pathwise L2 membership in every dimension. No Gaussianity of arbitrary X_0 is added.",
+        "statement_sha256": "2d9fd5a663cfe18532bf4d4920e07c52b919244de424f9c0c5fcd163aa1933d6"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -n -i 'strongly continuous semigroup|analytic semigroup|cylindrical|stochastic integral|hilbert.schmidt' Mathlib/Probability Mathlib/Analysis Mathlib/Topology",
+          "result": "The searched pinned library did not provide a verified match for the larger-Hilbert-space cylindrical stochastic convolution."
+        }
+      ],
+      "gap": "Construct the cylindrical stochastic convolution through a suitable embedding with the stated Hilbert-Schmidt integrability and preserve the source's unresolved smaller-space path interpretation.",
+      "no_related_reason": "No verified cylindrical-Wiener stochastic integral, Hilbert-Schmidt convolution construction or analytic-SPDE mild-solution API was found; real Brownian motion and ordinary Bochner integration do not provide this construction."
+    }
+  },
+  {
+    "interface_id": "local-b006e3545c2c1e7ec292",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "9e91069c269acf91ddb4a76a8ea1eb6f48c2d15e4f1377b233a768b4b95f6f6b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D5",
+        "comparison": "For every z in L2(Lambda), define the observation through the deterministic initial pairing plus integral_0^t <S_theta^*(t-t')z,dW(t')>. Its indexing includes both time and test vector, so Gaussianity is a joint finite-dimensional assertion. The notation <X(t),z> is a generalized extension rather than permission to take an ordinary L2 inner product of every sample path. The stochastic term can be Gaussian under an appropriate construction, but arbitrary F_0-measurability of X_0 does not by itself make the initial term Gaussian. The source's Gaussian wording stays flagged rather than introducing a new Gaussian initial-law assumption.",
+        "statement_sha256": "df5317f5aa2df6f5f0d3f2d26f273e1f5fefc4a45f944f80409fa097d4610eca"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect IsGaussianProcess's finite-dimensional-law predicate and bounded semigroup-map adjoints; search cylindrical stochastic integration and compare the generalized observation formula",
+          "result": "The claimed joint Gaussian law and adjoint semigroup maps can be described, but the generalized pairing and cylindrical stochastic integral are not constructed by these declarations."
+        }
+      ],
+      "gap": "Construct the embedding-independent generalized observations and justify their Gaussian description under the actual initial-law assumptions."
+    }
+  },
+  {
+    "interface_id": "local-e34384120ecbb4a09865",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "31bbac6b4886877840576ca4de0247d97cdbc893937396e7c464221e9fb5e858",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D6",
+        "comparison": "For delta>0 use delta^(-d/2) z((y-x)/delta), interpreting the exponent as a real number and y,x in the stated domain. This is L2 scaling, not the delta^(-d) density normalization. Whole-space Lebesgue L2 norm preservation follows from the Jacobian delta^d after proof; restricting y to Lambda preserves that norm only when the shifted scaled support lies inside Lambda. Because z begins as an L2 class, representative independence and measurability of the affine pullback also need justification.",
+        "statement_sha256": "fb2907b46f4f77b02ca7d202bff1cf3bfd816708af07a6f4ce6d29f530860e42"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect eLpNorm at exponent two and real powers; compare the positive-resolution spatial translation/dilation and its restriction to Lambda",
+          "result": "The L2 norm and scaling factor are representable; invariance requires an affine change-of-variables argument and a distinction between whole-space and restricted-domain evaluation."
+        }
+      ],
+      "gap": "Define the translation-dilation on L2 representatives and prove its whole-space norm preservation with the correct support condition for restriction to Lambda."
+    }
+  },
+  {
+    "interface_id": "local-112a3f0a3e2474e9a24e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "6ae626d4590a684f53c03f9cd8ea2de9b35d82b0c493c38a4ced5c145ae89932",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D7",
+        "comparison": "K lies in H2(R^d) and has compact support; it need not be normalized, nonnegative or infinitely differentiable. Choose M positive locations in Lambda and delta>0 small enough that every K_delta,xk is supported inside Lambda. MemSobolev uses a tempered-distribution/Bessel-potential representation, so the usual H2 identification and real/complex representation need a bridge. Neither pairwise disjoint supports nor a fixed compact interior location set is part of this basic clause; those are separate H and L assumptions.",
+        "statement_sha256": "ca9f011cf11848113cbf7fb00d04ecf20daf85de30c95fa2e85c8f5e1c1f57b2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TemperedDistribution.MemSobolev",
+          "type": "{E : Type u} → {F : Type v} → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → [BorelSpace E] → [NormedSpace ℂ F] → [CompleteSpace F] → (s : ℝ) → (p : ℝ≥0∞) → [Fact (1 ≤ p)] → TemperedDistribution E F → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Distribution.Sobolev",
+          "provides": "Sobolev membership of a tempered distribution on a finite-dimensional real vector space, defined through a Bessel potential and an Lp representative with respect to volume.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Distribution/Sobolev.lean#L153-L155",
+          "link_checked": true
+        },
+        {
+          "name": "HasCompactSupport",
+          "type": "{α : Type u} → {β : Type v} → [TopologicalSpace α] → [Zero β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Support",
+          "provides": "Compactness of the closure of the nonzero support in the function's domain topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Support.lean#L213-L217",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect MemSobolev at order two and exponent two and HasCompactSupport's closed nonzero support; compare whole-space kernel regularity and its shifted supports",
+          "result": "Whole-space Sobolev membership and compact support have checked representations, but their identification with the real H2 kernel and its scaled boundary containment needs an explicit construction."
+        }
+      ],
+      "gap": "Instantiate a compactly supported H2 point-spread function and prove that each translated scaled support remains inside the spatial domain."
+    }
+  },
+  {
+    "interface_id": "local-1c2bc707783c3e7a5882",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "c8fdec62a2f4c81c9c0ce0ce1599066324725c0798783ab4ed7abe678a014a02",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D8",
+        "comparison": "Channel k is the full path t↦<X(t),K_delta,xk> for 0<=t<=T. This is continuous-time observation, not a finite time grid or a single terminal measurement. The original channel has no A_i operator applied to the kernel; derivative channels are separate. Disjoint spatial kernel supports can separate driving noises but do not make the observed processes independent through the common SPDE. The saved arbitrary-X_0 Gaussianity caveat also remains relevant rather than being bypassed by the IsGaussianProcess name.",
+        "statement_sha256": "e4b7fec4baa118f41d8e456f5f234c9e4564e1c96a49e50345edd70f037fcc4c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect IsGaussianProcess with a time-by-channel index and compare the entire local-observation trajectories built from the saved generalized pairing",
+          "result": "A joint process indexed by channel and time can be represented, but the local observations require the source's generalized stochastic pairing and any Gaussianity hypotheses must be justified."
+        }
+      ],
+      "gap": "Construct the M generalized local-observation paths over the full time interval without imposing independence or unsupported pathwise L2 pairings."
+    }
+  },
+  {
+    "interface_id": "local-46eca82ae041c393d02b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "23ba0a2e78caa60b9fa57d0ddd85a228281587a72c7456c97bf8bf8944ba0455",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D23",
+        "comparison": "K=Delta(Delta K-tilde) with K-tilde in C_c^infinity(R^d), rather than Delta(K-tilde squared) or a single Laplacian. ContDiffOn at infinite order on the whole space and HasCompactSupport express the potential conditions, while laplacianWithin on univ supplies the classical differential expression. Theorem 4.3 applies the full condition separately to K, Delta K and the transport-derived kernel; one witness for K alone does not automatically fulfill all three stated instances. No zero temporal endpoint condition is implied.",
+        "statement_sha256": "54e4d634cae3c768e23ee534bb227f150f8c852100b21e53a4810f13e1bc23fa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.laplacianWithin",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace ℝ F] → (E → F) → Set E → E → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Laplacian",
+          "provides": "Laplacian within a set via the second Frechet derivative contracted with the canonical Euclidean tensor; no Neumann boundary realization is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Laplacian.lean#L133-L134",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "HasCompactSupport",
+          "type": "{α : Type u} → {β : Type v} → [TopologicalSpace α] → [Zero β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Support",
+          "provides": "Compactness of the closure of the nonzero support in the function's domain topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Support.lean#L213-L217",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect the Laplacian-within definition on the whole domain, ContDiffOn and compact support; compare the iterated-Laplacian kernel requirement",
+          "result": "A classical Laplacian can be iterated on a smooth compactly supported function; the source's kernel representation and required repeated instantiations still need witnesses."
+        }
+      ],
+      "gap": "Supply a smooth compactly supported potential whose twice-applied Laplacian equals each kernel required by the relevant lower-bound theorem."
+    }
+  },
+  {
+    "interface_id": "local-f0602ed2baba38aa995a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "656b678376c87d123a3f3ae9a50d5de089e2384b411acce3a6f5740d19590702",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D18",
+        "comparison": "A acts on D(A) inside H and satisfies A e_j=-lambda_j e_j with an orthonormal basis and 0<lambda_1<=lambda_2<=...; retain the positive spectral gap and the negative sign on the eigenvalues. LinearPMap self-adjointness equates the operator and its adjoint including their domains, stronger than symmetry on a chosen domain. The basis reconstruction theorem does not prove that these are eigenvectors or that A generates S(t). The source does not explicitly require lambda_j→infinity here. This general self-adjoint model is separate from the spatial A_theta, which may have nonsymmetric transport.",
+        "statement_sha256": "aa7eac9caaf835c74df7b4f5167737eb5cb8eab581671d443562cd63a034c83d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearPMap.IsClosed",
+          "type": "{R E F : Type*} → [CommRing R] → [AddCommGroup E] → [AddCommGroup F] → [Module R E] → [Module R F] → [TopologicalSpace E] → [TopologicalSpace F] → (E →ₗ.[R] F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Module.LinearPMap",
+          "provides": "Closedness of the graph of a partially defined linear operator in the ambient product topology, without requiring a bounded operator on the full space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Module/LinearPMap.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "LinearPMap.isSelfAdjoint_def",
+          "type": "{𝕜 E : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [CompleteSpace E] → {A : E →ₗ.[𝕜] E} → (IsSelfAdjoint A ↔ LinearPMap.adjoint A = A)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearPMap",
+          "provides": "Self-adjointness of a partially defined Hilbert-space operator means equality with its adjoint as a partial operator, including equality of domains.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearPMap.lean#L235-L235",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect partial-operator closedness, isSelfAdjoint_def and its adjoint-domain construction, HilbertBasis reconstruction, and search strongly continuous semigroup generation",
+          "result": "Closedness and self-adjointness of an unbounded partial operator and complete Hilbert-basis expansion have checked representations; the negative spectral model and its semigroup are additional structure."
+        }
+      ],
+      "gap": "Construct the negative self-adjoint generator with its specified domain, positive-gap eigenbasis and strongly continuous semigroup."
+    }
+  },
+  {
+    "interface_id": "local-2b65ec26f2fa6436c1d8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "ebeaba142353fa14ddee05c695e5d293c818f0e91f353d5c0d5bc81110d3369c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D24",
+        "comparison": "A_theta=theta_1 Delta+theta_2(b dot grad)+theta_3 for a fixed Euclidean unit b. Theta_1 has (theta_1,0,0) with theta_1>=1; Theta_2 has (1,theta_2,0) with theta_2 in [0,1]; Theta_3 has (1,0,theta_3) with theta_3<=0. Preserve the fixed remaining coordinates and orders 2,1,0 respectively. These are one-sided submodels, not an unrestricted R^3 neighborhood, and positive definiteness or lower-bound conclusions for a larger parameter class are not inferred. Boundary realization remains spatial Dirichlet from the inherited SPDE setup.",
+        "statement_sha256": "717459a70575308a68148c0368990c40d914f7f7d8a02577e51e0798c83502b0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.laplacianWithin",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace ℝ F] → (E → F) → Set E → E → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Laplacian",
+          "provides": "Laplacian within a set via the second Frechet derivative contracted with the canonical Euclidean tensor; no Neumann boundary realization is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Laplacian.lean#L133-L134",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect classical Laplacian and Frechet derivative primitives; compare all three one-sided parameter submodels and their fixed coefficient coordinates",
+          "result": "The diffusion and fixed-direction transport expressions can be built from derivatives, but the Dirichlet realization and the source's one-sided statistical submodel classes require a definition."
+        }
+      ],
+      "gap": "Define the three one-dimensional parameter submodels through (1,0,0) and their corresponding differential operators with the stated one-sided ranges."
+    }
+  },
+  {
+    "interface_id": "local-e45c00478d49ebefbdb3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "e7c99845102eb14b88712898dbfff88c3115fc04c7989ed6f31ec110664d0a8f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D20",
+        "comparison": "Z is centered on a separable Hilbert space, so covarianceOperator of its law matches a covariance once finite second moments are established. The positive-eigenvalue expansion uses sigma_j squared and weighted norm sum <u_j,h>^2/sigma_j^2. If C_Z has a kernel, the printed finite-sum set includes kernel vectors with zero displayed norm unless a support or orthogonality restriction is imposed; this conflicts with the alternative range C_Z^(1/2) Z characterization and stays flagged. Positive one-half CFC.rpow is a relevant bounded square-root ingredient, but a bounded total negative power is not the generally unbounded inverse on that range when eigenvalues approach zero. A complete ambient HilbertBasis is not automatically furnished by the positive-eigenvalue orthonormal system, and no generic function-evaluation RKHS is substituted.",
+        "statement_sha256": "aada3a13763738922ffc3fc521d2102efa0fd5aef5ad0a048343db42cb027714"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covarianceOperator",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [MeasurableSpace E] → [BorelSpace E] → [CompleteSpace E] → MeasureTheory.Measure E → (E →L[ℝ] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "The uncentered second-moment operator of a real Hilbert-space measure; centering the feature-map law is necessary for the paper's covariance operator.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L192-L194",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "HilbertBasis.hasSum_repr_symm",
+          "type": "∀ {ι : Type u} {𝕜 : Type v} [RCLike 𝕜] {E : Type w} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] (b : HilbertBasis ι 𝕜 E) (f : ℓ²(ι, 𝕜)), HasSum (fun i => f i • b i) (b.repr.symm f)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "provides": "Reconstruction of a Hilbert-space vector from square-summable coordinates; membership in ℓ² is an input, not a consequence for arbitrary random heavy-tailed coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/l2Space.lean#L428-L429",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect covarianceOperator's uncentered definition, positive-operator CFC.rpow and HilbertBasis reconstruction; search Cameron-Martin and infinite-dimensional trace/Hilbert-Schmidt APIs",
+          "result": "A centered Gaussian law's second-moment operator and its positive square root have checked ingredients; the Gaussian RKHS identification, unbounded inverse square root and trace-class spectral construction are not supplied by those declarations."
+        }
+      ],
+      "gap": "Construct the Gaussian covariance RKHS and its weighted eigenbasis norm, explicitly resolving the covariance-kernel support restriction and inverse-square-root domain."
+    }
+  },
+  {
+    "interface_id": "local-10ca86209c87aac945a0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "6a4be7650559944f884c4f95c8132b9a6a9d46040d5484e34d6de24c11bd5e85",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D22",
+        "comparison": "P_theta is the law of the stationary solution to the spatial SPDE (1.1) for the lower-bound models. Stationarity concerns the process law, including its initial distribution, not merely time-independent coefficients or an invariant covariance at one time. Do not replace it by the CLT's arbitrary F_0-measurable initial value with a negligible propagated contribution. The spatial transport submodel can be nonsymmetric, so the distinct Section 3 self-adjoint Hilbert generator is not imported simply because it also supports a stationary construction.",
+        "statement_sha256": "f5f9cb0a1773ce5b49742aed5d02d63a3ef045fbb6f862947df93e36c1ca62d7"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/Analysis/Topology for cylindrical forcing, stochastic integrals and analytic semigroups; compare the stationary-law clause introducing the source's lower-bound submodels",
+          "result": "The stationary SPDE path law is a source-specific assumption without a verified packaged construction in the searched library."
+        }
+      ],
+      "gap": "Construct the stationary solution law for each lower-bound parameter submodel and keep that initial-law restriction separate from the CLT setup.",
+      "no_related_reason": "No verified stationary cylindrical-SPDE solution-law construction was found in the pinned library; an invariant-kernel predicate would not establish the full stationary path law required here."
+    }
+  },
+  {
+    "interface_id": "local-03bcf7b1f50f65c06aa3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "d987c10d9f0697e7eede3918403716ece779d063acabeef1616d27be6cde692d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D19",
+        "comparison": "Use integral from minus infinity to t of S(t-t') dW(t') with the preceding negative self-adjoint generator; this has no separately added arbitrary initial term. It needs a compatible Wiener construction for negative times and appropriate stochastic-integrability estimates. The source describes values in H subset H_1 while invoking a larger space because of roughness; no unrestricted H-valued path assertion is inferred. The sign and lag of t-t' stay intact, and the separate problematic unshifted exponent in a later proof passage is not imported as this definition.",
+        "statement_sha256": "9172b74b651782784b08724815921abfef4fbe8da4147ffc63dbadfea7e6624d"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability/Analysis/Topology for cylindrical Wiener processes, stochastic integration and strongly continuous semigroups; compare the exact infinite-past convolution",
+          "result": "No verified matching stationary infinite-past cylindrical convolution API was located."
+        }
+      ],
+      "gap": "Construct the infinite-past cylindrical convolution in a suitable larger Hilbert space and establish its stationary law and generalized observations.",
+      "no_related_reason": "The source needs a cylindrical stochastic convolution from minus infinity for a general Hilbert semigroup; no verified stochastic-integration construction matching it was located, and ordinary Bochner integration is not equivalent."
+    }
+  },
+  {
+    "interface_id": "local-3f42a484b9e3d489a5c4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "bde53278e0a5cd8653cd5a03dc74a10ba1209b04793ab887c629adb440b81e54",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D25",
+        "comparison": "For every distinct pair of indices k,l require norm(x_k-x_l)>delta, not >=delta. Metric.IsSeparated on the set of centers alone cannot detect duplicate indexed positions, so injectivity or the direct indexed pairwise predicate is necessary. Also require every scaled support inside Lambda and pairwise disjoint supports; center separation alone does not imply disjoint supports without a kernel-radius bound. This L clause has no fixed compact J independent of delta,M. In Theorem 4.3 the support and kernel conditions must be checked for all three specified kernels, not just the original K.",
+        "statement_sha256": "3f5fa62bfb1ff5e3b66d570cffe1e3e8a10065c67f3cbec4bf831e97d9331728"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.IsSeparated",
+          "type": "{X : Type*} → [PseudoEMetricSpace X] → ℝ≥0∞ → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.MetricSeparated",
+          "provides": "Every two distinct points of a set have extended distance strictly greater than the supplied radius; an indexed family additionally needs distinctness to rule out repeated positions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/MetricSeparated.lean#L44-L44",
+          "link_checked": true
+        },
+        {
+          "name": "HasCompactSupport",
+          "type": "{α : Type u} → {β : Type v} → [TopologicalSpace α] → [Zero β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Support",
+          "provides": "Compactness of the closure of the nonzero support in the function's domain topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Support.lean#L213-L217",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Metric.IsSeparated's strict pairwise distance and HasCompactSupport; compare indexed center separation and the separate scaled-kernel support conditions",
+          "result": "The library separation predicate uses the same strict distance boundary on a set, but an indexed family also requires injectivity and separate support containment/disjointness proofs."
+        }
+      ],
+      "gap": "Encode the indexed strict-delta separation together with interior and pairwise disjoint kernel supports for every required kernel instantiation."
+    }
+  },
+  {
+    "interface_id": "local-82bfb7ca93fd7f771d9a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "847444fe523ce92eb36dc821dcec4ec9a454d364c71cf70e711db1a9adb1662f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D9",
+        "comparison": "The nuisance channel is t↦<X(t),A_0^* K_delta,xk>, and each parameter channel is t↦<X(t),A_i^* K_delta,xk>. Keep the adjoint on the kernel, with transport sign reversed; this is not evaluation of a classical derivative of a rough sample path. The A_0 channel is known and supplies the correction in the estimator. The lower-bound extension adds Laplacian and fixed-direction transport channels explicitly. Appropriate kernel domains and generalized pairings are required, and these channels are not independent merely because their test supports are disjoint.",
+        "statement_sha256": "cb1261e28883146d116388c9fcb26a11c8a610fdd4a0b23984988dbd81679405"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearPMap.IsFormalAdjoint",
+          "type": "{𝕜 E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (E →ₗ.[𝕜] F) → (F →ₗ.[𝕜] E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearPMap",
+          "provides": "The adjoint pairing identity for two partially defined linear operators on their supplied domains; equality with the maximal Hilbert-space adjoint domain is separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearPMap.lean#L74-L75",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect the partial-domain formal adjoint identity and compare the operator-applied kernel channels, including the nuisance channel",
+          "result": "The formal adjoint relation explains the placement of A_i^* on test kernels; the generalized stochastic observation channels themselves require the paper's pairing construction."
+        }
+      ],
+      "gap": "Construct all known-operator observation channels by applying the formal adjoints to admissible kernels and retaining their full time paths."
+    }
+  },
+  {
+    "interface_id": "local-0e9972cd6313d78ebf5a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "fff7d437f7397035d428eed13697bce64788bb57a83e63eaaa1f7af657351b3c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D14",
+        "comparison": "For every i=1,...,p require the real-coerced order n_i to be strictly greater than 1-d/2, with n_i in {0,1,2}. For positive dimensions one and two this excludes order zero; for dimension at least three order zero satisfies this particular strict inequality. These arithmetic consequences do not establish the SPDE theorem. Do not include equality cases from later Section 5 discussions or Proposition 5.3 in the original Theorem 2.3 hypothesis.",
+        "statement_sha256": "e36729d699051443c1415d14841b583eb5d7bbe491d68734d26efd7f90bbaa11"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search analytic-semigroup and cylindrical-SPDE interfaces; compare the strict order-dimension clause with its archived boundary-extension caveat",
+          "result": "The inequality can be defined directly, but no verified library declaration for this statistical SPDE threshold was located."
+        }
+      ],
+      "gap": "Retain the strict n_i>1-d/2 restriction for each parameter operator in the theorem's actual hypothesis set.",
+      "no_related_reason": "This is a strict source-specific differential-order versus dimension restriction; no SPDE regularity threshold API was found and generic arithmetic would not provide its role in the theorem."
+    }
+  },
+  {
+    "interface_id": "local-71645fa435f42870de6c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "18311cf38c46aff6525f270e2a02428772cc1ddcd18556bd2eaeffac60a8903c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D17",
+        "comparison": "The named operator is -div(a_theta grad) on H2(R^d), separate from the bounded-domain Dirichlet generator. For any real s the source prints multiplier (-xi transpose a_theta xi)^s even though the quadratic form is positive and the operator is described as positive. For noninteger s this needs a sign/complex-power interpretation that the source does not resolve. Preserve the stated sufficient weighted L2 condition |xi|^(2s) Fz in L2, with low-frequency domain care for negative s. A total bounded-operator CFC.rpow or an unannounced sign correction would not establish this unbounded spectral construction.",
+        "statement_sha256": "7c231e1cf1f2e6933f2d84ad4fbe1b56de96457cbb0edf58670a889346ab05af"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "VectorFourier.fourierIntegral",
+          "type": "{𝕜 : Type u} → [CommRing 𝕜] → {V : Type v} → [AddCommGroup V] → [Module 𝕜 V] → [MeasurableSpace V] → {W : Type w} → [AddCommGroup W] → [Module 𝕜 W] → {E : Type z} → [NormedAddCommGroup E] → [NormedSpace ℂ E] → AddChar 𝕜 Circle → MeasureTheory.Measure V → (V →ₗ[𝕜] W →ₗ[𝕜] 𝕜) → (V → E) → W → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Fourier.FourierTransform",
+          "provides": "Fourier integration with an explicit additive character and bilinear pairing, allowing the paper's positive-exponent convention to be encoded by the pairing.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Fourier/FourierTransform.lean#L82-L84",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Fourier integration, MemLp at exponent two and PosDef; compare the whole-space fractional multiplier with the positive-operator description and the bounded CFC.rpow scope",
+          "result": "The Fourier L2 domain condition is expressible, but bounded continuous functional calculus does not supply the unbounded fractional operator, and the source's multiplier has a substantive sign conflict."
+        }
+      ],
+      "gap": "Construct the whole-space unbounded fractional operator with explicit domain and resolve the printed negative multiplier versus positive-operator description without silently changing the source."
+    }
+  },
+  {
+    "interface_id": "local-3cbe05f8cfc040a444f8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "811906fb75ae338f20db5275628e609f21a05b33edaf5cc1252526e2cafae230",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D21",
+        "comparison": "The formula is integral_{-infinity}^t <S(t-t') z,dW(t')>_H for all z in H, with the preceding self-adjoint generator so the displayed S need not be replaced by a separately unrelated adjoint. The quoted inner product notation denotes a generalized Gaussian process, not an assertion that X(t) has a pathwise H inner product with every z. IsGaussianProcess on the joint (t,z) index records Gaussian finite-dimensional laws but supplies neither a cylindrical Wiener integral nor the resulting covariance and continuity properties.",
+        "statement_sha256": "47174995323b0b99596447700bd8dd742f08be5e79220106883db3bea4f163d5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect IsGaussianProcess's finite-dimensional-law definition and search cylindrical stochastic integration; compare the stationary generalized test-vector pairing",
+          "result": "Joint Gaussianity over time and test vectors has a checked predicate; the infinite-past stochastic pairing itself lacks a verified construction in the searched library."
+        }
+      ],
+      "gap": "Construct the stationary generalized Gaussian pairing for every test vector in H from the self-adjoint semigroup convolution."
+    }
+  },
+  {
+    "interface_id": "local-a2abe9ec19deb54b6f14",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "25f5bf594dbaf7bb9329538b7ccc1dd7a09771a2ea35c8873c4397265b0d3a10",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D13",
+        "comparison": "Use LinearIndependent R (fun i => A_i K) for i=1,...,p, taking real scalars and the source's function-space interpretation, naturally the L2 operator images after kernel regularity is supplied. The family retains indexed members rather than only distinct values in a set. The source prints A_i, not A_i^*, and uses the unscaled K rather than K_delta,xk. Independence of those functions is neither stochastic independence of observations nor independence of the coefficient vectors alone. No Gram invertibility theorem is claimed solely by citing the definition.",
+        "statement_sha256": "c97215fd5447004e18831037794b43bfd03981e3f070c2f672aef70979df58a2"
+      }
+    ],
+    "library_audit": {
+      "status": "exact_reuse",
+      "related_declarations": [
+        {
+          "name": "LinearIndependent",
+          "type": "{ι M : Type*} → (R : Type*) → [Semiring R] → [AddCommMonoid M] → [Module R M] → (ι → M) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.LinearIndependent.Defs",
+          "provides": "Injectivity of the finitely supported linear-combination map for the indexed vector family; a finite family is independent exactly when no nontrivial coefficient combination is zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/LinearIndependent/Defs.lean#L98-L99",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect LinearAlgebra/LinearIndependent/Defs LinearIndependent and its finitely supported linear-combination map; compare the indexed unscaled operator-kernel family",
+          "result": "LinearIndependent over the reals directly expresses the source's independence of the indexed functions A_i K, once represented in their intended function space."
+        }
+      ],
+      "gap": "Instantiate the real vector family with the unscaled operator-applied kernels in the intended function space and verify their membership."
+    }
+  },
+  {
+    "interface_id": "local-7627e1d20b94e95dbc77",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "924580dfe61dbfd83ffb8df2aaa78cd172c99834c5cee4136852f14cc6d8ea0a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D15",
+        "comparison": "Every x_k lies in one fixed compact J contained in Lambda, independent of delta and M. There is a positive delta-prime so that for every permitted positive delta<=delta-prime the scaled supports for different channels are disjoint. This is a uniform eventual configuration condition, not merely disjointness at one chosen resolution or the separate L(iii) strict-delta center separation. It may permit M to vary with delta under the global convention. Independent driving Brownian motions arising from disjoint test kernels do not imply independent observed SPDE projections.",
+        "statement_sha256": "0ae20545497051311d4775314ca7d25c82bd1b541b328e157f62e5eee5c9c139"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsCompact",
+          "type": "{X : Type u} → [TopologicalSpace X] → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Compactness of a subset, without any additional nonemptiness, convexity, box or polyhedral restriction.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L284-L285",
+          "link_checked": true
+        },
+        {
+          "name": "HasCompactSupport",
+          "type": "{α : Type u} → {β : Type v} → [TopologicalSpace α] → [Zero β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.Support",
+          "provides": "Compactness of the closure of the nonzero support in the function's domain topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/Support.lean#L213-L217",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect IsCompact and compact support; compare the fixed interior location set and the eventual pairwise support disjointness in H(iii)",
+          "result": "The compact-set and support ingredients are available; the delta/M-uniform location and disjointness requirements need a source-specific quantified condition."
+        }
+      ],
+      "gap": "Define one compact interior location set independent of resolution and channel count and establish eventual pairwise disjointness of the scaled supports."
+    }
+  },
+  {
+    "interface_id": "local-62611577c282702537de",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "1ef3b59494b14aeb205b1e747695d17c6b94a31d76a5a8d73981b96badd1b62e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D16",
+        "comparison": "For each parameter index i take sup over x in the fixed J of integral_0^T E[<X_0,S_theta^*(t) A_i^* K_delta,x>^2] dt, and require it to be o(delta^(2-2n_i)) as positive delta tends to zero. The expectation is of the squared pairing, not the square of its expectation, and the adjoint order and exponent must stay intact. Finiteness is needed before a real little-o encoding; nonnegative integration can preserve infinite candidates until excluded. The condition is uniform in location, allows the stated F_0-measurable initial law and does not impose Gaussianity or stationarity. The later stationary lower-bound law is a different assumption.",
+        "statement_sha256": "85cc83b4a6b20e939f88508998f306cf21ddfd84b3effedd36968c88df3aab0b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect nonnegative integration, IsLittleO and bounded semigroup adjoints; compare the uniform expected squared initial-condition pairing and its resolution exponent",
+          "result": "The squared expectation integral and little-o relation can be expressed, but the source's uniform propagated-initial-condition estimate requires analytic and probabilistic work."
+        }
+      ],
+      "gap": "Establish the uniform integrated mean-square negligibility of the propagated initial condition at each operator-specific delta rate."
+    }
+  },
+  {
+    "interface_id": "local-269a9a68dffe3fe1bc73",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "d0f9a32cd3de84c54c3b502c5d9fd4e421f6c6be4cf267fdea084fea1bae03ba",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D10",
+        "comparison": "For each spatial channel k, X_delta,k^A(t) is the p-vector of parameter-operator observations. Integrate vecMulVec of that vector with itself over [0,T] and sum over k=1,...,M. The result is a random p-by-p matrix, without a division by M, T or norm(K)^2. The source's information convention deliberately omits a kernel-variance divisor; the CLT covariance retains its kernel norm factor separately. Symmetry/nonnegative definiteness follow after ordinary integral arguments, while invertibility is consumed through H(i) and is not part of the bare formula.",
+        "statement_sha256": "05ea4168199c1a944671540188664dc5cf391cf063a3d0b1c7d0722e52767216"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.vecMulVec and finite-dimensional Bochner integration; compare the channel sum and time-integrated random information matrix",
+          "result": "The p-by-p outer-product integrand and ordinary time integral have checked representations; the random process inputs, integrability and nonsingularity are additional requirements."
+        }
+      ],
+      "gap": "Assemble the integrated channel outer-product matrix and prove the required time integrability and invertibility under the actual source assumptions."
+    }
+  },
+  {
+    "interface_id": "local-1a2fdfda707443d35225",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "0976f23e7e37c5eef9465a194941c8c723f20b2d6a3c961a99b95207e8942d25",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D11",
+        "comparison": "Multiply I_delta inverse by the sum over k of [integral X_delta,k^A(t) dX_delta,k(t) minus integral X_delta,k^A(t) X_delta,k^{A_0}(t) dt]. The first integral is stochastic against the observed local semimartingale, whereas the second is an ordinary time integral and has the displayed minus sign. Do not drop the known A_0 correction, replace dX by dt or absorb a new norm(K)^2 scaling into the convention. Matrix inverse must be genuine, not the library's singular zero fallback. The source calls this augmented MLE derived from a modified likelihood; it is not certified as an exact likelihood maximizer of independent local diffusions.",
+        "statement_sha256": "105ead136b9e6a5d3242bd6e84e1f8a04afab435a7bf13e197ef48c4866b453c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.mul_nonsing_inv with its determinant-unit hypothesis, mulVec and Bochner integral; search stochastic integral declarations and compare the exact augmented estimator",
+          "result": "Matrix inversion on a nonsingular domain, vector application and the nuisance time integral are available ingredients; the vector stochastic integral and modified-likelihood estimator justification are not provided."
+        }
+      ],
+      "gap": "Construct the vector stochastic score with its known nuisance correction and apply the inverse information matrix on a justified nonsingular domain."
+    }
+  },
+  {
+    "interface_id": "local-2a0a19c66ab9fc235bc6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:57:11.001974+00:00",
+    "source_interface_sha256": "5223432ed1db96ea49875835362c94ede4a64bb5b009e6b23701684c4bfc3992",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1307",
+        "local_id": "D12",
+        "comparison": "The i-th diagonal entry is M^(-1/2) delta^(n_i-1), with all off-diagonal entries zero. M and delta are positive on the intended construction domain, and M may vary with resolution under the source's non-decreasing-count convention. Thus order two, one and zero use delta, one and delta^(-1) respectively before the common M^(-1/2) factor. Do not invert these exponents or use a single scalar rate for all parameters. A CLT after information normalization does not by itself make each displayed scale tend to zero or establish consistency in every channel-count regime.",
+        "statement_sha256": "fc8c3551716f8bb89a44c57be304d8b384a73ff43458d44d610d52fbba7322bb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.diagonal and Real.rpow; compare the operator-order-dependent diagonal rate factors and the source's varying channel-count convention",
+          "result": "The diagonal matrix constructor and positive-base real powers directly express the scaling coefficients; rate convergence and parameter consistency require the theorem's additional assumptions."
+        }
+      ],
+      "gap": "Instantiate the diagonal rate matrix with the correct operator orders and resolution-dependent channel count without inferring parameter consistency solely from an information-normalized CLT."
+    }
+  }
+]

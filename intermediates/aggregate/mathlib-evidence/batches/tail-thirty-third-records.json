@@ -1,0 +1,86 @@
+[
+  {
+    "interface_id": "expected-loss-population-risk",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:49:32.996686+00:00",
+    "source_interface_sha256": "6d5d186d1395e5859621214c509a15d9226d67ddc574696ec4ed2a7c2dbd5c39",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1227",
+        "local_id": "D32",
+        "comparison": "For a fixed f in F integrate z -> ell(f,z) against P, not the empirical distribution of the observed data and not a posterior over hypotheses. The later bounded-loss condition is |ell(f,z)|<=1, allowing signed losses; with measurability this ensures integrability under a probability law and the ordinary real integral is appropriate. Do not use ENNReal.ofReal without nonnegativity, because it would discard negative values. Evaluating this deterministic risk function at the random empirical minimizer is a later operation, not a change of its definition.",
+        "statement_sha256": "d2243245ea05981436888b0f566a8cfd3c339394c977b50d7f5024f96ed324b9"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1845",
+        "local_id": "D12",
+        "comparison": "Integrate the specific nonnegative Huber loss ell_tau(Y-f(X)) under the joint law of X,Y, retaining tau in (0,infinity]. The source loss (2.7) uses one-half times the squared residual in the central region, so the tau=infinity case is one-half squared loss even though the prose calls it squared loss. Use the finite-tau Huber definition or an explicit infinite-tau branch, not arithmetic involving an infinite real cutoff. Bochner integral matches a finite population risk under the relevant moment and function-class conditions; the nonnegative lintegral preserves infinite risk outside those conditions. This risk is neither its empirical average nor excess risk relative to f0.",
+        "statement_sha256": "2f4f3728f9c4940977581e7712c3c8a4489048b8bceda22ff6edd5fb12c8835e"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D1",
+        "comparison": "For the joint observed law P_star of (Z,A), take the measurable event s={A=0}, require positive event probability, and integrate ell(Z) against ProbabilityTheory.cond P_star s. This produces a scalar target risk, not the random-variable conditional expectation on the entire sigma-algebra of A. The conditioned measure is a probability law only with positive finite event mass; its zero fallback at P_star(s)=0 must not invent a target risk. General ell is real-valued, so signed integration requires integrability under the target conditional law; nonnegative risk can instead retain infinity through lintegral. The predictor or prediction set used to construct ell is given, not optimized in this definition.",
+        "statement_sha256": "11149cc12e50aa24f25c27d0912f427e356658ae32c003525cc43280936177fb"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D2",
+        "comparison": "Use the separate target probability law Q and integrate ell directly under Q, even when no observed datum has target label zero and the observed label set omits zero. Conditioning P_star on an absent event would give a null measure and is not this estimand. Identification from source distributions via the later sequential-conditional assumptions is separate from defining expectation under Q. Keep Z general and multiple source populations permitted, with signed integrability or the applicable nonnegative extended-risk treatment.",
+        "statement_sha256": "02b45a5f72ad2cc15517a944664a79366508e2ab5dc23ff712149f1ea6c343d4"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p2268",
+        "local_id": "D4",
+        "comparison": "For each environment law mu^e integrate the squared REAL residual |y-beta dot x|^2, retaining candidate beta and the population law. The finite moment assumptions support integrability for the intended real-valued risk; otherwise use the nonnegative extended integral rather than Bochner zero fallback. This environment risk has no one-half factor, differs from the empirical average, and is not pooled over environments. The statement here consistently uses beta; do not import the printed x-for-beta ambiguity from the later population EILLS formula (3.8).",
+        "statement_sha256": "714d633d157d8637857e47b9149cf4dadf4b0e5e155d8fda0f566132235acfce"
+      },
+      {
+        "paper_id": "aos-2024-v52-i06-p2931",
+        "local_id": "D1",
+        "comparison": "For each client k and fixed common parameter theta, integrate xi -> f_k(theta;xi) under that client’s own P_k. Neither the losses nor their laws are assumed identical across clients. Keep each F_k separate from the weighted federated risk F, its empirical version, and its optimizer; expectation under a mixture or an unweighted pooled law would change this definition. General real-valued client losses require integrability for finite risks; lintegral applies only when a nonnegative loss is actually given, not by silently truncating signed loss values.",
+        "statement_sha256": "2424f19b6ec870ac66949e0e803f8c2e1e77a0aed81449ae86e64ce7910b4927"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integral, lower Lebesgue integral and ConditionalProbability.cond bodies, and compared Decision/Risk/Defs.avgRisk; checked registered PDF p1227 page17, p1845 page10, p1796 pages7/10, p2268 page8 and p2931 page3, preserving each loss and law.",
+          "result": "Ordinary expectation is a real Bochner integral under integrability; nonnegative lintegral preserves infinite risk, and cond constructs the positive-mass event-conditioned target law. These implement the risk operation with the supplied paper-specific loss and law; avgRisk instead averages over a prior and estimator kernel, which is additional structure these fixed-loss definitions do not require."
+        }
+      ],
+      "gap": "These declarations express all six variants once each loss, integrability domain and target law are fixed, with positive event mass required only for the event-conditioned variant."
+    }
+  }
+]

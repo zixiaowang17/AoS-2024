@@ -1,0 +1,4361 @@
+{
+  "schema_version": "statistical-ranked-interfaces-v4",
+  "scope": {
+    "theorem_scope": "main_text_only",
+    "paper_count": 1,
+    "source_policy": "Pinned arXiv:2401.12331v2, all 25 main-paper pages. The separate supplementary document is excluded. Preserve eight printed Theorems in source order.",
+    "normalization_policy": "Preserve original statements and algorithm steps, including source inconsistencies. Record conditional no-source and sampling-design specializations separately.",
+    "semantic_ranking_policy": "Direct statement dependencies and recursive same-paper reach; distinguish target-only minimax experiments from the full transfer model and from named estimators.",
+    "build_order_policy": "Keep the common and independent design hypotheses separate. A generic algorithm branches on its supplied design; its two branches do not impose both designs on any theorem."
+  },
+  "papers": [
+    {
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "title": "Transfer learning for functional mean estimation: Phase transition and adaptive algorithms",
+      "version": "arXiv:2401.12331v2",
+      "source_url": "https://arxiv.org/pdf/2401.12331v2",
+      "pdf_pages": 25,
+      "pdf_sha256": "4d89c43597cba346b959d8ef201e81cd7452a2bf2748385ac62bffd063d80371",
+      "main_text_last_pdf_page": 25,
+      "main_text_boundary": {
+        "location": "The entire 25-page PDF is the main paper, including Section 6 proofs on pages 21-23, a notice for a separate supplement on page 23, and references and author addresses ending on page 25. No appendix or supplement body is embedded; the separately referenced supplement is excluded.",
+        "shared_page_with_appendix": false
+      },
+      "intake_review": {
+        "status": "complete",
+        "theorem_ids": [
+          "aos-2024-v52-i02-p0654/T2.1",
+          "aos-2024-v52-i02-p0654/T2.2",
+          "aos-2024-v52-i02-p0654/T2.3",
+          "aos-2024-v52-i02-p0654/T2.4",
+          "aos-2024-v52-i02-p0654/T3.1",
+          "aos-2024-v52-i02-p0654/T3.2",
+          "aos-2024-v52-i02-p0654/T3.3",
+          "aos-2024-v52-i02-p0654/T3.4"
+        ],
+        "zero_theorems_confirmed": false
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.1 (The minimax risk under conventional setup and common design)",
+      "source_order": 1,
+      "statement_original": "Suppose no source samples are available, i.e. $n_s=0$ and the fixed and common design points for the target sample satisfy $\\max_{1\\leq j\\leq m_t+1}(T_j^{[t]}-T_{j-1}^{[t]})\\leq C_t/m_t$ for some constant $C_t>0$, where $T_0^{[t]}=0$ and $T_{m_t+1}^{[t]}=1$. Then\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n=\\widetilde\\Theta\\left(L_m^2m_t^{-2\\alpha_m}+\\frac1{n_t}\\right),\n\\]\nwhere the infimum is taken over all estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]})$ based on the target sample.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Theorem 2.1"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D8",
+        "D17"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.2 (Upper bound under a common design)",
+      "source_order": 2,
+      "statement_original": "Suppose\n\\[\n\\max_{1\\leq j\\leq m_t+1}(T_j^{[t]}-T_{j-1}^{[t]})\\leq\\frac{C_t}{m_t}\n\\quad\\text{and}\\quad\n\\max_{1\\leq j\\leq m_s+1}(T_j^{[s]}-T_{j-1}^{[s]})\\leq\\frac{C_s}{m_s}\n\\]\nwhere $C_t,C_s>0$ are some constants as well as $T_0^{[t]}=T_0^{[s]}=0$ and $T_{m_t+1}^{[t]}=T_{m_t+1}^{[s]}=1$. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of the algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- Any bandwidth $b_t=\\lceil m_t/2B_t(d_t+1)\\rceil^{-1}$ for constant $B_t\\geq C_t$,\n- The threshold $M_t=\\log n_t$.\n\nPlus, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Any bandwidths $b_s=\\lceil m_s/2(d_s+1)B_s\\rceil^{-1}$ and $b_\\delta=\\lceil m_t/2(d_\\delta+1)B_\\delta\\rceil^{-1}$ for any given constants $B_s\\geq C_s$ and $B_\\delta\\geq C_t$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.\n\nThe estimator $\\widehat f^{[t]}$ for the mean function $f^{[t]}$ is now defined as one of them:\n\\[\n\\widehat f^{[t]}=\\begin{cases}\n\\widehat f_{\\mathrm{CL}}^{[t]}&\\text{when }R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\leq R_C(\\widehat f_{\\mathrm{TL}}^{[t]}),\\\\\n\\widehat f_{\\mathrm{TL}}^{[t]}&\\text{when }R_C(\\widehat f_{\\mathrm{CL}}^{[t]})>R_C(\\widehat f_{\\mathrm{TL}}^{[t]}),\n\\end{cases}\n\\]\nwhere the following quantities are additionally defined:\n\\[\nR_C(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^2m_t^{-2\\alpha_m}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_C(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_\\delta^2m_t^{-2\\alpha_\\delta}+\\frac{\\log^2(n_tn_s)}{n_t}\n+L_m^2m_s^{-2\\alpha_m}+\\frac{\\log^2(Kn_s)}{Kn_s}.\n\\]\nIn this situation, we obtain\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_C(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Theorem 2.2"
+        },
+        {
+          "page": 9,
+          "location": "Theorem 2.2 — continuation"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D7",
+        "D8",
+        "D3",
+        "D11",
+        "D12"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.3 (Lower bound under a common design)",
+      "source_order": 3,
+      "statement_original": "Under a common design,\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\gtrsim\\left(L_m^2m_t^{-2\\alpha_m}+\\frac1{n_t}\\right)\\wedge\n\\left(L_\\delta^2m_t^{-2\\alpha_\\delta}+\\frac1{n_t}+L_m^2m_s^{-2\\alpha_m}+\\frac1{Kn_s}\\right),\n\\]\nwhere the infimum is taken over all possible estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]})$.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Theorem 2.3"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D2",
+        "D7",
+        "D8"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.4 (Adaptive estimation under a common design)",
+      "source_order": 4,
+      "statement_original": "Under the same assumptions as Theorem 2.2, we consider a maximum number of repetitions, $r_{\\max}\\in\\mathbb Z^+$ and let $\\widehat g_r^{[t]}$ $(r=1,\\ldots,r_{\\max})$ denote the output of the $r$-th execution of the algorithm $\\mathcal A_{\\mathrm{ALC}}$. By averaging these estimates, we obtain the final estimator:\n\\[\n\\widehat f^{[t]}=\\frac1{r_{\\max}}\\sum_{r=1}^{r_{\\max}}\\widehat g_r^{[t]}.\\tag{5}\n\\]\nThis adaptive estimator $\\widehat f^{[t]}$ attains the same upper bound of Theorem 2.2:\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_C(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Theorem 2.4"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D7",
+        "D8",
+        "D3",
+        "D14"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.1 (The minimax risk under conventional setup and independent design)",
+      "source_order": 5,
+      "statement_original": "Suppose the distribution $\\eta_t$ for the target design points is dominated by the Lebesgue measure and its density is bounded from below by a constant $C_t>0$ and from above by $\\Gamma_t>0$. Then\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n=\\widetilde\\Theta\\left(L_m^{2/(2\\alpha_m+1)}(m_tn_t)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{n_t}\\right),\n\\]\nwhere the infimum is taken over all estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]})$ based on the target sample.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Theorem 3.1"
+        },
+        {
+          "page": 13,
+          "location": "Theorem 3.1 — continuation"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D9",
+        "D17"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.2 (Upper bound under an independent design)",
+      "source_order": 6,
+      "statement_original": "Suppose the distributions $\\eta_t$ and $\\eta_s$ for target and source design points are dominated by the Lebesgue measure, and their densities are bounded from below by a constant $C_t,C_s>0$ and from above by $\\Gamma_t,\\Gamma_s>0$, respectively. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- For any constant $B_t\\geq\\Gamma_t$, bandwidth:\n\\[\nb_t=\\left\\lceil(L_m^2m_tn_t)^{1/(2\\alpha_m+1)}(\\log n_t)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_tm_t\\rceil^{-1},\n\\]\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- The threshold $M_t=\\log n_t$.\n\nBesides, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- For any constants $B_s\\geq\\Gamma_s$ and $B_\\delta\\geq\\Gamma_t$, bandwidths:\n\\[\nb_s=\\left\\lceil(L_m^2Km_sn_s)^{1/(2\\alpha_m+1)}\\big(\\log(Kn_s)\\big)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_sKm_s\\rceil^{-1},\n\\]\n\\[\nb_\\delta=\\left\\lceil(L_\\delta^2m_tn_t)^{1/(2\\alpha_\\delta+1)}\\big(\\log(n_tn_s)\\big)^{-2/(2\\alpha_\\delta+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_\\delta m_t\\rceil^{-1}.\n\\]\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.\n\nThe estimator $\\widehat f^{[t]}$ of the mean function $f^{[t]}$ is defined as one of them:\n\\[\n\\widehat f^{[t]}=\\begin{cases}\n\\widehat f_{\\mathrm{CL}}^{[t]}&\\text{when }R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\leq R_I(\\widehat f_{\\mathrm{TL}}^{[t]}),\\\\\n\\widehat f_{\\mathrm{TL}}^{[t]}&\\text{when }R_I(\\widehat f_{\\mathrm{CL}}^{[t]})>R_I(\\widehat f_{\\mathrm{TL}}^{[t]}),\n\\end{cases}\n\\]\nwhere the following quantities are further defined:\n\\[\nR_I(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2 n_t}{m_tn_t}\\right)^{2\\alpha_m/(2\\alpha_m+1)}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_I(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2(Kn_s)}{Km_sn_s}\\right)^{2\\alpha_m/(2\\alpha_m+1)}\n+\\frac{\\log^2(Kn_s)}{Kn_s}\n+L_\\delta^{2/(2\\alpha_\\delta+1)}\n\\left(\\frac{\\log^2(n_tn_s)}{m_tn_t}\\right)^{2\\alpha_\\delta/(2\\alpha_\\delta+1)}\n+\\frac{\\log^2(n_tn_s)}{n_t}.\n\\]\nIn this situation, we have\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_I(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Theorem 3.2"
+        },
+        {
+          "page": 14,
+          "location": "Theorem 3.2 — continuation"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D7",
+        "D9",
+        "D3",
+        "D11",
+        "D12"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.3 (Lower bound under an independent design)",
+      "source_order": 7,
+      "statement_original": "Under an independent design,\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\gtrsim\\left[L_m^{2/(2\\alpha_m+1)}(m_tn_t)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{n_t}\\right]\n\\wedge\\left[L_\\delta^{2/(2\\alpha_\\delta+1)}(m_tn_t)^{-2\\alpha_\\delta/(2\\alpha_\\delta+1)}+\\frac1{n_t}\n+L_m^{2/(2\\alpha_m+1)}(Km_sn_s)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{Kn_s}\\right],\n\\]\nwhere the infimum is taken over all possible estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,\\ell]})$.",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Theorem 3.3"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D2",
+        "D7",
+        "D9"
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.4 (Adaptive estimation under an independent design)",
+      "source_order": 8,
+      "statement_original": "Suppose the assumptions in Theorem 3.2 hold. For any given $r_{\\max}\\in\\mathbb Z^+$, let $\\widehat g_r^{[t]}$ $(r=1,\\ldots,r_{\\max})$ be the output of the $r$-th execution of the algorithm $\\mathcal A_{\\mathrm{ALI}}$. Take an average of them to obtain our final estimator:\n\\[\n\\widehat f^{[t]}=\\frac1{r_{\\max}}\\sum_{r=1}^{r_{\\max}}\\widehat g_r^{[t]}.\\tag{6}\n\\]\nThis adaptive estimator $\\widehat f^{[t]}$ attains the same upper bound of Theorem 3.2:\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_I(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Theorem 3.4"
+        }
+      ],
+      "depends_on": [
+        "D1",
+        "D7",
+        "D9",
+        "D3",
+        "D16"
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D1",
+      "rank_group": "all",
+      "name": "Target mean function",
+      "lean_role": "definition",
+      "type_shape": "Independent subject curves with noisy discrete observations and pointwise target mean. Within-curve values need not be independent. The statement does not impose smoothness on the sample curves; it restricts their mean separately.",
+      "semantic_boundary": "Independent subject curves with noisy discrete observations and pointwise target mean. Within-curve values need not be independent. The statement does not impose smoothness on the sample curves; it restricts their mean separately.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D1",
+          "local_label": "Section 1.1 — target observations and mean, equation (1)",
+          "source_heading": "Section 1.1 — target observations and mean, equation (1)",
+          "source_kind": "source_passage",
+          "statement_original": "Let $X^{[t]}:[0,1]\\to\\mathbb R$ be a target random function and each target subject $i\\in\\{1,\\ldots,n^{[t]}\\}$ has an an independent copy $X_i^{[t]}$ (called curve) of $X^{[t]}$. We have noisy observations of these curves at discrete locations:\n\\[\nY_{ij}^{[t]}=X_i^{[t]}(T_{ij}^{[t]})+\\varepsilon_{ij}^{[t]},\\qquad(j=1,\\ldots,m_i^{[t]}\\text{ and }i=1,\\ldots,n^{[t]}),\\tag{1}\n\\]\nwhere $T_{ij}^{[t]}$ are target design points, and $\\varepsilon_{ij}^{[t]}$ are an independent random noises. Based on the target sample $\\mathcal D^{[t]}:=\\{(T_{ij}^{[t]},Y_{ij}^{[t]}):j=1,\\ldots,m_i^{[t]},i=1,\\ldots,n^{[t]}\\}$, our primary objective is to estimate the target mean function $f^{[t]}(\\cdot):=\\mathbb E(X^{[t]}(\\cdot))$.",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ],
+          "highlight_symbols": [
+            "f^{[t]}",
+            "\\mathcal D^{[t]}"
+          ],
+          "highlight_phrases": [
+            "target mean function"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D1",
+          "source_text": "target mean function",
+          "label": "Target mean function",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.1-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "use_kind": "statement_dependency",
+          "reason": "The estimators observe only D^[t] and their loss compares with the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The loss is squared functional L2 error for the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.3-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "use_kind": "statement_dependency",
+          "reason": "The target observation sample D^[t] and target mean f^[t] appear in the estimator domain and risk.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.4-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "use_kind": "statement_dependency",
+          "reason": "The averaged estimator is evaluated against the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.1-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "use_kind": "statement_dependency",
+          "reason": "The estimators use target data D^[t] only and estimate its mean f^[t].",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "The loss compares the chosen estimator with the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.3-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "use_kind": "statement_dependency",
+          "reason": "The target mean and target observation sample occur in the risk and estimator domain.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.4-D1",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "use_kind": "statement_dependency",
+          "reason": "The repetition average estimates the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The estimators observe only D^[t] and their loss compares with the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The loss is squared functional L2 error for the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The target observation sample D^[t] and target mean f^[t] appear in the estimator domain and risk.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The averaged estimator is evaluated against the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The estimators use target data D^[t] only and estimate its mean f^[t].",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The loss compares the chosen estimator with the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The target mean and target observation sample occur in the risk and estimator domain.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D1"
+          ],
+          "text": "The repetition average estimates the target mean f^[t].",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — target observations and mean, equation (1)"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 8,
+      "semantic_rank": 1,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D1"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 8,
+      "downstream_interface_count": 7,
+      "build_order": 1
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D3",
+      "rank_group": "all",
+      "name": "Hölder smoothness",
+      "lean_role": "definition",
+      "type_shape": "Bounded Hölder class with derivative order equal to the largest integer strictly below alpha. At integer alpha this is alpha-1, not alpha. Only the displayed derivative difference and the function supremum are bounded.",
+      "semantic_boundary": "Bounded Hölder class with derivative order equal to the largest integer strictly below alpha. At integer alpha this is alpha-1, not alpha. Only the displayed derivative difference and the function supremum are bounded.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D3",
+          "local_label": "Section 1.1 — bounded Hölder class",
+          "source_heading": "Section 1.1 — bounded Hölder class",
+          "source_kind": "definition",
+          "statement_original": "Let us denote by $\\mathcal H_\\alpha(L,M)$ the class of bounded functions with Hölder smoothness $\\alpha>0$. To be more specific, $f\\in\\mathcal H_\\alpha(L,M)$ if and only if $f:[0,1]\\to\\mathbb R$ is bounded as $\\|f\\|_{\\mathcal L^\\infty}\\leq M$ and $\\alpha^*$-times continuously differentiable such that\n\\[\n|f^{(\\alpha^*)}(t_1)-f^{(\\alpha^*)}(t_2)|\\leq L|t_1-t_2|^{\\alpha-\\alpha^*},\\qquad\\text{for any }t_1,t_2\\in[0,1],\n\\]\nwhere $\\alpha^*:=\\omega(\\alpha)$ denotes the largest integer strictly smaller than $\\alpha$.",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal H_\\alpha(L,M)",
+            "\\omega(\\alpha)"
+          ],
+          "highlight_phrases": [
+            "Hölder smoothness"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D3",
+          "source_text": "Hölder smoothness",
+          "label": "Hölder smoothness",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D3",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The explicit degree requirements use omega(alpha_m) and omega(alpha_delta), the strict-integer derivative-order convention.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.4-D3",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "use_kind": "statement_dependency",
+          "reason": "The inherited base-estimator specifications include the omega(alpha) degree conditions.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D3",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "Its constant polynomial degrees use omega(alpha_m) and omega(alpha_delta).",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.4-D3",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "use_kind": "statement_dependency",
+          "reason": "The inherited base-estimator degree requirements use omega(alpha); Algorithm 4 also prints these explicitly.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D4",
+            "D3"
+          ],
+          "text": "The supremum over P is specialized explicitly to n_s=0, the conventional target-only experiment. Equation (3) supplies the target Hölder restriction; source/difference clauses belong to the full model and do not require source observations in this specialization. Both supplied mean functions and their differences lie in the corresponding bounded Hölder classes.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D3"
+          ],
+          "text": "The explicit degree requirements use omega(alpha_m) and omega(alpha_delta), the strict-integer derivative-order convention.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4",
+            "D3"
+          ],
+          "text": "The worst-case risk is over the full transfer model P. The model explicitly requires the mean and difference restrictions in Equation (3). Both supplied mean functions and their differences lie in the corresponding bounded Hölder classes.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D3"
+          ],
+          "text": "The inherited base-estimator specifications include the omega(alpha) degree conditions.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D4",
+            "D3"
+          ],
+          "text": "Section 3.1 explicitly sets n_s=0 before this conventional minimax theorem, fixing the target-only meaning of P. Equation (3) supplies the target Hölder restriction; source/difference clauses belong to the full model and do not require source observations in this specialization. Both supplied mean functions and their differences lie in the corresponding bounded Hölder classes.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D3"
+          ],
+          "text": "Its constant polynomial degrees use omega(alpha_m) and omega(alpha_delta).",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4",
+            "D3"
+          ],
+          "text": "The worst-case risk ranges over the full statistical model P retained by Section 3. The model explicitly requires the mean and difference restrictions in Equation (3). Both supplied mean functions and their differences lie in the corresponding bounded Hölder classes.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D3"
+          ],
+          "text": "The inherited base-estimator degree requirements use omega(alpha); Algorithm 4 also prints these explicitly.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — bounded Hölder class"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 4,
+      "semantic_rank": 4,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D4",
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4",
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D4",
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4",
+            "D3"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D3"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 8,
+      "downstream_interface_count": 4,
+      "build_order": 2
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D4",
+      "rank_group": "all",
+      "name": "Mean and difference functions",
+      "lean_role": "hypothesis",
+      "type_shape": "A condition on given target and source means, with a separate smoothness class for their differences. No ordering between alpha_m and alpha_delta is assumed. In the conventional no-source specialization only the target mean restriction is operative; no source data are required by this predicate.",
+      "semantic_boundary": "A condition on given target and source means, with a separate smoothness class for their differences. No ordering between alpha_m and alpha_delta is assumed. In the conventional no-source specialization only the target mean restriction is operative; no source data are required by this predicate.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D4",
+          "local_label": "Section 1.1 — mean and difference regularity, equation (3)",
+          "source_heading": "Section 1.1 — mean and difference regularity, equation (3)",
+          "source_kind": "condition",
+          "statement_original": "We assume\n\\[\nf^{[t]},f^{[s,k]}\\in\\mathcal H_{\\alpha_m}(L_m,M_m),\\qquad\n\\delta^{[s,k]}:=f^{[t]}-f^{[s,k]}\\in\\mathcal H_{\\alpha_\\delta}(L_\\delta,M_\\delta),\\qquad(k=1,\\ldots,K)\\tag{3}\n\\]\nwith two smoothness parameters $\\alpha_m,\\alpha_\\delta>0$ and constants $L_m,M_m,L_\\delta,M_\\delta>0$.",
+          "relation": "exact",
+          "depends_on": [
+            "D3"
+          ],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ],
+          "highlight_symbols": [
+            "\\delta^{[s,k]}",
+            "\\mathcal H_{\\alpha_m}(L_m,M_m)",
+            "\\mathcal H_{\\alpha_\\delta}(L_\\delta,M_\\delta)"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D4/name",
+              "text": "The mean and difference functions of measures in $\\mathcal P$ satisfy Equation (3) and the measures themselves also satisfy the uniform sub-Gaussian condition (Assumption 1).",
+              "evidence": [
+                {
+                  "page": 5,
+                  "location": "Section 2 — model class"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D4",
+          "source_text": "mean and difference functions",
+          "label": "Mean and difference functions",
+          "kind": "term",
+          "context_id": "D4/name"
+        }
+      ],
+      "central_claim_uses": [],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-c498d6c7f5a6f0f3",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D3",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D4",
+              "to_local_id": "D3"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D4"
+          ],
+          "text": "The supremum over P is specialized explicitly to n_s=0, the conventional target-only experiment. Equation (3) supplies the target Hölder restriction; source/difference clauses belong to the full model and do not require source observations in this specialization.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The supremum over P uses the full transfer model defined in Section 2. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The worst-case risk is over the full transfer model P. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The supremum and reference to Theorem 2.2 retain the full transfer model P. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D4"
+          ],
+          "text": "Section 3.1 explicitly sets n_s=0 before this conventional minimax theorem, fixing the target-only meaning of P. Equation (3) supplies the target Hölder restriction; source/difference clauses belong to the full model and do not require source observations in this specialization.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The supremum is over P with the Section 3 replacement of the sampling design. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The worst-case risk ranges over the full statistical model P retained by Section 3. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ],
+          "text": "The supremum and inherited assumptions use the full transfer model P. The model explicitly requires the mean and difference restrictions in Equation (3).",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            },
+            {
+              "page": 3,
+              "location": "Section 1.1 — mean and difference regularity, equation (3)"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 0,
+      "central_claim_use_count": 0,
+      "semantic_rank": 12,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D4"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 8,
+      "downstream_interface_count": 2,
+      "build_order": 3
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D6",
+      "rank_group": "all",
+      "name": "Uniformly sub-Gaussian variables",
+      "lean_role": "hypothesis",
+      "type_shape": "Uniform pointwise tail bounds for supplied centered random functions and for uncentered noises, using one positive proxy. This is not a supremum-norm tail bound. Target terms apply in the no-source specialization. The formula does not explicitly impose zero-mean errors or independence of design points from curves.",
+      "semantic_boundary": "Uniform pointwise tail bounds for supplied centered random functions and for uncentered noises, using one positive proxy. This is not a supremum-norm tail bound. Target terms apply in the no-source specialization. The formula does not explicitly impose zero-mean errors or independence of design points from curves.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D6",
+          "local_label": "Assumption 1",
+          "source_heading": "Assumption 1",
+          "source_kind": "assumption",
+          "statement_original": "The random functions and noises are uniformly sub-Gaussian variables with a positive variance proxy $\\tau^2$. As per Wainwright [36], we assume that for every $u>0$, the following holds: for any given $x\\in[0,1]$ and $k=1,\\ldots,K$,\n\\[\n\\left.\\begin{gathered}\n\\mathbb P\\big(|X_1^{[t]}(x)-f^{[t]}(x)|\\geq u\\big)\\vee\\mathbb P\\big(|X_1^{[s,k]}(x)-f^{[s,k]}(x)|\\geq u\\big)\\\\\n\\mathbb P\\big(|\\varepsilon_{11}^{[t]}|\\geq u\\big)\\vee\\mathbb P\\big(|\\varepsilon_{11}^{[s,k]}|\\geq u\\big)\n\\end{gathered}\\right\\}\\leq2e^{-u^2/2\\tau^2}\n\\]",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ],
+          "highlight_symbols": [
+            "\\tau^2"
+          ],
+          "highlight_phrases": [
+            "uniformly sub-Gaussian variables",
+            "Assumption 1"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D6",
+          "source_text": "uniformly sub-Gaussian variables",
+          "label": "Uniformly sub-Gaussian variables",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D6"
+          ],
+          "text": "The supremum over P is specialized explicitly to n_s=0, the conventional target-only experiment. The target random-function and error terms in Assumption 1 supply the conventional experiment’s tail restrictions.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The supremum over P uses the full transfer model defined in Section 2. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The worst-case risk is over the full transfer model P. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The supremum and reference to Theorem 2.2 retain the full transfer model P. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17",
+            "D6"
+          ],
+          "text": "Section 3.1 explicitly sets n_s=0 before this conventional minimax theorem, fixing the target-only meaning of P. The target random-function and error terms in Assumption 1 supply the conventional experiment’s tail restrictions.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The supremum is over P with the Section 3 replacement of the sampling design. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The worst-case risk ranges over the full statistical model P retained by Section 3. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ],
+          "text": "The supremum and inherited assumptions use the full transfer model P. The model explicitly imposes the uniform tail bounds in Assumption 1.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 5,
+              "location": "Assumption 1"
+            },
+            {
+              "page": 6,
+              "location": "Assumption 1"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 0,
+      "central_claim_use_count": 0,
+      "semantic_rank": 14,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D17",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D6"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 8,
+      "downstream_interface_count": 2,
+      "build_order": 4
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D2",
+      "rank_group": "all",
+      "name": "Source samples",
+      "lean_role": "definition",
+      "type_shape": "K source populations with independent subject copies within each population. Source means can differ from one another and the target. Independence across populations is imposed in the statistical model, not inferred from this display alone.",
+      "semantic_boundary": "K source populations with independent subject copies within each population. Source means can differ from one another and the target. Independence across populations is imposed in the statistical model, not inferred from this display alone.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D2",
+          "local_label": "Section 1.1 — source observation model, equation (2)",
+          "source_heading": "Section 1.1 — source observation model, equation (2)",
+          "source_kind": "source_passage",
+          "statement_original": "In the transfer learning setup, we also have $K$ source samples $\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]}$ in addition to the target sample $\\mathcal D^{[t]}$. These source samples are generated similarly. That is, for each source index $k\\in\\{1,\\ldots,K\\}$, there is a random function $X^{[s,k]}:[0,1]\\to\\mathbb R$ with its source mean function $f^{[s,k]}(\\cdot):=\\mathbb E(X^{[s,k]}(\\cdot))$ and we observe\n\\[\nY_{ij}^{[s,k]}=X_i^{[s,k]}(T_{ij}^{[s,k]})+\\varepsilon_{ij}^{[s,k]},\\qquad(j=1,\\ldots,m_i^{[s,k]},i=1,\\ldots,n^{[s,k]},\\text{ and }k=1,\\ldots,K),\\tag{2}\n\\]\nwhere the curves $X_i^{[s,k]}$ are an independent copies of $X^{[s,k]}$, $T_{ij}^{[s,k]}$ are source design points, and $\\varepsilon_{ij}^{[s,k]}$ are an independent random noises. The estimator for the target mean function $f^{[t]}$ now can utilize the source samples $\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]}$ as well as the target sample $\\mathcal D^{[t]}$.",
+          "relation": "exact",
+          "depends_on": [
+            "D1"
+          ],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal D^{[s,1]}",
+            "f^{[s,k]}"
+          ],
+          "highlight_phrases": [
+            "source samples"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D2",
+          "source_text": "source samples",
+          "label": "Source samples",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.3-D2",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "use_kind": "statement_dependency",
+          "reason": "The infimum covers estimators based on all K source samples as well as the target sample.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.3-D2",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "use_kind": "statement_dependency",
+          "reason": "The estimator domain includes source samples; the final source index is printed ell rather than K and is retained.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-cb3218bde9f28f5e",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D1",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D2",
+              "to_local_id": "D1"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ],
+          "text": "The supremum over P uses the full transfer model defined in Section 2. The full transfer model also generates K source populations.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D2"
+          ],
+          "text": "The infimum covers estimators based on all K source samples as well as the target sample.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ],
+          "text": "The supremum and reference to Theorem 2.2 retain the full transfer model P. The full transfer model also generates K source populations.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ],
+          "text": "The supremum is over P with the Section 3 replacement of the sampling design. The full transfer model also generates K source populations.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D2"
+          ],
+          "text": "The estimator domain includes source samples; the final source index is printed ell rather than K and is retained.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ],
+          "text": "The supremum and inherited assumptions use the full transfer model P. The full transfer model also generates K source populations.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            },
+            {
+              "page": 2,
+              "location": "Section 1.1 — source observation model, equation (2)"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 2,
+      "semantic_rank": 7,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D2"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D2"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D7",
+            "D2"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 6,
+      "downstream_interface_count": 4,
+      "build_order": 5
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D7",
+      "rank_group": "all",
+      "name": "Statistical model",
+      "lean_role": "definition",
+      "type_shape": "Class of laws satisfying the observation models, mean/difference smoothness, uniform pointwise tails and independence of target and source samples. The sampling design is specified separately for each section; the class itself is not tied to common design.",
+      "semantic_boundary": "Class of laws satisfying the observation models, mean/difference smoothness, uniform pointwise tails and independence of target and source samples. The sampling design is specified separately for each section; the class itself is not tied to common design.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D7",
+          "local_label": "Section 2 — statistical model",
+          "source_heading": "Section 2 — statistical model",
+          "source_kind": "source_passage",
+          "statement_original": "To describe the optimality of functional mean estimation, we consider a statistical model denoted by $\\mathcal P$ which is a collection of certain probability measures. The mean and difference functions of measures in $\\mathcal P$ satisfy Equation (3) and the measures themselves also satisfy the uniform sub-Gaussian condition (Assumption 1). Finally, the collection of target and source samples, $\\{\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]}\\}$, is assumed to be independent. We continue to employ the same assumptions in Section 3 where we argue the optimality under an independent design.",
+          "relation": "exact",
+          "depends_on": [
+            "D1",
+            "D2",
+            "D4",
+            "D6"
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal P"
+          ],
+          "highlight_phrases": [
+            "statistical model"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D7",
+          "source_text": "statistical model",
+          "label": "Statistical model",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The supremum over P uses the full transfer model defined in Section 2.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.3-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "use_kind": "statement_dependency",
+          "reason": "The worst-case risk is over the full transfer model P.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.4-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "use_kind": "statement_dependency",
+          "reason": "The supremum and reference to Theorem 2.2 retain the full transfer model P.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "The supremum is over P with the Section 3 replacement of the sampling design.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.3-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "use_kind": "statement_dependency",
+          "reason": "The worst-case risk ranges over the full statistical model P retained by Section 3.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.4-D7",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "use_kind": "statement_dependency",
+          "reason": "The supremum and inherited assumptions use the full transfer model P.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-cb227df91eaf60df",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D1",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D7",
+              "to_local_id": "D1"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-88296b462273c12c",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D2",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D7",
+              "to_local_id": "D2"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-14d43c56de1e106a",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D4",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D7",
+              "to_local_id": "D4"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-52f89736358a5369",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D6",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D7",
+              "to_local_id": "D6"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The supremum over P uses the full transfer model defined in Section 2.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The worst-case risk is over the full transfer model P.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The supremum and reference to Theorem 2.2 retain the full transfer model P.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The supremum is over P with the Section 3 replacement of the sampling design.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The worst-case risk ranges over the full statistical model P retained by Section 3.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D7"
+          ],
+          "text": "The supremum and inherited assumptions use the full transfer model P.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — statistical model"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 6,
+      "semantic_rank": 2,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D7"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 6,
+      "downstream_interface_count": 0,
+      "build_order": 6
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D8",
+      "rank_group": "all",
+      "name": "Common design",
+      "lean_role": "hypothesis",
+      "type_shape": "Ordered deterministic designs shared across target subjects and across all source populations. The target grid need not equal the source grid. Upper gap bounds are separate theorem hypotheses; they are not required by the lower-bound statement.",
+      "semantic_boundary": "Ordered deterministic designs shared across target subjects and across all source populations. The target grid need not equal the source grid. Upper gap bounds are separate theorem hypotheses; they are not required by the lower-bound statement.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D8",
+          "local_label": "Section 2 — common design",
+          "source_heading": "Section 2 — common design",
+          "source_kind": "condition",
+          "statement_original": "While the results presented in this section are valid for randomly selected common design points, for the sake of clarity in our exposition, we simplify by assuming that these design points are deterministic. Additionally, we adopt the convention, without loss of generality, that the common design points are arranged in ascending order. To summarize, a common design is characterized by two collections of common design points, $\\{T_j^{[t]}:j=1,\\ldots,m_t\\}$ and $\\{T_j^{[s]}:j=1,\\ldots,m_s\\}$, such that $T_{j_1}^{[t]}\\leq T_{j_2}^{[t]}$ and $T_{j_1}^{[s]}\\leq T_{j_2}^{[s]}$ for any $j_1\\leq j_2$ as well as the following holds:\n\\[\nT_{ij}^{[t]}=T_j^{[t]}\\quad\\text{for all }j=1,\\ldots,m_t\\text{ and }i=1,\\ldots,n_t,\n\\]\n\\[\nT_{ij}^{[s,k]}=T_j^{[s]}\\quad\\text{for all }j=1,\\ldots,m_s,i=1,\\ldots,n_s\\text{ and }k=1,\\ldots,K.\n\\]",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Section 2 — common design"
+            }
+          ],
+          "highlight_symbols": [
+            "T_j^{[t]}",
+            "T_j^{[s]}"
+          ],
+          "highlight_phrases": [
+            "common design"
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D8",
+          "source_text": "common design",
+          "label": "Common design",
+          "kind": "term"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.1-D8",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "use_kind": "statement_dependency",
+          "reason": "The statement assumes fixed common target design points and an upper bound on consecutive spacings.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D8",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The opening hypotheses bound spacings in the common target and source designs.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.3-D8",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "use_kind": "statement_dependency",
+          "reason": "The statement explicitly works under a common design; it does not restate or inherit an upper spacing bound.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.4-D8",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "use_kind": "statement_dependency",
+          "reason": "The reference to the assumptions of Theorem 2.2 retains the common design and its spacing bounds.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D8"
+          ],
+          "text": "The statement assumes fixed common target design points and an upper bound on consecutive spacings.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — common design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D8"
+          ],
+          "text": "The opening hypotheses bound spacings in the common target and source designs.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — common design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D8"
+          ],
+          "text": "The statement explicitly works under a common design; it does not restate or inherit an upper spacing bound.",
+          "evidence": [
+            {
+              "page": 9,
+              "location": "Theorem 2.3"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — common design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D8"
+          ],
+          "text": "The reference to the assumptions of Theorem 2.2 retains the common design and its spacing bounds.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 5,
+              "location": "Section 2 — common design"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 4,
+      "semantic_rank": 3,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D8"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D8"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D8"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D8"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 4,
+      "downstream_interface_count": 1,
+      "build_order": 7
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D9",
+      "rank_group": "all",
+      "name": "Independent design",
+      "lean_role": "hypothesis",
+      "type_shape": "Iid target designs and iid source designs, the latter sharing one law across K groups. The positive lower and upper density bounds occur in Theorems 3.1/3.2, not in this section definition or the lower-bound statement.",
+      "semantic_boundary": "Iid target designs and iid source designs, the latter sharing one law across K groups. The positive lower and upper density bounds occur in Theorems 3.1/3.2, not in this section definition or the lower-bound statement.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D9",
+          "local_label": "Section 3 — independent design",
+          "source_heading": "Section 3 — independent design",
+          "source_kind": "condition",
+          "statement_original": "This section investigates the setting in which the design points of both the target and source samples are randomly drawn from the domain $[0,1]$. Consider two probability distributions on $[0,1]$, referred to as $\\eta_t$ and $\\eta_s$, for target and sample design points, respectively. We make the following assumptions:\n\\[\n\\big(T_{ij}^{[t]}:j=1,\\ldots,m_t,i=1,\\ldots,n_t\\big)\\overset{\\mathrm{i.i.d.}}\\sim\\eta_t,\n\\]\n\\[\n\\big(T_{ij}^{[s,k]}:j=1,\\ldots,m_s,i=1,\\ldots,n_s,k=1,\\ldots,K\\big)\\overset{\\mathrm{i.i.d.}}\\sim\\eta_s.\n\\]",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Section 3 — independent design"
+            }
+          ],
+          "highlight_symbols": [
+            "\\eta_t",
+            "\\eta_s"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D9/name",
+              "text": "3. Transfer learning for functional mean estimation under an independent design.",
+              "evidence": [
+                {
+                  "page": 12,
+                  "location": "Section 3 — independent design"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D9",
+          "source_text": "independent design",
+          "label": "Independent design",
+          "kind": "term",
+          "context_id": "D9/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.1-D9",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "use_kind": "statement_dependency",
+          "reason": "The statement uses the target design law eta_t from Section 3 and adds its positive lower and upper density bounds.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D9",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "The statement assumes independent-design laws eta_t,eta_s and explicitly adds lower and upper density bounds.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.3-D9",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "use_kind": "statement_dependency",
+          "reason": "The theorem explicitly assumes an independent design. The density bounds of Theorem 3.2 are not imported into this lower-bound statement.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.4-D9",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "use_kind": "statement_dependency",
+          "reason": "The reference to Theorem 3.2 retains independent designs and their two-sided density bounds.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D9"
+          ],
+          "text": "The statement uses the target design law eta_t from Section 3 and adds its positive lower and upper density bounds.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 12,
+              "location": "Section 3 — independent design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D9"
+          ],
+          "text": "The statement assumes independent-design laws eta_t,eta_s and explicitly adds lower and upper density bounds.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 12,
+              "location": "Section 3 — independent design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.3": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D9"
+          ],
+          "text": "The theorem explicitly assumes an independent design. The density bounds of Theorem 3.2 are not imported into this lower-bound statement.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Theorem 3.3"
+            },
+            {
+              "page": 12,
+              "location": "Section 3 — independent design"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D9"
+          ],
+          "text": "The reference to Theorem 3.2 retains independent designs and their two-sided density bounds.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 12,
+              "location": "Section 3 — independent design"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 4,
+      "semantic_rank": 5,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D9"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D9"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+          "relation": "direct",
+          "via_local_ids": [
+            "D9"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D9"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 4,
+      "downstream_interface_count": 1,
+      "build_order": 8
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D10",
+      "rank_group": "all",
+      "name": "Randomized local polynomial regression with thresholding",
+      "lean_role": "definition",
+      "type_shape": "Randomized per-subject reduction within each interval, local least squares and intervalwise discard-to-zero thresholding. The design type selects one of two branches; neither branch imposes the other design’s assumptions. The printed free q, possible empty selection sets and unstated choices among least-squares minimizers are retained and flagged.",
+      "semantic_boundary": "Randomized per-subject reduction within each interval, local least squares and intervalwise discard-to-zero thresholding. The design type selects one of two branches; neither branch imposes the other design’s assumptions. The printed free q, possible empty selection sets and unstated choices among least-squares minimizers are retained and flagged.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D10",
+          "local_label": "Algorithm 1 — Randomized local polynomial regression with thresholding",
+          "source_heading": "Algorithm 1 — Randomized local polynomial regression with thresholding",
+          "source_kind": "definition",
+          "statement_original": "Require: A collection $\\mathcal D=\\{(T_{ij},Y_{ij}):j=1,\\ldots,m,i=1,\\ldots,n\\}$ of observations, a bandwidth $b\\in1/\\mathbb Z^+$, a degree $d\\in\\mathbb Z^+$ of polynomial, and a threshold $M>0$.\n\n1. Partition the domain $[0,1]$ into $b^{-1}$-many intervals of length $b$. We denote those intervals by $I_r$ $(r=1,\\ldots,b^{-1})$ from left to right.\n2. Let us denote by $\\mathcal D^{(i)}:=\\{(T_{ij},Y_{ij}):j=1,\\ldots,m\\}$ the collection of observations from the same subject $i\\in\\{1,\\ldots,n\\}$. For index $r=1,\\ldots,b^{-1}$, we take randomized collection $\\mathcal D_r:=\\{(\\mathbb T_{i,r},\\mathbb Y_{i,r}):i=1,\\ldots,n\\}$ of observations where $(\\mathbb T_{i,r},\\mathbb Y_{i,r})$ is randomly chosen from the following process:\n3. if the collection $\\mathcal D$ comes from common design then\n4. Consider any $(1/m)$-packing and $(1/2m)$-covering sub-collection $\\widetilde{\\mathcal D}^{(i)}$ of $\\mathcal D^{(i)}$ where the distance between observations is computed based on design points. The random $(\\mathbb T_{i,r},\\mathbb Y_{i,r})$ is now uniformly chosen from $\\{(T,Y)\\in\\widetilde{\\mathcal D}^{(i)}:T\\in I_r\\}$.\n5. else if the collection $\\mathcal D$ comes from independent design then\n6. The random $(\\mathbb T_{i,r},\\mathbb Y_{i,r})$ is uniformly chosen from $\\{(T,Y)\\in\\mathcal D^{(i)}:T\\in I_r\\}$.\n7. end if\n8. Implement the polynomial regression of degree $d$ on each collection $\\mathcal D_r$ $(r=1,\\ldots,b^{-1})$ of observations. In other words, we are enough to compute for each $r=1,\\ldots,b^{-1}$,\n\\[\n(\\check a_{r,0},\\check a_{r,1},\\ldots,\\check a_{r,d}):=\\operatorname*{argmin}_{(a_0,a_1,\\ldots,a_d)\\in\\mathbb R^{d+1}}\\sum_{(T,Y)\\in\\mathcal D_r}\\left[Y-\\sum_{s=0}^da_s\\left(\\frac{T-(q-1)b}{b}\\right)^s\\right]^2.\n\\]\nIf the solution is not available, simply take $(\\check a_{r,0},\\check a_{r,1},\\ldots,\\check a_{r,d})=0$.\n9. Compute the local polynomial regression estimator $\\check f:[0,1]\\to\\mathbb R$ by\n\\[\n\\check f(x):=\\sum_{r=1}^{b^{-1}}\\sum_{s=0}^d\\check a_{r,s}\\left(\\frac{x-(r-1)b}{b}\\right)^s\\mathbb 1(x\\in I_r)\\qquad(0\\leq x\\leq1).\n\\]\n10. Output the final estimator $\\widehat f:[0,1]\\to\\mathbb R$ through thresholding:\n\\[\n\\widehat f:=\\begin{cases}\\check f&\\text{if }\\|\\check f\\|_{\\mathcal L^\\infty(I_r)}\\leq M,\\\\0&\\text{otherwise},\\end{cases}\\qquad\\text{on each }I_r\\ (r=1,\\ldots,b^{-1}).\n\\]",
+          "relation": "exact",
+          "depends_on": [],
+          "evidence": [
+            {
+              "page": 7,
+              "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal D_r",
+            "\\widetilde{\\mathcal D}^{(i)}"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D10/name",
+              "text": "Algorithm 1 Randomized local polynomial regression with thresholding $\\mathcal A(\\mathcal D,b,d,M)$",
+              "evidence": [
+                {
+                  "page": 7,
+                  "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D10",
+          "source_text": "Randomized local polynomial regression with thresholding",
+          "label": "Randomized local polynomial regression with thresholding",
+          "kind": "term",
+          "context_id": "D10/name"
+        }
+      ],
+      "central_claim_uses": [],
+      "dependencies": [],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D11",
+            "D10"
+          ],
+          "text": "The first candidate is the output of A_CL with the displayed common-design parameters. The conventional estimator is Algorithm 1 applied to that sample with its chosen bandwidth, degree and threshold.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            },
+            {
+              "page": 7,
+              "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D14",
+            "D11",
+            "D10"
+          ],
+          "text": "Each averaged g_r is an execution of A_ALC, Algorithm 3 with weighted test-loss selection. One candidate fits the conventional estimator on target training subjects. The conventional estimator is Algorithm 1 applied to that sample with its chosen bandwidth, degree and threshold.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+            },
+            {
+              "page": 11,
+              "location": "Section 2.3 — sample-size convention"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            },
+            {
+              "page": 7,
+              "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D11",
+            "D10"
+          ],
+          "text": "The first candidate is A_CL with the exact displayed independent-design bandwidth and threshold. The conventional estimator is Algorithm 1 applied to that sample with its chosen bandwidth, degree and threshold.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            },
+            {
+              "page": 7,
+              "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D16",
+            "D11",
+            "D10"
+          ],
+          "text": "Each g_r is an execution of A_ALI, the candidate-bandwidth and empirical-loss procedure in Algorithm 4. The candidate collection contains conventional fits at the printed candidate bandwidths. The conventional estimator is Algorithm 1 applied to that sample with its chosen bandwidth, degree and threshold.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+            },
+            {
+              "page": 16,
+              "location": "Section 3.3 — sample-size convention"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            },
+            {
+              "page": 7,
+              "location": "Algorithm 1 — Randomized local polynomial regression with thresholding"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 0,
+      "central_claim_use_count": 0,
+      "semantic_rank": 13,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D11",
+            "D10"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D14",
+            "D11",
+            "D10"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D11",
+            "D10"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D16",
+            "D11",
+            "D10"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 4,
+      "downstream_interface_count": 4,
+      "build_order": 9
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D11",
+      "rank_group": "all",
+      "name": "Conventional learning algorithm",
+      "lean_role": "definition",
+      "type_shape": "Algorithm 1 with target data only. Both upper-bound theorems use it with their own design-specific parameters. Its occurrence in proofs of conventional minimax attainability is not a dependency of those minimax statements.",
+      "semantic_boundary": "Algorithm 1 with target data only. Both upper-bound theorems use it with their own design-specific parameters. Its occurrence in proofs of conventional minimax attainability is not a dependency of those minimax statements.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D11",
+          "local_label": "Section 2.1 — conventional learning algorithm",
+          "source_heading": "Section 2.1 — conventional learning algorithm",
+          "source_kind": "definition",
+          "statement_original": "We will now present the optimal algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ for estimating the mean function under the conventional setup and common design. This algorithm is essentially the same as algorithm $\\mathcal A$ with the following four inputs: the target sample $\\mathcal D^{[t]}$, a bandwidth $b_t\\in1/\\mathbb Z^+$, a degree $d_t\\in\\mathbb Z^+$ of local polynomial and a threshold $M_t>0$.",
+          "relation": "exact",
+          "depends_on": [
+            "D1",
+            "D10"
+          ],
+          "evidence": [
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D11/name",
+              "text": "The output $\\widehat f_{\\mathrm{CL}}^{[t]}$ of the conventional learning algorithm $\\mathcal A_{\\mathrm{CL}}$",
+              "evidence": [
+                {
+                  "page": 7,
+                  "location": "Section 2.1 — conventional learning algorithm"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D11",
+          "source_text": "conventional learning algorithm",
+          "label": "Conventional learning algorithm",
+          "kind": "term",
+          "context_id": "D11/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D11",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The first candidate is the output of A_CL with the displayed common-design parameters.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D11",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "The first candidate is A_CL with the exact displayed independent-design bandwidth and threshold.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-95eea0db857ae505",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D1",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D11",
+              "to_local_id": "D1"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-7f346b31cab42f32",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D10",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D11",
+              "to_local_id": "D10"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D11"
+          ],
+          "text": "The first candidate is the output of A_CL with the displayed common-design parameters.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D14",
+            "D11"
+          ],
+          "text": "Each averaged g_r is an execution of A_ALC, Algorithm 3 with weighted test-loss selection. One candidate fits the conventional estimator on target training subjects.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+            },
+            {
+              "page": 11,
+              "location": "Section 2.3 — sample-size convention"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D11"
+          ],
+          "text": "The first candidate is A_CL with the exact displayed independent-design bandwidth and threshold.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D16",
+            "D11"
+          ],
+          "text": "Each g_r is an execution of A_ALI, the candidate-bandwidth and empirical-loss procedure in Algorithm 4. The candidate collection contains conventional fits at the printed candidate bandwidths.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+            },
+            {
+              "page": 16,
+              "location": "Section 3.3 — sample-size convention"
+            },
+            {
+              "page": 7,
+              "location": "Section 2.1 — conventional learning algorithm"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 2,
+      "semantic_rank": 6,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D11"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D14",
+            "D11"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D11"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D16",
+            "D11"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 4,
+      "downstream_interface_count": 2,
+      "build_order": 10
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D12",
+      "rank_group": "all",
+      "name": "Transfer learning for mean function",
+      "lean_role": "definition",
+      "type_shape": "Two-stage estimator: pooled source fit, then a target residual fit, then addition. The source populations are not required to share one mean. Subject identities across source groups must remain distinct in the combined sample.",
+      "semantic_boundary": "Two-stage estimator: pooled source fit, then a target residual fit, then addition. The source populations are not required to share one mean. Subject identities across source groups must remain distinct in the combined sample.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D12",
+          "local_label": "Algorithm 2 — Transfer learning for mean function",
+          "source_heading": "Algorithm 2 — Transfer learning for mean function",
+          "source_kind": "definition",
+          "statement_original": "Require: Two bandwidths $b_s,b_\\delta\\in1/\\mathbb Z^+$, two degrees $d_s,d_\\delta\\in\\mathbb Z^+$ of polynomial, and two thresholds $M_s,M_\\delta>0$.\n\n1. Execute $\\mathcal A(\\mathcal D^{[s]},b_s,d_s,M_s)$ with the combined source sample $\\mathcal D^{[s]}:=\\bigcup_{k=1}^K\\mathcal D^{[s,k]}$. The result of this algorithm is denoted as $\\widehat f^{[s]}$.\n2. Compute a new sample $\\mathcal D^{[\\delta]}:=\\{(T_{ij}^{[t]},Y_{ij}^{[t]}-\\widehat f^{[s]}(T_{ij}^{[t]})):j=1,\\ldots,m_t,i=1,\\ldots,n_t\\}$.\n3. Execute $\\mathcal A(\\mathcal D^{[\\delta]},b_\\delta,d_\\delta,M_\\delta)$. The output of this algorithm is denoted by $\\widehat\\delta^{[s]}$.\n4. Output our final estimator $\\widehat f^{[t]}:=\\widehat f^{[s]}+\\widehat\\delta^{[s]}$.",
+          "relation": "exact",
+          "depends_on": [
+            "D2",
+            "D1",
+            "D10"
+          ],
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal D^{[\\delta]}",
+            "\\widehat\\delta^{[s]}"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D12/name",
+              "text": "Algorithm 2 Transfer learning for mean function $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$",
+              "evidence": [
+                {
+                  "page": 8,
+                  "location": "Algorithm 2 — Transfer learning for mean function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D12",
+          "source_text": "Transfer learning for mean function",
+          "label": "Transfer learning for mean function",
+          "kind": "term",
+          "context_id": "D12/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.2-D12",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "use_kind": "statement_dependency",
+          "reason": "The second candidate is the output of A_TL with the displayed source and residual parameters.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.2-D12",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "use_kind": "statement_dependency",
+          "reason": "The second candidate is A_TL with the two displayed independent-design bandwidths and thresholds.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-70dfb48ff15365d6",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D1",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D12",
+              "to_local_id": "D1"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-3b43f467590a0b39",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D10",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D12",
+              "to_local_id": "D10"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-9e23ef2933389cd3",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D2",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D12",
+              "to_local_id": "D2"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D12"
+          ],
+          "text": "The second candidate is the output of A_TL with the displayed source and residual parameters.",
+          "evidence": [
+            {
+              "page": 8,
+              "location": "Theorem 2.2"
+            },
+            {
+              "page": 9,
+              "location": "Theorem 2.2 — continuation"
+            },
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D14",
+            "D12"
+          ],
+          "text": "Each averaged g_r is an execution of A_ALC, Algorithm 3 with weighted test-loss selection. The other candidate uses source data and target training subjects in the transfer estimator.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+            },
+            {
+              "page": 11,
+              "location": "Section 2.3 — sample-size convention"
+            },
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.2": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D12"
+          ],
+          "text": "The second candidate is A_TL with the two displayed independent-design bandwidths and thresholds.",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Theorem 3.2"
+            },
+            {
+              "page": 14,
+              "location": "Theorem 3.2 — continuation"
+            },
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D16",
+            "D12"
+          ],
+          "text": "Each g_r is an execution of A_ALI, the candidate-bandwidth and empirical-loss procedure in Algorithm 4. The candidate collection also contains transfer fits at pairs of printed candidate bandwidths.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+            },
+            {
+              "page": 16,
+              "location": "Section 3.3 — sample-size convention"
+            },
+            {
+              "page": 8,
+              "location": "Algorithm 2 — Transfer learning for mean function"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 2,
+      "semantic_rank": 9,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D12"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D14",
+            "D12"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+          "relation": "direct",
+          "via_local_ids": [
+            "D12"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "indirect",
+          "via_local_ids": [
+            "D16",
+            "D12"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 4,
+      "downstream_interface_count": 2,
+      "build_order": 11
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D17",
+      "rank_group": "all",
+      "name": "Statistical model · Conventional setup",
+      "lean_role": "definition",
+      "type_shape": "Conventional target-only specialization of the paper’s law class. The main text explicitly sets n_s=0. The full paragraph is quoted unchanged; source observations, transfer algorithms and positive-source sample constraints are not imported.",
+      "semantic_boundary": "Conventional target-only specialization of the paper’s law class. The main text explicitly sets n_s=0. The full paragraph is quoted unchanged; source observations, transfer algorithms and positive-source sample constraints are not imported.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D17",
+          "local_label": "Sections 2.1 and 3.1 — conventional restriction of the statistical model",
+          "source_heading": "Sections 2.1 and 3.1 — conventional restriction of the statistical model",
+          "source_kind": "source_passage",
+          "statement_original": "To describe the optimality of functional mean estimation, we consider a statistical model denoted by $\\mathcal P$ which is a collection of certain probability measures. The mean and difference functions of measures in $\\mathcal P$ satisfy Equation (3) and the measures themselves also satisfy the uniform sub-Gaussian condition (Assumption 1). Finally, the collection of target and source samples, $\\{\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]}\\}$, is assumed to be independent. We continue to employ the same assumptions in Section 3 where we argue the optimality under an independent design.",
+          "relation": "exact",
+          "depends_on": [
+            "D1",
+            "D4",
+            "D6"
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            }
+          ],
+          "highlight_symbols": [
+            "\\mathcal P"
+          ],
+          "highlight_phrases": [],
+          "variant_note": "The paper reuses the symbol for its conventional no-source setting. The complete original model paragraph is preserved; the no-source application context determines this restricted experiment.",
+          "naming_context": [
+            {
+              "context_id": "D17/name",
+              "text": "THEOREM 2.1 (The minimax risk under conventional setup and common design).",
+              "evidence": [
+                {
+                  "page": 6,
+                  "location": "Theorem 2.1 heading"
+                }
+              ]
+            }
+          ],
+          "application_context": [
+            {
+              "text": "This involves estimating the target mean function $f^{[t]}$ when no source samples are available, i.e. $n_s=0$.",
+              "evidence": [
+                {
+                  "page": 6,
+                  "location": "Section 2.1 — conventional setup"
+                }
+              ]
+            },
+            {
+              "text": "We again aim to estimate the target mean function $f^{[t]}$ when we have no source samples available ($n_s=0$).",
+              "evidence": [
+                {
+                  "page": 12,
+                  "location": "Section 3.1 — conventional setup"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D17",
+          "source_text": "statistical model",
+          "label": "Statistical model",
+          "kind": "term"
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D17",
+          "source_text": "conventional setup",
+          "label": "Conventional setup",
+          "kind": "term",
+          "context_id": "D17/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.1-D17",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "use_kind": "statement_dependency",
+          "reason": "The supremum over P is specialized explicitly to n_s=0, the conventional target-only experiment.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            }
+          ]
+        },
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.1-D17",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "use_kind": "statement_dependency",
+          "reason": "Section 3.1 explicitly sets n_s=0 before this conventional minimax theorem, fixing the target-only meaning of P.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-e8b238684a97d79c",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D1",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D17",
+              "to_local_id": "D1"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-76b76292a5b943b3",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D4",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D17",
+              "to_local_id": "D4"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-f38c5a4315395754",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D6",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D17",
+              "to_local_id": "D6"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17"
+          ],
+          "text": "The supremum over P is specialized explicitly to n_s=0, the conventional target-only experiment.",
+          "evidence": [
+            {
+              "page": 6,
+              "location": "Theorem 2.1"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            }
+          ]
+        },
+        "aos-2024-v52-i02-p0654/T3.1": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D17"
+          ],
+          "text": "Section 3.1 explicitly sets n_s=0 before this conventional minimax theorem, fixing the target-only meaning of P.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 3.1"
+            },
+            {
+              "page": 13,
+              "location": "Theorem 3.1 — continuation"
+            },
+            {
+              "page": 5,
+              "location": "Sections 2.1 and 3.1 — conventional restriction of the statistical model"
+            },
+            {
+              "page": 6,
+              "location": "Section 2.1 — conventional setup"
+            },
+            {
+              "page": 12,
+              "location": "Section 3.1 — conventional setup"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 2,
+      "semantic_rank": 8,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D17"
+          ]
+        },
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+          "relation": "direct",
+          "via_local_ids": [
+            "D17"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 2,
+      "downstream_interface_count": 0,
+      "build_order": 12
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D14",
+      "rank_group": "all",
+      "name": "Adaptive transfer learning for mean function under a common design",
+      "lean_role": "definition",
+      "type_shape": "Subject-level half split, two candidate fits and spacing-weighted test loss. Theorem 2.2 supplies the base-estimator parameters; its oracle rate comparison is replaced by this empirical comparison. The final averaging over repetitions belongs to Theorem 2.4.",
+      "semantic_boundary": "Subject-level half split, two candidate fits and spacing-weighted test loss. Theorem 2.2 supplies the base-estimator parameters; its oracle rate comparison is replaced by this empirical comparison. The final averaging over repetitions belongs to Theorem 2.4.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D14",
+          "local_label": "Algorithm 3 — Adaptive transfer learning for mean function under a common design",
+          "source_heading": "Algorithm 3 — Adaptive transfer learning for mean function under a common design",
+          "source_kind": "definition",
+          "statement_original": "1. Randomly partition the target sample $\\mathcal D^{[t]}$ into two sub-samples, denoted as $\\mathcal D_{\\mathrm{train}}^{[t]}$ and $\\mathcal D_{\\mathrm{test}}^{[t]}$, based on subjects. Specifically, perform a random split of the index set $\\{1,\\ldots,2n_t\\}$ into two partitions, $\\mathcal I_{\\mathrm{train}}^{[t]}$ and $\\mathcal I_{\\mathrm{test}}^{[t]}$ such that $|\\mathcal I_{\\mathrm{train}}^{[t]}|=|\\mathcal I_{\\mathrm{test}}^{[t]}|=n_t$. We define:\n\\[\n\\mathcal D_{\\mathrm{train}}^{[t]}:=\\{(T_j^{[t]},Y_{ij}^{[t]}):i\\in\\mathcal I_{\\mathrm{train}}^{[t]},j=1,\\ldots,m_t\\},\n\\]\n\\[\n\\mathcal D_{\\mathrm{test}}^{[t]}:=\\{(T_j^{[t]},Y_{ij}^{[t]}):i\\in\\mathcal I_{\\mathrm{test}}^{[t]},j=1,\\ldots,m_t\\}.\n\\]\n2. Execute both $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ and $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ following the same specifications as outlined in Theorem 2.2, with the only distinction being that the target sample is provided as $\\mathcal D_{\\mathrm{train}}^{[t]}$, not $\\mathcal D^{[t]}$. The outputs are denoted as $\\widehat f_{\\mathrm{CL}}^{[t]}$ and $\\widehat f_{\\mathrm{TL}}^{[t]}$, respectively.\n3. Output the following estimator $\\widehat g_*^{[t]}$. If a tie occurs, use any randomization to break it.\n\\[\n\\widehat g_*^{[t]}:=\\operatorname*{argmin}_{\\widehat g^{[t]}\\in\\{\\widehat f_{\\mathrm{CL}}^{[t]},\\widehat f_{\\mathrm{TL}}^{[t]}\\}}\\sum_{i\\in\\mathcal I_{\\mathrm{test}}^{[t]}}\\sum_{j=1}^{m_t}\\big(Y_{ij}^{[t]}-\\widehat g^{[t]}(T_j^{[t]})\\big)^2(\\Delta T_j^{[t]}),\n\\]\nwhere $T_0^{[t]}:=0$, $T_{m_t+1}^{[t]}:=1$ and $\\Delta T_j^{[t]}:=T_j^{[t]}-T_{j-1}^{[t]}$ for each $j=1,\\ldots,m_t+1$.",
+          "relation": "exact",
+          "depends_on": [
+            "D8",
+            "D11",
+            "D12"
+          ],
+          "evidence": [
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+            }
+          ],
+          "highlight_symbols": [
+            "\\widehat g_*^{[t]}",
+            "\\Delta T_j^{[t]}"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D14/name",
+              "text": "Algorithm 3 Adaptive transfer learning for mean function under a common design $\\mathcal A_{\\mathrm{ALC}}$",
+              "evidence": [
+                {
+                  "page": 11,
+                  "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+                }
+              ]
+            }
+          ],
+          "application_context": [
+            {
+              "text": "It is further assumed for brevity that the target sample $\\mathcal D^{[t]}$ contains $2n_t$ subjects, which does not affect the rate of convergence.",
+              "evidence": [
+                {
+                  "page": 11,
+                  "location": "Section 2.3 — sample-size convention"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D14",
+          "source_text": "Adaptive transfer learning for mean function under a common design",
+          "label": "Adaptive transfer learning for mean function under a common design",
+          "kind": "term",
+          "context_id": "D14/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T2.4-D14",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "use_kind": "statement_dependency",
+          "reason": "Each averaged g_r is an execution of A_ALC, Algorithm 3 with weighted test-loss selection.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-65d2644e90225f36",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D11",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D14",
+              "to_local_id": "D11"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-928543b758dbc029",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D12",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D14",
+              "to_local_id": "D12"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-995882dc285d1e1b",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D8",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D14",
+              "to_local_id": "D8"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T2.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D14"
+          ],
+          "text": "Each averaged g_r is an execution of A_ALC, Algorithm 3 with weighted test-loss selection.",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Theorem 2.4"
+            },
+            {
+              "page": 11,
+              "location": "Algorithm 3 — Adaptive transfer learning for mean function under a common design"
+            },
+            {
+              "page": 11,
+              "location": "Section 2.3 — sample-size convention"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 1,
+      "semantic_rank": 10,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D14"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 1,
+      "downstream_interface_count": 0,
+      "build_order": 13
+    },
+    {
+      "interface_id": "aos-2024-v52-i02-p0654/D16",
+      "rank_group": "all",
+      "name": "Adaptive transfer learning for mean function under an independent design",
+      "lean_role": "definition",
+      "type_shape": "Subject-level half split, multiple bandwidth candidates and unweighted empirical test-loss selection. The source prints positive dyadic bandwidths outside Algorithm 1’s domain, lower-density constants instead of the upper ones, and duplicate M_s assignments. These are preserved, not repaired. Repetition averaging is specified in Theorem 3.4.",
+      "semantic_boundary": "Subject-level half split, multiple bandwidth candidates and unweighted empirical test-loss selection. The source prints positive dyadic bandwidths outside Algorithm 1’s domain, lower-density constants instead of the upper ones, and duplicate M_s assignments. These are preserved, not repaired. Repetition averaging is specified in Theorem 3.4.",
+      "members": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D16",
+          "local_label": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+          "source_heading": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+          "source_kind": "definition",
+          "statement_original": "1. Initialize $\\widehat{\\mathcal G}^{[t]}=\\varnothing$, the collection of candidate estimators.\n2. Randomly partition the target sample $\\mathcal D^{[t]}$ into two sub-samples, denoted as $\\mathcal D_{\\mathrm{train}}^{[t]}$ and $\\mathcal D_{\\mathrm{test}}^{[t]}$, based on subjects. Specifically, perform a random split of the index set $\\{1,\\ldots,2n_t\\}$ into two partitions, $\\mathcal I_{\\mathrm{train}}^{[t]}$ and $\\mathcal I_{\\mathrm{test}}^{[t]}$ such that $|\\mathcal I_{\\mathrm{train}}^{[t]}|=|\\mathcal I_{\\mathrm{test}}^{[t]}|=n_t$. We define:\n\\[\n\\mathcal D_{\\mathrm{train}}^{[t]}:=\\{(T_{ij}^{[t]},Y_{ij}^{[t]}):i\\in\\mathcal I_{\\mathrm{train}}^{[t]},j=1,\\ldots,m_t\\},\n\\]\n\\[\n\\mathcal D_{\\mathrm{test}}^{[t]}:=\\{(T_{ij}^{[t]},Y_{ij}^{[t]}):i\\in\\mathcal I_{\\mathrm{test}}^{[t]},j=1,\\ldots,m_t\\}.\n\\]\n3. Pick any constants $B_t\\geq C_t$ and $d_t\\geq\\omega(\\alpha_m)$.\n4. Take a threshold $M_t=\\log n_t$.\n5. for $b_t\\in\\{2^r\\leq m_tn_t:r\\in\\mathbb Z^+\\}$ do\n6. Execute $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ as if target sample is given as $\\mathcal D_{\\mathrm{train}}^{[t]}$, not $\\mathcal D^{[t]}$.\n7. Add the algorithm’s output to the collection $\\widehat{\\mathcal G}^{[t]}$.\n8. end for\n9. Pick any constants $B_s\\geq C_s$, $B_\\delta\\geq C_t$, $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n10. Take thresholds $M_s=\\log n_s$ and $M_s=\\log n_tn_s$.\n11. for $(b_s,b_\\delta)\\in\\{2^r\\leq Km_sn_s:r\\in\\mathbb Z^+\\}\\times\\{2^r\\leq m_tn_t:r\\in\\mathbb Z^+\\}$ do\n12. Execute $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ as if target sample is given as $\\mathcal D_{\\mathrm{train}}^{[t]}$, not $\\mathcal D^{[t]}$.\n13. Add the algorithm’s output to the collection $\\widehat{\\mathcal G}^{[t]}$.\n14. end for\n15. Output the following estimator $\\widehat g_*^{[t]}$. If a tie occurs, use any randomization to break it.\n\\[\n\\widehat g_*^{[t]}:=\\operatorname*{argmin}_{\\widehat g^{[t]}\\in\\widehat{\\mathcal G}^{[t]}}\\sum_{(T,Y)\\in\\mathcal D_{\\mathrm{test}}^{[t]}}\\big(Y-\\widehat g^{[t]}(T)\\big)^2.\n\\]",
+          "relation": "exact",
+          "depends_on": [
+            "D9",
+            "D3",
+            "D11",
+            "D12"
+          ],
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+            }
+          ],
+          "highlight_symbols": [
+            "\\widehat{\\mathcal G}^{[t]}",
+            "\\widehat g_*^{[t]}"
+          ],
+          "highlight_phrases": [],
+          "naming_context": [
+            {
+              "context_id": "D16/name",
+              "text": "Algorithm 4 Adaptive transfer learning for mean function under an independent design $\\mathcal A_{\\mathrm{ALI}}$",
+              "evidence": [
+                {
+                  "page": 17,
+                  "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+                }
+              ]
+            }
+          ],
+          "application_context": [
+            {
+              "text": "It is further assumed for brevity that the target sample $\\mathcal D^{[t]}$ contains $2n_t$ subjects, which does not affect the rate of convergence.",
+              "evidence": [
+                {
+                  "page": 16,
+                  "location": "Section 3.3 — sample-size convention"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "source_keywords": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "local_id": "D16",
+          "source_text": "Adaptive transfer learning for mean function under an independent design",
+          "label": "Adaptive transfer learning for mean function under an independent design",
+          "kind": "term",
+          "context_id": "D16/name"
+        }
+      ],
+      "central_claim_uses": [
+        {
+          "use_id": "aos-2024-v52-i02-p0654/T3.4-D16",
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "use_kind": "statement_dependency",
+          "reason": "Each g_r is an execution of A_ALI, the candidate-bandwidth and empirical-loss procedure in Algorithm 4.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            }
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency-56bff8dd78f80efd",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D11",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D16",
+              "to_local_id": "D11"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-3a4a31559a46d874",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D12",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D16",
+              "to_local_id": "D12"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-93823aa578e5d719",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D3",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D16",
+              "to_local_id": "D3"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        },
+        {
+          "dependency_id": "dependency-dc6965144ba0bddd",
+          "prerequisite_interface_id": "aos-2024-v52-i02-p0654/D9",
+          "dependency_kind": "definition_body",
+          "reason": "Derived from the recorded same-paper source dependencies.",
+          "local_edges": [
+            {
+              "paper_id": "aos-2024-v52-i02-p0654",
+              "from_local_id": "D16",
+              "to_local_id": "D9"
+            }
+          ],
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design",
+              "paper_id": "aos-2024-v52-i02-p0654"
+            }
+          ]
+        }
+      ],
+      "theorem_explanations": {
+        "aos-2024-v52-i02-p0654/T3.4": {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "via_local_ids": [
+            "D16"
+          ],
+          "text": "Each g_r is an execution of A_ALI, the candidate-bandwidth and empirical-loss procedure in Algorithm 4.",
+          "evidence": [
+            {
+              "page": 17,
+              "location": "Theorem 3.4"
+            },
+            {
+              "page": 17,
+              "location": "Algorithm 4 — Adaptive transfer learning for mean function under an independent design"
+            },
+            {
+              "page": 16,
+              "location": "Section 3.3 — sample-size convention"
+            }
+          ]
+        }
+      },
+      "paper_presence_count": 1,
+      "central_claim_paper_count": 1,
+      "central_claim_use_count": 1,
+      "semantic_rank": 11,
+      "related_theorems": [
+        {
+          "paper_id": "aos-2024-v52-i02-p0654",
+          "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+          "relation": "direct",
+          "via_local_ids": [
+            "D16"
+          ]
+        }
+      ],
+      "supported_claim_paper_count": 1,
+      "supported_claim_count": 1,
+      "downstream_interface_count": 0,
+      "build_order": 14
+    }
+  ],
+  "source_inventory": {
+    "path": "theorem-inventory.json",
+    "sha256": "dba2fdea3309d8edf145ad996ecd2fe6f5bcc11d5b0b5cafe7861baa85880b33"
+  }
+}

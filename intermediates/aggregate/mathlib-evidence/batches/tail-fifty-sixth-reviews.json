@@ -1,0 +1,120 @@
+{
+  "scope": "Manual comparison of the remaining p0491 OMP, sparsity and stopping interfaces, including all six paper variants of the shared finite-span projection; preserve geometric, endpoint and source-formula distinctions.",
+  "rows": [
+    {
+      "interface_id": "local-42faf479c2ef2bf1c380",
+      "related": ["Filter.Tendsto", "Real.log"],
+      "status": "composable",
+      "query": "Inspected generic filter convergence and real logarithm for the explicitly triangular high-dimensional model sequence.",
+      "result": "Dependent arrays indexed by sample size and two filter limits express the growing dimension and subexponential regime.",
+      "gap": "Package a model at each sample size and impose p(n) tending to infinity and log(p(n))/n tending to zero with the source's uniform constant scope.",
+      "comparisons": {"D17": "Use p : natural numbers to natural numbers and a dependent family of n-by-p(n) designs, p(n)-vectors of coefficients and n-vectors of errors satisfying model (1.1). Require Tendsto p atTop atTop and Tendsto (fun n => log(p(n))/n) atTop (nhds 0), interpreting arithmetic in the reals on the eventually positive domain. X, beta and epsilon may all change with n; there is no requirement of a single infinite iid sequence or fixed-dimensional coefficient vector across sample sizes. Constants asserted numerical in the chosen assumptions remain uniform in this sequence. The regime permits growth faster than any polynomial, so it is not replaced by a polynomial-dimension constraint."}
+    },
+    {
+      "interface_id": "local-5d4437cc0e427ef970bf",
+      "related": ["ProbabilityTheory.HasSubgaussianMGF", "ProbabilityTheory.variance"],
+      "status": "composable",
+      "query": "Inspected the scalar sub-Gaussian MGF predicate and real variance definition against the uniform directional bound and coordinate variances in D10.",
+      "result": "A common scalar MGF bound over all unit Euclidean directions plus coordinate variance identities expresses the design assumption.",
+      "gap": "Quantify the MGF predicate over every unit direction with common proxy rho squared and separately require each marginal variance to equal one.",
+      "comparisons": {"D10": "For every x in Euclidean p-space with norm one apply HasSubgaussianMGF to the scalar inner product of x and X1 with proxy rho^2, uniformly over n, and require rho>0. On a probability space the finite exponential bound is represented with exponential integrability, avoiding a Bochner MGF zero fallback. State variance of each coordinate equals one with the moment finiteness supplied by sub-Gaussianity. Unit diagonal covariance does not imply identity covariance or coordinate independence. A separate bound for each direction with unrelated constants would weaken the common-rho requirement."}
+    },
+    {
+      "interface_id": "local-638a0921a03dc9bb15d2",
+      "related": ["ProbabilityTheory.covariance", "Matrix.IsHermitian.eigenvalues₀", "Matrix.mul_nonsing_inv", "csSup_le_iff"],
+      "status": "partial_match",
+      "query": "Inspected coordinate covariance, decreasing Hermitian eigenvalues, genuine matrix inverse hypotheses and bounded supremum semantics against (1.12)-(1.13).",
+      "result": "The matrix and spectral ingredients express the lower covariance bound and subset regression coefficients, but the uniform strict l1 condition is a paper-specific hypothesis.",
+      "gap": "Assemble the uniformly positive covariance and strict subset-regression bound, proving each inverse is genuine and preserving the precise subset cutoff.",
+      "comparisons": {"D11": "Build Gamma from coordinate covariances and, for p>0, use its smallest decreasing-order eigenvalue at the last index to require a uniform c_lambda>0 lower bound. For each subset J with natural cardinality cast to a real at most M_n=sqrt(n/((bar-sigma^2+rho^4)*log p)) and k outside J, extract Gamma_J and v_k and bound the sum of absolute entries of Gamma_J inverse times v_k. Positive definiteness must imply nonsingularity of each principal block before using the nonsingular-inverse API. Retain sup < C_Cov, not the later weak inequality, and preserve the empty-domain convention if a finite-sample cutoff leaves no eligible pair. This is a population linear-regression coefficient condition, not a theorem that a general sub-Gaussian conditional expectation is linear. Uniformity over the model sequence and constants remains explicit."}
+    },
+    {
+      "interface_id": "local-3d5b0f032cbe6b11e5c0",
+      "related": ["Asymptotics.IsLittleO", "Real.rpow", "MeasureTheory.MemLp"],
+      "status": "partial_match",
+      "query": "Searched sparsity and support terminology; inspected little-o, real powers including the zero-power convention, and population L2 membership against both D9 alternatives.",
+      "result": "Finite support counts, sums, powers and asymptotic bounds express the two alternatives, while the branch data and unresolved endpoint conventions need explicit treatment.",
+      "gap": "Package the two complete sparsity alternatives with uniform constants and chosen-branch identity, preserving empty-support and zero-power source ambiguities.",
+      "comparisons": {"D9": "In the s-sparse branch require support cardinality at most s, s times the squared l1 coefficient norm little-o of n/log p, bounded population L2 signal energy and the displayed beta-min condition on the support. s=0 is permitted and the source gives no minimum-of-empty-set convention; do not silently exclude it or claim a totalized minimum resolves the quotation. In the gamma branch require gamma>=1, bounded Euclidean coefficient norm, and the displayed l1 versus squared-l2 power inequality for every coordinate subset with a common C_gamma. It is not only an ordered-tail bound. At gamma=1 a zero subset gives 0^0; Real.rpow chooses one, which must be identified as a formal convention rather than attributed to the paper. A sequence can satisfy both branches, so the chosen alternative must accompany later rate and iteration formulas."}
+    },
+    {
+      "interface_id": "local-9549b6cdde508708f116",
+      "related": ["Real.rpow", "Real.log"],
+      "status": "composable",
+      "query": "Inspected real powers and logarithms against the two exact branch-indexed rate formulas and the recorded overlap of sparsity hypotheses.",
+      "result": "An explicitly branch-indexed scalar definition expresses each target rate using ordinary real arithmetic.",
+      "gap": "Define the rate from the selected sparsity branch with its exact noise/design constants and exponent, rather than resolving overlapping branches implicitly.",
+      "comparisons": {"D13": "The s branch is bar-sigma^2*s*log(p)/n. The gamma branch is (((bar-sigma^2+rho^4)*log(p))/n) raised to 1-1/(2*gamma), with gamma>=1. Use the asymptotically positive n and p domain, retain the sum of noise and design proxies only where printed, and distinguish the noise MGF proxy from the true variance and estimated empirical noise level. Treat R(s,gamma) as shorthand for a branch choice; simultaneous validity of both sparsity assumptions does not assert equality of their formulas. The definition itself supplies no risk bound."}
+    },
+    {
+      "interface_id": "finite-span-orthogonal-projection",
+      "related": ["Submodule.starProjection", "Submodule.starProjection_minimal", "Submodule.span", "Matrix.mul_nonsing_inv", "Set.indicator"],
+      "status": "composable",
+      "query": "Inspected finite spans, ambient-space orthogonal projection, its distance-minimization theorem, inverse requirements and coordinate indicators against all six source variants and their recorded rank/measure conventions.",
+      "result": "The common projection constructor supports each chosen inner-product space; coordinate and inverse formulas require their separate identifications and rank hypotheses.",
+      "gap": "Instantiate each specified span and inner product, prove the applicable coordinate formula, and retain rank, measure and representative qualifications separately for each variant.",
+      "comparisons": {
+        "aos-2024-v52-i02-p0491/D4": "Take the finite span of selected design columns in real n-space with empirical inner product equal to the Euclidean inner product divided by n>0. Positive uniform rescaling preserves orthogonality, so the Euclidean starProjection gives the same fitted n-vector. This exists even with dependent selected columns, unlike a plain Gram inverse. Preserve the earlier geometric definition and the recorded dimensional error in later (1.26); do not repair that quotation or infer a unique coefficient vector or population extension of a rank-deficient fit.",
+        "aos-2024-v52-i06-p2641/D8": "For full-column-rank A_k the column-span starProjection can be identified with A_k(A_k^T A_k)^(-1)A_k^T after proving the Gram matrix invertible. An orthonormal basis U_k of that span gives U_k U_k^T. Singular-vector selection is unnecessary for the invariant projection itself, and sign choices do not alter a fixed full loading span. Lower-bound theorems that bind their own orthonormal U and P=UU^T do not need the entire general data model merely to use this equality.",
+        "aos-2024-v52-i06-p2879/D25": "Use the finite span of the first k supplied orthonormal covariance eigenvectors, giving beta_prefix=sum_{i<=k} inner(beta,v_i)*v_i and beta_tail=beta-beta_prefix in the underlying Hilbert space. The same operator can act on theta in Theorem 3. The selected eigendecomposition controls any ties; no basis-free unique prefix is asserted at a tied boundary. Only the finite-prefix projection is needed, including in an infinite-dimensional setting, and the nearby proposition bounds are not extra assumptions of the definition.",
+        "aos-2024-v52-i02-p0729/D5": "Use the Frobenius inner product on the finite matrix-entry space. The subspace supported on Omega has projection given entrywise by the Omega indicator; its complement, the diagonal mask and off-diagonal complement are distinct specified operators. A general subset of matrix entries is not a column-space projection or matrix multiplication by a square projector. Do not substitute spectral norm geometry for this Euclidean/Frobenius least-squares construction.",
+        "aos-2024-v52-i02-p0793/D11": "In L2(F-star), assume the supplied correction basis functions and g are square integrable, form their finite span and project g; starProjection_minimal gives the least-squares meaning after relating squared distance to the displayed integral. Uniqueness is as an L2 equivalence class; a pointwise formula and unique coefficients require the relevant representative and nonsingular Gram assumptions. The population Omega interpretation comes from the source coordinate formula and must not be presented as a separately printed definition or estimated nuisance. Preserve the recorded F-star normalization ambiguity and use its actual supplied measure rather than silently normalize it.",
+        "aos-2024-v52-i05-p2059/D4": "For each superscript, form the column span of the named concatenated design, such as (Z_pi,Z) or (x,Z,Z_pi), and take its Euclidean starProjection. These are different spans even though they use one constructor. Geometric projection remains well defined with linearly dependent columns; no full-column-rank condition, inverse formula or generalized-inverse convention is supplied by this definition. Keep superscripts as labels of the argument, not powers of a matrix."
+      }
+    },
+    {
+      "interface_id": "local-f05ddfb49a6dadb6b7a9",
+      "related": ["Finset.exists_max_image", "Submodule.starProjection", "Submodule.span"],
+      "status": "partial_match",
+      "query": "Searched matching-pursuit, Akaike and greedy-correlation aliases across Mathlib; inspected finite maximizer existence and projection refitting against Algorithm 1.",
+      "result": "Finite maximizer selection and orthogonal refitting supply the algorithmic steps, but a total iteration requires source-unspecified normalization and selection rules.",
+      "gap": "Construct the normalized-correlation recursion with refitting while exposing its unspecified zero-column and tie conventions.",
+      "comparisons": {"D5": "Start with the empty selected set and zero fit. At each natural iteration maximize the absolute empirical inner product of the current residual with each original column divided by its empirical norm, union the selected index into the set, and project Y onto the new span. The finite max theorem gives an index when p>0 and all scores are defined, but it does not choose ties. Full row rank does not exclude zero columns, and real division by zero in Lean would add an unprinted convention. The source maximizes over all columns, including already selected ones. Do not replace the denominator by the residualized-column norm or certify the prose claim that this is always the largest next-step residual decrease for correlated columns."}
+    },
+    {
+      "interface_id": "local-5e467083c20b7371e118",
+      "related": ["MeasureTheory.integral", "PMF.uniformOfFintype"],
+      "status": "composable",
+      "query": "Inspected finite uniform empirical integration against the squared residual definition and its distinct use of OMP iteration indices.",
+      "result": "A uniform average over the n residual coordinates equals the empirical squared norm.",
+      "gap": "Define the residual energy as n^(-1) times the sum of squared residual coordinates at each supplied OMP iterate.",
+      "comparisons": {"D6": "For n>0 and m a nonnegative integer set r_m^2=(1/n)*sum_i (Y_i-Fhat_i^(m))^2, equivalently an integral under the uniform law on observation indices. This is the squared empirical norm, not the unnormalized Euclidean squared norm, a population prediction risk or a degree-of-freedom-adjusted variance estimate. The fit is obtained from the already defined OMP path and uses the same data. Retain only the residual fragment of (1.2); its introductory fixed-threshold stopping rule is superseded by (1.8)."}
+    },
+    {
+      "interface_id": "local-53860a659e6ba8cba97f",
+      "related": ["MeasureTheory.hittingAfter", "MeasureTheory.Adapted.isStoppingTime_hittingAfter", "Nat.find"],
+      "status": "partial_match",
+      "query": "Inspected hittingAfter 65-67, its discrete adapted-process stopping theorem 412-415, and Nat.find's existence requirement against the moving residual threshold.",
+      "result": "A first hitting time of the residual-minus-threshold process expresses the rule and preserves possible non-hitting; finite stopping and statistical accuracy need separate conditions.",
+      "gap": "Instantiate the residual-minus-threshold hitting time and justify finiteness and adaptation without assuming an unstated nonnegative noise estimate.",
+      "comparisons": {"D7": "Set u_m=r_m^2-sigmahat^2-C_tau*m*log(p)/n and hit the closed half-line (-infinity,0] from m=0. hittingAfter returns WithTop naturals with infinity for an empty hitting set; Nat.find gives the least integer only after existence is proved. C_tau>=0 is printed, but sigmahat^2 has no explicit nonnegative range, so a negative estimate and C_tau=0 can prevent hitting even at zero residual. Do not silently clamp the estimate or impose a finite cap. A filtration that exposes the necessary fitted-path and noise-estimate information must make u adapted before claiming a stopping-time theorem; source-specific noise-estimation accuracy and later probability bounds do not follow from generic hitting-time construction."}
+    },
+    {
+      "interface_id": "local-657ef232f594594a5404",
+      "related": ["IsMinOn", "Real.log"],
+      "status": "composable",
+      "query": "Searched Akaike terminology and inspected global minimization predicates against the additive iteration-penalized criterion (5.5).",
+      "result": "The real-valued criterion and a minimizing natural index are directly expressible; a single chosen optimizer requires existence and selection handling.",
+      "gap": "Define the additive criterion on all nonnegative iterations and establish an attained minimizer before choosing an index.",
+      "comparisons": {"D15": "Set AIC(m)=r_m^2+C_AIC*m*log(p)/n for m in the natural numbers and specify mhat_AIC by IsMinOn over all such indices. The source does not restrict this standalone argmin to the stopping prefix, add a multiplicative residual penalty, or specify ties. A lower-bounded sequence need not attain its infimum, so existence must use conditions on the criterion or the OMP path; positivity of the penalty where available can support a coercivity argument but is not supplied by IsMinOn. Keep this additive variant distinct from the cited original HDAIC procedure."}
+    },
+    {
+      "interface_id": "local-b2df7324a3ff97c4e2ac",
+      "related": ["IsMinOn", "Finset.exists_min_image"],
+      "status": "composable",
+      "query": "Inspected all-domain minimization and finite-image optimizer existence against the ideal empirical-risk oracle, keeping the balanced oracle separate.",
+      "result": "The oracle property is a global minimum of empirical signal error along the OMP path; finite possible fitted spans can support attainment once the path is defined.",
+      "gap": "Define the signal-dependent empirical-risk minimizer along the complete OMP path and prove attainment without adding a tie rule or replacing it by the balanced oracle.",
+      "comparisons": {"D8": "Minimize n^(-1)*sum_i (Fhat_i^(m)-fstar_i)^2 over every nonnegative integer m. The target uses the true signal evaluations, not the response residual r_m^2 or population L2 risk, so this is an ideal oracle unavailable from observations alone. A well-defined path takes fits among the finitely many column-subset projections, allowing a finite-image attainment proof and then an index realizing the minimum; this does not imply that the first p iterations contain every possible optimizer under arbitrary repeated choices. The source gives no smallest-minimizer convention. Its separately used balanced oracle is not substituted for this empirical minimizer."}
+    },
+    {
+      "interface_id": "local-e4a5b100bd0812430416",
+      "related": ["Finset.exists_min_image", "IsMinOn"],
+      "status": "composable",
+      "query": "Inspected finite minimizing-input existence against the inclusive OMP prefix in (5.6), using the recorded possible-infinite-stopping qualification.",
+      "result": "For finite tau the inclusive prefix is a nonempty finite set, so an AIC-minimizing index exists without requiring an infinite-domain optimization theorem.",
+      "gap": "Minimize the same AIC over the inclusive computed prefix after establishing finite tau, and justify selection and computational claims separately.",
+      "comparisons": {"D16": "Given a finite stopping index tau, minimize AIC over {0,...,tau}; zero is included and provides a nonempty candidate set even when tau=0. Finset.exists_min_image gives some minimizer and membership, while any deterministic or measurable tie choice needs to be specified outside the original quotation. If the first-stage hitting set is empty, a finite-prefix implementation is not obtained merely by coercing infinity to a natural number. Preserve the exact C_AIC criterion from (5.5), distinct from the first-stage C_tau threshold. Computing the winner among tau+1 available values takes tau comparisons, but equality of overall complexity and the theorem's statistical lower/risk bounds require their own arguments."}
+    }
+  ]
+}

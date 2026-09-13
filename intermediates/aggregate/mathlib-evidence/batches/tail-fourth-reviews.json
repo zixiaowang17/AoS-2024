@@ -1,0 +1,127 @@
+{
+  "scope": "Manual comparison of twelve interfaces, including each of three grouped skew-density variants, against pinned mathlib sources and retained paper conventions.",
+  "rows": [
+    {
+      "interface_id": "local-a0569d079be4ef478857",
+      "related": ["MvPolynomial.eval"],
+      "query": "Searched probability/measure sources for skew-normal, skew-modal and skew-symmetric constructions; inspected multivariate-polynomial evaluation against the marginal linear-plus-cubic expression.",
+      "result": "Multivariate polynomial evaluation supports the two odd-degree terms but supplies neither the source's Gaussian conditional-moment coefficients nor their statistical approximation properties.",
+      "gap": "The marginal linear and cubic coefficients, their n-scaling and the nonzero-eta convention still need to be supplied to polynomial evaluation.",
+      "comparisons": {
+        "D27": "Build a real multivariate polynomial containing both nu_1,s*h_s and nu_3,stl*h_s*h_t*h_l, using the repeated-index sums and the full factor 1/(12*eta*sqrt(n)*n). MvPolynomial.eval represents evaluation after coefficients are fixed. This is not the joint homogeneous cubic restricted to C: Gaussian conditioning generates the linear term. Preserve the source's raw third-moment component discrepancy and its contracted-coefficient interpretation, and do not use total division to repair eta=0 or unspecified empty-coordinate conventions."
+      }
+    },
+    {
+      "interface_id": "gaussian-density-with-odd-polynomial-skewing",
+      "related": ["ProbabilityTheory.multivariateGaussian", "ProbabilityTheory.cdf", "MvPolynomial.eval", "MeasureTheory.Measure.withDensity"],
+      "query": "Searched for skew-normal/skew-modal density APIs; inspected multivariateGaussian's affine-map construction and non-PSD fallback, cdf, polynomial evaluation and withDensity against all three grouped source variants.",
+      "result": "A Gaussian law can be weighted by twice a CDF of an odd polynomial, but normalization, covariance validity and the source-specific coefficients require separate arguments. No located definition identifies the generic, MAP-centered and marginal approximations as the same law.",
+      "gap": "The symmetric-CDF normalization and each variant's covariance and polynomial coefficients remain to be established, with the marginal approximation kept distinct from exact marginalization.",
+      "comparisons": {
+        "D10": "Use a Gaussian centered at xi with covariance Omega and weight it by 2*F(alpha_eta(h-xi)); polynomial evaluation and cdf supply constituent functions, and withDensity can weight the Gaussian reference measure. To identify the printed Lebesgue density, require a suitable nondegenerate covariance and the density calculation. Normalization needs the centered Gaussian symmetry, oddness and the stipulated CDF symmetry, not just arbitrary weighting. Preserve the source's open (0,1) wording despite allowed CDF endpoint values, eta=0 issue, and covariance validity only on its specified high-probability event; a non-PSD input to multivariateGaussian collapses to a Dirac measure and is not a paper-approved fallback.",
+        "D21": "This member centers the rescaled coordinates at the MAP and uses the inverse of the negative likelihood Hessian divided by n, not the full posterior Hessian. Its skew polynomial is homogeneous cubic with the original third likelihood derivative and 1/(12*eta*n*sqrt(n)) factor. Generic Gaussian/CDF/weighting APIs leave the random curvature event, positive-definite density domain and coefficient identities to prove; they do not convert an arbitrary constrained MAP into an interior stationary point or identify this density with the projection-centered approximation.",
+        "D28": "The Gaussian covariance is the CC block and the skew function uses the separately derived marginal polynomial with both linear and cubic terms. The formula is F of the conditional mean polynomial, whereas integrating the joint density produces the conditional mean of F of that polynomial; these generally differ. Preserve this as a separate approximation, including arbitrary C with its unstated empty/full-block conventions. Gaussian pushforward or total-variation contraction alone cannot establish equality of these densities or the marginal approximation rate."
+      }
+    },
+    {
+      "interface_id": "local-8e3e8cf6d30c55a27136",
+      "related": ["Finset.filter", "Finset.sum_div"],
+      "query": "Searched for U-statistic and covariance-penalty kernels; inspected finite filtering and sum normalization against all ordered distinct-index terms of the four-observation kernel.",
+      "result": "Finite tuples can be filtered for injectivity and their products summed with the stated rational coefficients. The generic finite operations do not prove kernel symmetry, unbiasedness or agreement with a squared population covariance.",
+      "gap": "The ordered-tuple kernel and its symmetry and population-penalty correspondence still need to be constructed from finite sums.",
+      "comparisons": {
+        "D13": "Use all ordered distinct 2-, 3- and 4-tuples of the four observation positions, with coefficients 1/12, -1/12 and 1/24 and outer tilde-mu exactly as printed. The source I sets are not unordered subsets; replacing them by powersetCard without a multiplicity argument changes coefficients. Keep the earlier direction f_s fixed in this kernel and distinguish its later estimated invocation. Finset.filter and finite-sum normalization implement index selection/arithmetic only; they do not authorize algebraic repairs, change tilde-mu to the Levy measure, or import this later-step penalty into the first-direction estimator."
+      }
+    },
+    {
+      "interface_id": "local-9eb642668fe2060f81b7",
+      "related": ["Finset.powersetCard", "Finset.sort", "Finset.sum_div", "IsMinOn"],
+      "query": "Searched for U-statistic empirical objectives; inspected fixed-cardinality subsets, sorting, sum division and IsMinOn against the increasing-four-tuple objective and global recursive minimization.",
+      "result": "Four-element subsets sorted increasingly represent the U-statistic index set and generic extrema predicates represent global minimization. They do not supply the source-specific kernels, recursive estimator existence or measurable selection.",
+      "gap": "The order-four objective, recursive global minimizer selection and its sampling and finite-sample domain requirements remain to be supplied.",
+      "comparisons": {
+        "D25": "Average over increasing four-tuples with normalization choose(n,4), inserting the main kernel and the sum of covariance kernels using every preceding estimated direction. A powersetCard 4 index set followed by increasing sort can represent J_n,4; its nonzero normalization ordinarily needs n>=4. Require a chosen candidate in F_n satisfying IsMinOn of this objective, since IsMinOn alone neither enforces membership nor proves existence. Keep global empirical minimization distinct from a specified optimizer's trained network and from an objective using oracle preceding directions. Sampling independence, measurable argmin selection, class centering and finite-index conventions remain source limitations."
+      }
+    },
+    {
+      "interface_id": "local-6bba0a018804036939ec",
+      "related": ["MeasureTheory.integral", "Finset.sum_range_succ", "IsMinOn"],
+      "query": "Inspected population expectation and finite-sum/minimization APIs, plus Decision.Risk.avgRisk, against the per-direction loss difference evaluated at oracle previous directions.",
+      "result": "Real population objectives can be subtracted and summed; the prior-averaged nonnegative extended-real avgRisk interface is not this pathwise fitted-direction loss difference.",
+      "gap": "The oracle-conditioned population objective and its fitted-versus-optimal loss difference still need definition and integrability and minimizer arguments.",
+      "comparisons": {
+        "D15": "Evaluate both L_j terms with the same preceding population directions f-star_[j-1], changing only the last argument from the fitted direction to f-star_j, then sum j=1,...,d. This differs from the empirical recursive training loss, which uses estimated preceding directions. Bochner integration can supply real expectations once integrability is established, and finite-sum recursion the total; neither supplies the GMDD/penalty objective or a nonnegativity proof. This displayed quantity is random through the fit and does not take an extra expectation over training data; avgRisk's prior-averaged ENNReal loss should not silently replace it."
+      }
+    },
+    {
+      "interface_id": "local-72f1a94f9975cbdc49ab",
+      "related": ["Set.indicator", "Finset.sum_div"],
+      "query": "Searched for PALMRT and test-inversion APIs; inspected indicator and finite-sum normalization against the residualized paired-statistic and half-tie p-value formula.",
+      "result": "The strict-comparison indicator, equality half-weight and finite averaging are expressible, but no located declaration constructs the PALMRT residualized statistic pair or establishes its validity.",
+      "gap": "The residualized PALMRT pair, permutation sampling and test-inversion guarantee still need to be connected to the indicator-based p-value expression.",
+      "comparisons": {
+        "D8": "Replace y by y-x*beta in the concrete paired-statistic construction, and set each weight to 1 on T0b<Tb0, 1/2 on equality and zero otherwise. Keep the plus-one numerator and B+1 denominator. The source's Algorithm 2 reference points to a pair actually constructed in Algorithm 1 and equation (3); record this discrepancy without inventing a circular definition. Generic indicators do not supply the projection/row-permutation pair, the standing exchangeability assumptions or independence of permutation draws omitted from the original theorem wording."
+      }
+    },
+    {
+      "interface_id": "local-a8f5202882a603ca6184",
+      "related": ["Set.Icc", "Set.indicator"],
+      "query": "Searched for PALMRT inversion and interval confidence constructions; inspected closed intervals and indicators against the strict superlevel-set hull definition and its retained coverage passage.",
+      "result": "Set.Icc represents a closed interval once endpoints are provided. It neither supplies infimum/supremum conventions for empty or unbounded inversion sets nor proves the stated coverage bound.",
+      "gap": "The superlevel-set endpoint conventions and PALMRT coverage proof remain to be specified around the closed interval hull.",
+      "comparisons": {
+        "D9": "First form all beta with f(beta)>alpha, then take the closed interval hull using its infimum and supremum, not the possibly disconnected acceptance set itself. For finite endpoints Set.Icc gives the closed interval; empty and unbounded cases need the source's separate conventions rather than total real-infimum defaults. Preserve the printed worst-case coverage strictly above 1-2*alpha, the min-over-beta wording and its standing source assumptions. This Corollary 4.1 passage remains an interface source and is not an additional inventoried Theorem or an automatic normal-approximation fallback."
+      }
+    },
+    {
+      "interface_id": "local-d97578c20ddc977b8772",
+      "related": ["Finset.sort", "Finset.filter", "Finset.sum_range_succ"],
+      "query": "Searched for PALMRT and root-sweep algorithms; inspected sorting, finite predicate filtering and sum recursion against the distinct-root multiplicity and half-jump recurrence.",
+      "result": "Finite sorting gives distinct critical values and filtered index sets give multiplicities. These operations do not reconcile the printed overlapping-indicator, coincident-root or coefficient/partition inconsistencies.",
+      "gap": "The critical-root construction and sweep need their source discrepancies and endpoint conventions resolved before correctness relative to the original comparison weights can be established.",
+      "comparisons": {
+        "D10": "Sort the unique union of s_b and u_b over A1, but compute each multiplicity from the original b indices so deduplication of roots does not discard counts. The t_l-plus symbols denote right-side values in a piecewise-constant sweep, not arbitrary floating-point epsilon offsets. Retain the printed initial half-difference and half-jump recurrences. The source's equation (5) can give 1.5 on an interval interior, equation (6) cancels coincident roots differently, c_b4 has a projection-index discrepancy and the claimed partition has uncovered/undefined indices. Sorting and finite recursion cannot certify these as the same f derived from 0/half/one comparison weights."
+      }
+    },
+    {
+      "interface_id": "local-7561e7ff91faa26b00aa",
+      "related": ["Finset.sort", "Finset.min'", "Finset.max'", "Set.Icc"],
+      "query": "Searched for PALMRT and exact test-inversion CI routines; inspected finite sorting/minimum/maximum and closed intervals against every original Algorithm 2 branch and the recorded boundary cases.",
+      "result": "The finite endpoint and ordering primitives exist, but the printed algorithm omits some empty-critical-set and boundary-index values and inherits unresolved coefficient and sweep formulas.",
+      "gap": "The algorithm's coefficient/sweep discrepancies and missing boundary cases must be resolved before a total CI implementation can be verified against its coverage theorem.",
+      "comparisons": {
+        "D11": "Preserve the gamma<0 whole-line branch, the max(f_A1)<=gamma empty branch and the distinct lower/upper endpoint predicates in lines 14 and 15. Finset extrema require nonempty endpoint candidate sets and do not define M=0, t_0-plus or the unrecorded final t_M-plus value. Keep the printed 1-alpha algorithm comment separate from Theorem 4.4's 1-2*alpha bound. The upstream coefficient, partition and coincident-root inconsistencies prevent claiming the finite-set primitives implement a verified exact inversion algorithm; neither extra branches nor the optional normal fallback are inserted into the original source."
+      }
+    },
+    {
+      "interface_id": "local-bf2a7583b0757e39755f",
+      "related": ["Real.sqrt", "Finset.sum_div"],
+      "query": "Searched for standardized block change-point statistics; inspected real square root and sum normalization against the source's preliminary-mean and long-run-standard-deviation formula.",
+      "result": "Real arithmetic expresses the standardized block mean, but its data-selected preliminary mean, variance estimate and finite-sample domain are source-specific.",
+      "gap": "The preliminary mean and consistent long-run variance estimator still need implementation with the source's unresolved finite-sample sign and zero conventions.",
+      "comparisons": {
+        "D13": "Compute sqrt(k)*(R_j-muhat0)/sigmahat_infinity, keeping the preliminary muhat0 from the selected-prefix variance construction distinct from the later improved muhat1. The source permits any consistent variance estimator, so do not impose the recommended formula (8) or its stronger theorem assumptions. A consistent estimate may still be negative or zero at finite n; Real.sqrt's negative-input zero and ordinary division's zero convention do not resolve the source's intended standardization on those events."
+      }
+    },
+    {
+      "interface_id": "local-59d58ce332f112709f08",
+      "related": ["Set.indicator", "ProbabilityTheory.cdf", "ProbabilityTheory.gaussianReal"],
+      "query": "Searched for quantile/inverse-CDF and block decision APIs; inspected the standard normal law, real cdf and indicator boundary semantics against the inclusive threshold decision.",
+      "result": "The Gaussian law and its CDF are available, and an indicator gives the inclusive event. No named normal-quantile construction was located in the searched probability/measure sources.",
+      "gap": "The interior normal quantile and valid standardized statistic still need to be supplied to the inclusive binary decision.",
+      "comparisons": {
+        "D14": "Use the indicator of Dhat_j>=z_(1-1/m), including equality. gaussianReal with mean zero and variance one and its cdf supply the reference distribution; defining and identifying its quantile at 1-1/m requires an inverse/order characterization. Preserve m>=2 for an interior finite quantile and the upstream statistic's variance-domain limitations. The binary decision is not a randomized tie test or a separately proved finite-sample level guarantee."
+      }
+    },
+    {
+      "interface_id": "local-721e5678a7dbfe2c28d4",
+      "related": ["Set.indicator", "Finset.sum_range_succ", "Finset.min'", "IsMinOn"],
+      "query": "Searched for binary step-fit/change-point estimators; inspected indicator, partial-sum and finite minimization APIs against both printed forms of the objective.",
+      "result": "Binary indicators and finite sums express the step loss and its mismatch-count form. A minimum value or IsMinOn predicate still needs a chosen admissible minimizing index and does not resolve ties.",
+      "gap": "The binary step-fit objective and an admissible minimizer selection with the source's unstated tie convention remain to be defined.",
+      "comparisons": {
+        "D15": "Search t=1,...,m-1, fitting zeros through t and ones from t+1 through m. For binary Ihat_j the squared loss equals the two mismatch sums, an algebraic identity that must be proved rather than presumed for arbitrary real data. Finset.min' gives the attained loss; selecting eta_hat requires membership and IsMinOn, with m>=2 ensuring candidates exist. Keep the unspecified tie selection, the original floor/prose discrepancy for the population block index and the later possibility that eta_hat=m-1 leaves d_hat's sliding-window set empty."
+      }
+    }
+  ]
+}

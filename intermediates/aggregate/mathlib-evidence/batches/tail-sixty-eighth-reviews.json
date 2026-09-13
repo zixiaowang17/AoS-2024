@@ -1,0 +1,192 @@
+{
+  "scope": "Manual comparison of all remaining p2613 interfaces, including both grouped uncentered augmented-score variants; source causal, fold, conditional-version and almost-sure rate conventions retained.",
+  "rows": [
+    {
+      "interface_id": "local-ac3237e8d0bc69d29f19",
+      "related": ["Set.EqOn", "ProbabilityTheory.CondIndepFun", "ProbabilityTheory.condDistrib"],
+      "query": "Searched causal identification, potential-outcome and exchangeability APIs; inspected equality on events, conditional independence and conditional action distributions against the source's named-only assumptions.",
+      "result": "The primitives can express common consistency, conditional independence and positivity formulations once a potential-outcome model is supplied. The main-text passage merely names these assumptions and does not select the exact predicates or establish the identifying functional through these declarations.",
+      "gap": "The potential-outcome model and precise consistency, positivity and exchangeability predicates must be supplied before proving the claimed identification relation.",
+      "comparisons": {"D15": "Preserve the named assumptions and external-reference limitation as the original passage. EqOn and CondIndepFun are related infrastructure, not a reconstructed original definition; no cross-world assumptions, action-support quantifiers or uniform overlap are invented. The same qualification applies to the fixed ATE and the later time-indexed effects."}
+    },
+    {
+      "interface_id": "local-050ae7781b9f3cddc446",
+      "related": ["ProbabilityTheory.condDistrib", "MeasureTheory.integral"],
+      "query": "Inspected conditional-law kernels and their integral interpretation against the treatment-specific conditional-regression role recorded in the source context.",
+      "result": "Integrating the outcome under a conditional law given covariates and treatment supplies the usual treatment-specific mean regression under integrability. The source description does not separately print that full equation, and a kernel version only has its conditional-law meaning almost everywhere.",
+      "gap": "The treatment-specific conditioning variables, integrable outcome and conditional version must be supplied without rewriting the descriptive source passage as a new equation.",
+      "comparisons": {"D16": "The explanatory interpretation is the mean of Y conditional on X=x and A=a, as used by the identified ATE and score formulas. Keep that as context rather than verbatim source, preserve values-at-null-covariates qualifications and do not treat arbitrary regression estimates as already equal to the conditional mean."}
+    },
+    {
+      "interface_id": "treatment-augmented-inverse-propensity-score",
+      "related": ["MeasureTheory.condExp", "MeasureTheory.integral"],
+      "query": "Searched AIPW and augmented inverse-propensity score implementations; inspected conditional expectation and real expectation primitives against both exact source score formulas.",
+      "result": "The same algebraic score can be built from a supplied propensity and two regression functions. Conditional-expectation identities support its mean calculation under valid denominators and integrability, but neither centering nor efficiency follows merely from the generic expression.",
+      "gap": "The supplied regressions and propensity need valid denominators and integrability, with unbiasedness and efficiency justified under the appropriate variant's assumptions.",
+      "comparisons": {
+        "D18": "Use binary a in {0,1}, mu1-mu0 plus (a/pi-(1-a)/(1-pi))*(y-mu^a). This is the uncentered score f, whose expectation is the target under the relevant assumptions; subtracting psi would change the cross-fit estimator. The true conditional means distinguish this efficient-score variant from arbitrary regression limits.",
+        "D24": "Use the true propensity with bar_mu1 and bar_mu0, which may be misspecified regression limits, and retain the same uncentered formula. The score construction is shared with D18 but its values and variance can differ; the expression alone does not make the limit efficient or assert that the true propensity is known to the estimator."
+      }
+    },
+    {
+      "interface_id": "local-0f08e2867f4adfa7232c",
+      "related": ["ProbabilityTheory.bernoulliMeasure", "ProbabilityTheory.iIndepFun", "Finset.filter"],
+      "query": "Searched permanent random sample splitting and inspected Bernoulli half-allocation, independence predicates and filtering of finite observation prefixes.",
+      "result": "A stream of allocation labels defines two fixed subsequences and filtering the first t labels gives current fold counts. Distributional independence of the resulting streams needs the appropriate data/allocation assumptions, not just their set notation.",
+      "gap": "The permanent allocation-label process, data independence and current-prefix subsequences must be constructed before deriving the stated fold laws.",
+      "comparisons": {"D19": "Assign each arriving observation to training or evaluation with probability one half and retain that label at all later times. T and T'=t-T count observations seen by current time t, not the cardinalities of literal infinite streams. Keep the iid common-law setting of this introduction separate from Theorem 3.3's independent nonidentical setting, and preserve undefined early empty-fold cases rather than adding padding."}
+    },
+    {
+      "interface_id": "local-e88332d84ca9fd1058c7",
+      "related": ["MeasurableSpace.comap", "MeasureTheory.condExp"],
+      "query": "Searched cross-fitted nuisance estimators; inspected sigma-algebras generated by data maps and conditional mean infrastructure against the training-only substitution rule.",
+      "result": "The nuisance estimates can be modeled as measurable functions of the training data record and substituted into the supplied augmented-score formula. A generated sigma-algebra records dependence but does not construct a regression learner or enforce valid estimated denominators.",
+      "gap": "Measurable nuisance-learning maps using only their designated folds must be supplied, with valid propensity values for the fitted score.",
+      "comparisons": {"D20": "Replace mu1,mu0,pi by mu_hat^1_(T'),mu_hat^0_(T'),bar_pi_(T') learned solely from the training fold, where bar_pi is either an estimated propensity or the true one according to the setting. For the other fit swap the fold roles. Do not train on evaluation records, assume estimated overlap from true overlap, or force known propensity into the observational theorem."}
+    },
+    {
+      "interface_id": "local-ec7bf3dd366490722b4f",
+      "related": ["Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected pointwise finite-sum evaluation and searched cross-fit AIPW averages against the exact two-fold numerator and t denominator.",
+      "result": "The estimator is directly expressible as two sums of opposite-fold score evaluations divided by the total count, after both fitted functions and subsequences are supplied.",
+      "gap": "The estimator is directly assembled from the current opposite-fold fits and fold observations for a valid total count, with early undefined fit cases requiring a convention.",
+      "comparisons": {"D21": "For all T evaluation observations use the same current fit f_hat_(T'), and for all T' training observations use the same current fit f_hat_T. Divide the combined sums by t=T+T', not by two after separately unweighted averaging. Do not replace these current fits by a different fit trained at each observation's arrival or permit own-fold training."}
+    },
+    {
+      "interface_id": "local-12b28de38ea6ba283977",
+      "related": ["ProbabilityTheory.variance", "Finset.sum_apply"],
+      "query": "Inspected variance as a centered second moment and finite empirical sums against the source's equally weighted pair of fold sample variances.",
+      "result": "Fold pseudo-outcomes and centered empirical sums can form the variance estimate, but variance under an empirical probability uses denominator T rather than automatically choosing the paper's unspecified sample-variance normalization.",
+      "gap": "The within-fold variance normalization and small-fold conventions must be fixed before taking the source's equal-weight average of the two fold variances.",
+      "comparisons": {"D22": "Average the evaluation-fold sample variance of f_hat_(T') values and the training-fold sample variance of f_hat_T values with exactly one half each. Do not weight by T/t and T'/t, pool the observations or add between-fold mean variation. The source does not reprint the within-fold denominator, and Theorem 3.3's var_hat_t(bar_f) is a separate unresolved expression rather than an established synonym for this feasible estimate."}
+    },
+    {
+      "interface_id": "local-f21bcc5d4612e0cbc44b",
+      "related": ["Set.Icc"],
+      "status": "composable",
+      "query": "Inspected closed-interval membership against the almost-sure true-propensity overlap statement and its theorem-specific scope.",
+      "result": "An almost-everywhere quantifier around membership of pi(X) in [delta,1-delta] expresses the given condition. This does not bound estimated propensities or impose the assumption in a theorem that never cites it.",
+      "gap": "The true-overlap condition is directly expressible as almost-sure interval membership for some positive delta, without an estimated-propensity clipping rule.",
+      "comparisons": {"D28": "Use inclusive bounds delta<=pi(X)<=1-delta almost surely with delta>0; the probability-space condition entails a nonempty allowable interval. Preserve the true propensity, Theorem 3.1 and its common-setup scope in 3.2. Do not add equal bounds for pi_hat or silently import this stronger uniform overlap into Theorem 3.3."}
+    },
+    {
+      "interface_id": "local-d92c38e61c0514a5b680",
+      "related": ["MeasurableSpace.comap", "MeasureTheory.condExp", "ProbabilityTheory.condVar", "Finset.sum_apply"],
+      "query": "Inspected the past-generated sigma-algebra, conditional expectation and conditional variance definitions and compared the running average with formal condition L-1.",
+      "result": "The past vector generates the conditioning sigma-algebra; conditional means and variances are defined under integrability and the corresponding finite average is elementary. The formal divergence condition does not match the source's informal superlinearly wording.",
+      "gap": "Integrable conditional versions and the past sigma-algebras must be supplied, preserving cumulative-variance divergence rather than strengthening the average-variance behavior.",
+      "comparisons": {"D6": "Condition Y_t on Y_1,...,Y_(t-1), and define tilde_sigma_t^2 as the average of sigma_i^2 for i<=t. The explicit condition is t*tilde_sigma_t^2 tending to infinity almost surely; no positive limiting average or specific decay exponent follows. Preserve the prose discrepancy and use unconditional means and variances only in the independent-data specialization."}
+    },
+    {
+      "interface_id": "local-f136e0d9b2faccc23786",
+      "related": ["ProbabilityTheory.condVar", "Filter.Tendsto", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected conditional variance, finite sums and filter divergence atTop against condition L-1.",
+      "result": "The condition is a pathwise limit of cumulative conditional variance to positive infinity, imposed almost everywhere. It is not a limit assertion for the average variance itself.",
+      "gap": "The divergence condition is directly expressible for well-defined finite conditional variances using an almost-everywhere atTop limit of their partial sums.",
+      "comparisons": {"D7": "Use V_t=sum_(i=1)^t sigma_i^2 tending to positive infinity almost surely. Retain potentially vanishing average V_t/t and avoid interpreting a real variance's infinite-moment-to-zero fallback as a valid conditional moment. Independence permits the separately cited unconditional specialization, not a change to this definition."}
+    },
+    {
+      "interface_id": "local-613312249ad91b64ba8d",
+      "related": ["Filter.liminf", "MeasureTheory.Measure.real"],
+      "status": "composable",
+      "query": "Inspected lower limits of bounded real sequences and real event probabilities against the starting-time-indexed simultaneous coverage definition.",
+      "result": "For each m the all-future coverage event has a probability, and the lower limit of these probabilities can be compared with 1-alpha. Measurable sets and countable time indexing justify the event; no width approximation is involved.",
+      "gap": "The definition is directly expressible from measurable all-future coverage events and their probability liminf, with sharpness as equality of that liminf.",
+      "comparisons": {"D10": "Keep C_t(m) dependent on the starting index and require mu_t in C_t(m) for every t>=m on one event before taking m to infinity. Separate marginal probabilities do not suffice. Sharpness is equality in the liminf statement, distinct from Definition 2.1's relative-width approximation and Theorem 2.8's stronger ordinary limit equality."}
+    },
+    {
+      "interface_id": "local-bcd7ff4f71ed9f53f626",
+      "related": ["MeasureTheory.eLpNorm", "Asymptotics.IsLittleO", "Finset.sum_apply"],
+      "query": "Inspected finite-exponent L2 seminorms and pathwise little-o bounds against the average of nuisance-error products in equation (28).",
+      "result": "The displayed average of products and its little-o rate can be expressed after fixing the law/conditioning interpretation of the fitted nuisance norms. Uniform or average control is needed; pointwise-in-i rates do not automatically imply the displayed average rate.",
+      "gap": "The fitted-function L2 interpretation and almost-sure average-product rate must be established with valid norm and training-index conventions.",
+      "comparisons": {"D27": "At current fit time t, average over i<=t the propensity L2 error at X_i times the sum of both outcome-regression L2 errors at X_i, and require little-o of sqrt(log(t)/t) almost surely under the source convention. Do not multiply separately averaged errors, replace current t fits by i-specific fits, downgrade to convergence in probability or infer this rate from fixed-i convergence. A truly known propensity makes its error factor zero."}
+    },
+    {
+      "interface_id": "local-c0db7ff689344a4ba39f",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.condDistrib", "Finset.sum_apply"],
+      "query": "Inspected expectation, treatment-specific conditional-law integrals and finite averages against time-varying expected effects and their identified representation.",
+      "result": "The time-indexed expected potential-outcome contrast and its running mean are expressible; equality to the observed-data conditional-mean contrast requires the separately named causal identification assumptions.",
+      "gap": "The time-indexed potential-outcome and observed-data laws must be supplied with integrability and a proof of the stated causal identification equality.",
+      "comparisons": {"D25": "Retain psi_t=E(Y_t^1-Y_t^0) as a population expectation and tilde_psi_t=t^-1 sum_i psi_i, even though the source calls these individual effects. They are not realized unit-level contrasts. The data distributions may vary with t; the later use of common unscripted mu^a and pi is not silently justified or replaced by new time-indexed nuisance assumptions."}
+    },
+    {
+      "interface_id": "local-6e284e4fb95d68bc5135",
+      "related": ["MeasureTheory.condExp", "Set.indicator", "Real.rpow", "HasSum"],
+      "query": "Searched conditional Lindeberg-type tail summability; inspected conditional expectation, tail indicators, real powers and infinite-sum convergence against equation (12).",
+      "result": "The conditional tail terms and summability can be represented, but their finite conditional moments and zero-denominator conventions must be established. The condition is stronger and more specific than merely naming uniform integrability.",
+      "gap": "The centered conditional tail terms need integrability, valid cumulative-variance denominators and almost-sure summability with the single stated exponent.",
+      "comparisons": {"D8": "Choose one kappa in (0,1), use squared centered Y_t-mu_t, the strict event (Y_t-mu_t)^2>V_t^kappa and the same V_t^kappa denominator, conditioning on the entire past. L-1 permits early V_t=0, whose ratio convention is not specified and must not be supplied by totalized real division. Preserve the theorem-specific import rather than adding this hypothesis everywhere a strong approximation is mentioned."}
+    },
+    {
+      "interface_id": "local-d127e9e24b27aabff8dc",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.variance", "MeasureTheory.integral", "HasSum", "Asymptotics.IsLittleO"],
+      "query": "Searched Lyapunov conditions and independent nonidentical variance estimation; inspected independence, finite moments, infinite sums and little-o predicates against every imported Corollary 2.6 condition.",
+      "result": "Each moment series and relative-growth condition is expressible. No searched declaration supplies this complete sufficient-condition package or its application to misspecified augmented-score limits.",
+      "gap": "The full independent-data moment and relative-mean conditions must be verified with finite moments and valid variance denominators before using the imported result.",
+      "comparisons": {"D13": "Preserve L-1, delta>0 in sum E|Y_i-mu_i|^(2+delta)/(sqrt(V_i))^(2+delta), beta in (0,1) in sum E|Y_i^2-EY_i^2|^(1+beta)/V_i^(1+beta), tilde_mu_t^2=o(V_t), and t^-1 sum( mu_i-tilde_mu_t)^2=o(tilde_sigma_t^2). The second series centers Y_i squared, not the squared residual. Keep independence without identical distributions, the source almost-sure rate convention and all conditions when substituting bar_f(Z_t); a bounded-moment shortcut or a centered-score substitution changes the imported statement."}
+    },
+    {
+      "interface_id": "local-f069d5db10c360e405fa",
+      "related": ["Asymptotics.IsLittleO", "Real.rpow"],
+      "status": "composable",
+      "query": "Inspected pathwise little-o and positive real powers against the polynomial-rate variance-estimation condition.",
+      "result": "The error rate is expressible using cumulative variance V_t=t*tilde_sigma_t^2 and exponent eta in (0,1). Ordinary ratio consistency does not encode this polynomial-rate requirement.",
+      "gap": "The rate condition is directly expressible for supplied variance estimates using almost-sure little-o relative to V_t^eta/t.",
+      "comparisons": {"D9": "Retain sigma_hat_t^2-tilde_sigma_t^2=o((t*tilde_sigma_t^2)^eta/t) almost surely for some eta in (0,1). Do not move eta onto only the average variance, replace cumulative variance by t without an assumption, or substitute the weaker ratio-consistency condition L-3."}
+    },
+    {
+      "interface_id": "local-4f9d111e701a5c52f97c",
+      "related": ["MeasureTheory.eLpNorm", "Filter.Tendsto"],
+      "query": "Inspected L2 norms and pathwise convergence against the known-propensity specialization with potentially misspecified regression limits and both growing folds.",
+      "result": "One can substitute the true propensity and impose L2 convergence of each fitted outcome regression to a supplied limit. The library norm and limit predicates do not prove foldwise convergence or equality of the limit to the true regression.",
+      "gap": "The known-propensity substitution and almost-sure L2 convergence along both growing folds must be established for the supplied, potentially misspecified regression limits.",
+      "comparisons": {"D23": "Use pi itself in both cross-fit scores, while bar_mu^a may differ from mu^a. Interpret generic fit index t as either T or T' in the large-sample statements and retain the source's almost-sure convention. Do not reimpose known propensity or misspecified limits on Theorem 3.2, which changes to consistent estimated nuisances and the efficient f."}
+    },
+    {
+      "interface_id": "local-260d6db2731afbf428b4",
+      "related": ["MeasureTheory.eLpNorm", "TendstoUniformlyOn", "Asymptotics.IsLittleO"],
+      "query": "Inspected uniform convergence on an infinite index set and finite-exponent L2 norms against the sup over every observation index in ATE-1.",
+      "result": "Uniform convergence to zero of the L2-error array over all positive i can be represented, with a justified finite supremum or a uniform epsilon-bound formulation. Pointwise convergence in i is weaker.",
+      "gap": "The L2-error array and its almost-sure uniform convergence over all observation indices need to be established for each treatment arm.",
+      "comparisons": {"D26": "For each a=0,1 take sup over all i>=1, including i>t, of ||mu_hat_t^a(X_i)-bar_mu^a(X_i)||_L2(P), tending to zero under the source's almost-sure convention. Do not restrict to the first t observations, assume bar_mu equals truth or turn it into an average error condition. The random fitted-function norm's conditioning interpretation must remain consistent with the training setup."}
+    },
+    {
+      "interface_id": "local-410f029906e7714dda7c",
+      "related": ["ProbabilityTheory.IdentDistrib", "Asymptotics.IsBigO"],
+      "query": "Searched strong approximations and coupling infrastructure; inspected identical-law predicates across probability spaces and pathwise big-O bounds against equation (9).",
+      "result": "A coupling on another probability space can preserve the original process law and support an almost-sure approximation bound. Equality of individual marginal laws alone is insufficient to transfer all-path coverage properties.",
+      "gap": "The enlarged-space coupling must preserve the relevant process law and establish the pathwise approximation rate along the supplied time filter.",
+      "comparisons": {"D2": "Require a process Z starting at zero at t0 and (theta_hat_t-theta_t)-Z_t=O(r_t) almost surely. The big-O constants may depend on the sample path; the abstract theorem does not require Z Gaussian. Preserve the ordered-time generality and specify a valid infinity filter and measurable process-law realization rather than assuming a countable time sequence or a Gaussian approximation by name."}
+    },
+    {
+      "interface_id": "local-b1e173eec866ddb32ca7",
+      "related": ["Set.Icc", "MeasureTheory.Measure.real"],
+      "status": "composable",
+      "query": "Inspected interval membership and real event probabilities against the single simultaneous event for the approximating process.",
+      "result": "Positive one-sided widths define an interval at every time, and probability of their all-time intersection represents the boundary condition once event measurability is supplied.",
+      "gap": "The boundary condition is directly expressible from positive hatted widths and a measurable simultaneous coverage event for the supplied approximating process.",
+      "comparisons": {"D3": "Require P(for every t in T, -L_hat_t<=Z_t<=U_hat_t)>=1-alpha on one event, with both widths strictly positive. Marginal-in-time bounds are weaker, and arbitrary uncountable time sets need an event-measurability argument. Hatted process boundaries remain distinct from the unadorned approximate widths and theorem-constructed starred valid widths."}
+    },
+    {
+      "interface_id": "local-9b80afbb6a308a9cac1b",
+      "related": ["Filter.Tendsto"],
+      "status": "composable",
+      "query": "Inspected pathwise filter convergence and compared each side of the almost-sure relative boundary approximation.",
+      "result": "The two ratio limits are directly expressible on a probability-one event, using positivity of the hatted denominators. They assert relative rather than absolute width approximation.",
+      "gap": "The condition is directly expressible as almost-sure convergence of each unadorned-to-hatted width ratio to one along the specified time filter.",
+      "comparisons": {"D5": "Preserve L_t/L_hat_t and U_t/U_hat_t tending to one almost surely separately; neither absolute error tending to zero nor convergence only in probability is a substitute. Do not identify the hatted process widths with the starred widths constructed later for the estimator's valid confidence sequence."}
+    },
+    {
+      "interface_id": "local-1e514abe2cb687736475",
+      "related": ["Asymptotics.IsLittleO"],
+      "status": "composable",
+      "query": "Inspected little-o's arbitrarily-small-multiple definition against the minimum of the two positive approximating boundary widths.",
+      "result": "A pathwise little-o bound relative to the minimum encodes an approximation rate negligible compared with both boundary sides. This does not prove existence of the coupling or the boundary.",
+      "gap": "The rate condition is directly expressible as almost-sure little-o of the minimum of the two supplied hatted widths.",
+      "comparisons": {"D4": "Use r_t=o(min(L_hat_t,U_hat_t)) almost surely, keeping both sides and the source time filter. A comparison with the maximum can leave one side uncontrolled, and this rate requirement is separate from the existence of the strong approximation and its simultaneous probability boundary."}
+    }
+  ]
+}

@@ -1,0 +1,486 @@
+{
+  "schema_version": "statistical-paper-audit-v1",
+  "paper_id": "aos-2024-v52-i02-p0491",
+  "status": "complete",
+  "audit_kind": "source_review",
+  "completed_at": "2026-09-09T08:32:03.702232+00:00",
+  "source": {
+    "pdf_path": "[local-workspace]/minimax/reference/aos2024/pdf/24-AOS2356.pdf",
+    "source_url": "https://arxiv.org/pdf/2210.07850v1",
+    "version": "arXiv:2210.07850v1",
+    "pdf_sha256": "15996787a07db24f10b36d5ab632a1cbdf0b72cf4881d7ed9337b130e3ae1252",
+    "pdf_pages": 43,
+    "main_text_last_pdf_page": 24,
+    "provenance_path": "evidence/source-provenance.json"
+  },
+  "enumeration": {
+    "theorem_ids": [
+      "aos-2024-v52-i02-p0491/T1.2",
+      "aos-2024-v52-i02-p0491/T1.8",
+      "aos-2024-v52-i02-p0491/T5.1"
+    ],
+    "method": "Main pages 1-24 searched and independently enumerated by bold CMBX10 Theorem heading spans. Only Theorems 1.2, 1.8 and 5.1 occur. Each complete statement fits on its recorded page. The main references end on page 24; a heading-only crop from page 25 establishes the Appendix A boundary.",
+    "printed_label_check": [
+      [
+        5,
+        "1.2"
+      ],
+      [
+        9,
+        "1.8"
+      ],
+      [
+        23,
+        "5.1"
+      ]
+    ],
+    "excluded_result_types": [
+      "Lemma",
+      "Proposition",
+      "Corollary",
+      "Example",
+      "Remark"
+    ],
+    "appendix_material_used": false
+  },
+  "counts": {
+    "theorems": 3,
+    "interfaces": 17,
+    "source_members": 17,
+    "direct_theorem_uses": 30,
+    "related_theorem_connections": 37,
+    "unranked_auxiliary_passages": 12
+  },
+  "validation": {
+    "status": "passed",
+    "validator": "skills/statistical-paper-census/scripts/validate_census.py",
+    "checks": [
+      "The original inventory passes an independent validator invocation and its hash matches the source review. The final census preserves all complete theorem records without renumbering or changes to their bodies.",
+      "PDF title, author, arXiv v1 stamp, 43-page count and SHA-256 match the pinned source. Main text and references end before Appendix A on page 25; no appendix body is used.",
+      "Theorem 1.2 preserves its chained oracle bound, minimum over nonnegative iterations, overbarred noise parameter and C_tau>=8 bar-sigma squared.",
+      "Theorem 1.8 preserves the two-sided empirical-noise estimation condition and c>0; Theorem 5.1 preserves the one-sided condition, c>=0, sufficiently large AIC coefficient, lower bound on tau_two-step itself, and the risk conclusion on the corresponding event.",
+      "All seventeen interface records were checked against the source. Algorithm 1 uses raw-column normalized correlations, and (1.8) uses the empirical noise estimate with an additive linear iteration threshold.",
+      "Both (Sparse) branches retain all their conditions. The support bound, beta-min and little-o condition are distinct from gamma-sparsity and its subset inequality. Rate (1.20) and threshold iteration (3.2) preserve the matching branch.",
+      "The local graph resolves empirical and population projections separately. Theorem 1.2 does not acquire (Sparse), (SubGD), (CovB), target rates, or population bias; Theorem 1.8 uses the population L2 norm without an artificial projector dependency.",
+      "The lower-bound iteration (3.2) brings the population projector into Theorem 5.1. It depends on the OMP path and bias, not on the noise estimator mentioned in its introductory comparison. Additive AIC and prefix selection remain separate defining steps.",
+      "Twelve auxiliary source passages preserve empirical/population norm conventions, coordinate notation, constant dependencies, common high-probability event scope, and source discrepancies. No proof-only balanced oracle or Scaled Lasso requirement is imported.",
+      "The final census independently validates 30 direct theorem uses and 37 related-theorem connections. Source keywords and highlight selectors cover every record, and all theorem explanations trace explicit same-paper paths. Mathematical fragments have balanced braces."
+    ]
+  },
+  "source_notes": [
+    "This is a census of the pinned 2022 arXiv v1 paper, not a claim of textual equivalence with the journal publication.",
+    "The source geometric empirical projection is retained despite the dimensionally inconsistent matrix formula (1.26). The malformed population-bias assignment and strict-versus-weak covariance restatement are archived without repair.",
+    "Other unresolved source conventions include zero-column normalization, argmin ties, conditional-noise scope, population extension of rank-deficient fits, and empty-support/zeroth-power endpoints. These are source-fidelity notes rather than modifications to the theorems.",
+    "The source's conditional-expectation interpretation of covariance regression and its claimed OMP greedy-decrease equivalence are recorded separately from the actual defining formulas."
+  ],
+  "unresolved_source_references": [
+    {
+      "id": "source_version",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "arXiv stamp"
+        }
+      ],
+      "detail": "The source is arXiv:2210.07850v1, stamped 14 October 2022. The audit does not establish equality of its theorem wording or numbering with the 2024 journal article."
+    },
+    {
+      "id": "conditional_noise_scope",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Minimal assumptions and (SubGE)"
+        }
+      ],
+      "detail": "The prose says conditional on the design and joint parameter, but the displayed MGF inequality conditions only on X_i for each scalar epsilon_i. The text gives i.i.d. design rows and i.i.d. noise terms separately, without an explicit joint conditional independence statement given the full design. A vector subgaussian MGF inequality or conditional product law is not substituted for the printed condition."
+    },
+    {
+      "id": "omp_zero_columns_and_ties",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Full row rank and Algorithm 1"
+        },
+        {
+          "page": 4,
+          "location": "Full row rank and Algorithm 1"
+        }
+      ],
+      "detail": "Full row rank n does not exclude an individual zero column, whose normalization in the argmax is undefined. The algorithm permits all j<=p at every iteration, including already selected indices, and does not specify a tie or zero-column rule. These are left as source limitations."
+    },
+    {
+      "id": "projection_formula_dimensions",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Equation (1.26)"
+        }
+      ],
+      "detail": "The empirical projector formula uses (X^(J))^T although X^(J) is expressly n by |J|. With the following |J| by |J| inverse and |J|-vector this is dimensionally inconsistent in general. Its original formula is archived; the census uses the earlier geometric projector definition without silently correcting the display."
+    },
+    {
+      "id": "empirical_inverse_and_population_extension",
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Projectors and fitted functions"
+        },
+        {
+          "page": 5,
+          "location": "Projectors and fitted functions"
+        },
+        {
+          "page": 10,
+          "location": "Projectors and fitted functions"
+        }
+      ],
+      "detail": "An arbitrary empirical subset Gram matrix can be singular even when the full design has row rank n. The main text neither specifies generalized inverses nor a coefficient selection convention for extending a fitted n-vector to a population function in such cases. The geometric empirical projector is still unique; its full coefficient representation need not be."
+    },
+    {
+      "id": "conditional_expectation_vs_projection",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Interpretation after (CovB)"
+        }
+      ],
+      "detail": "The covariance coefficient vector is identified with the coefficients of a conditional expectation. For a general subgaussian design that expectation need not be linear. The original covariance condition and population L2 projection are retained, and the extra interpretation is not imposed as a new theorem hypothesis."
+    },
+    {
+      "id": "raw_vs_residualized_column_selection",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Prose after Algorithm 1"
+        }
+      ],
+      "detail": "OMP selects by correlation divided by the original column norm. For fully refitted candidate models, the decrease in squared residual is instead proportional to squared residual correlation divided by the squared residualized-column norm. The claimed equivalence with maximizing the next-step decrease need not hold for correlated columns. The displayed algorithm remains the defining procedure."
+    },
+    {
+      "id": "sparsity_endpoint_conventions",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "(Sparse)"
+        },
+        {
+          "page": 6,
+          "location": "(Sparse)"
+        }
+      ],
+      "detail": "The s-sparse branch permits s=0, leaving the displayed minimum over an empty support without an explicit convention. The gamma-sparse branch permits gamma=1; empty or zero coefficient subsets then lead to a zeroth power of zero. Neither an endpoint exclusion nor a convention is inserted into the original."
+    },
+    {
+      "id": "branch_overlap",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "(Sparse), rate (1.20), iteration (3.2)"
+        },
+        {
+          "page": 6,
+          "location": "(Sparse), rate (1.20), iteration (3.2)"
+        },
+        {
+          "page": 8,
+          "location": "(Sparse), rate (1.20), iteration (3.2)"
+        },
+        {
+          "page": 15,
+          "location": "(Sparse), rate (1.20), iteration (3.2)"
+        }
+      ],
+      "detail": "A coefficient sequence may meet both sparsity alternatives. The formulas are interpreted for the chosen hypothesis branch; they are not asserted equal where both apply. The support-coverage threshold and population-bias threshold remain distinct."
+    },
+    {
+      "id": "covariance_strictness",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Equations (1.13) and (1.25)"
+        },
+        {
+          "page": 9,
+          "location": "Equations (1.13) and (1.25)"
+        }
+      ],
+      "detail": "The defining condition uses a strict less-than bound whereas the claimed restatement uses less-than-or-equal. The source (CovB) statement is preserved with the strict sign."
+    },
+    {
+      "id": "population_bias_assignment",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "After equation (1.9)"
+        }
+      ],
+      "detail": "The source prints B_m^2 : a = instead of the usual assignment punctuation. The original anomaly is preserved; the preceding decomposition and following bias norm identify the intended quantity."
+    },
+    {
+      "id": "stopping_totality_and_estimate_range",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Equation (1.8) and Theorem 5.1"
+        },
+        {
+          "page": 23,
+          "location": "Equation (1.8) and Theorem 5.1"
+        }
+      ],
+      "detail": "The source calls sigma-hat squared a noise-level estimator without explicitly giving a nonnegative range. Theorem 5.1 permits C_tau=0; a negative estimate could make the stopping set empty even after residuals vanish. Interpreting a variance estimator as nonnegative is conventional, but it is not inserted into the theorem. Infinite stopping times and argmin selections require conventions not stated here."
+    },
+    {
+      "id": "oracle_argmin_selection",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Equations (1.6), (5.5), (5.6)"
+        },
+        {
+          "page": 22,
+          "location": "Equations (1.6), (5.5), (5.6)"
+        }
+      ],
+      "detail": "The source writes an argmin as a single iteration without prescribing how ties are resolved. Nonnegative integer indexing comes from Algorithm 1; the prefix optimization (5.6) prints only m<=tau. No specific tie-breaking convention is invented."
+    },
+    {
+      "id": "same_event_scope",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Probability convention and Theorem 5.1"
+        },
+        {
+          "page": 23,
+          "location": "Probability convention and Theorem 5.1"
+        }
+      ],
+      "detail": "The lower bound for tau_two-step and its risk bound in Theorem 5.1 concern the corresponding common high-probability event. The latter is not converted to an expectation bound or a new independent event."
+    },
+    {
+      "id": "lower_bound_iteration",
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Equation (3.2) and Theorem 5.1"
+        },
+        {
+          "page": 23,
+          "location": "Equation (3.2) and Theorem 5.1"
+        }
+      ],
+      "detail": "The theorem explicitly states tau_two-step >= tilde-m, not merely tau >= tilde-m. The preceding discussion on page 22 focuses on the first-stage stopping time; the theorem's stronger printed conclusion is retained without importing appendix proof content."
+    }
+  ],
+  "ambient_resolution": {
+    "shared": "D1 defines the linear signal f*, coefficients beta*, response Y, design X, and noise epsilon. D2 is the main-text sampling/rank context, and D17 the asymptotic model sequence. A1-A3/A12 distinguish empirical vectors and norms from population functions and norms. All iteration indices are nonnegative integers as in Algorithm 1. Standard primitives include finite-dimensional span, geometric orthogonal projection, conditional MGF, covariance and eigenvalues, finite sums, norms, cardinality, little-o, min/argmin/infimum and high-probability events. A4 fixes generic constant scope and A5 the simultaneous-event convention. No library availability is asserted.",
+    "1.2": "Direct D1,D2,D3,D5,D7,D8,D17 resolve the model, basic assumptions, (SubGE), OMP, stopping rule, ideal oracle and sequence. The minimization variable m is inline. Bar-sigma squared is the conditional MGF proxy, sigma-hat squared an input estimate of empirical noise energy, and underline-sigma squared is the separate true variance, absent from the theorem formula. The risk remains an empirical random quantity. No sparsity, subgaussian design, covariance bounds, population projector, rate R or Scaled Lasso construction is imported.",
+    "1.8": "Direct D1,D2,D3,D5,D7,D9,D10,D11,D13,D17 resolve all nonlocal objects. The theorem binds C_Noise, c>0 and C_PopRisk, with C_tau set by the noise/design proxies. R(s,gamma) uses the chosen (Sparse) branch. The population L2 norm is A2; no population projector is needed merely to state this risk. It requires a two-sided absolute error bound for the empirical noise estimate, without selecting a particular estimator. Theorem 1.2's larger penalty lower bound is not added to this distinct result.",
+    "5.1": "Direct D1,D2,D3,D5,D7,D9,D10,D11,D13,D14,D15,D16,D17 resolve the model, assumptions, sequential stage, branch rate and threshold, additive AIC and prefix selection. G>0 is inline, C_tau permits c=0, and C_AIC requires a sufficiently large positive multiple. Generic C can change by A4. The inequality for sigma-hat squared is one-sided. The lower-bound iteration uses population projection D12 through D14, and its support S is from (Sparse). The introductory comparison tau<tilde-m in D14 gives context; the value of tilde-m depends on the OMP path and population bias, not on a chosen noise estimator. Both conclusions use the corresponding common event. Multiplicative HDAIC and the Scaled Lasso are not defining components of this theorem."
+  },
+  "artifacts": {
+    "theorem-inventory.json": {
+      "path": "theorem-inventory.json",
+      "sha256": "be543cb15ab3be13c8a72055af29b786a705a5812d431bba68bcf7a5e73f8d92"
+    },
+    "unfinalized-census.json": {
+      "path": "unfinalized-census.json",
+      "sha256": "45164728cc740e92c0699a8a076027140c5f109597b4daa0895164b2d6a4cbde"
+    },
+    "ranked-interfaces.json": {
+      "path": "ranked-interfaces.json",
+      "sha256": "0cf99b77a695efbe95ce6737fa48f7cf84d0fa07ddfed07a8305c34b9d9e88c7"
+    },
+    "source-passages.json": {
+      "path": "source-passages.json",
+      "sha256": "61f1e19f02b550e2895bd928c9629a3330146daf745f76d5b694ec7d5c554460"
+    },
+    "ambient-conventions.json": {
+      "path": "ambient-conventions.json",
+      "sha256": "f4c59b73606d73337490abb5e7d377dd5d5f12027137ebe6af7000a3fae707a7"
+    },
+    "inventory-review.json": {
+      "path": "inventory-review.json",
+      "sha256": "fd259e4cd09b618b88a433fb4862337e37e8a4582b2f6503c74bdd7473d03798"
+    },
+    "interface-draft.json": {
+      "path": "interface-draft.json",
+      "sha256": "4ac46d7e13b50a250b174f79a89e566f66ae0e12166fc082b6f57eaaa98a3bb2"
+    }
+  },
+  "evidence": {
+    "appendix-heading-only.png": {
+      "path": "evidence/appendix-heading-only.png",
+      "sha256": "2b385b5f056ee3a0526d95770b853a2f8ae7b6bd2f6968f2ef4996f380dc9927"
+    },
+    "gamma-sparsity.png": {
+      "path": "evidence/gamma-sparsity.png",
+      "sha256": "016a54c954179cda44ba91196780bd14f65a9f3a32ed0731be524ff8c073309f"
+    },
+    "page-01.png": {
+      "path": "evidence/page-01.png",
+      "sha256": "060198eef45242ac2a388f6fc9e9868172e8ce69e79c133933cd1c02a4ee1bd5"
+    },
+    "page-01.txt": {
+      "path": "evidence/page-01.txt",
+      "sha256": "96a73b34a23a8d3e6a51e21f9427428e2b0badb8b69de2d63344f089d5084558"
+    },
+    "page-02.txt": {
+      "path": "evidence/page-02.txt",
+      "sha256": "749e6a8c5853f0c8f6f812e1d9e8927bc784f5b5fc8fc6e75fa372caec24b106"
+    },
+    "page-03.png": {
+      "path": "evidence/page-03.png",
+      "sha256": "06c9d68b7d43faca30f46e036d1e58df95bed1aeb33e1f75ba6e4ff9e5f7407c"
+    },
+    "page-03.txt": {
+      "path": "evidence/page-03.txt",
+      "sha256": "65a5664576966cecfa3f404dcf485c016a65cb0415d07bb1898207ae377275be"
+    },
+    "page-04.png": {
+      "path": "evidence/page-04.png",
+      "sha256": "6f1408df3303ce73b97f7e7d0f2a9dd85d62ef8ce20411a9e645a05ea7f810bd"
+    },
+    "page-04.txt": {
+      "path": "evidence/page-04.txt",
+      "sha256": "72d96560cdce880b486dadee5fc3d953239bf915a1bf36d6640d2223a58e9f9e"
+    },
+    "page-05.png": {
+      "path": "evidence/page-05.png",
+      "sha256": "453f672e9e221582793189e6996f2704b315e779becce3ea2611f407cd3f8fd9"
+    },
+    "page-05.txt": {
+      "path": "evidence/page-05.txt",
+      "sha256": "7449e18b29a22fb2f6569e67d0d2af4f92a237af2785d98a6582a9de776db335"
+    },
+    "page-06.png": {
+      "path": "evidence/page-06.png",
+      "sha256": "a4b4c0aca00df8fdafee788bb56322e43c5b4586f7d1394495d553e1c6cdfaf9"
+    },
+    "page-06.txt": {
+      "path": "evidence/page-06.txt",
+      "sha256": "c8e81cb08d9272aa931ef7065eb3d6bc79262cbedb7f931f9b33dc54af283524"
+    },
+    "page-07.png": {
+      "path": "evidence/page-07.png",
+      "sha256": "0d5eedf3e806772555d37746cfdbf55c818f07425ce45e916c891cf54f640c8e"
+    },
+    "page-07.txt": {
+      "path": "evidence/page-07.txt",
+      "sha256": "1c26740ebde1a23acaae30acbc8ed547d85d2d992fda8aa7001ce36ff63bd261"
+    },
+    "page-08.png": {
+      "path": "evidence/page-08.png",
+      "sha256": "d8685256bedd51aeb58bdf693700a303a6575db2764a3aa9b6a9eb349b235130"
+    },
+    "page-08.txt": {
+      "path": "evidence/page-08.txt",
+      "sha256": "fd21b697cb4783e40c32032f15e9972d407dc42a35ecda17bc5a98825236c49b"
+    },
+    "page-09.png": {
+      "path": "evidence/page-09.png",
+      "sha256": "bcd8bd41011ac8f22ce2f8ae6aaca799382663891f36c0f7efc9e34f449703e7"
+    },
+    "page-09.txt": {
+      "path": "evidence/page-09.txt",
+      "sha256": "f75dcff26dac65267bb5eb9b33dbe4cc766e747bf53c0439f599c6df2f33ebff"
+    },
+    "page-10.png": {
+      "path": "evidence/page-10.png",
+      "sha256": "6731583c31bdbabf283bd770d3a9923cd1075909c725b3ca8c0a05445fbaa99b"
+    },
+    "page-10.txt": {
+      "path": "evidence/page-10.txt",
+      "sha256": "03933c553fef6eb99efc1aa932c6bfac6895de85d2caacd2dccf5186efb3341a"
+    },
+    "page-11.txt": {
+      "path": "evidence/page-11.txt",
+      "sha256": "2cc4e8a0eabf7061d13001858fedfbf8dcdf07ff21b2f69ae63982c9bc4bf22d"
+    },
+    "page-12.txt": {
+      "path": "evidence/page-12.txt",
+      "sha256": "33bcdb8781ca1d23bb8089779c1482a839ff8773faf9a63da004eaf6c4541e0c"
+    },
+    "page-13.txt": {
+      "path": "evidence/page-13.txt",
+      "sha256": "f754010bf8c741e708fc48dd0cbbe41e7439ace81532cb2733034428ceb4b1fc"
+    },
+    "page-14.txt": {
+      "path": "evidence/page-14.txt",
+      "sha256": "2ca14bb8148350c209cfef056a602b1cb37b3ff66fa75d4347043fe245b2ec23"
+    },
+    "page-15.png": {
+      "path": "evidence/page-15.png",
+      "sha256": "647024767fdd20868abe8e032575527fcfd639d5997a84b470477a4a83528b81"
+    },
+    "page-15.txt": {
+      "path": "evidence/page-15.txt",
+      "sha256": "590e89e897f73ed02f9e7d5566cabf57fa87aa400e9070b3d3250d608c486b55"
+    },
+    "page-16.txt": {
+      "path": "evidence/page-16.txt",
+      "sha256": "72162f97849821d51c942757921e48a5636c34438eb4ed9e6485aba56a56eb70"
+    },
+    "page-17.txt": {
+      "path": "evidence/page-17.txt",
+      "sha256": "bb352d33fab9e6d9eb6ab382c765cf31746bf2b0c0258f86699a998969e1f107"
+    },
+    "page-18.txt": {
+      "path": "evidence/page-18.txt",
+      "sha256": "6f12dec7e6393cb8def7d1f8878644f133d655913619e2a21e5010ee01f93f36"
+    },
+    "page-19.txt": {
+      "path": "evidence/page-19.txt",
+      "sha256": "96490831ab922e8bc3c7b45c398a97b3dc2b84efe1c7d311c2541e727fab0823"
+    },
+    "page-20.txt": {
+      "path": "evidence/page-20.txt",
+      "sha256": "af2b061b716fb773e5e70759c9d66b892854b282a17b63a415c82f5f48caeb84"
+    },
+    "page-21.png": {
+      "path": "evidence/page-21.png",
+      "sha256": "600129ed71e89e3c3a663177dd479c81e46d821eae7b9510b29c05c22c8dfc9c"
+    },
+    "page-21.txt": {
+      "path": "evidence/page-21.txt",
+      "sha256": "d5075d87ff2e0543aa942b2cc2f50505a85fc88bf86f68c48a51ee9c55cde5bd"
+    },
+    "page-22.png": {
+      "path": "evidence/page-22.png",
+      "sha256": "204d629c67e0c2a76e519fc59ebbd814c1ca13446b0856a8d078069c4744140b"
+    },
+    "page-22.txt": {
+      "path": "evidence/page-22.txt",
+      "sha256": "5c853e9109fc4ad15b6e9df82bd5bc372024cec079448af514651f5c103bc631"
+    },
+    "page-23.png": {
+      "path": "evidence/page-23.png",
+      "sha256": "67604d2316b2d361f6d95bbf270d1efc5405d6820fb9de2cc6955a37f6750d07"
+    },
+    "page-23.txt": {
+      "path": "evidence/page-23.txt",
+      "sha256": "b39b9310f9308a3b7a4bdf28a4373524e3970e25cb9ead534ebf32a8ae82e970"
+    },
+    "page-24.png": {
+      "path": "evidence/page-24.png",
+      "sha256": "4abd55091ec156a14567d7268169b97a626b5ac913ba44fdd803aacb1299e671"
+    },
+    "page-24.txt": {
+      "path": "evidence/page-24.txt",
+      "sha256": "76c160c15d434caf649f726d7db5e0a656cef86b54e02b731914501b484a8048"
+    },
+    "population-bias-assignment.png": {
+      "path": "evidence/population-bias-assignment.png",
+      "sha256": "e9d22a751093187bbe38c7a272714b85167a6612a263a3f6033108da5a6c0df7"
+    },
+    "source-provenance.json": {
+      "path": "evidence/source-provenance.json",
+      "sha256": "bea97a54a2a53c75591ddf433c581c78e19b698d88a0b49d4ff6377067b48822"
+    }
+  },
+  "review_limits": [
+    "Source-fidelity and statement-dependency audit, not proof certification or mathematical repair.",
+    "Appendix bodies on pages 25-43 excluded."
+  ]
+}

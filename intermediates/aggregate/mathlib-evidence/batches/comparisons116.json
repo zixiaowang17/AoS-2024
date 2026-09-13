@@ -1,0 +1,84 @@
+[
+  {
+    "interface_id": "local-e323faaa801e17b581f6",
+    "status": "composable",
+    "names": [
+      "Matrix.IsHermitian",
+      "Matrix.mul_nonsing_inv"
+    ],
+    "comparison": "Represent the population correlation precision as the exact finite real linear combination sum_k theta_k*A_k, with each supplied A_k symmetric. IsHermitian specializes to symmetry over R, and matrix sums/scalar multiplication express the model directly. The population inverse is meaningful on the stated positive-definite covariance/correlation domain; the inverse theorem requires a unit determinant. Calling the A_k bases does not by itself prove coefficient identifiability if their linear independence has not been established in the chosen model. Preserve the known active-set inclusion and finite K scope from the source context. Arbitrary fitted coefficients need not produce a positive-definite precision matrix: symmetry of the A_k only guarantees symmetry of the combination, not positivity, invertibility or a valid fitted covariance.",
+    "gap": "Symmetric matrices and finite linear combinations express the model, while coefficient identifiability and positive-definite fitted precision require separate conditions.",
+    "searches": [
+      [
+        "Inspect IsHermitian:39-44 and the nonsingular inverse cancellation theorem against the exact precision expansion",
+        "Real symmetry and inverse cancellation are available, but a symmetric basis alone imposes no positive-definiteness constraint on coefficients."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-99441f8ebf894ced133b",
+    "status": "composable",
+    "names": [
+      "Matrix.trace",
+      "Matrix.mul_nonsing_inv",
+      "IsMinOn"
+    ],
+    "comparison": "Retain trace of the SQUARED matrix residual (Rhat*sum theta_k*A_k-I)^2, not the square of its scalar trace and not the Frobenius norm of that generally nonsymmetric residual. Cyclicity of trace yields the quadratic coefficient matrix B_kl=p^{-1}tr(Rhat*A_k*Rhat*A_l) and linear vector b_k=p^{-1}tr(Rhat*A_k), with p>0. For a well-defined positive-semidefinite correlation input, B is a Gram matrix after symmetric square-root conjugation, hence nonnegative; if B is invertible, solving B*theta=b gives the unique minimizer. The library inverse cancellation lemma only applies under unit determinant, and IsMinOn records the minimizer inequality rather than asserting existence, uniqueness or invertibility. Preserve that this B is sample-based, unlike the B later redefined in Theorem 2.2. No penalization or fitted positive-definiteness constraint is part of this estimator, and the source inverse/identifiability qualifications remain explicit.",
+    "gap": "Trace and matrix inverse algebra support the stated quadratic minimizer once the sample correlation domain and invertible Gram matrix are justified.",
+    "searches": [
+      [
+        "Inspect Matrix.trace, mul_nonsing_inv and IsMinOn against the trace-square objective and displayed B,b",
+        "The inverse formula requires nondegeneracy; trace of a squared nonsymmetric residual is not its Frobenius square or the square of a scalar trace."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-517911ec921be42b56d2",
+    "status": "partial_match",
+    "names": [
+      "PMF.uniformOfFintype",
+      "IsMinOn",
+      "MeasureTheory.eLpNorm"
+    ],
+    "comparison": "Retain the reciprocal-positive-integer bandwidth, positive polynomial degree, interval partition and separate common/independent design branches. UniformOfFintype can draw among a nonempty finite type of eligible observation occurrences for each subject and interval; it cannot draw from an empty type, and the later zero-fit fallback does not repair that earlier step. The common-design branch additionally needs the printed 1/m-packing AND 1/(2m)-covering subcollection; no standard maximal-packing theorem supplies that radius pair automatically. The least-squares objective prints a free q in its shift, while evaluation uses r; preserve this unresolved discrepancy rather than replacing q. IsMinOn can express the finite polynomial least-squares criterion once its basis is defined, but does not select among multiple coefficient solutions. The final L-infinity test discards the WHOLE interval polynomial to zero if its norm exceeds M, rather than clipping individual values. eLpNorm at infinity gives an essential supremum under a specified interval measure; agreement with a pointwise polynomial supremum requires the corresponding continuity/domain interpretation. Endpoint assignment, multiplicities and measurable fit selection remain as recorded source issues.",
+    "gap": "Finite uniform sampling, minimizer predicates and L-infinity norms are available, but the empty draws, packing requirement, free index and selection conventions prevent certifying the printed algorithm as total.",
+    "searches": [
+      [
+        "Inspect uniformOfFintype:275-276, IsMinOn:108-111 and eLpNorm:83-87 with all saved Algorithm 1 source issues",
+        "Uniform draws require nonempty finite types and the minimizer predicate supplies no selection; the source contains a separate undefined basis index and intervalwise discard rule."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-59cf72469065d31f3687",
+    "status": "partial_match",
+    "names": [
+      "PMF.uniformOfFintype",
+      "IsMinOn"
+    ],
+    "comparison": "This wrapper calls the same randomized local-polynomial algorithm with ONLY the target sample and its own b_t,d_t,M_t, so it inherits the base algorithm's empty-selection, free-index, interval and fit-selection qualifications. The introductory prose describes common design, while the source upper-bound theorems invoke the corresponding design-specific branch; do not require common-design packing for the independent-design application or import the independent-design assumptions into the common branch. Preserve the target-only input and reciprocal-integer bandwidth/positive degree/threshold domain. Uniform finite draws and minimizer predicates are reusable components, but they do not make the wrapper total while the base remains unresolved. The label optimal does not certify an attainability theorem or add this algorithm as a dependency of unrelated minimax statements.",
+    "gap": "The target-only specialization reuses the base components and retains their unresolved source domains and selection conventions.",
+    "searches": [
+      [
+        "Compare the target-only wrapper to Algorithm 1 and inspect its uniform-sampling and minimizer primitives",
+        "No new optimization interface is needed, but changing the input sample does not resolve the base algorithm or authorize mixing the two design branches."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-76e25bd5f2f7c1d27fee",
+    "status": "partial_match",
+    "names": [
+      "PMF.bind",
+      "IsMinOn"
+    ],
+    "comparison": "Run the base algorithm on the pooled source observations, preserving every occurrence and distinct source/subject identity instead of literal set-union deduplication. Subtract that realized fitted function at each target design point, fit the base algorithm to the target residuals using its own b_delta,d_delta,M_delta, and add the TWO fitted functions without merging their grids or thresholds. PMF.bind can represent sequential finite algorithmic randomization for fixed input data, conditional on earlier fit outcomes, once each base call and coefficient selection is defined; it does not itself justify an independence convention for the random draws or measurability across continuously varying datasets. Residuals share the source fit, so they are not automatically fresh independent observations. Source populations may have different means and are not silently assumed homogeneous. The source stage estimates a pooled source function, then the target correction, rather than directly adding arbitrary source estimators. Both calls inherit the recorded base-algorithm failures; their composition cannot be certified until those are resolved.",
+    "gap": "Sequential randomized composition supports the two-stage construction after both base calls and data-identity conventions are made well defined.",
+    "searches": [
+      [
+        "Inspect PMF.bind:103-108 and compare the two base calls, residual data and source-pooling qualifications",
+        "Bind represents outcome-dependent randomized sequencing, but cannot supply missing base-algorithm cases or justify iid residuals and source homogeneity."
+      ]
+    ]
+  }
+]

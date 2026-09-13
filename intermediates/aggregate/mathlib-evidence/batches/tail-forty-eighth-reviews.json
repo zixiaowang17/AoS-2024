@@ -1,0 +1,68 @@
+{
+  "scope": "Manual source-aware comparison of the seven remaining p2431 interfaces against inspected pinned mathlib; the low-degree conjecture remains an assumption.",
+  "rows": [
+    {
+      "interface_id": "local-4a37302b600fc2ff67c0",
+      "related": ["Turing.TM2ComputableInPolyTime"],
+      "status": "partial_match",
+      "query": "Searched polynomial-time/TM2ComputableInPolyTime in Computability and inspected the structure, FinTM2, encodings and outputsFun at Computable.lean 43–188; compared source page 8 and the retained logarithm-sign issue.",
+      "result": "The library bundles a deterministic machine with a polynomial bound in encoded input length; the paper measures runtime in n and does not supply an encoding or full algorithm model.",
+      "gap": "Specify the graph encoding and algorithm model and justify conversion from encoded input length to n under the relevant layer-growth regime.",
+      "comparisons": {"D14": "The inspected TM2 structure is a useful complexity framework, not an exact match to the paper's convention: it bounds a total deterministic function on every encoded input by a natural-coefficient polynomial of input length. The source says polynomial in node count n. Fixed monomial T growth or the actual negative-logarithm lower-bound condition gives polynomial observation size; the following prose's positive logarithm exponent does not by itself justify its stated T=O(n²) bound. No unrestricted-T runtime or randomized-algorithm equivalence is inferred."}
+    },
+    {
+      "interface_id": "local-117b00d93cc6aa19d2ba",
+      "related": ["Filter.Tendsto", "Asymptotics.IsLittleO"],
+      "status": "composable",
+      "query": "Inspected Filter.Tendsto 422–423 and IsLittleO 169–170, including the positive-constant bound semantics; compared Assumption 1 on source page 6.",
+      "result": "Generic convergence and little-o express the three conjuncts after choosing the admissible index sequence and real casts.",
+      "gap": "Package the admissible even-size sequences and positive density assumptions with the three source asymptotic conditions.",
+      "comparisons": {"D9": "Use Tendsto T atTop atTop, Tendsto rho atTop (nhds 0), and IsLittleO atTop (fun n => (rho n)⁻¹) (fun n => (n:ℝ)^2), with casts as needed. Retain n,T positive and even from the balanced model, or explicitly parameterize an admissible subsequence; literal real powers require integer/even rounding before defining graph dimensions. The inverse-density little-o condition is stronger than rho tending to zero and is not a condition on n*T*rho."}
+    },
+    {
+      "interface_id": "local-ab577e84d14d1833635d",
+      "related": ["hammingDist"],
+      "status": "composable",
+      "query": "Inspected InformationTheory/Hamming.lean 34–41 and the unnormalized finite-vector count; compared Definition 2 on source page 5.",
+      "result": "hammingDist supplies exactly the mismatch count; a real cast, the minimum over the original and complemented binary labels, and division by positive n assemble the loss.",
+      "gap": "Define the two-label permutation minimum and normalize the finite Hamming count by the positive node count.",
+      "comparisons": {"D6": "Instantiate hammingDist on finite binary label vectors, cast each natural count to ℝ, take min against sigma and its bitwise complement, then divide by n>0. The complement must be the binary label swap, not arbitrary subtraction in an unrelated codomain. This is the specific two-community quotient loss; the library count alone contains neither normalization nor minimization over labels."}
+    },
+    {
+      "interface_id": "local-8a7a1d9c75cbe31ea72f",
+      "related": ["Filter.Tendsto", "hammingDist"],
+      "status": "partial_match",
+      "query": "Searched recoverab/community recovery/stochastic block across Mathlib with no specialized hit; inspected Tendsto and Hamming count against source Definition 2.",
+      "result": "Generic probability-event convergence and finite mismatch counts are available, but the balanced estimator family and graph-mixture recovery criterion are paper-specific.",
+      "gap": "Define the balanced estimator sequence and express its normalized permutation-loss tail convergence under the joint alternative law.",
+      "comparisons": {"D7": "Quantify existence of estimators depending only on A and taking values in S_n, then for every fixed epsilon>0 require the P1,n probability of loss>=epsilon to tend to zero. Use the joint (A,sigma,tau) law so the true sigma is retained inside the event; real event probabilities require finiteness, automatic for the constructed probability law. This is approximate recovery under the mixture prior, not exact recovery, a uniform assertion over fixed labels, or a polynomial-time requirement."}
+    },
+    {
+      "interface_id": "local-3cdb883637e758a98479",
+      "related": ["MvPolynomial.totalDegree", "MeasureTheory.integral", "Asymptotics.IsBigO", "Turing.TM2ComputableInPolyTime"],
+      "status": "partial_match",
+      "query": "Searched low-degree conjecture/hardness and stochastic-block terminology in Mathlib; inspected totalDegree 432–433, existing integral/BigO evidence, and TM2 polynomial-time fields; compared Conjecture 3.2 and its remarks on source pages 7–8.",
+      "result": "Polynomial degree, finite-law expectations, asymptotic bounds and a deterministic complexity framework exist independently; no inspected declaration proves this specialized low-degree hardness implication.",
+      "gap": "Formulate the uniform low-degree testing premise and the chosen complexity model while retaining the hardness implication as an explicit conjectural assumption.",
+      "comparisons": {"D10": "Use multivariate real polynomials indexed by upper-triangular edge/layer coordinates and compare the natural total degree, cast to ℝ, to log(n)^1.01. Centering and squared-norm normalization are under the null law; the alternative expectation is under the A marginal of P1,n, not its latent joint sample space. Finite graph support makes polynomial expectations integrable, avoiding the real integral's nonintegrable fallback. Uniform O(1) requires a bound common to all admissible polynomials at each n; separate BigO witnesses for individual choices would weaken it. Conjecture 3.2 is explicitly unproved, and the externally mentioned regularity conditions are not supplied locally. The TM2 framework neither establishes this conjecture nor fixes the paper's unspecified computational model."}
+    },
+    {
+      "interface_id": "local-30273cf28ebfcf910e68",
+      "related": ["ProbabilityTheory.condDistrib", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected condDistrib's Y-given-X argument order, finite-measure/StandardBorel assumptions and map construction at CondDistrib.lean 54–66; compared the conditional-law definitions on source page 10.",
+      "result": "Regular conditional distributions and measurable pushforwards provide both conditionings and the observation marginal once the finite balanced-prior model is built.",
+      "gap": "Instantiate the two finite conditional kernels and explicitly project the known-layer joint law to A when comparing it with the null law.",
+      "comparisons": {"D11": "For P1,tau,n instantiate condDistrib with Y=(A,sigma) and X=tau; for P_sigma,tau use Y=A and X=(sigma,tau). All spaces are finite and can carry discrete measurable structures. Conditional kernels agree with the specified model almost everywhere, and the positive mass of each admissible balanced label under the uniform priors removes ambiguity at those atoms after proving the model identities. The chi-square statement uses the A pushforward of the first kernel; known tau does not reveal sigma. Do not compare the joint (A,sigma) kernel directly with the null law of A."}
+    },
+    {
+      "interface_id": "local-4f8c6a25477279154bef",
+      "related": ["IsMaxOn"],
+      "status": "composable",
+      "query": "Inspected IsMaxOn 114–115 and IsMaxFilter 102–103; compared the complete joint balanced-label edge-count argmax on source page 11 and its ambient observation indices.",
+      "result": "IsMaxOn expresses maximality of the explicitly constructed finite objective, with feasible membership and selection supplied separately.",
+      "gap": "Construct the balanced-label feasible set and parity-filtered edge sum, then choose a feasible maximizer without claiming uniqueness or efficient computation.",
+      "comparisons": {"D13": "Define the objective on pairs (sigma,tau) by summing A_t(i,j) for i<j and layers t with even sigma(i)+sigma(j)+tau(t), retaining only balanced binary label pairs. IsMaxOn alone does not assert membership; combine it with feasible membership and finite nonempty-domain attainment. The source leaves ties unspecified, so any selected maximizer needs the appropriate selection treatment. The theorem concerns approximate consistency of the sigma component, not exact recovery, recovery of tau, or polynomial-time computation of this argmax."}
+    }
+  ]
+}

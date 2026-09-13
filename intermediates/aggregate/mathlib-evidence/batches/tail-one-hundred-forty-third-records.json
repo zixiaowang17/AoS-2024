@@ -1,0 +1,767 @@
+[
+  {
+    "interface_id": "local-3029cb5100c8328bafaf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "696bd4ece083f7574e2dd058b5271360e4eda7aa9d871e582189d2bf827556d4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D6",
+        "comparison": "Represent Tucrank<=r through all unfolding ranks, not CP rank or rank of one flattening. Use the finite-array Frobenius norm in one-half squared residual loss; ordinary nested function norms are not automatically Frobenius. IsMinOn alone omits feasible membership and existence/selection of Xhat. The feasible set includes rank-deficient tensors and is not the smooth exact-rank manifold; r>=r-star makes the true parameter feasible without making every optimization trajectory well-defined.",
+        "statement_sha256": "a883732efe9062eefb558970475d29c378ecefe7c93a9e2643866236fedc6d34"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Tucker constrained least squares and rank-bounded optimization; inspect IsMinOn, matrix rank and Frobenius norm representation.",
+          "result": "Least-value predicates and unfolding matrix ranks support the objective and feasible set; no Tucker regression optimizer was located."
+        }
+      ],
+      "gap": "The constrained optimizer still needs tensor unfoldings, componentwise Tucker-rank feasibility and attainment of the least-squares minimum."
+    }
+  },
+  {
+    "interface_id": "local-639b0b014b435cb6aaf2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "b47a166bb0d151a02bbda10658c32ceb65fed71435e905254a2515ea12f1cda3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D30",
+        "comparison": "Any estimator with Tucrank(Xhat)<=r and loss no larger than at X-star qualifies; it need not be a global argmin, stationary point, RGD/RGN output or well-initialized iterate. Preserve 2r-TRIP as a separate premise and the ambient r>=r-star; constants with ranks exceeding mode sizes need the source's unresolved extension convention. This qualification applies to the upper branch of Theorem4, not its all-estimators minimax lower branch.",
+        "statement_sha256": "b2ca7185e65435540b2ab1e8edff4793b3b4465288b6137ac97d333c635920f7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search tensor restricted isometry and qualified-estimator residual comparison; inspect rank and Frobenius norm primitives against D30.",
+          "result": "The rank and loss inequalities are representable; no estimator-qualification theorem with the paper's TRIP hypothesis was located."
+        }
+      ],
+      "gap": "The estimator qualification still needs Tucker ranks, the 2r restricted-isometry condition and the exact residual-loss comparison."
+    }
+  },
+  {
+    "interface_id": "local-cad13a984077e1fc1d6e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "445db82c64f9280dc4173fef62ac73db7566a70778b89282e54aa9ff7cb9fed0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D23",
+        "comparison": "Under H0 use iid standard Gaussian vectors of dimension 1+p^d. Under H1 a single random vector with independent signs scaled by p^-1/2 generates X-star=sqrt(1-sigma^2) times its d-fold tensor power, shared by all samples; conditional iid sampling does not imply unconditional iid pairs. GaussianReal permits sigma^2=0 as a Dirac noise law. The preceding ||X-star||_F+sigma^2=1 disagrees with the tensor-power formula except special values; preserve both, and do not add unprinted mutual independence between signal, design and errors. Design entries here have variance 1, not the 1/n scaling of other theorem models.",
+        "statement_sha256": "0f599a3371b8b415c9f575bd77c62b88de118980262e450ec1e2de22b95a9a03"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.stdGaussian",
+          "type": "(E : Type u) → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → MeasureTheory.Measure E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Standard Gaussian measure on a finite-dimensional real inner product space, constructed from independent standard normal coordinates; the probability-measure instance additionally uses BorelSpace.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Module.Basis.piTensorProduct_repr_tprod_apply",
+          "type": "∀ {ι : Type u} {R : Type v} {M : ι → Type w} {κ : ι → Type z} [CommSemiring R] [∀ i, AddCommMonoid (M i)] [∀ i, Module R (M i)] [Fintype ι] (b : ∀ i, Module.Basis (κ i) R (M i)) (x : ∀ i, M i) (p : ∀ i, κ i), (Module.Basis.piTensorProduct b).repr (PiTensorProduct.tprod R x) p = ∏ i : ι, (b i).repr (x i) (p i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basis",
+          "provides": "Coordinates of a finite pure tensor are the products of the factor coordinates, linking algebraic tensor powers to the paper's finite multidimensional array.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basis.lean#L42-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Gaussian planted tensor testing and Rademacher coordinates; inspect standard Gaussian, zero-variance Gaussian, uniform finite law, finite product and tensor-coordinate product.",
+          "result": "Gaussian observations, scaled random signs and their rank-one tensor power have reusable components; the source's joint mixture and normalization require care."
+        }
+      ],
+      "gap": "The testing experiment still needs the planted-signal mixture and an explicit resolution of the source's inconsistent normalization and incomplete independence specification."
+    }
+  },
+  {
+    "interface_id": "local-74bda3892c2c918f4a7c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "5804b2dac71f40039b91ab1e8e88372226ddac4e2aca0420498ca333d19bb93b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D27",
+        "comparison": "The coefficient is R_2r/(1+R_(2r+r-star)-R_2r), with no factor 8 and no numerator 1-R_2r. The source's sigma_(r-star) corresponds to zero-based singularValues(r-star-1) when r-star>0, using Euclidean matrix action and Frobenius error. Preserve denominator validity and rank-range conventions; the separate RGD signal and R_2r<=1/17 assumptions are not contained in this distance property, which is an output guarantee when invoked by Theorem7.",
+        "statement_sha256": "9e661d7d1137efea40adf57f479ae776dc45c721667a6a5c426151eee9f3bda5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search RGD matrix initialization and restricted-isometry singular-value scale; inspect Frobenius norm and zero-indexed singular-value definition.",
+          "result": "The distance and true-rank singular value have representations; the sharp initialization inequality is specific to this algorithm analysis."
+        }
+      ],
+      "gap": "The RGD initialization condition still needs the matrix RIP constants and exact true-rank singular-value scaling."
+    }
+  },
+  {
+    "interface_id": "local-d56079b97af2c8fad0fc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "5c2515701f33fb3c84a9423f5f4ad369caddd123571891057d477fcbc24c4da2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D28",
+        "comparison": "Retain (1-R_2r)/(8(1+R_(2r+r-star)-R_2r)) times sigma_(r-star), distinct from D27. Convert the positive one-based singular-value index to the library's zero-based index and retain Frobenius distance. Do not import RGD-only signal assumptions; this is the sharper matrix initialization property, and it does not repair the source's separate t=0 convergence-factor problem.",
+        "statement_sha256": "dbedcfcdc5f4a045a23bdc0abdf9379bb1a4d4d74720c3516227e13bad74acd5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search RGN initialization radius and compare with RGD; inspect Frobenius norm and finite-dimensional singular values.",
+          "result": "The norm and singular-value scale can be encoded, but do not establish the RGN convergence neighborhood."
+        }
+      ],
+      "gap": "The RGN initialization condition still needs its distinct RIP coefficient and true-rank singular-value indexing."
+    }
+  },
+  {
+    "interface_id": "local-ed1df843e8c421dd8621",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "8d9b6e0dc7c4f08de586b93566261c67fd550d3c615caed8b31ac65705721304",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D20",
+        "comparison": "Construct U_r Sigma_r V_r-transpose with compatible left/right singular vectors; an eigenbasis of B-transpose B alone gives right vectors, not the full paired SVD. Preserve admissible r, rank-deficient/tied-value choices and selection; rank at most r is the approximation constraint, and the output can have lower rank. Generic eigendecomposition is noncomputable and does not substantiate the source's efficient algorithm claim or uniqueness at singular-value ties.",
+        "statement_sha256": "25683c7d956e8255a0d9cfd556f745772c0d7bbda6d6e85fd37648039f5c21b5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Repository-wide truncated SVD, singular value decomposition and Eckart-Young search; inspect singular values, sorted symmetric eigenbasis and submatrix selection.",
+          "result": "Singular values and Gram eigenbases support a spectral construction, but no inspected declaration supplies the full truncated-SVD best-rank approximation theorem."
+        }
+      ],
+      "gap": "The matrix projection still needs paired singular factors, truncation conventions and the Frobenius best-rank approximation result."
+    }
+  },
+  {
+    "interface_id": "local-74e481b900360e7d441d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "c3e0b937a6a512f68e96cc1835f51e34f32c94168165cc0a8681d0a64f5be49e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D19",
+        "comparison": "Compute each pairing by summing A_i(j,k) X-star(j,k) over all matrix indices, equivalent to the Frobenius inner product, not a matrix product without trace or transpose. The source states rank exactly r-star for the true parameter and arbitrary unknown noise here; no Gaussianity, iid design, RIP, centering or normalization is part of this model definition.",
+        "statement_sha256": "fbd5165a5ad4367d05abfcd68f3d3d69e23b28f81730d25d018346bc07a59f27"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.frobeniusNormedAddCommGroup",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Fintype m] → [Fintype n] → [NormedAddCommGroup α] → NormedAddCommGroup (Matrix m n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Matrix.Normed",
+          "provides": "Frobenius norm structure on finite matrices, implemented by iterated L2 coordinate norms rather than the default matrix norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Matrix/Normed.lean#L520-L521",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search matrix trace regression and Frobenius sensing map; inspect finite dot product, matrix rank and Frobenius norm.",
+          "result": "Flattened finite dot products encode matrix inner products and a linear vector of measurements; rank is directly available."
+        }
+      ],
+      "gap": "The matrix trace-regression model still needs its sensing map and rank-r-star parameter coupled to the observation and noise vectors."
+    }
+  },
+  {
+    "interface_id": "local-435c4c67510d4eeabc45",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "6b0c952eaa78a64ccd1094ec3489618235e3d7a9146348f08dfbca155e9df20d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D29",
+        "comparison": "For each k contract tildeT with every other U_j^0-transpose, using superscript zero for both j<k and j>k even inside the printed loop. Choose r_k leading left singular vectors via the left Gram operator if constructing from an eigenbasis; right-Gram eigenvectors alone have the wrong space. Form the output with P_Uk1=Uk1 Uk1-transpose in all modes. Tensor map requires a coordinate-array bridge, and ties/admissible ranks remain unresolved; do not replace this with sequential updated factors or excluded retraction pseudocode.",
+        "statement_sha256": "b92f56dc2a480edea3ff79bde4db8a3019b0c3e48712501e10ea05bb2838362f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search HOOI, Tucker mode products and leading-left-singular subspaces; inspect tensor map, sorted Gram eigenbasis and matrix selection.",
+          "result": "Mode-wise linear maps and spectral bases are ingredients; no matching one-iteration higher-order orthogonal iteration algorithm was located."
+        }
+      ],
+      "gap": "One-iteration HOOI still needs the tensor unfolding conventions, leading-left-singular selections and simultaneous old-factor update followed by all-mode projection."
+    }
+  },
+  {
+    "interface_id": "local-8a166c2108eebbb4e2e9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "079676ab7c1351940dedd8150cec08321a70ad17263cc0269fe5f1decc1c2289",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D21",
+        "comparison": "The first d factors contract against A_i; the remaining m factors form the tensor response direction, scaled by lambda and with additive E_i. Input and true ranks are both one, and n is explicitly even. Split first n/2 and remaining n/2 observations as printed; splitting alone does not supply independence beyond the separate sampling assumptions. The passage does not restate unit factor norms, so lambda is not automatically the product's Frobenius norm or each unfolding's singular value without that convention.",
+        "statement_sha256": "25f429f0445e7692295a2b29fe1f6a4adcedd9a03c6d626c88390505bd406389"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Module.Basis.piTensorProduct_repr_tprod_apply",
+          "type": "∀ {ι : Type u} {R : Type v} {M : ι → Type w} {κ : ι → Type z} [CommSemiring R] [∀ i, AddCommMonoid (M i)] [∀ i, Module R (M i)] [Fintype ι] (b : ∀ i, Module.Basis (κ i) R (M i)) (x : ∀ i, M i) (p : ∀ i, κ i), (Module.Basis.piTensorProduct b).repr (PiTensorProduct.tprod R x) p = ∏ i : ι, (b i).repr (x i) (p i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basis",
+          "provides": "Coordinates of a finite pure tensor are the products of the factor coordinates, linking algebraic tensor powers to the paper's finite multidimensional array.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basis.lean#L42-L46",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search rank-one tensor-on-tensor regression and outer-product coordinates; inspect tensor-product basis formula and finite contraction.",
+          "result": "Pure-tensor coordinates and finite dot products support the displayed rank-one factorization and response contraction."
+        }
+      ],
+      "gap": "The rank-one model still needs the array/outer-product identification, factor-normalization conventions and exact even-sample split."
+    }
+  },
+  {
+    "interface_id": "local-8d6f6b6ccd958c5df675",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "283778f496e97f2413cfee3099f984d43d933ace4d4abc00ab1258baf2b8e78d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D22",
+        "comparison": "Estimate output-mode factors only from Y1; because its first mode indexes samples, unfold at k-d+1. Project second-half Y_i onto these factors to get y_i', then use only second-half sum y_i' A_i for input modes. The refinement uses the full adjoint A*(Y), all other factors at superscript zero, and final projections from superscript-one factors. Preserve even n, rank-one selection, signs/ties, no extra averaging factors and no independent third data split.",
+        "statement_sha256": "0214930144bebff1f951dcd1fca9b7f55f642766c1a0490e60b003a1b78973dc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search sample-split rank-one tensor initialization and HOOI; inspect mode maps, leading Gram eigenspaces, contractions and sensing adjoint.",
+          "result": "The required algebraic operations have components, but no library algorithm implements the full staged initializer."
+        }
+      ],
+      "gap": "The rank-one initializer still needs its two-half spectral construction and full-data old-factor HOOI refinement with consistent unfolding and singular-vector choices."
+    }
+  },
+  {
+    "interface_id": "local-11a9618d654ceed1318c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "91d7064bebd472a8c770dee6440f8d3fee59c7b9cc06c66ead2ed5904769e595",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D15",
+        "comparison": "m=0 leaves scalar responses and order-d tensor covariates/parameter, with A(X) the n-vector of Frobenius pairings. Do not confuse the vector of measurement values with tensor mode multiplication or CP rank; true Tucker rank is the tuple r-star. The displayed model has unknown additive noise without Gaussian, independence or variance assumptions, which arise only in later statistical theorems.",
+        "statement_sha256": "2b5f80ca559b1248b2047893ce003fac8a574f6c0779ebc28c4033984e686772"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search scalar-on-tensor regression and Tucker rank; inspect finite-array pairing and rank of matricizations.",
+          "result": "A coordinate-product index supports each finite sensing inner product, while matrix rank supports each Tucker component after unfolding."
+        }
+      ],
+      "gap": "Scalar-on-tensor regression still needs the tensor sensing map and the source's unfolding-based rank convention."
+    }
+  },
+  {
+    "interface_id": "local-e4b160773d87a6a8f914",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "837261da40a5c955c1ac701b84c8832b2b6ab51c70a2cf50ad6251e0d5fc22bf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D16",
+        "comparison": "First compute each U_k^0 from the k-unfolding of A*(y). For the one-step refinement contract the same A*(y) with U_j^0-transpose for every j unequal k; j<k uses old factors as well. Output all-mode projection using U_k^1 U_k^1-transpose. No 1/n factor is printed beyond the sensing-map convention, no sequential factor replacement is authorized, and choosing a Gram eigenbasis alone does not supply measurable SVD choices or the initialization theorem.",
+        "statement_sha256": "98790ef197b91d954ebcf5288d1e5eafb4b520784a0a34daf819e94775e4c6a0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.submatrix",
+          "type": "{l : Type u} → {m : Type v} → {n : Type w} → {o : Type z} → {α : Type q} → Matrix m n α → (l → m) → (o → n) → Matrix l o α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Restricts or reindexes a matrix through supplied row and column maps; deletion requires an injective map omitting the chosen column.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L476-L477",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search spectral Tucker initialization and one-step HOOI; inspect sensing adjoint, tensor mode maps, sorted Gram eigenbasis and spectral selection.",
+          "result": "Adjoint sensing and per-mode spectral ingredients are available, without the complete initializer or its guarantee."
+        }
+      ],
+      "gap": "The scalar-response initializer still needs source-consistent unfoldings, leading-left-singular selections and the all-old-factor HOOI step."
+    }
+  },
+  {
+    "interface_id": "local-9957952906874fcc649c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "e9a5a4200816a535e26e8e0a74a31c08fe690291ac546198981382d508d88416",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D17",
+        "comparison": "Apply a_i-transpose to the first mode of X-star to obtain an order-m response, then add E_i. Stacking replaces first parameter dimension p1 with sample dimension n via A whose rows are a_i-transpose; it does not contract response modes. Preserve true Tucker-rank tuple and arbitrary noise at the model level; PiTensorProduct.map needs a bridge to these concrete arrays and rank/unfolding conventions.",
+        "statement_sha256": "6273ce1c87f5ce9972d3fe8057a56ee22e8aea554fe0a44534780dc02a905bef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search tensor-on-vector regression and first-mode contraction; inspect tensor linear map and finite dot-product representations.",
+          "result": "A first-mode linear transformation gives the algebraic contraction, with unfolding ranks providing Tucker components."
+        }
+      ],
+      "gap": "The tensor-on-vector model still needs the coordinate-array mode-product identification and stacked response indexing."
+    }
+  },
+  {
+    "interface_id": "local-e4fdf604ce5bd1b495c7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:04:44.250380+00:00",
+    "source_interface_sha256": "7dea13592dd5de6dfd5e85b9bc4fdb6174f3a83feab109a50884df325f8850b4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2583",
+        "local_id": "D18",
+        "comparison": "Factor A=Q_A R_A with a compatible thin QR so R_A is square and invertible; normalized Gram-Schmidt can produce zero vectors for dependent columns and does not remove that requirement. Transform Y by Q_A-transpose on mode 1, obtain all initial mode subspaces, and refine using only U_j^0 factors. Project in transformed coordinates, then multiply mode 1 by R_A^-1. The nonsingular-inverse theorem requires unit determinant; Lean's singular inverse fallback is not a rank-deficient algorithm convention, and source unfolding/SVD tie choices remain separate.",
+        "statement_sha256": "be0f63301eb81a90006eb6d0fc9c25bb8925c65113bd795a928fef363d93f71c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.gramSchmidtNormed",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → {ι : Type w} → [LinearOrder ι] → [LocallyFiniteOrderBot ι] → [WellFoundedLT ι] → (ι → E) → ι → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+          "provides": "Normalized Gram-Schmidt vectors, orthonormal for linearly independent input; dependent inputs can produce zeros and require a separate completion convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean#L241-L242",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search QR decomposition and Tucker regression initialization; inspect normalized Gram-Schmidt, inverse identity with determinant hypothesis, tensor maps and Gram eigenbasis.",
+          "result": "Orthonormalization, invertible matrix algebra and mode-wise spectral operations are ingredients; no matching QR-preconditioned initializer was found."
+        }
+      ],
+      "gap": "The tensor-response initializer still needs a full-column-rank QR construction, old-factor spectral refinement and justified inverse-R transformation."
+    }
+  }
+]

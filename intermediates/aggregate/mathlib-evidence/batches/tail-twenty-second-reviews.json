@@ -1,0 +1,124 @@
+{
+  "scope": "Manual source- and declaration-inspected variational Bayes objective and gap reviews for p0335; partial library matches only.",
+  "rows": [
+    {
+      "interface_id": "local-dd309d1a1cb7aca99ba7",
+      "related": [
+        "InformationTheory.klDiv",
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "klDiv supplies the ordered extended divergence of probability measures, with the mass correction cancelling; IsMinOn expresses value minimality over any family but omits membership. The searched files contain no inspected adaptive variational-posterior constructor or measurable minimizer theorem.",
+      "gap": "Define the hierarchical probability family and posterior, then supply an attained measurable KL minimizer with explicit family membership.",
+      "comparisons": {
+        "D7": "Equation (2.7) requires Q-hat_n in the argmin of KL(Q, posterior), preserving this argument order. Encode membership in Q_n separately from IsMinOn, and instantiate klDiv on underlying probability measures; its infinity branch preserves divergent KL. This predicate does not establish existence, uniqueness, an algorithm or measurable dependence on the sample, nor does it construct or normalize the hierarchical posterior."
+      }
+    },
+    {
+      "interface_id": "local-274225bd59ef8ebab379",
+      "related": [
+        "InformationTheory.klDiv",
+        "MeasureTheory.integral",
+        "Real.log"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "The inspected APIs provide KL and the finite integrable real log-likelihood term separately. Real.log is zero at zero and Bochner integral is zero for nonintegrable functions; neither convention implements an extended negative log-likelihood objective. No named ELBO result was found among the relevant search hits.",
+      "gap": "Define the negative ELBO with its intended extended-value domain and prove its relation to posterior KL and marginal likelihood.",
+      "comparisons": {
+        "D8": "Equation (2.8) is minus the expected log likelihood plus KL to the supplied prior; E_n is the negative ELBO. Retain T and sample dependence. On positive Q-almost-everywhere likelihood with integrable log and finite KL, the inspected real integral and klDiv finite value give the displayed arithmetic. Outside this domain, real log at zero, nonintegrable integral zero and klDiv.toReal at infinity cannot be adopted silently, and signed/extended addition needs a justified convention. The library components do not establish the ELBO bound or argmin equivalence."
+      }
+    },
+    {
+      "interface_id": "local-4b8dab6dd85ad4d5072a",
+      "related": [
+        "IsMinOn",
+        "InformationTheory.klDiv",
+        "MeasureTheory.integral"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "IsMinOn provides constrained value comparison for a supplied negative-ELBO objective; KL and integral supply constituent terms subject to their domain conditions. It has no model-family constructor, optimizer or posterior-mixture decomposition.",
+      "gap": "Construct each model-specific negative ELBO and an attained measurable minimizer before proving the adaptive mixture decomposition.",
+      "comparisons": {
+        "D9": "Equation (2.11) minimizes E_n(Q,Pi_n,m,p_n) over Q_n,m, not over the full hierarchical family and not with prior Pi_n. Preserve the local model index and explicit Q-hat_n,m membership with IsMinOn. Supply the likelihood/log integrability and extended KL conventions from D8; neither minimality nor the component APIs imply attainment, uniqueness or the normalized weights of Theorem 2.1."
+      }
+    },
+    {
+      "interface_id": "local-f3afdbf11fbcf41d6a33",
+      "related": [
+        "MeasureTheory.Measure.withDensity",
+        "MeasureTheory.lintegral"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "withDensity weights a prior by a nonnegative ENNReal-valued function and lintegral gives its mass. With a measurable quasi-likelihood and a positive finite mass, dividing the weight by that mass expresses the normalized update. These definitions do not impose a sampling-density normalization or certify evidence positivity.",
+      "gap": "Build the measurable quasi-likelihood update and prove its normalizer is positive and finite without imposing sampling-density normalization.",
+      "comparisons": {
+        "D44": "For equation (7.1), fix the sample, compose the nonnegative quasi-likelihood with T, coerce to ENNReal and form the normalized prior-weighted measure. withDensity is a measure constructor, not automatically a probability law; its normalization needs 0<Z<infinity and measurability for the intended likelihood interpretation. The quasi-likelihood need not integrate to one over data. Preserve the undefined zero/infinite-evidence cases rather than silently defining a zero posterior."
+      }
+    },
+    {
+      "interface_id": "local-5029b3173991e9fd8303",
+      "related": [
+        "InformationTheory.klDiv",
+        "IsMinOn",
+        "MeasureTheory.integral",
+        "Real.log"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "The KL minimality predicate and finite log-likelihood ingredients cover separate parts of (7.2). No inspected theorem identifies these two objectives for the supplied quasi-posterior; the printed prior indices also differ within the alternative objective.",
+      "gap": "Construct the quasi-posterior KL minimizer and justify the alternative objective on an explicit domain while retaining the printed prior-index discrepancy.",
+      "comparisons": {
+        "D45": "Keep KL(Q,Pi_n^natural(.|Y)) over Q_n and require membership alongside IsMinOn. The alternative line prints E_n(Q,Pi_n,m,p_n^natural) but its KL is KL(Q,Pi_n); preserve both rather than declaring the equality verified. Its negative expected log uses the supplied quasi-likelihood and needs positivity/integrability or an explicit extended treatment. The components do not prove equivalence, existence, measurable choice or the hierarchical weight formula."
+      }
+    },
+    {
+      "interface_id": "local-2c3e90f5914a7a931530",
+      "related": [
+        "InformationTheory.klDiv",
+        "csInf_le",
+        "csSup_le_iff"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "klDiv retains infinite values. The inspected conditional-lattice lemmas control an infimum by a member when bounded below and characterize a supremum upper bound for a nonempty bounded-above set. They can be applied to a justified real-valued objective, but do not define a signed difference of infinite KL values or interchange extrema.",
+      "gap": "Specify a valid domain for KL differences and the nested extrema, then establish the implicit variational penalty and its properties.",
+      "comparisons": {
+        "D41": "Equation (6.1) first takes infimum over Q in Q_n,m of KL(Q,Pi_n,m)-KL(Q,Pi-tilde), then supremum over auxiliary probability priors. Preserve this order and the dependence on the individual prior and variational family only. ENNReal subtraction is truncated, and converting infinity to real zero is not the printed difference; infinity-minus-infinity is unresolved. On any justified real finite domain the conditional-lattice comparisons need their boundedness/nonempty premises, which the source definition alone does not provide. These lemmas supply no optimal auxiliary prior or regularization theorem."
+      }
+    },
+    {
+      "interface_id": "local-20a65efa36d7b2fdeb71",
+      "related": [
+        "InformationTheory.klDiv",
+        "MeasureTheory.lintegral",
+        "Asymptotics.IsBigO"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "klDiv and lintegral preserve the nonnegative possibly infinite random divergence and its expectation. IsBigO expresses an eventual bound for real/normed-valued functions after finiteness is proved; it cannot accept an ENNReal expectation as though it were a normed real function. The inspected definitions contain no adaptive variational gap-rate theorem.",
+      "gap": "Construct the measurable random ordinary-posterior KL gap and prove its expected rate bound with the required constant uniformity.",
+      "comparisons": {
+        "D16": "Equation (3.1) bounds the expected KL from the adaptive ordinary variational posterior to the ordinary posterior under the original true sampling law P_lambda-star^(n), at n epsilon_n^2. Retain the supplied rate and its role as the referenced consequence of Theorem 3.3. For measurable random KL, lintegral retains infinite gaps; a direct ENNReal inequality to a finite constant multiple proves finiteness, after which a real IsBigO statement at the intended filter is possible. Do not turn infinity into zero via toReal or replace a uniform source bound by arbitrary truth-dependent constants. The library components do not derive contraction or the gap bound."
+      }
+    },
+    {
+      "interface_id": "local-02b0eb03bc0dbd3c694a",
+      "related": [
+        "InformationTheory.klDiv",
+        "MeasureTheory.lintegral",
+        "Asymptotics.IsBigO"
+      ],
+      "status": "partial_match",
+      "query": "Resolved registered p0335 PDF; inspected pages 7–8, 10, 22, 24–25 and preserved source members. Searched ELBO, variational Bayes, quasi-posterior, variational posterior and implicit penalty in pinned InformationTheory, Probability and MeasureTheory; inspected KullbackLeibler/Basic:32–83, Order/Filter/Extr:98–115, Measure/WithDensity:30–46, Integral/Bochner/Basic:145–161, Integral/Lebesgue/Basic:40–49, Log/Basic:33–65, ConditionallyCompleteLattice/Basic:188–230 and Asymptotics/Defs:62–96 as relevant. Reused the corresponding opened declaration links at the pinned revision.",
+      "result": "klDiv and lintegral preserve the nonnegative possibly infinite random divergence and its expectation. IsBigO expresses an eventual bound for real/normed-valued functions after finiteness is proved; it cannot accept an ENNReal expectation as though it were a normed real function. The inspected definitions contain no adaptive variational gap-rate theorem.",
+      "gap": "Construct the measurable random quasi-posterior KL gap and prove its expected rate bound with the required constant uniformity.",
+      "comparisons": {
+        "D49": "Equation (7.5) bounds the expected KL from the adaptive quasi variational posterior to the quasi posterior under the original true sampling law P_lambda-star^(n), at n epsilon_n^2. Retain the supplied rate and its role as the referenced consequence of Theorem 7.1. For measurable random KL, lintegral retains infinite gaps; a direct ENNReal inequality to a finite constant multiple proves finiteness, after which a real IsBigO statement at the intended filter is possible. Do not turn infinity into zero via toReal or replace a uniform source bound by arbitrary truth-dependent constants. The library components do not derive contraction or the gap bound."
+      }
+    }
+  ]
+}

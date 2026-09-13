@@ -1,0 +1,335 @@
+[
+  {
+    "interface_id": "local-601e4ad0f9bb50e9eaa4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "fb9812e1c8944f8742cfd343206da8c02ca0fbbad6f7a0decc06e5a3696ae9b1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D1",
+        "comparison": "Independence is across n whole d-variate observations, not across d coordinates of one observation. IdentDistrib includes a.e. measurability and pushforward equality. cdf takes a real-valued law, so it applies to coordinate marginals after measurable projection, while F is the probability of a multivariate lower orthant. Continuity of every marginal is an extra hypothesis and does not impose joint coordinate independence.",
+        "statement_sha256": "80fc77ebcfe364bcd610bfa8d944090b94f0939679cce9c1816cf59019b2b72e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct iIndepFun, IdentDistrib and cdf definitions; rg -i copula in pinned probability and analysis sources",
+          "result": "Independent sample random vectors, identical laws and scalar marginal cdfs are available; the joint multivariate cdf and continuity conditions must be specified."
+        }
+      ],
+      "gap": "The sampling setup can use independent identically distributed random vectors, but the joint cdf and continuous coordinate-cdf assumptions require their own formulation."
+    }
+  },
+  {
+    "interface_id": "local-38e80192e20f4fa0f7ab",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "06f5ee1f9c88fe725daf0272fef386f860cb1f70a43822bec36ebd0628db9613",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D11",
+        "comparison": "Index each row to include r=0 for differences even though the printed array starts at one; do not infer S(n,0)=0 from a zero-mean martingale. MemLp at exponent two supplies square integrability separately from the Martingale predicate. The source identifies the terminal value with the sum of differences without stating the initial value, and cross-row inclusion at r<=d_n needs a domain when d_(n+1)<d_n. The a.s. finite random eta-squared is a variance-limit variable, not assumed constant, and no CLT is obtained from the predicate alone.",
+        "statement_sha256": "ab848edc1088e53ba71b99c54ff8a4eca348edd77968e9d9d92bf47cf18bdd05"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Martingale",
+          "type": "{Ω E ι : Type*} → [Preorder ι] → {m0 : MeasurableSpace Ω} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ι → Ω → E) → MeasureTheory.Filtration ι m0 → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Martingale.Basic",
+          "provides": "Strong adaptedness and the conditional-expectation equality for every ordered pair of times relative to a supplied filtration and measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Martingale/Basic.lean#L53-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct Martingale, MemLp and conditional-expectation definitions; rg -i lindeberg in pinned probability and analysis sources",
+          "result": "Row martingale and square-integrability predicates exist; cross-row filtration compatibility and the source initial-index convention are additional data."
+        }
+      ],
+      "gap": "The triangular array requires rowwise square-integrable centered martingales and cross-row filtration inclusions, with the missing initial-value and row-domain conventions left explicit."
+    }
+  },
+  {
+    "interface_id": "local-e50d92406264238a7047",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "d3088f7053f55b6597de2e31e367745b4d515c9245a35c09578d31e5d5dbd66a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D12",
+        "comparison": "Retain X(n,r) times the indicator |X(n,r)|>epsilon without squaring or taking an absolute value outside it. For every fixed epsilon>0, sum the conditional expectations at each row's previous filtration and take convergence in probability to zero as n grows. Square integrability of differences supplies integrability of their truncations; valid sub-sigma-algebras avoid condExp's fallback zero. Cancellation is possible, and this comparison does not certify the theorem printed with this condition.",
+        "statement_sha256": "fec53e053fdabdfbc2df6045faae01d24cc63ea8b6c33a489c25570ca1db5a7d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct condExp and TendstoInMeasure definitions and rg -i lindeberg; frozen equation 6.24 source note",
+          "result": "Conditional expectations and convergence in probability express the printed signed truncated first-moment condition, but do not validate a martingale CLT under it."
+        }
+      ],
+      "gap": "The printed condition is expressible by conditional expectation and convergence in measure, but it is a signed first-moment condition and cannot be identified with the usual squared Lindeberg condition."
+    }
+  },
+  {
+    "interface_id": "local-d0442736c0427cf7cc5c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "ab6b1f1b558ba2fdd81078c4591701c65b634443f6c4fe596fe209c5539b4f7a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D13",
+        "comparison": "Use exponent four and no truncation, summing over r<=d_n and converging in probability to zero. This is the optional sufficient condition for the earlier condition, not a simultaneous extra assumption in the first theorem implication. MemLp exponent four would justify ordinary condExp, but the opening states only square integrability; using condExp on a nonintegrable fourth power would return zero and misrepresent an infinite moment. Preserve that domain requirement explicitly.",
+        "statement_sha256": "da0f467e8e208c60747c8b109f6641d23a60e5a943fbe429cc060ed2bb2263d9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect condExp integrability branches, TendstoInMeasure and MemLp; compare frozen equation 6.26",
+          "result": "The conditional fourth-moment sum and probability convergence are expressible when fourth powers are integrable; row square integrability alone does not provide that."
+        }
+      ],
+      "gap": "The fourth-moment condition needs integrable fourth powers or an extended nonnegative conditional-expectation formulation, and the source sufficient-condition implication needs a separate proof."
+    }
+  },
+  {
+    "interface_id": "local-51b319f224f700ae72da",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "702f7347b53d0c42e631d24fb67674ef5b65ca5934d50b0bd6cb6d9b395377b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D2",
+        "comparison": "Pi_d is a cdf on [0,1]^d equal to the product of all coordinates, representing independent uniform margins. cdf itself accepts a measure on Real, not a multivariate copula. The unique C refers to the observation law with continuous univariate margins; continuity does not force C=Pi_d, and arbitrary multivariate distributions need not have uniqueness away from their marginal ranges.",
+        "statement_sha256": "84d430f6554c1be5773401c42724a8344f00fa88edff0ec019f133d2762091c7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i copula in pinned probability and analysis sources; direct cdf and iIndepFun definitions",
+          "result": "Scalar cdfs and independent random variables are available, but no copula or Sklar construction was found by the scoped search."
+        }
+      ],
+      "gap": "The product formula for the independence copula is elementary, while constructing the joint copula and proving its uniqueness from continuous margins requires additional results."
+    }
+  },
+  {
+    "interface_id": "local-95a9e3ca377531f0aeeb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "3662e1bda5674a370c36c4e468b57a9d00c160f74df64b319dd214c08b33cfd8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D3",
+        "comparison": "Use powersetCard k on the full d-coordinate finite set, translating Fin d to source indices 1,...,d. C_A belongs to the restricted vector X_A; its cdf evaluates C with coordinates outside A set to one, as saved in A3. This is not evaluation with zeros outside A, and scalar cdf does not directly implement that operation.",
+        "statement_sha256": "c2c7abdea8f9caf7c6b735717c4234f5e7f54c278bfaedd9c989b06979fe4cb3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Direct powersetCard and mem_powersetCard body, scalar cdf definition; rg -i copula",
+          "result": "powersetCard represents the k-coordinate subsets exactly after index conversion; multivariate marginal copulas need a separate law/cdf construction."
+        }
+      ],
+      "gap": "The subset family is available through powersetCard, but the marginal copula and its coordinate restriction and evaluation conventions remain to be constructed."
+    }
+  },
+  {
+    "interface_id": "local-ebbf3338955988a7f2c1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:28:00.635564+00:00",
+    "source_interface_sha256": "cf3dd722c3df08739741034805e8acf6435698e7270f8c203954243ab38351c3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0311",
+        "local_id": "D4",
+        "comparison": "Quantify over all subsets of cardinality k and require the subfamily to be jointly independent, not merely pairwise independent or full d-wise independence when k<d. The displayed C_A=Pi_k denotes independence despite the word dependent. As sets of laws, higher-order independence implies lower-order independence, opposite the printed H2 subset H3 sequence; do not silently repair either quotation. Fixed k<=d is required, and growing d eventually permits the theorem's fixed orders.",
+        "statement_sha256": "3aabd65b72222b745b8e766202e7c607c167036c92217aa45f49dbd894b5b087"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "rg -i copula; inspect iIndepFun and powersetCard definitions and frozen D4 discrepancy notes",
+          "result": "Independence of each selected coordinate family expresses the displayed equality once the copula equivalence is proved; source prose and inclusion ordering disagree with that equality."
+        }
+      ],
+      "gap": "The displayed k-wise independence condition requires a copula equivalence, and the source's dependent wording and reversed hypothesis inclusions must remain flagged."
+    }
+  }
+]

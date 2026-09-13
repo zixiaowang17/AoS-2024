@@ -1,0 +1,866 @@
+[
+  {
+    "interface_id": "local-4c7d92ab492c4800b320",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "88e059c9afcef43c34918dbddcb59fb31eaf1e11c3289c02320838a18891b7c8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D18",
+        "comparison": "Use q_(b0+eta) in U1 and q_(b0-eta) in U2, multiplying each localized kernel by the square root of its own density. Normalize the Gaussian integral by that weighted kernel's L2 norm and subtract Upsilon of its squared norm divided by the corresponding indicator-weighted L2 norm squared on [-A,A]. Both integrals use the same spatial W, not independent drivers or the observation-time noise; their cross-covariance depends on the two weighted kernels together. Take each supremum over the rational location-bandwidth set and then max(U1,U2). A zero kernel allowed in some inherited conditions makes Gaussian normalizers degenerate and is not resolved by a generic Gaussian-process predicate or a classical Bochner integral.",
+        "statement_sha256": "0a294ea5bb0f9b52d116d18595cd65d9c3022a2bf3fdc69d3f0a6951f276ba40"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Two limiting multiscale Gaussian suprema built from the same spatial Brownian driver; bounded Wiener/stochastic-integral search and inspection of Gaussian-process and L2 covariance ingredients.",
+          "result": "A jointly Gaussian family with covariance given by L2 inner products of the weighted kernels can represent the deterministic-integrand Wiener integrals. The same family must support both boundary-density statistics before their pointwise maximum is taken."
+        }
+      ],
+      "gap": "The remaining construction supplies the joint Wiener-integral family and finite measurable suprema with valid normalizers, preserving the shared driver across U1 and U2."
+    }
+  },
+  {
+    "interface_id": "local-bedd6c0cac1615f4877f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "b8c0558bb71d7545074713243401e8963b6c789fec4f470e0842940f7bdf24cd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D17",
+        "comparison": "For every (y,h) in script T subtract Lambda^eta from the absolute local score and subtract Upsilon of sigma-hat_T(y,h)^2/sigma-hat_T,max^2, then take the supremum. Keep both subtractions outside the absolute value. The tolerance correction uses the source's integral of K rather than its square; scale estimators and the score have distinct definitions. Preserve the explicit zero-over-zero rules and the recorded Upsilon-at-zero issue instead of relying on totalized logarithms. No critical value, null-size theorem or power result follows from the supremum construction alone.",
+        "statement_sha256": "a216d1e76d21117219c6f5c66e493db26ee7448db3abdd54bce66acad5eddb72"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Similarity multiscale statistic with local score, tolerance adjustment and empirical scale correction; inspected countable-index supremum and ordinary integral ingredients.",
+          "result": "Given the local scores, scales and tolerance correction, the displayed statistic is a supremum of real adjusted scores over the supplied index set."
+        }
+      ],
+      "gap": "The statistic is constructible from its component functions, with zero-scale conventions, measurable supremum and finite-value interpretation retained explicitly."
+    }
+  },
+  {
+    "interface_id": "local-a21fd71b16e17decc2ac",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "f8891da971bdb2277cdb902be92444804e2a3403931a35c05d9912d426e856de",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D27",
+        "comparison": "Require K>=0, support contained in [-1,1] and the source uniform norm ||K||_[-1,1]=1, not an L1 integral of one or an essential-supremum convention. This exact-unit condition excludes the zero kernel, unlike earlier norm-at-most-one variants. The passage does not itself restate continuity, so do not merge it with signed continuous kernels or the later C1 requirement. BoundedVariationOn captures pointwise univariate variation, not the essential or multidimensional anisotropic variations of other papers.",
+        "statement_sha256": "44fe4eb3f48197f5665e5cc055a3a16e55144a683c6f1b46d0f33b79880bda9f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "BoundedVariationOn",
+          "type": "{α : Type u} → [LinearOrder α] → {E : Type v} → [TopologicalSpace E] → [WeakPseudoEMetricSpace E] → (α → E) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.BoundedVariation",
+          "provides": "Finiteness of extended total variation on a specified ordered domain, separate from continuity, nonnegativity or normalization.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/BoundedVariation.lean#L66-L67",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Set.EqOn",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Agreement of two functions on a specified set, allowing observed and supplied potential variables to be equated on received-treatment events without asserting any causal identification theorem.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L291-L291",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Nonnegative compactly supported bounded-variation kernel with pointwise supremum norm exactly one; inspected ordered-domain bounded variation and uniform bounds.",
+          "result": "Bounded variation, nonnegativity, vanishing off [-1,1] and a pointwise supremum of one can be imposed directly on a real kernel."
+        }
+      ],
+      "gap": "The kernel condition is expressible by bounded variation and pointwise support/norm requirements, without adding continuity or density normalization absent from this variant."
+    }
+  },
+  {
+    "interface_id": "local-95370329c47095d82c2a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "cd5d8cff399c63cf5ccdef03a59c52bae6c793406d5356a140b851bde397040e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D30",
+        "comparison": "For a real path on [0,T], require times at which it reaches -A and A, in either order. Continuity connects these visits to image containment of [-A,A]; neither endpoint must occur at time zero or T and the path may also leave the interval. This deterministic domain does not impose a diffusion law or stationarity. Merely visiting the interval does not resolve zero denominators for the identically zero kernel permitted by the inherited norm-at-most-one condition.",
+        "statement_sha256": "f54f1d668d3229a691a2c382a81517d1ddefc2949335650be60d58427f35d5e6"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ContinuousOn",
+          "type": "{X : Type u} → {Y : Type v} → [TopologicalSpace X] → [TopologicalSpace Y] → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Continuity at every point of a set relative to that set, expressed by limits along neighborhood-within filters.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L191-L192",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Continuous-path domain requiring visits to both endpoints of a spatial interval; inspected continuous-on and image-set constructions.",
+          "result": "The domain is specified by continuity on the time interval and membership of both -A and A in the path image; the intermediate value property gives containment of the whole spatial interval."
+        }
+      ],
+      "gap": "The path domain is expressible by continuity and image membership, while positive kernel occupation integrals require additional nonzero-kernel reasoning."
+    }
+  },
+  {
+    "interface_id": "local-66601eacd51c56a20186",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "2b5bbb3491b75d5fd0145c659b699de681facac13b5d3cce34933aa40ea3c95d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D12",
+        "comparison": "Take sup_{(y,h) in script T} of |Psi^(b0)_(T,y,h)| minus Upsilon of the empirical squared-scale ratio. This simple-null statistic has no Lambda^eta adjustment. Keep the localized kernel without an added 1/h normalization, the rational index set and both empirical occupation scales inherited from their definitions. The source's local score is explicitly zero when its denominator vanishes, but this does not by itself define every logarithmic boundary expression in Upsilon or prove the supremum is finite.",
+        "statement_sha256": "582d397a2d094ea40331dcd8df0a5bc58af4d0f05f10c8c0784d8c37e7e149b3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Global simple-null multiscale test statistic as the supremum of corrected absolute local scores; inspected bounded-supremum formulation.",
+          "result": "Once the local score and empirical scale functions are supplied, the statistic is their corrected supremum over the countable rational index set."
+        }
+      ],
+      "gap": "The supremum construction supports the statistic with finite-value and zero-scale conventions specified; its tightness and test calibration require separate proofs."
+    }
+  },
+  {
+    "interface_id": "local-3bee97cbf4c4ad3314e2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "ed52dfae5bb0319d2948826a498e0fd4dca9eb7018003d5db89f29d3042eec60",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D28",
+        "comparison": "Impose continuous differentiability of K as an additional Section 6 requirement, using first-order ContDiffOn over the full real domain or the equivalent global C1 condition. Do not require analyticity or infinitely many derivatives, and do not propagate C1 to earlier theorems whose kernel conditions only specify continuity and bounded variation or exact unit norm. The derivative of K_(y,h)(z)=K((z-y)/h) includes the chain-rule 1/h factor; no extra 1/h multiplier is inserted into K_(y,h) itself.",
+        "statement_sha256": "0ee2634514a970d66b3d503a309ee03939e9dcdc5f13e1e8cb9443d7a222f0bf"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "deriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "Scalar derivative as the Frechet derivative evaluated at one, with the total derivative convention outside differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L153-L154",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Additional continuous differentiability of the pathwise-statistic kernel; inspected first-order continuous differentiability and real derivative.",
+          "result": "First-order continuous differentiability supplies a continuous real derivative for the ordinary-integral pathwise expression, in addition to the inherited kernel conditions."
+        }
+      ],
+      "gap": "The extra C1 requirement is directly expressible and supports the classical derivative term, while the pathwise continuity theorem remains separate."
+    }
+  },
+  {
+    "interface_id": "local-6004695c16e8afd05fa9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "3e22a06934a70d7244c8621b0972a2cf2677d73e700145eb1928e71785a2ae3d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D34",
+        "comparison": "For 0<H<1 use R_H(t,s)=(t^(2H)+s^(2H)-|t-s|^(2H))/2 for t,s>=0. The displayed E[W_t^H W_s^H] is the second-moment form associated with the named centered fractional Brownian process; Gaussianity alone does not set the mean, covariance or path continuity. The H=1/2 specialization has Brownian covariance, but a marginal covariance prescription does not choose a common realization for different H or imply independent increments for H other than one half.",
+        "statement_sha256": "40ff4cb0f5499d145a53dbd7717fab154db7e607d66d35e85e44e8212b581ffa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Fractional Brownian motion with Hurst-indexed covariance; bounded fractional-Brownian search and inspection of Gaussian-process and covariance definitions.",
+          "result": "The covariance formula is directly expressible for nonnegative times, and Gaussian-process predicates can characterize the finite-dimensional laws after centering and this covariance are specified. A process construction and continuous paths are additional work."
+        }
+      ],
+      "gap": "The remaining interface constructs the centered continuous Gaussian process with covariance R_H and distinguishes its law from a coupling across different H values."
+    }
+  },
+  {
+    "interface_id": "local-352bb9f51f7454ff2629",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "b6bf9a602e312cdd65b0ad524241c911099422659f29b593315a8d70af1b7576",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D36",
+        "comparison": "Use X_t^H=x0+integral_0^t b(X_s^H) ds+sigma*(W_t^H-W_0^H), with W_0^H=0 in the standard process. The initial value is fixed x0, unlike the earlier stationary random start. The displayed diffusion coefficient sigma is constant; do not add a state-dependent fractional stochastic integral or treat every H as an Itô diffusion. The later globally Lipschitz drift restriction supports existence and uniqueness but is not an automatic property of the arbitrary drift symbol in this displayed dynamics.",
+        "statement_sha256": "9ff5f51d8786254f5e781b3bd4f801a55dc09a06b719ead6f05db6a694f2858a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Scalar additive-noise fractional dynamics with fixed initial value; inspected classical interval integration and drift Lipschitz ingredients after bounded fractional-process search.",
+          "result": "With additive constant noise, the equation can be formulated pathwise as an ordinary drift integral plus the fractional-noise increment, avoiding a stochastic integral of a state-dependent diffusion coefficient."
+        }
+      ],
+      "gap": "The remaining dynamics interface supplies the fractional driver and a pathwise solution theorem for the drift, without imposing a semimartingale or Markov property."
+    }
+  },
+  {
+    "interface_id": "local-4d5b5b1d8461d485f064",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "3a1ca01cc4ecfd970e9e588d54aab6b267e1dd5cfd99c99870b4d4b6a813b2e2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D32",
+        "comparison": "Retain T_T={(y,h) in script T:h>=h_min(T)} with the original rational locations and bandwidths and the existing upper/domain constraints. Do not choose a bandwidth formula, numerical grid, clipping rule or nonemptiness convention from intuition. The main text refers to Remark B.1 in Appendix B for why this restriction suffices; that excluded reference is recorded and is not replaced by a new proof or guessed threshold.",
+        "statement_sha256": "52a8ad006e587247730d24c059b42b4c4ce840069b643ffb310568c833a073d0"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Restricted rational location-bandwidth index set with a minimum implementation bandwidth; inspected predicate-defined subsets and the frozen excluded-reference record.",
+          "result": "Intersecting the original index set with h>=h_min(T) defines the displayed restriction for any supplied threshold function, but its exact value and sufficiency claim are deferred by the source."
+        }
+      ],
+      "gap": "The restricted set is definable once h_min(T) is supplied; its exact threshold and implementation sufficiency remain unresolved because their definition is in the excluded supplement."
+    }
+  },
+  {
+    "interface_id": "local-f33d96966de3b26dc96b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "9b3836f45a3cd4e0705c15e13775749dcf38d25d6a290275e64f705a92402d48",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D29",
+        "comparison": "Use the signed integral from f(0) to f(T) of K_(y,h)(z), minus sigma squared over two times the time integral of the localized-kernel derivative evaluated at f(s). Preserve reversal of the endpoint-integral sign when f(T)<f(0) and the suppressed y,h dependence of tilde-I_T. This functional accepts any continuous path; it is not defined by a Riemann-Stieltjes integral against that path. Keep the fixed sigma squared correction even when later evaluating it on fractional-noise paths; no fractional Itô identity is asserted by the definition.",
+        "statement_sha256": "abd6d0ba8d68c4c6ee58857e1de2bc7e13ef261a2a81b0521dc13c03ee57810f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "deriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "Scalar derivative as the Frechet derivative evaluated at one, with the total derivative convention outside differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L153-L154",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Deterministic pathwise replacement of the kernel stochastic integral by an endpoint integral and derivative occupation correction; inspected oriented interval integration and derivative definitions.",
+          "result": "Both terms are classical integrals for a continuous path and a C1 localized kernel, giving a deterministic real-valued functional on path space."
+        }
+      ],
+      "gap": "The functional is directly definable by interval integrals, while its equality to the diffusion stochastic integral and continuity properties require separate arguments."
+    }
+  },
+  {
+    "interface_id": "local-877f09625b4994c6042b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "82035a5b85bbebae730722312f8e01a0b369a8cd1ecc3e32463ee81d23104995",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D31",
+        "comparison": "Subtract integral_0^T K_(y,h)(f(s))*b0(f(s)) ds from tilde-I_T(f) and divide by sigma*sqrt(integral_0^T K_(y,h)(f(s))^2 ds). The two displayed fractions share exactly that denominator and contain no extra 1/T factor. The source restricts f to D_A,T and asserts no division by zero, but its inherited norm-at-most-one kernel condition permits K identically zero. Do not silently extend the earlier stochastic-score zero fallback to this pathwise formula or claim endpoint visits alone prove positivity without a nonzero continuous-kernel argument.",
+        "statement_sha256": "b13057f5b5c3225380d856f72d4316994b1b0f6de3d8c45e916dab8eeba2dbb4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pathwise standardized local score on paths visiting both spatial endpoints; inspected ordinary occupation integrals and real square root.",
+          "result": "The deterministic numerator and drift correction can be divided by the kernel occupation normalizer when that normalizer is positive. The stated path domain alone does not handle the zero-kernel edge case."
+        }
+      ],
+      "gap": "The score is definable from ordinary integrals on a positive-normalizer domain, with the source's zero-kernel issue left explicit."
+    }
+  },
+  {
+    "interface_id": "local-751ce12e69fd332babc9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "11de6603f8040d44b04c335b379a90c3befddb64b5254b307c36bd1d35aa78b8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D33",
+        "comparison": "Use the pathwise local score tilde-Psi(f), subtract the tolerance term and Upsilon scale correction, and take the supremum over T_T rather than the full script T. Preserve the printed Lambda^eta(X) even though the functional is of f; the surrounding classical-integral explanation supports evaluating components on f but does not alter the original formula. The same input-path occupation integrals and their normalizations are intended, without a new stochastic integral. Keep the excluded h_min(T) formula and zero-normalizer/logarithmic issues visible rather than inventing a numerical implementation or declaring pathwise continuity proved.",
+        "statement_sha256": "1d24d81a6c62749efaa56a5078a88ee4d281787bee8598b86f29b4e3b68472d1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Extended pathwise similarity statistic over the bandwidth-truncated index set; inspected ordinary-integral components and supremum construction with source X/f notation discrepancy.",
+          "result": "Once the pathwise score, empirical scale and tolerance terms are interpreted on the input path, the statistic is a supremum over the supplied restricted index set. The source's retained X argument and missing threshold specification prevent an unqualified exact implementation claim."
+        }
+      ],
+      "gap": "The remaining definition resolves the X-versus-f argument and h_min(T) input while supplying valid component boundary conventions and a finite measurable supremum."
+    }
+  },
+  {
+    "interface_id": "local-d8a0d4f339aeef44e61d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "9182bb3a6b82b12951bb96025181bd9716ad924e5c1e3ef0c4643be8d74e36ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D19",
+        "comparison": "Take the law of max(U1,U2)+4*sqrt(A*eta/sigma^2), keeping the shared-driver dependence between U1 and U2. Use the minimum r with P(value<=r)>=1-alpha, not a supremum-tail convention or independent-product approximation. This is the limiting similarity threshold kappa_(eta,alpha), distinct from the finite-T simple-null quantile. For 0<alpha<1 a proper finite real law gives the usual quantile domain; endpoint alpha cases and possible infinite or undefined Gaussian suprema require separate handling. IsLeast states the minimum property without choosing or proving such a value exists.",
+        "statement_sha256": "a438c1b9fbb4fe567c627debc55da5a163813d3f24452f8cfd628b6eabb685d2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "IsLeast",
+          "type": "{α : Type u} → [LE α] → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Bounds.Defs",
+          "provides": "Membership in a set together with being a lower bound of that set; expresses an attained least element.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Bounds/Defs.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Minimum upper-CDF quantile of the maximum of two coupled Gaussian suprema plus deterministic shift; inspected CDF and least-element predicates.",
+          "result": "The threshold can be characterized as the least real number whose CDF value reaches 1-alpha for the specified limiting random variable, provided such a finite minimum exists."
+        }
+      ],
+      "gap": "CDF and least-element predicates express the threshold after establishing the limiting law and finite quantile attainment on the intended alpha domain."
+    }
+  },
+  {
+    "interface_id": "local-df64c6d4715a49150c4e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "feb73b84f29b2a6bacb5c35fd36ce09e22ca4e55d2a5e44d1b180c10af5665a9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D20",
+        "comparison": "Return one exactly when T_T^eta(X)>kappa_(eta,alpha) and zero otherwise. Preserve the strict rejection inequality, so equality with the critical value is nonrejection, and use the similarity statistic and limiting threshold rather than the simple-null finite-T threshold. Measurability follows only after the supplied statistic is measurable; the indicator definition itself proves neither uniform level control nor optimal power.",
+        "statement_sha256": "1790b809c50b1e8eb82b7968856069ea3b5ad9d15cdfa3b85ec4e8b69fe6d20a"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Binary similarity test rejecting above the limiting threshold; inspected real-valued set indicator construction.",
+          "result": "The indicator of the strict exceedance event directly defines the binary test once the statistic and critical value are supplied."
+        }
+      ],
+      "gap": "The rejection function is directly expressible, while its size and power properties require the separate probability bounds."
+    }
+  },
+  {
+    "interface_id": "local-f9582e9aea41ee566534",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "29f376f214ddd6fc9fce6818da61081b9c955b4f7d182c04b74c9b35ea007ac8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D35",
+        "comparison": "Use one fixed probability space and one Brownian motion W for all H, with W_t^H=integral_0^t K_H(t,s) dW_s. The coupling across H is additional structure beyond each fractional marginal covariance, and independent realizations for different H would not implement it. The source specifies K_H only in excluded equation (I.8), so neither a generic alternative Volterra kernel nor a classical Bochner integral may be substituted. Preserve the stated realization identity at H=1/2 with the original W; equality of marginal Brownian laws is weaker than that identity on the common space.",
+        "statement_sha256": "44dbc9efbea5044e9b03c5d0964638c43b5f3ee931a8ced4201c0147ac91e56f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Common-space Volterra representation for fractional Brownian motions as H varies; bounded Wiener/fractional-integral search and inspection of Brownian law and deterministic L2-integrand ingredients.",
+          "result": "A common Brownian driver and deterministic square-integrable kernels can in principle construct the coupled Gaussian family, but the exact kernel needed by this source is deferred to the excluded supplement."
+        }
+      ],
+      "gap": "The remaining coupling requires the source kernel K_H and a Wiener-integral construction with its cross-H covariance and H=1/2 normalization verified."
+    }
+  },
+  {
+    "interface_id": "local-db8f0d604dcd93c0e5b9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "dd74b8a13166228db63edb172180c6e369e8882d5595142afbaecd92bee068c5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D37",
+        "comparison": "Restrict b both to the previously defined Sigma class and to globally Lipschitz continuous functions, stronger than the local Lipschitz condition already inside Sigma. Use the same deterministic initial x0 for X^(H,b) and the Brownian solution X^b, with drivers coupled as in D35. Do not reintroduce the stationary initial law or infer that all H solutions are Markov or semimartingales. The later Theorem 6.5 displayed hypothesis classes do not repeat this global restriction, a saved source-scope ambiguity that the solution notation should not conceal.",
+        "statement_sha256": "54de539ab477956e7c4bdf6e9d78085802e6e38c4c390fb992edb2b536a842ce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        },
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Coupled solution processes with globally Lipschitz drift and fixed initial state; inspected global Lipschitz and classical additive-noise integral equation ingredients.",
+          "result": "For each continuous coupled driver, an ordinary integral equation with globally Lipschitz drift can define a unique pathwise solution. Comparing different H values also needs stability with respect to the common driver."
+        }
+      ],
+      "gap": "The remaining interface proves existence, uniqueness and driver stability for the fixed-start coupled solutions, retaining the global drift restriction and source theorem-scope ambiguity."
+    }
+  },
+  {
+    "interface_id": "local-96fb570464ffcb6789b2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "5bd27551796483842733a354a25a124a349c9392ae0f51dfd41a13d265b710ec",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D38",
+        "comparison": "Retain d_BL as the named dual bounded-Lipschitz metric and d_BL^b as dependence on the law induced by drift b. The main text describes a closed unit ball of bounded Lipschitz functions on a metric space but defers normalization to excluded Appendix F.1; do not select a sum-norm or max-norm unit ball, identify exact numerical distances across those conventions, or replace it by Kolmogorov or Wasserstein distance. Weak-convergence declarations provide related topology rather than the missing source metric formula, and the relevant space may be a path or process space rather than just the real line.",
+        "statement_sha256": "b28e985aa236617187c450f853364a47176975b8329a69b765dc181cc2a6de60"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto",
+          "type": "{Ω : Type*} → [MeasurableSpace Ω] → [TopologicalSpace Ω] → [OpensMeasurableSpace Ω] → {γ : Type*} → {F : Filter γ} → {μs : γ → MeasureTheory.ProbabilityMeasure Ω} → {μ : MeasureTheory.ProbabilityMeasure Ω} → (Filter.Tendsto μs F (nhds μ) ↔ ∀ f : Ω →ᵇ ℝ, Filter.Tendsto (fun i ↦ ∫ ω, f ω ∂(μs i : MeasureTheory.Measure Ω)) F (nhds (∫ ω, f ω ∂(μ : MeasureTheory.Measure Ω))))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Weak convergence of probability measures is equivalent to convergence of integrals against all bounded continuous real test functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L364-L368",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Dual bounded-Lipschitz metric with drift-dependent laws and deferred norm normalization; inspected Lipschitz test functions, probability integrals and weak-convergence topology.",
+          "result": "Differences of integrals over a bounded-Lipschitz test class can define a weak-convergence metric, but the exact unit-ball norm convention is not specified in the retained main text."
+        }
+      ],
+      "gap": "The remaining exact metric definition needs the source's bounded-Lipschitz norm convention and domain, while its drift superscript labels the compared probability laws."
+    }
+  },
+  {
+    "interface_id": "local-b58592ce173f532738c6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:34:26.706959+00:00",
+    "source_interface_sha256": "ce18e95b194266a2ea93d3054a41aa8d3297446ab06357e72a40bddc6e8d6ffc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D6",
+        "comparison": "Use b0 in Sigma(C/2,A,gamma,sigma) as printed, test ||b-b0||_[-A,A]=0 against a strictly positive interval norm with b in Sigma(C,A,gamma,sigma). This is equality only on [-A,A], not global drift equality, Lebesgue-a.e. equality with arbitrary representatives or a positive-tolerance similarity null. The norm is the pointwise supremum and the tightened class inherits the source's unresolved C>=1 versus C/2 compatibility issue. Do not attach the proposed multiscale rejection rule or power conclusion to the hypothesis definition itself.",
+        "statement_sha256": "c19d56bf82d56d2acdfa2af3454e72e3d2c17a4169c6d1a67ed8e93ba267fec2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Set.EqOn",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Agreement of two functions on a specified set, allowing observed and supplied potential variables to be equated on received-treatment events without asserting any causal identification theorem.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L291-L291",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Simple drift equality null on a compact interval versus a nonzero uniform deviation within the drift class; inspected uniform supremum and pointwise equality-on-set predicates.",
+          "result": "For bounded drift differences, zero pointwise supremum norm is equivalent to equality throughout the interval; positive norm defines the stated alternative within the admissible drift class."
+        }
+      ],
+      "gap": "Uniform bounds and equality on a set express the hypotheses, with the tightened reference-class parameter compatibility retained as a source condition."
+    }
+  }
+]

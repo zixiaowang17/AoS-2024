@@ -1,0 +1,533 @@
+[
+  {
+    "interface_id": "local-417e35216b5917ce6a15",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "517868168e4183ef39dd579459283b4bb2194c434c1167909ad65d5914eb654b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D1",
+        "comparison": "Use n measurable observations valued in [0,1]^d times a two-point treatment type times the reals, with iIndepFun across observations and IdentDistrib for their common joint law. These predicates concern whole triples and do not require X, A and Y within one observation to be independent. The source's blackboard P is the true joint law; a generic model law P and the covariate distribution F are distinct. F is obtained by measurable projection to X using Measure.map, with its multivariate distribution function defined from lower coordinate rectangles. A covariate density is needed only where asserted and requires absolute continuity; bounded covariate support alone provides neither such a density, positivity near x0, treatment overlap nor outcome moments. The totalized map branch for nonmeasurable functions is not an observation-law construction.",
+        "statement_sha256": "70e732891377a6c9f8d6e28a911c555ebba05c00b6e0cec377f6d119e7e3bd32"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected iIndepFun and IdentDistrib with their measurable-space parameters and law-equality field, and Measure.map's measurable and fallback branches; searched Probability and Analysis for conditional-average-treatment and R-learner interfaces.",
+          "result": "Independent identically distributed measurable triples and their covariate marginal can be assembled directly from the inspected probability primitives."
+        }
+      ],
+      "gap": "Instantiate the bounded-covariate, binary-treatment, real-outcome sample space and define the covariate marginal and any additionally required density."
+    }
+  },
+  {
+    "interface_id": "local-ed22a58c6e93249a93b1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "1e583b8a0ce16734cdeeac6f5760a16498dcbfd102d940318d3ad3b6e778281b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D4",
+        "comparison": "For positive s let r be the largest integer strictly below s: at integer s, r=s-1 and the residual exponent is one, rather than taking an order-s derivative with exponent zero. ContDiffOn at finite order r gives the continuous differentiability component, while iteratedFDerivWithin evaluated on coordinate directions can represent the multi-index partial derivatives after the required within-domain uniqueness and coordinate identifications are proved. Bound every derivative of order at most r, including g itself at order zero, by the common finite C, and apply HolderOnWith exponent s-r to every order-r partial derivative. Use the Euclidean metric specified in the paper; the default supremum norm on a raw coordinate function space is not literally that norm. The multi-indices alpha and beta here are not the scalar nuisance smoothness indices. The omitted Holder radius stays fixed independently of n; the declarations alone provide neither its value nor a uniform bound across unrestricted functions.",
+        "statement_sha256": "3398180f0eae7bda8f9e785543999fd3af9468a3f3bcb8f48d531d1ba40b0174"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedFDerivWithin",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → Set E → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivative within a set, as a continuous multilinear map; coordinate partials and uniqueness on the domain require their own identifications.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L398-L400",
+          "link_checked": true
+        },
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected ContDiffOn, iteratedFDerivWithin and HolderOnWith definitions and parameters; compared the frozen strict-floor definition and its source-note limits to the calculus and metric formulations.",
+          "result": "Continuous differentiability and Holder continuity primitives are available, but the particular multi-index derivative bounds and strict-floor convention need an explicit class definition and derivative-coordinate comparison."
+        }
+      ],
+      "gap": "Define the fixed-radius multi-index Holder class using the largest integer strictly below s and prove its relation to the inspected derivative and Holder predicates."
+    }
+  },
+  {
+    "interface_id": "local-0d2ccbfbf15dd8cb7503",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "78f7d7d9a76edd5ed757997fb0cc950a177a9975bcde6e9d31aa5df030ac20b1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D2",
+        "comparison": "Conditional expectation of the indicator A=1 given sigma(X) supplies pi(X); conditioning Y on sigma(X) supplies eta(X), and conditioning Y on sigma(X,A) supplies mu_A(X), once Y is integrable and suitable factorized versions are chosen. condExp is a random-variable representative determined almost everywhere, not automatically a uniquely defined function at every x or every treatment value. Its nonintegrable fallback zero is not a valid source regression. The mixture identity eta=pi*mu1+(1-pi)*mu0 yields tau=(eta-mu0)/pi where pi is positive; the definition provides no zero-propensity convention and the lower-bound model does not import Theorem 2's overlap condition. The smooth nuisance in the main theorem statements is the control regression mu0, not the marginal eta. No potential-outcome interpretation is implied by these conditional-expectation primitives.",
+        "statement_sha256": "810795d42c33a2e0f0d8085202b8e5cefb68d726ea46d906618a08a25aa29c9e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected condExp's sub-sigma-algebra, sigma-finiteness and integrability branches and the observed-law definitions; searched Probability for conditional average treatment and R-learner interfaces.",
+          "result": "Conditional expectations represent the propensity indicator and the marginal or treatment-conditioned outcomes on the sample space; pointwise covariate versions and the division identity require further hypotheses."
+        }
+      ],
+      "gap": "Construct chosen covariate-indexed conditional versions and establish the mixture and division identities on their valid integrability and positive-propensity domain."
+    }
+  },
+  {
+    "interface_id": "local-402a33483b492abde679",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "5d45ddaf87ac884ccd0d4f22947646161aa3f44793d6a553b449ba418c59b7f7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D3",
+        "comparison": "Define tau(x0)=mu1(x0)-mu0(x0) for the chosen versions at the interior point x0, and integrate the absolute difference from the sample-dependent estimate. The expectation is over the data, including any random training inputs in the estimator's joint experiment, not an average over new covariates x0. MeasureTheory.integral returns zero outside its integrability domain, so it can express a real mean absolute error only after measurability and first-error-moment finiteness are established; lintegral of the nonnegative error embeds the possibly infinite risk faithfully. A density upper bound alone does not make a conditional regression identifiable at every fixed point. This is an observed-data contrast; the separately stated assumptions needed to identify a potential-outcome CATE are not necessary to write the statistical functional and are not inferred here.",
+        "statement_sha256": "dee11202d942763d9bf1d5c2e686648b7d66b561e7084b6e6dc94b0113c02206"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integral and nonnegative lower integral bodies and compared the frozen pointwise contrast with both theorem statements and source-note limits on conditioning and causal interpretation.",
+          "result": "Expectation of a finite integrable absolute error is a real integral, or an extended nonnegative integral if finiteness has not been shown; the pointwise regression versions and statistical estimator remain to be specified."
+        }
+      ],
+      "gap": "Specify the pointwise conditional-regression versions and measurable sample estimator, then integrate its absolute error under the sampling law."
+    }
+  },
+  {
+    "interface_id": "local-86ea40bfd59c8e131bba",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "00323b2560848c3c875d7d5aca7bd0cb9e072a379b2463ce4e833a23136c1e6e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D10",
+        "comparison": "For nonzero bandwidth the affine map from x to 1/2+(x-x0)/h is measurable; Measure.map applied after Measure.restrict represents an unnormalized local image measure. Its total mass equals the mass of the restricted region rather than automatically one. Conditional normalization would require a further positive-mass rescaling, and h^-d rescaling is another distinct choice; neither factor is inserted by the printed differential notation dF(x0+h(v-1/2)). The quoted h-ball, the kernel's Euclidean h/2-ball and the integration cube are not identical descriptions under this map. Consequently these two primitives support the transformation mechanism without certifying any single candidate as the exact F-star in the source's norms or density ratios. Do not resolve the ambiguity by switching to a supremum-norm ball or by changing Gram eigenvalue scales.",
+        "statement_sha256": "54811c5ca1acbda1e18b0eacb299058190f06e978082ad3f2ad6cc4509d0a451"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.restrict",
+          "type": "{α : Type u} → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → Set α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Restrict",
+          "provides": "Restriction of a measure to a specified set, retaining its mass rather than normalizing to a probability measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Restrict.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected event restriction and measurable pushforward definitions; compared frozen D10 and the localization source-note limits covering normalization, ball versus cube, and radius h versus h/2.",
+          "result": "Restricting a covariate measure and pushing it forward by the affine localization map supplies candidate local measures, but the source does not determine a unique normalization and domain convention."
+        }
+      ],
+      "gap": "Resolve the source's local domain and normalization convention before identifying F-star with a particular restricted affine pushforward."
+    }
+  },
+  {
+    "interface_id": "local-bbb47487065d3a0ae018",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "69040f457c46176a00c211b830859bee1e5544a7a5aa4c5ca9839170f7920704",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D5",
+        "comparison": "Polynomial.shiftedLegendre m has integer coefficient (-1)^ell choose(m,ell) choose(m+ell,m). The source rho_m has coefficient (-1)^(ell+m) sqrt(2m+1) choose(m,ell) choose(m+ell,ell), so after evaluation in the reals it is (-1)^m sqrt(2m+1) times the library polynomial, using binomial symmetry. The sign matters already at m=1: the library yields 1-2x, while the normalized source yields sqrt(3)(2x-1). The inspected algebraic results give no orthonormality theorem on [0,1]. Form products indexed by multi-indices of total degree at most the strict floor of gamma; their count is choose(d+r,r), not (r+1)^d. Compose with 1/2+(x-x0)/h to obtain rho_h. Set.indicator represents the closed Euclidean h/2-ball kernel with the external h^-d multiplier; retain the source's Euclidean convention despite later cube language, and require positive bandwidth for the intended localization.",
+        "statement_sha256": "bad8d6d2b292389c062938dad09f55d03e2343804fb86f0767f48c610593b87b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Polynomial.shiftedLegendre",
+          "type": "ℕ → Polynomial ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.Polynomial.ShiftedLegendre",
+          "provides": "Integer shifted Legendre polynomials with coefficient (-1)^k choose(n,k) choose(n+k,n); the source paper's normalized convention additionally multiplies by (-1)^n sqrt(2n+1).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/Polynomial/ShiftedLegendre.lean#L40-L41",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Located ShiftedLegendre.lean via rg --files and inspected its complete polynomial definition, coefficient proof, degree and reflection results; inspected Set.indicator and compared the literal source coefficients and total-degree basis.",
+          "result": "A shifted Legendre polynomial family exists, with a different degree-dependent sign and without the paper's normalization; the inspected file does not establish the required L2 orthonormality or localized multivariate construction."
+        }
+      ],
+      "gap": "Convert the library polynomial by the degree sign and normalization factor, build the total-degree product basis and affine localization, and prove its stated orthonormality."
+    }
+  },
+  {
+    "interface_id": "local-a849f0e6e723cac6d742",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "25baca8ac0b3f6b1dd4b82448380cea9cadfc5ecda78b514b09606413d92e13e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D9",
+        "comparison": "Use the nonnegative weight K_h*pi*(1-pi) under the covariate law to form a weighted L2 space and the span of the q localized polynomial coordinates. Matrix.vecMulVec constructs rho_h rho_h transpose for Q; R contains the same weight times rho_h*tau. Projection minimality gives the geometric least-squares characterization once the functions lie in L2 and the finite-dimensional span is represented with its projection instance. A normal-equations and nonsingularity proof then gives theta=Q^-1 R and tau_h(x0)=rho_h(x0) transpose theta. IsMinOn alone is a predicate, not a chosen minimizer or an attainment proof; Matrix.mul_nonsing_inv requires a unit determinant. The eigenvalue lower bound on Q in Theorem 2 can supply nondegeneracy, but the definition alone has no singular convention. Q is q by q and differs from the k by k correction Gram matrix Omega. The projection does not assert that tau is exactly a polynomial or that tau_h(x0)=tau(x0).",
+        "statement_sha256": "41b6a34a9e2b123026fca80e0b1cc25757766a97f3ab506a8ea3fb44d9986965"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection_minimal",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → {U : Submodule 𝕜 E} → [U.HasOrthogonalProjection] → (y : E) → ‖y - U.starProjection y‖ = ⨅ x : U, ‖y - x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "The orthogonal projection attains the infimum distance to its subspace, providing the geometric least-squares characterization.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L228-L229",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsMinOn's domain semantics, outer-product and inverse bodies, and the full orthogonal-projection minimal-distance proof; compared the source weighted objective, Q and R with Theorem 2's spectral assumptions.",
+          "result": "Least-squares minimization, Gram outer products and a genuine inverse are supported as ingredients; a weighted-L2 normal-equations argument must connect them under the paper's integrability and nondegeneracy conditions."
+        }
+      ],
+      "gap": "Construct the weighted polynomial projection and prove that its unique coefficients solve Q theta=R with invertible Q."
+    }
+  },
+  {
+    "interface_id": "local-5436667345eb04ebe392",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "64ae6b9db8f96d2afbae2c1cbb4f3e16e8691b138344daf4d7376a30f7408054",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D6",
+        "comparison": "Set.indicator accepts the vector-valued function x maps to b(1/2+(x-x0)/h), returning that vector inside the set norm(x-x0)<=h/2 and zero outside, exactly reproducing multiplication by the scalar indicator. The ball includes its boundary and uses the source's Euclidean norm. No h^-d factor belongs in b_hk itself; that factor occurs separately in K_h. Supply positive h for a meaningful stretch and retain k as the possibly sample-size-dependent input dimension, separate from the fixed q-dimensional Legendre family rho. This pointwise construction neither proves basis independence in the local L2 measure nor supplies the approximation rate later required of b.",
+        "statement_sha256": "89adca51a36cde538a34f28fcf6da5b079c8c2476d6514415ad9e0018e1996e9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Set.indicator's generated additive definition and evaluated its membership branches against the source's localized vector-valued basis formula.",
+          "result": "Indicator applied to the affine composition gives the exact localized k-vector for a supplied basis and valid bandwidth."
+        }
+      ],
+      "gap": "Define the affine composition of the supplied k-dimensional basis and apply the indicator of the closed Euclidean h/2-ball."
+    }
+  },
+  {
+    "interface_id": "local-e46356442fe05d4f1e78",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "771a8ca73926e168af283c2af1951e39e7d9eb02496588585f6bcddf1f9326c2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D12",
+        "comparison": "After choosing the unresolved local measure convention, place g and the k basis coordinates in L2(F-star) and take starProjection onto their finite-dimensional span. The norm of g minus its projection expresses the printed residual, independently of which coefficient vector represents the projected function. IsBigOWith can record a constant bound along k tending to infinity, but an eventual bound for each g with arbitrarily varying constants is not the uniform approximation property needed across the relevant fixed-radius Holder class and bandwidths. If the condition is intended for every admissible k, retain that stronger explicit quantifier rather than only eventuality. Here s denotes any positive smoothness index and need not equal (alpha+beta)/2. General projection minimality supplies no k^(-s/d) convergence rate, and local measure normalization affects the L2 scale, so neither can be hidden by the primitive declarations.",
+        "statement_sha256": "c7f8f6a13ccaef06e829e25c1db33f39b47a1befd88ca555dbdbe894fe730aec"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected starProjection's ambient endomorphism body and HasOrthogonalProjection parameter, and IsBigOWith's eventual norm inequality; compared D11, D12 and the fixed-radius source Holder convention.",
+          "result": "L2 projection residuals and an explicit-constant rate predicate are available; the optimal k^(-s/d) approximation rate is an extra basis assumption and is not a consequence of generic orthogonal projection."
+        }
+      ],
+      "gap": "Build the basis spans in the chosen F-star L2 spaces and state or prove the k^(-s/d) residual bound with the required uniform constants."
+    }
+  },
+  {
+    "interface_id": "local-464928b8f4dda4dbf1ee",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "a3a369cc4d979f0cdaf5bf468c4a75ed0af04adb35c462cd18700913de8ac1a1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D7",
+        "comparison": "IndepFun can encode independence of the complete training sample D^n and the evaluation sample used by U_n; measurable fitted (F-hat, pi-hat, mu0-hat) inherit independence from that experiment. It does not supply their estimation algorithms or imply cross-fitting. Matrix.vecMulVec constructs b(v)b(v) transpose and the integral gives a k by k matrix on v in [0,1]^d, provided the entries are integrable under the transformed estimated measure. The source's dF-hat(x0+h(v-1/2)) contains no explicit conditional or h^-d normalization, and the cube must not be silently replaced by the kernel ball. The integral's fallback zero for nonintegrable functions is not a Gram estimator. An empirical F-hat may yield a singular matrix at the chosen k; no clipping, ridge term or singular inverse fallback is specified. The q by q Q-hat is a separate matrix, and this definition alone does not construct nuisance estimators satisfying all of Theorem 2's simultaneous conditions.",
+        "statement_sha256": "f93949f26dab11a8db22924e2fa6462ff2e4d7743b4b2a2e514b0a8cecc29e31"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IndepFun, vector outer products and Bochner integral bodies; compared frozen D7 and its source notes on independent training, transformed estimated measure and empirical Gram singularity.",
+          "result": "The random nuisance inputs, independent training experiment and matrix-valued Gram integral can be expressed from library primitives, but their construction, transformed-measure convention and invertibility are not provided."
+        }
+      ],
+      "gap": "Specify measurable independently trained nuisance estimators and the local estimated measure, then form the Gram integral and establish any inverse conditions separately."
+    }
+  },
+  {
+    "interface_id": "local-30214b088820508e06b7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:23:14.252009+00:00",
+    "source_interface_sha256": "52668b309ab58e5fe9ab0f79bbfcc829f65bcecffc4e5858ac1f21ddefe1a94e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0793",
+        "local_id": "D8",
+        "comparison": "Build Q-hat as the 1/n sample average of rho_h(X) K_h(X) A(A-pi-hat(X)) rho_h(X) transpose plus the 1/[n(n-1)] sum over ordered distinct pairs of rho_h(X1) K_h(X1) phi_a2(Z1,Z2) K_h(X2) rho_h(X1) transpose. Retain that final X1 literally: equation (9) later has X2 and does not authorize replacing the definition. The first-order a kernel is A times its residual, not the squared residual. The y kernel is (Y-mu0-hat(X))(A-pi-hat(X)). The second-order a kernel is minus (A1-pi-hat(X1)) times b_hk(X1) transpose Omega-hat^-1 b_hk(X2) times A2; its y counterpart replaces the terminal A2 by Y2-mu0-hat(X2). R-hat averages rho_h K_h times the y kernel and adds its ordered-pair correction with both K_h factors and no final rho transpose. Finally use rho_h(x0) transpose Q-hat^-1 R-hat. The q by q and k by k inverses are distinct, each needs nonsingularity, and the library's totalized singular inverse would invent a source fallback. Pair normalization needs n>=2; it cannot be replaced by an unordered-pair average without a symmetry argument. All fitted inputs share the separate independent training sample. Matrix primitives do not prove the claimed risk bound, repair the formula discrepancy or provide the missing nuisance-estimation implementation.",
+        "statement_sha256": "5ea536a46bd14eb0df3680a6400a7683f995b52abbfe027fe2f5bd9a0c38023a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability and Analysis for R-learner, local-polynomial and higher-order learner interfaces with no specialized result; inspected matrix-vector, outer-product and inverse bodies and compared each of the four source kernels and aggregation terms.",
+          "result": "Finite matrix algebra supports the estimator's arithmetic, but the ordered-pair correction, trained kernels and source-specific formula must be defined; no specialized estimator or risk theorem was verified."
+        }
+      ],
+      "gap": "Implement the four printed kernels and normalized empirical and ordered-pair sums, retaining the source's Q-hat index discrepancy and proving both inverse domains."
+    }
+  }
+]

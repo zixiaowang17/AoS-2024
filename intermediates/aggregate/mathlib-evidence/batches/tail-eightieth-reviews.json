@@ -1,0 +1,130 @@
+{
+  "scope": "Manual archive-pinned comparison of twelve remaining interfaces and thirteen source variants from aos-2024-v52-i02-p0415, retaining parametric/general-model and two-stage/multi-stage distinctions.",
+  "rows": [
+    {
+      "interface_id": "local-faacd2564fad77ca48a3",
+      "related": ["IsMinOn", "dotProduct", "PiLp.norm_eq_of_L1", "Finset.sum_apply"],
+      "query": "First-time DR slope estimate using inner split, second-time nuisance fitting and imputed penalized least squares; bounded Lasso/sequential-robust search and inspection of minimizing predicates, finite linear predictors and L1 penalty formula.",
+      "result": "The imputed outcome and penalized objective are finite real expressions, and IsMinOn states their minimization. An estimator implementation still needs the inner training/evaluation split and selections for each nuisance and final argmin.",
+      "gap": "The remaining estimator supplies measurable minimizer selections and the two-way inner-split fitting procedure while preserving its DR response and full L1 penalty.",
+      "comparisons": {
+        "D16": "Fit tilde-delta_a and tilde-alpha_a on J_1, then on J_2 form U_i dot tilde-alpha_a + 1(A2_i=a2)*(Y_i-U_i dot tilde-alpha_a)/g(U_i dot tilde-delta_a). The imputation formula itself has no A1 indicator; that indicator weights the subsequent regression of the imputed response on V_i. Normalize the objective by |J_2|, not by the number of A1 matches, and penalize the full beta vector including its intercept coordinate as printed. For the averaged version swap the inner samples, repeat both nuisance fitting and regression, then average the two slopes. Retain positivity of lambda_beta and valid nonempty split sizes; generic IsMinOn does not choose among ties or certify double robustness."
+      }
+    },
+    {
+      "interface_id": "local-a61524fb964a0b05ca2d",
+      "related": ["IsMinOn", "dotProduct", "PiLp.norm_eq_of_L1"],
+      "query": "Nested imputed first-time Lasso regression of the fitted second-time linear response; inspected minimizing predicate, finite dot product and full L1 penalty.",
+      "result": "The supplied second-time fitted values define a weighted least-squares objective over first-time coefficients, with the usual finite L1 penalty. This objective differs from the DR-imputed regression.",
+      "gap": "The remaining estimator selects a measurable minimizer of the nested-response penalized objective for the supplied fitted second-time slope.",
+      "comparisons": {
+        "D17": "Use U_i dot alpha-hat_a as the response and V_i dot beta as predictor, weight by 1(A1_i=a1), divide by |J| and add lambda_beta*sum_j |beta_j| over all d1+1 coefficients. There is no observed-outcome residual correction or fitted second-time propensity in this response, and no DR inner split is imposed by the definition. Keep the target beta_a,NR-star distinct from the first-time DR projection beta_a-star; neither sample argmin uniqueness nor a regression rate follows from the objective alone."
+      }
+    },
+    {
+      "interface_id": "local-b7b38178a009e396b0c9",
+      "related": ["Set.indicator", "MeasureTheory.integral"],
+      "status": "composable",
+      "query": "General two-stage DR score with arbitrary working nuisance functions and target-centered score second moment; inspected indicators and real integration and compared the second moment with centered variance.",
+      "result": "Indicators, real arithmetic and integration define the score and its squared contrast around theta without requiring logistic or linear working models.",
+      "gap": "The score and target-centered second moment are definable on their nonzero-denominator and finite-moment domain; equality to a variance or identification of the target requires additional correctness assumptions.",
+      "comparisons": {
+        "D27": "For each c use mu_c-star(S1), add the A1=c1 correction (nu_c-star(S)-mu_c-star(S1))/pi_c-star(S1), and then add the joint A1=c1,A2=c2 residual correction (Y-nu_c-star(S))/(pi_c-star(S1)*rho_c-star(S)). All four inputs are arbitrary working functions here. Interpret sigma squared as E[(psi_a-star-psi_a'-star-theta)^2], preserving the source's squared-moment convention rather than the square of an expectation. Under misspecification the score contrast can have mean different from theta, so this is not automatically its variance. Denominator validity and integrability cannot be replaced by totalized real division or a zero nonintegrable integral."
+      }
+    },
+    {
+      "interface_id": "local-6d63a46041ff1ef50c58",
+      "related": ["IsMinOn", "PiLp.norm_eq_of_L1", "Finset.filter", "Finset.sum_apply"],
+      "query": "Dynamic Treatment Lasso algorithm with outer cross-fitting and nested imputed Lasso; bounded dynamic-treatment/Lasso search and inspection of regression, finite-fold and averaging ingredients.",
+      "result": "Finite fold bookkeeping and score averaging support the outer algorithm, while the fitted nuisance objectives and nested first-time slope must be supplied through measurable estimator selections.",
+      "gap": "The remaining implementation assembles the selected nuisance fits and nested first-time regression across outer folds and establishes its statistical properties.",
+      "comparisons": {
+        "D20": "Partition N observations into K>=2 equal folds with n=N/K integral, train gamma-hat_c, delta-hat_c and alpha-hat_c on the complement for both contrast paths, then fit beta-hat_c,NR using U dot alpha-hat_c on that same training set. Evaluate the parametric score on the held-out fold, average fold contrasts with 1/K and compute the displayed 1/N centered second-moment estimate over all held-out scores. Do not insert the S-DRL inner halves or DR imputation. Fold-specific nuisance estimates remain implicit in the source's displayed score notation, including its delta_c binder discrepancy; training-set overlap prevents treating fold estimates as independent. No rounding or K growth regime is supplied by the algorithm."
+      }
+    },
+    {
+      "interface_id": "local-c3528283ea717fd6b029",
+      "related": ["Set.indicator", "Finset.filter", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "General cross-fitted two-stage dynamic treatment-effect estimator and empirical score second moment; inspected finite folds, indicators and finite function sums.",
+      "result": "Given fold-trained nuisance functions, the score expression and its held-out average and centered second moment are direct finite constructions independent of a particular fitting algorithm.",
+      "gap": "Finite operations suffice for the estimator once fold-trained nuisance functions and valid denominator domains are supplied, while consistency and variance estimation require separate assumptions.",
+      "comparisons": {
+        "D26": "Use K equal folds with K>=2 and n=N/K an integer. Train all four nuisance functions for each contrast path on W_-k, evaluate each path score only on I_k, subtract the a-prime score from the a score, and normalize both the contrast average and centered squared-score average by N. The variance estimate is a raw empirical second central moment with denominator N, not an unbiased N-1 estimate. No logistic/linear working form, Lasso training rule or inner sample splitting is imposed. Preserve that each score's fitted functions vary with k, and do not infer independence of the cross-fitted scores or a positive estimated variance solely from their definition."
+      }
+    },
+    {
+      "interface_id": "local-6b861544b7c57529c531",
+      "related": ["IsMinOn", "PiLp.norm_eq_of_L1", "Finset.filter", "Finset.sum_apply"],
+      "query": "Sequential Double Robust Lasso with outer folds and exchanged inner halves; bounded sequential-robust/Lasso search and inspection of finite-fold, L1 objective and averaging constructions.",
+      "result": "The algorithm can be expressed from finite data partitions and the previously defined fitting objectives, but a complete estimator requires coherent measurable selections for the fits and their nested data dependencies.",
+      "gap": "The remaining implementation connects the outer and exchanged inner fits to held-out score evaluation and proves the resulting estimator and variance-estimate properties.",
+      "comparisons": {
+        "D19": "Within every outer training complement, obtain the full-training gamma-hat_c, delta-hat_c and alpha-hat_c used in the final score. Separately split that complement into equal halves, fit tilde-delta_c and tilde-alpha_c on one half, form DR outcomes and fit beta_c,1 on the other, exchange the halves and refit to obtain beta_c,2, then average those slopes. The tilde fits used for imputation do not replace the full-training second-time fits in the final score. Repeat for a and a-prime, evaluate on the held-out outer fold and use the printed 1/K and 1/N normalizations. Equal outer folds and equal inner halves need divisibility; no rounding or independent-fold-output assumption is supplied. Retain the separate score subscript ambiguity rather than modifying the stored formula."
+      }
+    },
+    {
+      "interface_id": "local-a8709e1561058033b779",
+      "related": ["MeasureTheory.condExp"],
+      "status": "composable",
+      "query": "Centered conditional dynamic treatment effect at the first exposure; inspected conditional-mean construction and its dependence on chosen versions.",
+      "result": "The difference of the two true first-stage conditional means minus the population treatment contrast defines the stated covariate-dependent random variable.",
+      "gap": "Conditional expectation and pointwise arithmetic suffice for this centered effect under the integrability and version hypotheses for the two true conditional means.",
+      "comparisons": {
+        "D29": "Set xi=mu_a(S1)-mu_a'(S1)-theta with true potential-outcome conditional means, not starred working models or fitted means. Integrability and the tower property identify its expectation as zero relative to theta=E[Y(a)]-E[Y(a')]. It is a first-exposure covariate-dependent effect contrast, distinct from the treatment-gated zeta and epsilon residual sums in Assumption 2. Its second moment may vanish for constant conditional effects, which matters for the separate normalized-moment assumptions."
+      }
+    },
+    {
+      "interface_id": "local-ecb7a48511613b6ed6c0",
+      "related": ["MeasureTheory.eLpNorm", "MeasureTheory.condExp", "Filter.Tendsto", "Asymptotics.IsLittleO", "Real.rpow"],
+      "query": "General nuisance L2 stochastic rates, high-probability fitted overlap and normalized residual moment assumptions; inspected L2 seminorm, conditional expectations, deterministic little-o and filter probability convergence.",
+      "result": "The analytic moments and deterministic comparison rates have generic ingredients, while the outer training-law stochastic rates and event of population-almost-sure overlap require explicit probability quantifiers.",
+      "gap": "The remaining assumption interface combines training-random L2 rates, high-probability overlap and normalized conditional moments, retaining unresolved zero-scale and contrast-path conventions.",
+      "comparisons": {
+        "D30": "For each fitted function take the squared L2 error over fresh covariates relative to its general starred working target, leaving the training sample random for Op(a_N^2), Op(b_N^2), Op(c_N^2) and Op(d_N^2). Require positive deterministic sequences with a_N,b_N=o(sigma) and c_N,d_N=o(1); deterministic IsLittleO does not itself encode Op. The fitted pi and rho population-almost-sure bounds c0<=fit<=1-c0 must hold on a training-data event whose probability tends to one, not for every fitted sample by definition. Preserve q>2 normalized absolute moments for zeta, epsilon and xi, conditional zeta second moment given S and conditional epsilon second moment given S1. Ratios need nonzero second moments, and the source does not give a zero-denominator convention. Borrow only residual definitions from Assumption 2, not its parametric sub-Gaussian conditions, and do not add an unstated maximum over both contrast paths to conditions printed only for a."
+      }
+    },
+    {
+      "interface_id": "local-7181ce6f3c0288a368c9",
+      "related": ["IsMinOn", "MeasureTheory.integral", "dotProduct", "PiLp.norm_eq_of_L1"],
+      "query": "Generic imputed-response Lasso with true population squared-risk target; bounded imputed/Lasso search and inspection of population integration, minimizing predicate and finite L1 norm.",
+      "result": "The population projection and empirical penalized objective can be represented separately. The imputed responses are arbitrary supplied random values, so neither iid imputation nor a causal treatment model belongs in this interface.",
+      "gap": "The remaining estimator selects the population and empirical minimizers and supplies the error assumptions needed for the generic imputed-Lasso bounds.",
+      "comparisons": {
+        "D31": "Take iid original pairs (Y_i-star,X_i) and an independent population copy, define beta-star by population expected squared error using Y-star, and fit beta-hat using the possibly random imputed values Y-hat_i in the M-normalized sample loss plus lambda_M times the full l1 coefficient norm. Some or all responses may be imputed; their errors need not be independent across observations or independent of covariates. Do not insert the treatment indicators, inner splitting or causal-identification assumptions of the earlier estimators. Require M>0 and positive lambda_M and record argmin selection/uniqueness issues without choosing an unprinted tie-breaker."
+      }
+    },
+    {
+      "interface_id": "local-5c8b054e100f7dfa4e7e",
+      "related": ["MeasureTheory.Measure.pi", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "Multi-stage longitudinal observation tuple with iid sample copies, histories and binary treatment paths; inspected finite product-law and independent-identically-distributed constructions.",
+      "result": "A single joint law on full trajectories allows arbitrary within-trajectory dependence, and independent copies of that law supply the observations and a fresh trajectory. Finite indexed projections give the histories and counterfactual path indices.",
+      "gap": "The data setup is supported by finite trajectory types and iid copies of a supplied joint law, with potential-outcome relations and causal assumptions specified separately.",
+      "comparisons": {
+        "D32": "Use T>=2 stages with possibly different covariate dimensions d_t, a binary treatment at each stage and one final real response. Form bar-S_t and bar-A_t by retaining the first t stage blocks, and index potential outcomes by complete binary treatment paths. Independence is across sampled full trajectories and the fresh copy, not between stages, covariates and treatment assignments within a trajectory. The source writes the final Y without an observation subscript in its sample tuple; preserve the original notation while using its explicit iid W_T,i setup. Consistency, sequential ignorability and positivity are not consequences of this sampling definition."
+      }
+    },
+    {
+      "interface_id": "local-7f6738b7b1dbcdfcd5ca",
+      "related": ["MeasurableSpace.comap", "MeasureTheory.condExp", "ProbabilityTheory.condDistrib"],
+      "query": "Stage-indexed conditional potential-outcome means and treatment probabilities given covariate and prior treatment histories; inspected generated conditioning sigma-algebras and conditional-kernel versions.",
+      "result": "History maps supply the conditioning information, and conditional expectations and kernels describe the true means and propensity functions. The source's terminal and empty-history conventions are additional explicit definitions.",
+      "gap": "The stagewise functions are supported after specifying history-conditioned versions and resolving the terminal outcome-coordinate notation, with consistency needed for the stated terminal identification.",
+      "comparisons": {
+        "D33": "For each t condition the potential outcome for the full target path on covariates through t and prior assignments matching that path, while pi_t gives the current assignment probability under the same past history. Keep mu_t defined through T+1, pi_t only through T and working models distinct from true functions. Empty stage-zero histories give mu_0=theta_path; the extended terminal covariate history appends Y, and the source defines the terminal working mean as s_(T+1) without separately binding that scalar coordinate. Preserve this issue while recording the supported last-outcome-coordinate interpretation. Its equality with the true terminal conditional mean uses consistency on the matching full treatment history and appropriate conditional versions, not arbitrary global equality of every counterfactual outcome to Y."
+      }
+    },
+    {
+      "interface_id": "sequential-treatment-identification",
+      "related": ["MeasurableSpace.comap", "ProbabilityTheory.CondIndepFun", "ProbabilityTheory.condDistrib", "MeasureTheory.Measure.restrict"],
+      "query": "Two-stage and multi-stage sequential ignorability, potential-outcome consistency and overlap; inspected conditional independence given generated histories and conditional laws restricted to matching prior treatment strata.",
+      "result": "Conditional independence and conditional-law ingredients encode each stage's assignment assumption on the appropriate history stratum, while consistency is equality along the realized path and overlap is a separate probability bound.",
+      "gap": "The assumption package needs explicit history-stratum conditioning and version choices, preserving the multi-stage lower-case overlap argument ambiguity instead of asserting an identification theorem.",
+      "comparisons": {
+        "D5": "At the first stage require Y(a1,a2) conditionally independent of A1 given S1; at the second require independence from A2 given S and the stratum A1=a1. Use a suitable positive-mass restricted/normalized history law or an equivalent conditional-kernel formulation, rather than imposing the condition on every treatment-history stratum without qualification. Consistency is Y=Y(A1,A2). Bound the true pi_a(S1) and rho_a(S) between c0 and 1-c0 almost surely with 0<c0<1/2, not fitted or starred functions. The generic CondIndepFun representation requires its standard-Borel underlying-space and finite-law hypotheses and by itself proves no causal identification formula.",
+        "D34": "For each stage 1<=t<=T require the full-path potential outcome independent of the current assignment given covariate history through t and matching assignments through t-1; this is a family of stagewise conditions, not mutual independence of all treatment assignments. Consistency evaluates the potential-outcome family at the realized complete path. Preserve the printed overlap probability with lower-case bar-s_t rather than replacing it by random bar-S_t or a for-all-history bound; the frozen review records that scope ambiguity. No parametric linear/logistic model or two-stage Lasso construction belongs in this multi-stage assumption package."
+      }
+    }
+  ]
+}

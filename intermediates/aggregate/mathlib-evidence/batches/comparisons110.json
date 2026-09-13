@@ -1,0 +1,84 @@
+[
+  {
+    "interface_id": "local-754b1119ec4ae2dbf83b",
+    "status": "partial_match",
+    "names": [
+      "ProbabilityTheory.HasGaussianLaw.iIndepFun_of_covariance_eq_zero",
+      "ProbabilityTheory.iIndepFun"
+    ],
+    "comparison": "Form the three displayed affine Gaussian combinations, retaining the coefficients sqrt(2)/2, plus/minus sqrt(6)/2, and -sqrt(2), and their common mean f(i/n). With auxiliary noises independent of the full original observation vector, the coefficient rows have squared norm 3 and zero pairwise inner products, giving variance 3*sigma^2 and mutual independence by the inspected finite jointly-Gaussian theorem. The printed independence premise explicitly lists only y_1,...,y_n although the construction includes index zero; that premise does not justify the full joint-Gaussian/zero-covariance claim at zero without further independence. Preserve this existing source issue and the asserted conclusion separately. Out-of-range values are positive infinity sentinels, not real Gaussian observations; the independence theorem applies to the finite in-range family and not an iid law for the three sequences across varying design means.",
+    "gap": "Gaussian independence from zero covariance is available, but the source's missing independence premise for observation zero must be resolved before certifying the full construction.",
+    "searches": [
+      [
+        "Search Gaussian independence from covariance; inspect HasGaussianLaw/Independence:155-168,191-214,261-266",
+        "The finite-family theorem needs joint Gaussianity and every off-diagonal covariance zero, which cannot be inferred at the omitted observation index from the printed premise."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-1a353b420aa0382e3c4a",
+    "status": "composable",
+    "names": [
+      "Nat.log",
+      "Finset.Ico"
+    ],
+    "comparison": "Use Nat.log 2 (n+1) for the nonnegative floor-log horizon and sum observations over the integer half-open interval [(i-1)*2^(J-j),i*2^(J-j)). Keep the printed allowed block count floor((n+1)/2^(J-j-1)); it differs from the later localization cap and can admit partial or fully out-of-range blocks. At j=J, its exponent is -1, so natural truncated subtraction would change the formula: interpret the printed power with a signed exponent and real floor. The block size 2^(J-j) remains a positive integer for 0<=j<=J. Store signed real observations with a separate positive-infinity extension, not ENNReal values that discard negative observations. Summing a block touching out-of-range observations then yields the specified infinity; do not shorten the block or silently fix the exponent. Finset.Ico and finite summation express the construction without asserting consistency of the two block counts.",
+    "gap": "Finite intervals and floor logarithms express the block sums, while the printed block-count discrepancy and infinity extension must remain explicit.",
+    "searches": [
+      [
+        "Inspect Nat.log:54-69 and Finset interval definitions:269-286 against D27 and recorded block-count issue",
+        "The primitive logarithm matches the positive integer horizon; finite index intervals do not repair the distinct denominator or authorize truncating a negative exponent."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-86e2e4102d5c9c4ace57",
+    "status": "composable",
+    "names": [
+      "Finset.Icc",
+      "Finset.min'"
+    ],
+    "comparison": "Define the level-zero selector as 1 and recurse through levels 1,...,J over the closed integer candidate interval with exactly the printed max lower bound and min upper bound. This upper cap uses floor((n+1)/2^(J-j)), not the larger count in D27. A minimum of the finite image of candidate indices under Y_j,i,l is provided by Finset.min' once nonemptiness is shown; it is a minimum VALUE, so separately choose an index attaining it. Prove inductive feasibility and preserve a relational or explicit selected minimizer without claiming the source specifies a deterministic tie rule. Infinity sentinels are an extended ordered codomain, not a reason to replace the objective by zero. The generic finite minimum does not prove measurability of a nonconstructive tie choice, localization accuracy or an extension beyond J.",
+    "gap": "Finite interval minima support the recursion after candidate nonemptiness and a source-compatible measurable minimizer selection are established.",
+    "searches": [
+      [
+        "Inspect Finset.Icc and Finset.Max:126-155 against the recursive candidate bounds and source argmin qualification",
+        "min' requires nonemptiness and returns an objective value, so an attaining index and its tie/measurability convention remain to be specified."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-525f018d2140e92834eb",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "MeasureTheory.Measure.withDensity"
+    ],
+    "comparison": "Represent each observation as the full triple (L,A,Y), and impose mutual independence across sample indices together with IdentDistrib to the common triple Z. This does not impose independence among covariates, treatment and outcome inside a triple. Use the stated support subsets and a supplied dominating measure nu; withDensity expresses the joint law after identifying p_0 as a nonnegative measurable density. Do not replace nu by Lebesgue measure on the whole product, since covariates or outcomes need not be continuous. The displayed conditional-density factorization also needs compatible marginal reference measures and conditional kernels; generic withDensity alone does not prove that a product of arbitrarily chosen conditional densities is the density relative to arbitrary nu. No boundedness of Y, treatment ignorability or positivity assumption is added by the observational sample definition.",
+    "gap": "Independence, identical distribution and density measures are available; supply the joint law and compatible conditional-density factorization for the stated dominating measure.",
+    "searches": [
+      [
+        "Inspect iIndepFun, IdentDistrib and withDensity against the whole-triple sample and general dominating measure",
+        "The primitives encode iid triples and density weighting, while within-triple dependence and reference-measure compatibility remain part of the model."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c94d544a3622a18620fd",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.condDistrib",
+      "deriv",
+      "MeasureTheory.Measure.withDensity"
+    ],
+    "comparison": "For a chosen regular conditional law of real treatment A given L, evaluate its CDF at a and take the real derivative in a; do the same for the marginal law of A to obtain varpi_0. The source assumes both densities exist. condDistrib provides a conditional-law version for a nonempty standard Borel output under a finite probability measure, and deriv expresses the displayed derivative with zero fallback outside differentiability. Keep the density/existence assumptions and establish that the chosen derivative represents the conditional or marginal law with respect to Lebesgue measure; mere almost-everywhere CDF differentiability does not rule out a singular component. Conditional-law identities are almost everywhere in L and do not determine all covariate-support values without selecting the required version. The continuous-treatment propensity is a density, may exceed one, and is not the binary event probability P(A=1|L). No uniform positivity or smoothness is supplied by this definition alone.",
+    "gap": "Conditional laws and derivatives express the formulas, with density representation and the required covariate-wise version left to justify.",
+    "searches": [
+      [
+        "Inspect condDistrib:54-70, deriv:147-154, withDensity:35-44 and search the conditional-CDF module",
+        "Regular conditional distributions and a totalized derivative exist, but differentiability alone does not certify an absolutely continuous law or a pointwise version on every covariate value."
+      ]
+    ]
+  }
+]

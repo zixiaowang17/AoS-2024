@@ -1,0 +1,542 @@
+[
+  {
+    "interface_id": "local-868c87bc4b41ee498383",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "57064b563ab9d81aea542088a04405c72594ce43c2ac58ac8106c191fcb4a4fa",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D20",
+        "comparison": "Keep phi-hat=psi-hat_0, psi-hat=psi-hat_1, precision L^(-1)=n^(-1), and the tensor products with scale factor 2^(p*j/2) and coordinate arguments 2^j*x_i-w_i. The class sums j from zero through log_2(delta^(-1)), l from 1 through 2^p, and w in the printed p-dimensional integer box, with abs(alpha-hat(j,l,w))<=C_eta*K*2^(-j*(eta+p/2)). Real.logb 2 supplies the real upper endpoint, not a rounding convention or finite-index bound automatically. Keep the full printed l endpoint even though other source wavelet ranges differ; no missing coarse/constant mode is inserted. The appendix-only hat functions and architecture are not extracted by these generic operations. This is the nonperiodic ambient-p class, distinct from the torus generator class, and its coefficient bound does not automatically imply exact Hölder-ball membership.",
+        "statement_sha256": "63a9454b744581a8eb3810806b0791d22709af23219e59df0dd13c6ca0396e41"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Real.logb",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Base",
+          "provides": "Real logarithm in a supplied base, defined as log(x)/log(base); nonpositive-argument and degenerate-base extensions are totalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Base.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Analysis and Probability for Daubechies, wavelets, Besov and neural-network declarations; inspected finite function sums, real powers, base logarithms and set predicates against D20.",
+          "result": "Finite coefficient-constrained sums can be represented, but no matching neural Daubechies construction was found and the defining hat functions are referenced only in excluded appendix material."
+        }
+      ],
+      "gap": "Supply the referenced neural wavelets and resolve printed index/end-point conventions before defining the exact nonperiodic coefficient-bounded function class."
+    }
+  },
+  {
+    "interface_id": "local-84530440df4cabee8540",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "250eb641f5a97e2b9ad1101020ebd5f4ca1d4103bbedc42aff0fcbc75549b0ba",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D21",
+        "comparison": "Define tilde-beta+1=min(beta+1,d/2), then tilde-delta_n=n^(-1/(2*tilde-beta+d)), and D=F-hat^(tilde-beta+1,tilde-delta_n). This Section-5 tilde-beta must not be reused from a different earlier section, and the exponent denominator is not 2*(tilde-beta+1)+d. Under the paper's positive regularity and d=1, tilde-beta=-1/2 so the printed denominator is zero; Lean's division-by-zero and rpow totalization would not supply an intended resolution. n=1 can also hit a class resolution endpoint excluded by its initial domain. Keep those source limitations and the nonperiodic class's unresolved wavelet construction, rather than adding d>=2 or an unprinted Hölder intersection.",
+        "statement_sha256": "8e523e3bb49c9b2e5897064f90e3e020289a5013526bcce1edf3f0bc624283be"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real powers and the supplied class substitution against D21's Section-5 regularity cap and the retained d=1 resolution issue.",
+          "result": "The scalar regularity cap and sample resolution are expressible, but the source's zero denominator and dependent approximate-wavelet class are not resolved by total real exponentiation."
+        }
+      ],
+      "gap": "Instantiate the discriminator class at the stated capped regularity and resolution while retaining the low-dimensional zero-denominator and class-endpoint issues."
+    }
+  },
+  {
+    "interface_id": "local-b0ff970af01d3360debd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "15cc3bd32e45d950a56dab7814c7d9fed1f63ad5630c4cdd156b51825e30ed29",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D11",
+        "comparison": "For each g in the supplied G compare map g U with map g-star U using d_{H_1^gamma}, then take the infimum over g. The target, latent law and regularity are fixed inputs, and map requires measurable generators. This is a population approximation error, not the empirical GAN objective, a parameter norm or a requirement that g-star belong to G. A real infimum needs a nonempty bounded-below discrepancy range or an explicit empty-class convention; it need not be attained. Theorem 5.4 uses its own Section-5 regularity, so this general definition does not import the Model-1 neural-generator construction or an incompatible gamma choice.",
+        "statement_sha256": "8668e2f72976e9479b336891d734fe463833e956cb37edcbdd2402d884fc5cb3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected pushforward laws and conditional infimum bounds against D11 and the separately defined Hölder IPM.",
+          "result": "An infimum of supplied Hölder-IPM discrepancies over generator pushforwards is representable, but neither the IPM nor an attaining best generator is supplied by these primitives."
+        }
+      ],
+      "gap": "Define the generator approximation error as the infimum of the specified Hölder-IPM distances to the fixed target, with admissible laws and value-set conventions."
+    }
+  },
+  {
+    "interface_id": "local-802cc64ae0cfe31c99fc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "76aa7b623eb80efb52b88ce596f1f8c2c266792c01ed10401290ca8329483492",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D22",
+        "comparison": "For each fixed g form {D composed with g : D in the discriminator class} and compute its epsilon-covering number in the supremum norm, then take the supremum of those numbers over g in G. The source allows cover centers in the ambient function space and uses norm distance<=epsilon, so externalCoveringNumber is the relevant component rather than an internally centered cover. Its extended-natural codomain retains the possibility of no finite cover; casting infinity to a finite natural would be wrong. The outer supremum is not the covering number of the union of all composition classes, and the word largest does not establish an attaining generator. A selected minimal cover and its tie/measurability conventions are separate from the number, and the ambient function space/metric must realize the stated uniform norm.",
+        "statement_sha256": "c81395a50a5bedadb2573f6bff4f66e79e827acf6062e4eaffbad100dd4e46aa"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.externalCoveringNumber",
+          "type": "{X : Type u} → [PseudoEMetricSpace X] → ℝ≥0 → Set X → ℕ∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.CoveringNumbers",
+          "provides": "Minimal cardinality of a closed-radius cover with centers anywhere in the ambient space; infinity is retained when no finite cover exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/CoveringNumbers.lean#L71-L72",
+          "link_checked": true
+        },
+        {
+          "name": "Set.image",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set α → Set β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "The image of a set under a supplied map, with membership witnessed by a preimage in that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L266-L266",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected externalCoveringNumber and contrasted internal coveringNumber; read the source's complete cover definition (3.3) and D22's supremum over fixed-generator composition classes.",
+          "result": "External covering numbers with closed-radius covers match the source's lack of a centers-in-class restriction once the ambient uniform metric is chosen; the outer supremum remains a separate operation."
+        }
+      ],
+      "gap": "Define the supremum of external uniform-metric covering numbers for each fixed-generator composition class, preserving infinite values and cover-selection conventions."
+    }
+  },
+  {
+    "interface_id": "local-c7ae70b854e8587f78f5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "bc8f670f9fa333384faccd37c399d18d20e6770a5784d9c90dd042fcda3d08e5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D23",
+        "comparison": "For fixed g choose D_g-star maximizing E[D(g(U))-D(g-star(U))] over the stated Besov ball of regularity tilde-beta+1 and radius C. Then choose D-bar_g minimizing its B-infinity-infinity^0 distance to D_g-star over the supplied neural discriminator class. IsMaxOn and IsMinOn require separate membership and do not prove either optimizer exists. Keep the Besov-zero norm rather than replacing it by uniform norm or a Hölder norm. Delta_D^g is the expected difference of the two population contrasts, with the inner D-bar contrast subtracted as a whole. It is not the supremum over all g of a Hölder-IPM discrepancy; at the random fitted generator Theorem 5.4 additionally takes expectation over its fitting randomness, which needs measurable choices and appropriate integrability.",
+        "statement_sha256": "54c1e4740213a8522182b64588c35da42d91d6eb55a64ba23744959dadb49de6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected maximizer/minimizer predicates and expectation against all three D23 formulas, contrasting the Besov approximation norm with the source's other uniform-error definition.",
+          "result": "The two optimizer specifications and their expected discrimination gap can be expressed for supplied Besov classes and norms; existence, measurability and a specialized Besov API were not verified."
+        }
+      ],
+      "gap": "Construct the Besov-optimal discriminator and its B-infinity-infinity-zero approximation with feasible measurable selections before defining the candidate-specific expected gap."
+    }
+  },
+  {
+    "interface_id": "local-e3f5efeca667ace00b42",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "de9673d68dfab903f4373afe45d5c49bbf248c17d74f6b08727fed479683ff5b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D6",
+        "comparison": "Require existence of g-star in H_K^(beta+1)(T^d,R^p) with mu=map g-star U, where the uniform cube law is used through the periodic torus convention. Measurability of the map must be established from the supplied regularity; HolderOnWith is at most a continuity component and does not encode the paper's full derivative norm. No injectivity, positive singular-value bound, manifold image or density relative to ambient Lebesgue measure is assumed in Model 1. A constant admissible map can create an atom and other maps can have irregular image support; do not silently discard such target laws to simplify a later discriminator construction.",
+        "statement_sha256": "856a4b608f502614c17877083c8d230918c9653112adfd9c412314eb33858167"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "HolderOnWith",
+          "type": "{X : Type u} → {Y : Type v} → [PseudoEMetricSpace X] → [PseudoEMetricSpace Y] → ℝ≥0 → ℝ≥0 → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Holder",
+          "provides": "Hölder continuity on a set using a metric power, without the paper’s truncated denominator or aggregate derivative norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Holder.lean#L58-L59",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected measurable pushforwards and metric Hölder regularity against D6's Model-1 existence statement and the separate manifold/density regularity definitions.",
+          "result": "A smooth-map pushforward law is expressible, but the source's full Hölder norm needs its existing definition; generic Hölder continuity alone is not the higher-order regularity class."
+        }
+      ],
+      "gap": "Represent the target as a uniform-torus pushforward of a map in the specified Hölder ball without imposing manifold or density regularity."
+    }
+  },
+  {
+    "interface_id": "local-06c98b191d78fce9f0ce",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "1a74e02e87e104b90e7031868d62384d48244fca2ca0e564520799054f2256f9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D17",
+        "comparison": "Use scaling-function approximation precision L^(-1)=n^(-1) and G=F-hat_per^(beta+1,n^(-1/(2*beta+d))). The latent dimension d, ambient output dimension p and periodic vector-valued nature are retained. This is not the nonperiodic discriminator class or a fitted statistical error rate. D16's sum has its printed z/w coefficient mismatch, wavelet-index endpoint and absent explicit coarse mode; the actual neural periodization is appendix-only. Its initial eta domain is open below beta+1 while this uses the endpoint, and n=1 can give delta=1 outside the initial delta domain. Preserve those issues rather than silently changing endpoints or inserting an unprinted intersection with an exact Hölder ball.",
+        "statement_sha256": "38a53fa12ab059dfe4874d24862ba3569ec35b897792b1b239a0ff2e33de5419"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real powers and class predicates after reading the full periodic neural-wavelet definition D16 and its precision, indexing and endpoint source notes.",
+          "result": "The generator class is a direct parameter substitution into the supplied periodic approximate-wavelet family, whose unresolved construction and source conventions remain inherited."
+        }
+      ],
+      "gap": "Instantiate the periodic generator class at eta=beta+1 and resolution n^(-1/(2*beta+d)), retaining approximation precision and unresolved class endpoints."
+    }
+  },
+  {
+    "interface_id": "local-bd855865d5327e01d1d4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "d3fde81d3a4c57ecbac9efc8d912cdc248000801ef39f2f3d404a51c05166333",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D18",
+        "comparison": "Index D by pairs g,g-prime from the selected G_{1/n} cover and choose a maximizer of the Hölder contrast for each pair. The source cover definition does not explicitly restrict centers to G, so regularity and validity of the selected center maps must be addressed rather than replacing it automatically with an internal net. The display uses g(U) in the first term and g-prime(u) in the second; retain this mismatch and record the apparent intended common latent variable without altering the quotation. IsMaxOn requires membership in H_1^gamma and does not prove optimizer existence or measurable tie selection. These are theoretical discriminators the source explicitly describes as impractical to compute, not a supplied trainable network architecture or a class automatically selected by a finite covering number.",
+        "statement_sha256": "d70e0a6f1a05afb2492f4fc0439e38d7b35d5580a65fb02060410300d32e0c99"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.externalCoveringNumber",
+          "type": "{X : Type u} → [PseudoEMetricSpace X] → ℝ≥0 → Set X → ℕ∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.CoveringNumbers",
+          "provides": "Minimal cardinality of a closed-radius cover with centers anywhere in the ambient space; infinity is retained when no finite cover exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/CoveringNumbers.lean#L71-L72",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsMaxOn, external cover numbers and expectations against D18, the selected-cover convention and the uppercase/lowercase latent-variable mismatch.",
+          "result": "A family of pairwise optimal discriminators indexed by a chosen generator net can be specified, but generic cover numbers do not select the net or construct maximizing discriminators."
+        }
+      ],
+      "gap": "Choose the generator net and feasible pairwise Hölder-IPM optimizers, resolving the latent-variable typo and preserving the theoretical noncomputability stated by the source."
+    }
+  },
+  {
+    "interface_id": "local-73c56b7657f7db9eb61c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "10c05a2b9a2c75650916b2777f2b1b84786ec721a0c3baadc7918abb0e8e789d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D10",
+        "comparison": "Require g-star in the given Hölder ball, injectivity and a d-dimensional image manifold with reach strictly greater than K^(-1), together with inf_u sqrt(lambda_min((grad g-star(u))^T grad g-star(u)))>=K^(-1). The Gram matrix being merely positive semidefinite is much weaker than this quantitative lower bound; it is not a determinant bound or an upper derivative bound. Keep the distinction between manifold regularity and density regularity, then set mu=map g-star U. The source's torus topology and nonempty-model restriction d<p remain supporting context. This does not assert an ambient p-dimensional Lebesgue density for the lower-dimensional supported law and must not be weakened to Model 1's unconstrained smooth pushforward.",
+        "statement_sha256": "249124ff578f00de53aa83071efe10948732632d7ad0799a246df2bde68964cb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Compared D10 with the full K-manifold and K-density definitions D8/D9 and inspected map and the matrix-positivity framework used for the Jacobian Gram condition.",
+          "result": "Pushforward laws and Jacobian-Gram positivity are components of Model 3, but injectivity, reach and the quantitative lower singular-value bound are additional conditions that require proof."
+        }
+      ],
+      "gap": "Define the smooth torus pushforward with both manifold and density regularity, retaining the reach and smallest-singular-value bounds and the stated dimensional scope."
+    }
+  },
+  {
+    "interface_id": "local-18cd65495af7e3eff88f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "0cf10693df67216ea2141aef1b056f341b85d8adef4c7826e4712b00b5f3b4e5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D3",
+        "comparison": "For each D take E_mu[D(X)]-E_nu[D(g(Z))], then supremum over the discriminator class, with map g nu representing the second law under measurability. The order is target first and generated law second, and no absolute value is printed. Nonnegative values, symmetry and separation of laws need properties such as inclusion of zero, sign symmetry and a measure-determining class; they do not follow for an arbitrary supplied D. Real sSup requires nonempty bounded-above values or an extended-value convention, and Bochner expectations need integrability rather than their zero fallback. The known latent nu is general in this passage and is not automatically the torus-uniform law of later models.",
+        "statement_sha256": "c47c25e5ff6e4617ba6a3ad001da11e4e4b76b2c17b472836f2714ebcc083a9e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected pushforward laws, expectations and supremum bounds against the general discrepancy D3, preserving the source's orientation and absence of an absolute value.",
+          "result": "The supremum of discriminator expectation differences is representable for a supplied measurable class with integrable evaluations; it need not be a metric for arbitrary classes."
+        }
+      ],
+      "gap": "Define the directed discriminator discrepancy with the given latent pushforward and admissible expectation/supremum conventions without adding symmetry or an absolute value."
+    }
+  },
+  {
+    "interface_id": "local-4fdf05a24e6dc1975039",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T04:17:38.492857+00:00",
+    "source_interface_sha256": "69b046c2d62f0d698fd90ecf1be033d5ed5238be24835f39dbc9d214de6ace7b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2167",
+        "local_id": "D12",
+        "comparison": "For each g in G compute d_{H_1^gamma}(map g U,map g-star U)-d_D(map g U,map g-star U), then take the supremum over g. Keep generated-first/target-second orientation in both terms as printed; for a nonsymmetric arbitrary D it cannot be reversed merely by the word metric. This is a supremum of differences, not the difference of two independently optimized suprema, and not a parameter-space approximation norm. Nonnegativity follows if D is contained in the reference Hölder ball, but instantiated approximate-wavelet classes do not automatically have that inclusion and no intersection is invented. Nonempty bounded value sets and well-defined finite differences need verification. It is distinct from Delta_D^g based on a Besov-optimal discriminator and B^0 approximation.",
+        "statement_sha256": "3d597d87da7c6f31091af2a930ad30c5e1675fffad5202ca14415d32f398f247"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real supremum bounds and pushforward laws against D12 and contrasted its two discrepancies with the later candidate-specific Besov approximation definition.",
+          "result": "A worst-case difference between two supplied population discrepancies can be formed, but its sign and boundedness depend on the actual discriminator classes and cannot be inferred from arbitrary neural approximations."
+        }
+      ],
+      "gap": "Define the uniform generator supremum of the Hölder-IPM minus discriminator discrepancy, preserving class-inclusion and finite-value requirements separately."
+    }
+  }
+]

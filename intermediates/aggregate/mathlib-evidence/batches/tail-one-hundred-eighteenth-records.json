@@ -1,0 +1,632 @@
+[
+  {
+    "interface_id": "local-49e2a7fe223b94576b91",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "0f5146d165bfbd5ad14fc673f48c5f0445dac5dd782d9f5d214750f462de482e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D26",
+        "comparison": "Asymptotic linearity is theta-hat=theta-star+n^-1 sum_i IF(O_i)+o_p(n^-1/2), with IF in L0^2(P-star), meaning a genuine finite second moment and zero mean. Under iid observations the verified CLT gives convergence of n^-1/2 sum IF to N(0,E IF^2); its theorem explicitly permits zero variance as a degenerate Gaussian. Algebraic rescaling and a Slutsky/negligible-remainder argument are still needed for theta-hat itself. On a fixed law the normalized remainder can be expressed by convergence in measure; varying spaces require appropriate law indexing. The CLT does not define statistical regularity or prove semiparametric efficiency, existence of a finite efficient influence function, or the nonparametric uniqueness assertion. The source does not provide full regularity/tangent-model conditions, and the supplement is not used to fill them. Any uniqueness is in the appropriate almost-everywhere L2 sense, not of arbitrary pointwise representatives.",
+        "statement_sha256": "f9f726ecebb4cc91091227db1b44c4fb7c748702b8f5b3babe88fc53c6d292d3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub",
+          "type": "{Ω Ω' : Type*} → {mΩ : MeasurableSpace Ω} → {mΩ' : MeasurableSpace Ω'} → {P : MeasureTheory.Measure Ω} → {P' : MeasureTheory.Measure Ω'} → {X : ℕ → Ω → ℝ} → {Y : Ω' → ℝ} → [MeasureTheory.IsProbabilityMeasure P] → [MeasureTheory.IsProbabilityMeasure P'] → ProbabilityTheory.HasLaw Y (ProbabilityTheory.gaussianReal 0 (ProbabilityTheory.variance (X 0) P).toNNReal) P' → MeasureTheory.MemLp (X 0) 2 P → ProbabilityTheory.iIndepFun X P → (∀ i : ℕ, ProbabilityTheory.IdentDistrib (X i) (X 0) P P) → MeasureTheory.TendstoInDistribution (fun (n : ℕ) ω ↦ (Real.sqrt n)⁻¹ * ((∑ k ∈ Finset.range n, X k ω) - n * MeasureTheory.integral P (X 0))) Filter.atTop Y (fun _ ↦ P) P'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.CentralLimitTheorem",
+          "provides": "Classical iid scalar central limit theorem for square-integrable observations, with their actual variance, including a degenerate Gaussian limit when the variance is zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CentralLimitTheorem.lean#L124-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched influence functions, semiparametric regularity and scalar central-limit results; inspected the full iid CLT, its zero-variance branch and the source asymptotic-linearity definition.",
+          "result": "The iid CLT handles the normalized influence-function sum under finite second moment, but negligible-remainder transfer and efficient regularity require additional arguments and model definitions."
+        }
+      ],
+      "gap": "Construct the mean-zero square-integrable influence expansion and transfer its iid CLT through the remainder, while specifying the omitted regularity/model conditions for efficiency."
+    }
+  },
+  {
+    "interface_id": "local-7312f4ce28c74d1afa8e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "ded3c4e6e6bd248ee0a813ee7d9b96f8484ae17b11e54a2361336c260aaa9312",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D3",
+        "comparison": "Z=(Z1,...,ZK) has K>=1 components, and bar-Z_k is the first k coordinates. bar-Z_0 is the empty TUPLE, whose space is a singleton and whose law is a point mass, not a zero measure on an empty set. Measurable prefix maps yield marginal laws; Measure.support then uses an explicit topology and positive measure in every neighborhood. The setup calls Z_(k-1) the support of bar-Z_(k-1) conditional on A=0, though the general section allows no observed target. DS.0 subsequently uses its law under Q. That target-law distinction must be resolved rather than constructing a conditional probability on an absent event by totalization. Support is not merely the observed finite sample or a pointwise density-positive set without further assumptions.",
+        "statement_sha256": "eb842efb393882679d857019f186a2d7d4d0db4d740dcba53f915144e5a90aa6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.support",
+          "type": "{X : Type u} → [TopologicalSpace X] → [MeasurableSpace X] → MeasureTheory.Measure X → Set X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Support",
+          "provides": "Topological support: every neighborhood of a support point has positive measure; this preserves support containment rather than merely almost-sure membership.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Support.lean#L59-L59",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected measurable pushforwards, conditional-event measures and topological measure support; compared empty-prefix and unobserved-target notation.",
+          "result": "Prefix laws and their supports can be constructed once their target law and topology are specified, but the source switches between A=0 notation and a possibly unobserved Q."
+        }
+      ],
+      "gap": "Construct the sequential prefix spaces and target-history supports, resolving the A=0 versus unobserved-Q convention without identifying an empty prefix with an empty probability space."
+    }
+  },
+  {
+    "interface_id": "local-1fb74a988319e90cc47e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "ede3c190e730b362f55fa6e4f1e54128c39faf07847235f39aa3410ac6d2c170",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D6",
+        "comparison": "DS.1 states X independent of A with A in {0,1} in the one-source setting. It equates feature marginals between the positive-probability populations, not distributions of Y given X. It also does not say the coordinates of X are independent or that the whole observation Z is independent of A. The later formula 1-a uses the binary numerical coding essentially; extending this condition to multiple sources does not extend that formula unchanged. Measurability and the mixture probability law supply the domain for IndepFun.",
+        "statement_sha256": "3b1c14394861739c51e511540753fc79cbec98aa04eceeeac3ea507c40ec80cc"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected independent random variables and compared the feature-shift condition with response conditional invariance in the binary-population setup.",
+          "result": "IndepFun directly represents independence of the entire feature vector and the population label under the mixture law."
+        }
+      ],
+      "gap": "Instantiate feature-vector/population-label independence under the binary mixture law; no conditional-response invariance is part of this condition."
+    }
+  },
+  {
+    "interface_id": "local-0189c8f7721db0d35e2e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "af849a13bd482101de0ba731785186b63d4ed6ba0fc8774a4804c53649b4368a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D10",
+        "comparison": "Start with ell-star^K=ell and for k=K-1 down to 1 condition ell-star^(k+1)(bar-Z_(k+1)) on bar-Z_k and A in S-prime_(k+1). No extra ell-star^0 recursion is printed here. The source defines values on Z_k and allows arbitrary values outside it, which can affect later regressions when source support is larger. Conditional kernels require appropriate standard-Borel/measurable spaces, positive conditioning mass and integrability; their identities hold almost everywhere, not at every support point automatically. Under DS.0 the source identifies these with E_Q[ell|bar-Z_k]; that equality needs the sequential matching/domination assumptions and cannot be extended to failure of DS.0. The paper explicitly allows nonunique versions even relevant to target supports in that failure case. A library-selected condExp representative is not a canonical replacement for all those allowed choices.",
+        "statement_sha256": "bb3c35b6207e42eab94f477a6c1c9b32bca9228dec2819ec8d411275781d8c66"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional-event laws, regular conditional kernels and conditional expectation; compared the backward recursion, target-support restriction and arbitrary extensions.",
+          "result": "Each backward regression is an integral under a selected conditional law, but version choice and target-law identification are not fixed by generic conditional expectation."
+        }
+      ],
+      "gap": "Construct the backward conditional means on target supports with explicit versions and extensions, asserting their Q-regression identity only under the stated DS.0 conditions."
+    }
+  },
+  {
+    "interface_id": "local-aa176c557cccce756754",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "073281928070b2bbd90087b550883ff67bffd3e586532254d9fd46648b93bb13",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D8",
+        "comparison": "Pi-star^(k,a)(bar-z_k)=P-star(A=a|bar-Z_k=bar-z_k) for k=0,...,K-1 and every population a. Use the regular conditional law of A given the prefix and evaluate the measurable singleton event. At k=0 the prefix is constant, so a suitable version gives pi-star^a=P-star(A=a). The definition is population-level, not a fitted classifier or an empirical frequency; conditional values on null histories need a version convention. pi-star^0=rho-star refers to the observed-target setup with 0 in A and rho-star in (0,1); marginal probabilities remain meaningful in general mixtures without silently adding an observed target. Zero masses and relevant-source-event positivity are separate qualifications.",
+        "statement_sha256": "768c37138eb7846a561bd8370e7ef0e0ed494f31ffbeaaddab56cccbe44204ad"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected regular conditional label laws and event probabilities; compared conditional Pi, its k=0 specialization and observed-target proportion rho.",
+          "result": "Population probabilities arise by evaluating conditional label kernels, with the empty-history specialization giving marginal probabilities."
+        }
+      ],
+      "gap": "Construct the history-indexed population probabilities and their marginal specialization, preserving conditional versions and the observed-target scope of pi-zero=rho."
+    }
+  },
+  {
+    "interface_id": "local-2840b9d161172408b2fc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "47eed18b5856355b7e7b3c174735596793345322a3fd82ad5e93fcb634f424d7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D23",
+        "comparison": "First condition on A=0 with rho-star=P-star(A=0) in (0,1), then condition the loss on X. The standing finite target conditional variance supports the intended finite moments after their proper definition. This is E-star under the target, not the mixture E[ell|X] or a source-population regression; DS.1 permits conditional response differences. Conditional kernels and integrals require measurable loss and a selected almost-everywhere version. Theorem 2 allows out-of-fold regressions to converge to E-infinity different from E-star, and only its final efficiency branch identifies them. The definition alone neither imposes nuisance consistency nor substitutes the oracle limit for the truth.",
+        "statement_sha256": "9d938b7b5eab6a9915f193ba590dbb2db7a49dd02ac7fe5cdb2204175c87c8bb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected target-conditioned laws and conditional risk integrals; compared the true E-star with the possibly inconsistent common nuisance limit in Theorem 2.",
+          "result": "The target conditional loss regression is expressible, with its representative and integrability supplied under the target law."
+        }
+      ],
+      "gap": "Construct the target conditional risk E-star(x)=E[ell(X,Y)|X=x,A=0], keeping it distinct from fitted regressions and their arbitrary common L2 limit."
+    }
+  },
+  {
+    "interface_id": "local-6055a1c39b501dcdcc94",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "614c37f2ad014287115f819047036b34d8a3edb611179c7cb93dd9d5597e1746",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D25",
+        "comparison": "Randomly split data from both populations into fixed V folds, fit E-hat^-v on the complement, and calculate rho-hat^v as the target indicator average WITHIN fold v. Fold risk is the mean of I(A_i=0)/rho-hat^v times (ell_i-E-hat^-v(X_i)) plus E-hat^-v(X_i), and final risk is sum_v |I_v| r-hat^v/n, not an unweighted average when fold sizes differ. The source explicitly defines 0/0=0, which applies to target weights in a nonempty target-free fold; do not invent clipping or demand every finite fold contain a target as part of the original algorithm. Empty-fold/training-data and random partition/fitting-method conventions still need specification. Theorem 2 later uses rho-hat^-v inside one remainder expression despite this in-fold recipe; an out-of-fold replacement can change its influence function for inconsistent nuisance regression, so preserve that issue rather than silently changing the algorithm. This is distinct from supplement Algorithm 1 and main-text Algorithm 1-dagger.",
+        "statement_sha256": "7d72eaed321adb9342dd5ed96987662d50ca37842831095236c97f3f7ef90c3d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched cross-fit risk estimators and inspected fold counts and normalized sums; compared the complete Section 4 recipe with the theorem's rho superscript and the source 0/0 convention.",
+          "result": "The supplied-regression fold estimator can be assembled from finite sample operations, but fitting/random-split specifications and asymptotic claims remain additional requirements."
+        }
+      ],
+      "gap": "Construct the Section 4 cross-fit estimator using out-of-fold regression, IN-FOLD target proportion and size-weighted fold aggregation, retaining the source quotient and theorem-index conventions."
+    }
+  },
+  {
+    "interface_id": "local-c135f2254e23e22b0b4c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "b5e43585ec17de403c2357c4a3e8468bfe8291e0df35218e9d7cb6ac2429429a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D16",
+        "comparison": "The main text only says the estimator for general DS.0 is similar and described in Algorithm 1 of the Supplemental Material. Theorem 1 names nuisance inputs and a Line 9 output, but that is not a complete computational definition or verified dependency closure. Preserve this as a searched source-limited interface rather than an implemented estimator. The supplement body is excluded, and neither the fully visible Algorithm 1-dagger nor Section 4 Algorithm 1 is asserted equivalent to the missing general algorithm. The unresolved source reference is separate from library-search completion and remains visible as a gap.",
+        "statement_sha256": "5665da81a8d833b03d267342ace00f9501495e5e33f62a94f623d09eed46f762"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched cross-fit general sequential risk estimation and compared the opaque main-text reference with the admitted algorithm inventory and Theorem 1 input/output mentions.",
+          "result": "No corresponding specialized library algorithm was verified, and the admitted main text does not provide this algorithm's construction."
+        }
+      ],
+      "gap": "The general cross-fit risk algorithm remains an opaque supplement reference within the admitted source scope; its missing steps cannot be reconstructed from the dagger or feature-shift algorithms.",
+      "no_related_reason": "Generic sums or conditional expectations would not supply the omitted algorithm and could misleadingly substitute one of the distinct available recipes."
+    }
+  },
+  {
+    "interface_id": "local-1ad8b18808c4e8439af3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "360a77e44e1163dba90c4e8ce67f838dcc91ced3e605f0acd0d342f31139b684",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D24",
+        "comparison": "For rho in (0,1), real r and function E, the formula is (1-a)/rho times (ell(x,y)-E(x))+E(x)-r. Since a is numerically 0 or 1, 1-a equals the target indicator; this is not valid as a multi-source indicator formula without modification. E is arbitrary in the definition, not required equal to E-star. At true rho and r, DS.1 allows the target and mixture E(X) means to cancel when integrable, but mean zero alone does not establish efficiency. Finite target loss variance and suitable L2 nuisance control are needed for an influence-function interpretation, while the efficient branch uses the true conditional risk and statistical regularity. Theorem 2's inconsistent-nuisance case contains an additional leading term, so this display is not silently substituted for its full RAL expansion.",
+        "statement_sha256": "d0f0a64a167e7e36deb80e634a9d4c967b5ac1feacf0be1d1a0e6ac66f9c716c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched efficient influence functions and inspected mean, feature independence and square-integrability ingredients; compared the arbitrary nuisance argument with the true efficient instance.",
+          "result": "The displayed scalar function and its moment conditions can be constructed, but calling every supplied nuisance instance efficient would exceed the formula's scope."
+        }
+      ],
+      "gap": "Construct D_Xcon for its stated binary label and arbitrary nuisance arguments, then establish mean-zero, L2 and efficiency properties for the appropriate true-parameter instance."
+    }
+  },
+  {
+    "interface_id": "local-9be0807814e34d760c6c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "d7d48e755c91586ed05cb997bc40a81ae4d5945e099e0d791b3fa8bf0371fc4a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D4",
+        "comparison": "For every k choose a KNOWN nonempty S-prime_k. The prefix law under Q is absolutely continuous WITH RESPECT TO the prefix law under P-star conditioned on A in S-prime_k; the domination is not reversed and is weaker than bounded two-sided density ratios. For each a in that set, the conditional law of Z_k given the history and A=a equals its conditional law under Q for Q-almost every target history in Z_(k-1). Nonempty sets alone do not ensure positive conditioning mass for the pooled event or every individual a, so the source's conditional-law existence qualifications remain. Appropriate measurable/standard-Borel structure and compatible kernel versions are needed. This does not require whole-joint-law equality or observed target data. Theorem 1 adds DS.0 only in its final drift-zero branch; the earlier drift-corrected expansion must not acquire it globally.",
+        "statement_sha256": "c046a5c89c761e9a7966be0a16f79e2d64f2a0fbd80075c18641a5b379d3c4e3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.AbsolutelyContinuous",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.AbsolutelyContinuous",
+          "provides": "Absolute continuity of one measure with respect to another, expressed by preservation of the latter measure’s null sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/AbsolutelyContinuous.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected target/source absolute continuity, conditional-event laws and conditional kernels; compared DS.0's direction, quantifiers and branch scope.",
+          "result": "The two sequential compatibility conditions are expressible with absolute continuity and equality of conditional probability laws, but their domains and version conditions must be explicit."
+        }
+      ],
+      "gap": "Construct DS.0 with known nonempty relevant-population sets, target-history domination by pooled sources and Q-almost-everywhere component-law matching."
+    }
+  },
+  {
+    "interface_id": "local-479d5de7b4382f340a49",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "d38743b3e4623a81b5a0d6098f24ad87a4919cd41d5f9eb3a8fea5af04e74549",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D18",
+        "comparison": "For each realization of the trained ell-hat_v^k, condition its value at bar-Z_k on bar-Z_(k-1)=bar-z and A in S-prime_k under the TRUE P-star. Footnote 5 integrates a fresh data point while treating the nuisance estimate as fixed; it does not average over training randomness or make h deterministic. The result therefore remains a random function of the training data, and joint measurability/integrability and version choices require care. It is an oracle depending on P-star, not an implementable regression fit supplied by the algorithm. If the nuisance is inconsistent or source conditions fail, h need not equal ell-star^(k-1). Arbitrary extensions off support can affect this integral and are not replaced by a unique canonical version.",
+        "statement_sha256": "729305cd049eb98c7070941c4fc510adc6c4fcfb04e47cd857da7d8a9177df60"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional kernels and integrals; compared the oracle regression with footnote 5's frozen-nuisance/fresh-observation convention.",
+          "result": "The oracle conditional mean can be constructed for each fixed fitted function, remaining random through its training-dependent input."
+        }
+      ],
+      "gap": "Construct h_v^(k-1) by integrating the frozen fitted ell-hat_v^k against the true relevant-source conditional law of a fresh observation."
+    }
+  },
+  {
+    "interface_id": "local-0d05ee9bad04fdaddedc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:08:15.172471+00:00",
+    "source_interface_sha256": "790aa7121233af51a36b9789cbcca81904d2934cf689fe6f991867c58964c8d3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D7",
+        "comparison": "lambda-star^(k-1) is dQ_history/dP_history_given_A_in_S-prime_k. It is not the reverse ratio, an individual-source ratio or merely target-versus-source membership odds. Positive mass of the pooled conditioning event gives a genuine source probability measure; absolute continuity of the target prefix law is then needed for reconstruction and the change-of-measure identity. rnDeriv is ENNReal-valued, chosen up to source-a.e. equality, and can represent only an absolutely continuous part when domination fails; its total availability does not supply the missing target singular mass. Conversion to a real weight needs finite-a.e. behavior and the intended integral domains. DS.0 provides domination together with conditional matching, but a theorem branch allowing matching to fail still needs whatever domination is required for this ratio; adding full DS.0 would incorrectly erase its drift term.",
+        "statement_sha256": "ac0e8763ef3bd6395efce0671ff112ae68aff583039fb9c62907427c17c52c5c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.rnDeriv",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → (α → ℝ≥0∞)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.Lebesgue",
+          "provides": "Radon–Nikodym density of the absolutely continuous part; singular mass is separate and must not be lost when defining divergence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/Lebesgue.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.AbsolutelyContinuous",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.AbsolutelyContinuous",
+          "provides": "Absolute continuity of one measure with respect to another, expressed by preservation of the latter measure’s null sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/AbsolutelyContinuous.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral_toReal_rnDeriv_mul",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → {μ ν : MeasureTheory.Measure α} → [MeasureTheory.Measure.HaveLebesgueDecomposition μ ν] → [MeasureTheory.SigmaFinite μ] → μ ≪ ν → {f : α → ℝ} → (∫ x, (μ.rnDeriv ν x).toReal * f x ∂ν) = ∫ x, f x ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Decomposition.RadonNikodym",
+          "provides": "Changes a real integral to an integral weighted by the Radon–Nikodym derivative under absolute continuity and the stated decomposition/sigma-finiteness assumptions; finite-expectation interpretation still requires integrability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Decomposition/RadonNikodym.lean#L597-L598",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the Radon-Nikodym derivative body, absolute continuity and change-of-measure identity; compared the target-over-pooled-source ratio with its use outside full DS.0.",
+          "result": "The RN derivative supplies the target-history density relative to the pooled source-history law when domination holds, with the usual almost-everywhere and real-conversion qualifications."
+        }
+      ],
+      "gap": "Construct the target-over-pooled-source history ratio under actual domination, preserving its version/domain conditions without imposing all of DS.0 on every theorem branch."
+    }
+  }
+]

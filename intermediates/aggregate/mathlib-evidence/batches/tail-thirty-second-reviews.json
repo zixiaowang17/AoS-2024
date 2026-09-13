@@ -1,0 +1,190 @@
+{
+  "scope": "Manual variant-aware comparisons of p2268 sub-Gaussian conditions, focused invariance regularization, constrained predictors, EILLS objectives and finite sample thresholds; source notation issues retained.",
+  "rows": [
+    {
+      "interface_id": "local-a51877064f7d2b44c03f",
+      "related": [
+        "ProbabilityTheory.HasSubgaussianMGF",
+        "CFC.rpow",
+        "dotProduct",
+        "EuclideanSpace.norm_eq"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "HasSubgaussianMGF expresses the MGF bound and exponential integrability of each real linear projection. CFC.rpow supplies real matrix powers with the MatrixOrder instances; strict positive definiteness of the pooled covariance keeps its inverse square root away from the singular-spectrum convention.",
+      "gap": "The pooled inverse-square-root transform and uniform projection family must be instantiated, with the vector bound related to scalar MGF bounds by rescaling the test vector.",
+      "comparisons": {
+        "D16": "For each environment e and real vector v, take X_v=dotProduct v (Sigma^(-1/2) x^e) and variance proxy c_v=sigma_x^2*norm(v)^2, coerced to NNReal using nonnegativity. The source bound for every vector implies the all-t MGF bound by substituting t*v, and the converse follows at t=1. Keep one sigma_x>=1 uniformly over all e and v. Sigma is the uniform POOLED second-moment matrix, not Sigma^e; prove its positive definiteness from the standing lower matrix bound before interpreting CFC.rpow at -1/2 as whitening. HasSubgaussianMGF includes integrability, which is needed for the source finite exponential expectation, and the bound is unconditional rather than conditional on other covariates."
+      }
+    },
+    {
+      "interface_id": "local-5ce4453e1488c17b5055",
+      "related": [
+        "ProbabilityTheory.HasSubgaussianMGF"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "The definition requires integrability of exp(t*X) and the bound exp(c*t^2/2) for every real t, matching the displayed residual sub-Gaussian condition when c=sigma_epsilon^2.",
+      "gap": "Uniformly quantifying HasSubgaussianMGF over the environments with variance proxy sigma_epsilon squared expresses the condition directly.",
+      "comparisons": {
+        "D17": "Use the true residual epsilon^e under its environment law and a single positive sigma_epsilon, then require HasSubgaussianMGF epsilon^e (sigma_epsilon^2) mu^e for each e. The parameter is the squared scale, not sigma_epsilon itself. This predicate encodes the unconditional MGF with exponential integrability, consistent with the source’s finite-expectation reading; it does not assume independence from all observed covariates, conditional sub-Gaussianity, or a fitted residual."
+      }
+    },
+    {
+      "interface_id": "focused-linear-invariance-regularizer",
+      "related": [
+        "gradient",
+        "Set.indicator",
+        "MeasureTheory.integral",
+        "dotProduct"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "gradient supplies the derivative-based expression after differentiability is established; Set.indicator restricts the penalty to the candidate coefficient support. Real integrals or empirical averages give the corresponding residual-coordinate moments, which are squared separately within each environment before weighting.",
+      "gap": "The coordinate-support gate and weighted moments must be assembled, and the population gradient identity must be proved to relate the one-quarter gradient penalty to squared residual moments.",
+      "comparisons": {
+        "D7": "At candidate beta, sum only over j with beta_j nonzero by using the indicator of Function.support beta. Keep omega^e/4 times the square of coordinate j of the population risk gradient, summed across environments. Prove the quadratic risk is differentiable and its derivative is -2 E[x_j^e(y^e-beta dot x^e)]; gradient defaults to zero without differentiability, so its bare value cannot establish invariance. The factor 1/4 cancels the derivative’s factor 2 only after squaring. This enforces selected linear moments, which are weaker than full conditional-expectation invariance; the nonzero-coordinate gate is exact and generally discontinuous at zero.",
+        "D9": "For each nonzero candidate coordinate, form the empirical mean of x_j^e times the candidate residual separately in each environment, square that mean, then sum with omega^e. This is not a mean of squared per-observation products, nor the square of an environment-pooled mean; opposite environment moments should not cancel the penalty. The source permits positive normalized weights and different n^e in this method definition. Use explicit empirical finite sums; no population derivative or expectation can replace them. Preserve the same exact support gate and do not substitute the smooth Gumbel approximation mentioned for numerical practice."
+      }
+    },
+    {
+      "interface_id": "local-eb9adfc5021f87172a95",
+      "related": [
+        "IsMinOn",
+        "Function.support",
+        "Matrix.PosDef"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Function.support expresses the admissible coordinate subspace, IsMinOn expresses population risk minimization on it, and Matrix.PosDef expresses the stated strictly positive quadratic form.",
+      "gap": "The restricted quadratic-risk minimizer still needs existence and uniqueness derived from finite moments and positive definiteness.",
+      "comparisons": {
+        "D5": "Optimize over full p-dimensional real vectors whose support is contained in S, retaining zero coordinates outside S. Combine IsMinOn R^e {beta | support beta subset S} beta_eS with actual membership, since IsMinOn alone does not require it. Positive definiteness of Sigma^e together with the finite second moments makes the restricted quadratic coercive and strictly convex, but the predicate PosDef itself does not construct or select beta_eS. Do not require support exactly equal to S or replace the population risk with its empirical version; for empty S the admissible set is the single zero vector."
+      }
+    },
+    {
+      "interface_id": "local-e02a0f9b119877f6c788",
+      "related": [
+        "IsMinOn",
+        "Function.support"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "The constrained minimizer relation and coordinate support predicates give the objects needed for the finite-set identification condition; ordinary quantifiers express distinct environment-specific coefficients.",
+      "gap": "Once the constrained population minimizers are defined, these predicates and finite-set quantifiers suffice to state the identification condition.",
+      "comparisons": {
+        "D19": "For EVERY S subset [p] intersecting G, require SOME pair e,e_prime (which may depend on S) whose full p-dimensional constrained population coefficients differ. A fixed pair working for all subsets, heterogeneity of distributions alone, or checking only singleton spurious variables is a different condition. Existence and uniqueness of beta_eS come from the preceding positive-definite regression setup; the condition compares coefficient vectors, not their attained minimum risks. If G is empty the universal assertion is vacuous, but that does not give conventions for later empty extrema."
+      }
+    },
+    {
+      "interface_id": "local-d15d9b6b752952faee08",
+      "related": [
+        "EuclideanSpace.norm_eq"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Finite vector averaging and the Euclidean sum-of-squares norm express the mean constrained coefficient vector and its average squared deviations.",
+      "gap": "Finite sums, scalar averaging and the Euclidean norm identity suffice to express this between-environment dispersion.",
+      "comparisons": {
+        "D21": "Each beta_eS is still a full p-dimensional vector with zeros outside S; define beta_bar^S=(1/|E|) sum_e beta_eS and dbar_S=(1/|E|) sum_e norm(beta_eS-beta_bar^S)^2. Use uniform population averaging, no Bessel correction and no sample covariance. Keep the square inside the environment average, unlike b_S which squares a pooled moment vector. For nonempty finite environments and the identification condition on S meeting G this dispersion is positive, but positivity is a derived fact, not part of the Euclidean norm theorem."
+      }
+    },
+    {
+      "interface_id": "local-22c8080cf9f1f5cd05a4",
+      "related": [
+        "Finset.max'"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "There are finitely many coordinate subsets, so the supremum of the real ratios is a finite maximum when the family is nonempty and denominators are positive; Finset.max' expresses that maximum.",
+      "gap": "The finite maximum gives the threshold after establishing the source’s nonempty subset family and positive dispersions.",
+      "comparisons": {
+        "D22": "Enumerate all S subset [p] with S intersect G nonempty and maximize b_S/dbar_S, then multiply by kappa_L^(-3). The preceding Section 4.2 explicitly treats G nonempty, ensuring admissible subsets exist; Condition 4.5 ensures each relevant dbar_S>0. Keep the supremum over all such subsets rather than singleton variables or a chosen support. Finset.max' needs a nonempty proof and returns a value, not a maximizing subset. For empty G or zero dispersions, the source gives no replacement convention, and real division by zero or a default empty supremum must not silently extend the threshold."
+      }
+    },
+    {
+      "interface_id": "local-a425f7fd1c82599cadfc",
+      "related": [
+        "IsMinOn"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "IsMinOn on the whole coefficient space expresses global minimization of the sum of the pooled empirical risk and gamma times the focused empirical penalty.",
+      "gap": "The EILLS objective must be assembled and a global minimizer selected, with existence and measurability established separately.",
+      "comparisons": {
+        "D11": "Set Qhat(beta)=Rhat(beta;omega)+gamma*Jhat(beta;omega) for the given gamma>0, retaining every support gate and environment weight in Jhat. Use a global minimizer over R^p, not a stationary point of a differentiable approximation. IsMinOn is a relational statement and neither constructs a selected estimator nor proves uniqueness or measurability; the coefficient-dependent support gate prevents assuming ordinary smooth convex optimization applies. The source’s discussion of numerical approximations and exponential-time support search does not redefine the estimator analyzed in the theorems."
+      }
+    },
+    {
+      "interface_id": "local-2bd462bc1fd86621f8a3",
+      "related": [
+        "Finset.min'"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "The minimum of the finite squared true coefficients and of the finite subset dispersions can each be represented using Finset.min' when their index families are nonempty.",
+      "gap": "Finite minima express both signals on nonempty families, while the source leaves empty-support and empty-spurious-family conventions unspecified.",
+      "comparisons": {
+        "D23": "For s_plus minimize |beta_star_j|^2 over j in the exact true support; for s_minus minimize dbar_S over ALL S intersecting G, not just the true support or singleton spurious coordinates. Nonempty S_star makes s_plus positive because every supported coefficient is nonzero; finite nonempty admissible S and identification make s_minus positive. Preserve the source’s lack of a convention if S_star or the G-indexed family is empty, instead of importing an arbitrary zero or infinity and using it in subsequent reciprocal terms."
+      }
+    },
+    {
+      "interface_id": "local-bd9f2c271a0df1cb10b7",
+      "related": [
+        "Real.rpow",
+        "Real.log"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Real powers, real logarithms and arithmetic express the two numerical lower bounds on per-environment and pooled sample sizes without an asymptotic simplification.",
+      "gap": "These scalar operations suffice to state both bounds after preserving the positive signal domain and the specified uniform dependence of the constants.",
+      "comparisons": {
+        "D25": "Quantify c1 and c2 depending only on kappa_U,sigma_x,sigma_epsilon before every t>0 and the varying problem sizes. Retain BOTH n>=c1*(gamma/kappa_L)*(p+log|E|+t)*(s_plus^(-1/2)+s_plus^(-1)+(gamma*kappa_L*s_minus)^(-1/2)) and n*|E|>=c2*(gamma/kappa_L)^2*(p+t)*(s_plus^(-1)+(gamma*kappa_L*s_minus)^(-1)+1). Use positive kappa_L,gamma,s_plus,s_minus for the reciprocal meanings, and real casts of positive counts. This is the balanced, uniformly weighted theorem regime; it does not establish screening or replace these inequalities by an eventual growth rate."
+      }
+    },
+    {
+      "interface_id": "local-79ac4f109408b5267620",
+      "related": [
+        "MeasureTheory.integral",
+        "dotProduct"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Bochner integration, finite weighted sums and addition express a population squared-loss-plus-regularizer objective after its predictor is specified; the printed passage itself has the saved predictor-symbol ambiguity.",
+      "gap": "The population objective can be assembled, but equation (3.8) prints x in place of the coefficient and requires the recorded contextual interpretation before formalization.",
+      "comparisons": {
+        "D12": "Preserve the original statement exactly: the displayed loss term is |y^e-x^T x^e|^2 even though Q is a function of beta. Earlier R^e(beta) in (2.5), empirical (3.6) and the surrounding population-analog wording support the intended beta^T x^e interpretation; this is already recorded as a source issue and is not silently corrected here. Given that interpretation, average population squared risks with positive normalized weights and add gamma times the population focused regularizer. Establish moment integrability to avoid Bochner zero fallback and keep this separate from the empirical objective and from any fitted estimator."
+      }
+    },
+    {
+      "interface_id": "local-5754433d9fb91ab3dbfd",
+      "related": [
+        "IsMinOn",
+        "Function.support"
+      ],
+      "status": "partial_match",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Function.support gives the exact nonzero coefficient set whose finite cardinality is the l0 penalty; IsMinOn expresses global minimization after adding its weighted cardinality to Qhat.",
+      "gap": "The support-cardinality penalty and EILLS objective must be assembled, with a selected measurable global minimizer justified separately.",
+      "comparisons": {
+        "D13": "For finite p, take the cardinality of {j | beta_j!=0}, cast it to R and multiply by the given lambda; this is a count, not the l1 norm, an l2 penalty or the value of a discontinuous p-norm at p=0. Add it to the full support-gated empirical EILLS objective and minimize globally over R^p. The definition says given lambda; apply whatever positivity and tuning bounds later theorems require in their own scope rather than altering the original definition. IsMinOn alone neither chooses a minimizer nor proves uniqueness or computational tractability. Post-selection least-squares refitting is a separate operation, not part of beta_hat_L."
+      }
+    },
+    {
+      "interface_id": "local-feecfa924915470d4aae",
+      "related": [
+        "Finset.min'",
+        "Function.support",
+        "Real.log",
+        "Real.sqrt"
+      ],
+      "status": "composable",
+      "query": "Pinned local rg search for EILLS, spurious variables, invariant regression, pooled risk/loss and whitening in Probability, Analysis and LinearAlgebra; direct inspection of the relevant declaration bodies, including SubGaussian, Gradient/Basic, Matrix/Order, CFC/Rpow/Basic, Matrix/PosDef, Finset/Max, Filter/Extr, Function.support and Set.indicator; source conventions checked against registered p2268 PDF pages 8-16 and saved ambient prerequisites.",
+      "result": "Finite support cardinality, a minimum of nonzero coefficient magnitudes, real logarithms and square roots express s_star, beta_min and both explicit numerical sample-size conditions.",
+      "gap": "These operations suffice to state the condition when beta_min is defined and positive, with the source’s constant dependencies and both sample-size inequalities retained.",
+      "comparisons": {
+        "D24": "Use s_star=|S_star| and beta_min=min_{j in S_star}|beta_star_j|, requiring nonempty S_star for a finite positive minimum; preserve the source ambiguity for an empty true support. Quantify positive c1,c2 depending only on C,sigma_x,kappa_U,sigma_epsilon before varying n,p,|E|,gamma and signals. Retain log|E|<=C log p, the full first bound with the inverse (kappa_L*beta_min) times sqrt((s_star+log p)*s_star*log p), and the separate pooled bound on n*|E| with 1+1/(kappa_L*beta_min^2). Use the balanced-data theorem scope and positive denominators, without substituting a simplified asymptotic rate or claiming these algebraic predicates prove support recovery."
+      }
+    }
+  ]
+}

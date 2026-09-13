@@ -1,0 +1,641 @@
+[
+  {
+    "interface_id": "local-447a58900c79df2e76dd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "2beaf70f68e58cecf53113547a47349c34ada9b09d8dd5383399106280b6f0e1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D9",
+        "comparison": "Retain the almost-sure lower mass bound for |q_i|<epsilon conditional on Z_-1,i, the infimum of absolute regression-jump moments over the closed source neighborhood, the product-of-parameter-distances bound for simultaneous hyperplane crossings, and both uniformly finite eighth conditional moments. condDistrib determines a conditional law only almost everywhere in the conditioning variable; evaluating at Z_i-transpose gamma=0 generally requires a chosen version beyond that equivalence class. Normalized event conditioning at a null hyperplane would not supply this value. Extended nonnegative integrals keep infinite moments visible, whereas condExp's nonintegrable fallback zero cannot be used to satisfy a finiteness condition. Separate pointwise or almost-sure clauses over uncountably many gamma cannot silently be given a common version.",
+        "statement_sha256": "abfe1670439d0ac2d6ce6e2e90c035d0d254be0796a88e54ac487892f916e6dd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional distribution 64–66, conditional expectation 102–108 and extended integral semantics against all four clauses of Assumption 4 on source page 6; reviewed the null-set-version source issue.",
+          "result": "Conditional kernels and moments can express individual clauses, but their particular boundary versions, uniform jump lower bounds and cross-hyperplane probability bounds require source-specific assumptions."
+        }
+      ],
+      "gap": "Specify compatible boundary conditional versions and assemble all four regularity clauses without replacing conditioning on a null hyperplane by normalized restriction."
+    }
+  },
+  {
+    "interface_id": "local-83a67f93977a7991cb65",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "c2015941e207072d5c6de937222c749b01bc11f0b74a068e4487bf9dd345f33b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D35",
+        "comparison": "Use average (volume.restrict A) id in a specified Euclidean space. The inspected average formula is inverse total real mass times the Bochner integral, matching the vector numerator divided by volume when the first moment is integrable and 0<volume(A)<infinity. Its default zero for zero/infinite mass or nonintegrability is not the source's unspecified behavior for arbitrary sets. A finite-set centroid uses counting weights and is not this Lebesgue centroid; normalized affine parameter spaces require an explicit intrinsic-coordinate measure to avoid zero ambient volume.",
+        "statement_sha256": "3c7745170e541e335954d03da4ca820eca71b3506b668e367305da672ad870b4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.average",
+          "type": "{α E : Type*} → {m₀ : MeasurableSpace α} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → MeasureTheory.Measure α → (α → E) → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Average",
+          "provides": "Bochner average under the normalized measure, equal to inverse total real mass times the integral; for the identity map this is the normalized barycenter when mass is positive and the first moment finite.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Average.lean#L279-L280",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched centroid/center-of-mass definitions and inspected MeasureTheory.average 279–280 and average_eq 385–386; compared the Lebesgue centroid formula on source pages 7–8.",
+          "result": "The average of the identity under restricted Lebesgue measure equals the printed normalized integral on a measurable set of positive finite volume with integrable first moment."
+        }
+      ],
+      "gap": "Specify the integration dimension and prove positive finite volume and first-moment integrability before identifying the source centroid with the library average."
+    }
+  },
+  {
+    "interface_id": "local-a2dec6d8fa1389582f23",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "03eb06b95d83a164ea66c379b145674b4301693dcb4b2fe23b95822b99b4b432",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D15",
+        "comparison": "The argument of C is the set of all empirical boundary LSE solutions, not the limiting-process minimizer set or the later finite set of two fitted boundary vectors. IsMinOn needs feasible membership separately and does not supply existence, uniqueness, convexity or a common fitted partition. Fixing first coordinates to one makes ordinary full-dimensional Lebesgue volume zero; an intrinsic measure must be specified rather than supplied silently. Averaging arbitrary N minimizers or solver outputs has no established centroid law in the source, which explicitly leaves the solver sampling mechanism unresolved.",
+        "statement_sha256": "672afe187869877cba06e0e4875e48cc70cf9534a073d3183fe159a508b77bce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.average",
+          "type": "{α E : Type*} → {m₀ : MeasurableSpace α} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → MeasureTheory.Measure α → (α → E) → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Average",
+          "provides": "Bochner average under the normalized measure, equal to inverse total real mass times the integral; for the identity map this is the normalized barycenter when mass is positive and the first moment finite.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Average.lean#L279-L280",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the measure average and minimizer predicate against the empirical boundary centroid on pages 7–8 and the source's normalization, minimizer and sampling notes.",
+          "result": "A minimizer predicate and normalized set integral are available, but no generic theorem gives the required geometry, volume or sampling law of this empirical boundary-minimizer set."
+        }
+      ],
+      "gap": "Construct the empirical boundary solution set and its valid integration measure before taking its centroid or asserting a numerical sampling approximation."
+    }
+  },
+  {
+    "interface_id": "local-d5d7d8ff53a525676371",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "baa5984999f1fb0ad6fdd67da1a045fee21532c7180a80d2297cf0cf898bb620",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D13",
+        "comparison": "Set q_i=Z_i-transpose gamma_i0, retain the region-specific signs and the contrast delta_kh,0=beta_k0-beta_h0, and form the mark ((X-transpose delta)^2+2 X-transpose delta*epsilon) times the indicator of R_k union R_h for the specified adjacent pairs. For q_i given Z_-1,i use condDistrib q_i Z_-1,i; for the mark use condDistrib xi (q_i,Z_-1,i). withDensity represents a conditional density only when that kernel law is proved absolutely continuous with respect to the correct reference measure. Support denotes the stationary omitted-coordinate distribution's support. Neither generic disintegration nor an arbitrary Radon–Nikodym version determines the pointwise density at q_i=0 required later.",
+        "statement_sha256": "ac090949c504730c3a3646ef9811e2e9d4b5b45bc765af22d1834063e87983ce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.support",
+          "type": "{X : Type u} → [TopologicalSpace X] → [MeasurableSpace X] → MeasureTheory.Measure X → Set X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Support",
+          "provides": "Topological support: every neighborhood of a support point has positive measure; this preserves support containment rather than merely almost-sure membership.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Support.lean#L59-L59",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected conditional-kernel argument order, withDensity and support definitions and the indicator/inner-product evidence; compared signed boundary coordinates and jump marks (3.3), source page 7.",
+          "result": "Existing operations express coordinates, marks and regular conditional laws; conditional density existence and chosen boundary values require additional version and absolute-continuity data."
+        }
+      ],
+      "gap": "Construct the signed contrast marks and conditional kernels with explicit density versions suitable for evaluation at q_i=0."
+    }
+  },
+  {
+    "interface_id": "local-9c23f3633fb150ece8b3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "8cf888d1ce72221d753741ce97284783da02fb047db57fe1d53bf8cd78657049",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D10",
+        "comparison": "Clause (i) uses a single fixed delta3>0, uniformly in t>=1 and j>=1, with a c4 multiple of the squared marginal neighborhood probability; it is not a delta-to-zero non-clustering rate. Clauses (ii) and (iii) require continuity in q at zero for each support point, with positive lower/upper density bounds and the mark-density upper bound as printed. Keep the reused c4 symbol and do not strengthen pointwise continuity to uniform continuity. Clause (iv) is compactness of the omitted-coordinate support. A.e.-defined conditional densities require selected versions before imposing these conditions at every support point and at q=0.",
+        "statement_sha256": "bb80a5d02ff8079731f7d97155419b6e8ce4dc94e6c4381199fdf58047e9c976"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "IsCompact",
+          "type": "{X : Type u} → [TopologicalSpace X] → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Compactness of a subset, without any additional nonemptiness, convexity, box or polyhedral restriction.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L284-L285",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched non-clustering and conditional-density regularity terminology and inspected conditional kernels, density measures and compactness; compared all four clauses of Assumption 5, source page 7.",
+          "result": "The general density/compactness framework can host the assumptions, but no inspected library predicate combines the particular lag bound and boundary-density continuity conditions."
+        }
+      ],
+      "gap": "State the fixed-threshold lag bound and pointwise boundary-density conditions for explicit versions on the compact support."
+    }
+  },
+  {
+    "interface_id": "local-8df86b64986cdf06c06b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "31b2f08c2665fc97c3587d7ce3952da5aa4d953ad1088ffbcdfef5f865687512",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D12",
+        "comparison": "B_k is E[XX-transpose times the region indicator], an uncentered region-weighted second moment; the middle matrix is E[XX-transpose epsilon^2 times that same indicator]. Form B_k inverse times the middle matrix times B_k inverse, preserving the source parentheses as archived. Matrix.mul_nonsing_inv requires an invertible determinant, so a totalized singular inverse cannot stand for the intended inverse without that proof. Real or matrix Bochner integrals likewise require finite moments rather than their nonintegrable fallback. Do not substitute a centered covariance or a long-run sum over temporal lags.",
+        "statement_sha256": "dada44cc7571207441da89555a1e299f45086c1b145ed36963065ac1898fa1b5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Bochner integral's integrability requirements, matrix multiplication and mul_nonsing_inv 211–213; compared B_k and Sigma_k on source page 7.",
+          "result": "Matrix-valued moments and the two-sided inverse sandwich can be assembled, with genuine inverse behavior requiring nonsingularity of the design moment."
+        }
+      ],
+      "gap": "Build the region-weighted design and residual-square moments and establish nonsingularity and integrability for the stated sandwich covariance."
+    }
+  },
+  {
+    "interface_id": "local-b3dc6dffcd4bb0c45e72",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "318d16155d500e8d7358b19f5d30dd9eb72c998d22d3377151cdbb508bdb8822",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D30",
+        "comparison": "On EuclideanSpace ℝ of the covariate dimension, innerSL ℝ X beta equals X-transpose beta; add epsilon to obtain Y. This is K0=1 with no splitting hyperplane, not an estimator, homoscedasticity condition or Gaussian-error claim. The supplementary assumptions required by the later degenerate-model theorem remain unresolved rather than inferred from the linear formula.",
+        "statement_sha256": "9466166ff803b495ac63dbefd1373edfc6765b93038863d4c2d73ddc9d46e8b5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the real specialization of innerSL at LinearMap.lean 164–166 against the global linear model (6.5), source page 14.",
+          "result": "The Euclidean inner product gives X-transpose beta, and adding the residual expresses the single-regime model."
+        }
+      ],
+      "gap": "Package the scalar linear predictor and residual with the paper's stochastic model assumptions."
+    }
+  },
+  {
+    "interface_id": "local-b183b9c7073db4d09932",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "de6c8ac7beaac45a07e5b318857b3eaf8bcc73496cc3705fdcc6dc9eaf745256",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D26",
+        "comparison": "Keep R1={q1>0}, R2={q1<=0,q2>0}, R3={q2<=0}, together with q1<=q2 for every point of the specified covariate support and the stated nonintersection condition. Under that ordering the regions partition the support, assigning equality to the nonpositive side. Use three coefficient vectors and add epsilon. Do not infer the ordering merely from a local picture or replace the support-wide requirement by an almost-sure statement without a bridge.",
+        "statement_sha256": "c018d773e6a618bf9155e90d2ec4a666c72845c78112bb297336d5a959bbd5ad"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real inner products and event indicators against the complete nonintersecting three-regime family (6.1), source pages 13–14.",
+          "result": "Finite sums of indicator-weighted linear predictors express the stated three-regime model once the support-wide hyperplane ordering is imposed."
+        }
+      ],
+      "gap": "Define the three regions with the printed global support ordering and assemble their indicator-weighted regression model."
+    }
+  },
+  {
+    "interface_id": "local-74ef503641cf10d0a68e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "6d3db7a96736120310787887273d9fd3e158e8296b3b70f60c824cb1aef8c12e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D27",
+        "comparison": "Preserve the source's z_i-transpose gamma_j,0 term, which can be dimensionally invalid when d_i differs from d_j, and the fact that its printed R2 lies inside R3. Consequently a literal sum would double-count points there rather than define the disjoint regions suggested by the prose and Figure 1(C). The figure's (-,+) middle region is evidence of a discrepancy, not authorization to replace the archived inequalities. Existing indicators and inner products only supply ingredients until the intended formula is settled; the missing delimiter is also retained in the source record.",
+        "statement_sha256": "1d2477ed22c4eec2d645a6071cdfe297bd53d0cb9a45b8b9b963e2dd983e6a7c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the indicator/inner-product construction against printed (6.2), its region clauses and Figure 1(C) on source page 14; reviewed the stored dimension and overlap discrepancy.",
+          "result": "The regression building blocks exist, but the printed formula does not unambiguously define the intended three-region partition."
+        }
+      ],
+      "gap": "Resolve the printed boundary-index, overlapping-region and indicator-delimiter discrepancies before claiming a faithful formal model."
+    }
+  },
+  {
+    "interface_id": "local-3b448f43d78f6c33ff48",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "a711dfa81dcb23dca6e0a62661e12088119309af2d92f5b92daf1829f0c5d01a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D29",
+        "comparison": "R1 consists of q1>0 and q2>0 simultaneously; R2 is the entire specified support product minus R1. It therefore includes both zero boundaries and every other sign combination, rather than only the negative-negative region. Preserve the source brace notation R2{gamma0} in the quotation. This two-hyperplane family has two regression regimes and is distinct from the one-hyperplane two-regime specialization.",
+        "statement_sha256": "beaee4d95d80a1b2b819235548fcc50189023e7f027664a48c65094d08aa4580"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the finite indicator regression construction against both regions of (6.4), source page 14.",
+          "result": "The positive-positive intersection and its support-relative complement give two indicator-weighted linear predictors using existing operations."
+        }
+      ],
+      "gap": "Define the two-hyperplane intersection and support-relative complement and assemble the two-regime predictor."
+    }
+  },
+  {
+    "interface_id": "local-5137986ceef52c2abe1b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "b2e310fe9b66e38d038e03ce5d80248dbda9cc9436a747abff4ddf0f572dd879",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D28",
+        "comparison": "Choose either (z1,gamma10) or (z2,gamma20), use R1={z-transpose gamma0>0} and R2={z-transpose gamma0<=0}, and add the two regime-specific linear contributions plus epsilon. Equality belongs to R2. The coefficient dimension follows the selected block; do not force the stacked two-boundary dimension from the four-regime model onto this specialization.",
+        "statement_sha256": "9d5d1a4ea889e8f90f82580e1f76ed733637ab843cd1803170f8f8133f97f3cf"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected inner products and indicators against the one-hyperplane model (6.3), source page 14.",
+          "result": "A positive/nonpositive split and two indicator-weighted linear terms express this model directly after choosing the boundary-covariate block."
+        }
+      ],
+      "gap": "Choose the source boundary block with matching coefficient dimension and define its positive/nonpositive two-region split."
+    }
+  },
+  {
+    "interface_id": "local-da70b6b1ae5a9e5de4ac",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "033d0dfd8b4da20b193bda1a5006d5fa5a2add01699b13bca591fe8c2298e57e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D25",
+        "comparison": "The source explicitly restricts the unified theorem model to 1<=K0<4 and L0<=2 despite the surrounding phrase no more than four regimes. For K0=1 the sole region is the full support and there is no boundary; for L0=1 use the selected boundary block, and for L0=2 use the stacked pair. The existing operations express the sum but do not resolve family (6.2)'s overlap/dimension issue or the supplementary S2-S4 premises. Do not broaden this interface to a new K0=4 assumption or to arbitrary unlisted partitions.",
+        "statement_sha256": "d3c72aa027de79336810064128ee6ccca9dd4e3722971006d62d64e8e0cd6b38"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite indicator-weighted regression expressions against unified equation (6.6), source page 15, and the five preceding model families.",
+          "result": "The generic finite-sum regression expression is available by composition; the family-specific region definitions and one unresolved intersecting-family formula are additional source data."
+        }
+      ],
+      "gap": "Parameterize the five lower-regime families with their correct boundary dimensions while retaining the unresolved intersecting-region source discrepancy."
+    }
+  },
+  {
+    "interface_id": "local-6c3b8e69d3a077302670",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:50:45.110947+00:00",
+    "source_interface_sha256": "1cace5cf45d6e11d45c0f86ca28e9a3078241f660f080a198d047f89f30e4fd2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2668",
+        "local_id": "D31",
+        "comparison": "Instantiate infDist on EuclideanSpace ℝ with the finite set of fitted vectors; compactness of a finite nonempty set gives an element attaining min_j norm(v-vhat_j). This is the ordinary Euclidean norm, not its square, and the empty-set fallback of infDist is not a source convention. Here calligraphic Ghat is reused for the two fitted boundary vectors, not the earlier full minimizer set. If d1 differs from d2, those two vectors cannot inhabit one Euclidean space without a specified embedding or restriction to matching dimensions, which the source does not give.",
+        "statement_sha256": "170efcb704b54a4ec5d6e1c3d4198d6bff8e4b20946553d829ff0d6b3f035adc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.infDist",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Real-valued infimum distance to a set, obtained from the extended distance; for the empty set its toReal convention gives zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L463-L464",
+          "link_checked": true
+        },
+        {
+          "name": "IsCompact.exists_infDist_eq_dist",
+          "type": "∀ {α : Type u} [PseudoMetricSpace α] {s : Set α}, IsCompact s → s.Nonempty → ∀ x : α, ∃ y ∈ s, Metric.infDist x s = dist x y",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.HausdorffDistance",
+          "provides": "Attainment of nearest-point distance for a nonempty compact set, without uniqueness of the nearest point.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/HausdorffDistance.lean#L611-L614",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected infDist 463–464 and compact nonempty attainment 611–614; compared the vector-to-finite-estimator-set definition on source page 15.",
+          "result": "Distance to a nonempty finite subset of one Euclidean space equals an attained minimum, but the source's mixed-dimension boundary set needs a convention before every comparison is typed."
+        }
+      ],
+      "gap": "Place the compared vectors in a common Euclidean space and require a nonempty finite set before using the attained infimum distance."
+    }
+  }
+]

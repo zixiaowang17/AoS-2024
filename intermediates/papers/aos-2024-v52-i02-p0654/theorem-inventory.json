@@ -1,0 +1,161 @@
+{
+  "schema_version": "statistical-theorem-inventory-v1",
+  "scope": {
+    "theorem_scope": "main_text_only"
+  },
+  "papers": [
+    {
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "title": "Transfer learning for functional mean estimation: Phase transition and adaptive algorithms",
+      "version": "arXiv:2401.12331v2",
+      "source_url": "https://arxiv.org/pdf/2401.12331v2",
+      "pdf_pages": 25,
+      "pdf_sha256": "4d89c43597cba346b959d8ef201e81cd7452a2bf2748385ac62bffd063d80371",
+      "main_text_last_pdf_page": 25,
+      "main_text_boundary": {
+        "location": "The entire 25-page PDF is the main paper, including Section 6 proofs on pages 21-23, a notice for a separate supplement on page 23, and references and author addresses ending on page 25. No appendix or supplement body is embedded; the separately referenced supplement is excluded.",
+        "shared_page_with_appendix": false
+      },
+      "intake_review": {
+        "status": "complete",
+        "theorem_ids": [
+          "aos-2024-v52-i02-p0654/T2.1",
+          "aos-2024-v52-i02-p0654/T2.2",
+          "aos-2024-v52-i02-p0654/T2.3",
+          "aos-2024-v52-i02-p0654/T2.4",
+          "aos-2024-v52-i02-p0654/T3.1",
+          "aos-2024-v52-i02-p0654/T3.2",
+          "aos-2024-v52-i02-p0654/T3.3",
+          "aos-2024-v52-i02-p0654/T3.4"
+        ],
+        "zero_theorems_confirmed": false
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.1",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.1 (The minimax risk under conventional setup and common design)",
+      "source_order": 1,
+      "statement_original": "Suppose no source samples are available, i.e. $n_s=0$ and the fixed and common design points for the target sample satisfy $\\max_{1\\leq j\\leq m_t+1}(T_j^{[t]}-T_{j-1}^{[t]})\\leq C_t/m_t$ for some constant $C_t>0$, where $T_0^{[t]}=0$ and $T_{m_t+1}^{[t]}=1$. Then\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n=\\widetilde\\Theta\\left(L_m^2m_t^{-2\\alpha_m}+\\frac1{n_t}\\right),\n\\]\nwhere the infimum is taken over all estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]})$ based on the target sample.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Theorem 2.1"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.2",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.2 (Upper bound under a common design)",
+      "source_order": 2,
+      "statement_original": "Suppose\n\\[\n\\max_{1\\leq j\\leq m_t+1}(T_j^{[t]}-T_{j-1}^{[t]})\\leq\\frac{C_t}{m_t}\n\\quad\\text{and}\\quad\n\\max_{1\\leq j\\leq m_s+1}(T_j^{[s]}-T_{j-1}^{[s]})\\leq\\frac{C_s}{m_s}\n\\]\nwhere $C_t,C_s>0$ are some constants as well as $T_0^{[t]}=T_0^{[s]}=0$ and $T_{m_t+1}^{[t]}=T_{m_t+1}^{[s]}=1$. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of the algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- Any bandwidth $b_t=\\lceil m_t/2B_t(d_t+1)\\rceil^{-1}$ for constant $B_t\\geq C_t$,\n- The threshold $M_t=\\log n_t$.\n\nPlus, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Any bandwidths $b_s=\\lceil m_s/2(d_s+1)B_s\\rceil^{-1}$ and $b_\\delta=\\lceil m_t/2(d_\\delta+1)B_\\delta\\rceil^{-1}$ for any given constants $B_s\\geq C_s$ and $B_\\delta\\geq C_t$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.\n\nThe estimator $\\widehat f^{[t]}$ for the mean function $f^{[t]}$ is now defined as one of them:\n\\[\n\\widehat f^{[t]}=\\begin{cases}\n\\widehat f_{\\mathrm{CL}}^{[t]}&\\text{when }R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\leq R_C(\\widehat f_{\\mathrm{TL}}^{[t]}),\\\\\n\\widehat f_{\\mathrm{TL}}^{[t]}&\\text{when }R_C(\\widehat f_{\\mathrm{CL}}^{[t]})>R_C(\\widehat f_{\\mathrm{TL}}^{[t]}),\n\\end{cases}\n\\]\nwhere the following quantities are additionally defined:\n\\[\nR_C(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^2m_t^{-2\\alpha_m}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_C(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_\\delta^2m_t^{-2\\alpha_\\delta}+\\frac{\\log^2(n_tn_s)}{n_t}\n+L_m^2m_s^{-2\\alpha_m}+\\frac{\\log^2(Kn_s)}{Kn_s}.\n\\]\nIn this situation, we obtain\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_C(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Theorem 2.2"
+        },
+        {
+          "page": 9,
+          "location": "Theorem 2.2 — continuation"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.3",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.3 (Lower bound under a common design)",
+      "source_order": 3,
+      "statement_original": "Under a common design,\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\gtrsim\\left(L_m^2m_t^{-2\\alpha_m}+\\frac1{n_t}\\right)\\wedge\n\\left(L_\\delta^2m_t^{-2\\alpha_\\delta}+\\frac1{n_t}+L_m^2m_s^{-2\\alpha_m}+\\frac1{Kn_s}\\right),\n\\]\nwhere the infimum is taken over all possible estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,K]})$.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Theorem 2.3"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T2.4",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 2.4 (Adaptive estimation under a common design)",
+      "source_order": 4,
+      "statement_original": "Under the same assumptions as Theorem 2.2, we consider a maximum number of repetitions, $r_{\\max}\\in\\mathbb Z^+$ and let $\\widehat g_r^{[t]}$ $(r=1,\\ldots,r_{\\max})$ denote the output of the $r$-th execution of the algorithm $\\mathcal A_{\\mathrm{ALC}}$. By averaging these estimates, we obtain the final estimator:\n\\[\n\\widehat f^{[t]}=\\frac1{r_{\\max}}\\sum_{r=1}^{r_{\\max}}\\widehat g_r^{[t]}.\\tag{5}\n\\]\nThis adaptive estimator $\\widehat f^{[t]}$ attains the same upper bound of Theorem 2.2:\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_C(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_C(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Theorem 2.4"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.1",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.1 (The minimax risk under conventional setup and independent design)",
+      "source_order": 5,
+      "statement_original": "Suppose the distribution $\\eta_t$ for the target design points is dominated by the Lebesgue measure and its density is bounded from below by a constant $C_t>0$ and from above by $\\Gamma_t>0$. Then\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n=\\widetilde\\Theta\\left(L_m^{2/(2\\alpha_m+1)}(m_tn_t)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{n_t}\\right),\n\\]\nwhere the infimum is taken over all estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]})$ based on the target sample.",
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Theorem 3.1"
+        },
+        {
+          "page": 13,
+          "location": "Theorem 3.1 — continuation"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.2",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.2 (Upper bound under an independent design)",
+      "source_order": 6,
+      "statement_original": "Suppose the distributions $\\eta_t$ and $\\eta_s$ for target and source design points are dominated by the Lebesgue measure, and their densities are bounded from below by a constant $C_t,C_s>0$ and from above by $\\Gamma_t,\\Gamma_s>0$, respectively. Consider the conventional learning estimator $\\widehat f_{\\mathrm{CL}}^{[t]}$ which is the output of algorithm $\\mathcal A_{\\mathrm{CL}}(b_t,d_t,M_t)$ with the following specifications:\n\n- For any constant $B_t\\geq\\Gamma_t$, bandwidth:\n\\[\nb_t=\\left\\lceil(L_m^2m_tn_t)^{1/(2\\alpha_m+1)}(\\log n_t)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_tm_t\\rceil^{-1},\n\\]\n- Any constant degree $d_t\\geq\\omega(\\alpha_m)$,\n- The threshold $M_t=\\log n_t$.\n\nBesides, let $\\widehat f_{\\mathrm{TL}}^{[t]}$ be the output of the transfer learning algorithm $\\mathcal A_{\\mathrm{TL}}(b_s,b_\\delta,d_s,d_\\delta,M_s,M_\\delta)$ with the following specifications:\n\n- For any constants $B_s\\geq\\Gamma_s$ and $B_\\delta\\geq\\Gamma_t$, bandwidths:\n\\[\nb_s=\\left\\lceil(L_m^2Km_sn_s)^{1/(2\\alpha_m+1)}\\big(\\log(Kn_s)\\big)^{-2/(2\\alpha_m+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_sKm_s\\rceil^{-1},\n\\]\n\\[\nb_\\delta=\\left\\lceil(L_\\delta^2m_tn_t)^{1/(2\\alpha_\\delta+1)}\\big(\\log(n_tn_s)\\big)^{-2/(2\\alpha_\\delta+1)}\\right\\rceil^{-1}\n\\wedge\\lceil2B_\\delta m_t\\rceil^{-1}.\n\\]\n- Any constant degrees $d_s\\geq\\omega(\\alpha_m)$ and $d_\\delta\\geq\\omega(\\alpha_\\delta)$.\n- Two thresholds $M_s=\\log n_s$ and $M_\\delta=\\log n_tn_s$.\n\nThe estimator $\\widehat f^{[t]}$ of the mean function $f^{[t]}$ is defined as one of them:\n\\[\n\\widehat f^{[t]}=\\begin{cases}\n\\widehat f_{\\mathrm{CL}}^{[t]}&\\text{when }R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\leq R_I(\\widehat f_{\\mathrm{TL}}^{[t]}),\\\\\n\\widehat f_{\\mathrm{TL}}^{[t]}&\\text{when }R_I(\\widehat f_{\\mathrm{CL}}^{[t]})>R_I(\\widehat f_{\\mathrm{TL}}^{[t]}),\n\\end{cases}\n\\]\nwhere the following quantities are further defined:\n\\[\nR_I(\\widehat f_{\\mathrm{CL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2 n_t}{m_tn_t}\\right)^{2\\alpha_m/(2\\alpha_m+1)}+\\frac{\\log^2 n_t}{n_t},\n\\]\n\\[\nR_I(\\widehat f_{\\mathrm{TL}}^{[t]}):=L_m^{2/(2\\alpha_m+1)}\n\\left(\\frac{\\log^2(Kn_s)}{Km_sn_s}\\right)^{2\\alpha_m/(2\\alpha_m+1)}\n+\\frac{\\log^2(Kn_s)}{Kn_s}\n+L_\\delta^{2/(2\\alpha_\\delta+1)}\n\\left(\\frac{\\log^2(n_tn_s)}{m_tn_t}\\right)^{2\\alpha_\\delta/(2\\alpha_\\delta+1)}\n+\\frac{\\log^2(n_tn_s)}{n_t}.\n\\]\nIn this situation, we have\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_I(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Theorem 3.2"
+        },
+        {
+          "page": 14,
+          "location": "Theorem 3.2 — continuation"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.3",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.3 (Lower bound under an independent design)",
+      "source_order": 7,
+      "statement_original": "Under an independent design,\n\\[\n\\inf_{\\widehat f^{[t]}}\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\gtrsim\\left[L_m^{2/(2\\alpha_m+1)}(m_tn_t)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{n_t}\\right]\n\\wedge\\left[L_\\delta^{2/(2\\alpha_\\delta+1)}(m_tn_t)^{-2\\alpha_\\delta/(2\\alpha_\\delta+1)}+\\frac1{n_t}\n+L_m^{2/(2\\alpha_m+1)}(Km_sn_s)^{-2\\alpha_m/(2\\alpha_m+1)}+\\frac1{Kn_s}\\right],\n\\]\nwhere the infimum is taken over all possible estimators $\\widehat f^{[t]}=\\widehat f^{[t]}(\\mathcal D^{[t]},\\mathcal D^{[s,1]},\\ldots,\\mathcal D^{[s,\\ell]})$.",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Theorem 3.3"
+        }
+      ]
+    },
+    {
+      "claim_id": "aos-2024-v52-i02-p0654/T3.4",
+      "paper_id": "aos-2024-v52-i02-p0654",
+      "claim_kind": "theorem",
+      "label": "Theorem 3.4 (Adaptive estimation under an independent design)",
+      "source_order": 8,
+      "statement_original": "Suppose the assumptions in Theorem 3.2 hold. For any given $r_{\\max}\\in\\mathbb Z^+$, let $\\widehat g_r^{[t]}$ $(r=1,\\ldots,r_{\\max})$ be the output of the $r$-th execution of the algorithm $\\mathcal A_{\\mathrm{ALI}}$. Take an average of them to obtain our final estimator:\n\\[\n\\widehat f^{[t]}=\\frac1{r_{\\max}}\\sum_{r=1}^{r_{\\max}}\\widehat g_r^{[t]}.\\tag{6}\n\\]\nThis adaptive estimator $\\widehat f^{[t]}$ attains the same upper bound of Theorem 3.2:\n\\[\n\\sup_{\\mathbb P\\in\\mathcal P}\\mathbb E\\|\\widehat f^{[t]}-f^{[t]}\\|_{\\mathcal L^2}^2\n\\lesssim R_I(\\widehat f_{\\mathrm{CL}}^{[t]})\\wedge R_I(\\widehat f_{\\mathrm{TL}}^{[t]}).\n\\]",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Theorem 3.4"
+        }
+      ]
+    }
+  ]
+}

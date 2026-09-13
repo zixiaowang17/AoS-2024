@@ -1,0 +1,632 @@
+[
+  {
+    "interface_id": "local-de34a52dede85534d630",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "0690376ff95274de23f03ca9ab3523815b0d576d762c6a66ead8eea35399ff3b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D2",
+        "comparison": "The source introduces LSD when the limit of F^(A_n)(x) exists as n tends to infinity, without separately specifying a random convergence mode or restricting x to continuity points of a candidate CDF. Preserve that wording and distinguish it from the later uniform high-probability ESD definition. Pointwise limits can lose mass or fail the needed CDF properties without additional conditions; the weak-convergence declaration is a possible precise framework, not a proof that any pointwise limit in this sentence is a probability law.",
+        "statement_sha256": "c6b0b591f3599e5b57df76ca7a2d3bbab4b016d31c8f38a4c4d33d7168e2d4a5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto",
+          "type": "{Ω : Type*} → [MeasurableSpace Ω] → [TopologicalSpace Ω] → [OpensMeasurableSpace Ω] → {γ : Type*} → {F : Filter γ} → {μs : γ → MeasureTheory.ProbabilityMeasure Ω} → {μ : MeasureTheory.ProbabilityMeasure Ω} → (Filter.Tendsto μs F (nhds μ) ↔ ∀ f : Ω →ᵇ ℝ, Filter.Tendsto (fun i ↦ ∫ ω, f ω ∂(μs i : MeasureTheory.Measure Ω)) F (nhds (∫ ω, f ω ∂(μ : MeasureTheory.Measure Ω))))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Measure.ProbabilityMeasure",
+          "provides": "Weak convergence of probability measures is equivalent to convergence of integrals against all bounded continuous real test functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/ProbabilityMeasure.lean#L364-L368",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Limit spectral distribution described as a limit of empirical distribution functions; inspected filter limits, CDFs and weak convergence of probability measures.",
+          "result": "Pointwise CDF convergence can be stated directly, while the probability-measure topology gives a precise weak-convergence framework when the limiting distribution and appropriate continuity-point conditions are specified."
+        }
+      ],
+      "gap": "The source's informal limit needs a stated convergence mode and a genuine limiting probability distribution before it can be identified with weak spectral convergence."
+    }
+  },
+  {
+    "interface_id": "local-ddcac8feec3b3aa2b561",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "bc9e49fc42ff2ff3c90e7b65d30c1e95bd040fbcc9ca6fb40e5d5bddb0539629",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D17",
+        "comparison": "Construct the intended finite analogue F^(y_n,H_n), its ordinary transform m_n^0 and its distinct underlined companion transform. Preserve equation (2.2) with y_n and equation (2.3) with the printed y despite H_n; do not call these algebraically identical without resolving that mismatch. Keep -z*underline-m_n^0=1-y_n-y_n*z*m_n^0 with the exact factors. Require the upper-half-plane transform domain and nonzero denominators t*underline-m+1; a generic complex integral and totalized inverse do not select the probability-law branch or prove existence and uniqueness.",
+        "statement_sha256": "685cfc674b8bc4c4292a336516bc3cd20e40e729baa9f97d1df9ec4021d9eb4f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Finite-dimensional deterministic LSD approximation and companion Stieltjes-transform fixed-point equation; bounded Stieltjes/Marchenko-Pastur search and inspection of complex-valued integration.",
+          "result": "Complex integrals can express the transform and the displayed fixed-point relation for a supplied H_n. They do not supply existence, branch selection, uniqueness or consistency of the source's y versus y_n notation."
+        }
+      ],
+      "gap": "The remaining interface characterizes the finite deterministic law and its admissible companion-transform solution while preserving the source's finite-parameter mismatch."
+    }
+  },
+  {
+    "interface_id": "local-43015ba623889dee1004",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "55bc63d3664150dc0f61f938c3e12cc600b00d3cdca3d72e6863bed8f34fe31d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D20",
+        "comparison": "Preserve six terms with coefficients 1,2,1,2,1,2: the Hadamard product of two square-root-sandwiched corrected matrices; the P^(2)*(A hadamard B)*P^(2) term; the P^(5) Hadamard term; the cubic-entrywise square-root term with A and P^(3); its B counterpart with A+A^T; and the final mixed ordinary/Hadamard term. The squared matrix (Sigma^(1/2) hadamard Sigma^(1/2))^2 uses ordinary matrix power, not a further entrywise square. P^(5) is a fourth-cumulant expression, not a fifth moment, and nu4-3 multiplies II outside this definition. Keep ordinary transposes and the source's nonconjugated quadratic-form convention for any complex applications; the lemma allows general A and symmetric B.",
+        "statement_sha256": "02d84bac3fbe9e1f619c1efd0e21d8c91cf89d877dcd1c214317d3b7167a4db3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.hadamard",
+          "type": "{m n α : Type*} → [Mul α] → Matrix m n α → Matrix m n α → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Hadamard",
+          "provides": "Entrywise multiplication of two matrices of the same shape.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Hadamard.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Six-term kurtosis-dependent matrix functional II with mixed ordinary/Hadamard products; inspected trace, entrywise multiplication and ordinary matrix multiplication against the complete frozen expression.",
+          "result": "All six terms are finite matrix arithmetic and traces once the covariance square root and mask-moment matrices are supplied. Their role in a quadratic-form covariance identity is a separate theorem."
+        }
+      ],
+      "gap": "The displayed functional is definable from these matrix operations with fixed multiplication order and supplied covariance-square-root data."
+    }
+  },
+  {
+    "interface_id": "local-2ace35c58edc765953e3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "80c0e2c2f145af9583fb145f11099f4b8c8d3a634abee35f0c142df24c791253",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D19",
+        "comparison": "Retain all eight trace terms in the printed order with coefficients 4,2,6,2,2,3,3,4. Distinguish P^(2)*(A hadamard B)*P^(2)*(Sigma hadamard Sigma) from (A hadamard P^(2))*Sigma*(B hadamard P^(2))*Sigma, and retain each later A*P*Sigma and A^T*P*Sigma occurrence without commuting factors. P^(3) and P^(5) are the defined mask-moment/cumulant matrices, not ordinary powers with those exponents. The functional has no nu4 factor built in and should not be merged with II or interpreted as a nonnegative standalone variance without the surrounding theorem.",
+        "statement_sha256": "c68e5cd23b4eb39f7f51b22fbc53fc474c424da4fb873edbdd7a1238b51e79db"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.hadamard",
+          "type": "{m n α : Type*} → [Mul α] → Matrix m n α → Matrix m n α → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Hadamard",
+          "provides": "Entrywise multiplication of two matrices of the same shape.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Hadamard.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Eight-term kurtosis-independent matrix functional I_2; inspected trace and ordinary versus entrywise multiplication with the frozen term order.",
+          "result": "The expression is a finite sum of traces built from the supplied matrices and mask central moments; no probabilistic computation is needed to define its value."
+        }
+      ],
+      "gap": "The eight-term functional is supported by finite matrix arithmetic, while its covariance interpretation and normalized asymptotic limits require separate arguments."
+    }
+  },
+  {
+    "interface_id": "local-aef01feaf4f4673ffaaa",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "f2e30978b2a148d1b6d0e1bf8e6c59bf7325576434d3999be5e007ad408d848d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D14",
+        "comparison": "For every ell>0 require 1-P(A_n)=o(n^(-ell)) as n tends to infinity, using real probability masses under each n's law and positive n for powers. This is much stronger than P(A_n) tending to one, a single fixed polynomial failure rate or a fixed-confidence bound. If replacing 1-P(A_n) by P(A_n complement), require measurable events under a probability law. No across-n coupling is needed just to define these deterministic tail rates.",
+        "statement_sha256": "c4261716c873e48c144c07ccf3ac7bc0a1b4c9f757ac1ae916c8a34da11f56af"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Event high-probability definition with superpolynomially small failure; inspected deterministic little-o along the natural-number atTop filter and real negative powers.",
+          "result": "For every positive real exponent, IsLittleO can compare the deterministic sequence of event failure probabilities to n raised to the negative exponent."
+        }
+      ],
+      "gap": "The definition is directly expressible by universally quantified deterministic little-o statements for the probability sequence."
+    }
+  },
+  {
+    "interface_id": "local-bcf028072ede3a2cb46a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "ac71cd9fcf0ab5120a16930fe911ae1576f9c553853fda72ce8a2b5b3904bf6e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D23",
+        "comparison": "Evaluate both arguments of I_2 and II at T_n inverse, divide each functional by p, take its n-limit separately and combine as first limit plus (nu4-3) times second limit. This is a_P,Sigma, not the general analytic a(z) normalized by n. The dependence of p and mask probabilities on n remains, and their displayed assumptions do not separately guarantee these limits or T_n invertibility. Do not use an arbitrary default limit or singular matrix inverse value to turn missing existence conditions into a numerical parameter.",
+        "statement_sha256": "aa97e3f7fdc8fdbce278dc41ab3acc7173ea75bc650abf0f7f96b493857e7b86"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Renormalized limiting scalar from I_2 and II evaluated at inverse T_n; inspected filter limits and determinant-conditioned nonsingular matrix inverse.",
+          "result": "The two normalized scalar sequences can be formed from the existing matrix functionals and their limits asserted separately. The inverse theorem requires nonsingular T_n, and no inspected declaration establishes these model-specific limits."
+        }
+      ],
+      "gap": "The remaining parameter definition requires nonsingular T_n and existence of both normalized limits, retaining p normalization and the external excess-kurtosis factor."
+    }
+  },
+  {
+    "interface_id": "local-14be9bedff66cf0895ba",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "afde59b789cc721f4de3e92e45c9d57122de8462f37a7084370a7f039284ae47",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D18",
+        "comparison": "Define L_n as integral f against F^(S_n Theta_n), and L^c as the difference of that integral and the integral against F^(c_n,H_n). Retain the source's c_n rather than silently replacing it by y_n. ESD integration is already normalized by matrix dimension; no additional p multiplier appears in this definition or the stated CLT, despite the recorded scaling concern. Supply real spectral ordering for S_n Theta_n, which is not automatically Hermitian when Theta_n is only declared nonrandom, and appropriate complex analytic test-function/integrability conventions where the theorem uses contours.",
+        "statement_sha256": "7a3ad10c2021c3b5d3f8512822705a72c58673086fe3d854f834bb196120de5a"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Linear spectral statistic and deterministic-distribution-centered difference; inspected measure integration and real spectral CDF representation.",
+          "result": "Integration against the empirical spectral probability measure defines the normalized statistic, and subtracting its deterministic-law integral gives the centered version on an integrable domain."
+        }
+      ],
+      "gap": "The statistics are supported once the real spectral laws and test-function domain are supplied, while the source's c/y aliases and unscaled CLT normalization remain unresolved."
+    }
+  },
+  {
+    "interface_id": "local-2ef8156108b29e70181b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "0443109a3a1411a2f4872c7bd4e02a899e094f43cfa7f806598c1a2e7e00d55c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D15",
+        "comparison": "Require P(|x_n-x|>epsilon)=o(n^(-ell)) for every epsilon>0 and ell>0. Retain the strict deviation event, fixed positive tolerance and quantifier order; no n-dependent shrinking tolerance is asserted. This implies a stronger rate notion than ordinary convergence in probability and is not an Op bound with a single rate sequence. If x is random, specify the joint law of x_n and x at each n; the deterministic probability-rate formulation itself does not assert a common coupling or almost-sure conclusion.",
+        "statement_sha256": "2a31a932391ae32e1baaf28aa9ec9cdcfb315fb63a826a91b217df862bc2824d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Random-variable convergence with superpolynomial tail control at every fixed error tolerance; inspected little-o probability sequences and real powers.",
+          "result": "For every positive tolerance and exponent, the deterministic sequence of deviation probabilities is little-o of the corresponding inverse power of n."
+        }
+      ],
+      "gap": "The definition is expressible through universally quantified tail-probability little-o statements, with measurable deviations under the chosen sampling laws."
+    }
+  },
+  {
+    "interface_id": "local-1b4e0f1a8817ec34d976",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "5602e7c12b7e3e3340487f268edb2b532ed3245cf60d51f47dd7679185c81895",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D16",
+        "comparison": "Take sup over all real x of |F^(A_n)(x)-F(x)| and require its deviation probability beyond every epsilon>0 to be o(n^(-ell)) for every ell>0. The supremum is bounded by one for genuine probability CDFs and can be related to a countable dense set using their right continuity for measurability. This is uniform Kolmogorov convergence, not merely pointwise convergence at continuity points, weak convergence of laws or convergence of Stieltjes transforms at a fixed complex argument.",
+        "statement_sha256": "cbf205d6db254d158d2fb6b332a2433b51e1848c061695016869888e7983352c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "High-probability ESD convergence in uniform Kolmogorov distance; inspected CDF values, supremum bounds and superpolynomial little-o tail formulation.",
+          "result": "The supremum of absolute CDF differences is a bounded real quantity, and the preceding high-probability convergence definition can be applied to that random distance."
+        }
+      ],
+      "gap": "CDF suprema and tail-probability asymptotics express the stated convergence once the spectral distributions and measurable supremum are specified."
+    }
+  },
+  {
+    "interface_id": "local-233f70941652769c0fe8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "fef03094d599f9b932fa1fbc0dda947c97862d8f45a02969c5b7e14553f3ca59",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D21",
+        "comparison": "Set d_ij=1 for observed entries and zero otherwise, form D_j diagonal and average D_j*y_j*y_j^T*D_j with factor 1/n. The population is centered but no empirical mean is subtracted. P contains known probabilities of being observed despite the phrase 'missing probability'; do not divide entries by observed-pair counts or estimate these probabilities. Preserve the adopted independent Bernoulli mask and mask/data independence from the prior model rather than substituting a general covariate-dependent missing-at-random mechanism.",
+        "statement_sha256": "9e516138bf23cc7e3c63e7f82baf0d5c5ed06b620a47cb25be5070227519252b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Observed-entry Gram matrix with known coordinate observation probabilities; inspected diagonal masking, rank-one outer products and finite averages.",
+          "result": "Each diagonal binary mask zeros the missing coordinates, and averaging masked outer products defines the displayed matrix without pairwise-count normalization."
+        }
+      ],
+      "gap": "Finite matrix operations define the statistic for the supplied incomplete sample, while its covariance interpretation relies on the inherited independent-mask model."
+    }
+  },
+  {
+    "interface_id": "local-c402b83854a3f019a701",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "a97c6f1324c89c0836c0e80685d1d79965f084ceaa7dbdaa319ff192d2dc0ac1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D22",
+        "comparison": "Use Sigma=E[y y^T] for the complete centered population and compare it to the given Sigma0. The alternative is any unequal covariance, not only a low-rank, sparse or one-sided perturbation. This is distinct from comparing the masked Gram expectation T to Sigma0 or testing the mask probabilities. Centering and finite moments are needed to identify the raw second moment with covariance; no statistic threshold, significance level or asymptotic null law is part of this hypothesis definition.",
+        "statement_sha256": "21219cabac08eb07b08707dc53d4bdbbc4006967e1fb42b9ba4fc4fcf1d8d3ac"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Equality versus inequality hypothesis for a centered population covariance matrix; inspected matrix-valued expectation and outer products.",
+          "result": "Integrating the outer product of the centered population vector gives the covariance matrix, and equality or inequality to the supplied reference matrix defines the two hypotheses."
+        }
+      ],
+      "gap": "The hypotheses are expressible from a finite-second-moment centered population and a supplied reference covariance, without defining a rejection rule or test calibration."
+    }
+  },
+  {
+    "interface_id": "local-29abb812aba424f67e92",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:30:04.803600+00:00",
+    "source_interface_sha256": "3f5be81aff060cadd5a3dc5a43a8422ca2cbbba4a238c00ae58aa8ef7654582d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1254",
+        "local_id": "D24",
+        "comparison": "Form T0=P*Sigma0*P+P^(2) hadamard Sigma0, then use T0 inverse times S-hat_n. The source writes tr(T0^-1*S-hat_n-I_p)^2, conventionally interpreted as trace of the squared matrix rather than square of its trace; retain the original placement and recorded interpretation. The second statistic is log(det(T0^-1*S-hat_n)), not trace of a matrix logarithm supplied without a domain proof. Invertibility of T0 and positivity of the determinant are not automatic from known observation probabilities or a semidefinite empirical Gram matrix. Avoid allowing totalized matrix inverse or Real.log at zero/negative values to conceal singular cases, and do not import simulation rejection thresholds into this definition.",
+        "statement_sha256": "eb2eebc145da49a6dbd7e03d318a03b6180950f0a031fcb37691930df9061f77"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.hadamard",
+          "type": "{m n α : Type*} → [Mul α] → Matrix m n α → Matrix m n α → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Hadamard",
+          "provides": "Entrywise multiplication of two matrices of the same shape.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Hadamard.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.det",
+          "type": "{n : Type u} → [DecidableEq n] → [Fintype n] → {R : Type v} → [CommRing R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "provides": "Determinant of a finite square matrix over a commutative ring, with positivity and nonsingularity supplied separately when taking a real logarithm or inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Frobenius-type and log-determinant covariance test statistics after observation-probability correction; inspected matrix trace, Hadamard correction, nonsingular inverse and determinant/log domains.",
+          "result": "The corrected null matrix and two displayed scalar expressions are finite matrix operations, but faithful interpretation requires nonsingular T0, the intended trace-square convention and a positive determinant for the real logarithm."
+        }
+      ],
+      "gap": "The formulas are supported on their valid matrix domain, while the source's trace notation and invertibility/logarithm requirements must remain explicit before test calibration."
+    }
+  }
+]

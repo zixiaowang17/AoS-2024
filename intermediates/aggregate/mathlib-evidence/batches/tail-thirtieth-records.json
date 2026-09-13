@@ -1,0 +1,506 @@
+[
+  {
+    "interface_id": "local-da33da4379f8098dcd20",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "c7ab41f925f09e390aefdc0d213c919ebc62758d6d0ed1a2e13d6809257e13fa",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D6",
+        "comparison": "Encode the N observations of model (5), with the parameter type restricted to Theta_beta and output space R^(2K); expected nonnegative rotation loss can be extended-valued, so a real Bochner integral is not automatically equivalent without finiteness. The paper says all estimators based on the observations; mathlib explicitly allows randomized Markov kernels, so identify this class or restrict to deterministic kernels rather than silently equating the infima. Quantify comparison constants after beta, lower/upper magnitude constants and c0, but before varying K, sigma and N in the stated regime; a generic eventual asymptotic assertion would be weaker.",
+        "statement_sha256": "98eda55f77ebe22dcd934e8114a8107bd385e00e5fe6a8e6eb1812fe1cc40c6c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.minimaxRisk",
+          "type": "{Θ 𝓧 𝓨 : Type*} → [MeasurableSpace Θ] → [MeasurableSpace 𝓧] → [MeasurableSpace 𝓨] → (Θ → 𝓨 → ℝ≥0∞) → ProbabilityTheory.Kernel Θ 𝓧 → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Decision.Risk.Defs",
+          "provides": "Infimum over Markov-kernel estimators of the supremum over parameters of extended nonnegative expected loss.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Decision/Risk/Defs.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Probability/Decision/Risk/Defs minimaxRisk body, Analysis/Asymptotics/Defs IsBigOWith and MeasureTheory/Constructions/Pi finite product; checked source conventions on PDF page 6 against the retained census.",
+          "result": "minimaxRisk takes a parameter-to-data kernel and ENNReal loss, then infimizes over Markov-kernel estimators and supremizes over parameters; Measure.pi forms N independent sample laws. Two explicit IsBigOWith inequalities can express two-sided comparisons, using the principal filter of the admissible regime for bounds throughout that regime. None fixes this paper’s estimator class, model, loss or allowed constant dependence."
+        }
+      ],
+      "gap": "The sample kernel, rotation loss, estimator-class interpretation and two uniform bounds with constants depending only on the stated fixed parameters must still be supplied."
+    }
+  },
+  {
+    "interface_id": "local-af92129dd3fc66399b98",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "a89287d47b44f673749be8982d28079e51bf55ca422c4d9dc07dcad4f8f9f19c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D5",
+        "comparison": "Use a real two-coordinate Euclidean block for each k=1,...,K and define r_k by its norm, then form the set with lower_c * (k:Real)^(-beta) <= r_k <= upper_c * (k:Real)^(-beta). Keep beta in [0,1/2), both constants positive, and all phases unrestricted. Do not replace the lower bound by an upper-only smoothness condition, include k=0, or assume the class is nonempty if the lower constant exceeds the upper constant.",
+        "statement_sha256": "ebcd3faae678f91fa5811a3f5cf9b25e845e450c836512e3c60a3ab493b5d931"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Real.rpow in Analysis/SpecialFunctions/Pow/Real and EuclideanSpace.norm_eq in Analysis/InnerProductSpace/PiL2; searched probability/analysis/linear algebra for multireference and bispectrum constructions; checked equation (7).",
+          "result": "Positive real powers and finite Euclidean magnitudes directly support the predicate defining this class; native set comprehension and universal finite-index quantification retain the two-sided bounds. The searched sources do not package this Fourier parameter class."
+        }
+      ],
+      "gap": "These declarations suffice to express the class by imposing both power-law bounds on every positive frequency magnitude."
+    }
+  },
+  {
+    "interface_id": "local-7cf6008ddeba7a6c8c19",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "10f831e748a1957b88d898043d26f2036a6d6b9d6a21759407674845aa8bbf79",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D13",
+        "comparison": "Quantify one c_gen>0 before every B subset of {1,...,K}, and cast cardinalities to reals in |B|>=K/2 (or use 2*|B|>=K) to avoid truncated integer division. Compare the energy over B with c_gen times the squared full R^(2K) Euclidean norm, not the function-space supremum norm. Preserve the half-frequency energy requirement rather than strengthening it to bounds at every frequency. The zero signal satisfies this inequality; nonzero signal requirements in subsequent rate expressions do not follow from Assumption 5.1 alone.",
+        "statement_sha256": "c14e355e8a8b5409d13c93ff6fe2c6e516887904ed26996fb746b1b6e52c911e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected EuclideanSpace.norm_eq and the source Assumption 5.1 on PDF page 15, comparing its quantified subset-energy condition with equation (7).",
+          "result": "The Euclidean norm identity expresses total and block energies by finite squared coordinate sums; finite subsets, cardinality, existential real constants and inequalities directly express the assumption. This is an assumption on the given signal, not a consequence of a generic norm identity."
+        }
+      ],
+      "gap": "Finite subset quantification and the Euclidean energy identity suffice to state the condition, while proving it for a chosen signal class remains separate."
+    }
+  },
+  {
+    "interface_id": "local-c8dbafaefb8e3e1f06d3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "9aa9f330623ea31be747fc03f04c91be08c1e7bfcb155fd50aadacd097ae17a9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D12",
+        "comparison": "Use variance sigma^2, multiply 2K real Gaussian coordinate densities centered at g(alpha) theta, and integrate over alpha with uniform weight 1/(2*pi); prove integrability and positivity for sigma>0 before applying the statistical logarithm. The finite mean is over the N observed samples. Optimize over every real 2K-vector, not Theta_beta and not a separate alpha for each optimized term; the latent alpha is marginalized. IsMinOn does not choose a minimizer or prove existence/uniqueness. The true-signal-aligned representative later used in the proof is not a data-computable MLE definition, and rotational nonuniqueness remains explicit.",
+        "statement_sha256": "c03296eb872ee07f817ce506ea5dd589b697a96cc2d94bb3a6ef6bf5eb1292b6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianPDFReal",
+          "type": "ℝ → ℝ≥0 → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real-valued univariate Gaussian density formula parameterized by mean and variance; it is zero at zero variance and is a probability density for positive variance.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected gaussianPDFReal, Bochner integral, Real.log and IsMinOn bodies; checked the rotation-mixture density and unconstrained MLE in source equation (35), PDF page 14.",
+          "result": "Products of positive-variance Gaussian coordinate densities give the isotropic 2K-dimensional Gaussian density; a restricted-volume integral over the rotation interval followed by multiplication by 1/(2*pi) yields the mixture formula. Real.log and a finite average express the empirical objective; IsMinOn on the whole parameter space states minimization but provides no chosen estimator."
+        }
+      ],
+      "gap": "The rotation-mixture density and empirical objective must be assembled and shown well-defined, with existence and measurable selection of an unconstrained minimizer established separately."
+    }
+  },
+  {
+    "interface_id": "local-97eb2ab98f164d9e3b70",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "6c3ed2654c22d8de482b75f5c6ff6c734e3978560f74baeed241a6ce19c8d606",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D8",
+        "comparison": "Map phi and phi_prime to AddCircle (2*pi) and take their distance, equivalently the norm of their difference. The norm_eq nearest-integer representative realizes min_j |phi-phi_prime+2*pi*j| after changing the sign of the integer shift. equivIco selects [-pi,pi) without altering the metric. This is the quotient-circle metric transported to the interval, not the ordinary absolute-difference metric on a real half-open subspace.",
+        "statement_sha256": "ed42223b4d0715a5642511be561cd7b1762e853f2f1cba92f11484a7f9fac2a1"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "AddCircle.equivIco",
+          "type": "{𝕜 : Type u} → [AddCommGroup 𝕜] → (p : 𝕜) → [LinearOrder 𝕜] → [IsOrderedAddMonoid 𝕜] → [Fact (0 < p)] → (a : 𝕜) → [Archimedean 𝕜] → AddCircle p ≃ Set.Ico a (a + p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Instances.AddCircle.Defs",
+          "provides": "Selects the unique real representative in a specified half-open interval of one positive period; this is an equivalence of types, not a homeomorphism with the usual interval topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Instances/AddCircle/Defs.lean#L304-L305",
+          "link_checked": true
+        },
+        {
+          "name": "AddCircle.norm_eq",
+          "type": "(p : ℝ) → {x : ℝ} → ‖(x : AddCircle p)‖ = |x - Int.round (p⁻¹ * x) * p|",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Group.AddCircle",
+          "provides": "Computes the quotient-circle norm by subtracting a nearest integer multiple of its period, giving the minimum absolute displacement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Group/AddCircle.lean#L68-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected AddCircle.equivIco in Topology/Instances/AddCircle/Defs and AddCircle.norm_eq with its nearest-integer proof in Analysis/Normed/Group/AddCircle; checked equation (8).",
+          "result": "For positive period 2*pi, equivIco with a=-pi identifies quotient classes with exactly the source half-open interval. The quotient norm of the difference equals the absolute residual after subtracting a nearest integer multiple of the period, hence the minimum over all integer shifts used in (8)."
+        }
+      ],
+      "gap": "These declarations realize the stated circular distance after identifying the interval representatives with AddCircle (2*pi)."
+    }
+  },
+  {
+    "interface_id": "local-f38eb7b85058f5560ca7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "a66ba0df0608de3ad9f81c7ae0c4da43e2df9e9bd9e159f64fbfd41e77232089",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D7",
+        "comparison": "Encode theta_tilde_k=theta_k1+i*theta_k2 and exp(i*(phi_k+k*alpha)); the same random alpha rotates all frequencies in one sample. Form independent variance-one real and imaginary Gaussian coordinates across both k and m, so E|epsilon_tilde|^2=2 rather than variance two in each real part. Transport Complex.arg through AddCircle.equivIco (2*pi) (-pi), handling negative-real branch endpoints and retaining the source’s unspecified Arg(0). The paper’s inner product is linear in its first slot; either use its explicit sum u_k*conj(v_k) or reverse mathlib’s slots before proving the symmetrized real identity. The checked declarations do not themselves bundle these conventions into the statistical model.",
+        "statement_sha256": "166c694a03ef3dfc48ab3f02d0dc4fc838383c6e9e6a22718742e66bf33995a9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Complex.arg",
+          "type": "ℂ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Principal complex angle in (-pi,pi], with pi on the negative real axis and a default value zero at the origin.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "AddCircle.equivIco",
+          "type": "{𝕜 : Type u} → [AddCommGroup 𝕜] → (p : 𝕜) → [LinearOrder 𝕜] → [IsOrderedAddMonoid 𝕜] → [Fact (0 < p)] → (a : 𝕜) → [Archimedean 𝕜] → AddCircle p ≃ Set.Ico a (a + p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Instances.AddCircle.Defs",
+          "provides": "Selects the unique real representative in a specified half-open interval of one positive period; this is an equivalence of types, not a homeomorphism with the usual interval topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Instances/AddCircle/Defs.lean#L304-L305",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.exp",
+          "type": "ℂ → ℂ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "Complex exponential defined by its convergent Taylor series, usable for oscillatory lag-window factors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L62-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Complex.arg endpoint/zero conventions, Complex.exp, AddCircle.equivIco, gaussianReal, Measure.pi, and the PiL2 inner-product implementation; checked equations (11)-(14).",
+          "result": "Complex arithmetic and exp express coefficient pairs and the frequency-dependent rotation. Independent real standard Gaussian coordinates can be packaged by Measure.pi and mapped to complex pairs. Complex.arg uses (-pi,pi] and arg 0=0; equivIco can convert its class to [-pi,pi). Mathlib complex inner products conjugate the first argument, unlike the paper’s convention."
+        }
+      ],
+      "gap": "The representation needs the paper’s argument branch, inner-product convention and paired real-Gaussian noise law connected explicitly, including a convention for zero arguments."
+    }
+  },
+  {
+    "interface_id": "local-fe1230427a8e71f4dcf2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "f8d9dccdb43ce56109b58eb3fb242e018cd0c6d13bc28089e8b3c184d5d13b87",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D9",
+        "comparison": "Keep the positive-part square root of the empirical squared magnitude minus 2*sigma^2, and Bhat_kl=(1/N) sum_m y_(k+l)*conj(y_k)*conj(y_l) for 1<=k,l and k+l<=K, including k=l. Choose real lifts congruent to the source argument modulo 2*pi, then minimize the ordinary squared REAL residuals over R^K and reconstruct both sine/cosine coordinates. Replacing the residual by circular distance changes the procedure. IsMinOn states a relation rather than constructing a least-squares solution; the base procedure deliberately leaves the phase-lift choice ambiguous, and source Arg at zero and selection/measurability need explicit treatment.",
+        "statement_sha256": "ad2b509ba0dee9e346ab833dc6eef9e6a92f52f5210c524aeeb0b3dccc8b07a3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.arg",
+          "type": "ℂ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Principal complex angle in (-pi,pi], with pi on the negative real axis and a default value zero at the origin.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched probability, analysis and linear algebra for bispectrum, multireference, phase retrieval and least-squares constructions; inspected Real.sqrt, Complex.arg, IsMinOn and finite-sum division, comparing all three steps of equations (16)-(18).",
+          "result": "Real.sqrt of the nonnegative part gives the magnitude estimate, finite complex arithmetic gives the empirical bispectrum, and IsMinOn can express the real least-squares objective. These declarations do not implement the combined estimator or determine its explicitly ambiguous phase lifts."
+        }
+      ],
+      "gap": "The empirical bispectrum, real phase lifts, least-squares solution and trigonometric reconstruction still need to be assembled with an explicit estimator-selection convention."
+    }
+  },
+  {
+    "interface_id": "local-7157e6f1ab6730894d28",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "a6fbb5137da34f7684e65635ecaadd6cffea161333984c6333ab2918e22e8e47",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D11",
+        "comparison": "Perform the pilot optimization on (AddCircle (2*pi))^K with max over the nonempty pair family I; Finset.max' computes the maximum value and does not choose the minimizing phase vector. Circle compactness is appropriate, whereas [-pi,pi) with its ordinary real subspace topology is not compact. First select pilot coordinates in [-pi,pi), then calculate their bispectrum differences in R; take a second equivIco representative in [Phi_tilde-pi,Phi_tilde+pi), and only then run equation (18). Do not substitute the oracle true phases or the separate frequency-marching procedure. The extreme value theorem yields existence but no unique or measurable choice, and the source’s zero-bispectrum argument convention remains unspecified.",
+        "statement_sha256": "719dfba0ab64303dbcd40015fdba849d4f5ca411d077b3acd95be54c51e4f62a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "AddCircle.compactSpace",
+          "type": "(p : ℝ) → [Fact (0 < p)] → CompactSpace (AddCircle p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Instances.AddCircle.Real",
+          "provides": "Compactness of the real additive circle for positive period, proved as the continuous image of a closed interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Instances/AddCircle/Real.lean#L33-L35",
+          "link_checked": true
+        },
+        {
+          "name": "IsCompact.exists_isMinOn",
+          "type": "{α β : Type*} → [LinearOrder α] → [TopologicalSpace α] → [TopologicalSpace β] → [ClosedIicTopology α] → {s : Set β} → IsCompact s → s.Nonempty → {f : β → α} → ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Order.Compact",
+          "provides": "A continuous function attains a minimum on a nonempty compact set; it supplies existence and membership but no unique or measurable choice.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Order/Compact.lean#L228-L229",
+          "link_checked": true
+        },
+        {
+          "name": "AddCircle.equivIco",
+          "type": "{𝕜 : Type u} → [AddCommGroup 𝕜] → (p : 𝕜) → [LinearOrder 𝕜] → [IsOrderedAddMonoid 𝕜] → [Fact (0 < p)] → (a : 𝕜) → [Archimedean 𝕜] → AddCircle p ≃ Set.Ico a (a + p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Instances.AddCircle.Defs",
+          "provides": "Selects the unique real representative in a specified half-open interval of one positive period; this is an equivalence of types, not a homeomorphism with the usual interval topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Instances/AddCircle/Defs.lean#L304-L305",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected AddCircle.compactSpace, IsCompact.exists_isMinOn, equivIco, Finset.max' and IsMinOn; checked the pilot/lifting/reconstruction in equation (31) and the global K>=2 assumption on PDF page 5.",
+          "result": "The positive-period circle is compact; its finite product supports the continuous finite maximum of circular residuals, so the extreme value theorem provides a pilot minimizer once continuity is proved. K>=2 gives a nonempty pair set. equivIco then supplies the half-open real representatives and centered lifts; IsMinOn states the subsequent real least-squares minimization."
+        }
+      ],
+      "gap": "The pilot objective’s continuity, representative-dependent centered lifts, final real least-squares reconstruction and measurable choice of minimizers still need to be connected."
+    }
+  },
+  {
+    "interface_id": "local-4bbee55652498c25f3fc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:42:13.104555+00:00",
+    "source_interface_sha256": "356329027a6befe49c1e810a276bdcff2b28934386965f29dce416293249dcb3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0261",
+        "local_id": "D10",
+        "comparison": "Choose each true phase in [-pi,pi), compute Phi_kl=phi_(k+l)-phi_k-phi_l in R, and represent the estimated argument class in [Phi_kl-pi,Phi_kl+pi). For nonzero population and empirical bispectra, the branch-adjusted argument of Bhat/B gives the centered difference; the positive Fourier-magnitude assumptions ensure the population bispectrum is nonzero, but do not define Arg(Bhat) at Bhat=0. Preserve that source ambiguity rather than importing mathlib arg0=0 as though it proves (22). Feed the resulting lifts to the same real least-squares/reconstruction stages of (18). This is explicitly an oracle depending on true phases, not an estimator that can be computed from observations alone.",
+        "statement_sha256": "3493cb94a76a783ccda4e1152c56f3005da873a6cd617ee7712dfcf588547c6a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "AddCircle.equivIco",
+          "type": "{𝕜 : Type u} → [AddCommGroup 𝕜] → (p : 𝕜) → [LinearOrder 𝕜] → [IsOrderedAddMonoid 𝕜] → [Fact (0 < p)] → (a : 𝕜) → [Archimedean 𝕜] → AddCircle p ≃ Set.Ico a (a + p)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Instances.AddCircle.Defs",
+          "provides": "Selects the unique real representative in a specified half-open interval of one positive period; this is an equivalence of types, not a homeomorphism with the usual interval topology.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Instances/AddCircle/Defs.lean#L304-L305",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.arg",
+          "type": "ℂ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Principal complex angle in (-pi,pi], with pi on the negative real axis and a default value zero at the origin.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.exp",
+          "type": "ℂ → ℂ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "Complex exponential defined by its convergent Taylor series, usable for oscillatory lag-window factors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L62-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected equivIco, Complex.arg and Complex.exp; compared the real true-phase differences, complex population bispectrum and centered oracle lift in equations (20)-(22), PDF page 9.",
+          "result": "Complex products and exponentials express the population bispectrum, while equivIco with a=Phi_kl-pi selects the unique representative of a given argument class in the required centered interval. Complex.arg alone has the opposite branch-endpoint convention and its default value at zero does not justify the displayed rotation identity."
+        }
+      ],
+      "gap": "The centered representative must be tied to the nonzero bispectrum identity and the real least-squares reconstruction, while preserving its dependence on unknown true phases."
+    }
+  }
+]

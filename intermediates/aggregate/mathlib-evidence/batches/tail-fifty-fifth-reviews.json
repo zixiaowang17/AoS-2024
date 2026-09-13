@@ -1,0 +1,143 @@
+{
+  "scope": "Manual comparison of fifteen remaining p1460 interfaces, including both normalized mutual-information variants; retain recorded source inconsistencies and distinct model, moment and limit conventions.",
+  "rows": [
+    {
+      "interface_id": "local-ea5d483c4859e4eb90bd",
+      "related": ["MeasureTheory.integral", "Matrix.PosSemidef"],
+      "status": "composable",
+      "query": "Searched second-moment and isotropy infrastructure; inspected Bochner integration and positive-semidefinite matrices against D25 and its D5 dependency.",
+      "result": "Entrywise expectations of the outer product and a scalar identity matrix express the selected Theta normalization.",
+      "gap": "State the uncentered Theta second-moment identity with its moment hypotheses and justify any claimed reparameterization separately.",
+      "comparisons": {"D25": "Define Q_Theta(i,j) as the integral of Theta_i*Theta_j and require Q_Theta=q_Theta times the identity matrix. Finite second moments justify integrability and positive semidefiniteness; the totalized Bochner integral alone does not certify them. With the separately stated zero Theta mean this also equals covariance, but D5 itself is uncentered. This selected requirement does not insert Lambda invertibility or every condition of Remark 3.1 into Theorem 4.3."}
+    },
+    {
+      "interface_id": "local-593f7b07b8dbcb9d79f0",
+      "related": ["Matrix.mul_apply", "Real.sqrt", "MeasureTheory.Measure.pi", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Searched spiked-model semantics and inspected matrix multiplication, real square root and finite-product pushforwards for the fixed-prior strong-signal model.",
+      "result": "The finite matrix experiment can be constructed from independent prior and Gaussian coordinates and the exact scalar-matrix observation map.",
+      "gap": "Assemble the fixed-prior experiment with scale n^(-1/2) and separately state the fixed-rank, diverging-aspect-ratio sequence.",
+      "comparisons": {"D3": "For n>0, form A=(1/sqrt(n))*Lambda*transpose(Theta)+Z in n-by-d real matrices, with Lambda n-by-r and Theta d-by-r. Use the inherited independent row priors and iid standard normal entries of Z. Products and measurable pushforwards construct each finite law; positivity of n avoids totalized division and square-root edge cases. Preserve fixed r, fixed known priors, n,d tending to infinity and d/n tending to infinity; neither the weak scale (nd)^(-1/4) nor a proportional-dimension limit is equivalent."}
+    },
+    {
+      "interface_id": "local-14f93d3843d035e73cfd",
+      "related": ["ProbabilityTheory.HasSubgaussianMGF", "MeasureTheory.integral"],
+      "status": "partial_match",
+      "query": "Searched sub-Gaussian and tensor-moment APIs; inspected HasSubgaussianMGF 606-608 and its explicitly centered scalar convention, plus Bochner integrals.",
+      "result": "Scalar MGF bounds and coordinate integrals supply ingredients, but the source's unspecified vector convention and full third-moment condition need a separate predicate.",
+      "gap": "Specify the vector sub-Gaussian interpretation and all mixed Theta third moments without imposing zero mean or third moments on Lambda.",
+      "comparisons": {"D17": "Require every coordinate of E Theta to vanish and every mixed E[Theta_i*Theta_j*Theta_k] to vanish, including unequal indices; vanishing coordinate cubes alone is insufficient. HasSubgaussianMGF X c implies zero mean on a probability space. Thus applying it directly to uncentered Lambda projections would strengthen the source, which permits a nonzero Lambda mean. Centered directional MGF bounds can encode a chosen vector convention, with its quantifiers and constants made explicit, but the main text does not select a norm convention or prove this equivalence. Keep both priors sub-Gaussian and the zero first/full-third moments only for Theta."}
+    },
+    {
+      "interface_id": "local-8ccae3633b8ca6078376",
+      "related": ["Matrix.orthogonalGroup", "ProbabilityTheory.IdentDistrib", "Matrix.mulVec"],
+      "status": "composable",
+      "query": "Searched orthogonal-group and equality-in-law infrastructure; inspected orthogonalGroup 295, both transpose characterizations, IdentDistrib 71-76 and matrix-vector action.",
+      "result": "Orthogonal matrices acting on a random vector and equality of measurable pushforward laws directly express the absence of distributional symmetries.",
+      "gap": "Quantify over the orthogonal group and require every transformation preserving the Lambda-row law to be the identity.",
+      "comparisons": {"D9": "For each Omega in Matrix.orthogonalGroup (Fin r) real, IdentDistrib (Omega.mulVec composed with Lambda0) Lambda0 on the same probability space must imply Omega=I. The predicate includes almost-everywhere measurability and equality of image measures. This is equivalently exclusion of every nonidentity orthogonal symmetry, not a pointwise condition Omega*Lambda0=Lambda0, full-rank condition, or nonzero-mean test. The extra higher moment in claim 2 is not inserted into this separately stated identifiability condition."}
+    },
+    {
+      "interface_id": "spiked-model-mutual-information",
+      "related": ["InformationTheory.klDiv", "MeasureTheory.llr", "MeasureTheory.Measure.map"],
+      "status": "partial_match",
+      "query": "Searched mutual-information aliases throughout the pinned Mathlib tree; inspected KL divergence 57-60, its absolute-continuity/integrability branches, log likelihood ratios and image laws for both variants.",
+      "result": "KL divergence of the joint law against the product of marginals gives the information expression, subject to proving its finite real log-ratio representation for the specified experiment.",
+      "gap": "Construct each model's joint and marginal laws and justify the normalized real log-ratio formula, preserving KL infinity when finiteness is unavailable.",
+      "comparisons": {
+        "D13": "Use the law of (Lambda,Y) against law(Lambda) times law(Y), with Y from the symmetric GOE experiment, and divide by n>0. For probability laws the finite-measure mass correction in klDiv cancels; agreement with the displayed expectation needs absolute continuity and integrability of llr. klDiv is extended nonnegative and becomes infinity outside that branch, so converting toReal without finiteness would incorrectly erase infinity. The normalization is per latent row n, not n squared, and the latent variable is Lambda alone.",
+        "D18": "Use the law of (Lambda,A) under the asymmetric weak-signal experiment, marginalizing the independent Theta factor in the observation law. Compare to law(Lambda) times law(A) and normalize by n, retaining both prior parameters. Information between A and (Lambda,Theta) is a different quantity. As in D13, a finite real expectation requires the appropriate absolute-continuity and log-integrability proof; generic KL construction does not prove asymptotic equality with the symmetric model. Later theorems importing Theorem 4.3 conditions do not thereby import its information conclusion."
+      }
+    },
+    {
+      "interface_id": "local-f19382f30e684b7e94ba",
+      "related": ["Matrix.PosSemidef", "CFC.rpow", "MeasureTheory.integral", "ProbabilityTheory.multivariateGaussian", "Real.log", "Real.exp"],
+      "status": "partial_match",
+      "query": "Searched free-energy aliases; inspected PSD matrices, nonnegative operator powers, multivariate Gaussian construction and nested integral/logarithm primitives against the complete D14 formula and expectation convention.",
+      "result": "The matrix square root, Gaussian expectation and scalar nonlinearities are available; the model-specific partition integral and its analytic well-definedness remain to be established.",
+      "gap": "Define the exact nested free-energy functional and prove its partition integral is positive and finite with an integrable logarithm on the stated domain.",
+      "comparisons": {"D14": "For s>0 and PSD Q, take Q^(1/2) by nonnegative matrix functional calculus, not entrywise square roots. Retain -s*sum_ij Q_ij^2/4 as the Frobenius penalty and the exponent sqrt(s)*z^T Q^(1/2) lambda+s*lambda^T Q Lambda0-s*lambda^T Q lambda/2. The inner integral is over a separate lambda with prior mu_Lambda; the outer expectation is over independent Lambda0 with that prior and z standard r-dimensional Gaussian. Scalar Real.log and Bochner integral have totalized exceptional values, so source semantics require positivity, finiteness and integrability proofs. This symmetric-model functional does not require a Theta prior or the later asymmetric sub-Gaussian assumption. Its introduction specifies s>0, without supplying the zero-s extension used elsewhere."}
+    },
+    {
+      "interface_id": "local-d03829001c1fac0bc5be",
+      "related": ["PMF.uniformOfFintype", "MeasureTheory.Measure.pi", "MeasureTheory.Measure.map", "ProbabilityTheory.multivariateGaussian", "ProbabilityTheory.covariance", "ProbabilityTheory.HasSubgaussianMGF"],
+      "status": "partial_match",
+      "query": "Searched Gaussian-mixture and spiked-model terminology; inspected uniform finite priors, independent products, Gaussian affine pushforwards, covariance and centered scalar sub-Gaussian bounds.",
+      "result": "The label and Gaussian-noise ingredients construct the conditional mixture law, while random-center moment restrictions and the source's vector sub-Gaussian convention require explicit packaging.",
+      "gap": "Assemble the random-center mixture with uniform one-hot labels and the stated row moments, keeping conditional sampling distinct from exact balance or exact center orthogonality.",
+      "comparisons": {"D22": "For k>=2, sample d center rows iid from mu_Theta, whose mean and full mixed third tensor moment vanish and covariance is q_Theta I_k. Choose each label independently and uniformly in Fin k, map to its standard basis vector, and add independent identity-covariance d-dimensional Gaussian noise to the chosen center column divided by (nd)^(1/4). Given the shared centers the observation rows are iid; marginalizing those centers can introduce dependence between rows. Equal proportions mean uniform label probabilities, not a deterministic count n/k. Known common observation covariance is preprocessed to I_d; it differs from center-row covariance. Do not replace approximately orthogonal random centers by exact finite-sample orthogonality or by the separate signed two-cluster encoding. The scalar MGF API still needs a declared vector interpretation."}
+    },
+    {
+      "interface_id": "local-b4364a0e197dac69793d",
+      "related": ["InformationTheory.klDiv", "IsMaxOn", "HasDerivAt", "IsLeast", "ProbabilityTheory.gaussianReal"],
+      "status": "partial_match",
+      "query": "Inspected Gaussian-channel, KL, global-maximum, zero-derivative and least-element predicates against the recorded D21 source inconsistency.",
+      "result": "The ingredients express the scalar experiment and the literal optimizer/stationarity condition, but do not resolve its incompatible positive-quadratic maximum requirement.",
+      "gap": "Preserve the printed condition while flagging that nonnegative mutual information makes its displayed positive-quadratic objective unbounded above for fixed positive signal.",
+      "comparisons": {"D21": "Construct Y=sqrt(gamma)*Lambda0+G with independent G of law N(0,1), and identify its conditional density-ratio information with joint-versus-product KL only under the requisite probability and integrability conditions. For fixed s>0 retain Psi=s^2/4+gamma^2/(4s)-gamma/2+I(gamma). A candidate gamma>0 must satisfy IsMaxOn over (0,infinity), plus HasDerivAt with derivative zero and leastness among positive stationary points. IsMaxOn alone does not include domain membership; the totalized derivative being zero would also count nondifferentiable points, so use HasDerivAt. Since I(gamma)>=0, the positive quadratic forces unbounded growth as gamma tends to infinity and prevents a finite attained global maximum. No maximum-to-minimum or sign correction is inferred, and this remains only alternative (c), not a common assumption of every branch."}
+    },
+    {
+      "interface_id": "local-05ceae34332d686d971b",
+      "related": ["IsMaxOn", "Matrix.PosSemidef"],
+      "status": "composable",
+      "query": "Inspected IsMaxOn and PSD-domain membership against the free-energy argmax D15, including the source's unbound-s note.",
+      "result": "PSD membership together with IsMaxOn exactly expresses being a maximizing matrix; selecting one requires an existence hypothesis or proof.",
+      "gap": "Pair PSD membership with the maximizing predicate and establish existence before choosing Q-star, retaining the source's unbound signal parameter.",
+      "comparisons": {"D15": "State Qstar in S_r^+ and IsMaxOn (fun Q => F(s,Q)) S_r^+ Qstar. IsMaxOn does not itself enforce Qstar membership. The cone is unbounded, so generic compact extreme-value existence cannot be invoked without an additional reduction or coercivity argument. Preserve any maximizing matrix rather than claiming uniqueness or a canonical measurable choice across s. Theorem 4.1's printed Qstar(s) leaves s unbound; the plausible substitution q_Theta^2 is not silently inserted."}
+    },
+    {
+      "interface_id": "local-172509080e6035e33a91",
+      "related": ["MeasureTheory.Measure.pi", "ProbabilityTheory.gaussianReal", "ProbabilityTheory.IndepFun", "Matrix.mul_apply", "Real.sqrt"],
+      "status": "composable",
+      "query": "Inspected product Gaussian coordinates, independence and Gram-matrix multiplication for the augmented experiment, preserving the separately audited GOE convention.",
+      "result": "Independent upper-triangular Gaussian noise and a shared latent Gram matrix construct the additional observation.",
+      "gap": "Build the paired observation using the same latent factor and an independently sampled GOE side channel with scale sqrt(epsilon)/n.",
+      "comparisons": {"D19": "Sample W' independently of the entire tuple of original factors and noise, not just pairwise independently of selected entries. Its upper-triangular entries have variances 2/n on the diagonal and 1/n off diagonal, reflected to make a symmetric matrix. Set Y'=sqrt(epsilon)/n*Lambda*transpose(Lambda)+W' and observe (A,Y'), retaining the original weak experiment for A. The signal is sqrt(epsilon)/n, not epsilon/n, and the two observations share Lambda. For the later theorem, epsilon tends to zero after the dimension limit; the constructor itself proves no exchange of these limits."}
+    },
+    {
+      "interface_id": "local-fee39a394b257bccd011",
+      "related": ["MeasureTheory.integral", "le_csInf_iff", "MeasureTheory.condExp"],
+      "status": "partial_match",
+      "query": "Searched MMSE and squared-risk terminology; inspected integrals, conditional expectation and bounded-below infima against D20's correspondence to D16 under D19.",
+      "result": "Expected squared error and an infimum over measurable estimators express the augmented Gram risk; conditional means give a candidate whose optimality needs an L2 argument.",
+      "gap": "Instantiate the inherited normalized Gram-risk definition for estimators of both observations and justify its finite-risk or conditional-mean representation.",
+      "comparisons": {"D20": "The source defines this risk by correspondence rather than printing another formula: retain that original passage. Interpret the inherited D16 target Lambda Lambda^T, Frobenius squared loss and n^(-2) factor with measurable estimators of (A,Y'(epsilon)). Neither raw-factor estimation nor estimation from Y' alone matches it. A real infimum requires a nonempty set of admissible finite risks and a lower bound; source sub-Gaussian moments can support the needed square integrability but must be connected to the Gram loss. The posterior mean given the sigma-algebra of both observations is a candidate only after its conditional-expectation and L2-minimization hypotheses are established. Zero fallbacks of integrals or conditional expectation are not a proof of optimality."}
+    },
+    {
+      "interface_id": "local-b14c5cdc2bdf840b83a8",
+      "related": ["Finset.max'", "Set.indicator"],
+      "status": "composable",
+      "query": "Searched overlap and permutation matching semantics; inspected finite nonempty maxima and indicator functions against the exact global-label matching expression.",
+      "result": "A finite maximum of normalized sums of label-equality indicators defines the overlap directly.",
+      "gap": "Form the matching score for each single global label permutation and take its nonempty finite maximum with normalization n^(-1).",
+      "comparisons": {"D23": "For n>0 enumerate Equiv.Perm (Fin k), a nonempty finite type containing the identity. Apply each permutation consistently to every true label, compute the sum of n zero-one equality indicators against the estimated labels, divide by n and take Finset.max' of the resulting score image. The maximum is outside the sum: independently rematching each row would trivially change the criterion. Preserve the one-hot encoding in Theorem 5.1 and the source's separate treatment of signed two-cluster labels. Measurability follows from the finite construction once the label estimator is measurable; no recovery threshold follows merely from this definition."}
+    },
+    {
+      "interface_id": "local-9bbd4ea5fbae3ea62d75",
+      "related": ["LinearMap.IsSymmetric.eigenvectorBasis", "Matrix.mul_apply", "Real.sqrt"],
+      "status": "composable",
+      "query": "Inspected sorted eigenvectorBasis and its eigenvector/antitone consequences 279-324, plus Gram multiplication and square-root normalization.",
+      "result": "The decreasing-order orthonormal eigenbasis supplies top eigenvectors, which can be restricted and rescaled to the source normalization.",
+      "gap": "Select the first r eigenvectors of the left Gram operator and multiply by sqrt(n), with dimension and any needed measurability choices justified.",
+      "comparisons": {"D7": "For r<=n apply the finite-dimensional symmetric-operator eigenbasis to AA^T on Euclidean n-space, take the first r basis vectors and multiply each by sqrt(n). For n>0 their Gram matrix divided by n equals I_r. Taking unit vectors without rescaling misses the normalization; using A^T A changes the ambient dimension and factor being estimated. The basis is chosen noncomputably and can vary within tied eigenspaces; its existence alone does not prove measurable dependence on A, sign uniqueness or uniqueness of a top-r subspace across a boundary tie. No finite-sample full rank of the true Lambda is imposed by this definition."}
+    },
+    {
+      "interface_id": "local-9d56a2b8d674dabcea57",
+      "related": ["Submodule.starProjection", "Matrix.l2_opNorm_def", "Matrix.orthogonalGroup"],
+      "status": "partial_match",
+      "query": "Searched principal-angle semantics across the pinned tree; inspected endomorphism-valued orthogonal projection 132-133, Euclidean operator matrix norm and orthogonal-group membership.",
+      "result": "Projector compositions and their Euclidean operator norms are available, while the angle identity and source's incorrect group membership require explicit qualification.",
+      "gap": "Define the loss from Euclidean column-space projectors and qualify its angle and equal-rank identities while preserving the source's erroneous orthogonal-group membership.",
+      "comparisons": {"D8": "Represent the two finite-dimensional column spaces by submodules and use starProjection as an endomorphism of Euclidean n-space, allowing P composed with (identity-Phat). Use the L2 operator norm rather than a default entrywise or Frobenius norm. A nontrivial orthogonal projection is idempotent but not an orthogonal matrix, so the printed P,Phat in O(n) is not validated by Matrix.orthogonalGroup. For equal-dimensional subspaces the stated norms correspond to the sine of the largest principal angle; if true Lambda is rank deficient relative to the estimated space the two displayed one-sided norms can differ. The source's singular principal-angle wording and absent rank qualification remain recorded, rather than silently strengthened."}
+    },
+    {
+      "interface_id": "local-a62812d2ec27ceac9bbe",
+      "related": ["csSup_le_iff", "le_csInf_iff", "Matrix.PosSemidef", "PMF.uniformOfFintype"],
+      "status": "partial_match",
+      "query": "Inspected conditional supremum/infimum requirements and PSD/uniform-prior ingredients against the strict free-energy improvement threshold and its recorded zero-s issue.",
+      "result": "Order operations express the threshold once the inner free-energy supremum and outer improvement set have the required analytic properties.",
+      "gap": "Establish the supremum and threshold-set conditions, preserve strict improvement over Q0, and explicitly resolve the undefined zero-s use before asserting a real threshold.",
+      "comparisons": {"D24": "Specialize mu_Lambda to uniform one-hot labels and Q0 to the outer product of their mean, with every matrix entry 1/k^2; this is not E Lambda Lambda^T=I_k/k. For each q>=0 compare sup over PSD k-by-k Q of F(q^2,Q) strictly against F(q^2,Q0), then take the infimum of the qualifying q. The PSD domain is nonempty, but finiteness of the inner real supremum still needs boundedness; the outer set is bounded below by zero but requires nonemptiness for real conditional-infimum guarantees, or an explicit extended-value convention. F was introduced only for s>0, so inclusion of q=0 needs an acknowledged extension, not an implicit totalized value. No existence at the threshold or conclusion for q equal to it follows from strict improvement and an infimum alone."}
+    }
+  ]
+}

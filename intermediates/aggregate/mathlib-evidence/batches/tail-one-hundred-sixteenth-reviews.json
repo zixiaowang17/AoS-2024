@@ -1,0 +1,79 @@
+{
+  "scope": "Manual comparison of seven remaining interfaces of aos-2024-v52-i01-p0184, preserving the marginal CDF kernels, null variance qualification, guarded dimension limits and signed six-index variance estimate.",
+  "rows": [
+    {
+      "interface_id": "local-0ac463c98b59dc0d035d",
+      "related": ["ProbabilityTheory.cdf", "MeasureTheory.Measure.map"],
+      "query": "Searched rank-independence variance kernels and inspected real CDFs and marginal pushforward measures against the exact two marginal formulas.",
+      "result": "Each scalar marginal CDF can be used in the displayed symmetric two-argument expression, without imposing the independence null on the definition.",
+      "gap": "Construct each marginal kernel as F(u)^2+F(v)^2-2 max(F(u),F(v))+2/3, retaining the source continuity qualifications for later identities.",
+      "status": "composable",
+      "comparisons": {
+        "D9": "For each X coordinate and each Y coordinate separately, take the law of the measurable scalar projection and its CDF F(t)=P(coordinate<=t). Square EACH CDF value, subtract twice their maximum and add 2/3. This is not the squared CDF of a maximum or a centered covariance by definition. The two variants have their own marginal laws and dimensions. CDF values lie in [0,1] for a probability law, making the kernel bounded for fixed coordinates, but degeneracy and probability-integral-transform identities later need appropriate continuity/no-atom conditions. The source's phrase continuous random vectors does not itself spell out every such condition. The kernel formula is valid without H0 and imposes no independence among coordinates."
+      }
+    },
+    {
+      "interface_id": "local-67ce88a504e7bf283b10",
+      "related": ["ProbabilityTheory.variance", "MeasureTheory.integral", "ProbabilityTheory.IndepFun", "Finset.card_powersetCard"],
+      "query": "Searched Hoeffding decompositions and inspected variance, expectation, vector independence and pair counts; compared the leading-term identity with the asymptotic S-squared wording.",
+      "result": "The leading pair sum and its product-of-marginal-moments expression can be represented, but degeneracy, null factorization and the negligible remainder require proofs.",
+      "gap": "Construct and justify the null leading-term decomposition and variance expression while retaining the source's unresolved distinction between full and asymptotic variance S-squared.",
+      "comparisons": {
+        "D10": "The projected coordinate statistic equals binomial(n,2)^-1 sum_i<j A1^k(X_ik,X_jk) A2^l(Y_il,Y_jl) plus R_h^kl after the displayed Delta_h/binomial(d,2) scaling. J1 uses binomial(n,2)^-1/2 times the pair sum and coordinate double sum; J2 uses binomial(n,2)^1/2 times the summed remainders. Preserve those different powers. Under full-vector X/Y independence and the needed iid/degeneracy conditions, Var(J1) factors into the two displayed DOUBLE coordinate sums of pair-kernel product expectations. Coordinates within each vector remain dependent, so covariance cross terms cannot be discarded. Pair summands sharing observations are not independent merely because the original observations are iid. The source first names full Var(T-natural) as S^2, then uses a dominating leading variance and kernel independence only asymptotically; no exact finite-sample equality is inferred. The supplement-only negligible-remainder result is not imported or certified by generic variance primitives."
+      }
+    },
+    {
+      "interface_id": "local-94d827b5276d39acba6a",
+      "related": ["ProbabilityTheory.cdf", "Finset.sum_apply"],
+      "query": "Inspected marginal CDF ingredients and pointwise finite sums; compared the coordinate-sum auxiliary functions with independence and variance assumptions.",
+      "result": "The two finite coordinate sums are directly constructible from their marginal kernels, with dependence across coordinates left intact.",
+      "gap": "Assemble V1 and V2 as their respective full marginal-kernel coordinate sums, without adding an independence hypothesis to these functions.",
+      "status": "composable",
+      "comparisons": {
+        "D13": "V1(x1,x2)=sum_k=1^p A1^k(X_1k,X_2k) and V2(y1,y2)=sum_l=1^q A2^l(Y_1l,Y_2l). The uppercase coordinates in the display are evaluations of the vector arguments, not additional independently sampled scalars. Finset.sum_apply evaluates the finite pointwise sum, and each summand uses its own marginal CDF. There is no coordinate independence, division by p or q, or variance normalization in these definitions. Their use in null moment conditions does not make H0 an input requirement; boundedness at fixed dimension does not imply dimension-uniform moment ratios."
+      }
+    },
+    {
+      "interface_id": "local-fdbd58d311921d738bc0",
+      "related": ["MeasureTheory.Measure.pi", "MeasureTheory.integral", "Filter.Tendsto"],
+      "query": "Inspected product-law moment integrals and filter convergence; compared all four ratios and the separately guarded p- and q-divergent limits.",
+      "result": "The fourth and cyclic-four-copy moment ratios can be specified as deterministic limits, but their dimension guards and denominator domains require explicit sequence data.",
+      "gap": "Impose the two moment-ratio limits for each diverging dimension separately, retaining the cyclic observation pattern and positive second-moment denominators.",
+      "comparisons": {
+        "D14": "As p diverges require E[V1(1,2)^4]/(n (E[V1(1,2)^2])^2)->0 and E[V1(1,2)V1(2,3)V1(3,4)V1(4,1)]/(E[V1(1,2)^2])^2->0; the q-divergent branch repeats these formulas for V2. E^2 denotes the SQUARE of the second moment, not E of the fourth power, and only the first ratio has an n factor. Four observations are iid copies of the whole relevant vector, but the four factors in the cycle share observations and are not mutually independent. Product measures and integrals construct these moments, with actual finite moments and positive denominators; fixed-dimensional bounded kernels help finiteness but not the limits. Filter.Tendsto captures each specified parameter sequence. Theorems allow max(p,q)->infinity, so neither both dimensions diverging nor conditions on every nondivergent subsequence are silently added."
+      }
+    },
+    {
+      "interface_id": "local-447dff2c982c578d2605",
+      "related": ["Finset.filter", "MeasureTheory.integral", "ProbabilityTheory.IndepFun"],
+      "query": "Searched unbiased rank-statistic variance estimators; inspected ordered distinct-index filtering and null independence against the literal six-index products in (6).",
+      "result": "The signed finite estimator is constructible, but its unbiasedness target and relation to the full finite-sample variance need the source qualifications and a proof.",
+      "gap": "Construct the product of six-distinct-index marginal estimates exactly, preserving the signed value and the unresolved S-squared target convention.",
+      "comparisons": {
+        "D11": "For each coordinate pair, sum over ALL ordered six-tuples of distinct observation indices and divide by n(n-1)(n-2)(n-3)(n-4)(n-5). The four factors use psi(i1,i3,i4) and psi(i2,i5,i6) once at each of the two coordinates, where psi(a,b,c)=1_{b<a}-1_{c<a}; retain strict comparisons and the exact repeated index pattern. Then sum S1-hat over all k1,k2, sum S2-hat over all l1,l2, and multiply those two sums. This is not an average over six-combinations or a product of separate independently indexed marginal observations. n>=6 is needed for the ordinary normalization. Under H0 the complete X and Y samples are independent in the intended iid experiment, supporting factorization for unbiasedness, while within-vector coordinate dependence stays present. The finite result can be signed; no truncation to zero or absolute-value correction is printed. The source's exact unbiasedness claim and asymptotic/full-variance naming issue remain distinct from merely implementing the formula."
+      }
+    },
+    {
+      "interface_id": "local-8d94fdb63937fa030f99",
+      "related": [],
+      "status": "no_verified_match",
+      "query": "Searched studentized statistics and variance-estimator interfaces in the pinned probability library; compared the exact T-natural/S-hat formula with its signed variance estimate.",
+      "result": "No specialized declaration was verified for this rank-statistic normalization or its exceptional denominator cases.",
+      "no_related_reason": "Generic scalar division and square-root definitions do not supply a substantive interface for this source-specific studentized statistic or resolve its signed variance-estimate domain.",
+      "gap": "Define T-hat=T-natural/S-hat on a valid positive estimated-variance domain and record the source's missing zero/negative-estimate convention.",
+      "comparisons": {
+        "D12": "The formula divides by S-hat after (6) defines S-hat squared as a signed unbiased estimate. A positive square root is the intended standard-error reading only when that estimate is strictly positive; the source gives no rule when it is zero or negative. Totalized real square root or division would invent behavior on those events and is not justified by consistency or an asymptotic probability tending to one. The six-index construction also needs enough observations. Normal calibration is a subsequent theorem, not a consequence of this algebraic definition. No clipping, regularization or absolute-value standard error is introduced."
+      }
+    },
+    {
+      "interface_id": "local-30a3c7bdbcf8e39f0964",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.IndepFun"],
+      "query": "Inspected joint-pair product moments and independence predicates; compared V(z1,z2) with the auxiliary marginal sums and the normal-approximation theorem.",
+      "result": "The product kernel and its moments are expressible on paired observations, but a normal-approximation bound does not follow from the product definition alone.",
+      "gap": "Construct V as the product of the two marginal coordinate sums on paired observations, keeping any null moment factorization separate from its definition.",
+      "comparisons": {
+        "D15": "For z_i=(x_i^T,y_i^T)^T, V(z1,z2)=V1(x1,x2)V2(y1,y2). Both factors use the SAME two observation indices and each retains all of its own coordinate dependence. The formula can be evaluated under dependent alternatives as well; H0 is needed only for the factorization of marginal moments and the cited null-normal approximation. It is not a Gaussian random variable by construction and is not itself the normalized test statistic. The fourth moment in Theorem 3 concerns this product kernel under the appropriate paired-sample law, not a product of independently resampled coordinate terms without justification."
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "scope": "Manual comparison of all 19 remaining interfaces (20 source members) of aos-2024-v52-i01-p0103, using frozen definitions and ambient graph conventions; externally cited separation and projection constructions remain identified as source prerequisites.",
+  "rows": [
+    {
+      "interface_id": "local-17f7b07662c8db92a1a7",
+      "related": ["Set.prod", "Set.Icc", "Digraph"],
+      "status": "composable",
+      "query": "Graph vertex space as finite variable indices times a contiguous integer interval with optional infinite endpoints; inspected Cartesian sets, closed intervals and arbitrary-vertex digraphs.",
+      "result": "A finite index type times an integer-interval subtype supplies the vertices, with optional lower and upper bounds representing the unbounded cases. The graph representation itself need not be finite.",
+      "gap": "These declarations suffice to encode the time-series vertex structure once the nonempty finite variable set and integer endpoint conventions are supplied.",
+      "comparisons": {"D7": "Retain I={1,...,n} with n>=1 and T={t in Z:t_s<=t<=t_e}, allowing a missing lower bound and/or upper bound; integer times form a contiguous interval, so an arbitrary sparse observed-time set is not automatically the time index set of this definition."}
+    },
+    {
+      "interface_id": "local-e967dd77031beb3b5123",
+      "related": ["SimpleGraph", "Digraph"],
+      "query": "Directed partial mixed graphs with four edge types, endpoint marks and unique loopless adjacencies; searched partial mixed/bidirected/edge marks and inspected SimpleGraph and Digraph.",
+      "result": "SimpleGraph supplies a loopless unique adjacency skeleton, while Digraph supplies oriented adjacency relations. Neither records the four-way edge partition or its compatible endpoint markings.",
+      "gap": "The directed partial mixed graph still needs its four edge-type relations and compatibility with one loopless skeleton assembled.",
+      "comparisons": {"D1": "Require at most one edge between distinct vertices, no self-adjacency and the disjoint decomposition into directed, bidirected, circle-head and circle-circle edges as part of graph data; a general digraph permits loops and opposite arrows, while a bare skeleton loses the edge types."}
+    },
+    {
+      "interface_id": "local-c3b40034cade0d7037ae",
+      "related": ["Relation.ReflTransGen", "Digraph"],
+      "status": "composable",
+      "query": "Directed cycle as mutual ancestry of two distinct vertices; inspected reflexive transitive closure and directed adjacency.",
+      "result": "Reflexive transitive closure of the directed-edge relation supplies finite directed reachability, including self-ancestry; the source cycle condition is mutual reachability for a distinct pair.",
+      "gap": "The existing relation closure suffices for this cycle predicate once directed edges and their path interpretation are supplied.",
+      "comparisons": {"D3": "Require i!=j together with i an ancestor of j and j an ancestor of i; the distinctness is essential because source ancestry is reflexive, and bidirected or circle-marked edges must not be included in the directed reachability relation."}
+    },
+    {
+      "interface_id": "local-7ca896f2817fc6e725b9",
+      "related": ["Digraph", "SimpleGraph"],
+      "query": "Directed mixed graph restriction to directed and bidirected edges; inspected directed adjacency and loopless skeletons after searching mixed graph types.",
+      "result": "Directed adjacency can represent the arrow component and a symmetric relation the bidirected component, with the skeleton enforcing their combined single-edge restriction. No built-in mixed-graph structure matching the source was located.",
+      "gap": "The mixed-graph subtype still needs the two retained edge types and inherited compatibility constraints, with circle-marked types excluded.",
+      "comparisons": {"D2": "A directed mixed graph removes both partially directed and non-directed edges from the source's partial mixed graph; removing bidirected edges as well gives its directed-graph case, and a bidirected edge must not be encoded as two causal arrows without retaining its distinct type."}
+    },
+    {
+      "interface_id": "local-934f1d310a1b067e3db8",
+      "related": ["SimpleGraph.Walk.IsPath", "Relation.ReflTransGen", "Digraph"],
+      "query": "Directed maximal ancestral graph, almost directed cycle and collider inducing path; searched ancestral/DMAG/inducing paths and inspected skeleton paths and directed reachability.",
+      "result": "A skeleton path gives a finite no-repeated-vertex sequence, and directed reachability gives ancestry. The inducing-path condition additionally inspects endpoint marks at every interior vertex, and maximality excludes such paths for nonadjacent pairs.",
+      "gap": "The DMAG predicate still needs mixed-edge collider semantics, exclusion of almost directed cycles and the inducing-path maximality condition assembled.",
+      "comparisons": {"D5": "Exclude directed cycles and any bidirected i<->j with i an ancestor of j; on an inducing path every interior vertex must be a collider and ancestor of at least one endpoint, and maximality rules out inducing paths between nonadjacent vertices; retain reflexive ancestry and translate the paper's vertex-count path length rather than using mathlib's edge count unchanged."}
+    },
+    {
+      "interface_id": "local-b945992000ce0f6dc778",
+      "related": ["Set.preimage", "Digraph"],
+      "status": "composable",
+      "query": "Stationarification as retaining edge types present under all admissible common time shifts; searched stationarification and inspected relation graphs and inverse images of edge sets.",
+      "result": "For each edge type, universal membership in the inverse images under admissible pair shifts defines the retained relation. The zero shift is admissible for existing vertices, so this retains rather than creates edges.",
+      "gap": "The operation is composable once the marked edge relations and admissible integer-shift maps are supplied.",
+      "comparisons": {"D14": "Keep exactly the original vertex set and require the same typed edge at every common shift that keeps both endpoints present; apply the rule to all four edge types including circles, and use universal intersection rather than the union of translates or an operation that changes orientations."}
+    },
+    {
+      "interface_id": "local-ee72304c00b60be36498",
+      "related": ["Digraph", "Relation.ReflTransGen"],
+      "status": "composable",
+      "query": "Directed acyclic graph with no finite directed cycles on possibly infinite vertices; inspected Digraph and reflexive reachability, and compared with undirected IsAcyclic.",
+      "result": "A loopless directed relation with no mutual reachability of distinct vertices represents the source DAG condition. Undirected acyclicity is stronger in a different way, and well-foundedness would exclude allowed infinite directed chains.",
+      "gap": "The DAG predicate is composable from the source's loopless directed-graph restriction and its directed-cycle exclusion.",
+      "comparisons": {"D4": "Use only directed edges and exclude directed cycles as defined in D3; do not impose a finite vertex set, undirected forest structure or well-founded ancestry, since the later time-series DAGs have vertices at every integer time."}
+    },
+    {
+      "interface_id": "local-c4ad222a22eb7559986d",
+      "related": ["Digraph", "Relation.ReflTransGen", "SimpleGraph.Walk.IsPath"],
+      "query": "MAG latent projection preserving observed ancestry and d/m-separations; searched latent projection and separation criteria and inspected graph reachability and skeleton paths.",
+      "result": "The available graph and path primitives can represent inputs and some preservation predicates, but do not implement the cited MAG latent projection or its separation theorem. The frozen main-text source gives properties and an external reference rather than the complete algorithm.",
+      "gap": "The cited latent-projection construction and its ancestry/separation preservation results remain to be supplied; graph restriction and reachability alone do not implement them.",
+      "comparisons": {"D12": "Project the source DAG onto O to obtain a DMAG preserving ancestral relationships among observed vertices and matching observable d-separations with m-separations; this is not just the induced subgraph, and the printed G/D notation switch and external construction are retained without inventing missing path criteria."}
+    },
+    {
+      "interface_id": "local-7a92bdbe0ba06d5f7450",
+      "related": ["Finset.filter", "Finset.image", "Set.Icc"],
+      "status": "composable",
+      "query": "Finite regular integer-time sampling and modular subsampling in a backward window; inspected finite image/filter operations and inclusive intervals.",
+      "result": "Map integer offsets tau in [0,p] to t-tau; optionally filter offsets by divisibility by the sampling stride before taking the image.",
+      "gap": "These finite set operations suffice for both observed-time patterns with the stated nonnegative window and integer stride.",
+      "comparisons": {"D11": "Regular sampling includes every t-tau for 0<=tau<=p, including both endpoints and p=0; regular subsampling keeps offsets with tau mod n=0 for n>=2, so the phase is tied to the reference t and the left endpoint need not be sampled when n does not divide p."}
+    },
+    {
+      "interface_id": "local-f3774327b0b91ecbe675",
+      "related": ["Set.preimage", "Digraph"],
+      "status": "composable",
+      "query": "Repeating typed edges under all admissible simultaneous time shifts; searched time-series graph stationarity and inspected inverse images of directed relations.",
+      "result": "A universal shift-invariance condition on each typed adjacency relation states repetition, restricted to endpoint pairs remaining inside the vertex interval.",
+      "gap": "The repeating-edge condition is composable after specifying the edge types and admissible common time shifts.",
+      "comparisons": {"D9": "Every existing edge of each of the four types must also exist with the same type at every admissible common shift; this requires repeated adjacency as well as orientation and is stronger than merely agreeing in orientation when a shifted adjacency happens to exist."}
+    },
+    {
+      "interface_id": "local-7a61e20ce4d07151ca6c",
+      "related": ["Digraph", "Set.prod"],
+      "status": "composable",
+      "query": "Time-ordered graph adjacency implies nondecreasing integer time coordinate; inspected digraph adjacency on Cartesian vertex types.",
+      "result": "A predicate over directed adjacent vertex pairs compares their second coordinates using the ordinary integer order.",
+      "gap": "The existing graph relation and product coordinates suffice to state the time-order condition.",
+      "comparisons": {"D8": "Require t_i<=t_j only for a directed edge (i,t_i)->(j,t_j), permitting contemporaneous directed edges; do not replace the weak inequality by a strict one or impose this condition on bidirected and circle-marked edges."}
+    },
+    {
+      "interface_id": "local-f535d851720aedc8a55c",
+      "related": ["Digraph", "Relation.ReflTransGen", "Set.prod"],
+      "status": "composable",
+      "query": "Time-series DAG on finite variables times all integers with time order and repeating edges; inspected graph relations, finite reachability and Cartesian vertices.",
+      "result": "The structure combines the previously expressible graph predicates on I times Z. It needs neither a finite graph instance nor a bound on the longest time lag.",
+      "gap": "The time-series DAG class is composable from the directed-cycle, time-order and repeated-edge predicates on the specified infinite vertex type.",
+      "comparisons": {"D10": "Use all integer times, a finite nonempty variable index set, no directed cycles, nondecreasing time along arrows and exact repetition under integer shifts; no finite maximum lag, stationary stochastic solution, causal Markov property or faithfulness assumption belongs to this graphical definition."}
+    },
+    {
+      "interface_id": "local-eeb9b0e79faa6025755d",
+      "related": ["Set.prod", "Set.Icc", "Digraph", "Relation.ReflTransGen"],
+      "query": "Time-series DMAG from MAG latent projection onto an observed variable-time product and regular-sampling abbreviation; searched ts-DMAG/latent projection and inspected products, integer windows and directed reachability.",
+      "result": "The observed set and its complementary latent vertices are straightforward set constructions, but the DMAG result depends on the externally cited MAG projection that was not found in the searched library.",
+      "gap": "The observed-set construction is available, while the ts-DMAG operation still requires the cited latent projection and its graph guarantees.",
+      "comparisons": {
+        "D13": "Take O=I_O times T_O with I_O a variable subset and T_O one of the two permitted finite regular sampling patterns, treating every vertex outside O, including omitted times of observed variables, as latent; the output is a MAG projection, not an induced graph or a projection only over omitted variable indices.",
+        "D13p": "After the source's stated equivalence, M^p(D) specializes to regular sampling T_O={t-tau:0<=tau<=p}; keep the bound on tau in this definition and do not rewrite it using the inconsistent bound on t printed in the later theorem statements."
+      }
+    },
+    {
+      "interface_id": "local-cb725d39bec394df0d41",
+      "related": ["Digraph", "Set.prod", "Set.preimage", "Relation.ReflTransGen"],
+      "query": "Canonical time-series DAG from stationarified directed and bidirected edges with latent triple indices; searched canonical/latent graph construction and inspected arbitrary directed relations and set-index operations.",
+      "result": "Tagged original/latent variable indices times Z and a union of three explicitly shifted arrow families define a directed graph. Proving its DAG and projection properties requires additional arguments; the generic primitives do not provide a canonical ts-DAG theorem.",
+      "gap": "The canonical construction still needs its three source-specific edge families and the required time-series DAG and projection properties assembled and proved.",
+      "comparisons": {"D16": "Use only stationarified edges, latent labels (i,j,tau) from bidirected ((i,t-tau),(j,t)), and vertices (I union J) times Z; preserve all translates of the directed edge, latent (i,j,tau) at t+Delta -> i at t+Delta, and latent (i,j,tau) at t-tau+Delta -> j at t+Delta, without swapping the two latent-parent time shifts or strengthening the input acyclic mixed graph to an ancestral or maximal graph."}
+    },
+    {
+      "interface_id": "local-cc1521c65ba2216e538e",
+      "related": [],
+      "status": "no_verified_match",
+      "query": "Tail/head/circle endpoint marks, non-circle orientation and wildcard edge patterns; searched bidirected, edge mark, partial mixed, DPAG and DMAG in pinned graph/probability sources and inspected Digraph, SimpleGraph and path representations.",
+      "result": "The inspected graph types record adjacency and paths, but no declaration implementing these three endpoint marks or the wildcard/non-circle conventions was located. A finite enum and compatibility predicates could be written, but that is not an existing inspected match.",
+      "no_related_reason": "Bare adjacency and path declarations do not implement the endpoint-mark alphabet or its interpretation; no directly useful mark-specific declaration was found in the stated search scope.",
+      "gap": "The tail/head/circle endpoint alphabet, non-circle classification and wildcard matching rules still require a custom marked-edge representation.",
+      "comparisons": {"D6": "A directed arrow has tail at its source and head at its target, a circle-head edge has the corresponding circle and head, and the wildcard ranges over all three marks; only tails and heads are non-circle/unambiguous, with endpoint reversal preserved, rather than treating a circle as an absent edge or an arbitrary directed orientation."}
+    },
+    {
+      "interface_id": "local-081085417fb834fe4c38",
+      "related": ["Set.preimage", "Digraph"],
+      "status": "composable",
+      "query": "Stationarified ts-DMAG as composition of stationarification with a finite-window latent projection; searched stationarification and inspected edge-relation inverse images.",
+      "result": "Once the projection and typed-edge stationarification operations are supplied, their composition directly gives the abbreviation. No closure of the ts-DMAG class under that operation follows from relation filtering.",
+      "gap": "The abbreviation is composable from the two supplied graph operations, with no guarantee that its result remains a ts-DMAG.",
+      "comparisons": {"D15": "Set M_st^p(D)=stat(M^p(D)) in that order, retaining the explicit warning that the stationarified result need not be the MAG projection of any time-series DAG; do not identify it with a fresh ts-DMAG or commute stationarification with latent projection."}
+    },
+    {
+      "interface_id": "local-6a2e6745f8547b3e3758",
+      "related": ["Set.ofPred"],
+      "status": "composable",
+      "query": "Boolean background-knowledge predicate on DMAGs and its accepted subset; inspected set construction from a predicate.",
+      "result": "Given the DMAG domain and a Boolean-valued function A, the predicate A(M)=true defines exactly its consistent subset. No restriction on the form of the background function is required.",
+      "gap": "The existing predicate-to-set operation suffices to represent consistency for a supplied Boolean function on the DMAG domain.",
+      "comparisons": {"D17": "Background knowledge is an arbitrary Boolean function on all DMAGs, with value one meaning consistent and zero inconsistent; it is not automatically a list of arrow constraints, a probability score or a guarantee that some graph is accepted."}
+    },
+    {
+      "interface_id": "local-393d3462cf8cded1c55d",
+      "related": ["Setoid.ker"],
+      "status": "composable",
+      "query": "Markov equivalence as equality of graph m-separation signatures; searched m-separation and inspected equality-fiber setoid construction.",
+      "result": "If a DMAG-to-separation-signature map is supplied, its kernel setoid groups exactly the graphs with the same signature. This generic equivalence construction does not define the external m-separation criterion.",
+      "gap": "The equivalence relation is available as a kernel setoid once the source's external m-separation signature has been supplied.",
+      "comparisons": {"D18": "Compare all m-separations of the two DMAGs, not merely skeletons, directed reachability, pairwise adjacency or a chosen observed probability distribution; equality of that entire signature is the graph-level definition, and the full path criterion remains an external source prerequisite."}
+    },
+    {
+      "interface_id": "local-d038faf893c81f08dc5f",
+      "related": ["SimpleGraph", "Setoid.ker", "Set.ofPred", "Set.EqOn"],
+      "query": "DPAG skeleton, invariant endpoint marks and maximally informative representation of a background-filtered Markov class; searched DPAG/partial ancestral graphs and inspected skeletons, equivalence fibers, accepted subsets and function agreement.",
+      "result": "The class restriction and skeleton equality are expressible with existing sets and relations, and endpoint agreement can use equality on the relevant edge endpoints after a marked-graph representation is supplied. The classwide invariant/variable mark construction is not present in these primitives.",
+      "gap": "The DPAG construction still needs endpoint-mark semantics and its universal and witness conditions across the filtered class, with existence handled separately when background knowledge excludes every graph.",
+      "comparisons": {"D19": "Preserve all four parts: a DPAG for M has its skeleton and only non-circle marks already in M; relative maximal informativeness requires each non-circle mark in every class member and both a tail witness and a head witness for each circle; P(M,A) uses the A-consistent subclass and the conventional case uses constant-one A, without asserting a total unique construction for an empty or inconsistent subclass."}
+    }
+  ]
+}

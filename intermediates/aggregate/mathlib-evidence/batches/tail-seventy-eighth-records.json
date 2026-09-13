@@ -1,0 +1,614 @@
+[
+  {
+    "interface_id": "local-5cf03d07ced6eaaa527b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "a3719c81000e555d2926b14ba432f418a483be8d80be3193fcb2734dc6305f07",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D8",
+        "comparison": "Preserve the weight order mu_ORA(x)=(1-pi(x))*r_1(x)+pi(x)*r_0(x), rather than weighting each treatment regression by its own treatment probability. This is a function on covariates; mu_ORA,i is its evaluation at X_i, and the bold oracular counterpart is the corresponding vector. No fitted propensity or nuisance fit belongs in this definition. The additional source identity with a conditional expectation of the oracle transformed outcome is a separate identity, not automatic from condExp or a synthesized AIPW theorem.",
+        "statement_sha256": "98b09a1dd74cd7c5266696178f3175b9d6cf1494c74976524f3a78c5b1fc9b7f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Oracle correction as a propensity-weighted combination of potential-outcome regressions; bounded search for oracular/oracle correction and DIPW declarations found no specialized interface, and conditional-mean ingredients were inspected.",
+          "result": "Chosen versions of the two conditional-mean regressions can be combined by pointwise real arithmetic with the true propensity. The evaluated sample vector is obtained by applying that same function to each covariate row."
+        }
+      ],
+      "gap": "The oracle correction is definable from the conditional-mean inputs and true propensity by pointwise real arithmetic, without a separate estimator theorem."
+    }
+  },
+  {
+    "interface_id": "local-1f51ebe99d7cc5355f69",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "e1b85c2c723f2e4fcab0dd2c0ad9a2b5b682c4d33d3e7d09bacb67e5e796211b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D19",
+        "comparison": "For t=0 and t=1 separately set epsilon(t)=Y(t)-r_t(X) and epsilon_i(t)=Y_i(t)-r_t(X_i). These are potential-outcome residuals under true regressions, not fitted residuals or residuals only for the observed treatment. Conditional mean zero follows from the conditional-expectation interpretation under its hypotheses; the definition does not assert conditional independence of the two potential residuals, equal variances or independence from treatment without the separate assignment assumption.",
+        "statement_sha256": "9698f08f1f07d8d0976effa028941f18a5b92683c83962748662e4a9aba22dae"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Potential-outcome residuals centered by covariate conditional means; inspected conditional expectation and its integrability/conditioning interpretation.",
+          "result": "For each treatment, subtracting its chosen conditional regression evaluated at X defines the population residual, and the same operation defines each sample copy."
+        }
+      ],
+      "gap": "Conditional expectation and pointwise subtraction suffice to define the residuals, with their conditional-centering identity requiring the usual integrability and version hypotheses."
+    }
+  },
+  {
+    "interface_id": "local-9ce843b598252274a2a3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "e6a0b966bf9eb036f3d42b9a31ae46a9d9346fb206acb04ca20581b9f0cd74f4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D12",
+        "comparison": "Represent tilde-mu as an initial estimate of mu_ORA based on D_B, retaining the independent-auxiliary-data setup but imposing no particular regression method. The optional recipes regress transformed B outcomes or combine fitted treatment/control regressions; neither is mandatory, and their source x versus X_i notation discrepancy remains recorded. Tilde-mu is not the optimized correction vector mu-hat from (14), and training on B alone does not establish closeness to the oracle or the later conditional MGF condition.",
+        "statement_sha256": "bdc3ed6ce702b7f9a27ae5120c57504bb67c4e37d7799ff68a06ab64bffc01a3"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Initial oracle-correction estimator trained on auxiliary dataset B; bounded rg search for DIPW, debiased inverse weighting, oracle correction and initial-estimator interfaces in Probability and MeasureTheory, with inspection of the source's two optional regression recipes.",
+          "result": "No verified declaration packages the unspecified training rule used here. The source accepts an estimate trained on B and gives optional recipes without fixing a regression algorithm or guaranteeing a rate."
+        }
+      ],
+      "gap": "A supplied measurable training rule from auxiliary dataset B to a covariate function is needed; its algorithm and estimation guarantees are not specified by this definition.",
+      "no_related_reason": "Generic conditional expectations, optimization predicates and finite sums would not identify the unspecified data-to-function training rule in this interface."
+    }
+  },
+  {
+    "interface_id": "local-1a34307e550ffb7f4db0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "82344b52aa38b78eaaac3653ff2e07a5d39f618ad3a2b54f7e2968c37e3f5fa2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D13",
+        "comparison": "Use objective (1/n)*||tilde-mu(X)-mu||_2^2 with the Euclidean norm, and constraint ||X_A^T*(Y-tilde_A-tilde-mu(X_A))/n_A - X^T*(mu-tilde-mu(X))/n||_infinity<=eta. Preserve the opposite residual ordering in the auxiliary and main terms, the two sample-size denominators and rowwise function evaluation. The infinity norm can be expressed by simultaneous absolute coordinate bounds; ordinary finite-function norm is not the Euclidean objective norm. Supply the transformed auxiliary outcome from the frozen source formula. The zero vector is the stated output only on infeasibility, not a generally feasible minimizer. IsMinOn alone omits membership and does not prove the source's high-probability feasibility statement.",
+        "statement_sha256": "7c741a51d682fef27f6447dd698e0b9628464c8c6976ab046cf98e0f73bf58c2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Convex quadratic correction program with infinity-norm moment constraint and zero fallback on infeasibility; inspected set-constrained minimizer predicate, matrix-vector products and Euclidean norm formula.",
+          "result": "The objective and coordinatewise moment inequalities define a finite-dimensional convex feasible problem. IsMinOn expresses objective minimality but must be combined with feasible-set membership; existence, uniqueness and measurable selection are not supplied by that predicate."
+        }
+      ],
+      "gap": "The remaining implementation establishes and selects the feasible minimizer, including its measurability, while returning exactly the zero vector when the constraint set is empty."
+    }
+  },
+  {
+    "interface_id": "local-9be856c36cdfb75013ae",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "32a7123283fde3d6dee952d536de7bd5d450e62cabdd5dd3c20af0bfef597e23",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D14",
+        "comparison": "For each i subtract the same mu-hat_i from Y_i in both treatment and control terms, use pi-hat_i and 1-pi-hat_i respectively, subtract the control term, and average with 1/n. This is not the formula with true propensity weights or with separate fitted outcome regressions in the two residuals. Preserve the correction-vector construction and its infeasibility fallback through its input. Require n>0 and 0<pi-hat_i<1 for the intended ratios; finite-sum algebra supplies no unbiasedness, normal approximation or debiasing guarantee by itself.",
+        "statement_sha256": "515ab73cd66e0648ae0ccc07d31c0c14be2a2503117354bdd098085986eadc4b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Basic debiased inverse-probability weighted estimator; bounded DIPW/debiased-inverse search found no specialized declaration, and finite pointwise sum construction was inspected.",
+          "result": "Once the optimized correction vector and fitted propensities are supplied, a finite sum and real arithmetic define the estimator exactly."
+        }
+      ],
+      "gap": "The displayed estimator is definable by a finite average on the nonempty-sample and nonzero-propensity-denominator domain; its statistical guarantees remain separate."
+    }
+  },
+  {
+    "interface_id": "local-7321c70f4b7596d56157",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "a6cd80ee07857cc6d85a49b753d4556e6792b346ca1b9f2877ad950ace78b442",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D21",
+        "comparison": "Keep both coefficient bounds with their distinct sparsity factors: l1 error <=c_gamma*s*sqrt(log(p)/n), l2 error <=c_gamma*sqrt(s*log(p)/n). Retain fitted overlap in both the main and A samples and c_hat_pi in (0,1/2]; the printed common i range is compatible with the standing n_A=n convention. For a fresh population X condition the initial fit tilde-mu(X) on D_B, impose the strict absolute conditional-mean bound, and bound the conditional MGF of its centered value for every real alpha. The mathlib variance-proxy parameter is c_tilde_mu squared, not c_tilde_mu. Do not replace this event by unconditional sub-Gaussianity or assume the global HasCondSubgaussianMGF property outside the event; conditional versions and event measurability require explicit treatment.",
+        "statement_sha256": "011ebc412fc507f6cf403da574895a6dfa47111d4788012ade5558d19a512d04"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.HasCondSubgaussianMGF",
+          "type": "{Ω : Type u} → (m : MeasurableSpace Ω) → {mΩ : MeasurableSpace Ω} → [StandardBorelSpace Ω] → (hm : m ≤ mΩ) → (Ω → ℝ) → ℝ≥0 → (μ : MeasureTheory.Measure Ω) → [MeasureTheory.IsFiniteMeasure μ] → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.SubGaussian",
+          "provides": "Sub-Gaussian MGF condition relative to a conditioning sigma-algebra, expressed using the conditional expectation kernel with a common nonnegative variance proxy.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/SubGaussian.lean#L549-L551",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Good event combining l1/l2 coefficient error, main and auxiliary fitted overlap, conditional mean bound and conditional sub-Gaussian MGF for the initial fit; inspected conditional MGF definition and its global almost-everywhere scope.",
+          "result": "Finite-dimensional norms and inequalities describe the coefficient and overlap parts. Conditional expectation describes the B-conditioned mean and MGF inequalities, but HasCondSubgaussianMGF asserts a global almost-everywhere condition rather than defining a samplewise event where that condition holds."
+        }
+      ],
+      "gap": "The remaining event interface combines the finite-sample inequalities with chosen conditional-moment versions and an event-local MGF bound using the squared variance proxy."
+    }
+  },
+  {
+    "interface_id": "local-3e6e7d40ba34e390c57d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "32eeafd5b031d653d7960fe4bacae7692a267b5ae7ac799d9ace62af500379fc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D18",
+        "comparison": "Define bar-tau=(1/n)*sum_i E[Y_i(1)-Y_i(0)|X_i] for n>0. It is a random target determined by the observed covariates and, under conditional-mean linearity, equals the sample average of r_1(X_i)-r_0(X_i). It is not the population target tau=E[Y(1)-Y(0)] and does not average observed treated-minus-control outcomes. Retain this distinction for the conditional-coverage results.",
+        "statement_sha256": "0a470638719bdcf4f58ce7f5e36a031a94cfa36165fddef0378f3372a677a6d3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Observed-covariate conditional average treatment target; inspected conditional expectation and finite averaging.",
+          "result": "Choose the conditional mean of each potential-outcome contrast given its covariate and average those values over the observed sample."
+        }
+      ],
+      "gap": "Conditional expectation and a finite average define this covariate-dependent target under the usual integrability and version hypotheses."
+    }
+  },
+  {
+    "interface_id": "local-c5659a7ea0aef7113f87",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "496660ebb437ff4bef3bdda9d283dc2ec9f055b0d3f0694f1416321d1faa8d6a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D24",
+        "comparison": "Use the stated consecutive index blocks of size n/3 with 3 dividing n, and cycle the ordered roles as (main,A,B)=(1,2,3),(2,3,1),(3,1,2). Each base estimator uses its own main fold sample size and corresponding auxiliary inputs; average the three resulting numbers with factor one third. The blocks arise from iid observations, but the three estimators reuse all blocks in different roles and cannot be treated as independent. Preserve the original numbering when translating to zero-based finite indices, and do not add randomized splitting or extra folds.",
+        "statement_sha256": "1e91a19fa5887a64903ce9c6260775c0b6307ed16d6c480233436ac5b394b079"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Fin.append",
+          "type": "{m n : ℕ} → {α : Sort u} → (Fin m → α) → (Fin n → α) → Fin (m + n) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Fin.Tuple.Basic",
+          "provides": "Concatenates two finite tuples in their existing order, using the left and right parts of the summed finite index type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Fin/Tuple/Basic.lean#L307-L308",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Three contiguous equal folds with cyclic main/A/B roles and average of three DIPW estimates; inspected finite tuple indexing and finite averaging.",
+          "result": "A sample of size 3m can be split into three indexed blocks, and cyclic relabeling supplies each estimator's ordered main and auxiliary inputs. Their arithmetic average needs no independence assumption."
+        }
+      ],
+      "gap": "Finite indexing and averaging suffice for the three-fold construction once the base estimator is provided, while distributional results must account for reuse of the folds."
+    }
+  },
+  {
+    "interface_id": "local-18e16a1051172f14f053",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "2d19a8519976da8d7e290104658ea6bbaa63afe37d881f8835c8f4bff03a6167",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D25",
+        "comparison": "Construct each mu-hat_j in R^(n/3) from its own tilde-mu_j and the cyclic data roles of D24 using the same program and infeasibility fallback as D13. Define Omega_j with those same roles, concatenate the three optimized vectors in original block order to obtain mu-hat in R^n, and evaluate the common oracle function at all X_i for mu_ORA. Keep this optimized vector distinct from the foldwise initial-fit vector tilde-mu(X) used in Theorem 5. Preserve the theorem's printed tuning parameter with n; do not silently replace it by a fold-size normalization.",
+        "statement_sha256": "31ef695b1917b76572bf184ec7ac9cf301a5013043cd36a538a9564c9fa7a522"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Fin.append",
+          "type": "{m n : ℕ} → {α : Sort u} → (Fin m → α) → (Fin n → α) → Fin (m + n) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Fin.Tuple.Basic",
+          "provides": "Concatenates two finite tuples in their existing order, using the left and right parts of the summed finite index type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Fin/Tuple/Basic.lean#L307-L308",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Foldwise correction vectors, cyclic good events and concatenation; inspected finite tuple append and the previously compared constrained-minimizer construction.",
+          "result": "Given each fold's correction vector, two tuple appends and the equality n=3*(n/3) assemble the full vector; the same cyclic input relabeling specializes each good event."
+        }
+      ],
+      "gap": "The foldwise bookkeeping is supported by tuple concatenation once the base optimization outputs and good-event definitions are supplied."
+    }
+  },
+  {
+    "interface_id": "local-6689173a261ac0016f53",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "1939556c4fa75fa15dae0cf5bf03ec5aa67bcbb88dcffec323c4af2550757a99",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D23",
+        "comparison": "Apply marginal population variance to r_1(X)-r_0(X)-tau + T*epsilon(1)/pi(X) - (1-T)*epsilon(0)/(1-pi(X)). Retain true propensity denominators and the population target tau. This is not a conditional variance given the observed covariates or an empirical variance of fitted scores, and no independence between its summands follows from the definition. Avoid interpreting the ENNReal-to-real fallback at infinite variance as a legitimate finite variance; strict positivity needed by later standardized bounds is separate from this definition.",
+        "statement_sha256": "93cf8c58330078f217a2dbbfb112bb4a32a75a292fb0a0db5e39e3f3684fcdad"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Population variance of treatment-effect influence expression with true propensity and potential-outcome residuals; inspected real-valued variance and its extended-variance conversion.",
+          "result": "Instantiate variance with the entire displayed scalar random variable under the population law. The real-valued result has its ordinary finite-variance interpretation when that variable is square integrable."
+        }
+      ],
+      "gap": "The variance declaration supports this expression on its finite-second-moment and valid-denominator domain, without establishing a central limit theorem or nondegeneracy."
+    }
+  },
+  {
+    "interface_id": "local-2d6a1253a716f81f08ac",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "4ae6f38140f5f86d159e475cbaac22c19e6e8df9b74444b2d3e0d4d73e0d1863",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D22",
+        "comparison": "For n>0 average (mu-hat_i-mu_ORA,i)^2/[pi_i*(1-pi_i)], retaining true rather than fitted propensities. Under overlap the summands are nonnegative, and exact oracle correction can make sigma_mu squared zero. The definition is a conditional-data-dependent weighted error size, not the sample variance of mu-hat and not an assertion of a positive denominator for every later occurrence of sigma_mu in Gaussian approximation bounds.",
+        "statement_sha256": "757dc0b56dbe846684e7ea3fc88c8164561389a52fadcbc10af0708d95cd325e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Propensity-weighted empirical correction-error quantity sigma_mu squared; inspected finite pointwise sum construction and compared the displayed expression with the ordinary variance definition.",
+          "result": "The quantity is directly a weighted finite sum of squared correction errors, with true propensity products in the denominators; it need not be represented as a variance operator."
+        }
+      ],
+      "gap": "A finite average and real arithmetic define this correction-error quantity once the fitted and oracle vectors and true propensities are supplied."
+    }
+  },
+  {
+    "interface_id": "local-bb49ee4e825edcfa759c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "8eb5412694c6d9678d4ec6688f79209704660cc57baee0822cfbeefb3b1315b1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D26",
+        "comparison": "Within I_j use the fitted-propensity DIPW score centered at tau-hat_DIPW,j and factor 3/n, which is the reciprocal fold size rather than an unbiased sample-variance correction. Take hat-sigma_j as its nonnegative square root and tilde-sigma=(hat-sigma_1+hat-sigma_2+hat-sigma_3)/sqrt(3), not a root-sum-of-squares combination justified by independent estimates. The closed interval is centered at tau-hat_AVE with half-width tilde-sigma*z_alpha/sqrt(n), targeting bar-tau in the stated coverage result. The frozen source review found no explicit main-text tail convention for z_alpha; retain it as an input rather than silently selecting a normal quantile. Theorem 4 uses C_(alpha/3) inside its simultaneous-in-alpha conditional guarantee; finite union bounds alone do not prove that guarantee.",
+        "statement_sha256": "f08f124968dd476cbe4647cad5143db266ca208abb9b7720e5ed3935a87782dc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.measure_iUnion_fintype_le",
+          "type": "{α ι F : Type*} → [FunLike F (Set α) ℝ≥0∞] → [MeasureTheory.OuterMeasureClass F α] → [Fintype ι] → (μ : F) → (s : ι → Set α) → μ (⋃ i, s i) ≤ ∑ i, μ (s i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.OuterMeasure.Basic",
+          "provides": "Finite union bound for an outer measure, including probability measures, without independence or measurable-event assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/OuterMeasure/Basic.lean#L84-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Foldwise empirical score variances and union-bound confidence interval for the covariate-conditional target; inspected finite averages, square roots, closed real intervals and finite union probability bound.",
+          "result": "Finite sums give the three empirical centered-score second moments, and their nonnegative square roots yield the displayed interval scale. The union bound combines fold failure probabilities without independence, but does not supply a missing critical-value convention or each fold's coverage estimate."
+        }
+      ],
+      "gap": "The interval formula is supported with z_alpha supplied as a parameter, while its unresolved main-text tail convention and source-specific conditional coverage theorem remain to be established."
+    }
+  },
+  {
+    "interface_id": "local-fe066bdf5c15de25da40",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "e27c0d8061f6149b4e7e81fc8df3cba1afdd5c8598c9ba4da6526b0a6d665482",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D27",
+        "comparison": "Allow p and sparsity s to depend on n, embed the natural counts into the reals, and retain existence of b_n tending to zero with s_n=b_n*sqrt(n)/log(p_n). Under the standing p_n>=2 and n>=1 assumptions, this is equivalent to s_n*log(p_n)/sqrt(n) tending to zero, or s_n=o(sqrt(n)/log(p_n)). It is stronger than merely s much smaller than p and different from the separate log(p)/n convergence assumption. Keep it restricted to the theorems that invoke Assumption 6; Theorem 5's construction reference does not import it.",
+        "statement_sha256": "b3f6ffcf6ca5afff8b800ed772e5522468e35e9a7673dbdae5ea7e6fbd7e9d5e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "High-dimensional sparsity assumption expressed by a vanishing deterministic sequence b_n; inspected atTop convergence, deterministic little-o and real logarithm/square-root domains.",
+          "result": "A real sequence converging to zero and a pointwise rate identity encode the source assumption; with positive log(p_n) and n it can also be related to the corresponding deterministic sparsity little-o statement."
+        }
+      ],
+      "gap": "The assumption is expressible by ordinary sequence convergence and real arithmetic with the source's positive dimension and sample-size domain."
+    }
+  },
+  {
+    "interface_id": "local-5d4ce08d00cac5e2ef5c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:07:32.523739+00:00",
+    "source_interface_sha256": "8bc07f363b778b3cb344abe42863b6fb311277c72cbd64d52b2ca3bcd20369ac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1978",
+        "local_id": "D28",
+        "comparison": "Require sigma_epsilon>0 and Var(epsilon(t))>=sigma_epsilon^2 for both t=0,1 under the population law. The bound is marginal over X and potential outcomes; it is not Var(epsilon(t)|X=x)>=sigma_epsilon^2 uniformly in x. Preserve the recorded distinction between the source's sigma_epsilon here and c_epsilon named in Theorem 4. Do not add this Assumption 7 to Theorems 2, 3 or 5 to repair their potentially zero standardization denominators.",
+        "statement_sha256": "0ea2ccf9891437b7b65126726217a38e27b8a2719b421a4d42fe5a19d3796ff5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Positive lower bound on marginal potential-residual variances for two treatment values; inspected variance definition and contrasted marginal and conditional variance domains.",
+          "result": "Two instances of population variance and real inequalities express the minimum bound with a positive constant. This does not require a conditional-variance operator or an infimum over covariate values."
+        }
+      ],
+      "gap": "The variance declaration and inequalities express the assumption for finite-variance residuals, preserving its marginal rather than pointwise conditional meaning."
+    }
+  }
+]

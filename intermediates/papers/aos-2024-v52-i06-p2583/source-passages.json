@@ -1,0 +1,867 @@
+{
+  "paper_id": "aos-2024-v52-i06-p2583",
+  "members": [
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D1",
+      "local_label": "Introduction — Tensor-on-tensor regression (1)–(2)",
+      "source_heading": "Introduction — Tensor-on-tensor regression (1)–(2)",
+      "source_kind": "source_passage",
+      "statement_original": "This paper studies a general class of problems termed tensor-on-tensor regression, which aims to characterize the relationships between covariates and responses in the form of scalars, vectors, matrices, or high-order tensors:\n\\[\n\\mathcal Y_i=\\langle\\mathcal A_i,\\mathcal X^*\\rangle_*+\\mathcal E_i,\\qquad i=1,\\ldots,n.\n\\]\n(1)\nHere, $\\mathcal A_i\\in\\mathbb R^{p_1\\times\\cdots\\times p_d},i=1,\\ldots,n$ are the known order-$d$ (or $d$-way) tensor covariates. $\\mathcal Y_i,\\mathcal E_i\\in\\mathbb R^{p_{d+1}\\times\\cdots\\times p_{d+m}}$ are both order-$m$ tensors and are observations and unknown noise, respectively. $\\mathcal X^*\\in\\mathbb R^{p_1\\times\\cdots\\times p_d\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$ is an order-$(d+m)$ tensor parameter of interest. $\\langle\\cdot,\\cdot\\rangle_*$ is the contracted tensor inner product defined as $\\langle\\mathcal A_i,\\mathcal X^*\\rangle_*\\in\\mathbb R^{p_{d+1}\\times\\cdots\\times p_{d+m}}$,\n\\[\n(\\langle\\mathcal A_i,\\mathcal X^*\\rangle_*)_{[j_1,\\ldots,j_m]}=\\sum_{\\substack{k_l=1,\\\\l=1,\\ldots,d}}^{p_l}\\mathcal A_{i[k_1,\\ldots,k_d]}\\mathcal X^*_{[k_1,\\ldots,k_d,j_1,\\ldots,j_m]}.\n\\]\nThroughout the paper, we consider $d$ and $m$ to be fixed constants. We also stack all responses and errors to $\\mathcal Y,\\mathcal E\\in\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$, where $\\mathcal Y_{[i,:,\\ldots,:]}=\\mathcal Y_i$ and $\\mathcal E_{[i,:,\\ldots,:]}=\\mathcal E_i$. Then the tensor-on-tensor regression model can be written succinctly as $\\mathcal Y=\\mathscr A(\\mathcal X^*)+\\mathcal E$, where $\\mathscr A:\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}\\to\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$ is a linear map such that\n\\[\n\\mathscr A(\\mathcal X^*)_{[i,:,\\ldots,:]}=\\langle\\mathcal A_i,\\mathcal X^*\\rangle_*\\quad\\text{for }i=1,\\ldots,n.\n\\]\n(2)",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Introduction — Tensor-on-tensor regression (1)–(2)"
+        },
+        {
+          "page": 2,
+          "location": "Introduction — Tensor-on-tensor regression (1)–(2)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\langle\\mathcal A_i,\\mathcal X^*\\rangle_*",
+        "\\mathcal Y=\\mathscr A(\\mathcal X^*)+\\mathcal E"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D2",
+      "local_label": "Section 1.5 — Matricization and Tucker rank",
+      "source_heading": "Section 1.5 — Matricization and Tucker rank",
+      "source_kind": "definition",
+      "statement_original": "The matricization operation $\\mathcal M_k(\\cdot)$ unfolds an order-$d$ tensor along mode $k$ to a matrix, say $\\mathcal A\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ to $\\mathcal M_k(\\mathcal A)\\in\\mathbb R^{p_k\\times p_{-k}}$, where $p_{-k}=\\prod_{j\\ne k}p_j$ and its detailed definition is provided in Supplement B. The Frobenius norm of tensor $\\mathcal A$ is defined as $\\|\\mathcal A\\|_{\\mathrm F}=(\\sum_{i_1,\\ldots,i_d}\\mathcal A_{[i_1,\\ldots,i_d]}^2)^{1/2}$. The Tucker rank of an order-$d$ tensor $\\mathcal A$, denoted by $\\operatorname{Tucrank}(\\mathcal A)$, is defined as a $d$-tuple $\\mathbf r:=(r_1,\\ldots,r_d)$, where $r_k=\\operatorname{rank}(\\mathcal M_k(\\mathcal A))$.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.5 — Matricization and Tucker rank"
+        }
+      ],
+      "highlight_symbols": [
+        "\\operatorname{Tucrank}(\\mathcal A)",
+        "\\mathcal M_k(\\mathcal A)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D3",
+      "local_label": "Section 1.5 — Singular values, singular vectors and QR",
+      "source_heading": "Section 1.5 — Singular values, singular vectors and QR",
+      "source_kind": "definition",
+      "statement_original": "For any matrix $\\mathbf D\\in\\mathbb R^{p_1\\times p_2}$, let $\\sigma_k(\\mathbf D)$ be the $k$th largest singular value of $\\mathbf D$. We also denote $\\operatorname{SVD}_r(\\mathbf D)=[\\mathbf u_1\\ \\cdots\\ \\mathbf u_r]$ and $\\operatorname{QR}(\\mathbf D)$ as the subspace composed of the leading $r$ left singular vectors and the Q part of the QR decomposition of $\\mathbf D$, respectively.",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.5 — Singular values, singular vectors and QR"
+        }
+      ],
+      "highlight_symbols": [
+        "\\sigma_k(\\mathbf D)",
+        "\\operatorname{SVD}_r(\\mathbf D)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D4",
+      "local_label": "Section 1.5 — Tucker decomposition and tensor-matrix products",
+      "source_heading": "Section 1.5 — Tucker decomposition and tensor-matrix products",
+      "source_kind": "definition",
+      "statement_original": "Any Tucker rank-$(r_1,\\ldots,r_d)$ tensor $\\mathcal A$ admits the following Tucker decomposition (Tucker, 1966): $\\mathcal A=\\llbracket\\mathcal S;\\mathbf U_1,\\ldots,\\mathbf U_d\\rrbracket:=\\mathcal S\\times_1\\mathbf U_1\\times\\cdots\\times_d\\mathbf U_d$, where $\\mathcal S\\in\\mathbb R^{r_1\\times\\cdots\\times r_d}$ is the core tensor and $\\mathbf U_k=\\operatorname{SVD}_{r_k}(\\mathcal M_k(\\mathcal A))$ is the mode-$k$ top $r_k$ left singular vectors. Here, the mode-$k$ product of $\\mathcal A\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ with a matrix $\\mathbf B\\in\\mathbb R^{r_k\\times p_k}$, denoted by $\\mathcal A\\times_k\\mathbf B$, is a $p_1\\times\\cdots\\times p_{k-1}\\times r_k\\times p_{k+1}\\times\\cdots\\times p_d$-dimensional tensor, and its definition is provided in Supplement B. The following abbreviations are used to denote the tensor-matrix product along multiple modes: $\\mathcal A\\times_{k=1}^d\\mathbf U_k:=\\mathcal A\\times_1\\mathbf U_1\\times\\cdots\\times_d\\mathbf U_d$; $\\mathcal A\\times_{l\\ne k}\\mathbf U_l:=\\mathcal A\\times_1\\mathbf U_1\\times\\cdots\\times_{k-1}\\mathbf U_{k-1}\\times_{k+1}\\mathbf U_{k+1}\\times\\cdots\\times_d\\mathbf U_d$.",
+      "relation": "exact",
+      "depends_on": [
+        "D2",
+        "D3"
+      ],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.5 — Tucker decomposition and tensor-matrix products"
+        }
+      ],
+      "highlight_symbols": [
+        "\\llbracket\\mathcal S;\\mathbf U_1,\\ldots,\\mathbf U_d\\rrbracket",
+        "\\mathcal A\\times_k\\mathbf B"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D5",
+      "local_label": "Section 1.5 — Best Tucker rank approximation",
+      "source_heading": "Section 1.5 — Best Tucker rank approximation",
+      "source_kind": "definition",
+      "statement_original": "For any order-$d$ tensor $\\mathcal Z\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ and a $d$-tuple $\\mathbf r=(r_1,\\ldots,r_d)$, let $\\mathcal Z_{\\max(\\mathbf r)}:=\\mathcal Z\\times_{k=1}^d P_{\\widehat{\\mathbf U}_k}$ be the best Tucker rank $\\mathbf r$ approximation of $\\mathcal Z$ in terms of Frobenius norm, where $(\\widehat{\\mathbf U}_1,\\ldots,\\widehat{\\mathbf U}_d)$ is the solution to $\\operatorname{arg\\,max}_{\\mathbf U_k\\in\\mathbb O_{p_k,r_k},k=1,\\ldots,d}\\|\\mathcal Z\\times_{k=1}^d P_{\\mathbf U_k}\\|_{\\mathrm F}$ (De Lathauwer et al., 2000b, Theorem 4.2).",
+      "relation": "exact",
+      "depends_on": [
+        "D2",
+        "D4"
+      ],
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Section 1.5 — Best Tucker rank approximation"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal Z_{\\max(\\mathbf r)}",
+        "\\mathbb O_{p_k,r_k}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D5/name",
+          "text": "Different from the low-rank projection for tensor of order 3 or higher, $\\mathcal P_r$ can be computed efficiently by truncated SVD.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Comparison of tensor projection with matrix truncated SVD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D6",
+      "local_label": "Section 1.1 — Rank-constrained least squares (3)",
+      "source_heading": "Section 1.1 — Rank-constrained least squares (3)",
+      "source_kind": "definition",
+      "statement_original": "\\[\n\\widehat{\\mathcal X}_{\\mathrm{opt}}=\\underset{\\mathcal X\\in\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}}{\\operatorname{arg\\,min}}\\ f(\\mathcal X):=\\frac12\\|\\mathcal Y-\\mathscr A(\\mathcal X)\\|_{\\mathrm F}^2,\\qquad\\text{subject to }\\operatorname{Tucrank}(\\mathcal X)\\le\\mathbf r.\n\\]\n(3)",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2"
+      ],
+      "evidence": [
+        {
+          "page": 3,
+          "location": "Section 1.1 — Rank-constrained least squares (3)"
+        }
+      ],
+      "highlight_symbols": [
+        "f(\\mathcal X):=\\frac12\\|\\mathcal Y-\\mathscr A(\\mathcal X)\\|_{\\mathrm F}^2",
+        "\\operatorname{Tucrank}(\\mathcal X)\\le\\mathbf r"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D6/name",
+          "text": "such as the global minimizer of the loss function (3)",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D7",
+      "local_label": "Section 2.1 — Fixed-rank manifold and tangent projection (4)–(5)",
+      "source_heading": "Section 2.1 — Fixed-rank manifold and tangent projection (4)–(5)",
+      "source_kind": "definition",
+      "statement_original": "Denote the collection of $(p_1,\\ldots,p_d,p_{d+1},\\ldots,p_{d+m})$-dimensional tensors of Tucker rank $\\mathbf r:=(r_1,\\ldots,r_d,r_{d+1},\\ldots,r_{d+m})$ by $\\mathbb M_{\\mathbf r}=\\{\\mathcal X\\in\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}},\\operatorname{Tucrank}(\\mathcal X)=\\mathbf r\\}$. Then $\\mathbb M_{\\mathbf r}$ forms a $\\{\\prod_{j=1}^{d+m}r_j+\\sum_{j=1}^{d+m}r_j(p_j-r_j)\\}$-dimensional smooth submanifold embedded in $\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}$ (Uschmajew and Vandereycken, 2013). Recall in the general over-parameterized scenario, $\\mathbf r$ may be different from $\\mathbf r^*$, the actual rank of the tensor of interest. Suppose $\\mathcal X\\in\\mathbb M_{\\mathbf r}$ has Tucker decomposition $\\llbracket\\mathcal S;\\mathbf U_1,\\ldots,\\mathbf U_d,\\mathbf U_{d+1},\\ldots,\\mathbf U_{d+m}\\rrbracket$. Define $\\mathbf V_k=\\operatorname{QR}(\\mathcal M_k(\\mathcal S)^\\top)$, which corresponds to the row space of $\\mathcal M_k(\\mathcal S)$, and for $k=1,\\ldots,d+m$, define\n\\[\n\\mathbf W_k:=(\\mathbf U_{d+m}\\otimes\\cdots\\otimes\\mathbf U_{k+1}\\otimes\\mathbf U_{k-1}\\otimes\\cdots\\otimes\\mathbf U_1)\\mathbf V_k\\in\\mathbb O_{p_{-k},r_k},\n\\]\n(4)\nwhere $p_{-k}=\\prod_{j=1,j\\ne k}^{d+m}p_j$. By the tensor matricization formula provided in Supplement B, $\\mathbf U_k,\\mathbf W_k$ correspond to the subspaces of the column and row spans of $\\mathcal M_k(\\mathcal X)$, respectively. Koch and Lubich (2010) provided the explicit formulas for the tangent space of $\\mathbb M_{\\mathbf r}$ at $\\mathcal X$, denoted by $T_{\\mathcal X}\\mathbb M_{\\mathbf r}$ (see Supplement B for the expression). We equip $\\mathbb M_{\\mathbf r}$ with the Riemannian metric induced by the natural Euclidean inner product $\\langle\\cdot,\\cdot\\rangle$. Under this metric, the following operator $P_{T_{\\mathcal X}}$ projects any tensor $\\mathcal Z\\in\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}$ onto the tangent space $T_{\\mathcal X}\\mathbb M_{\\mathbf r}$,\n\\[\nP_{T_{\\mathcal X}}(\\mathcal Z):=\\mathcal Z\\times_{k=1}^{d+m}P_{\\mathbf U_k}+\\sum_{k=1}^{d+m}\\mathcal T_k(P_{\\mathbf U_{k\\perp}}\\mathcal M_k(\\mathcal Z)P_{\\mathbf W_k}),\n\\]\n(5)\nwhere $\\mathcal T_k(\\cdot)$ denotes the mode-$k$ tensorization, i.e., the reverse operator of $\\mathcal M_k(\\cdot)$.",
+      "relation": "exact",
+      "depends_on": [
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Section 2.1 — Fixed-rank manifold and tangent projection (4)–(5)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbb M_{\\mathbf r}",
+        "P_{T_{\\mathcal X}}(\\mathcal Z)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D8",
+      "local_label": "Section 7 — Adjoint map",
+      "source_heading": "Section 7 — Adjoint map",
+      "source_kind": "definition",
+      "statement_original": "First, by the definition of the adjoint map, $\\mathscr A^*:\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}\\to\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}$ satisfies $\\langle\\mathscr A(\\mathcal Z_1),\\mathcal Z_2\\rangle=\\langle\\mathcal Z_1,\\mathscr A^*(\\mathcal Z_2)\\rangle$ for any $\\mathcal Z_1\\in\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}},\\mathcal Z_2\\in\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$. Simple manipulation yields:\n\\[\n\\mathscr A^*(\\mathcal Z_2)_{[k_1,\\ldots,k_d,j_1,\\ldots,j_m]}=\\sum_{i=1}^n\\mathcal Z_{2[i,j_1,\\ldots,j_m]}\\mathcal A_{i[k_1,\\ldots,k_d]}.\n\\]",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Section 7 — Adjoint map"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathscr A^*(\\mathcal Z_2)",
+        "\\langle\\mathscr A(\\mathcal Z_1),\\mathcal Z_2\\rangle"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D9",
+      "local_label": "Section 2.2 — RGD stepsize (6)",
+      "source_heading": "Section 2.2 — RGD stepsize (6)",
+      "source_kind": "definition",
+      "statement_original": "where the stepsize $\\alpha_t$ is chosen as the local steepest descent direction with a closed form as\n\\[\n\\alpha_t:=\\underset{\\alpha\\in\\mathbb R}{\\operatorname{arg\\,min}}\\frac12\\|\\mathcal Y-\\mathscr A(\\mathcal X^t-\\alpha P_{T_{\\mathcal X^t}}\\mathscr A^*(\\mathscr A(\\mathcal X^t)-\\mathcal Y))\\|_{\\mathrm F}^2\n=\\frac{\\|P_{T_{\\mathcal X^t}}(\\mathscr A^*(\\mathscr A(\\mathcal X^t)-\\mathcal Y))\\|_{\\mathrm F}^2}{\\|\\mathscr A P_{T_{\\mathcal X^t}}(\\mathscr A^*(\\mathscr A(\\mathcal X^t)-\\mathcal Y))\\|_{\\mathrm F}^2}.\n\\]\n(6)",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D7",
+        "D8"
+      ],
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Section 2.2 — RGD stepsize (6)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\alpha_t",
+        "\\underset{\\alpha\\in\\mathbb R}{\\operatorname{arg\\,min}}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D10",
+      "local_label": "Section 2.2 — Retractions and excluded algorithm references",
+      "source_heading": "Section 2.2 — Retractions and excluded algorithm references",
+      "source_kind": "source_passage",
+      "statement_original": "We can apply two types of computationally efficient retractions to bring $\\mathcal X^{t+0.5}$ back to $\\mathbb M_{\\mathbf r}$: truncated high-order singular value decomposition (T-HOSVD) (De Lathauwer et al., 2000a) or sequentially truncated high-order singular value decomposition (ST-HOSVD) (Vannieuwenhoven et al., 2012). The pseudocode of T-HOSVD and ST-HOSVD are given in Algorithms 6 and 7 in Supplement A, respectively.",
+      "relation": "exact",
+      "depends_on": [
+        "D7"
+      ],
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Section 2.2 — Retractions and excluded algorithm references"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbb M_{\\mathbf r}"
+      ],
+      "highlight_phrases": [
+        "T-HOSVD",
+        "ST-HOSVD"
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D11",
+      "local_label": "Algorithm 1 — RGD branch and common input/output",
+      "source_heading": "Algorithm 1 — RGD branch and common input/output",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $\\mathcal Y\\in\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$, $\\mathcal A_1,\\ldots,\\mathcal A_n\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$, $t_{\\max}$, input Tucker rank $\\mathbf r$, and initialization $\\mathcal X^0$ of Tucker rank $\\mathbf r$.\n2: for $t=0,1,\\ldots,t_{\\max}-1$ do\n3: (RGD Update) Compute $\\mathcal X^{t+0.5}=\\mathcal X^t-\\alpha_tP_{T_{\\mathcal X^t}}\\mathscr A^*(\\mathscr A(\\mathcal X^t)-\\mathcal Y)$, where $\\alpha_t$ is given in (6).\n4: Update $\\mathcal X^{t+1}=\\mathcal H_{\\mathbf r}(\\mathcal X^{t+0.5})$. Here $\\mathcal H_{\\mathbf r}(\\cdot)$ is the retraction map onto $\\mathbb M_{\\mathbf r}$.\n5: end for\n6: Output: $\\mathcal X^{t_{\\max}}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D7",
+        "D8",
+        "D9"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Algorithm 1 — Riemannian Gradient Descent/Gauss-Newton"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal X^{t+0.5}",
+        "\\mathcal H_{\\mathbf r}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D11/name",
+          "text": "Algorithm 1 Riemannian Gradient Descent/Gauss-Newton for (Over-parameterized) Tensor-on-Tensor Regression",
+          "evidence": [
+            {
+              "page": 10,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D12",
+      "local_label": "Definition 1 — Tensor Restricted Isometry Property (TRIP)",
+      "source_heading": "Definition 1 — Tensor Restricted Isometry Property (TRIP)",
+      "source_kind": "definition",
+      "statement_original": "Let $\\mathscr A:\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}\\to\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$ be a linear map. For a fixed $(d+m)$-tuple $\\mathbf r=(r_1,\\ldots,r_{d+m})$ with $1\\le r_k\\le p_k$, define the $\\mathbf r$-tensor restricted isometry constant to be the smallest number $R_{\\mathbf r}$ such that $(1-R_{\\mathbf r})\\|\\mathcal Z\\|_{\\mathrm F}^2\\le\\|\\mathscr A(\\mathcal Z)\\|_{\\mathrm F}^2\\le(1+R_{\\mathbf r})\\|\\mathcal Z\\|_{\\mathrm F}^2$ holds for all $\\mathcal Z$ of Tucker rank at most $\\mathbf r$. If $0\\le R_{\\mathbf r}<1$, we say $\\mathscr A$ satisfies $\\mathbf r$-tensor restricted isometry property ($\\mathbf r$-TRIP).",
+      "relation": "exact",
+      "depends_on": [
+        "D2"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Definition 1 — Tensor Restricted Isometry Property (TRIP)"
+        }
+      ],
+      "highlight_symbols": [
+        "R_{\\mathbf r}",
+        "0\\le R_{\\mathbf r}<1"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D12/name",
+          "text": "Definition 1 (Tensor Restricted Isometry Property (TRIP))",
+          "evidence": [
+            {
+              "page": 10,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D13",
+      "local_label": "Theorem 1 — Signal strength definition",
+      "source_heading": "Theorem 1 — Signal strength definition",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "$\\lambda:=\\min_{k=1,\\ldots,d+m}\\sigma_{r_k^*}(\\mathcal M_k(\\mathcal X^*))$ is the minimum of least singular values at each matricization of $\\mathcal X^*$.",
+      "relation": "exact",
+      "depends_on": [
+        "D2",
+        "D3"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Theorem 1 — Signal strength definition"
+        }
+      ],
+      "highlight_symbols": [
+        "\\lambda:=\\min_{k=1,\\ldots,d+m}\\sigma_{r_k^*}(\\mathcal M_k(\\mathcal X^*))"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D14",
+      "local_label": "Definition 2 — Tensor-on-tensor Regression Under Gaussian Ensemble Design",
+      "source_heading": "Definition 2 — Tensor-on-tensor Regression Under Gaussian Ensemble Design",
+      "source_kind": "definition",
+      "statement_original": "We say the tensor-on-tensor regression (1) is generated from the Gaussian ensemble design if $\\{\\mathcal A_i\\}_{i=1}^n$ and $\\{\\mathcal E_i\\}_{i=1}^n$ are generated independently, $\\mathcal A_i$ has i.i.d. $N(0,1/n)$ entries, and $\\mathcal E_i$ has i.i.d. $N(0,\\sigma^2/n)$ entries.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Definition 2 — Tensor-on-tensor Regression Under Gaussian Ensemble Design"
+        }
+      ],
+      "highlight_symbols": [
+        "N(0,1/n)",
+        "N(0,\\sigma^2/n)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D15",
+      "local_label": "Section 4.1 — Scalar-on-tensor regression (10)",
+      "source_heading": "Section 4.1 — Scalar-on-tensor regression (10)",
+      "source_kind": "source_passage",
+      "statement_original": "The scalar-on-tensor regression corresponds to the general tensor-on-tensor regression model (1) with $m=0$. It can be written as\n\\[\n\\mathbf y=\\mathscr A(\\mathcal X^*)+\\boldsymbol\\varepsilon,\\quad\\text{or }y_i=\\langle\\mathcal A_i,\\mathcal X^*\\rangle+\\varepsilon_i,\\ i\\in[n].\n\\]\n(10)\nHere, $\\mathbf y\\in\\mathbb R^n$ are observations, $\\boldsymbol\\varepsilon\\in\\mathbb R^n$ are unknown noise, and $\\mathcal X^*\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ is an order-$d$ Tucker rank $\\mathbf r^*$ tensor that links response $y_i$ to tensor covariates $\\mathcal A_i$, which is the parameter of interest. $\\mathscr A(\\mathcal X^*)=(\\langle\\mathcal A_1,\\mathcal X^*\\rangle,\\ldots,\\langle\\mathcal A_n,\\mathcal X^*\\rangle)^\\top$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2"
+      ],
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Section 4.1 — Scalar-on-tensor regression (10)"
+        }
+      ],
+      "highlight_symbols": [
+        "m=0",
+        "\\mathbf y=\\mathscr A(\\mathcal X^*)+\\boldsymbol\\varepsilon"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D16",
+      "local_label": "Algorithm 2 — Initialization for (Over-parameterized) Scalar-on-tensor Regression",
+      "source_heading": "Algorithm 2 — Initialization for (Over-parameterized) Scalar-on-tensor Regression",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $y_i\\in\\mathbb R$, $\\mathcal A_i\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ for $i=1,\\ldots,n$ and input Tucker rank $\\mathbf r=(r_1,\\ldots,r_d)$.\n2: Calculate $\\widehat{\\mathbf U}_k^0=\\operatorname{SVD}_{r_k}(\\mathcal M_k(\\mathscr A^*(\\mathbf y)))$, $k=1,\\ldots,d$.\n3: For $k=1$ to $d$, apply one-iteration HOOI, i.e., calculate\n\\[\n\\widehat{\\mathbf U}_k^1=\\operatorname{SVD}_{r_k}(\\mathcal M_k(\\mathscr A^*(\\mathbf y)\\times_{j<k}(\\widehat{\\mathbf U}_j^0)^\\top\\times_{j>k}(\\widehat{\\mathbf U}_j^0)^\\top)).\n\\]\nRecall $\\operatorname{SVD}_r(\\cdot)$ returns the matrix composed of the leading $r$ left singular vectors of matrix “$\\cdot$”.\n4: Output: $\\mathcal X^0=\\mathscr A^*(\\mathbf y)\\times_{k=1}^d\\widehat{\\mathbf U}_k^1(\\widehat{\\mathbf U}_k^1)^\\top$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D4",
+        "D8",
+        "D15"
+      ],
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Algorithm 2 — Initialization for (Over-parameterized) Scalar-on-tensor Regression"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widehat{\\mathbf U}_k^0",
+        "\\widehat{\\mathbf U}_k^1"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D16/name",
+          "text": "Algorithm 2 Initialization for (Over-parameterized) Scalar-on-tensor Regression",
+          "evidence": [
+            {
+              "page": 13,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D17",
+      "local_label": "Section 4.2 — Tensor-on-vector regression (11)",
+      "source_heading": "Section 4.2 — Tensor-on-vector regression (11)",
+      "source_kind": "source_passage",
+      "statement_original": "In this section, we consider the tensor-on-vector regression model:\n\\[\n\\mathcal Y_i=\\mathcal X^*\\times_1\\mathbf a_i^\\top+\\mathcal E_i,\\quad\\text{for }i=1,\\ldots,n,\n\\]\n(11)\nwhere $\\mathcal Y_i,\\mathcal E_i\\in\\mathbb R^{p_2\\times\\cdots\\times p_{m+1}}$ are the observation and noise, $\\mathcal X^*\\in\\mathbb R^{p_1\\times\\cdots\\times p_{m+1}}$ is the parameter tensor of interest with Tucker rank $\\mathbf r^*$ and $\\mathbf a_i\\in\\mathbb R^{p_1}$ is the covariate vector. We can also write the model compactly as $\\mathcal Y=\\mathcal X^*\\times_1\\mathbf A+\\mathcal E$ where $\\mathcal Y,\\mathcal E\\in\\mathbb R^{n\\times\\cdots\\times p_{m+1}}$, $\\mathcal Y_{[i,:,\\ldots,:]}=\\mathcal Y_i$, $\\mathcal E_{[i,:,\\ldots,:]}=\\mathcal E_i$ and $\\mathbf A=[\\mathbf a_1,\\ldots,\\mathbf a_n]^\\top\\in\\mathbb R^{n\\times p_1}$ is the collection of covariate vectors.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D4"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 4.2 — Tensor-on-vector regression (11)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal X^*\\times_1\\mathbf a_i^\\top",
+        "\\mathbf A=[\\mathbf a_1,\\ldots,\\mathbf a_n]^\\top"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D18",
+      "local_label": "Algorithm 3 — Initialization for (Over-parameterized) Tensor-on-vector Regression",
+      "source_heading": "Algorithm 3 — Initialization for (Over-parameterized) Tensor-on-vector Regression",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $\\mathcal Y_i\\in\\mathbb R^{p_2\\times\\cdots\\times p_{m+1}}$, $\\mathbf a_i\\in\\mathbb R^{p_1}$ for $i=1,\\ldots,n$ and input Tucker rank $\\mathbf r=(r_1,\\ldots,r_{m+1})$.\n2: Compute the QR decomposition of $\\mathbf A$ and denote it by $\\mathbf Q_{\\mathbf A}\\mathbf R_{\\mathbf A}$.\n3: Calculate $\\widehat{\\mathbf U}_k^0=\\operatorname{SVD}_{r_k}(\\mathcal M_k(\\mathcal Y\\times_1\\mathbf Q_{\\mathbf A}^\\top))$, $k=1,\\ldots,m+1$.\n4: For $k=1$ to $m+1$, apply one-iteration HOOI, i.e., calculate\n\\[\n\\widehat{\\mathbf U}_k^1=\\operatorname{SVD}_{r_k}(\\mathcal M_k((\\mathcal Y\\times_1\\mathbf Q_{\\mathbf A}^\\top)\\times_{j<k}(\\widehat{\\mathbf U}_j^0)^\\top\\times_{j>k}(\\widehat{\\mathbf U}_j^0)^\\top)).\n\\]\n5: Compute $\\widetilde{\\mathcal X}^0=(\\mathcal Y\\times_1\\mathbf Q_{\\mathbf A}^\\top)\\times_{k=1}^{m+1}\\widehat{\\mathbf U}_k^1(\\widehat{\\mathbf U}_k^1)^\\top$.\n6: Return $\\mathcal X^0=\\widetilde{\\mathcal X}^0\\times_1\\mathbf R_{\\mathbf A}^{-1}$.\n7: Output: $\\mathcal X^0$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D4",
+        "D17"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Algorithm 3 — Initialization for (Over-parameterized) Tensor-on-vector Regression"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathbf Q_{\\mathbf A}^\\top",
+        "\\mathbf R_{\\mathbf A}^{-1}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D18/name",
+          "text": "Algorithm 3 Initialization for (Over-parameterized) Tensor-on-vector Regression",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D19",
+      "local_label": "Section 4.3 — Matrix Trace Regression (12)",
+      "source_heading": "Section 4.3 — Matrix Trace Regression (12)",
+      "source_kind": "source_passage",
+      "statement_original": "In this model, we observe\n\\[\ny_i=\\langle\\mathbf A_i,\\mathbf X^*\\rangle+\\varepsilon_i,\\quad i=1,\\ldots,n;\\quad\\text{or }\\mathbf y=\\mathscr A(\\mathbf X^*)+\\boldsymbol\\varepsilon,\n\\]\n(12)\nwhere $\\mathbf y,\\boldsymbol\\varepsilon\\in\\mathbb R^n$ are observations and unknown noise and $\\mathbf X^*\\in\\mathbb R^{p_1\\times p_2}$ is a rank $r^*$ parameter matrix of interest.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 4.3 — Matrix Trace Regression (12)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\langle\\mathbf A_i,\\mathbf X^*\\rangle",
+        "\\mathbf X^*\\in\\mathbb R^{p_1\\times p_2}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D19/name",
+          "text": "4.3. Matrix Trace Regression.",
+          "evidence": [
+            {
+              "page": 14,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D20",
+      "local_label": "Section 4.3 — Best-rank matrix projection",
+      "source_heading": "Section 4.3 — Best-rank matrix projection",
+      "source_kind": "definition",
+      "statement_original": "In matrix trace regression, we can take the retraction map $\\mathcal H_{\\mathbf r}$ in RGD and RGN as the best rank $r$ matrix projection operator: $\\mathcal P_r(\\mathbf B)=\\mathbf U_{[:,1:r]}\\boldsymbol\\Sigma_{[1:r,1:r]}\\mathbf V_{[:,1:r]}^\\top$, where $\\mathbf B=\\mathbf U\\boldsymbol\\Sigma\\mathbf V^\\top$ is the SVD. Different from the low-rank projection for tensor of order 3 or higher, $\\mathcal P_r$ can be computed efficiently by truncated SVD.",
+      "relation": "exact",
+      "depends_on": [
+        "D3"
+      ],
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Section 4.3 — Best-rank matrix projection"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal P_r(\\mathbf B)",
+        "\\mathbf U_{[:,1:r]}\\boldsymbol\\Sigma_{[1:r,1:r]}\\mathbf V_{[:,1:r]}^\\top"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D21",
+      "local_label": "Section 4.4 — Rank-1 Tensor-on-tensor Regression (13)",
+      "source_heading": "Section 4.4 — Rank-1 Tensor-on-tensor Regression (13)",
+      "source_kind": "source_passage",
+      "statement_original": "In this section, we introduce a modified initialization scheme with theoretical guarantees for general $d$ and $m$ when $\\mathcal X^*$ is a rank-1 tensor and input rank is also 1. For simplicity, we assume $n$ is even. Suppose $\\mathcal X^*=\\lambda\\mathbf u_1\\circ\\mathbf u_2\\circ\\cdots\\circ\\mathbf u_{d+m}\\in\\mathbb R^{p_1\\times\\cdots\\times p_{d+m}}$, where “$\\circ$” denotes the outer product of vectors. Then in this special setting, the model (1) can be rewritten as\n\\[\n\\mathcal Y_i=\\lambda\\langle\\mathcal A_i,\\mathbf u_1\\circ\\cdots\\circ\\mathbf u_d\\rangle\\mathbf u_{d+1}\\circ\\cdots\\circ\\mathbf u_{d+m}+\\mathcal E_i.\n\\]\n(13)\nLet $\\mathcal Y^1$ and $\\mathcal Y^2$ collect $\\mathcal Y_i$s in the first and second halves of the data: $\\mathcal Y^1_{[i,:,\\ldots,:]}=\\mathcal Y_i$ and $\\mathcal Y^2_{[i,:,\\ldots,:]}=\\mathcal Y_{n/2+i}$ for $i=1,\\ldots,n/2$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1"
+      ],
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Section 4.4 — Rank-1 Tensor-on-tensor Regression (13)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal X^*=\\lambda\\mathbf u_1\\circ\\mathbf u_2\\circ\\cdots\\circ\\mathbf u_{d+m}",
+        "\\mathcal Y^1_{[i,:,\\ldots,:]}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D21/name",
+          "text": "4.4. Rank-1 Tensor-on-tensor Regression.",
+          "evidence": [
+            {
+              "page": 16,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D22",
+      "local_label": "Algorithm 4 — Initialization for Rank-1 Tensor-on-tensor Regression",
+      "source_heading": "Algorithm 4 — Initialization for Rank-1 Tensor-on-tensor Regression",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $\\mathcal Y_i\\in\\mathbb R^{p_{d+1}\\times\\cdots\\times p_{d+m}}$, $\\mathcal A_i\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$ for $i=1,\\ldots,n$.\n2: Calculate $\\widetilde{\\mathbf u}_k^0=\\operatorname{SVD}_1(\\mathcal M_{k-d+1}(\\mathcal Y^1))$, $k=d+1,\\ldots,d+m$.\n3: Compute $y'_i=\\langle\\mathcal Y_i,\\widetilde{\\mathbf u}_{d+1}^0\\circ\\cdots\\circ\\widetilde{\\mathbf u}_{d+m}^0\\rangle$ for $i=n/2+1,\\ldots,n$.\n4: Calculate $\\widetilde{\\mathbf u}_k^0=\\operatorname{SVD}_1(\\mathcal M_k(\\sum_{i=n/2+1}^n y'_i\\mathcal A_i))$, $k=1,\\ldots,d$.\n5: For $k=1$ to $d+m$, apply one-iteration HOOI, i.e., calculate\n\\[\n\\widetilde{\\mathbf u}_k^1=\\operatorname{SVD}_1(\\mathcal M_k(\\mathscr A^*(\\mathcal Y)\\times_{j<k}(\\widetilde{\\mathbf u}_j^0)^\\top\\times_{j>k}(\\widetilde{\\mathbf u}_j^0)^\\top)).\n\\]\n6: Output: $\\mathcal X^0=\\mathscr A^*(\\mathcal Y)\\times_{k=1}^{d+m}\\widetilde{\\mathbf u}_k^1(\\widetilde{\\mathbf u}_k^1)^\\top$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D4",
+        "D8",
+        "D21"
+      ],
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Algorithm 4 — Initialization for Rank-1 Tensor-on-tensor Regression"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal M_{k-d+1}(\\mathcal Y^1)",
+        "\\widetilde{\\mathbf u}_k^1"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D22/name",
+          "text": "Algorithm 4 Initialization for Rank-1 Tensor-on-tensor Regression",
+          "evidence": [
+            {
+              "page": 16,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D23",
+      "local_label": "Section 5 — Hypothesis test (14)",
+      "source_heading": "Section 5 — Hypothesis test (14)",
+      "source_kind": "source_passage",
+      "statement_original": "Without loss of generality, we assume $\\varepsilon_i\\overset{i.i.d.}{\\sim}N(0,\\sigma^2)$ with $0\\le\\sigma^2<1$, $\\mathcal A_i\\overset{i.i.d.}{\\sim}N(0,1)$ and $\\|\\mathcal X^*\\|_{\\mathrm F}+\\sigma^2=1$ in establishing the computational lower bound for scalar-on-tensor regression (10) (see Supplement G.1 for a proof). We also consider the setting $p_1=\\cdots=p_d=p$ and $r_1^*=\\cdots=r_d^*=r^*$ throughout this section.\nWe consider a canonical hypothesis testing formulation of scalar-on-tensor regression:\n\\[\nH_0:\\{(y_i,\\operatorname{vec}(\\mathcal A_i))\\}_{i=1}^n\\overset{i.i.d.}{\\sim}N(0,\\mathbf I_{1+p^d}),\n\\]\n\\[\nH_1:\\{(y_i,\\operatorname{vec}(\\mathcal A_i))\\}_{i=1}^n:\\mathcal X^*=\\sqrt{1-\\sigma^2}\\mathbf x^{*\\otimes d},\n\\]\n\\[\n\\mathbf x^*=(x_1^*,\\ldots,x_p^*),\\ x_j^*\\overset{i.i.d.}{\\sim}\\operatorname{Uniform}(\\{p^{-1/2},-p^{-1/2}\\});\n\\]\n\\[\n\\text{for }i\\in[n],\\mathcal A_i\\overset{i.i.d.}{\\sim}N(0,1),y_i\\text{ is i.i.d. generated}\n\\]\n\\[\n\\text{via }y_i=\\langle\\mathcal X^*,\\mathcal A_i\\rangle+\\varepsilon_i,\\ \\varepsilon_i\\overset{i.i.d.}{\\sim}N(0,\\sigma^2).\n\\]\n(14)",
+      "relation": "exact",
+      "depends_on": [],
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Section 5 — Hypothesis test (14)"
+        }
+      ],
+      "highlight_symbols": [
+        "H_0",
+        "H_1",
+        "\\sqrt{1-\\sigma^2}\\mathbf x^{*\\otimes d}"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D24",
+      "local_label": "Theorem 1 — Initialization condition",
+      "source_heading": "Theorem 1 — Initialization condition",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "the initialization $\\mathcal X^0$ satisfies $\\|\\mathcal X^0-\\mathcal X^*\\|_{\\mathrm F}\\le\\frac{R_{2\\mathbf r}}{(d+m)(1+R_{2\\mathbf r+\\mathbf r^*}-R_{2\\mathbf r})}\\lambda$",
+      "relation": "exact",
+      "depends_on": [
+        "D12",
+        "D13"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Theorem 1 — Initialization condition"
+        }
+      ],
+      "highlight_symbols": [
+        "\\frac{R_{2\\mathbf r}}{(d+m)(1+R_{2\\mathbf r+\\mathbf r^*}-R_{2\\mathbf r})}\\lambda"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D25",
+      "local_label": "Theorem 2 — Initialization condition",
+      "source_heading": "Theorem 2 — Initialization condition",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "the initialization $\\mathcal X^0$ satisfies $\\|\\mathcal X^0-\\mathcal X^*\\|_{\\mathrm F}\\le\\frac{1-R_{2\\mathbf r}}{4(d+m)(\\sqrt{d+m}+1)(1+R_{2\\mathbf r+\\mathbf r^*}-R_{2\\mathbf r})}\\lambda$",
+      "relation": "exact",
+      "depends_on": [
+        "D12",
+        "D13"
+      ],
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Theorem 2 — Initialization condition"
+        }
+      ],
+      "highlight_symbols": [
+        "\\frac{1-R_{2\\mathbf r}}{4(d+m)(\\sqrt{d+m}+1)(1+R_{2\\mathbf r+\\mathbf r^*}-R_{2\\mathbf r})}\\lambda"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D27",
+      "local_label": "Corollary 1 — RGD initialization condition",
+      "source_heading": "Corollary 1 — RGD initialization condition",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "(RGD) Suppose the initialization $\\mathbf X^0$ satisfies $\\|\\mathbf X^0-\\mathbf X^*\\|_{\\mathrm F}\\le\\frac{R_{2r}}{(1+R_{2r+r^*}-R_{2r})}\\sigma_{r^*}(\\mathbf X^*)$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D12"
+      ],
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Corollary 1 — RGD initialization condition"
+        }
+      ],
+      "highlight_symbols": [
+        "\\frac{R_{2r}}{(1+R_{2r+r^*}-R_{2r})}\\sigma_{r^*}(\\mathbf X^*)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D28",
+      "local_label": "Corollary 1 — RGN initialization condition",
+      "source_heading": "Corollary 1 — RGN initialization condition",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "(RGN) If the initialization $\\mathbf X^0$ satisfies $\\|\\mathbf X^0-\\mathbf X^*\\|_{\\mathrm F}\\le\\frac{1-R_{2r}}{8(1+R_{2r+r^*}-R_{2r})}\\sigma_{r^*}(\\mathbf X^*)$.",
+      "relation": "exact",
+      "depends_on": [
+        "D3",
+        "D12"
+      ],
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Corollary 1 — RGN initialization condition"
+        }
+      ],
+      "highlight_symbols": [
+        "\\frac{1-R_{2r}}{8(1+R_{2r+r^*}-R_{2r})}\\sigma_{r^*}(\\mathbf X^*)"
+      ],
+      "highlight_phrases": []
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D29",
+      "local_label": "Algorithm 5 — One-iteration Higher-Order Orthogonal Iteration (OHOOI)",
+      "source_heading": "Algorithm 5 — One-iteration Higher-Order Orthogonal Iteration (OHOOI)",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $\\widetilde{\\mathcal T}\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$, initialization $\\widetilde{\\mathbf U}_k^0\\in\\mathbb O_{p_k,r_k}$, $k=1,\\ldots,d$, input Tucker rank $\\mathbf r=(r_1,\\ldots,r_d)$.\n2: For $k=1$ to $d$, update $\\widetilde{\\mathbf U}_k^1=\\operatorname{SVD}_{r_k}(\\mathcal M_k(\\widetilde{\\mathcal T}\\times_{j<k}(\\widetilde{\\mathbf U}_j^0)^\\top\\times_{j>k}(\\widetilde{\\mathbf U}_j^0)^\\top))$.\n3: Output: $\\widehat{\\mathcal T}=\\widetilde{\\mathcal T}\\times_{k=1}^d P_{\\widetilde{\\mathbf U}_k^1}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D2",
+        "D3",
+        "D4"
+      ],
+      "evidence": [
+        {
+          "page": 20,
+          "location": "Algorithm 5 — One-iteration Higher-Order Orthogonal Iteration (OHOOI)"
+        }
+      ],
+      "highlight_symbols": [
+        "\\widetilde{\\mathbf U}_k^1",
+        "P_{\\widetilde{\\mathbf U}_k^1}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D29/name",
+          "text": "Algorithm 5 One-iteration Higher-Order Orthogonal Iteration (OHOOI)",
+          "evidence": [
+            {
+              "page": 20,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D30",
+      "local_label": "Theorem 3 — Estimator qualification referenced by Theorem 4",
+      "source_heading": "Theorem 3 — Estimator qualification referenced by Theorem 4",
+      "source_kind": "theorem_excerpt",
+      "statement_original": "Suppose $\\mathscr A$ satisfies $2\\mathbf r$-TRIP with TRIP constant $R_{2\\mathbf r}$ (Definition 1). Let $\\widehat{\\mathcal X}$ be any estimator such that $\\operatorname{Tucrank}(\\widehat{\\mathcal X})\\le\\mathbf r$ and $\\|\\mathcal Y-\\mathscr A(\\widehat{\\mathcal X})\\|_{\\mathrm F}^2\\le\\|\\mathcal Y-\\mathscr A(\\mathcal X^*)\\|_{\\mathrm F}^2$, i.e., the loss function value of $\\widehat{\\mathcal X}$ is no bigger than $\\mathcal X^*$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D12",
+        "D6"
+      ],
+      "evidence": [
+        {
+          "page": 12,
+          "location": "Theorem 3 — Estimator qualification referenced by Theorem 4"
+        }
+      ],
+      "highlight_symbols": [
+        "\\operatorname{Tucrank}(\\widehat{\\mathcal X})\\le\\mathbf r",
+        "\\|\\mathcal Y-\\mathscr A(\\widehat{\\mathcal X})\\|_{\\mathrm F}^2"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D30/name",
+          "text": "Theorem 3 (Upper Bound for Estimators with Small Loss and Global Minimizers)",
+          "evidence": [
+            {
+              "page": 12,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper_id": "aos-2024-v52-i06-p2583",
+      "local_id": "D31",
+      "local_label": "Algorithm 1 — RGN branch and common input/output",
+      "source_heading": "Algorithm 1 — RGN branch and common input/output",
+      "source_kind": "definition",
+      "statement_original": "1: Input: $\\mathcal Y\\in\\mathbb R^{n\\times p_{d+1}\\times\\cdots\\times p_{d+m}}$, $\\mathcal A_1,\\ldots,\\mathcal A_n\\in\\mathbb R^{p_1\\times\\cdots\\times p_d}$, $t_{\\max}$, input Tucker rank $\\mathbf r$, and initialization $\\mathcal X^0$ of Tucker rank $\\mathbf r$.\n2: for $t=0,1,\\ldots,t_{\\max}-1$ do\n(RGN Update) Solve the least squares problem\n\\[\n\\mathcal X^{t+0.5}=\\underset{\\mathcal X\\in T_{\\mathcal X^t}\\mathbb M_{\\mathbf r}}{\\operatorname{arg\\,min}}\\frac12\\|\\mathcal Y-\\mathscr A P_{T_{\\mathcal X^t}}(\\mathcal X)\\|_2^2.\n\\]\n(8)\n4: Update $\\mathcal X^{t+1}=\\mathcal H_{\\mathbf r}(\\mathcal X^{t+0.5})$. Here $\\mathcal H_{\\mathbf r}(\\cdot)$ is the retraction map onto $\\mathbb M_{\\mathbf r}$.\n5: end for\n6: Output: $\\mathcal X^{t_{\\max}}$.",
+      "relation": "exact",
+      "depends_on": [
+        "D1",
+        "D2",
+        "D7"
+      ],
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Algorithm 1 — RGN branch and common input/output"
+        }
+      ],
+      "highlight_symbols": [
+        "\\mathcal X^{t+0.5}",
+        "\\mathcal H_{\\mathbf r}"
+      ],
+      "highlight_phrases": [],
+      "naming_context": [
+        {
+          "context_id": "D31/name",
+          "text": "Algorithm 1 Riemannian Gradient Descent/Gauss-Newton for (Over-parameterized) Tensor-on-Tensor Regression",
+          "evidence": [
+            {
+              "page": 10,
+              "location": "Original naming context"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

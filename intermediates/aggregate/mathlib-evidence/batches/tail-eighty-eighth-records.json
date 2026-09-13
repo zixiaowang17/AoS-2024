@@ -1,0 +1,605 @@
+[
+  {
+    "interface_id": "local-1ec9d86fb60c83e23310",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "30458d8c1d6380d1f20b201a71b878358dcca921add5f60fa542b246625732e3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D14",
+        "comparison": "Use one existential nonnegative Lipschitz constant before quantifying over every real a, rather than choosing a different constant for each CDF; the density family permits a nonnegative bound. ContinuousOn f0 univ captures global continuity, with strict positivity quantified separately. Tendsto aStar atTop atTop, Tendsto delta atTop (nhds 0), Tendsto ((n/s_n)*tail0(aStar-delta)) atTop atTop and Tendsto ((n/s_n)*tail0(aStar)) atTop (nhds 0) retain the different thresholds and targets, together with positive aStar and delta. Cast natural sample sizes to reals and retain eventual positive s_n from the ambient sparse regime. These are common assumptions and require A or B, not their conjunction.",
+        "statement_sha256": "c16f3a4e0b7c50376ef286254a3283920a9242e545d93d8f2726d894afcb4bd9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LipschitzWith",
+          "type": "{α : Type u} → {β : Type v} → [PseudoEMetricSpace α] → [PseudoEMetricSpace β] → ℝ≥0 → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.EMetricSpace.Lipschitz",
+          "provides": "A global Lipschitz bound with a specified nonnegative constant, applicable to the second derivative of the integrated kernel.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/EMetricSpace/Lipschitz.lean#L60-L60",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousOn",
+          "type": "{X : Type u} → {Y : Type v} → [TopologicalSpace X] → [TopologicalSpace Y] → (X → Y) → Set X → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Defs.Filter",
+          "provides": "Continuity at every point of a set relative to that set, expressed by limits along neighborhood-within filters.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Defs/Filter.lean#L191-L192",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected LipschitzWith in Topology/EMetricSpace/Lipschitz, ContinuousOn in Topology/Defs/Filter and Tendsto in Order/Filter/Defs; compared D14 and its separate D15/D16 branches.",
+          "result": "The primitives express a common global Lipschitz bound, continuity of f0 on all reals, and each real-valued sequence limit; none packages the two threshold-tail limits and alternative branches as this statistical assumption."
+        }
+      ],
+      "gap": "Assemble the common Lipschitz constant, positive threshold sequences, both scaled tail limits and positive continuous null density, with a separate disjunction of branches A and B."
+    }
+  },
+  {
+    "interface_id": "local-f8ad883251343f984696",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "bc869d955181781953d27c686e92eae2e66ee8bb844dcb88d3d9926646e7de28",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D15",
+        "comparison": "For every real x require Monotone (fun a => tail_a x), and for every a>0 require Monotone (fun x => f_a x / f0 x). Both monotonicity domains are all reals; positivity of a restricts which ratio functions are tested, not the observation domain. Retain f_{-a}(-x)=f_a(x) for all a,x as an explicit identity; it is not evenness of f_a at fixed a. The inherited strict positivity of f0 makes the ratio meaningful. The source's increasing is interpreted nonstrictly and is not strengthened to StrictMono.",
+        "statement_sha256": "6884cebd3d412a343c7ded95f78ac6b0618e886a28611b81a569a42187901738"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Monotone",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Nonstrict order preservation, allowing equal values at distinct ordered indices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L62-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched and inspected Monotone and MonotoneOn in Order/Monotone/Defs; compared the full-real domains and parameter/observation reflection in D15.",
+          "result": "Monotone gives the nonstrict order comparisons for each fixed-x tail as a function of a and each positive-a density ratio as a function of x; the two-argument reflection identity and common assumptions remain explicit."
+        }
+      ],
+      "gap": "Combine the joint sign-reflection identity with both globally nondecreasing families and the common Assumption 1 conditions."
+    }
+  },
+  {
+    "interface_id": "local-4d628cf0e0924a8e9864",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "e716edaa97e1694e1cf4f14ba26cf71f5cdc7f4a6b075eef54446b0ed235dfd5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D16",
+        "comparison": "Require Function.Even (f_a) for every real a. For each x>0 require MonotoneOn (fun a => tail_a x) (Ioi 0); for each a!=0 require MonotoneOn (fun x => f_a x / f0 x) (Ioi 0). Neither condition is global in x, and the density-ratio condition includes negative nonzero a. Evenness is only x-to-minus-x at a fixed parameter and cannot justify f_{-a}=f_a. Retain the common assumptions and the recorded source issue when later results evaluate CDFs at absolute parameter values.",
+        "statement_sha256": "b1b6e3ee431a198e0674881b185af85a636ae4ab3ffcbd91f5f3c35f31d08790"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.Even",
+          "type": "{α : Type u} → {β : Type v} → [Neg α] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Group.EvenFunction",
+          "provides": "Evenness of a function as equality of values at opposite arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Group/EvenFunction.lean#L32-L32",
+          "link_checked": true
+        },
+        {
+          "name": "MonotoneOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Nondecreasing behavior on a specified domain, without requiring strict monotonicity or nonzero slope.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L74-L75",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Function.Even in Algebra/Group/EvenFunction and MonotoneOn in Order/Monotone/Defs against the positive-half-line domains of D16 and the retained parameter-sign caveat.",
+          "result": "Evenness in the observation and monotonicity on positive reals are available as exact component predicates; they do not impose invariance under changing the sign of the parameter."
+        }
+      ],
+      "gap": "Assemble observation evenness and the two positive-half-line monotonicity conditions without adding the absent parameter-sign symmetry."
+    }
+  },
+  {
+    "interface_id": "local-28f4e31026b20f875ed1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "e1b6e573ed10a737fa4fe828349640bab83168d474957bb6afddb429306e0c66",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D19",
+        "comparison": "The first average uses F_{a_j}(aStar) for j=1,...,s_n; the theta notation uses F_{abs(theta_i)}(aStar) only over nonzero coordinates and still divides by s_n. Their identification presupposes exactly s_n nonzero absolute values matching the listed vector; an arbitrary vector with at most s_n signals must not be silently padded with null terms or renormalized by its support size. Use cdf only for the probability measure having density f_a; for these densities its closed half-line convention agrees with the source integral. The scalar is a CDF average, not an upper-tail average, and its appearances as Lambda versus 2*Lambda-1 in alternative risk branches must remain separate. Branch B does not independently grant parameter-sign symmetry.",
+        "statement_sha256": "baa2fb577102716d2131f347516f20bffd1fd6ab07f623b32acfa1ff0cc0add1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected ProbabilityTheory.cdf in Probability/CDF, generated Finset.sum_apply in Algebra/BigOperators/Pi and Finset.filter in Data/Finset/Filter; compared both source formulas (22) and (23).",
+          "result": "CDF evaluation and finite sums can express both averages, with a support-filtered sum for theta; no declaration supplies the paper's signal-strength functional or its branch-dependent risk interpretation."
+        }
+      ],
+      "gap": "Define both threshold-CDF averages with their support and normalization conventions, preserving the distinct branch-A and branch-B interpretations."
+    }
+  },
+  {
+    "interface_id": "local-45d71ea549172a7dc338",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "4c420691c50881d7e63d761de8bf25a713eaf03deb7e997ab4ba0a61db612fcb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D6",
+        "comparison": "FDR integrates the false-rejection count divided by max(1,total rejection count), whose denominator is random; FNR integrates the missed-signal count divided by max(1,number of true signals), whose denominator is fixed at theta. Each lies in [0,1] for the measurable binary procedure, so Bochner integration has its intended finite expectation meaning after measurability and probability hypotheses are established. Their sum lies in [0,2], but it is not the expectation of a single count ratio with a shared denominator and is not normalized Hamming loss or FNR alone. The max-with-one conventions retain the no-rejection and no-signal cases.",
+        "statement_sha256": "e8390c63f6ff43f6c12f51d0b371637523fcb5167f62700aca49d832cb66cffe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for false-nondiscovery/risk terminology and inspected Bochner integral and generated Set.indicator; compared D6 with its full FDR D4 and FNR D5 dependencies.",
+          "result": "Ordinary real addition and expectations of bounded measurable indicator ratios express the combined loss, but there is no specialized combined multiple-testing risk declaration in the searched probability sources."
+        }
+      ],
+      "gap": "Define the sum of FDR and FNR using their separate rejection-count and true-signal-count denominators under P_theta."
+    }
+  },
+  {
+    "interface_id": "local-03b65447320a3c21e03e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "7dcc1c0c084e7b91e19421ae1908bb3b9933313f5a8b2746b5ecdc968ba74e69",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D7",
+        "comparison": "The order is inf_phi sup_theta of the already-defined FDR+FNR risk. It is not restricted to threshold, Bayes or sparsity-preserving procedures, and no exchange of infimum and supremum or attainment follows. For a nonempty Theta, risk values are bounded in [0,2]; a constant binary procedure witnesses a nonempty measurable-procedure class, and its worst-case risk is finite. Real sSup/sInf therefore apply with these hypotheses. If an empty parameter set is permitted, record its convention instead of silently adopting a totalized real supremum. Separate FNR-only and classification minimax objectives in theorem statements do not change this definition.",
+        "statement_sha256": "f965e9d7e8c9e768799e729ffb616616253294e3f093099023f1327dc5bbdb3d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected csSup_le_iff and its generated order dual le_csInf_iff in Order/ConditionallyCompleteLattice/Basic; compared D7 with the measurable-procedure D3 and combined-risk D6 definitions.",
+          "result": "Conditional completeness supports a real supremum of the bounded risks and the infimum over procedures, once the relevant value sets are nonempty and bounded; these lemmas do not supply a minimax testing theorem or optimizer."
+        }
+      ],
+      "gap": "Construct the nested infimum over all measurable binary procedures and supremum over the parameter set, with explicit nonemptiness and real boundedness conventions."
+    }
+  },
+  {
+    "interface_id": "local-990de05635c2fec27f5b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "85d61e41f1d00842a32b60c28d14f47e0e2337b9941e63d185c81e9681d033f4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D12",
+        "comparison": "For each fixed w, posterior represents the conditional parameter law of a supplied prior-sampling joint measure under its finite-kernel and standard-Borel parameter-space requirements. Reject coordinate i precisely when its posterior mass of {theta_i=0} is strictly less than t, preserving equality as nonrejection. IsMaxOn can describe w-hat only after the marginal likelihood and admissible w set are specified, and requires membership and measurable selection separately. Substituting a data-dependent w also needs a jointly measurable chosen posterior family; fixed-w almost-everywhere identities alone do not select it. The slab, prior weights, optimization domain and S-29 details remain unresolved under main-text scope; no supplement formula or tie rule is invented.",
+        "statement_sha256": "fca32885d80397981ea356ab2119c3a36ae6dff6c2a98bc8cee9f05e9179c3d0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.posterior",
+          "type": "{Ω : Type u} → {𝓧 : Type v} → {mΩ : MeasurableSpace Ω} → {m𝓧 : MeasurableSpace 𝓧} → [StandardBorelSpace Ω] → [Nonempty Ω] → (κ : ProbabilityTheory.Kernel Ω 𝓧) → (μ : MeasureTheory.Measure Ω) → [MeasureTheory.IsFiniteMeasure μ] → [ProbabilityTheory.IsFiniteKernel κ] → ProbabilityTheory.Kernel 𝓧 Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Posterior",
+          "provides": "Posterior Markov kernel obtained by disintegrating the swapped prior–sampling joint measure; its conditional-law identity holds up to marginal-null sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Posterior.lean#L70-L72",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected posterior in Probability/Kernel/Posterior, IsMaxOn in Order/Filter/Extr and Set.indicator; compared the retained main-text-only D12 passage and its unresolved supplement-specific prior and optimizer details.",
+          "result": "A posterior kernel for a supplied finite prior and sampling kernel, a generic maximizer predicate, and strict-set indicators are available; the particular spike-and-slab family and marginal likelihood calibration are not specified by these declarations or this source passage."
+        }
+      ],
+      "gap": "Supply the missing prior family, marginal-likelihood objective and optimization domain before constructing a measurable fitted-weight posterior threshold procedure."
+    }
+  },
+  {
+    "interface_id": "local-a6cfbb73a6307dad15cb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "468692d7daba01429392c735328514b21f2e4ee1ef0ae65ed3361470f1a40c8f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D22",
+        "comparison": "Use support=(Finset.univ.filter (theta_i!=0)) and require its card=s for an integer s between a*n^(1-beta) and b*n^(1-beta), with the interval inequalities interpreted in reals. This existential integer formulation preserves noninteger endpoints without inventing rounding choices. Membership in l0[s] plus equality of support size means exactly s signals; the finite ambient dimension also bounds s by n. All nonzero coordinates satisfy abs(theta_i)>=M(r), but their magnitudes may differ. Keep 0<beta<1, zeta>1, r>beta and fixed 0<a<b distinct from other source uses of a,b. For the intended n>1 regime the base zeta*r*log n is positive, so rpow exponent 1/zeta agrees with the intended root; total extensions at invalid sample sizes are not a source convention.",
+        "statement_sha256": "eaac4c86009d95ffa2ca36299e5dc9630a0213b3e8fc49176d0083483b5f9393"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.filter/card, Real.rpow in Analysis/SpecialFunctions/Pow/Real and Real.log in Analysis/SpecialFunctions/Log/Basic against D22's cardinality interval and threshold formula.",
+          "result": "Finite support counts, set predicates and real logarithms/powers express the large-signal class; its integer-indexed proportional support range and common amplitude floor require a new definition."
+        }
+      ],
+      "gap": "Define the union over integer support sizes in the stated proportional interval with exact support cardinality and the shared Subbotin amplitude lower bound."
+    }
+  },
+  {
+    "interface_id": "local-c37466e111dc0b17c06d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "8dbaa4862d7a540aec65bfc082957a9c9de3af946acc130cbf11f1ffa539773b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D10",
+        "comparison": "Represent the asymptotic bound by exists c:Real, c<1 and IsBigO atTop (fun n => (s_n:Real)) (fun n => (n:Real)^c). These sequences are nonnegative on the eventual positive sample-size domain, so norm big-O gives the intended upper bound. The exponent and comparison constant are fixed across n; c is unknown to the procedure, not a varying or random exponent. Do not replace this by s_n/n tending to zero or add a printed lower bound c>0; any restriction forced by the separately assumed s_n-to-infinity is a deduction. A stronger all-n convention, if needed, would require the corresponding global bound or finite-prefix handling rather than follow from atTop by definition.",
+        "statement_sha256": "47e479c9b4513e9a7d9bc895f3c48065fd5d046dd97c88132ca9765c18bac3ba"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsBigO/IsBigOWith in Analysis/Asymptotics/Defs and Real.rpow; compared the additional polynomial sparsity bound D10 with the ambient s_n/n-to-zero regime.",
+          "result": "AtTop big-O of the real-cast support size against n^c expresses an eventual constant-multiple polynomial bound; it is stronger than the ambient vanishing support fraction and imposes no data-driven knowledge of c."
+        }
+      ],
+      "gap": "Quantify one exponent c<1 and a uniform asymptotic comparison constant for the support-size sequence, retaining the theorem-specific applicability of this extra condition."
+    }
+  },
+  {
+    "interface_id": "local-5a47f489824e14b3d875",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "89c22afa321714dec77adc305306b733d9fd940dc725fcaff4fda3283e6addb6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D13",
+        "comparison": "For each n and theta use P_theta.real of the strict event sum_i phi_{n,i}(X)>A_n*s_n, take the supremum over Theta_n, then require scalar Tendsto to zero atTop. Under probability-law assumptions the event masses are finite and in [0,1]; a nonempty Theta_n supplies the real-supremum hypotheses, while any empty-set convention must be explicit. The supremum is taken before the limit, so separate pointwise convergence for each theta is insufficient, particularly with changing-dimensional parameter spaces. Set.ofPred packages the sequences satisfying the criterion with measurable binary procedures. Neither a deterministic rejection cap nor a bound on expected rejection count is the given definition, and the threshold equality belongs to the complementary event.",
+        "statement_sha256": "c0cf8405ab3a746b739b3d2b013e774ec64ea31a1bb5fda3f89cf5e28c5b4b8b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for sparsity-preserving terminology; inspected Measure.real, csSup_le_iff, Tendsto and Set.ofPred against the changing-dimensional procedure-sequence definition D13.",
+          "result": "Real probability, a bounded supremum and scalar convergence to zero encode the uniform event-probability criterion; the sequence of parameter spaces, laws and procedures must be supplied explicitly."
+        }
+      ],
+      "gap": "Define the class of measurable procedure sequences whose worst-case probability of exceeding A_n*s_n rejections tends to zero over the changing parameter sets."
+    }
+  },
+  {
+    "interface_id": "local-683c9fd4f94c089fb4f6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "56a0fcdc5e9ed1ae3e490fbb4e4d36afb503e3ef3d1568527f34609bf05465fa",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D17",
+        "comparison": "The base density is L_zeta^(-1)*exp(-abs(x)^zeta/zeta), with L_zeta a positive finite normalizer and zeta>1; withDensity volume (ENNReal.ofReal density) produces a measure but does not itself prove its mass is one. Translating the law by a gives f_a, while cdf and one minus cdf recover Phi_zeta and its upper tail for the continuous density. The threshold is (zeta*log(n/s_n))^(1/zeta), using real-cast positive n and s_n and the eventual n/s_n>1 regime; it is not the large-signal threshold with r*log n. The standard Gaussian case zeta=2 requires a normalization identity, and zeta=1 remains excluded. The printed assertion that this model satisfies Assumption 1A is a mathematical source claim to establish, not a hypothesis automatically supplied by the density constructor, and the cited supplementary proof is not imported.",
+        "statement_sha256": "b66c33158419e036c29b21c2b23b3fb7f0c3fd2d81361e751ab49693f4919560"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "Real.exp",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Exponential",
+          "provides": "The real exponential function, usable directly in the paper's positive scale sequences.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Exponential.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability and Analysis/SpecialFunctions for Subbotin/generalized or generalised Gaussian; inspected withDensity, Real.exp, Real.rpow and cdf as ingredients for D17.",
+          "result": "No specialized Subbotin law was found in that bounded search; a nonnegative normalized exponential-power density can be turned into a probability law once its integrability and unit mass are proved."
+        }
+      ],
+      "gap": "Construct the normalized Subbotin location family and its tail/CDF functions and prove the stated threshold and Assumption 1A properties for zeta>1."
+    }
+  },
+  {
+    "interface_id": "local-0483fdf3921321f28dbe",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:48:46.459997+00:00",
+    "source_interface_sha256": "bcb63cdb7c292b5e586f2845937d0208d3afe5561866621290a7ad6a18432d39",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1564",
+        "local_id": "D20",
+        "comparison": "Use eventual membership alpha_n in Icc [3*n*tail0(aStar)/(s_n*(1-Lambda_n(theta)))] [min(1,n*tail0(aStar-delta)/s_n)]. Keep both endpoints closed, the factor 3, the different tail thresholds and the min-with-one upper cap. The denominator requires s_n>0 and 1-Lambda>0 for its intended ordinary quotient; total real division must not silently settle Lambda=1. The displayed condition alone allows a nonvanishing level and does not assert that one n cutoff works uniformly over theta or that a single parameter-independent level meets every lower bound. Preserve the recorded Theorem 5 source-scope issue and any theorem-specific branch-B replacement separately rather than strengthening this assumption.",
+        "statement_sha256": "ed0eb909df6a821245520e0f8883878ef917319d549c6db72198f19e06bdf2c7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Icc in Order/Interval/Set/Defs and Filter.Eventually in Order/Filter/Defs; compared the exact D20 level interval with retained Theorem 5 uniformity and nonvanishing-level findings.",
+          "result": "Closed interval membership expresses both printed nonstrict level inequalities and eventual quantification expresses sufficiently large n; neither construction gives vanishing levels, interval feasibility or uniform-in-theta control."
+        }
+      ],
+      "gap": "State the theta-dependent interval membership eventually in n, resolving denominator and quantifier conventions without adding a vanishing-level conclusion."
+    }
+  }
+]

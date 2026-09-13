@@ -1,0 +1,69 @@
+{
+  "scope": "Manual comparison of six remaining interfaces from aos-2024-v52-i02-p0519 with verified pinned mathlib ingredients, retaining the source's Gaussian-series indices, operator orientation and KL-neighborhood discrepancy.",
+  "rows": [
+    {
+      "interface_id": "local-c08bfc5a508325c12889",
+      "related": ["ProbabilityTheory.gaussianReal", "MeasureTheory.Measure.pi", "ProbabilityTheory.IsGaussianProcess", "HasCompactSupport", "ContDiffOn"],
+      "status": "composable",
+      "query": "Finite cutoff Neumann-eigenfunction Gaussian series with iid standard-normal coefficients and sample-size scaling; inspected finite Gaussian product and Gaussian-process definitions and compact-support/smoothness predicates.",
+      "result": "A product of K+1 standard Gaussian laws supplies the independent coefficients, and finite linear evaluation maps define the field. Its Gaussian finite-dimensional distributions and smooth supported paths follow once the supplied eigenfunctions and cutoff have the required regularity.",
+      "gap": "The field is constructible from these ingredients after supplying the Neumann eigenbasis and smooth cutoff, with spectral and path-regularity facts remaining separate proofs.",
+      "comparisons": {
+        "D9": "Retain g_0 unweighted and the sum from k=1 through K of lambda_k^(-s/2)*g_k*e_k(x), multiplied by zeta(x)/N^(d/(4s+4+2d)). The source says first K but explicitly indexes 0 through K, so there are K+1 Gaussian coefficients. The constant eigenvalue is zero and is excluded from the negative-power weights; positive-mode eigenvalues need not be simple despite the mixed ordering signs. Require N>0, s>=0, a nonnegative smooth compactly supported cutoff vanishing outside O_0 and equal to one on the smaller compact O_00. This is a finite truncation at each K, not an automatically convergent infinite Gaussian series or an elliptic spectral theorem."
+      }
+    },
+    {
+      "interface_id": "local-71e96fbb13eeef4e20c9",
+      "related": ["MeasureTheory.Measure.map", "MeasurableSpace.comap", "Real.exp"],
+      "status": "composable",
+      "query": "Nonlinear pushforward Gaussian-field prior for uniformly positive diffusivity with trace Borel sigma-algebra; inspected measure pushforward, comap and exponential link.",
+      "result": "The law of the coefficient field can be pushed forward through theta -> 1/4+exp(theta)/4 into the parameter class equipped with the inherited function-space measurable structure.",
+      "gap": "The prior is supported by measurable pushforward once the field's regularity and the trace-Borel parameter-space map are established.",
+      "comparisons": {
+        "D10": "Apply the exponential pointwise and use the exact 1/4+exp(theta)/4 link, giving f>1/4 for finite theta and f=1/2 wherever the cutoff makes theta zero. Specify F as the C2 subclass with its trace Borel sigma-algebra inherited from C(cl O), not an arbitrary pointwise cylinder sigma-algebra. The theta=0 base case yields f=1/2 and the source's reflected Brownian generator Delta/2; the pushforward construction alone does not prove the SDE statement. Keep this Pi on f distinct from Pi on theta elsewhere and from the later general-prior reset; a posterior mean of f is not the link applied to the posterior mean of theta."
+      }
+    },
+    {
+      "interface_id": "local-204a649d18943cd16d50",
+      "related": ["InformationTheory.klDiv", "MeasureTheory.Measure.withDensity", "MeasureTheory.integral"],
+      "status": "composable",
+      "query": "One-step stationary joint-law KL divergence from the true diffusivity to the candidate; inspected ordered extended KL, density measures and its finite-integral mass correction.",
+      "result": "Under volume-one uniform stationarity, the transition density is a joint density for (X_0,X_D). Applying klDiv to the true pair law first and candidate pair law second gives the displayed expected log ratio when absolute continuity and log-integrability hold.",
+      "gap": "The KL declaration supports the divergence with true-to-candidate measure orientation and the stationary joint-density and integrability hypotheses made explicit.",
+      "comparisons": {
+        "D14": "Although the source writes KL(f,f0), its expectation is under f0 and its ratio is p_D,f0/p_D,f, so the mathlib order is klDiv(mu_f0,mu_f). Use the law of one observed pair at fixed spacing D>0, not an N-step path divergence or continuous-time likelihood. The transition densities integrate to joint probability densities only with the given stationary uniform start and volume(O)=1 normalization. Equal probability masses cancel klDiv's mass correction; infinite or nonintegrable cases must remain extended rather than being converted to a misleading finite real value."
+      }
+    },
+    {
+      "interface_id": "local-5bb801c8d874af4f53c0",
+      "related": ["InnerProductSpace.rankOne_apply", "Submodule.orthogonalProjectionOnto", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Empirical finite-basis transition matrix and zero-extended bounded L2 operator; inspected rank-one operator action, orthogonal projection and finite function sums.",
+      "result": "A finite sum of rank-one maps constructs the full-space operator with the specified basis coefficients and annihilates the orthogonal complement. The coefficient matrix itself is a finite empirical average over adjacent observations.",
+      "gap": "These declarations construct the estimator from the chosen orthonormal basis and observations, while its error bound and expected-operator comparison require separate arguments.",
+      "comparisons": {
+        "D11": "Use J modes indexed 0 through J-1 including e_0=1, and entries P-hat[j,j']=(1/N)*sum_{i=1}^N e_j(X_(i-1)D)*e_j'(X_iD). The source specifies inner(P-hat e_j,e_j')=P-hat[j,j'], so assemble sum_{j,j'} P-hat[j,j']*rankOne(e_j',e_j); do not inadvertently use the usual matrix-column convention without transposing the stored entries. Both basis indices outside the retained range have zero coefficients, giving a finite-rank bounded operator on all L2. The next paragraph's one-sided expected compression is a recorded discrepancy and does not replace this two-sided zero extension. Adjacent pairs come from one diffusion path and are not iid merely because the entries are sample averages."
+      }
+    },
+    {
+      "interface_id": "local-d2afc17be622ba489e22",
+      "related": ["Metric.thickening", "Metric.infDist", "Set.pi", "Convex"],
+      "query": "Euclidean distance neighborhood of an open hyperrectangle and claimed smooth boundary; inspected metric thickening/infimum distance and compared the frozen geometric source notes.",
+      "result": "The stated domain is exactly an open metric thickening of the coordinate box for positive m and w. Boundedness and convexity are compatible with this construction, but generic Euclidean offsets of rectangles do not supply the claimed smooth boundary.",
+      "gap": "The neighborhood is definable, while its claimed smooth-boundary property and compatibility with the separate unit-volume convention remain unresolved source issues.",
+      "comparisons": {
+        "D13": "Represent (0,1)^(d-1) times (0,w) with d>=2 and w>0, then take thickening radius 1/m with m>0 in the Euclidean metric. Preserve the strict distance inequality and the original open box; no replacement by a mollified domain is made. The rounded offset generally has joins between flat and curved pieces rather than a C-infinity boundary, as recorded in the source review. Width w>=2 in the later theorem also prevents the displayed positive enlargement from having volume one without a further rescaling, which is not part of this definition. Neither issue is resolved by Convex or thickening."
+      }
+    },
+    {
+      "interface_id": "local-dd3b09b2cc8399dd955f",
+      "related": ["InformationTheory.klDiv", "ProbabilityTheory.variance", "Real.log"],
+      "query": "KL small-ball set with printed self-ratio variance condition; inspected ordered KL, variance and real logarithm and compared the saved definition/proof discrepancy.",
+      "result": "The two inequalities define a parameter subset, but the printed variance uses log(p_D,f/p_D,f), which is zero where the density is positive. The saved proof passage instead has f0 in the denominator and cannot silently replace the definition.",
+      "gap": "The set is expressible literally, but the intended likelihood-ratio variance condition needs resolution before identifying it with the usual KL-and-variance neighborhood.",
+      "comparisons": {
+        "D15": "For delta>0 require KL(f,f0)<=delta^2 and the displayed Var_f0(log[p_D,f(X0,XD)/p_D,f(X0,XD)])<=2*delta^2. Preserve both identical density arguments. On the positive-density domain the ratio is one and this variance constraint is vacuous; real division/log fallback outside that domain should not be used to conceal the discrepancy. The immediately following source proof uses log(p_D,f/p_D,f0), documented separately. Keep Theorem 12's general parameter/prior setting rather than importing the specific cutoff Gaussian prior or its support restrictions into this small-ball definition."
+      }
+    }
+  ]
+}

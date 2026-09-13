@@ -1,0 +1,101 @@
+[
+  {
+    "interface_id": "convex-extrema-confidence-classes",
+    "status": "composable",
+    "names": [
+      "Set.Icc",
+      "Real.volume_Icc"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0392/D5": "In the pinned white-noise experiment, define a set of data-dependent intervals by measurable coverage events with probability at least 1-alpha for every function in the supplied class, separately for Z(f) and M(f). Set.Icc expresses bounded closed interval realizations and volume_Icc gives their nonnegative length. Neither fixes whether all admissible intervals are bounded, closed or nonempty, so retain any broader interval convention rather than silently restricting the infimum. This is uniform marginal coverage under each observation law, not a simultaneous event over all functions or a claim that an interval exists. The same class constructor must accept the two-point class {f,g}.",
+      "aos-2024-v52-i01-p0392/D21": "Use the same target-indexed coverage predicate with the discrete regression law for all n+1 observations in (4.1) and the supplied class fraktur-F. The n and sigma dependent experiment is not interchangeable with a white-noise observation. Coverage is imposed for every member of the supplied class and both endpoints/coverage events require measurability. Real.volume_Icc supports bounded closed realizations but does not select the paper's full interval class or its exceptional/unbounded conventions."
+    },
+    "gap": "Interval sets and Lebesgue length are available; instantiate the experiment-specific measurable coverage classes without restricting the source's admissible intervals.",
+    "searches": [
+      [
+        "Search confidence.interval and minimax in Probability/Decision and inspect Real.volume_Icc and Set.Icc",
+        "No dedicated matching confidence-class declaration was found; interval primitives express the realizations and length, with coverage an additional predicate."
+      ]
+    ]
+  },
+  {
+    "interface_id": "convex-minimizer-local-risk",
+    "status": "partial_match",
+    "names": [
+      "ProbabilityTheory.minimaxRisk",
+      "MeasureTheory.lintegral"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0392/D3": "For each fixed alternative g, the inner infimum/max is an absolute-error decision problem for the location Z(h), h in {f,g}, under the white-noise laws with noise epsilon; only afterwards take the supremum over g. minimaxRisk uses extended nonnegative risk and the correct inf-estimator/sup-parameter order for that inner problem, but its estimators are all Markov kernels. Establish equivalence with the paper's admissible estimator convention or restrict explicitly to deterministic measurable functions; do not assume randomized and deterministic optimization coincide. One estimator is shared by the two laws, but may depend on the fixed pair because its infimum is inside the outer supremum. Preserve infinite risks using lintegral; no attainment or global inf-estimator/sup-all-functions equality follows.",
+      "aos-2024-v52-i01-p0392/D22": "Instantiate the two-point absolute minimizer-location loss with the fixed-design Gaussian regression sampling law on n+1 observations and noise sigma. Its outer supremum over g remains outside the pair-specific estimator infimum. The generic minimaxRisk quantifies Markov-kernel estimators; identification with the printed infimum needs the estimator-class bridge, and an extended integral avoids giving nonintegrable losses the Bochner fallback value zero. Do not substitute the white-noise experiment, squared loss or one estimator optimized uniformly over the entire convex class."
+    },
+    "gap": "Mathlib provides randomized minimax risk for each two-point experiment; identify the admissible estimator class and retain the outer alternative supremum.",
+    "searches": [
+      [
+        "Inspect Probability/Decision/Risk/Defs:41-61 and Basic:37-64 for minimaxRisk and estimator quantification",
+        "The definition is an ENNReal infimum over Markov kernels, then a parameter supremum, and does not include the paper-specific outer alternative supremum or certify deterministic-estimator equivalence."
+      ]
+    ]
+  },
+  {
+    "interface_id": "convex-minimum-local-risk",
+    "status": "partial_match",
+    "names": [
+      "ProbabilityTheory.minimaxRisk",
+      "MeasureTheory.lintegral"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0392/D4": "Use absolute loss against the minimum value M(h), not its minimizing argument Z(h), under the two white-noise laws h=f,g. The source orders sup_g, inf_Mhat, max_h; minimaxRisk matches the inner optimization only after representing those laws as a kernel and reconciling its randomized Markov-kernel estimators with the source estimator class. The outer supremum cannot be commuted with the infimum. Retain unbounded or infinite nonnegative expected losses through lintegral rather than assuming finiteness from convexity or differentiability absent from the class.",
+      "aos-2024-v52-i01-p0392/D23": "For the regression benchmark R-tilde_m,n, supply the n+1-dimensional Gaussian observation law and minimum-value target M(h), with fixed noise sigma. The pairwise max uses one estimator under both laws while the enclosing infimum may depend on f,g. Generic minimaxRisk is related but broader if the paper only admits deterministic estimators; record that bridge and the separate outer sup_g. No sampling-experiment equivalence, squared-error loss, optimal-estimator existence or smoothness assumption is added."
+    },
+    "gap": "The generic minimax construction supports minimum-value loss after an estimator-class comparison and the experiment-specific outer supremum are supplied.",
+    "searches": [
+      [
+        "Inspect minimaxRisk body and lintegral against the minimum-value formulas (1.3) and (4.2)",
+        "The kernel definition supports nonnegative absolute value loss but does not identify the source estimator class or interchange the sup-inf order."
+      ]
+    ]
+  },
+  {
+    "interface_id": "convex-minimizer-ci-length",
+    "status": "composable",
+    "names": [
+      "Real.volume_Icc",
+      "MeasureTheory.lintegral",
+      "le_csInf_iff",
+      "csSup_le_iff"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0392/D6": "For each g, restrict interval procedures to those covering Z(h) with probability at least 1-alpha under BOTH white-noise laws h=f,g. Integrate interval length ONLY under the reference law f, take the infimum over that coverage class, then take sup_g. There is no max_h of expected length. volume_Icc computes bounded closed interval lengths; lintegral preserves infinite lengths/expectations. Conditional real infimum/supremum lemmas apply only after their nonemptiness and boundedness premises are established; alternatively retain extended nonnegative values and justify agreement with real notation. No optimizing interval or admissible interval endpoint convention is supplied by those lemmas.",
+      "aos-2024-v52-i01-p0392/D24": "Preserve I_z,alpha,n({f,g}) under the fixed-design regression model with n+1 observations, and evaluate length under f alone before the infimum and outer alternative supremum. Coverage at g constrains admissibility but does not add a risk term at g. The white-noise coverage class cannot be reused as a set of regression procedures. Interval measure and nonnegative integration construct the objective, while real-valued conversion, feasible procedure existence and any attainment remain separate."
+    },
+    "gap": "Interval length, integration and ordered extrema express the benchmark once its two-point coverage class and finite or extended-value conventions are specified.",
+    "searches": [
+      [
+        "Inspect volume_Icc, lintegral, le_csInf_iff and csSup_le_iff against (1.6) and the regression counterpart",
+        "The primitives preserve length and optimization order; the real order lemmas require nonempty bounded value sets and do not create coverage-valid procedures."
+      ]
+    ]
+  },
+  {
+    "interface_id": "convex-minimum-ci-length",
+    "status": "composable",
+    "names": [
+      "Real.volume_Icc",
+      "MeasureTheory.lintegral",
+      "le_csInf_iff",
+      "csSup_le_iff"
+    ],
+    "comparisons": {
+      "aos-2024-v52-i01-p0392/D7": "In (1.7), admissibility covers the minimum value M(h), h=f,g, under each white-noise law, whereas the objective E_f L(CI) uses only f. Keep sup_g outside the interval infimum and do not replace value coverage by minimizer-location coverage or the objective by worst-case length across the pair. A bounded closed interval uses volume_Icc; more general source intervals require their own compatible length convention. Nonnegative integration retains infinity, and a real infimum comparison needs nonempty feasibility and boundedness rather than relying on totalized infimum behavior.",
+      "aos-2024-v52-i01-p0392/D25": "The regression L-tilde_m,alpha,n uses the pairwise minimum-value coverage class I_m,alpha,n({f,g}) for the n+1-point experiment and length expectation at f alone. Supply its actual observation law and admissible interval procedures before applying the elementary integral/infimum/supremum construction. Any real finiteness, nonempty class and extremizer claims require proofs; none follows from the generic interval-volume identity. Preserve sigma and n dependence rather than identifying this with the white-noise benchmark."
+    },
+    "gap": "Available integration and order primitives express minimum-value interval length, while the regression and white-noise coverage classes retain their distinct laws and admissibility conditions.",
+    "searches": [
+      [
+        "Inspect the same interval-length and conditional order declarations against (1.7) and (4.2)",
+        "The minimum-value target changes the coverage constraint; expected length remains at f alone and no minimax-risk max over the pair belongs in this objective."
+      ]
+    ]
+  }
+]

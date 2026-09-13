@@ -1,0 +1,650 @@
+[
+  {
+    "interface_id": "local-eadd1ff72ddbe698aeba",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "a2aa7b1557a037256bb3a3ed709f3f82816e1214a1ab29689eb69017f65fb4b0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D38",
+        "comparison": "The empirical quantity is (s-hat_d-s_d)/V_dd using the functional evaluated at eta=1. The quoted limit numerator is B_d(1), and its denominator literally prints f_d(eta) B_d eta) minus g_dd(1) B_d(1); it lacks an opening Brownian argument parenthesis and differs from the g(eta)B(eta)-f(eta)g(1)B(1) expression in (4.1). Do not silently transfer the latter formula. Real Brownian restriction to [0,1], the weighted squared integral and a genuine positive denominator are ingredients, but no library theorem certifies this particular source ratio or convergence. Known f_d,g_dd and the integration measure may yield d-dependent laws; the family of limiting variables is explicitly not necessarily independent. The local use of T_d for accuracy differs from its earlier deviation meaning and is retained.",
+        "statement_sha256": "159a7208c1ed02065519d0088c5126df5b1e969cb9051986da925850e9c58395"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Brownian ratios and self-normalization; inspected real Brownian paths, Bochner integration and convergence in distribution, comparing equations (4.4) and (4.1).",
+          "result": "Scalar Brownian functionals and a weak-convergence predicate are available, but the printed index-specific ratio has an unresolved argument typo and a substantive f/g discrepancy."
+        }
+      ],
+      "gap": "Specify the index-specific Brownian ratio and positive normalizer while preserving the printed (4.4) mismatch instead of replacing it with (4.1)."
+    }
+  },
+  {
+    "interface_id": "local-dd3884b89c181fa24d11",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "1cdfc2b72d0d2a21e5214f7b9968fe2b18eddc956965fe9f373ff915302cfab4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D3",
+        "comparison": "For each fixed (u,omega), dotted lambda_i lists eigenvalues in descending order with multiplicity, while undotted lambda_j are strictly decreasing distinct positive values. Pi_j projects onto the whole corresponding eigenspace and is a sum of rank-one terms over all equal dotted eigenvalues, not a single eigenvector projection. The source complex inner product is linear in its first argument; Lean's rankOne uses inner(g,v) in its second-linear convention, so that convention translation is required. The compact symmetric theorem includes the zero eigenspace but does not itself prove this S1-norm sum, trace class, positivity ordering or countable enumeration. Finite-rank/zero extensions cannot silently replace the printed strictly positive list, and later simple-spectrum hypotheses remain separate.",
+        "statement_sha256": "b5658d9ca78d17f4c5e2db8112724e975568ec971b04df43d0939953012a0cfe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Module.End.eigenspace",
+          "type": "{R : Type u} → {M : Type v} → [CommRing R] → [AddCommGroup M] → [Module R M] → Module.End R M → R → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Eigenspace.Basic",
+          "provides": "The submodule of eigenvectors together with zero for a specified eigenvalue of a linear endomorphism; no simplicity or finite multiplicity is assumed.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Eigenspace/Basic.lean#L424-L425",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.orthogonalComplement_iSup_eigenspaces_eq_bot",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {E : Type v} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [CompleteSpace E] {T : E →L[𝕜] E}, IsCompactOperator T → T.IsSymmetric → (⨆ μ, Module.End.eigenspace (T : Module.End 𝕜 E) μ)ᗮ = ⊥",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Compact self-adjoint spectral completeness, including the zero eigenspace; it does not define an arbitrary spectral multiplier or remove its nullspace term.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L443-L445",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected eigenspaces, ambient orthogonal projections, compact self-adjoint spectral completeness and rank-one operators; compared distinct versus repeated spectral lists.",
+          "result": "Full eigenspaces and their orthogonal projections can be represented, but the trace-class spectral expansion, positive distinct enumeration and convergence topology need further construction."
+        }
+      ],
+      "gap": "Construct each full positive-eigenspace projector and the trace-class spectral series, preserving distinct eigenvalues separately from the multiplicity-counted list."
+    }
+  },
+  {
+    "interface_id": "local-1c57789984adcce962e0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "290411f10c9d93014497d3467135e86da9c3a4ffa02bf18fe2b7881f652f27ae",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D24",
+        "comparison": "Retain numerator g(1)B(1) and denominator sqrt of integral |g(eta)B(eta)-f(eta)g(1)B(1)|^2 against the supplied measure on (0,1). This integral is an ordinary weighted path integral, not an Ito integral. Brownian continuity and known f,g do not alone guarantee a finite nonzero integral for every allowed measure. The empirical normalizer is V=V_11 from the squared-entry convention, not a matrix square root. Pivotality is subject to the relevant nondegenerate scalar instance of Theorem3.2, not merely a possibly zero-variance Gaussian limit from a specialized theorem. The law depends on the known application-specific f,g and nu and is not universally a Student t law.",
+        "statement_sha256": "8f52cfe95e64bb859cda1d09f1662c7c73cdd629970428a0e4a1dc44fab1d76f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.TendstoInDistribution",
+          "type": "{ι : Type u} → {E : Type v} → {Ω : ι → Type w} → {Ω' : Type z} → [∀ i, MeasurableSpace (Ω i)] → [MeasurableSpace Ω'] → [MeasurableSpace E] → [TopologicalSpace E] → [OpensMeasurableSpace E] → ((i : ι) → Ω i → E) → Filter ι → (Ω' → E) → (μ : (i : ι) → MeasureTheory.Measure (Ω i)) → [∀ i, MeasureTheory.IsProbabilityMeasure (μ i)] → (μ' : MeasureTheory.Measure Ω') → [MeasureTheory.IsProbabilityMeasure μ'] → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInDistribution",
+          "provides": "Weak convergence of probability laws of measurable random variables along a filter, including variables on different sample spaces; conditional bootstrap convergence requires additional structure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInDistribution.lean#L64-L70",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real Brownian motion, pathwise integrals and distributional convergence; searched a specialized self-normalized Brownian-ratio theorem.",
+          "result": "The scalar Brownian ratio can be built from a supplied path and weighting measure, but its well-definedness, pivotality and empirical convergence are not verified by generic Brownian primitives."
+        }
+      ],
+      "gap": "Construct the exact g/f-weighted Brownian ratio with a finite positive denominator and prove its source-specific self-normalized convergence."
+    }
+  },
+  {
+    "interface_id": "local-9dba9a458b270aa00266",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "57d6b2654694520ddc92ebb9216fd985f41d0ae02b6aaccd506dbd5195a148f3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D39",
+        "comparison": "The statistic is (s-hat_d-nu)/V_dd and decomposes into estimation error (s-hat_d-s_d)/V_dd plus signal offset (s_d-nu)/V_dd. Scalar threshold nu is distinct from the weighting measure nu(d eta) and coherence singular values nu_d. A positive valid normalizer is needed for its intended statistical meaning and inequality direction; totalized division at zero is no source convention. The unknown d-star motivates the estimator but is not an input to computing this statistic. Its stated H0:s_d<=nu test uses an upper 1-alpha quantile, whereas the later first-exceedance selector uses a lower alpha quantile.",
+        "statement_sha256": "f7479e7826cab24d793a530a55f93d7c9bc17ffe61164edb7714a62216f45914"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched probability statistics and self-normalization interfaces and compared the threshold-centered formula with its accuracy-limit and decision-rule dependencies.",
+          "result": "The formula is a source-specific affine scalar statistic with an elementary decomposition; no specialized verified library declaration represents it."
+        }
+      ],
+      "gap": "Define the threshold-centered statistic from s-hat_d, scalar threshold nu and a valid V_dd, retaining its distinct upper-quantile testing use.",
+      "no_related_reason": "Generic scalar arithmetic would not provide a substantive library interface for this particular threshold-centered statistic or its calibration."
+    }
+  },
+  {
+    "interface_id": "local-73da0e194fb512cde902",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "88b4a307374d0b7ac43fe3c6b592bc7bb075a893c973a3eb44da143c48195a0d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D40",
+        "comparison": "The selection predicate is T-hat_d > q_alpha of the limiting law T_d, whose quantile may vary with d despite the abbreviated symbol. It is not q_(1-alpha), not a nonstrict crossing, and not a finite-range maximum test. Nat.find requires some admissible index to exist and the positive-index offset matching the paper's d=1,2,... convention; it does not supply a cutoff, fallback or existence from the source consistency claim. The CDF is an ingredient for a chosen quantile definition, not a verified quantile-continuity theorem. Dependence among T_d is allowed. The recorded strict definition of d-star and contradictory equality discussion are preserved rather than repaired through this selection rule.",
+        "statement_sha256": "318cab85b445872550c27e4c4001f5050a00891272950efafb7a774274923d3f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Nat.find's existence and decidable-predicate requirements and the real-law CDF; searched quantile and first-exceedance selection interfaces.",
+          "result": "A least qualifying natural index can be selected once existence is proved, while the application-specific lower quantile and empty-search behavior need explicit specification."
+        }
+      ],
+      "gap": "Define the d-specific lower alpha quantile and first strict exceedance, with an existence proof or an explicitly resolved empty-minimum convention."
+    }
+  },
+  {
+    "interface_id": "local-0390a7ae1208219e5c5a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "49cd1fbb97fd1b0974204a577059d50dab38c0b68a1cdba186d251b7aa0e85c0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D28",
+        "comparison": "The model Hilbert space is H1 direct-sum H2, not the tensor-product space of the separability application. The ij block is a map H_j -> H_i obtained by inclusion into H, application of F and projection onto H_i; treating both printed P_i/P_j as maps to component codomains needs these inclusions or ambient projections made explicit. The source also states F_ij=E[Z_i tensor Z_j], where Z is the cumulative orthogonal-increment process from the Cramer representation. Spectral density ordinarily involves increment covariance density, so this equality is retained as an unresolved assertion rather than silently differentiated. Rank-one orientation must translate the source's first-linear complex inner product. S1 block membership and integrability are additional analytic requirements.",
+        "statement_sha256": "8b4de6996792fc04dcf1e9139a322f07fc585d6b6c8d0f90b83aa30c3e7537a5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Submodule.starProjection",
+          "type": "{𝕜 : Type u} → {E : Type v} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (U : Submodule 𝕜 E) → [U.HasOrthogonalProjection] → (E →L[𝕜] E)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "provides": "Orthogonal projection onto a linear subspace as an ambient-space continuous linear endomorphism, once the subspace admits orthogonal projection.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Basic.lean#L132-L133",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected ambient orthogonal projections, rank-one orientation and operator-valued integration; compared the direct-sum block definition with the cumulative Cramer-process moment claim.",
+          "result": "Operator blocks and expected rank-one products have ingredients, but equality between a spectral density block and a cumulative spectral-process moment is not verified."
+        }
+      ],
+      "gap": "Type the component projections/inclusions and preserve the unresolved density-versus-cumulative-moment equality and trace-class block claim."
+    }
+  },
+  {
+    "interface_id": "local-75d3b06ec7b3eb2e5b92",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "7907a6a2e6678f27737478e647f4048b4a32e2b0a00b75c02b00b4dbfcc333a5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D29",
+        "comparison": "The source defines R_d=nu_d/sqrt(lambda_11,d lambda_22,d) and integrates R_d, not its square, over u in [0,1] and omega in [a,b]. nu_d is a cross-block singular value, while the lambdas are marginal eigenvalues. LinearMap.singularValues is finite-dimensional and zero-indexed; it cannot directly supply the full compact cross-spectrum singular system. A supremum of a complex inner product lacks an order unless a real-part/modulus convention is given, and leading marginal eigenvectors need not maximize a general cross-block operator. Preserve both source assertions rather than substituting a whitened canonical-correlation definition. Positive marginal eigenvalues and the spectral-density versus cumulative-Z issue remain required before interpreting the ratio as a covariance correlation or bounding it by one.",
+        "statement_sha256": "96e3d79c60ea9be5963defc0b11dd13c602ccbf1dce84c6cbf247c44ac175207"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.singularValues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → (ℕ →₀ ℝ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.SingularValues",
+          "provides": "Singular values in decreasing order with multiplicities, indexed from zero and extended by zeros; these are values, not a chosen matrix of singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/SingularValues.lean#L94-L98",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched canonical coherence/correlation and inspected singularValues' finite-dimensional scope and continuous adjoints, comparing the cross-block maximization and marginal-eigenvector claim.",
+          "result": "Finite-dimensional singular values and operator ingredients support restricted cases, but no verified general functional canonical-coherence interface establishes the source's maximizer identification or ratio."
+        }
+      ],
+      "gap": "Construct the cross-spectrum singular-value ratio and time-frequency integral while resolving complex maximization, marginal-vector identification and positive-denominator conditions."
+    }
+  },
+  {
+    "interface_id": "local-c686cb06a2ea73ca4755",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "05e011adcd2c3ff116b99e5a655a7e80fc07ad4ce52a5c7b3b6446569d9116cd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D41",
+        "comparison": "Reject when s-hat_d0 > nu + q_(1-alpha,d0) V_d0,d0, with a quantile of the specific law T_d0 from the unresolved formula (4.4). The threshold is scalar nu, and the rule is equivalent to the normalized upper-tail inequality only for the intended positive normalizer. Under monotonicity and d-star=min{d:s_d>nu}, d-star>d0 is equivalent to s_d0<=nu, including equality; that equivalence is not itself the source error. The separate equality case at s_d-star in (4.6) conflicts with the strict definition and remains documented. This rule does not compute d-hat or use its lower-alpha cutoff; neither a CDF nor event probability alone proves calibration.",
+        "statement_sha256": "9f758713c6fc950f1df247062835cc72249c13b89c3a06e4d6b682ead0f0489c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected CDF/event-probability primitives and compared the explicit upper-quantile accuracy rejection rule with the lower-quantile selector and strict target-complexity definition.",
+          "result": "The scalar rejection event and application-specific calibration law can be represented, but their asymptotic level and consistency require the source-specific limit and quantile work."
+        }
+      ],
+      "gap": "Define the strict accuracy rejection event with q_(1-alpha,d0), preserving the threshold-boundary logic and valid scalar normalizer."
+    }
+  },
+  {
+    "interface_id": "local-8d9875a86defa2e9e782",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "edb5a33f2021a4af93cfbf7142aba2f9f9e1a3eb78fd297857533b7ce63ea6c0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D34",
+        "comparison": "Keep Delta>0, H0:r<=Delta and H1:r>Delta. The neighboring prose about wanting to justify small model deviation does not reverse the test or move the equality case. r is the nonnegative model-deviation functional, not the accuracy s_d=1-r_d. This hypothesis definition does not assume a particular PCA, separability, coherence or stationarity example and gives no estimator, calibration or normalizer nondegeneracy by itself.",
+        "statement_sha256": "260f52661af58edc523a79815f746460bcce34ff9bbb21ef16daa2c42166230e"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the probability decision/statistic interfaces and compared the source's relevant-deviation hypotheses with the nearby motivational prose.",
+          "result": "This is a pair of ordered scalar hypothesis sets, not a specialized mathematical library interface."
+        }
+      ],
+      "gap": "State the positive-threshold deviation null and strict upper alternative in the printed direction.",
+      "no_related_reason": "No substantive verified declaration is needed to state r<=Delta versus r>Delta; generic order primitives do not establish its statistical testing behavior."
+    }
+  },
+  {
+    "interface_id": "local-9fa1d64d375c06e97fe5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "20dd759e1ee854b847a904c467230153752f2e8edbb953ef22b6401c49cc3c2a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D37",
+        "comparison": "The rule is r-hat>Delta-q_alpha V=Delta+q_(1-alpha)V, with quantiles of the scalar Brownian-ratio law in (4.1). Sending B to -B changes the ratio sign while leaving its squared-integral denominator unchanged, once the ratio is well-defined; that supports symmetry but does not alone certify q_alpha=-q_(1-alpha) for every generalized-quantile convention when atoms or flat regions are possible. Preserve the printed equality and record its justification requirement. Positive V is needed for the intended upper-tail comparison, and neither Brownian primitives nor the event definition gives asymptotic level or consistency. Delta is the deviation threshold, distinct from any accuracy threshold or integration measure.",
+        "statement_sha256": "c4f02c0a9a31c9ca61a0c1d5cedf5701ab6e885db712c2b6a3a651fa4314fa28"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Brownian sign symmetry and real-law CDF ingredients, and compared the two printed quantile forms of the rejection threshold.",
+          "result": "The threshold event is expressible and Brownian sign symmetry suggests a symmetric ratio law on its valid domain, but equality of the two quantile forms needs an explicit quantile convention and regularity."
+        }
+      ],
+      "gap": "Construct the deviation rejection rule and justify the source's lower/upper quantile equality under a valid symmetric continuous calibration law."
+    }
+  },
+  {
+    "interface_id": "local-908f355cb9f2b55b5852",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "685dadfa883eccb7b731d5ca26ba67b162bb5c23cf1f4e499ab48639a38e118d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D25",
+        "comparison": "The numerator sums undotted lambda_j for j=1,...,d before integration over u in [0,1] and omega in [a,b]; the denominator integrates their infinite sum. D3 defines these as distinct values, so the denominator need not equal operator trace when positive eigenvalues have multiplicities. The later theorem's trace formula and no-multiplicity requirements do not change this original statement. Nonnegative series should be treated with established summability or an extended sum, and a finite positive denominator is needed; a zero kernel or zero-length frequency interval can otherwise be degenerate. This is explained principal-component variation, not total-variation distance between probability measures.",
+        "statement_sha256": "9bf769afca736b99bb93bbbee568ec8e92ea99916d9fc38c2ca2bd36347140b0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected convergent-series and integral primitives and compared distinct-eigenvalue sums in (2.7) with the later trace denominator and simple-spectrum conditions.",
+          "result": "The ratio of integrated finite and infinite nonnegative eigenvalue sums is expressible, but multiplicity, summability and positive total mass must be resolved for its variance-explained interpretation."
+        }
+      ],
+      "gap": "Construct the integrated eigenvalue ratio with the source's undotted convention, keeping the trace/multiplicity distinction and denominator conditions explicit."
+    }
+  },
+  {
+    "interface_id": "local-912178d6184b128c2c7e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "8c1ddeb57c61858d7a2bb6a1c047687e98231c0af4b29b45473c8c2fbccf5fba",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D26",
+        "comparison": "This application assumes H=H1 tensor H2 and rearranges the original operator into F:H2 tensor H2 -> H1 tensor H1, unlike the direct-sum coherence model. The delta_j are singular-component scores of the rearrangement, not eigenvalues lambda_j of the original F-script. The source identifies the singular vectors with operators A_j,B_j and reconstructs using the operator Kronecker product tilde-tensor; all of those identifications need Hilbert-Schmidt topology and, over complex spaces, appropriate conjugate-space and inner-product conventions. The algebraic tensor norm and generic HasSum do not supply those isometries, a full singular system or S2 convergence. Degree d means all scores after d vanish as printed; it does not require the first d all to be nonzero unless separately imposed.",
+        "statement_sha256": "a10cef7c3ab4b94261ce62c7d5d36490fadfc063426432488a84532700637a4e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "TensorProduct.inner_tmul",
+          "type": "(𝕜 : Type*) → {E F : Type*} → [RCLike 𝕜] → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → (x x' : E) → (y y' : F) → inner 𝕜 (x ⊗ₜ[𝕜] y) (x' ⊗ₜ[𝕜] y') = inner 𝕜 x x' * inner 𝕜 y y'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.TensorProduct",
+          "provides": "Inner product of simple tensors in the algebraic tensor product; finite sums extend bilinearly, while Hilbert completion and operator identification are separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/TensorProduct.lean#L70-L71",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected algebraic Hilbert tensor geometry, rank-one maps and adjoints; searched general Hilbert-Schmidt singular decompositions and compared the source's complex rearrangement conventions.",
+          "result": "Tensor and rank-one ingredients describe finite pieces, but the Hilbert-Schmidt rearrangement and infinite singular-component decomposition are not verified as a complete library interface."
+        }
+      ],
+      "gap": "Construct the complex Hilbert-Schmidt rearrangement and convergent separable expansion with its conjugate-space conventions and delta-score normalization."
+    }
+  },
+  {
+    "interface_id": "local-b5e0adc51eb552bc61b2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:32:51.375117+00:00",
+    "source_interface_sha256": "206666298b5edffa3ddaa91aeab92aef480900ff15ba99b596dd3048b3eb1c52",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0550",
+        "local_id": "D27",
+        "comparison": "The numerator integrates sum_{j<=d} delta_j(u,omega)^2 and the denominator the infinite squared-score sum; neither uses the original operator eigenvalues lambda. The display places limits integral_0^1 integral_a^b before du d-omega, assigning them inconsistently with the stated time-frequency rectangle and later theorem. Keep the archived formula unchanged and record the intended-variable issue; Fubini permits a justified order interchange of the same domain under integrability, not arbitrary reassignment of limits. Summability, measurable score fields and nonzero finite total squared mass are needed for a normalized fraction; totalized real sums, integrals or division must not resolve degenerate cases silently.",
+        "statement_sha256": "e208203681b20d0c0cbe63324a3cc8a875925a9519a382c6653cd4273eecf8eb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral_integral_swap",
+          "type": "{α β E : Type*} → [MeasurableSpace α] → [MeasurableSpace β] → {μ : MeasureTheory.Measure α} → {ν : MeasureTheory.Measure β} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → [MeasureTheory.SFinite μ] → [MeasureTheory.SFinite ν] → {f : α → β → E} → MeasureTheory.Integrable (Function.uncurry f) (μ.prod ν) → (∫ x, ∫ y, f x y ∂ν ∂μ) = ∫ y, ∫ x, f x y ∂μ ∂ν",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Prod",
+          "provides": "Fubini interchange of two Bochner integrals under product integrability and s-finiteness of both measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Prod.lean#L478-L480",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected series and Fubini integral requirements and compared the squared separable-score ratio's limits/differentials with its later theorem counterpart.",
+          "result": "Integrated squared singular-score ratios have analytic ingredients, but the source's differential ordering is inconsistent and Fubini does not silently repair a differently bound integral."
+        }
+      ],
+      "gap": "Resolve the printed time/frequency integration order and establish a finite positive denominator for the exact squared-delta-score ratio."
+    }
+  }
+]

@@ -1,0 +1,461 @@
+[
+  {
+    "interface_id": "local-cc9b3c642dfc09812b45",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "5136cf8b148b0f30c47da50bef61e160627a1e652482363374b670e39cf6d132",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2714",
+        "local_id": "D13",
+        "comparison": "Preserve the abstract vector log-pi^(1), the repeated-coordinate contraction, component O(1) and deterministic O(delta_n^2 M_n^c2) supremum bound with c2>0. Do not identify the coefficient with a derivative or import the stronger twice-continuously-differentiable Assumption 7. The source leaves the ratio outside explicit log parentheses and uses h in K_n after K_n was defined using theta-distance; both issues remain recorded. Big-O here is deterministic, unlike the stochastic likelihood remainder in Assumption 2, and Real.log's zero/negative extensions do not justify density logarithms outside their intended positive domain.",
+        "statement_sha256": "ae1a19f035fc6539d570ff9e3ca5dd5d7a0d5652233f89f4910ab2ad7d86fede"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Bernstein-von Mises, posterior concentration and skew approximation infrastructure; inspected Asymptotics.IsBigO/IsBigOWith, conditional supremum bounds and Real.log's full defining extension; compared the retained Assumption 3 source notes.",
+          "result": "IsBigO expresses the deterministic coefficient and remainder bounds along a specified limiting filter. A real supremum needs the nonempty bounded residual-value set for its usual order properties. Real.log supplies the scalar operation but does not disambiguate the printed log pi(...)/pi(theta-star), and no inspected definition supplies this paper-specific prior expansion."
+        }
+      ],
+      "gap": "The uniform prior expansion still needs its logarithm scope and local-coordinate domain resolved before the generic supremum and big-O predicates can represent the intended assumption unambiguously."
+    }
+  },
+  {
+    "interface_id": "local-a3777a92c3c6d4a98980",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "7a5cf8d30874c1de8dc997fdbe7ab90cc8f31022fc5df3bbe8a69cc891e1ab0c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2714",
+        "local_id": "D15",
+        "comparison": "The inner event is norm(theta-theta-star)>M_n delta_n; the outer data event is posterior mass < delta_n^2, with both strict inequalities retained. The limit is over a specified positive norming sequence delta_n tending to zero, not an automatic n^-1/2 substitution. Kernel measurability supplies measurable evaluation on measurable parameter-tail sets; its Markov property makes those evaluations finite probabilities. This states an assumption and does not prove posterior contraction, invoke correct specification or assume independence of observations.",
+        "statement_sha256": "5306871a16410752bf5ba73a0e523b69807de15d60076f7466f1da933b720b87"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched posterior concentration/Bayes infrastructure and inspected Kernel's measurable measure-valued function, IsMarkovKernel's pointwise probability requirement, and Filter.Tendsto's filter-map definition.",
+          "result": "For each n, a supplied posterior probability kernel maps the observed data to a probability measure on parameters. Evaluating it on the strict tail set and taking the P0^n probability of the strict threshold event gives a scalar probability sequence; Tendsto states its convergence to one. The varying sampling spaces can be handled separately at each n, without imposing an iid law or a common random-variable realization."
+        }
+      ],
+      "gap": "With the posterior kernels and sampling laws supplied, the nested probability condition is directly expressible as convergence of a scalar probability sequence to one."
+    }
+  },
+  {
+    "interface_id": "local-6d03f98f1836d8298cd8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "f0cf47ed258d3017a59d9800aad0d0e63cd871bdea5bc044a4625da19ede26f3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0078",
+        "local_id": "D18",
+        "comparison": "Use the graph determined by the paper's precision-matrix edge convention on its full finite vertex set. Reachability includes length-zero walks, so an isolated vertex contributes its own component. The output p counts connected components, not vertices, edges or the Gaussian block-partition count also denoted p in Theorem 3.3. The representation does not infer a dependence bound merely from component count.",
+        "statement_sha256": "965a8cdd21b387afd1486e1c3790ef26f899a711c2d312e8d1d22a3c8308bb7a"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "SimpleGraph.ConnectedComponent",
+          "type": "{V : Type u} → SimpleGraph V → Type u",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+          "provides": "Connected components as equivalence classes of vertices under graph reachability, including isolated vertices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Connectivity/Connected.lean#L390-L390",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.card",
+          "type": "(α : Type u) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.SetTheory.Cardinal.Finite",
+          "provides": "Natural-number cardinality of a finite type without requiring an explicit enumeration; returns zero for infinite types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/SetTheory/Cardinal/Finite.lean#L41-L42",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched connected-component cardinality; inspected SimpleGraph.ConnectedComponent as the quotient by Reachable, Reachable as existence of a walk, the finite quotient instance, the computable finite-connectivity instance and Nat.card's cardinal-to-natural definition.",
+          "result": "For a finite graph, Nat.card of its ConnectedComponent quotient counts precisely the connected components, including isolated vertices. The quotient is finite whenever the vertex type is finite. Nat.card's zero value on infinite types does not intervene for the paper's finite graph."
+        }
+      ],
+      "gap": "The graph component count is directly represented by Nat.card of SimpleGraph.ConnectedComponent for the supplied finite graph."
+    }
+  },
+  {
+    "interface_id": "local-5d1cdf1c395081b7bee8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "7e32f1219548904e5762566398e01e1457d558c079ab1be347c8b8f1f467d012",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0078",
+        "local_id": "D19",
+        "comparison": "Retain membership in U(M,s,r0) and two separate o(1) restrictions. Equation (5.4) has outer log(d)/rho and powers 19/6, 11/6, 1/6, 1/3 and 1/2 exactly as printed. Equation (5.5) has rho*d0 in its first denominator and rho*d0^2*p in its second; p is the component count and |S| counts the ordered configurations from (5.3). Track d,rho,d0,s,p and |S| along n as appropriate, and require intended positive denominators rather than inheriting totalized real division. These are deterministic scaling requirements, not stochastic little-o assertions or the different Section 6 condition.",
+        "statement_sha256": "193c1c1ac30594617687ef6637294ee213e556bd74fe30657a74bc38b65665bd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "SimpleGraph.ConnectedComponent",
+          "type": "{V : Type u} → SimpleGraph V → Type u",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected",
+          "provides": "Connected components as equivalence classes of vertices under graph reachability, including isolated vertices.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Combinatorics/SimpleGraph/Connectivity/Connected.lean#L390-L390",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.card",
+          "type": "(α : Type u) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.SetTheory.Cardinal.Finite",
+          "provides": "Natural-number cardinality of a finite type without requiring an explicit enumeration; returns zero for infinite types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/SetTheory/Cardinal/Finite.lean#L41-L42",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched StarTrek, graph connectivity and asymptotic-rate infrastructure; inspected IsLittleO/IsBigOWith, Real.log, Real.rpow and its nonnegative-base convention, plus the connected-component quotient and finite cardinality.",
+          "result": "IsLittleO relative to the constant-one sequence expresses each displayed o(1) condition along the chosen asymptotic sequence. Real logarithms and real powers preserve the fractional exponents, and finite graph cardinality supplies the component factor p. These generic operations do not encode the precision-matrix parameter class or prove the specific signal/dependence restrictions or their statistical consequences."
+        }
+      ],
+      "gap": "The paper's precision-matrix class and exact signal/dependence conditions must be assembled using the generic asymptotic and graph components."
+    }
+  },
+  {
+    "interface_id": "local-8b17bbf3ba77ec79b857",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "e8fa414aac0d7efbd0c6116d18e8a16079c29c68fe8f4e2a8edb2b3135864540",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0233",
+        "local_id": "D23",
+        "comparison": "Initialize only V_(H+1)=0 and visit each stage in descending order. Compute Q_h from the already-computed V_(h+1), clip only below at zero, then take the rowwise action maximum and save pi_h before proceeding. This finite-horizon recursion has no discount gamma and no stationary policy output. Keep the kernel (51) zero-count uniform fallback, the distinct penalty (55) capped at H and its unresolved positive-over-zero expressions; do not copy the discounted penalty's inner maximum or 5/N addition. The total N remains the supplied D0 transition count.",
+        "statement_sha256": "b25ad1b9606d333b49117c88523ce38c1bc7617ca1b46d3fa142df2fa93439e4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "List.foldlIdxM",
+          "type": "{m : Type v → Type w} → [Monad m] → {α : Type u} → {β : Type v} → (ℕ → β → α → m β) → β → List α → m β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.List.Defs",
+          "provides": "Sequential left fold with the element index available to each state update; choosing the identity monad gives deterministic indexed updates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/List/Defs.lean#L100-L105",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Bellman and backward value-iteration infrastructure; inspected List.foldlIdxM's sequential accumulator body, Matrix.mulVec, Finset.max' and IsMaxOn's objective-bound definition.",
+          "result": "A fold over the explicit stage list H,H-1,...,1 can carry the next-stage value and the accumulated policy. Matrix-vector multiplication and finite maxima supply each Q/V update, with membership plus IsMaxOn expressing greedy action selection. The fold index itself is not the stage h and must not reverse the recurrence. No complete VI-LCB implementation was found in the searched tree."
+        }
+      ],
+      "gap": "The empirical stage kernels, Bernstein penalties, exceptional-count conventions and greedy choices must be assembled and verified around the generic backward fold."
+    }
+  },
+  {
+    "interface_id": "local-d697b84313147b350e8a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "f9da3c3b0ec2d9027f00492c5a6096b440f3df9f374ce8ea19dc40cc5ff1c172",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0233",
+        "local_id": "D24",
+        "comparison": "Split at the trajectory level: K counts trajectories, not NH or KH independently sampled transitions. Retain the first/remaining K/2 split printed in the algorithm, while recording that the prose describes a random split. Equation (56) produces a potentially noninteger threshold; neither odd-K rounding nor conversion of min(N_trim,N_main) to a sample size is stated. Keep repeated equal transitions distinct via record indices when selecting subsets. A uniform fixed-size subset is available infrastructure, not proof that this is the uniquely specified joint law; do not assume independence across stages inherited from trajectories. Delta is required by the formula/called algorithm despite its omission from the wrapper input line, and N in the subsequent algorithm is not silently replaced by the original KH.",
+        "statement_sha256": "3434b571e9740cb8059c8b2ed15c3bf0b7276afede0715038cb7ffe8f7b0e01b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.powersetCard",
+          "type": "{α : Type u} → ℕ → Finset α → Finset (Finset α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Powerset",
+          "provides": "The finite family of all subsets of a supplied finite set having the specified cardinality.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Powerset.lean#L198-L200",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.bind",
+          "type": "{α : Type u} → {β : Type v} → PMF α → (α → PMF β) → PMF β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProbabilityMassFunction.Monad",
+          "provides": "Sequential discrete sampling: mix a conditional output law over the first-stage law; shared first-stage randomness need not preserve unconditional independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProbabilityMassFunction/Monad.lean#L105-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched finite subsampling, fixed-cardinality subsets and discrete sampling; inspected Finset.filter, powersetCard and its membership equivalence, uniformOfFintype, and PMF.bind's mixture formula.",
+          "result": "Filtering indexed transition records forms each eligible (state,stage) group. powersetCard enumerates subsets of a supplied integer size and uniformOfFintype can sample uniformly from a nonempty such family; bind can combine sequential choices. These components neither choose the source's unspecified rounding nor determine an unstated joint sampling law or prove the wrapper's guarantee."
+        }
+      ],
+      "gap": "The wrapper needs integer split/trimming conventions and a precise indexed subsampling law before it can be assembled with the finite sampling components and VI-LCB."
+    }
+  },
+  {
+    "interface_id": "local-4cf5bf609a885fad3788",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "aab8a467d8cf9eb5a84b519ce9d95bbd816c68c8abf55f98136a14bc324975d4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1152",
+        "local_id": "D25",
+        "comparison": "Take N=floor(n/b) indices with replacement from all overlapping starts and hold each draw fixed across theta. Do not draw new indices independently at every candidate theta, and do not substitute the single fitted-parameter collection from Section 5.2. Repeated starts and coincident whole functions keep their multiplicities. The source samples periodogram sub-average functions, not independent time points or a concatenated series. For a full random function-space statement, specify its sigma algebra and relevant measurability; fixed-data finite-index sampling alone does not establish bootstrap process convergence.",
+        "statement_sha256": "6bba68286f498ea296067d5143b681d96e556e988ae3001e6e09fc1148029194"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        },
+        {
+          "name": "Multiset.map",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Multiset α → Multiset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Multiset.MapFold",
+          "provides": "Maps each element of a multiset while preserving and combining multiplicities of equal outputs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Multiset/MapFold.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched overlapping-block spectral bootstrap and function-indexed resampling; inspected uniformOfFintype, infinitePi's probability branch and finite-cylinder product formula, and Multiset.map's preservation of multiplicities.",
+          "result": "For fixed observed data, sample N independent indices uniformly from the nonempty finite set of n-b+1 starts. Each sampled index selects the entire supplied theta-indexed block-statistic function, so every theta shares the same bootstrap experiment. Mapping an index multiset preserves repeated selected blocks. This avoids requiring decidable equality on the whole function space merely to sample."
+        }
+      ],
+      "gap": "The shared-index resampling is available, while the data-dependent function-valued law and its spectral empirical-likelihood process still require construction and verification."
+    }
+  },
+  {
+    "interface_id": "local-fd9a0ea35649ccd723bd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:49:03.474371+00:00",
+    "source_interface_sha256": "f175d9972093f204afae4828652a74ce0355cb9d94d0a1d1ab8a456e8eae789e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1152",
+        "local_id": "D26",
+        "comparison": "Profile over the full h-fiber at vartheta-hat_n=h(theta-hat_n); it need not reduce to theta-hat_n or a finite set. The source prints max, so an arbitrary supremum must not replace an attained maximum without justification. Every candidate theta uses the same function-valued resampling from D25. Keep N^N and -2 log normalization and distinguish the fitted smooth parameter from the true vartheta_0 used for the comparison distribution. IsMaxOn by itself does not supply fiber membership, an optimizer or a selection rule, and Real.log 0=0 is not the intended extended log-ratio convention.",
+        "statement_sha256": "0f328498f802d4ca944032c77667f8c86195f819c0241cdc43d140ae0c05a6be"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched profile likelihood and constrained maximization; inspected Set.preimage, IsMaxOn with its separate membership requirement, and Real.log's definition at positive, zero and negative arguments.",
+          "result": "The fiber h(theta)=vartheta-hat_n is the preimage of a singleton. Membership in that fiber plus IsMaxOn expresses an attained maximum of the supplied bootstrap likelihood on it. The real logarithm gives the normalized statistic on positive likelihoods but not an extended infinite value at likelihood zero. The searched declarations do not establish existence of the profile maximum or bootstrap validity."
+        }
+      ],
+      "gap": "Attainment and positivity of the constrained bootstrap likelihood, together with the shared resampled likelihood process, remain to be established for the printed profile statistic."
+    }
+  }
+]

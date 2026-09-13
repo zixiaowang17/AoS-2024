@@ -1,0 +1,68 @@
+[
+  {
+    "interface_id": "local-30cf378e0c202fa684ff",
+    "status": "composable",
+    "names": [
+      "Nat.find"
+    ],
+    "comparison": "Use Nat.find for the predicate d>=1 and s_d>v, with an existence proof for a crossing in the applicable threshold/accuracy regime. Nat.find ranges over naturals including zero, so the source positive-integer convention needs the explicit index restriction or a shifted index. Keep the threshold strict: an index with s_d=v does not qualify. The equivalent inequality 1-s_d<1-v follows by real arithmetic without requiring a numerical search algorithm. When a source terminating sequence is used, retain its admitted finite index range; no failed-search zero default is supplied by Nat.find. Preserve the source Latin v and its following s_d^* prose rather than correcting the original statement or changing later equality-boundary assertions.",
+    "gap": "Nat.find represents the first qualifying positive index once crossing existence and the source index domain are supplied.",
+    "searches": [
+      [
+        "Inspect registered Nat.find witness-based minimum against p0550 D36 and the terminating/strict-threshold boundary",
+        "The construction requires an existing natural witness and an explicit positive-index restriction; it does not supply a default when the threshold is never crossed."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-e4ee9bd45553dfeb22ba",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.condDistrib",
+      "MeasureTheory.integral",
+      "MeasureTheory.lintegral",
+      "MeasureTheory.eLpNorm"
+    ],
+    "comparison": "Use a conditional law of epsilon given X=x and require its first moment to be zero and its absolute pth moment to be at most one common finite v_p for every x in the cube, with p>=1. The nonnegative moment is represented by lintegral of |epsilon|^p; finiteness then supports the ordinary first moment on a probability law, avoiding a nonintegrable real-integral fallback. eLpNorm can express the corresponding moment-root bound but is not literally the unrooted v_p formula without raising to p. A regular conditional kernel is identified only almost everywhere by the joint law, whereas the source quantifies over every x; a version satisfying that pointwise requirement must be specified and cannot be inferred from an arbitrary condDistrib version. Do not strengthen p>=1 to p>=2 except where Theorem 3.3 explicitly does so, and do not infer noise-design independence or sub-Gaussian tails.",
+    "gap": "Conditional kernels and absolute moments express the condition, with a pointwise conditional version required to preserve its all-covariates quantifier.",
+    "searches": [
+      [
+        "Inspect condDistrib, nonnegative integration and eLpNorm against p1845 equation (3.1)",
+        "The framework retains finite absolute moments, but a chosen regular conditional kernel supplies only almost-everywhere identification without the source's pointwise version condition."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-26596fb414db25bce3e5",
+    "status": "composable",
+    "names": [
+      "Asymptotics.IsBigO",
+      "Filter.Tendsto"
+    ],
+    "comparison": "Represent T_m as a deterministic positive monitoring-horizon sequence and require divergence to infinity plus an eventual lower bound c*m^varsigma<=T_m for some c>0 and varsigma>=1. Equivalently the positive sequence m^varsigma is IsBigO of T_m; the order of its two arguments is essential. Cast integer sample sizes to reals before the real power. This is an ordinary eventual deterministic Omega statement, not the separately defined almost-sure random-order convention. The bound allows much faster growth and gives no upper rate, limit ratio or exact power-law identity.",
+    "gap": "Reversed big-O and filter divergence directly express the deterministic lower-growth monitoring condition with its exponent range.",
+    "searches": [
+      [
+        "Inspect IsBigO/IsBigOWith and Tendsto against p1646 D6",
+        "The norm-based eventual bound represents the lower rate on positive sequences with arguments reversed; it does not imply an upper growth bound or almost-sure statement."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-e645ee7a2006320bf1ff",
+    "status": "composable",
+    "names": [
+      "Set.ofPred",
+      "Function.support",
+      "Finset.card"
+    ],
+    "comparison": "Represent Theta(a,s_n) by support cardinality at most s_n and existence of an injective choice of s_n coordinate indices such that |theta_(i_j)|>=a_j for every j, with all a_j>0. Positivity and distinctness force at least s_n nonzero entries, so together with the upper sparsity constraint the support has exactly s_n entries; this implication must be proved rather than asserted from an at-most condition alone. Preserve arbitrary unknown positions and signs, heterogeneous strengths and their existential matching. The formula does not assign a_j to coordinate j, sort the strengths or require equal signal sizes. For s_n=0 the finite injection and inequalities are vacuous and the sparsity constraint admits the zero vector, although the paper's asymptotic regime later has s_n diverging.",
+    "gap": "Set predicates, support counting and an injective index assignment express the heterogeneous-strength class without fixing signal positions or order.",
+    "searches": [
+      [
+        "Inspect Set.ofPred, Function.support and Finset.card with p1564 D2/D18",
+        "The finite support constraint plus distinct positive-threshold witnesses expresses the exact class; no ordering or equal-strength assumption is needed."
+      ]
+    ]
+  }
+]

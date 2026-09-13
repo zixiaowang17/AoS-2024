@@ -1,0 +1,64 @@
+"""Preserve ambient source conventions and unresolved meanings without editing quotations."""
+import json
+from pathlib import Path
+from save_inventory import PID
+ROOT=Path(__file__).resolve().parents[1]
+aux=[]
+
+def add(lid,text,pages,location):
+    aux.append(dict(local_id=lid,statement_original=text.strip(),evidence=[dict(page=p,location=location) for p in pages]))
+
+add('A1',r'''
+The spectral norm of a matrix $\mathbf A$ is denoted as $|\mathbf A|_s$ and the determinant of a matrix $\mathbf A$ is denoted as $\det\mathbf A$.
+The Euclidean norm of a vector $\boldsymbol\alpha$ is represented as $|\boldsymbol\alpha|$.
+''',[2],'Notation — matrix and vector norms')
+add('A2',r'''
+The symbols $c$ and $C$ denote absolute constants, which may vary in different instances.
+The notation $\mathbf e_k$ refers to the $k$th column of an identity matrix.
+The transpose of a vector $\boldsymbol\alpha$ is denoted as $\boldsymbol\alpha^T$.
+''',[3],'Notation — constants, basis vectors and transpose')
+add('A3',r'''
+Assuming $\mathbf z$ follows our model, we consider any $p\times p$ nonrandom matrix $\mathbf A$ and a nonrandom symmetric matrix $\mathbf B$.
+''',[5],'Lemma 2.1 — domain of the quadratic-form moment functionals')
+add('A4',r'''
+We present a corollary for the renormalized case where $\Theta_n=\mathbf T_n^{-1}$, leading to $\Psi_n=\mathbf I_p$. It is demonstrated that in this scenario, the limiting parameters in the general CLT manifest a more accessible form and offer computational simplicity. Furthermore, we apply this corollary to a test problem in the subsequent section.
+''',[12],'Section 2.6 — renormalized case and its application to Section 3')
+add('A5',r'''
+Under the Assumptions of 2.3, assume additionally that $\Theta_n=\mathbf T_n^{-1}$, then we have the mean and (co)variance functions as
+''',[12],'Corollary 2.1 — inherited conditions and normalization')
+
+resolution={
+'shared':'Dimensions p and n vary under D12; latent coordinates and covariance come from D4/D6/D10, independent Bernoulli observation indicators from D5, and mask-data independence from D11. Bold D_n is rectangular, blackboard D_j diagonal, blackboard P the known diagonal observation probabilities. Matrix multiplication, Hadamard product, transpose, trace, inverse, identity, covariance and positive covariance square roots are ambient matrix operations; A1 and A2 preserve printed conventions. Probability, expectation, little-o, weak convergence, tightness, Gaussian laws, support and upper half-plane C+ are ambient. General matrix positivity, inverse and log domains need explicit choices for formalization where the source omits them. The reviewed artifacts transcribe and resolve statements, not certify their mathematical truth.',
+'2.1':'D1 and D2 give ESD and LSD; D6/D7 the matrix product; D10-D13 the expressly named A-D conditions. D16 with D15 supplies uniform-CDF convergence with superpolynomial probability control. z and m are bound in the theorem; D3 fixes the transform sign. F and H are different laws. The uniqueness subset requires positivity of both m and the companion expression; no atom or support restriction is invented.',
+'2.2':'The body binds a,b and the interval; the condition a>0 is explicit and the support exclusion is eventual in n. D17 resolves the limiting and finite-parameter laws, subject to the printed c/c_n versus y/y_n mismatch. D14 is the strong event-probability convention. A-D are inherited Section 2 model conditions, not repeated in the theorem. Eigenvalues, spectral supports and the meaning of eventual high-probability events remain ambient; no uniform interval quantification or endpoint condition is added.',
+'2.3':'The theorem binds kappa, analytic f_j, Gaussian coordinates, f,g, contours and z variables, and defines both blackboard T_n transforms plus a(z),d_2(z_1,z_2) inline. These inline bindings need no separate invented APIs. D18 supplies L^c exactly without p scaling, D17 supplies finite companion-transform context, D13 supplies H/Psi_n/Sigma_n, D8 supplies P_n, and D10 supplies nu_4. D19 and D20 preserve all terms in the two moment functionals; A3 supplies their source domain. Indicator I_(0,1), extreme eigenvalues, derivatives and contour integrals are ambient. The contours paragraph on page 11 is part of the theorem. Existence of the parameter limits and the limiting unindexed companion transform are not independently specified by A-D in the displayed main-text definitions.',
+'3.1':'D22 resolves H_0, D24 the calligraphic test statistics and T_0, D21 the observed Gram matrix with known probabilities, D23 the renormalized scalar, and D12 y_n. mu_L,mu_F,sigma_L^2,sigma_F^2 are bound by the theorem. A4 and A5 preserve the renormalized CLT context connecting Section 2 to the Section 3 tests; A-D links are inherited context, not additional quoted theorem text. N(0,1) and distributional convergence are ambient. Positive square-root choices for sigma_L/F, nonzero variances, T_0 invertibility and a positive log determinant are not all stated explicitly. The p/n in (0,1) restriction is printed only next to the log-determinant limit.'}
+issues=[
+'The registered source is the final 22-page published PDF. It has no appendix body; page 21 contains only an external supplement notice and page 22 ends references. The supplement was not opened.',
+'Four actual Theorems are inventoried. Definitions 2.1-2.4, Lemmas and Corollary 2.1 are not extra theorem records. Theorem 2.3 continues onto page 11, including all contour conditions.',
+'The source calls the mechanism missing at random but its model explicitly uses independent Bernoulli indicators and Assumption B independence of the full mask and data matrices. No general conditional MAR model is substituted.',
+'The p_j are probabilities of being observed, despite wording missing probability. They may vary with coordinate and dimension. No explicit uniform positive lower bound is stated in the copied assumptions.',
+'S_n is divided by n, not pairwise observed counts N_jk. The sample is population-centered, with no empirical mean subtraction. Theorem 3.1 additionally assumes known observation probabilities through Section 3.1.',
+'High probability means failure o(n^-ell) for every ell>0. Definition 2.2 requires Kolmogorov distance convergence in this strong sense, not merely weak ESD convergence.',
+'Theorem 2.2 and the centralized LSS definition use c and c_n for parameters elsewhere called y and y_n. Equation (2.3) prints y with finite H_n while (2.2) uses y_n. All originals retain these discrepancies.',
+'The companion transform is underlined, not overlined. The finite relation is explicit on page 7, but the unindexed underline m(z) in Theorem 2.3 is used without a separate limiting definition there. The usual limiting relation is an interpretation, not a replacement original quotation.',
+'Theorem 2.3 states a CLT for L^c defined as an unscaled difference of ESD integrals; no p multiplier occurs in that definition or statement. This apparent scaling issue is preserved and not repaired.',
+'Assumption D uses a square root of auxiliary Theta_n, but B only explicitly requires it to be nonrandom. Positive semidefiniteness or another square-root convention, and real spectral ordering of S_n Theta_n, require clarification if not supplied by an intended ambient matrix class.',
+'Assumption D bounds the sequence Sigma_n Theta_n, not the separate norms of Sigma_n and Theta_n. The law H is the spectral limit of Psi_n, not of Sigma_n alone.',
+'Theorem 2.3 assumes analytic functions on an open interval containing its printed endpoints. Complex extensions and contour domains are not separately specified. The final paragraph requires positive closed contours enclosing the support and nonoverlapping in the covariance expression.',
+'Theorem 2.3 defines a(z) and d_2 through limits involving eigenvectors and masks. Existence, uniqueness along the sequence and sufficient convergence conditions for these limits are not separately enumerated in A-D. No extra assumptions are silently added.',
+'P^(5) is the fourth-cumulant expression P^(4)-3(P^(2))^2, not a fifth moment. I_2 and II are separate functionals; the factor nu_4-3 is outside II. Every term, including the continuation of II onto page 6, is retained.',
+'The original domain in Lemma 2.1 allows a general nonrandom A and symmetric B. Its displayed product of centered quadratic forms has no complex conjugation. Application to complex resolvent matrices needs that convention retained.',
+'The renormalized scalar a_P,Sigma uses p^-1 and inverse T_n; it is not the general analytic a(z), which uses n^-1. The first a subscript in Theorem 3.1 prints bold Sigma and subsequent ones plain Sigma; both source forms are retained.',
+'Theorem 3.1 prints only Under H_0. Its A-D conditions are linked as inherited context via the model adopted in Section 3.1 and the renormalized corollary explicitly introduced as the source of the test application; these are not falsely described as literal theorem phrases.',
+'T_0 inverse, logarithm domain and positive nonzero variance scales are needed for the test statistics. No source assumption in the copied passages separately guarantees every such condition. The displayed trace notation is conventionally read as trace of a squared matrix; the original placement of the exponent is preserved.',
+'Theorem 2.2 uses for all large n both for support exclusion and the no-eigenvalue conclusion, together with high probability. The precise event sequence versus eventual-event quantification is retained as written, without replacing it by an almost-sure statement.',
+'Epsilon-nets, covering numbers, Lemma 2.3 norm-bound proof tools, resolvent proof decompositions and Section 5 martingale inequalities do not enter the theorem-definition closure merely because they are used in proofs. Simulation designs and rejection thresholds after Theorem 3.1 are not theorem assumptions.'
+]
+excluded=[dict(reference='10.1214/24-AOS2392SUPP',location='PDF page 21 supplement notice',status='excluded_not_opened',reason='External supplementary proofs of Lemmas 2.1 and 2.2 and Theorem 2.3 are outside the main-text-only scope.'),dict(reference='Background random-matrix references [1-3,11,14-18]',location='Main-text discussion and reference list',status='external_not_expanded',reason='Original local statements and definitions are retained; external results are not imported as missing hypotheses or additional theorem entries.')]
+
+def main():
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(dict(paper_id=PID,scope='main_text_only',auxiliary_source_passages=aux,statement_resolution=resolution,source_issues=issues,excluded_references=excluded),indent=2,ensure_ascii=False)+'\n')
+    print(f'Saved {len(aux)} ambient passages and {len(issues)} source notes.')
+
+if __name__=='__main__': main()

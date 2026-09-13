@@ -1,0 +1,614 @@
+[
+  {
+    "interface_id": "local-5d3e410329234fa1bbcc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "74684c49fe7b513ef7aba47dd08ecd734b1714c03be7dbcfd7d7aa7934dd6dc5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D20",
+        "comparison": "Keep delta in (0,1/2), the separate kappa ranges, d0 as the stated rational-expression ceiling plus one, m=ceil(x0^2*d), and c0=c(1+kappa1/4,1+kappa1/2,1-x0^2,(1-x0)/2). Integer ceilings can be converted to natural counts only after nonnegativity. c1 and c2 retain their common square-root factor and different kappa coefficients. The early epsilon_i is half an interval minimum of abs(f(z+c1/sqrt(d))-f(z)); the later case is half a maximum over y of another interval minimum, not a derivative or a maximum/minimum interchange. Positive d, nonempty intervals, link arguments in [-1,1], finite extrema and actual attainment/positive values require their own justification. The source declares i>=0 but gives cases only for 1<=i<=d0 and d0+1<=i<=m; do not invent epsilon_0 or a continuation beyond those cases. The function c remains unresolved because its defining reference is appendix-only, and no Theorem 9 performance conclusion is imported to define Algorithm 1's parameters.",
+        "statement_sha256": "63e1f26cecce94c77a504ef988ba0cc08b52626e164477bfc523b35738fd56a6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.ceil",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "Smallest integer greater than or equal to the supplied value; equality stays at that integer rather than increasing it.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L252-L253",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Int.ceil in Algebra/Order/Floor/Defs, Real.sqrt in Analysis/Real/Sqrt and conditional supremum/infimum bounds in Order/ConditionallyCompleteLattice/Basic against every formula of D20.",
+          "result": "Ceilings, square roots and bounded real extrema provide ingredients for the numerical block; they do not define the appendix-only c function or establish positivity, attainment and domain validity of its finite differences."
+        }
+      ],
+      "gap": "Assemble the exact numerical block and two finite-difference cases, retaining unresolved c and sequence endpoints and proving all extrema and link-domain conditions separately."
+    }
+  },
+  {
+    "interface_id": "local-4fe96a243f82523636ab",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "4698f347a9b135bd03ca4d1cc53f3b8837ff6b42b1305a066016d9b1a757c75e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D4",
+        "comparison": "The displayed max binds a-star while f_theta-star is evaluated at free a; preserve this source defect and record that Definition 2 gives the intended bound ridge comparator f(inner(theta-star,a-star)). Once resolved, integrate T times that fixed-parameter comparator minus the sum of f_theta-star(a_t) under the sequential law generated by a policy and theta-star. This is expected mean-reward shortfall, not realized noisy-reward regret, Bayes averaging over theta-star or a minimax quantity. IsMaxOn only compares values and requires action-set membership and attainment separately. In the bounded ridge specialization the integrand is finite and measurable under the policy assumptions; the generic family in this passage needs its own integrability hypotheses.",
+        "statement_sha256": "fcf0c8f52e7d82d6e0e06b0df052fed5fc4a25690944c5619515604e2396842e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for ridge-bandit terminology and inspected integral, IsMaxOn and Finset.sum_apply against D4 and the correctly bound comparator in D5.",
+          "result": "An expectation of a finite sum of mean rewards and a best-action value is expressible, but the source's general display has an unbound action variable and does not itself define that maximum correctly."
+        }
+      ],
+      "gap": "Define expected cumulative mean-reward regret after resolving the printed comparator-variable mismatch and supplying the policy law and attained best-action value."
+    }
+  },
+  {
+    "interface_id": "local-6fa5b9978641da09eb1a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "7f607ab6b885694445b4004d1bcee7d11df0efe7cde51116db9b2f2e76226dfe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D5",
+        "comparison": "Use the Euclidean sphere for theta-star, the standing unit-ball action set, and one policy rule independent of the unknown parameter. Adapted with the pre-observation history captures a_t measurable at H_{t-1}; an unshifted reward-history filtration would expose the current reward. Inside the expectation keep T*max_a-star f(inner(theta-star,a-star)) minus the finite sum of f(inner(theta-star,a_t)), then sup over sphere parameters, then inf over all admissible policies. Nonempty domains, best-action attainment or an explicit supremum interpretation, and measurability remain needed; bounded f gives bounded mean regret. Theorem 6's algorithm yields an upper bound on this infimum, not equality with every policy's regret. The ball-parameter variant is separately D24.",
+        "statement_sha256": "6bfb6afeac2022a1c4d3edcc622ba4fe984fd2ec3d2968984d01e2313d3e49da"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Adapted in Probability/Process/Adapted and the real supremum/infimum and expectation declarations against Definition 2 and D1/D2's history and domain conventions.",
+          "result": "Shifted-history adaptation, expectation and nested conditional-complete extrema express ingredients of minimax ridge regret, without constructing the common policy class or proving a regret theorem."
+        }
+      ],
+      "gap": "Construct history-adapted policies and their parameter-indexed laws, then take the infimum of worst-case expected regret over sphere parameters with unit-ball actions."
+    }
+  },
+  {
+    "interface_id": "local-8b270ddbe6c8a3b91346",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "ad5ba40857f0d0e1d24a4a1d34ce9b2ba3fb34e45e52310234561c220a5315ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D9",
+        "comparison": "Retain the interval [1-gamma,1] and the ordered chain c_f<=min f'<=max f'<=C_f. This is a local bounded-slope condition, not a globally positive derivative or an assertion that f is exactly affine. The real-valued deriv primitive presumes a function on all reals, while the source link is on [-1,1], so an extension or within-domain derivative convention at endpoints must be supplied; its total value outside differentiability cannot certify the hypothesis. Nonempty bounded derivative ranges allow sInf/sSup inequalities, but differentiability alone does not imply derivative extrema are attained. The printed assumption does not fully quantify positivity and range of c_f,C_f,gamma; record intended positive local scales when used rather than rewriting the source or silently adjoining Assumption 1.",
+        "statement_sha256": "49a0e39f2df0d3d9557a194d5e90502625744f8da62f91037c80dd4787169260"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "deriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "Scalar derivative as the Frechet derivative evaluated at one, with the total derivative convention outside differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L153-L154",
+          "link_checked": true
+        },
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected deriv in Analysis/Calculus/Deriv/Basic, closed interval membership and conditional-extremum bounds against the local slope assumption D9 and retained source caveats.",
+          "result": "A derivative with pointwise upper and lower bounds on the specified interval can be represented; total derivatives and real extrema do not establish differentiability, extrema attainment or the missing parameter ranges."
+        }
+      ],
+      "gap": "State differentiability and the local derivative bounds with explicit endpoint/domain and constant conventions, preserving the source's stronger printed minimum/maximum wording."
+    }
+  },
+  {
+    "interface_id": "local-df8773ec35c0d8ee12e9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "2987d666f120fa35b62e41e6160768e3895613c4ac910749ddcc2741fc6e9ad2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D15",
+        "comparison": "For a fixed current t, every summand s<=t uses the same theta-hat_t against the true mean at a_s; it is not the sum of errors made by theta-hat_s over time. The output arrives at the end of round t. A probability bound for this event needs the oracle-policy experiment, a specified failure level and clarification whether one event is simultaneous in t; the phrase with high probability alone does not fix these. The known EstOff_t asymp d uses the paper's constant-and-polylogarithm convention, so it is not ordinary two-sided constant-factor asymptotics. Theorem 5's chosen offline oracle is proper (sphere valued), but propriety is not automatically part of the standalone error inequality and no least-squares implementation is specified.",
+        "statement_sha256": "58d1954099b690caf0b7e5e475285e25e7a49f59c5b3ba2b71f500670d3baab7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for regression-oracle terminology and inspected event probability, finite sums and observation-generated sigma-algebras against D15 and D14.",
+          "result": "The offline squared-prediction-error event and its probability can be expressed, but its oracle output law, information timing, high-probability level and soft-order budget are separate source-specific data."
+        }
+      ],
+      "gap": "Define the end-of-round oracle output and its single-fit cumulative prediction-error guarantee with the source's probability and polylogarithmic-budget conventions."
+    }
+  },
+  {
+    "interface_id": "local-5ad6232315509b60c1e5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "56cafdd2c29eeda3f3f125389aceabd8324a428b87f892ea050d9d439489b68c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D14",
+        "comparison": "The estimate theta-hat_t is returned at the beginning of round t, and summand s uses theta-hat_s, retaining the historical prediction sequence rather than a current fit to all previous actions. Express the probability of the squared-error sum being at most the known EstOn_t under a supplied oracle-policy law; high-probability and time-uniformity details cannot be inferred from that phrase alone. The paper's asymp d notation permits polylogarithmic factors and must not be replaced by ordinary IsBigO plus its reverse. Theorem 5 selects an improper online oracle, meaning sphere membership is not required; this does not require every output to lie outside the sphere. Such unconstrained outputs may yield inner products outside the given link domain [-1,1], so an extension or prediction-domain convention remains unresolved rather than being granted by total function notation.",
+        "statement_sha256": "8f87c19bf76e7af99f64b29bbb77b0213ada90164afdf07b75cadcafb3f52f34"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for online regression oracle declarations and inspected probability, finite function sums and comap; compared start-of-round D14 with end-of-round D15.",
+          "result": "Finite cumulative prediction-error events are representable, but no specialized online regression oracle was found and the source's improper-output link domain is unresolved."
+        }
+      ],
+      "gap": "Define the start-of-round output sequence and its cumulative online guarantee, retaining the probability/budget conventions and resolving link evaluation for improper outputs."
+    }
+  },
+  {
+    "interface_id": "local-2bb164575585e27dbc1f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "4520b07752b7f5bcd7cf1dfb2a61c0713d9d027bb9af351728f7bddd89b832ab",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D16",
+        "comparison": "Generate the learner's available information from actions and oracle estimates rather than adding raw rewards as an extra observation channel. The displayed transcript is schematic: the online estimate arrives at the beginning of its round and the offline estimate at the end, so the filtration must reflect the chosen variant before imposing Adapted. The oracle satisfies error bound (5) or (6), not both simultaneously, and the learner does not control estimates beyond the guarantee. Proper means every output is on the sphere; improper removes that requirement. Theorem 5's existence of a difficult oracle followed by a statement for every learner is not an assertion that every oracle is difficult or that the learner can select a favorable one. Generic filtration primitives do not settle these experiment laws or quantifiers.",
+        "statement_sha256": "d642bcfb624ac6f17a1012ccdaef0f3861e1d0df965293d26d8b7dcc70ba1646"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Filtration",
+          "type": "{Ω : Type u} → (ι : Type v) → [Preorder ι] → MeasurableSpace Ω → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Process.Filtration",
+          "provides": "An increasing family of sub-sigma-algebras of a fixed ambient measurable space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Filtration.lean#L50-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected comap, Filtration and Adapted in their measurable-space/process modules against D16's oracle-only transcript, the online/offline timing variants and the propriety naming context.",
+          "result": "Observation-generated sigma-algebras and adapted processes can model restricted information; they do not choose the oracle or supply its two alternative prediction guarantees."
+        }
+      ],
+      "gap": "Construct the oracle-transcript experiment with the correct online or offline timing and learner information, keeping the adverse-oracle and learner quantifiers in order."
+    }
+  },
+  {
+    "interface_id": "local-dc6e66e6c3a47595472d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "9ae690e4b0942b6f2ce6b04ad4efd6d9659f5d2939b013895a46794a6a85a413",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D24",
+        "comparison": "Use Metric.closedBall 0 1 in EuclideanSpace, not the default coordinatewise sup-norm function space. Include the origin, the interior and boundary parameters while retaining the sequential ridge observation law, unit-ball actions and mean-reward comparator. Replace the sphere supremum of Definition 2 explicitly; do not inherit it unchanged merely through a dependency link. Viewing the ball as radii from 0 to 1 requires the radius-zero case, and a normalized direction is unavailable at the origin. The source's statistical-complexity equivalence across spheres is a theorem to establish, not provided by closedBall or ordinary supremum bounds.",
+        "statement_sha256": "9382bc1bd6b6dcfaa6853c441630c96e80d1a8a0ed9587f54a21f9bb04ab9285"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Metric.closedBall, real supremum bounds and integral against D24's explicit sphere-to-ball parameter change and D5's original minimax objective.",
+          "result": "A Euclidean closed unit ball and a supremum of parameter-indexed risks are available; the radius-dependent equivalence claimed by the paper is not a consequence of the set constructor."
+        }
+      ],
+      "gap": "Define minimax ridge regret with the parameter supremum over the closed Euclidean unit ball and prove the claimed reduction across radii separately."
+    }
+  },
+  {
+    "interface_id": "local-497604535c8b434979bb",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "52c5b5cb2b1a54c1615e5ddde64e5af71bed081ef669247fa27af63d73111426",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D11",
+        "comparison": "Set the objective to sum_{s<t}(r_s-f(inner(theta,a_s)))^2 and require both theta-hat_t in the Euclidean unit sphere and IsMinOn of that objective there. The finite index set excludes the current reward. Use pre-observation history for measurability; choosing an arbitrary minimizer pointwise does not prove a measurable procedure. This is a nonlinear ridge-response least-squares criterion, not a closed-form linear least-squares estimator, and the domain is the full sphere rather than Algorithm 4's cap inner(theta,a0)>=1-gamma. An empty past leaves all feasible sphere points tied; no initialization or tie selection is invented. Theorem 4's adverse tie rule concerns the later action selection and does not by itself choose this estimator.",
+        "statement_sha256": "1008a58108061cb4c1feb393a49a6e8404edab20262fdd39d52d6a1663dd4277"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected IsMinOn, shifted-history Adapted and finite sums against D11's sphere-constrained least-squares objective and Algorithm 4's distinct cap constraint.",
+          "result": "A feasible minimizer of the finite past squared-residual objective is expressible; existence, measurable selection and tie conventions are not supplied by the minimizer predicate."
+        }
+      ],
+      "gap": "Construct a measurable sphere-valued minimizer of the squared residuals from rounds strictly before t, with its existence and tie conventions stated."
+    }
+  },
+  {
+    "interface_id": "local-f4e83d45b3bc79997921",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "28300a08e45777734f8349eb7c4a5d0a6d4292ad0c52bdcfcc93f4454d89019f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D12",
+        "comparison": "The set consists of sphere parameters theta for which sum_{s<t}(f(inner(a_s,theta))-f(inner(a_s,theta-hatLS_t)))^2<=Est_t. Preserve the nonstrict boundary and prediction-space center; this is neither a Euclidean ball around theta-hat nor the residual objective compared directly with observations r_s. Est_t is known to the learner and of order d with the paper's permitted polylogarithms, not a specified formula or ordinary constant-factor equivalence. Set.ofPred forms the random set after the least-squares selection is supplied, but does not prove measurability of a set-valued selection, a coverage probability, a failure level or time-uniform coverage.",
+        "statement_sha256": "ff3efebdf2097c92632bb1ed213608ad82f404d20a1752292aafdfb3969fa58c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.ofPred",
+          "type": "{α : Type u} → (α → Prop) → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Forms the set of elements satisfying a specified predicate, including a function class restricted by additional conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L67-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Set.ofPred and Finset.sum_apply against the full confidence-set formula D12 and the archived soft-order convention.",
+          "result": "A sphere-restricted sublevel set of finite prediction discrepancies is directly representable, but its calibration and high-probability coverage remain statistical content."
+        }
+      ],
+      "gap": "Define the sphere sublevel set centered at the selected least-squares predictions and supply the known estimation budget and coverage guarantee separately."
+    }
+  },
+  {
+    "interface_id": "local-9de45a103e3929afb3a1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T03:51:55.684664+00:00",
+    "source_interface_sha256": "690d5f9bf98551ff7e6ac322b9ad34e5f46f0412b2eb65081dce8df6b4a408a2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2557",
+        "local_id": "D13",
+        "comparison": "For each admissible action a define the optimistic value as max_{theta in C_t} f(inner(a,theta)), then choose a_t in the outer argmax over A. IsMaxOn requires separate membership in A; replacing either printed maximum by real sSup needs nonempty bounded value sets and cannot by itself certify attainment. Keep optimization over the full confidence set, not only the least-squares center, and require a history-measurable selection. Source ties may be broken arbitrarily in the algorithm, whereas Theorem 4 asserts existence of a particular tie-breaking rule yielding its lower bound; that does not establish the bound for every possible rule. No specialized Eluder-UCB implementation was found in the bounded Probability search.",
+        "statement_sha256": "1be3bcf647200b61c1aef20c1826e1b38ef5dcc0a738d232f0027fb8e0d0edd6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Adapted",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → {β : ι → Type w} → [∀ i, MeasurableSpace (β i)] → MeasureTheory.Filtration ι m → ((i : ι) → Ω → β i) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Adapted",
+          "provides": "Measurability of each process value with respect to the corresponding filtration time; use a shifted history for pre-observation actions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Adapted.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability for Eluder declarations and inspected IsMaxOn, conditional-supremum bounds and Adapted against the nested optimistic action rule D13 and its explicit tie clause.",
+          "result": "A feasible maximizing action for an optimistic parameter-value function can be specified, but neither nested attainment nor a measurable action rule or its regret lower bound follows from these declarations."
+        }
+      ],
+      "gap": "Construct a history-measurable maximizer of the confidence-set optimistic reward over admissible actions, retaining arbitrary ties and theorem-specific adverse tie choices."
+    }
+  }
+]

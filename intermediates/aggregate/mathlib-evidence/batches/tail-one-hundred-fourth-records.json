@@ -1,0 +1,1028 @@
+[
+  {
+    "interface_id": "local-3746316ba66706126e6d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "2d6ed28f1d094bb937902d7dcf8da3186a43d407cb317063f774ee874208e385",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D3",
+        "comparison": "The left window is t=i-bn,...,i-1 and the right is t=i,...,i+bn-1, each of integer length bn and normalized by bn. The bandwidth satisfies b→0 and bn→infinity. J(u) is gamma_k at a true break and zero otherwise, while its estimate subtracts the right mean from the left. At an isolated positive mean jump that contrast has the opposite expected sign, as the saved source review notes; no reversal is made to reconcile later formulas. Enough observations and interior i are required so both windows exist. Do not treat the estimate as a centered derivative or change the inclusive endpoints.",
+        "statement_sha256": "05820ecb2242e46634121aa076954810f2c6895c43b488968a90bda8eeb6a41a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Finset.sum_div and Tendsto; compare both local averaging intervals, their common integer length and the archived jump-sign caveat",
+          "result": "Finite averages and the two bandwidth limits are expressible; the local contrast's source sign and its domain of admissible observation indices require explicit construction."
+        }
+      ],
+      "gap": "Define the exact adjacent-window means and left-minus-right jump estimate on valid indices while retaining the source's sign disagreement with its positive-jump model."
+    }
+  },
+  {
+    "interface_id": "local-c5f2d06e98369bfc8675",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "cedf72dee4626c9f7c274341de1dee13da1d4c8690c5de84fa7689e76bc57aa4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D4",
+        "comparison": "For every t sum A_k eta_{t-k} over k>=0, with A_k a p-by-tilde-p real matrix, p<=tilde-p<=c p and c>1. The innovation vectors are iid with mean zero and identity covariance; identity covariance alone does not make their coordinates independent. The source requires a proper random vector but does not spell out the convergence mode in this definition, so supply the needed proof without declaring a new a.s. or L2 source hypothesis. A-tilde_0 is the sum of all A_k, not the lag-zero matrix A_0. Its convergence also needs justification, supplied by stronger decay assumptions where applicable. The later diagonal specialization and nonlinear spatial model remain separate.",
+        "statement_sha256": "49a47f20d5026e1976604280898e6a958877f5a76797671da30999ee517a5072"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "HasSum",
+          "type": "{α : Type u} → {β : Type v} → [AddCommMonoid α] → [TopologicalSpace α] → (β → α) → α → SummationFilter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.Defs",
+          "provides": "Convergence of finite partial sums along a supplied summation filter, with unconditional summation as the default; the target topology must be specified.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean#L106-L107",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability for linear-process and moving-average interfaces; inspect mulVec, iid-family declarations and HasSum against the rectangular-coefficient causal series",
+          "result": "Matrix-vector products, iid innovations and a specified convergence predicate can represent the series; a packaged multivariate linear process with the source's long-run coefficient sum was not found."
+        }
+      ],
+      "gap": "Construct the causal rectangular linear-filter series and its coefficient sum with an explicit justified convergence interpretation."
+    }
+  },
+  {
+    "interface_id": "local-cf3f762278f68db99837",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "d7f6d71fe62eba546ccf857636ad41fe92e46e68a0b679730a2117b54b341141",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D12",
+        "comparison": "Each A_k is diagonal in the Sections 2/3 specialization with p=tilde-p. Combined with their iid scalar innovations, each component process depends on its own innovation stream, rather than all coordinates through rectangular mixing. Diagonality by itself does not turn merely identity-covariance vector innovations into independent coordinates; retain the separate iid-coordinate assumption. No common diagonal entry across j is asserted. Theorem 4 uses a different nonlinear spatial model and does not inherit this independent-component restriction.",
+        "statement_sha256": "55cf167d035ecc339f90d7654fc3138aa7db25854216b43a589c71198379e1e0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Matrix.diagonal and iIndepFun; compare the diagonal-filter clause with the archived square-dimension and iid-scalar-innovation conventions of Sections 2 and 3",
+          "result": "Diagonal coefficient matrices and jointly independent scalar innovation families have checked representations; independent component processes follow only after the corresponding series and measurability arguments."
+        }
+      ],
+      "gap": "Instantiate the square diagonal linear filters and justify component-process independence from the full scalar iid innovation family."
+    }
+  },
+  {
+    "interface_id": "local-74752583a367417e40ca",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "f6c22853fe1c6f5bf634ce5df265fd88ee51231398d928e2e7353c7eaa992227",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D10",
+        "comparison": "The scalar eta_{i,j} are iid over both their time and coordinate indices, stronger than iid innovation vectors with arbitrary within-vector dependence. Use one finite real q>=8 and mu_q=norm_q eta_{1,1}<infinity, with measurability and finite eLpNorm before real conversion. Mean zero and identity covariance belong to (4) and are retained in the full model. This is finite polynomial-moment control, not a sub-Gaussian tail assumption, and q=8 is allowed. No parameter-dependent moment bound beyond the source's common law is invented.",
+        "statement_sha256": "bc7984615f0aa6d631aa8184b6bc923d16e4eda6e6a70de88edc58bb779fbd47"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect iid-family declarations and Lp seminorm/membership definitions; compare the finite scalar q-moment assumption with q at least eight",
+          "result": "Joint scalar independence, identical laws and finite q-moment can be represented directly; this does not prove any Gaussian approximation or coefficient decay property."
+        }
+      ],
+      "gap": "Assemble the iid scalar innovation family with its common finite q-moment and the separately inherited centering and unit-variance conditions."
+    }
+  },
+  {
+    "interface_id": "local-2924a920d6e2f56bf13d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "8cb35a1655f2ae41c5452f450492d49df5f49d5e65d0bcdd3dce5b44214e19a2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D5",
+        "comparison": "Sigma=A-tilde_0 A-tilde_0 transpose is p-by-p even when A-tilde_0 is rectangular. Lambda has sigma_j on its diagonal, where sigma_j is the positive square root of Sigma_jj and sigma_j squared>=c_sigma>0 uniformly. Thus Lambda is a standard-deviation matrix, not the variance diagonal and not a full covariance square root. This convention differs from later generalized spatial notation that calls sigma(ell) a variance. The definition and lower bound do not imply Sigma itself is nonsingular when cross-component dependence is permitted, although Lambda's diagonal entries are nonzero.",
+        "statement_sha256": "44586c958d9799ebdfc8109956d34258e29d251c26d1e9da37e9d73b6139d770"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.diagonal",
+          "type": "{n : Type u} → {α : Type v} → [DecidableEq n] → [Zero α] → (n → α) → Matrix n n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Square matrix with the supplied values on its diagonal and zero off diagonal; sign restrictions or orthogonality are additional properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L50-L51",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect diagonal matrices, matrix products through mulVec and the nonnegative square root; compare the long-run coefficient product and positive marginal scale convention",
+          "result": "The p-by-p coefficient product and its diagonal standard deviations can be constructed; identifying that product as the process's long-run covariance requires summability and covariance calculations."
+        }
+      ],
+      "gap": "Prove the long-run covariance identity for the linear filter and construct its positive diagonal standard-deviation matrix with the stated uniform lower bound."
+    }
+  },
+  {
+    "interface_id": "local-3e85f9404c193679f6e1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "68a67812119d8e3846f30ab5daa3b99ba50e1f0a7d04df54e66796ddd709437f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D11",
+        "comparison": "For every nonnegative lag cutoff h, sum the Euclidean norm of row j of A_k over k>=h, divide by the positive long-run standard deviation sigma_j, and bound the maximum over j by C(max(1,h))^(-beta), with C,beta>0. The row norm is over tilde-p innovation coordinates and is not an entrywise absolute sum. At h=0 the right side is C, supplying finite full row-norm sums when the assumption is meaningful. Keep the same uniform constants and do not replace all-h control by an eventual asymptotic statement or impose a stronger beta threshold. Nonnegative infinite sums must retain infinity until the bound proves finiteness.",
+        "statement_sha256": "3e4da6bd29bcf9446b70038a4eb148bb05459dc5bfefa232961e767966eb6506"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "ENNReal.summable_toReal",
+          "type": "∀ {α : Type u} {f : α → ℝ≥0∞}, (∑' x, f x) ≠ ∞ → Summable (fun x => (f x).toReal)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Algebra.InfiniteSum.ENNReal",
+          "provides": "Converts an explicitly finite extended nonnegative series into a summable real series; mere ENNReal summability is not the finiteness condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean#L350-L351",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search linear-filter decay interfaces; inspect EuclideanSpace.norm_eq, Real.rpow and ENNReal.summable_toReal against the normalized row-norm tail series",
+          "result": "Finite row norms, polynomial weights and conversion of a finite nonnegative series are available ingredients; the uniform coefficient-tail assumption remains source-specific."
+        }
+      ],
+      "gap": "Define and establish the all-cutoff polynomial bound on normalized coefficient-row tail sums uniformly across output coordinates."
+    }
+  },
+  {
+    "interface_id": "local-7e5ad56884635d1dd919",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "d56305ea16f4b5105c52e59a2fa2e92f924238939de9f74aa3dfa2cdea36666a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D9",
+        "comparison": "The vector has n-2bn components labeled Z_{bn+1},...,Z_{n-bn}, whereas matrix indices run 1,...,n-2bn; their shift must be mapped consistently. Xi_i,i'=p(bn)^(-2) g(|i-i'|/(bn)), with g=18zeta^2-24zeta+8 on [0,1), 2zeta^2-8zeta+8 on [1,2), and zero from two onward. Retain g(0)=8, both branch endpoints and the factor p. Nonnegative entries alone do not prove a PSD matrix, and multivariateGaussian returns a Dirac fallback outside PSD. This law varies with n,p,b and is a finite comparison vector, not one fixed limiting distribution or a request to reconstruct proof variables.",
+        "statement_sha256": "9a941206b4570fa6cecb1f18454ebcd8a881170f6abfa0d5716b6631bae0880f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect multivariateGaussian's affine construction and non-PSD fallback with Matrix.PosSemidef; compare every branch and factor of the finite covariance kernel (11)-(12)",
+          "result": "A centered multivariate Gaussian can realize the displayed covariance once its positive semidefiniteness is proved; the generic constructor does not establish that property for this piecewise covariance formula."
+        }
+      ],
+      "gap": "Build the finite covariance matrix with its exact piecewise kernel and prove positive semidefiniteness before instantiating the centered comparison Gaussian."
+    }
+  },
+  {
+    "interface_id": "local-5e6891ed4cda3c5ebb78",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "b32aad5931744b4329e58afc36628ee6fe19b1c27891ea190225f119295a5c91",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D25",
+        "comparison": "B_s is the product of v integer intervals [n_s,r^-,n_s,r^+], with fixed spatial dimension v and endpoints allowed to vary with n. For each coordinate use the minimum lower endpoint and maximum upper endpoint across s to form B_0, proving union_s B_s contained in B_0. The observed location set is B_0 intersect L_0 and its cardinality is p_n. Windows may overlap and S may grow; their labels impose no disjointness. A nonempty window index family is needed for extrema. The literal lattice rectangle is not silently replaced by a continuous box when later volume notation appears.",
+        "statement_sha256": "453bba83a80c225112f7b7e2ec2bf911bde1ecfddb5a057d41024e3519cafd93"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_min_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x ≤ f x'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a minimizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L386-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite filtering/cardinality and minimum/maximum existence; compare integer coordinate rectangles, their enclosing endpoints and the observed-location count",
+          "result": "Finite lattice rectangles and endpoint extrema can be constructed, but the source's spatial-window family and its interpretation relative to later Lebesgue volume must remain explicit."
+        }
+      ],
+      "gap": "Construct the possibly overlapping integer rectangles and their coordinatewise enclosing rectangle, retaining the observed-location intersection and its sample-size-dependent cardinality."
+    }
+  },
+  {
+    "interface_id": "local-eecb163e9e1d0337cfd7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "bdbae7c583c21f514d086bb654139db5960bc61b694be01295f616f2cbc15591",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D28",
+        "comparison": "Each ell_j=(A_1 u_j,1,...,A_v u_j,v), where u_j are iid with density g supported in [0,1]^v and c_1<=g(x)<=c_2 for all cube x with positive constants. Every A_r tends to infinity as p grows. The source also places each ell_j in L_0 subset Z^v; for finite positive scales a nondegenerate Lebesgue density does not yield lattice points almost surely. Do not add rounding or substitute a continuous location space to repair this. Independence among design points is stated, whereas independence from the noise is not separately supplied. The positive density lower bound is over the whole cube, not merely an unspecified smaller support.",
+        "statement_sha256": "d18d56dbc0e9a10442c8ae36fada606abff804fa27b5a1fd211c2afdf90031d9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect density measures, iid-family declarations and Tendsto; compare the scaled continuous random design with the source's simultaneous lattice membership",
+          "result": "An iid bounded-density design and expanding coordinate scales are representable, but those primitives do not reconcile the source's incompatible continuous-density and lattice-location assertions."
+        }
+      ],
+      "gap": "Represent the stated iid scaled-density design while retaining the unresolved conflict with lattice-valued locations and the unspecified relation to the noise."
+    }
+  },
+  {
+    "interface_id": "local-38b7e652eeecbe561706",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "63072f0a986210b40d9020040f1967d848fbd601a732929ef66f432f3455bf1f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D17",
+        "comparison": "Each L_s is a subset of {1,...,p}, with size its finite cardinality; L_max and L_min denote extremal sizes across s=1,...,S. These symbols do not pick uniquely named extremal neighborhoods. For a positive S the finite extrema exist even with ties; positivity of the smallest size is needed separately when its inverse is used. Neighborhoods may overlap and need not be contiguous index intervals under the numbered definition, despite surrounding adjacency prose. Their comparability is the distinct Assumption 5.",
+        "statement_sha256": "056bac2d97f8d927aa66b155fc97ce9808b6de343f2b835bdf2f4fa64e86a2c5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_min_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x ≤ f x'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a minimizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L386-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite cardinality and extrema; compare the coordinate-neighborhood definition with its separate comparability assumption and adjacency caveat",
+          "result": "Finite subsets and extremal cardinalities have direct representations; the source does not require an interval structure or comparability in this definition alone."
+        }
+      ],
+      "gap": "Define the finite coordinate-neighborhood family and its minimum and maximum sizes without imposing extra order or overlap restrictions."
+    }
+  },
+  {
+    "interface_id": "local-dce296533e5255d4722d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "a32a59d43aea10e70dc6756468b72927033cc9cfa8275ca1a7403959505e6aef",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D23",
+        "comparison": "The vector is stacked by neighborhood, with all n-2bn time coordinates for s=1 followed by those for each subsequent s, and total size S(n-2bn). The printed entry is (|L_s||L_s'|)^(-1/2) indicator_{j in L_s intersect L_s'} Xi_i,i', with j unbound and no summation. Xi already contains p. Do not replace the indicator by an overlap count or insert/remove a p factor to infer an intended covariance. The normalization also needs positive neighborhood sizes. The library's non-PSD Dirac fallback cannot certify this unresolved Gaussian specification.",
+        "statement_sha256": "999cb43fe9d9fd23c555149b93281153e2fb118e0afb5691441a0a284d043528"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect multivariateGaussian and its PSD requirement; compare the neighborhood-by-time ordering and the literal covariance (32) with its archived free-index issue",
+          "result": "The finite Gaussian constructor is relevant after a full PSD covariance is supplied, but the source's unbound overlap index prevents the displayed formula from unambiguously specifying that covariance."
+        }
+      ],
+      "gap": "Resolve the unbound overlap index in the source covariance and prove the resulting matrix is positive semidefinite before constructing the neighborhood comparison Gaussian."
+    }
+  },
+  {
+    "interface_id": "local-0a5200b5b226390f1acf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "533a428d2ef23843835be9ea19dc6c404b7e3704c7e3667e0a437208e1553085",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D19",
+        "comparison": "The trend is mu_0+sum_{r=1}^R gamma_r indicator_{u>=u_r}, including equality at each break and with ordered u_0=0 through u_{R+1}=1. Each gamma_r vanishes outside its designated L_s_r but need not be nonzero inside that set, and its size is the full Euclidean norm. R can grow, and the minimum rescaled spacing can shrink. The null permits every candidate gamma_r=0 despite the terminology of break count; the alternative needs at least one nonzero vector. Do not require common spatial support, disjoint neighborhoods or a nonzero lower signal bound merely to state this model.",
+        "statement_sha256": "97f038a6a055725fab0c35c505ab7012b348de8252775787c95be20477ac4fa5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.piecewise_eq_of_mem",
+          "type": "∀ {α : Type u} {δ : α → Sort v} (s : Set α) (f g : ∀ i, δ i) [∀ j, Decidable (j ∈ s)] {i : α}, i ∈ s → s.piecewise f g i = f i",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Set.Piecewise",
+          "provides": "Evaluates the selected branch of a set-based piecewise function, preserving the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Piecewise.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect piecewise branch evaluation, Euclidean norm and support; compare the localized step-trend model and its complete null/alternative clause",
+          "result": "Right-continuous step terms, spatial support and Euclidean jump size are expressible; the indexed break model and testing classes require their own construction."
+        }
+      ],
+      "gap": "Construct the localized vector trend and its candidate-jump null and alternative with the correct spatial support and time-order conventions."
+    }
+  },
+  {
+    "interface_id": "local-699d1fd540c05d5689ad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "441a4a1c0d566effedcdd6d3b08dd3f9b6a8f6d4b25e0c34e5298577e4160a55",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D14",
+        "comparison": "For each true jump k use Lambda inverse times gamma_k, dividing coordinate j by the positive standard deviation sigma_j, and take its Euclidean norm before minimizing over k=1,...,K. The source quantity delta_p is not its square, an unnormalized jump norm, or a bias-corrected empirical estimate. A nonempty break set is needed for an ordinary attained finite minimum. The signal-size definition does not impose the gap-times-squared-signal condition or an estimator property, and the mention of a Corollary does not add it to the Theorem inventory.",
+        "statement_sha256": "c8818b8ca871263daf128d37ea8a0bd26c49ebf8673febafb6ed82d8e1377042"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_min_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x ≤ f x'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a minimizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L386-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect matrix-vector application, Euclidean norm and finite minimum existence; compare the diagonal standard-deviation normalization and unsquared minimum jump size",
+          "result": "The standardized jump vector and its finite minimum can be formed using checked primitives; positivity and the statistical signal condition remain additional hypotheses."
+        }
+      ],
+      "gap": "Define the minimum unsquared Euclidean size of the standard-deviation-normalized true jumps on a nonempty break set."
+    }
+  },
+  {
+    "interface_id": "local-c4f4ef30a417b39d5b29",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "783cabe02f535b70572e661b80dd5f93f5be43f1784f34e7542726b15c63ee2d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D29",
+        "comparison": "For every B_s let each width be n_s,r^+-n_s,r^- and require max_r width_r<=c min_r width_r for one c>=1. Retain the multiplied inequality, not division by the minimum, because the source does not add a strictly positive-width hypothesis. With valid nonnegative widths the all-zero case satisfies the display; positive widths or divergent widths are not inferred. Width differs from the number of lattice points, which would include endpoint counting, and from the rectangle's volume.",
+        "statement_sha256": "929b2cf9b5a41d3bd934df7fb554c0d7fe9ca5ad0966c1d0c5a6648e58ba5418"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_min_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x ≤ f x'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a minimizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L386-L388",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.exists_max_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a maximizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L387-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite extrema and compare the exact multiplied side-length bound, including possible zero widths",
+          "result": "The extreme coordinate widths have checked finite-domain constructions; the uniform geometric comparison is a source-specific assumption, not a growth or positivity result."
+        }
+      ],
+      "gap": "Impose the same constant bound between largest and smallest rectangle coordinate widths without replacing the printed inequality by a potentially undefined ratio."
+    }
+  },
+  {
+    "interface_id": "local-ad6933fdacb7695d22d1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "9e9f7c5cdc359de25fb58f8be978b2e4a8905d02b0ce201e459fa370fee7db3d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D20",
+        "comparison": "Use |L_max|/|L_min|<=c with c>=1 and the extrema from Definition 2, converting finite counts into the intended real ratio. A positive minimum cardinality is needed for that statistical ratio; totalized real division at zero does not make an empty-neighborhood configuration admissible by default. The condition allows overlap and different neighborhood labels without a spatial order. It compares counts, not variances, Euclidean diameters or aspect ratios, and it does not impose disjointness.",
+        "statement_sha256": "60c0cfe72da1c08805f116398dd814283acaad4b6248a044c0a8005b3eaa0d31"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Finset.card and compare the source's ratio of extremal coordinate-neighborhood cardinalities",
+          "result": "Cardinality represents neighborhood sizes, but the positive-denominator and uniform comparability condition must be explicitly imposed."
+        }
+      ],
+      "gap": "Define the uniform cardinality-comparability assumption on a positive minimum neighborhood size."
+    }
+  },
+  {
+    "interface_id": "local-a574f4f8d6ea048c3424",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "bfedf484dd041b034cbb79298df6561acf04d9438cdbb6d3ea5bbb586ca86e44",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D2",
+        "comparison": "The null is gamma_k=0 for every k=1,...,K, and the alternative is existence of a k with gamma_k!=0. These are mean-trend hypotheses, not independence, covariance stationarity or a distributional-change test of another kind. Candidate break locations can still be used to express the all-zero null. The positive minimum signal or localization assumptions used in consistency results are not part of this testing-class definition.",
+        "statement_sha256": "8b7981c53f6faee512cf9097c23699b5d3564eebf80f4cf8bd181711c512c061"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Probability for change-point/linear-process testing interfaces; compare the source's exact candidate-jump null and alternative",
+          "result": "No verified packaged no-mean-break test class was found; the predicates can be defined directly on the source's jump vectors."
+        }
+      ],
+      "gap": "Define the null that all candidate mean-jump vectors vanish and its existential nonzero-jump alternative without adding signal-strength assumptions.",
+      "no_related_reason": "The no-jump null and at-least-one-jump alternative are source-specific predicates on a supplied trend family; no relevant statistical testing-class declaration was located, and generic vector equality would add no substantive library interface."
+    }
+  },
+  {
+    "interface_id": "local-e0b69b0e005b4b014e01",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "af9d0341abaea1e40fd87504a36e61dd077ce19165ac2ad270ccabe4650dfbcf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D16",
+        "comparison": "Retain min_{0<=k<=K} n(u_{k+1}-u_k) norm(Lambda inverse gamma_k)^2 >> sqrt(p log n), including the squared normalized norm and rescaled-gap factor n. The model declares only gamma_1,...,gamma_K, so gamma_0 in this minimum has no supplied value. The source notation says a_n>>b_n means a_n/b_n→0, contrary to the conventional direction used by the surrounding signal discussion. Do not silently shift the index set or choose one limit direction. No generic little-o or big-O declaration is claimed as an exact match to the unresolved combined condition.",
+        "statement_sha256": "2381c05c467a7832f1c8aa60aebdd8cc6a70f5bee6ada3175a26ba260bba1162"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Euclidean norm and matrix-vector normalization and compare the source's signal-spacing assumption with the archived gamma_0 and much-greater-than convention conflicts",
+          "result": "The standardized squared jump expression has checked ingredients, but the source's undefined starting jump index and contradictory asymptotic notation prevent an unambiguous full condition."
+        }
+      ],
+      "gap": "Resolve the source's gamma_0 indexing and reversed much-greater-than convention before assigning a precise asymptotic meaning to the signal-spacing assumption."
+    }
+  },
+  {
+    "interface_id": "local-8023abee756e48bbb2c3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "b80e4fb71f566787b686b103ba4d7496e4367a15297ae7e8e4c64325c18263e1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D27",
+        "comparison": "Mass is the number of observed locations in B_s intersect L_0, with B_min and B_max its extreme counts and B_max/B_min<=c included in this very definition. Positive B_min is needed for an ordinary ratio. Volume is separately lambda(B_s) for Lebesgue measure, not mass or lattice-point count. As the earlier rectangles are literally products of finite intervals on Z, their embedded Lebesgue measure is zero; a continuous enclosing box would be a different interpretation not specified by the source. Do not drop the built-in comparability condition or substitute counting measure for lambda to repair this discrepancy.",
+        "statement_sha256": "0680d09b4d5853d700d90f69c1373fbadc662230cca489f61be55cf735aeef41"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite cardinality and real finite-measure evaluation; compare the full mass/comparability/volume definition against the literal integer-rectangle source convention",
+          "result": "Discrete counts and Lebesgue volume are distinct representable quantities; the source's lattice rectangles give zero literal Lebesgue volume, so no nonzero volume interpretation can be inferred without an explicit change of ambient set."
+        }
+      ],
+      "gap": "Define the discrete neighborhood masses and their comparability and retain the unresolved lattice-versus-continuous interpretation of the separately defined Lebesgue volume."
+    }
+  },
+  {
+    "interface_id": "local-c3619ccd6c99fe13f352",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "dd3add2356a4d68a2254d7617ffbe57764c068205d0168441b6e5f30af1d29b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D13",
+        "comparison": "Kappa_n=min_{0<=k<=K}(u_{k+1}-u_k), using u_0=0 and u_{K+1}=1. Strict ordering makes each finite-n gap positive, and the index set contains the first and last segments rather than only interior break-to-break differences. This is rescaled time, not integer observation count n kappa_n. The source permits kappa_n→0 and does not impose a fixed lower bound or the theorem-specific b much smaller than kappa_n relation within this definition.",
+        "statement_sha256": "5f0d9f5c796b4cff5adae96bc58f10076c5a8eebe0f5b1ed1efbcf426531476b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.exists_min_image",
+          "type": "{α : Type u} → {β : Type v} → [LinearOrder α] → (s : Finset β) → (f : β → α) → s.Nonempty → ∃ x ∈ s, ∀ x' ∈ s, f x ≤ f x'",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Existence of a minimizing input for a function on a nonempty finite set, with no prescribed choice among ties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L386-L388",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect finite minimum existence and compare the ordered rescaled break-time gaps including both endpoint segments",
+          "result": "The finite minimum over positive consecutive gaps is available after the break-time family is supplied; bandwidth separation and lower signal bounds are separate conditions."
+        }
+      ],
+      "gap": "Construct the minimum rescaled gap including the boundary segments while allowing it to shrink with sample size."
+    }
+  },
+  {
+    "interface_id": "local-f69a792fb1f82ccf7d43",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "3515777d29c46f325ed0cd4e478ac915a05379b72ea5e07bda7837938e3d3566",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D26",
+        "comparison": "At observed ell in B_0 intersect L_0 and t=1,...,n, use Y_t(ell)=mu_ell(t/n)+epsilon_t(ell). The trend adds gamma_{k,ell} only when both u>=u_k and ell belongs to B_s_k intersect L_0, keeping equality at the break time. The benchmark mu_ell,0 is location-specific, and the ordered break-count/time convention is inherited from (2). General nonlinear spatial noise replaces the earlier rectangular or diagonal linear model; no coordinate independence or iid observation noise is inserted. The spatial neighborhood notation and its recorded lattice interpretation issues remain intact.",
+        "statement_sha256": "99f32d7135d24df891c4a9ecd8cac51a21cb6624ee3310d1eccd889bfa9e17d5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.piecewise_eq_of_mem",
+          "type": "∀ {α : Type u} {δ : α → Sort v} (s : Set α) (f g : ∀ i, δ i) [∀ j, Decidable (j ∈ s)] {i : α}, i ∈ s → s.piecewise f g i = f i",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Set.Piecewise",
+          "provides": "Evaluates the selected branch of a set-based piecewise function, preserving the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Piecewise.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect piecewise evaluation and support; compare the generalized spatially indexed trend with the separate nonlinear noise model",
+          "result": "The time-and-location step indicator and jump support can be expressed; the full spatial observation/noise construction is source-specific and does not inherit the earlier diagonal linear filters."
+        }
+      ],
+      "gap": "Construct the spatially indexed observations and localized mean jumps with their joint time/location indicator and the correct generalized noise model."
+    }
+  },
+  {
+    "interface_id": "local-153ed439e20f8f79aa74",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:04:29.222443+00:00",
+    "source_interface_sha256": "9ad93e2592584de0d7fdeb773dc0ad1fc98d7ad1b3c5c30a8d89369ce6f18f33",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0602",
+        "local_id": "D18",
+        "comparison": "For neighborhood L_s take sqrt(sum_{j=1}^p v_i,j^2 indicator_{j in L_s}), equivalently the Euclidean norm of the selected coordinates. Coordinates outside L_s contribute zero, so a nonzero full vector supported outside a proper neighborhood has value zero. Do not call this a nondegenerate norm on all R^p or insert division by sqrt(|L_s|). The neighborhood labels and a linear coordinate ordering do not force L_s to be an interval, and overlapping neighborhoods define distinct restrictions on the same vector.",
+        "statement_sha256": "5ec614aece38c18fe6127e8c913d9a10fd3c67b3cfae6a6fbfc1fbd7e8ac3642"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect EuclideanSpace.norm_eq and finite filtering by coordinate membership; compare the neighborhood-restricted sum of squares",
+          "result": "The Euclidean norm of a restricted coordinate vector exactly supplies the formula after indexing, but its pullback to the entire vector space is only a seminorm for a proper neighborhood."
+        }
+      ],
+      "gap": "Construct the coordinate restriction and identify its Euclidean norm with the source neighborhood formula while preserving its possible degeneracy on the full space."
+    }
+  }
+]

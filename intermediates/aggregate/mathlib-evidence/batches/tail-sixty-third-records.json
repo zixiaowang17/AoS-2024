@@ -1,0 +1,926 @@
+[
+  {
+    "interface_id": "local-fd9a06bdf18c037e5e90",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "5ac874667f9463ae3148f8c0d5670f901dfbde4f94d693975b9f86972821adca",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D29",
+        "comparison": "Use real SO(3) and probability-normalized Haar for the independent rotations, and a centered Gaussian process indexed by L2(R3) with inner-product covariance for white noise, not a pointwise independent random function or an L2-valued identity-covariance Gaussian. Preserve the rho-squared radial weight, all (l,s,m) indices and d=sum_l (2l+1)S_l. Finite signal coefficients can carry independent N(0,sigma squared) noise after orthonormality is proved; that reduction does not discard the full experiment's ancillary noise without an argument. The exact inverse-Fourier normalization, real basis and V-hat transform remain pinned appendix references, not reconstructed conventions.",
+        "statement_sha256": "a907d7b27146bc657e727e900195de6a5595a2519b9cf3bd227bad16ce23a9a7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.specialOrthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Orthogonal matrices of determinant one, using trivial scalar star; the real three-dimensional specialization is the rotation group SO(3).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L315-L315",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.haarMeasure",
+          "type": "{G : Type u} → [Group G] → [TopologicalSpace G] → [IsTopologicalGroup G] → [MeasurableSpace G] → [BorelSpace G] → TopologicalSpace.PositiveCompacts G → MeasureTheory.Measure G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Haar.Basic",
+          "provides": "A left Haar measure scaled to assign mass one to the chosen positive compact set; the whole compact group can be chosen for probability normalization.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Haar/Basic.lean#L521-L522",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.stdGaussian",
+          "type": "(E : Type u) → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → MeasureTheory.Measure E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Standard Gaussian measure on a finite-dimensional real inner product space, constructed from independent standard normal coordinates; the probability-measure instance additionally uses BorelSpace.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.unitaryGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (α : Type v) → [CommRing α] → [StarRing α] → Submonoid (Matrix n n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Finite square matrices whose star transpose is their inverse; over the complex numbers this represents a supplied unitary change of coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for cryo-EM, white noise, isonormal, spherical harmonics and tomographic terms; inspected UnitaryGroup SO(3) and unitary bodies, Haar normalization, IsGaussianProcess finite marginals and stdGaussian coordinate construction.",
+          "result": "SO(3), Haar integration, finite Gaussian coordinates and supplied unitary matrices are available. IsGaussianProcess alone supplies neither centering nor L2 inner-product covariance. No matching radial/spherical basis and white-noise observation package was found in this revision."
+        }
+      ],
+      "gap": "The radial and spherical basis construction, its rotation representation, the specified real coordinate transform and the white-noise experiment with its finite coefficient reduction still need to be supplied."
+    }
+  },
+  {
+    "interface_id": "local-111ad4c0e29e18b99098",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "860c7a490d0275ebd2d3dbfe76dd121478a26a29c783cfb89294b787a1aa2e17",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D21a",
+        "comparison": "Concatenate orders 1 through k with d^j entries at order j, yielding d+...+d^k coordinates; do not replace the full arrays with only distinct symmetric monomials. The input remains theta in R^d and the order-zero convention belongs to the separate variety definition.",
+        "statement_sha256": "6d9fa36db24dbe4f7a465d022ad8660f2f42db9dcc395a883eca3468e5601405"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D21b",
+        "comparison": "Use tilde_d^j entries from each projected moment tensor and the same order-1-through-k concatenation, giving tilde_d+...+tilde_d^k output coordinates while theta still ranges over the original R^d.",
+        "statement_sha256": "7a5768fdd1f66d2e39c209f4cb06a05f9052b7f555336b765c25bda012a57648"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.tprod",
+          "type": "{ι : Type u} → (R : Type v) → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → MultilinearMap R s (⨂[R] i, s i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "Canonical pure tensor of a family of module vectors; a finite constant family represents a tensor power, without prescribing an analytic tensor norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L278-L282",
+          "link_checked": true
+        },
+        {
+          "name": "Module.Basis.piTensorProduct_repr_tprod_apply",
+          "type": "∀ {ι : Type u} {R : Type v} {M : ι → Type w} {κ : ι → Type z} [CommSemiring R] [∀ i, AddCommMonoid (M i)] [∀ i, Module R (M i)] [Fintype ι] (b : ∀ i, Module.Basis (κ i) R (M i)) (x : ∀ i, M i) (p : ∀ i, κ i), (Module.Basis.piTensorProduct b).repr (PiTensorProduct.tprod R x) p = ∏ i : ι, (b i).repr (x i) (p i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basis",
+          "provides": "Coordinates of a finite pure tensor are the products of the factor coordinates, linking algebraic tensor powers to the paper's finite multidimensional array.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basis.lean#L42-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched tensor coordinate/vectorization APIs in LinearAlgebra/PiTensorProduct and inspected tprod and Basis.piTensorProduct_repr_tprod_apply with their finite-index assumptions; compared both frozen moment-map variants.",
+          "result": "The tensor basis evaluates coordinates as products, so each order can be represented by its full coordinate array and the arrays joined using a finite dependent index. The declarations do not assemble this paper's integrated moment arrays into the stated ordered vector."
+        }
+      ],
+      "gap": "The full moment-coordinate arrays need a specified concatenation and coordinate correspondence preserving every order and all repeated symmetric entries."
+    }
+  },
+  {
+    "interface_id": "local-3fe77ee6827cdfb8fece",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "35fc7ed685cd0de49d16e1b03574e330e56396af2116fbaa28df4e88e8fa7735",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D22a",
+        "comparison": "For positive k use M_k inverse-image {M_k(theta_star)} in R^d, and set V_0 to univ; equality is coordinatewise equality of all unprojected moments, not proximity or equality of a selected moment subset.",
+        "statement_sha256": "3929d5423dd85fb1f420ca0d71eeccb850e00eacbae39084d5b3754cd01e7864"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D22b",
+        "comparison": "Use tilde_M_k inverse-image {tilde_M_k(theta_star)}, still as a subset of R^d, and tilde_V_0=univ; projected output dimension does not change the signal-space domain or imply that the fiber is a single orbit.",
+        "statement_sha256": "ea86f7ec73134f63e91ac10dfadf1fd1456f16a46eeb76148470ec15e58902c4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.preimage",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Set β → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set preimage under any function, requiring neither injectivity nor an inverse map.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L135-L135",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched moment-variety and zero-fiber presentations and inspected Set.preimage's defining membership predicate against both main-text equal-moment sets.",
+          "result": "Once the moment map is supplied, its fiber is exactly the preimage of the singleton containing the reference moment vector. The k=0 case is the whole input space, either by an explicit branch or an empty coordinate map; this set construction does not certify algebraicity or smoothness."
+        }
+      ],
+      "gap": "The defining sets are directly expressible as singleton preimages of the supplied moment maps with the stated order-zero convention; algebraic and smooth-manifold properties require separate proofs."
+    }
+  },
+  {
+    "interface_id": "local-2a0a2c27420b4143063f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "77e02acfbecc46eb451c4747e5756d9f11a7f4a2f8254f14a5c946c111a340b2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D5",
+        "comparison": "Both random variables use the same Haar-uniform rotation law but different fixed signals; require Pi '' orbit(theta)=Pi '' orbit(theta_star) as well as IdentDistrib (fun g => Pi(g theta)) (fun g => Pi(g theta_star)) Lambda Lambda. Equality of supports alone is not used to replace the second condition.",
+        "statement_sha256": "aa91217cdc6df19cf8f6642eef49808b6dbc9f1c6d226d66308f725f7fb6a4d4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MulAction.orbit",
+          "type": "(γ : Type u) → {α : Type v} → [SMul γ α] → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The set of all scalar-action images of an element; for the supplied orthogonal subgroup action this is precisely the group orbit.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected orbit as the range of the action and IdentDistrib as ae measurability plus equality of mapped measures; searched projected orbit equivalence and compared the conjunction in D5.",
+          "result": "The two parts are expressible by equality of the projection images of the two orbit sets and IdentDistrib for the two projection-after-action maps on the Haar probability space. Neither generic declaration conflates set equality with law equality."
+        }
+      ],
+      "gap": "The paper's equivalence is the conjunction of projected-orbit set equality and IdentDistrib under the supplied Haar probability law, with measurability obligations for the projected action."
+    }
+  },
+  {
+    "interface_id": "local-e8795e202a019d75a125",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "464d444ad83db5a607b0d856616d693ae22ef159808145c3c24e3e5be48a155d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D7",
+        "comparison": "Count distinct full G-orbits meeting the projected-equivalence condition, rather than signal vectors or points within an orbit; finite subsets of the orbit quotient provide the right representation. The source asks for generic theta_star, not all signals, and does not state a uniform numerical bound on the number of compatible orbits.",
+        "statement_sha256": "6d8c64c41418f644dd1cf1fb8c7bbab00771a4360be96fca9c653626dc842893"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MulAction.orbitRel",
+          "type": "(G : Type u) → (α : Type v) → [Group G] → [MulAction G α] → Setoid α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The equivalence relation of belonging to the same group orbit, allowing distinct orbits to be represented by quotient elements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L287-L289",
+          "link_checked": true
+        },
+        {
+          "name": "MulAction.orbit",
+          "type": "(γ : Type u) → {α : Type v} → [SMul γ α] → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The set of all scalar-action images of an element; for the supplied orthogonal subgroup action this is precisely the group orbit.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched finite-orbit and orbit-quotient constructions in GroupAction/Defs and finite sets; inspected orbitRel's equivalence proof and IdentDistrib, and checked D7's generic projected-equivalence quantifier.",
+          "result": "Orbit quotient elements or distinct orbit sets can represent the objects whose set is finite. Existing orbit infrastructure does not prove generic finiteness of the fiber of this paper's projected set-and-law equivalence."
+        }
+      ],
+      "gap": "The projected set-and-law condition must be shown well defined on orbit classes and its fibers proved finite for the paper's generic signals."
+    }
+  },
+  {
+    "interface_id": "local-d963d9156a3435eddd83",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "ceac777c066d822ee2cbcecbf62cb553083869052c5e8e48b6b6eb4ac3f31161",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D17a",
+        "comparison": "The target is trdeg of the full invariant algebra, with the left side the subalgebra generated by invariants of degree at most K; degree-bounded polynomials are not themselves generally a subalgebra. Nat.find handles minimality only after the finite-order existence claim is established for the compact subgroup.",
+        "statement_sha256": "815ef2ed1f0cdc4281ef633712950636cf16999e71d52b2e0c0dbac47e86c798"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D17b",
+        "comparison": "The left side uses the projected-moment-generated algebra through tilde_K, but the target on the right is still trdeg of the full unprojected invariant algebra. Preserve the if-and-only-if with (2.4), not just a definition conditional on existence or stabilization at the projected algebra's smaller transcendence degree.",
+        "statement_sha256": "bf7c447bac60b6c4832221611fa2b7a32037aff8a818df08eabec7910bdaf647"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Algebra.trdeg",
+          "type": "(R : Type u) → (A : Type v) → [CommRing R] → [CommRing A] → [Algebra R A] → Cardinal.{v}",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.AlgebraicIndependent.Basic",
+          "provides": "Transcendence degree of a commutative algebra as the cardinal supremum of its algebraically independent subsets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/AlgebraicIndependent/Basic.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Algebra.adjoin",
+          "type": "(R : Type u) → {A : Type v} → [CommSemiring R] → [Semiring A] → [Algebra R A] → Set A → Subalgebra R A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Algebra.Subalgebra.Lattice",
+          "provides": "The smallest subalgebra containing chosen generators, allowing products whose degrees exceed the degree bound on generators.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Algebra/Subalgebra/Lattice.lean#L32-L34",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched trdeg and finite-type/transcendence-basis results, degree-generated subalgebras and finite-orbit criteria; inspected Algebra.trdeg, Algebra.adjoin and Nat.find including its required existence witness.",
+          "result": "The generated subalgebras and cardinal transcendence degrees can be represented and Nat.find selects the least order only after existence is proved. The searches did not supply the compact-orthogonal invariant-theory stabilization or the projected finite-orbit equivalence in D17."
+        }
+      ],
+      "gap": "Existence of a finite stabilizing moment order and the projected model's equivalence with generic finite-orbit identifiability require the paper's invariant-theoretic arguments before least-order selection applies."
+    }
+  },
+  {
+    "interface_id": "local-2de0ca099b9dfa4d8e37",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "710103f5b67f8e234a1e391a46bf83339c5def72049ed6bdcb5abe9eca1c3371",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D33",
+        "comparison": "Use real gradients of the evaluated polynomial functions, span all p in the corresponding degree-generated subalgebra and compare finite span dimension with trdeg of the corresponding full algebra. The unprojected target is R^G and the projected target here is tilde_R^G, as written; preserve this explicit rank condition instead of substituting an unspecified almost-everywhere predicate. Finite-dimensionality and finite cardinal-to-natural conversion prevent the library's infinite-rank-to-zero convention from entering.",
+        "statement_sha256": "52013ff6ea2435e28633abffa6875a24c8675d089b2f7a3fc3e4671b3c0ab586"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "gradient",
+          "type": "{𝕜 : Type u} → {F : Type v} → [RCLike 𝕜] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 F] → [CompleteSpace F] → (F → 𝕜) → F → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Gradient.Basic",
+          "provides": "Gradient obtained from the Frechet derivative through the Riesz map; differentiability hypotheses are needed to use its intended derivative meaning.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Gradient/Basic.lean#L84-L85",
+          "link_checked": true
+        },
+        {
+          "name": "Submodule.span",
+          "type": "(R : Type u) → {M : Type v} → [Semiring R] → [AddCommMonoid M] → [Module R M] → Set M → Submodule R M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Span.Defs",
+          "provides": "The smallest submodule containing a set; over the reals this permits signed finite linear combinations and is distinct from convex hull.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Span/Defs.lean#L46-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Module.finrank",
+          "type": "(R M : Type*) → [Semiring R] → [AddCommMonoid M] → [Module R M] → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Dimension.Finrank",
+          "provides": "Natural-valued module rank, equal to dimension for finite-dimensional vector spaces; infinite cardinal rank is sent to zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Dimension/Finrank.lean#L62-L63",
+          "link_checked": true
+        },
+        {
+          "name": "Algebra.trdeg",
+          "type": "(R : Type u) → (A : Type v) → [CommRing R] → [CommRing A] → [Algebra R A] → Cardinal.{v}",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.AlgebraicIndependent.Basic",
+          "provides": "Transcendence degree of a commutative algebra as the cardinal supremum of its algebraically independent subsets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/AlgebraicIndependent/Basic.lean#L45-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched gradient-rank/transcendence-degree and generic-signal criteria; inspected gradient's Riesz/fderiv body, Submodule.span, Module.finrank and Algebra.trdeg with their scalar and cardinal conventions.",
+          "result": "The gradient family, real span, finite dimension and algebra transcendence degree are available ingredients for the stated equality. The invariant-polynomial evaluation family and its generic maximal-rank theorem are not furnished by these declarations."
+        }
+      ],
+      "gap": "The invariant or projected-invariant polynomial families must be evaluated on signal space and their gradient-span dimension related to the specified finite transcendence degree."
+    }
+  },
+  {
+    "interface_id": "local-50c3dfa933d251223e99",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "905fe1b95a996de96ab660241e7baefbbaca894bddcc05d8de8a08b3835274b9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D18",
+        "comparison": "Take the maximum over all theta in R^d of the dimension of the orbit as a smooth manifold, not the linear span of its points and not its cardinality. Once orbit dimensions are defined and bounded natural numbers, attainment is an order-theoretic step; IsGreatest encodes both membership in the range and the upper bound.",
+        "statement_sha256": "01706605f46a687f273ba2db1353326e90f04440a071dda348d2bd17e125cd4a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MulAction.orbit",
+          "type": "(γ : Type u) → {α : Type v} → [SMul γ α] → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The set of all scalar-action images of an element; for the supplied orthogonal subgroup action this is precisely the group orbit.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "IsGreatest",
+          "type": "{α : Type u} → [LE α] → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Bounds.Defs",
+          "provides": "Membership in a set together with being an upper bound for every element of that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Bounds/Defs.lean#L41-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched orbit dimension, tangent-orbit and maximal-dimension constructions in GroupTheory and Geometry; inspected orbit and IsGreatest as attained membership plus an upper-bound property.",
+          "result": "The orbit set and an attained maximum of a supplied dimension function are expressible. No searched declaration supplies this compact orthogonal action's smooth orbit dimension function and maximal-orbit geometry."
+        }
+      ],
+      "gap": "A geometric dimension for each orbit and its bounded, attained maximum must be established before defining d_0."
+    }
+  },
+  {
+    "interface_id": "local-c54193031bb245d99d47",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "228a49d40203c934812de79353d900f84e78f2fe8df9ae11225bb9747cff3c13",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D23",
+        "comparison": "Assume V_(K-1) is smooth and theta is a critical point of the restricted function; require the orbit near theta to be smooth of dimension d_0 and the restricted Hessian rank to equal dim(V_(K-1))-d_0. Merely restricting the ambient Hessian to a tangent subspace can miss the curvature term from the ambient gradient, so iteratedFDeriv is only infrastructure for a chart-based construction. Do not promote the defining condition to a landscape theorem.",
+        "statement_sha256": "f2096dae6418d657c7d2595c0749f4335531c8eec7b78fe964c7ebe424bc4530"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.rank",
+          "type": "{m : Type u} → {n : Type v} → {R : Type w} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Rank",
+          "provides": "Finite-dimensional rank of the range of the matrix's linear map; can be applied to each specified tensor unfolding.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Rank.lean#L134-L135",
+          "link_checked": true
+        },
+        {
+          "name": "MulAction.orbit",
+          "type": "(γ : Type u) → {α : Type v} → [SMul γ α] → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The set of all scalar-action images of an element; for the supplied orthogonal subgroup action this is precisely the group orbit.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L49-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Hessian, critical-point and nondegenerate-orbit constructions in Analysis/Calculus and Geometry; inspected iteratedFDeriv's recursive derivative body, matrix rank and orbit against the constrained critical-point definition.",
+          "result": "Ambient second derivatives, matrix rank and orbit sets exist. They do not construct the intrinsic Hessian of s_K restricted to the smooth moment variety or identify its null directions with the local orbit tangent directions."
+        }
+      ],
+      "gap": "The smooth moment variety, its constrained critical-point Hessian and the local orbit dimension must be constructed and related to the stated rank equality."
+    }
+  },
+  {
+    "interface_id": "local-55100f1bfe4f639e6c1c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "231856f65b659683d4ae9d18174e11e350a612572d8b50536538a8472b162fc7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D26",
+        "comparison": "Use surface area sin(phi_1)dphi_1 dphi_2, not the normalized uniform probability on the sphere, for basis orthonormality and white-noise covariance. Index the centered Gaussian process by L2 test functions or an entire orthonormal coefficient family. The signal band has 0<=l<=L and -l<=m<=l, hence d=(L+1)^2; prove rotation closure and preserve appendix D.2 for the exact basis/action. The Gaussian-process predicate alone does not impose the identity covariance needed for independent coefficient noise.",
+        "statement_sha256": "5d2177e0e07f15e839e621daadff6c07d9d3233587ee0b9f4c0d859996aec4c5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.specialOrthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Orthogonal matrices of determinant one, using trivial scalar star; the real three-dimensional specialization is the rotation group SO(3).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L315-L315",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.haarMeasure",
+          "type": "{G : Type u} → [Group G] → [TopologicalSpace G] → [IsTopologicalGroup G] → [MeasurableSpace G] → [BorelSpace G] → TopologicalSpace.PositiveCompacts G → MeasureTheory.Measure G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Haar.Basic",
+          "provides": "A left Haar measure scaled to assign mass one to the chosen positive compact set; the whole compact group can be chosen for probability normalization.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Haar/Basic.lean#L521-L522",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.stdGaussian",
+          "type": "(E : Type u) → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → MeasureTheory.Measure E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Standard Gaussian measure on a finite-dimensional real inner product space, constructed from independent standard normal coordinates; the probability-measure instance additionally uses BorelSpace.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L65-L67",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for spherical harmonics, white noise and spherical registration; inspected SO(3), Haar normalization, Gaussian-process finite marginals and standard Gaussian coordinate construction.",
+          "result": "The rotation group, Haar probability and Gaussian law infrastructure are reusable, but the searched revision does not contain this real spherical-harmonic basis and its coefficient action or the stated white-noise observation equivalence."
+        }
+      ],
+      "gap": "The real spherical-harmonic basis, rotation closure and coefficient representation must be supplied together with white noise having covariance from the specified surface-area L2 inner product."
+    }
+  },
+  {
+    "interface_id": "local-f9f05a54dfdce959c56c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "4f2a83edbdd8e3af171e6ba130ae7c7897c9285a54a1e2863e0cc30b4887a2e5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D32",
+        "comparison": "Retain real-valued coefficients with the six angular indices and their stated role in three-harmonic integrals and third moments. The main text does not itself fix the full coefficient formula, and a generic representation tensor product cannot supply the missing phase and normalization; no appendix formula is inferred or imported.",
+        "statement_sha256": "a943b6d8618b6ad4ce306bdb7890c81c5d61b4a2e630c5e1bf922908b741c65a"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for clebsch, gordan, spherical.harmonic and bispectrum; inspected representation/tensor infrastructure for a harmonic coupling construction. The Gordan hit is the unrelated finiteness lemma.",
+          "result": "No matching real Clebsch-Gordan coefficient definition or spherical-harmonic triple-product correspondence was found in the pinned revision. The exact normalization and phase are referenced only to the paper's appendix D.1 in the frozen main-text census."
+        }
+      ],
+      "gap": "A Clebsch-Gordan coefficient construction and its harmonic-product identities require the exact normalization and phase convention left in the paper's appendix reference.",
+      "no_related_reason": "Whole-library searches for Clebsch-Gordan, spherical harmonics and bispectra, followed by inspection of representation and tensor infrastructure, found no declaration implementing these normalized coupling coefficients; generic integrals or tensor products would not identify the source's convention."
+    }
+  },
+  {
+    "interface_id": "local-88c14b9ae9523a3b78d5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "2b84b1fcced1b0060e986ba8039de6ea3c35b7e646832ed5ef065241f927b9f4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D30",
+        "comparison": "Form u=V-hat adjoint times theta and extract each (l,s) block of length 2l+1; retain all three radial indices. Sum only triples with m''=m+m', conjugating the product of the first two coefficients and leaving the third unconjugated. Preserve the published (4.8)/(4.9) formulas and the recorded appendix reference; the earlier arXiv numbering is not used as a replacement.",
+        "statement_sha256": "afd0aecdfbff072d4810c4d5871c8bd1bfc91d0676f7676bb56a3bfddbee78bf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.unitaryGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (α : Type v) → [CommRing α] → [StarRing α] → Submonoid (Matrix n n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Finite square matrices whose star transpose is their inverse; over the complex numbers this represents a supplied unitary change of coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched complex radial coefficients and bispectrum/harmonic-coupling APIs; inspected finite unitary matrices, mulVec and pointwise finite-sum evaluation against D30's indexed conjugated contraction.",
+          "result": "A supplied unitary matrix can transform the real coefficient vector embedded in C^d, and finite complex arithmetic represents the displayed filtered triple sum. The source's V-hat and Clebsch-Gordan constants are not defined by those operations."
+        }
+      ],
+      "gap": "The paper's real-to-complex transform and Clebsch-Gordan convention must be supplied before assembling the radial-indexed, conjugated bispectrum contraction."
+    }
+  },
+  {
+    "interface_id": "local-ce04eb7e0e348ad99ef5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "29aaefdb313bc6d653cb00eed42149a19b8de05b53e9e0ba6bac9968edd7e3e3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D25",
+        "comparison": "Keep the zeroth coefficient real and use theta_1+i theta_2 only for l>=1, taking r_l as the complex norm. Complex.arg provides one representative modulo 2*pi and defaults to zero at zero, whereas the source does not impose this branch or uniqueness at zero. Preserve r_l r_l' r_l'' and lambda_l-lambda_l'-lambda_l'', not the opposite conjugation convention of the spherical contraction.",
+        "statement_sha256": "1a42c765ad6a9bc1cfa6ee211a2e8439da270ee49790c003bec23a140a419a07"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Complex.arg",
+          "type": "ℂ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Principal complex angle in (-pi,pi], with pi on the negative real axis and a default value zero at the origin.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L30-L32",
+          "link_checked": true
+        },
+        {
+          "name": "Complex.norm_mul_exp_arg_mul_I",
+          "type": "(x : ℂ) → (‖x‖ : ℂ) * Complex.exp ((Complex.arg x : ℂ) * Complex.I) = x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Complex.Arg",
+          "provides": "Polar reconstruction of every complex number from its norm and principal argument, including zero with the library's default argument.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L56-L60",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched polar complex reconstruction and exp_arg identities; inspected Complex.arg's branches and norm_mul_exp_arg_mul_I's complete zero/nonzero proof against the circular Fourier coefficient definition.",
+          "result": "The library reconstructs every complex value from its norm and principal argument. The source's three-frequency magnitudes and signed phase combinations can then be defined by real multiplication and subtraction, while its unspecified phase choice is retained."
+        }
+      ],
+      "gap": "The coefficient and bispectrum shorthands are directly expressible using complex arithmetic and polar reconstruction once a phase representative is chosen consistently with the source's unspecified branch."
+    }
+  },
+  {
+    "interface_id": "local-0f38109fa6139f1185dc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "33b08b91df98a53f68a5061ed131a8dfa6c4fcea5d119627e829a0a3e2412d9f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D27",
+        "comparison": "For each l, transform the full real vector indexed by m=-l,...,l into a complex vector of length 2l+1 using the supplied unitary convention. This is not the circle's two-real-components-to-one-complex-number map, and no signs, phases or matrix orientation absent from this main-text shorthand are inferred.",
+        "statement_sha256": "b2f33eba99fa8e48373cbc4342bc05355946063b79256c45a57ed01387f9c88a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.unitaryGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (α : Type v) → [CommRing α] → [StarRing α] → Submonoid (Matrix n n α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Finite square matrices whose star transpose is their inverse; over the complex numbers this represents a supplied unitary change of coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched spherical harmonic real-to-complex changes of basis and inspected unitaryGroup and mulVec with finite complex coefficient types.",
+          "result": "Finite unitary changes of coordinates are represented by existing matrix APIs, but the searched revision has no matching spherical-harmonic change-of-basis convention. D27 points to an exact matrix in appendix D.S11 rather than giving its entries."
+        }
+      ],
+      "gap": "The exact real-to-complex spherical-harmonic matrix from the retained appendix reference and its indexing correspondence must be supplied."
+    }
+  },
+  {
+    "interface_id": "local-d1c735731e0a9e91a3f0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "200c4f01e0f490661068fe83062b2b2413d3a97fcf091ed6e7da4e2513689dbf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D28",
+        "comparison": "Use the angular bounds separately for l, l' and l'', restrict to m''=m+m', multiply by the real coupling coefficient and conjugate u_m^(l) times u_m'^(l') before multiplying by u_m''^(l''). There are no radial indices in this definition, and its invariance does not follow solely from the finite-sum evaluation lemma.",
+        "statement_sha256": "73c75b29726862736333cff02ee3bb4919790364c85355e61c3be80e5da21c03"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for spherical bispectrum and Clebsch-Gordan APIs, then inspected pointwise finite-sum evaluation and complex coefficient arithmetic for the exact filtered triple contraction.",
+          "result": "Finite complex sums can express the displayed polynomial once coefficient vectors and coupling constants are inputs. No matching spherical-harmonic coupling coefficients or rotation-invariance theorem was found by the scoped search."
+        }
+      ],
+      "gap": "The Clebsch-Gordan constants and spherical coefficient convention remain to be supplied for the displayed conjugated triple sum and its invariant-theoretic properties."
+    }
+  },
+  {
+    "interface_id": "local-57850dbbb652375932cc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "81ff1070ba9155291a05d0a00b99776aded3478d10e1770b5329065f9908e6b3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D15",
+        "comparison": "Evaluate the Hessian of R at theta_star exactly as defined, without replacing R by sample risk or reversing its negative-log-likelihood sign. iteratedFDeriv at order two supplies the derivative form under appropriate differentiability; symmetry, positive semidefiniteness and equality to expected score outer products require their own hypotheses and arguments.",
+        "statement_sha256": "491ea427d73daf8790415f89023fc937fa867931cc656a1dc87165d76b842c7c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Fisher-information and Hessian definitions, then inspected iteratedFDeriv's second-order specialization and compared D15's population-risk Hessian rather than imposing a score-covariance definition.",
+          "result": "The second Frechet derivative gives a continuous bilinear form whose evaluations on coordinate vectors form the Hessian matrix of the supplied population negative log likelihood. Differentiability and exchanging differentiation with the expectation remain analytic obligations."
+        }
+      ],
+      "gap": "The population risk needs the requisite second differentiability and a coordinate Hessian construction, with additional regularity if Fisher information is also identified with score covariance."
+    }
+  },
+  {
+    "interface_id": "local-ccb1af1a59479c692772",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "8446741f255eb51c9dee5c9ffb891ea90f7fce59e05dac247733e02bf37373ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D31",
+        "comparison": "Integrate the rotated signal over x_3 while x_1,x_2 remain fixed; noise is white on R2. Preserve original signal dimension sum_l(2l+1)S_l and projected dimension S(2L+1), S=max_l S_l. The rectangular coefficient matrix sends R^d to R^tilde_d and its entries remain appendix D.S57. Original rho-squared radial orthogonality alone does not prove the projected real basis is orthonormal, and line integration is not automatically a bounded operator on arbitrary L2(R3). Independent equal-variance coefficient noise depends on the additional projected orthonormality.",
+        "statement_sha256": "5e6c8a31bb59d960b320101a6404413233613462fadf5d6d2f2491aad9200933"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.stdGaussian",
+          "type": "(E : Type u) → [NormedAddCommGroup E] → [InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [MeasurableSpace E] → MeasureTheory.Measure E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Standard Gaussian measure on a finite-dimensional real inner product space, constructed from independent standard normal coordinates; the probability-measure instance additionally uses BorelSpace.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.specialOrthogonalGroup",
+          "type": "(n : Type u) → [DecidableEq n] → [Fintype n] → (R : Type v) → [CommRing R] → Submonoid (Matrix n n R)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.UnitaryGroup",
+          "provides": "Orthogonal matrices of determinant one, using trivial scalar star; the real three-dimensional specialization is the rotation group SO(3).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/UnitaryGroup.lean#L315-L315",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched tomographic/cryo-EM and Fourier-slice constructions across Mathlib; inspected matrix coefficient maps, SO(3), Gaussian-process marginals and finite Gaussian coordinates against the frozen line-projection and basis formulas.",
+          "result": "A finite projection matrix and Gaussian coefficient noise are expressible once the signal and projected bases are supplied. No inspected declaration establishes this line-integral projection's Fourier-slice formula, exact coefficient matrix or the paper's specially chosen projected orthonormality."
+        }
+      ],
+      "gap": "The line-projection integrability, Fourier-slice coefficient map and separately orthonormal projected basis must be established to justify the stated Gaussian coefficient observation model."
+    }
+  },
+  {
+    "interface_id": "local-a87e7fd4cfee77f37322",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:46:48.712556+00:00",
+    "source_interface_sha256": "c30013ccb27c5107a34326b9e77c1fbab8d19de63d6f1f98b862ac5c37a3d90a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D19a",
+        "comparison": "Use d_0 as the maximal geometric dimension of the full orbit and d_k as successive unprojected invariant-subalgebra transcendence-degree differences for k=1,...,K; the library's cardinal-valued trdeg needs justified finite conversion before ordinary subtraction, and the equality of the total with ambient d needs the orbit/invariant dimension relation.",
+        "statement_sha256": "fde5f8bf132c6575f08298f94984c74b5bfc254624109e91d9da96c26d1aff83"
+      },
+      {
+        "paper_id": "aos-2024-v52-i01-p0052",
+        "local_id": "D19b",
+        "comparison": "tilde_d_0 is still the maximal dimension of the full, unprojected G-orbit. Only k>=1 uses the projected algebra filtration and the range through tilde_K; these tilde_d_k quantities are not the projected observation dimension tilde_d. Preserve monotonicity and finite arithmetic rather than silently using infinite-cardinal subtraction.",
+        "statement_sha256": "38ca1b1d373d57cedda7419777a1ce2be1ebd161e056c2ca32e4d4035b682b3f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Algebra.trdeg",
+          "type": "(R : Type u) → (A : Type v) → [CommRing R] → [CommRing A] → [Algebra R A] → Cardinal.{v}",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.AlgebraicIndependent.Basic",
+          "provides": "Transcendence degree of a commutative algebra as the cardinal supremum of its algebraically independent subsets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/AlgebraicIndependent/Basic.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Algebra.adjoin",
+          "type": "(R : Type u) → {A : Type v} → [CommSemiring R] → [Semiring A] → [Algebra R A] → Set A → Subalgebra R A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Algebra.Subalgebra.Lattice",
+          "provides": "The smallest subalgebra containing chosen generators, allowing products whose degrees exceed the degree bound on generators.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Algebra/Subalgebra/Lattice.lean#L32-L34",
+          "link_checked": true
+        },
+        {
+          "name": "MulAction.orbit",
+          "type": "(γ : Type u) → {α : Type v} → [SMul γ α] → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.GroupTheory.GroupAction.Defs",
+          "provides": "The set of all scalar-action images of an element; for the supplied orthogonal subgroup action this is precisely the group orbit.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/GroupTheory/GroupAction/Defs.lean#L49-L50",
+          "link_checked": true
+        },
+        {
+          "name": "IsGreatest",
+          "type": "{α : Type u} → [LE α] → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Bounds.Defs",
+          "provides": "Membership in a set together with being an upper bound for every element of that set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Bounds/Defs.lean#L41-L46",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched transcendence-degree monotonicity, degree-generated subalgebras and orbit dimension; inspected trdeg's cardinal supremum, adjoin, orbit and attained maxima against both dimension-increment displays.",
+          "result": "The two algebra filtrations can be represented and their finite transcendence degrees converted to integer-valued increments after finiteness and monotonicity are established. The geometric d_0 and its relation to invariant transcendence degree are additional results, not consequences of subtracting cardinals or telescoping alone."
+        }
+      ],
+      "gap": "The orbit dimension and finite monotone transcendence-degree filtrations must be established before forming the integer increments and proving any total-dimension identity."
+    }
+  }
+]

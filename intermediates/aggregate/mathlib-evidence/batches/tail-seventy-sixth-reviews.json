@@ -1,0 +1,197 @@
+{
+  "scope": "Manual comparison of 21 remaining interfaces touching aos-2024-v52-i03-p0895, with 27 source members including every cross-paper conditional-mean and conditional-independence variant; source-specific law, quantile, resampling and uniformity conventions preserved.",
+  "rows": [
+    {
+      "interface_id": "local-2380bdc7faeb69cd77d6",
+      "related": ["MeasureTheory.Measure.pi", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "IID triangular-array sample of triples from an n-dependent joint law; inspected finite product probability measures and independent identical distributions.",
+      "result": "For each n, use n copies of the joint law L_n to define the sample row; no common probability law across n or additional factorization inside each triple is required.",
+      "gap": "These declarations suffice to define each iid sample row while allowing the population law to vary with n.",
+      "comparisons": {"D1": "Take n iid triples (X_i,Y_i,Z_i) from L_n, with sample arrays distinguished from bold population variables; iid across observations does not assert independence of X and Y within a triple, either conditionally or unconditionally, and is not an across-n coupling assumption."}
+    },
+    {
+      "interface_id": "conditional-mean-regression",
+      "related": ["MeasurableSpace.comap", "MeasureTheory.condExp", "ProbabilityTheory.condDistrib", "MeasureTheory.condExpL2"],
+      "status": "composable",
+      "query": "Conditional-mean regression functions for observed and potential responses with different predictor blocks; inspected generated conditioning sigma-algebras, conditional expectations, regular conditional kernels and the L2 projection.",
+      "result": "Conditional expectation relative to the predictor-generated sigma-algebra gives each target as a random variable, and factorization or conditional-kernel integration gives a measurable predictor function up to the predictor law's null sets. The L2 projection supports the mean-squared prediction interpretation when the response is square integrable.",
+      "gap": "These declarations suffice for the conditional means after specifying each response, predictor block, law and integrability domain, with pointwise representatives determined only almost everywhere.",
+      "comparisons": {
+        "aos-2024-v52-i02-p0466/D1": "Condition the real response y on the p-dimensional x with the stated joint support Y times X; preserve 'random sample' as source wording, and use square integrability for the stated mean-squared prediction optimality rather than inferring finite risk from mere existence of a conditional mean.",
+        "aos-2024-v52-i04-p1592/D2": "Use the observed-law conditional mean mu_0(l,a)=E[Y|L=l,A=a], conditioning jointly on covariates and treatment; it is not itself a potential-outcome estimand or a causal-identification result.",
+        "aos-2024-v52-i05-p1978/D4": "For each t=0,1 define r_t(x)=E[Y(t)|X=x] using the potential outcome as the response; no linearity, sparsity or identification with E[Y|T=t,X=x] follows without the source's separate assumptions.",
+        "aos-2024-v52-i06-p2851/D6": "The target is m(z)=E[Y|Z=z], while m-hat is a fitted nuisance function whose training data depend on the selected algorithm; the definition does not equate the fitted function with its target or with the full regression on (X,Z).",
+        "aos-2024-v52-i03-p0895/D3": "Under each n-dependent true law L_n, define both mu_n,x(Z)=E[X|Z] and mu_n,y(Z)=E[Y|Z], then evaluate their chosen versions at observed Z_i; fitted means are distinct data-dependent inputs and no regression algorithm or learned conditional law is prescribed here.",
+        "aos-2024-v52-i06-p2851/D7": "For each P use g_P(x,z)=E_P[Y|X=x,Z=z], retaining the full predictor block; equality with the response-on-Z function m_P is a conditional-mean null condition, not part of this definition."
+      }
+    },
+    {
+      "interface_id": "conditional-independence",
+      "related": ["ProbabilityTheory.CondIndepFun", "MeasurableSpace.comap", "ProbabilityTheory.condDistrib"],
+      "status": "composable",
+      "query": "Conditional product factorization and equality of full response conditional laws under predictor enlargement; inspected CondIndepFun and conditional-distribution kernels on standard Borel spaces.",
+      "result": "The conditional-independence predicate supplies the probability property, and regular conditional kernels represent its product-law or conditional-law invariance formulations up to almost-everywhere versions.",
+      "gap": "The existing conditional-independence infrastructure suffices after specifying the conditioning sigma-algebra and verifying the standard measurable-space hypotheses for the chosen law representation.",
+      "comparisons": {
+        "aos-2024-v52-i03-p0895/D2": "Define the null-law class by L_n(X,Y|Z)=L_n(X|Z) times L_n(Y|Z), with the regularity class R_n intersected separately; membership does not assert that the true predictor conditional law is known or equal to its learned approximation.",
+        "aos-2024-v52-i06-p2851/D27": "Require the entire conditional distribution of Y given (X,Z) to equal that given Z, not just their conditional means; retain its role only in the stated branch of Theorem 4 and do not import it into other mean-null or power claims."
+      }
+    },
+    {
+      "interface_id": "local-0468699b0a5e403dcc6b",
+      "related": ["Finset.sum_apply", "Real.sqrt"],
+      "status": "composable",
+      "query": "Raw fitted-residual product statistic normalized by sqrt n; inspected finite function sums and real square root.",
+      "result": "Evaluation of two fitted mean functions at each Z_i, multiplication of residuals and the normalized sum give the complete statistic as a data functional.",
+      "gap": "Existing finite arithmetic suffices to define the raw statistic once the fitted mean functions and positive sample size are supplied.",
+      "comparisons": {"D5": "Use n^-1/2 sum_i(X_i-mu-hat_n,x(Z_i))(Y_i-mu-hat_n,y(Z_i)), with both fits treated as inputs; this raw numerator has no variance studentization and does not itself require resampled observations or a full predictor conditional kernel."}
+    },
+    {
+      "interface_id": "local-5f5e0757d378c49303c1",
+      "related": ["ProbabilityTheory.variance", "ProbabilityTheory.gaussianReal", "ProbabilityTheory.cdf", "Set.indicator", "Real.sqrt"],
+      "query": "GCM one-sided standardized residual-product test, empirical variance and Gaussian critical value; searched GCM and inspected variance, standard normal CDF, indicators and square roots.",
+      "result": "The residual-product sample and empirical variance can be expressed using finite arithmetic or an empirical measure, and an indicator of exceeding the normal quantile defines the decision. Empirical variance normalization and zero-denominator behavior remain source conventions not fixed by the generic variance operator.",
+      "gap": "The GCM test still needs its empirical-variance divisor and degenerate-denominator convention specified alongside the fitted means and normal threshold.",
+      "comparisons": {"D7": "Studentize the raw n^-1/2 residual sum by the square root of the empirical variance of the residual products, then reject strictly above z_(1-alpha); retain the one-sided test, unspecified n-versus-n-1 empirical divisor, and absence of a resampling-kernel requirement."}
+    },
+    {
+      "interface_id": "local-1b8f04a51106924675e2",
+      "related": ["ProbabilityTheory.Kernel", "ProbabilityTheory.IsMarkovKernel", "MeasureTheory.Measure.pi"],
+      "query": "Learned conditional predictor kernel and conditionally independent in-sample resampling given data; inspected measurable Markov kernels and finite product measures.",
+      "result": "A data-dependent Markov kernel evaluated at the observed Z_i supplies each predictor draw law, and their product supplies conditional independence across observations once the training data are fixed. The response mean is another fitted input, not a response resampling law.",
+      "gap": "The resampling law is composable once the learning maps yield measurable probability kernels and fitted response means with the source's training inputs.",
+      "comparisons": {"D4": "Learn the X-given-Z kernel from (X,Z) and the Y-given-Z mean from (Y,Z) using the observed sample, then draw each resampled predictor array under the product of the learned conditional laws given all original data; neither independent training nor an entire learned joint law of (X,Y,Z) is prescribed."}
+    },
+    {
+      "interface_id": "local-6f1b9f38f6d1a43a3506",
+      "related": ["MeasureTheory.lintegral", "Real.rpow", "csSup_le_iff", "le_csInf_iff"],
+      "status": "composable",
+      "query": "Uniform-in-n second and 2+delta moments of true residual products; inspected nonnegative moments, real powers and bounded supremum/infimum conditions.",
+      "result": "Nonnegative integration expresses both moments and explicit quantification over n imposes common strict lower and upper bounds. Real infimum/supremum identities need their boundedness conditions; extended nonnegative moments retain infinite values during formulation.",
+      "gap": "These operations suffice to state the two uniform-in-n moment restrictions with the supplied positive constants.",
+      "comparisons": {"D15": "Use the true centered product U_n=(X-mu_n,x(Z))(Y-mu_n,y(Z)), require inf_n E[U_n^2]>c_1 and sup_n E[|U_n|^(2+delta)]<c_2 with c_1,c_2,delta>0; this is not a learned-residual moment condition and does not automatically make the constants uniform over every regularity class of laws."}
+    },
+    {
+      "interface_id": "local-185f3a34596330333f06",
+      "related": ["ProbabilityTheory.variance", "ProbabilityTheory.Kernel", "MeasureTheory.lintegral"],
+      "status": "composable",
+      "query": "Almost-sure positive finite learned conditional variance and two squared response residuals; inspected variance as centered second moment, learned kernels and extended nonnegative integration.",
+      "result": "Variance under each realized learned predictor kernel and the two data residual squares are definable quantities, with positivity and finiteness imposed as almost-sure assertions under the true sampling law. Real variance totalization does not prove finiteness.",
+      "gap": "The NDG2 predicate is composable once learned-kernel second moments and the common almost-sure interpretation are specified.",
+      "comparisons": {"D12": "Require all three quantities in the comma-separated chain to lie strictly between zero and infinity: the learned predictor conditional variance, squared fitted-mean response residual and squared true-mean response residual; this is neither a uniform positive lower bound nor permission to add the separate NDG1 assumption to every theorem using NDG2."}
+    },
+    {
+      "interface_id": "local-ae7b90f3cffd07347b04",
+      "related": ["ProbabilityTheory.condDistrib", "ProbabilityTheory.cdf", "csInf_le"],
+      "query": "Lower conditional quantile as infimum of conditional CDF level set; searched quantile/inverse CDF and inspected conditional kernels, cdf and infimum characterization.",
+      "result": "For a proper conditional probability kernel, evaluate its CDF at t and take the infimum of the set where it is at least alpha. A coherent conditional-law version and measurable dependence of this infimum are additional obligations; endpoint quantile levels can require extended values.",
+      "gap": "The conditional quantile construction still needs a coherent measurable conditional CDF and its level-set infimum with the intended probability-level domain.",
+      "comparisons": {"D9": "Retain inf{t:P[W<=t|F]>=alpha}, with a non-strict CDF event and non-strict level comparison, giving the lower quantile rather than any arbitrary quantile selection; the test uses an interior level 1-alpha, and conditional versions are only determined almost surely."}
+    },
+    {
+      "interface_id": "local-1fc2ae4f3bfad3fa8f5c",
+      "related": ["Finset.sum_apply", "Real.sqrt", "MeasureTheory.Measure.pi"],
+      "status": "composable",
+      "query": "Resampled predictor residual statistic with original nuisance fits held fixed; inspected finite normalized sums and product resampling laws.",
+      "result": "The same residual-product formula can be evaluated with a resampled predictor vector and all other inputs fixed. Its data dependence is explicit in the four-argument formulation.",
+      "gap": "The resampled statistic is composable from the finite formula while keeping the original fitted functions fixed under resampling.",
+      "comparisons": {"D6": "Replace only X_i by the draw from resampling replicate m in n^-1/2 sum_i(X-tilde_i-mu-hat_n,x(Z_i))(Y_i-mu-hat_n,y(Z_i)); retain original X as a fitting input and do not refit either nuisance after resampling, while preserving the source's shorthand omission of m on individual components."}
+    },
+    {
+      "interface_id": "local-1c7912fbf00422511c4e",
+      "related": ["ProbabilityTheory.variance_sum_pi", "ProbabilityTheory.variance", "MeasureTheory.Measure.pi"],
+      "query": "Variance of conditionally independent weighted predictor residuals under the learned product law; inspected variance_sum_pi, variance scaling/centering and finite product measures.",
+      "result": "For each fixed data set, the learned product law makes separate predictor coordinates independent; square-integrable variance additivity and constant scaling yield the sum of learned variances times squared observed response residuals with factor 1/n.",
+      "gap": "The displayed identity follows by assembling product-law variance additivity and scaling after verifying the learned conditional second moments.",
+      "comparisons": {"D8": "Compute variance over resampled X conditional on original (X,Y,Z), leaving response residuals and fitted means fixed; the result uses Var_under_learned[X_i|Z_i](Y_i-mu-hat_n,y(Z_i))^2/n and is not the empirical variance of the observed residual products used by GCM."}
+    },
+    {
+      "interface_id": "local-9226d15c00b2787b4308",
+      "related": ["Finset.sum_div", "Real.sqrt", "ProbabilityTheory.condVar", "MeasureTheory.eLpNorm"],
+      "status": "composable",
+      "query": "In-sample nuisance RMS errors with opposite-response conditional variance weights; inspected finite mean squares, square root, conditional variance and empirical L2 seminorm.",
+      "result": "The two unweighted errors are empirical L2 discrepancies at observed covariates; the weighted versions multiply each squared error by the other variable's true conditional variance before averaging and taking the square root.",
+      "gap": "These operations suffice to define the four error quantities once the true and fitted conditional means and true variance versions are supplied.",
+      "comparisons": {"D13": "Keep E_n,x and E_n,y as root mean squares on the same observed Z_i, E-prime_n,x weighted by true Var[Y|Z_i], and E-prime_n,y weighted by true Var[X|Z_i]; they are random in-sample quantities, not population risks, learned-variance errors, or quantities requiring a resampling kernel."}
+    },
+    {
+      "interface_id": "local-c315433b57225f1a1eb9",
+      "related": ["Filter.Tendsto", "MeasureTheory.Measure.real", "MeasureTheory.TendstoInMeasure"],
+      "status": "composable",
+      "query": "Stochastic little-o rates under changing triangular-array laws; inspected deviation-probability convergence and the fixed-measure scope of TendstoInMeasure.",
+      "result": "Vanishing tail probabilities for scaled errors express stochastic little-o under each row's true sample law. TendstoInMeasure covers a common-space fixed-law representation, but changing laws require explicit row-specific probabilities rather than deterministic IsLittleO.",
+      "gap": "The rates are composable by expressing deviation-probability limits under the correct n-dependent sampling laws.",
+      "comparisons": {"D14": "Require sqrt(n) E_n,x E_n,y ->0 in probability and E-prime_n,x,E-prime_n,y ->0 in probability under the true row laws; the product rate is quantitative double robustness, not validity whenever one model is labeled correct regardless of the other's error."}
+    },
+    {
+      "interface_id": "local-60ac99630515f652d61d",
+      "related": ["ProbabilityTheory.condDistrib", "ProbabilityTheory.cdf", "Filter.Tendsto", "MeasureTheory.TendstoInMeasure"],
+      "query": "Conditional CDF convergence in probability at limiting continuity points; inspected conditional laws, scalar CDF and convergence-in-measure definition with its fixed underlying measure.",
+      "result": "Each conditional CDF value is a data-dependent random quantity whose deviations from the fixed limiting CDF can be required to vanish in probability. For n-dependent experiments this is formulated through the corresponding sequence of outer sampling probabilities.",
+      "gap": "The conditional convergence relation still needs its coherent conditional CDF versions and pointwise-in-t probability limits assembled across the experiment sequence.",
+      "comparisons": {"D11": "For each continuity point t of the law of W, require P[W_n<=t|F_n] -> P[W<=t] in probability; do not replace it by almost-sure conditional convergence, uniform convergence over all t, or unconditional weak convergence alone."}
+    },
+    {
+      "interface_id": "local-fae9c4be4e8b0012fbb3",
+      "related": ["Filter.Tendsto", "MeasureTheory.Measure.real", "ProbabilityTheory.variance", "Real.sqrt"],
+      "status": "composable",
+      "query": "SP1-prime nuisance rates with learned-variance-weighted response error; inspected probability limits, realized learned-law variance and empirical square roots.",
+      "result": "The original three stochastic rate conditions are supplemented by another RMS quantity using the learned predictor variance. Explicit tail probabilities handle the n-dependent true sampling laws.",
+      "gap": "The strengthened condition is composable from SP1 and the additional learned-variance-weighted RMS convergence requirement.",
+      "comparisons": {"D18": "Retain the product rate and both true-variance-weighted errors from SP1, plus E-hat-prime_n,y ->0, where its square averages (mu-hat_n,y(Z_i)-mu_n,y(Z_i))^2 times learned Var[X_i|Z_i]; this augmentation is used by Theorem 2 and must not be silently imposed on Theorem 3."}
+    },
+    {
+      "interface_id": "local-bd64e40750dc87a1b630",
+      "related": ["MeasureTheory.Measure.tilted", "ProbabilityTheory.Kernel", "MeasureTheory.Measure.bind", "MeasureTheory.MemLp.toLp"],
+      "query": "Semiparametric generalized partially linear canonical exponential-family alternatives with fixed predictor law; inspected exponential tilting, conditional kernels, integrated conditional laws and L2 representations.",
+      "result": "Tilting a response base measure by eta times its canonical statistic gives an exponential-family law when the normalizer is finite; a kernel indexed by eta=x beta+g(z) combines with the fixed (X,Z) law. The nuisance subspace and log-partition function remain model-specific data.",
+      "gap": "The GPLM family still needs its normalized response kernel, log-partition function and specified linear L2 nuisance space assembled with the fixed predictor law.",
+      "comparisons": {"D20": "Keep L_(x,z) fixed, beta scalar, eta=X beta+g(Z) and g in the stated linear subspace of L2 of the Z marginal, without adding closedness; preserve the source L_(beta,eta) notation alongside paths parameterized by (beta,g), and do not require every conditional-independence null law to belong to this alternative family."}
+    },
+    {
+      "interface_id": "local-c47cdeed8258ba83bfee",
+      "related": ["Set.indicator", "ProbabilityTheory.condDistrib", "ProbabilityTheory.cdf", "csInf_le", "ProbabilityTheory.variance"],
+      "query": "Infinite-resamples dCRT decision above a lower conditional quantile and scale invariance; searched dCRT and inspected conditional distributions, CDF infima, variance and indicators.",
+      "result": "The raw decision compares the observed statistic with a quantile of its fixed-data resampling law. Equivalence after studentization uses a positive finite data-measurable scale and the corresponding conditional quantile scaling identity.",
+      "gap": "The theoretical test still needs the conditional-quantile construction and positive-scale equivalence, with degenerate scales treated only as specified by the source.",
+      "comparisons": {"D10": "Reject strictly above the conditional (1-alpha) quantile of the resampled statistic given all original data, or above its correspondingly standardized threshold when the resampling standard deviation is positive finite; this is the M->infinity test and supplies no arbitrary fixed-M Monte Carlo validity guarantee or invented zero-denominator rule."}
+    },
+    {
+      "interface_id": "local-15d55e182a082db93b4d",
+      "related": ["Real.sqrt", "ProbabilityTheory.condVar", "MeasureTheory.integral"],
+      "status": "composable",
+      "query": "Root-n local coefficient/nuisance paths and conditional-variance product information scale; inspected real square root, conditional variance and integration.",
+      "result": "Scalar and function-space arithmetic defines the path about (0,g_0). The auxiliary scale is the integral of the product of the two true conditional variances under the base law, with its nonnegative square root used where needed.",
+      "gap": "These operations suffice for the local paths and auxiliary scale once the nuisance space, base point and finite variance domain are supplied.",
+      "comparisons": {"D21": "Use theta_n(h)=(h_beta/sqrt(n),g_0+h_g/sqrt(n)) for h_beta>0 and h_g in H_g, preserving the one-sided alternative; the theorem separately evaluates the same formula at h_beta=0 for null-path inclusion, and s^2(theta_0) uses the expectation of the product of true conditional variances rather than learned or unconditional variances."}
+    },
+    {
+      "interface_id": "local-1486210bb39f1d3a8a9a",
+      "related": ["ProbabilityTheory.condVar", "ProbabilityTheory.variance", "Finset.sum_div", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Signed average learned-minus-true predictor conditional variance error weighted by true response variance, converging in probability; inspected conditional variance, realized kernel variance, averaging and probability-tail limits.",
+      "result": "The empirical weighted signed sum is a data-dependent scalar, and convergence of its deviation probabilities to zero states consistency under the true row law.",
+      "gap": "The condition is composable from the two variance versions, true response weights and the appropriate row-law probability limit.",
+      "comparisons": {"D16": "Retain n^-1 sum_i(learned Var[X_i|Z_i]-true Var[X_i|Z_i]) true Var[Y_i|Z_i] ->0 in probability, including its sign and possible cancellation; it is not pointwise variance consistency or convergence of an average absolute or squared variance error."}
+    },
+    {
+      "interface_id": "local-d6488e40667706a288d6",
+      "related": ["Filter.limsup", "csSup_le_iff", "MeasureTheory.integral", "Set.Icc"],
+      "status": "composable",
+      "query": "Uniform asymptotic Type-I error with supremum over n-dependent null regularity classes before limsup; inspected bounded test expectations, real suprema and limit superior.",
+      "result": "Measurable [0,1]-valued tests have bounded expectations, enabling a per-n supremum followed by limsup. The correct law is the data experiment induced by each candidate joint law, with a convention needed if a null class is empty.",
+      "gap": "These order and integration operations suffice to state uniform asymptotic level once the null experiment classes and any empty-class convention are supplied.",
+      "comparisons": {"D19": "Take sup over L_n in the conditional-independence null intersect R_n at each n before limsup, bounding it by alpha; allow randomized tests with values throughout [0,1], and do not replace uniform-over-laws control by a separate pointwise limit for each fixed law."}
+    },
+    {
+      "interface_id": "local-dcd6836b4d14db38854a",
+      "related": ["Filter.limsup", "Filter.liminf", "MeasureTheory.integral", "Set.Icc"],
+      "status": "composable",
+      "query": "Locally asymptotically most powerful and LAUMP definitions with competitor-wise limsup/liminf power comparison; searched LAUMP and inspected bounded expectations and limit superior/inferior.",
+      "result": "Quantifying over all competing level-alpha test sequences and comparing their bounded power sequences expresses the directional definition. Subsequent universal quantification over directions and base nuisance functions gives the two stated uniform variants.",
+      "gap": "The definition is composable from the level-control predicate and power limits, while proving a particular test satisfies it is a separate statistical result.",
+      "comparisons": {"D22": "For each fixed positive coefficient direction and nuisance direction, require the competitor's limsup power <= the proposed test's liminf power and require both to satisfy the separate null-level condition; LAUMP(g_0) then quantifies over every direction and LAUMP(S) over every g_0 in S, without moving a supremum over directions inside the limits."}
+    }
+  ]
+}

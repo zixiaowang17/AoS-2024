@@ -1,0 +1,148 @@
+{
+  "scope": "Manual comparison of thirteen structural and sampling interfaces from p1178; remaining conditional-law, regularity and HAM algorithm interfaces are left pending for a separate substantive review.",
+  "rows": [
+    {
+      "interface_id": "local-e455fe8fa9716aa6174d",
+      "related": ["hammingDist"],
+      "status": "composable",
+      "query": "Inspected the hammingDist finite-count body and its zero-vector/Hamming-weight identity, and compared each source binary-pattern order and meet/join clause.",
+      "result": "Hamming distance to the zero pattern counts selected coordinates, while the source order and lattice operations can be defined coordinatewise on the finite binary type.",
+      "gap": "Instantiate finite binary patterns with coordinatewise order and define dimension as Hamming distance to zero, retaining the source strict-order convention.",
+      "comparisons": {
+        "D1": "On Fin d to a binary type, hammingDist omega zero counts exactly the positions equal to one, giving d_omega in the naturals and the stated l1 norm after embedding bits in the reals. Define omega preceq omega' by a coordinatewise implication or numerical inequality, and strict order by preceq together with omega not equal omega'. This is not the pointwise relation demanding strict inequality at every coordinate; at least one strict coordinate suffices. Meet and join are coordinatewise min and max, corresponding to intersection and union of selected supports. Hamming weight is neither ambient dimension d for every pattern nor a Euclidean vector norm."
+      }
+    },
+    {
+      "interface_id": "local-d3586db2f812925716f3",
+      "related": ["IsAntichain"],
+      "status": "exact_reuse",
+      "query": "Located and inspected IsAntichain's Set.Pairwise complement definition, empty and singleton cases, and its eq lemma against the source antichain predicate.",
+      "result": "IsAntichain applied to the binary-pattern coordinatewise order expresses exactly the absence of distinct comparable members.",
+      "gap": "Instantiate IsAntichain with the coordinatewise order on binary patterns and package the class of all satisfying subsets.",
+      "comparisons": {
+        "D15": "Use IsAntichain (fun omega omega' => omega preceq omega') Omega. Its definition forbids the relation between distinct members, and its eq lemma gives precisely that comparable members of Omega must be equal. The definition includes the empty set and every singleton, including the singleton zero pattern. The theorem's separate exclusion of the empty antichain and singleton zero must remain a parameter restriction rather than a change to IsAntichain. Lower-dimensional nonzero patterns are allowed; an antichain does not mean all masks have the same Hamming weight."
+      }
+    },
+    {
+      "interface_id": "local-3fb0093a1a5a1fd86a2e",
+      "related": ["Finset.filter", "Finset.card"],
+      "status": "composable",
+      "query": "Inspected finite filtering and cardinality bodies and compared the source available-case sum under a fixed realized mask sequence.",
+      "result": "Cardinality of the sample-index set filtered by mask containment gives exactly the available-case count.",
+      "gap": "Count sample indices whose realized masks contain every coordinate selected by the requested pattern.",
+      "comparisons": {
+        "D25": "For fixed o1,...,on, define the finite set of indices i with omega preceq o_i and take its card; this equals the displayed indicator sum. It counts containing masks rather than exact mask equality, so one observation can contribute to many pattern counts. Repeated observed records still have distinct sample indices and must not be deduplicated as values. The quantity is deterministic after conditioning on the full mask sequence and is not n times a mask probability or a rounded expected sample size. The zero pattern is available at every sample, so its count is n."
+      }
+    },
+    {
+      "interface_id": "local-b89036aa34141e60d0d1",
+      "related": ["Real.log"],
+      "status": "composable",
+      "query": "Inspected Real.log's real-domain definition and nonpositive extensions and compared the exact lower truncation at the constant e.",
+      "result": "The real logarithm composed with max(x,exp(1)) gives a total real function with the source's lower bound one.",
+      "gap": "Define log-plus(x) as Real.log of max(x,exp(1)).",
+      "comparisons": {
+        "D27": "For every real x, max(x,e) is strictly positive, so Real.log is used within its usual positive domain and its nonpositive extensions do not affect the formula. The value is exactly one for x<=e, and log(x) for x>e. This is neither log(1+x) nor max(log(x),0); in particular its lower truncation is at one, not zero, and it is defined even for negative x. Preserve this convention wherever rates use log-plus instead of ordinary log."
+      }
+    },
+    {
+      "interface_id": "local-291d0ab182f80ac272b4",
+      "related": ["MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected Measure.map with its measurability domain and compared the source's joint triple law and unconditional pair marginal.",
+      "result": "The measurable projection from the feature-label-mask product to the feature-label pair gives the desired marginal law directly.",
+      "gap": "Define the triple probability-law class and project each law onto its unconditional feature-label marginal P_Q.",
+      "comparisons": {
+        "D3": "Use the product measurable space R^d times the binary label type times the finite binary-mask type. The projection (x,y,o) maps to (x,y) is measurable, and Measure.map produces P_Q, integrating out O without conditioning on its value. Consequently P_Q is the complete test-pair law even when missingness depends on X or Y; it is not the distribution conditional on an all-one mask. The source class Q initially permits every joint law on this space, with missingness assumptions imposed later. A feature marginal is a further projection, distinct from this pair law."
+      }
+    },
+    {
+      "interface_id": "local-15ba5597ea8afd03afba",
+      "related": ["Finset.filter"],
+      "status": "composable",
+      "query": "Inspected Finset.filter and compared the source definition of N with the fixed-mask count and binary-pattern partial order.",
+      "result": "Filtering the finite pattern universe by positive available-case count gives exactly the observed-pattern set.",
+      "gap": "Filter binary patterns by positive n_omega and prove the resulting set is downward closed.",
+      "comparisons": {
+        "D26": "Let N be all omega with n_omega>0, using the count of indices whose masks contain omega. A pattern belongs if and only if at least one realized mask contains it. If omega' preceq omega and omega belongs, the same sample witnesses membership of omega', giving downward closure; for n>0 the zero pattern belongs. N is derived from the realized training sample and differs both from the allowed conditioning set O and from the set of masks observed exactly. Any complement N^c is within the entire finite Boolean pattern universe. No model-probability positivity substitutes for an actual positive sample count."
+      }
+    },
+    {
+      "interface_id": "local-5faed98fbf7611f00557",
+      "related": ["Finset.min'", "Finset.filter"],
+      "status": "composable",
+      "query": "Inspected the nonempty finite-minimum interface and finite filtering, then compared the selected-coordinate smoothness minimum and its nonzero-pattern domain.",
+      "result": "The minimum of the finite image of selected positive coordinate exponents gives the source patternwise smoothness scalar.",
+      "gap": "Take the minimum beta_j over selected coordinates, using the nonzero pattern to prove the index set is nonempty.",
+      "comparisons": {
+        "D21": "Filter coordinate indices by omega_j=1, map them to the supplied beta_j in (0,1], and use Finset.min' with the nonemptiness proof supplied by omega not equal zero. Then beta_omega also belongs to (0,1]. The bold beta is a vector of coordinate exponents, while beta_omega is this minimum scalar, not their average, sum or product. There is no definition here for the zero pattern, whose selected-coordinate set is empty. C_S>=1 is a separate smoothness constant and does not enter the minimum or itself assert the Holder bound on f_omega."
+      }
+    },
+    {
+      "interface_id": "local-da11226c96261cccdd2e",
+      "related": ["Finset.min'", "Finset.filter"],
+      "status": "composable",
+      "query": "Inspected the finite minimum and filter definitions and compared the source tail-vector domain with the selected-coordinate minimum.",
+      "result": "The nonempty finite minimum supplies the exact patternwise tail parameter, whose value may be zero.",
+      "gap": "Define gamma_omega as the minimum of the selected nonnegative coordinate exponents for nonzero omega.",
+      "comparisons": {
+        "D19": "Select indices j with omega_j=1 and apply Finset.min' to their finite gamma-value image; omega not equal zero proves the domain is nonempty. Unlike beta, the source gamma vector ranges over [0,infinity)^d, so gamma_omega can be zero and positivity must be imposed separately wherever a later rate divides by it. No zero-pattern minimum convention is supplied. The lower-density constant C_L and allowed mask set O are parameters of the later distribution class, not ingredients in this coordinate minimum. In particular, a nonzero pattern need not have a positive tail exponent merely because it has selected coordinates."
+      }
+    },
+    {
+      "interface_id": "local-30a47152f25dc989c189",
+      "related": ["IsAntichain"],
+      "status": "composable",
+      "query": "Inspected the antichain relation semantics and compared the exact existential strict-predecessor definition and complement formula for U, including the recorded algorithm-selection limitation.",
+      "result": "Set comprehension over the binary partial order expresses L and U directly, with the antichain premise separating Omega from its strict predecessors.",
+      "gap": "Define L as the strict lower closure of Omega and U as the complement of Omega union L in the Boolean universe.",
+      "comparisons": {
+        "D16": "For Omega satisfying IsAntichain of the coordinatewise order, define L(Omega) by existence of a strictly larger member of Omega. The antichain property ensures no member of Omega belongs to L. Set U to the complement of Omega union L, interpreting the printed braces around that union as grouping. U includes patterns incomparable with every member of Omega as well as appropriate larger patterns; it is not merely the upper closure. This distinction is material for the literal HAM test U({omega}) intersect selected-set empty, which can reject an incomparable candidate. For an empty Omega, L is empty and U is the full Boolean universe."
+      }
+    },
+    {
+      "interface_id": "local-7b4b6f1f5e1d92531760",
+      "related": ["Set.indicator"],
+      "status": "composable",
+      "query": "Inspected Set.indicator's membership branches and compared the source Bayes threshold with its excess-loss formula and exact-tie convention.",
+      "result": "The indicator of the set eta>=1/2 provides the source classifier, including the tie choice; optimality needs the standard binary conditional-risk comparison.",
+      "gap": "Define the threshold classifier with class one at equality and prove binary-risk optimality from the chosen regression version.",
+      "comparisons": {
+        "D8": "Use the indicator of {x | 1/2<=eta(x)} with values zero and one, or its equivalent two-branch binary-valued function. Membership includes equality, so eta=1/2 gives class one. Measurability follows once eta is a measurable chosen conditional-probability version. The indicator definition itself does not prove the Bayes risk claim; that follows by comparing conditional misclassification risks eta(x) and 1-eta(x). The excess-risk weight abs(2 eta-1) is zero at a tie, although the classification convention remains specified. No strict-threshold substitution is made."
+      }
+    },
+    {
+      "interface_id": "local-6ad5a12771a7c0e048cf",
+      "related": ["Set.indicator"],
+      "status": "composable",
+      "query": "Inspected the vector/function-compatible Set.indicator and compared the source coordinate masking expression including its explicit zero-fill term.",
+      "result": "Indicator of the selected coordinate set applied to the coordinate function x implements the exact zero-filled mask.",
+      "gap": "Define masked x as its coordinate function restricted by the binary support indicator, retaining the original ambient dimension.",
+      "comparisons": {
+        "D2": "For fixed omega, apply Set.indicator on the finite coordinate index type to the function j maps to x_j and the set omega_j=1. The result has coordinate x_j when selected and zero otherwise, equal to x_j*omega_j+0*(1-omega_j) after real embedding of bits. Its codomain is still R^d, not R^(d_omega), so subsequent distances and measures remain on the ambient zero-filled subspace. The accompanying mask O must remain in observed records because a zero entry alone cannot distinguish a measured zero from an unobserved coordinate. The formula performs no imputation based on labels or other coordinates."
+      }
+    },
+    {
+      "interface_id": "local-eed3803997495414cecf",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Inspected iid and pushforward primitives and compared the source observation map, complete test-point experiment and fixed-mask conditioning notes.",
+      "result": "An iid full-triple sample followed by its measurable masking map produces the observed training records while retaining labels and masks.",
+      "gap": "Construct the iid triple sample, apply the masking observation map and pair it with the fully observed test experiment under P_Q.",
+      "comparisons": {
+        "D5": "Start with iid triples from Q and map each to (X_i raised-to O_i,Y_i,O_i), where the first entry is the zero-filled masked vector. All labels and masks remain observed; the learner does not receive the unmasked training X_i. Measurable mapping preserves the iid law of observed records across i, without implying independence of missingness from features or labels within a record. The test feature is fully observed and its pair law is the unconditional P_Q; the separate contextual footnote about incomplete test features does not change this experiment. Later expectations conditional on a realized mask sequence retain that conditioning rather than replacing counts by their expectations or asserting the conditional records are identically distributed across different fixed masks."
+      }
+    },
+    {
+      "interface_id": "local-7beec9c3a260145691cf",
+      "related": ["Measurable"],
+      "status": "exact_reuse",
+      "query": "Inspected Measurable's preimage definition and compared the full product domain and binary codomain in the source classifier class.",
+      "result": "Measurable on the stated finite product sample space is exactly the defining property of the class of data-dependent binary classifiers.",
+      "gap": "Instantiate the source product domain and binary codomain and collect all functions satisfying Measurable.",
+      "comparisons": {
+        "D6": "Use Measurable C for functions from a complete test feature x together with n observed feature-label-mask records to the binary label type, with Borel and finite discrete product sigma-algebras. The ambient records have the full printed product type; actual D_n belongs to the subset consistent with zero-filled masking. The shorthand C-hat(x) suppresses, but does not remove, dependence on D_n. The class includes all measurable rules on these inputs, not only HAM, a fitted nearest-neighbor class or the oracle used in a proof. It does not grant the classifier access to unobserved training coordinates or labels of the test point, and no separate randomization input is specified."
+      }
+    }
+  ]
+}

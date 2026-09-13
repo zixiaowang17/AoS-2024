@@ -1,0 +1,80 @@
+[
+  {
+    "interface_id": "local-0541e773a7862c1b4239",
+    "status": "composable",
+    "names": [
+      "Set.ofPred",
+      "MeasureTheory.MemLp.toLp"
+    ],
+    "comparison": "Represent F_n as a sample-size-indexed set of scalar functions and D_n as the indexed observations Z_i=(X_i,Y_i), preserving repeated observations rather than deduplicating a literal set. Set.ofPred supports an arbitrary candidate class. MemLp.toLp can identify square-integrable representatives in L2(P_X) when their membership is proved, but the prose intent to approximate L2 is not itself a density or approximation-rate theorem. Feedforward networks are an example at this point, not an imposed architecture in every theorem. No iid law is asserted in the quoted sample declaration; preserve the saved sampling qualification instead of adding independence from its use elsewhere in the U-statistic analysis.",
+    "gap": "Ordinary function sets and L2 representatives express the candidate-class setup; its sampling law and any approximation guarantee remain separate assumptions.",
+    "searches": [
+      [
+        "Inspect Set.ofPred and MemLp.toLp against p1201 D11 and retained sampling/architecture notes",
+        "The primitives represent the class and L2 embedding without asserting iid data, a mandatory network architecture or universal approximation."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-7115a1aaa8343bbbc2ad",
+    "status": "composable",
+    "names": [
+      "Set.ofPred",
+      "MeasureTheory.eLpNorm"
+    ],
+    "comparison": "Express existence of one absolute B>1 bounding all population directions and every candidate function in the printed infinity norm, together with the one-sided inequality kappa(y,y_tilde)<=B for every pair in R^q. Keep the full response-space quantifier and common constant; separate constants or bounds only at observed responses change the statement. The library eLpNorm at infinity is an essential supremum relative to a measure, so it only matches the source infinity norm after the norm convention is identified; a required pointwise supremum bound should instead be imposed pointwise as a predicate. The kernel inequality is not |kappa|<=B unless a lower/nonnegative bound is separately justified. Bounded observed Y does not prove this global all-R^q kernel bound, and a network architecture alone does not bound every candidate's output.",
+    "gap": "Set predicates and norm infrastructure express the boundedness assumptions, with the infinity-norm convention and one-sided global kernel bound preserved explicitly.",
+    "searches": [
+      [
+        "Inspect Set.ofPred and eLpNorm/eLpNormEssSup definitions with p1201 A2 and saved global-kernel qualification",
+        "The infinity Lp seminorm is essential rather than automatically pointwise, and neither primitive turns bounded responses into a global kernel bound."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-1e24cc058b82545601b7",
+    "status": "partial_match",
+    "names": [
+      "Set.ofPred"
+    ],
+    "comparison": "The generator class is the subset of the specified periodic neural-wavelet class at smoothness beta+1 and resolution n^(-1/(2*beta+d)) satisfying the chi-numerical regularity condition. Set.ofPred directly expresses that restriction once the predicate is supplied. The defining numerical condition and choice of chi are deferred to excluded Appendix E.1 and are not determined by the informal separated-points explanation. Its claimed implication to manifold regularity does not make the two predicates equivalent and cannot replace the actual condition. Preserve the main-text class formula and the previously recorded neural-wavelet construction/index limitations; do not invent an executable numerical test, a global bi-Lipschitz lower bound or exact Holder-ball intersection.",
+    "gap": "Set restriction is available, but the appendix-defined numerical regularity predicate and neural-wavelet construction remain unresolved within the main-text-only scope.",
+    "searches": [
+      [
+        "Inspect Set.ofPred against p2167 D19 and the saved numerical-regularity/appendix-network qualifications",
+        "The set constructor supplies the wrapper only; the missing numerical predicate cannot be inferred from its informal implication to manifold regularity."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-7edde890597d305866cf",
+    "status": "composable",
+    "names": [
+      "hammingDist",
+      "Set.indicator"
+    ],
+    "comparison": "Map each theta_i and decision phi_i to its Boolean nonzero-support indicator, then use hammingDist on those two finite Boolean vectors. Each coordinate contributes one precisely when exactly one entry is zero, matching the two disjoint indicator products in the source; a short coordinatewise equality proves the identification. Hamming distance on the raw real-valued vectors would be wrong, since unequal nonzero values belong to the same class. Preserve the unnormalized count, converting it to a real only when taking expectation or the later theorem-specific normalization. Neither division by n, division by s_n nor the separate combined testing risk is part of this definition.",
+    "gap": "Hamming distance directly represents the loss after Boolean support encoding and a coordinatewise identification with the printed indicator sum.",
+    "searches": [
+      [
+        "Inspect hammingDist and Set.indicator against p1564 equation (30)",
+        "The finite mismatch count matches support indicators, not raw real-vector inequality, and contains no theorem-specific normalization."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-45b48e4c39d3b940204d",
+    "status": "composable",
+    "names": [
+      "Set.prod"
+    ],
+    "comparison": "Instantiate Set.prod with the two possibly sample-size-dependent score-function classes and assert the data-dependent fitted pair belongs to that product. Membership is exactly the two component membership conditions, without requiring the classes to coincide or the fitted components to be independent. The source does not assert exact empirical maximization; its separate Opt_n records suboptimality. Data dependence and any measurability needed for later probability statements must be represented in the estimator map, not inferred from deterministic set membership. General-class theorems do not acquire neural-network or wavelet restrictions from separate examples.",
+    "gap": "The Cartesian product directly represents the paired function-class constraint; estimator measurability and optimization error remain separate properties.",
+    "searches": [
+      [
+        "Inspect Set.prod definition and membership equivalence against p0679 D22",
+        "The declaration is exactly componentwise product membership and imposes no exact optimizer, independence or special function architecture."
+      ]
+    ]
+  }
+]

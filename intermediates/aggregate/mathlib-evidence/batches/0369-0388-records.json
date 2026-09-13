@@ -1,0 +1,986 @@
+[
+  {
+    "interface_id": "local-83a60c548cb4bcd3b4a4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "ae56ebf5091c0f10306577da634b51e0ee133b718444832a17953d29d532701b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D5",
+        "comparison": "Evaluate each signed measure's totalVariation on the half-open cube with the all-zero atom removed, then sum over admissible interactions; whole-space variation would incorrectly penalize the unpenalized linear products, and descent from a representation to a function still needs justification.",
+        "statement_sha256": "9da89caae2fa2535c8a913e715cbdbe9266637106e9422ea327aa64d1962fc4b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg mars|multivariate.adaptive in Analysis, Probability and LinearAlgebra; inspect SignedMeasure.totalVariation in VectorMeasure/Decomposition/Jordan.lean",
+          "result": "No MARS complexity declaration appeared in the searched modules; totalVariation is the sum of the positive and negative Jordan measures and can be evaluated on the punctured coefficient domain."
+        }
+      ],
+      "gap": "mathlib supplies signed-measure total variation, while the interaction-indexed punctured-domain sum and its representation-independent interpretation as MARS complexity remain to be defined and justified."
+    }
+  },
+  {
+    "interface_id": "local-73eced999dbf1b4a023a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "55924bdfc41add869740cb8808716adfc6c8f21fdca28a37977ddaae6139ab93",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2349",
+        "local_id": "D10",
+        "comparison": "The product of cosines and its normalization can be supplied to withDensity after restricting to the archived angular domain and proving nonnegativity and unit mass; its law is the fixed uniform-direction reference, not the observed angular marginal under an alternative.",
+        "statement_sha256": "8f06ccee8374925ef8a50a2c5a906959d7c6446d318ca2cb3375ebcfe6d01a14"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "Real.cos",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Complex.Trigonometric",
+          "provides": "Real cosine for the real directional phase in the Levy integral.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Complex/Trigonometric.lean#L78-L79",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg spherical|sphere.*measure|polar.*coord|surface.*measure|angular in MeasureTheory and Analysis; inspect withDensity and Real.cos",
+          "result": "The search found planar polar-coordinate integration infrastructure, and withDensity constructs a measure from a nonnegative extended density; no inspected declaration gives this arbitrary-dimensional angular reference density with its printed cosine powers."
+        }
+      ],
+      "gap": "The density primitives are available, but the paper's angular domain, normalization and identification with the uniform-sphere reference law require a dedicated construction."
+    }
+  },
+  {
+    "interface_id": "local-70a70baeb62d05ac2c45",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "948844e4db7d74e856a4383b013f0372335e9aa8dcca23ecc510267e61740ccb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1127",
+        "local_id": "D16",
+        "comparison": "For nonnegative T and integrable path compositions, intervalIntegral gives both time integrals; the ratio must retain the printed 0/0=0 rule, while Lean's general totalized division must not settle any other source-unspecified singular case.",
+        "statement_sha256": "a159204877dd6d416f280ae62fdd46bfcf88702935ead3ffadce90c5258e517b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect intervalIntegral in Integral/IntervalIntegral/Basic.lean and Real.sqrt in Analysis/Real/Sqrt.lean; search localized-statistic and kernel-estimator terminology in Probability and Analysis",
+          "result": "The inspected declarations provide oriented real-time integration and the nonnegative real square root; no paper-specific Lambda tolerance correction was found in the searched estimator infrastructure."
+        }
+      ],
+      "gap": "Time integration and square roots are available, but the kernel-path tolerance ratio and its source-specific denominator convention still need to be defined."
+    }
+  },
+  {
+    "interface_id": "local-4eaa8e3667bb4ce47a3a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "80a09b104e43ec51e153760e1a1dfa00cf90baa43518bf59e7c4312f6262616f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D6",
+        "comparison": "Finite sums express the numerator with the paper's boundary-normalized K_h and empirical marginal density; this algebra does not identify a regression estimator or resolve the source's zero-density denominator events.",
+        "statement_sha256": "87117773fd6b6d52f9fff4ca64ed555e9e64bfa24efa0abfb881be168610371a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg nadaraya|kernel.regression|kernel.estimat in Probability, Analysis and LinearAlgebra; inspect Finset.sum_div in Algebra/BigOperators/Field.lean",
+          "result": "No Nadaraya-Watson or boundary-normalized marginal regression estimator appeared; Finset.sum_div supplies the finite-sum algebra for scaling the empirical numerator."
+        }
+      ],
+      "gap": "Finite-sum scaling is available, while the boundary-normalized regression estimator and its unresolved zero-density convention require a paper-specific definition."
+    }
+  },
+  {
+    "interface_id": "local-3627fee579ee0ac21715",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "888222c5e8153175ff68e1d4f31ad00a2b2bfb6bc24db390d260390e1bbe2ded",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2641",
+        "local_id": "D2",
+        "comparison": "Use the loading matrix as the linear map on factor k and identity maps elsewhere; the coefficient identity must match the printed left action U[j,i_k], changing only dimension k, rather than treating an abstract tensor product as already identical to the coefficient array.",
+        "statement_sha256": "e5428d82b48355b11dea94036a23a21bb55569866a85aa891d09c14f35d3aa26"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg tensor.*contract|mode.*tensor and map_tprod; inspect PiTensorProduct/Basic.lean 469-487, Matrix.mulVec and Data/Holor.lean",
+          "result": "PiTensorProduct.map applies a family of linear maps to tensor factors, and mulVec implements the coordinate contraction; Holor supplies coefficient arrays and outer products but the inspected file has no named k-mode contraction."
+        }
+      ],
+      "gap": "Tensor-factor maps and matrix-vector contraction are available; the paper's indexed-array k-mode product needs the coordinate identification and its entrywise correspondence."
+    }
+  },
+  {
+    "interface_id": "tensor-factor-model",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "9aaab57daf05dd77637c2e78799fee7de4f86e482bef6b04272ac6a681f20a8b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D1",
+        "comparison": "Apply one map per mode to the latent core and add the constant mean and noise tensor; the intercept is present in this source and cannot be dropped when grouping with the mean-free model.",
+        "statement_sha256": "ac1e8189151f86e5be77a0d3f873e10bc994bfbb369f41ce6d6900f379b7498c"
+      },
+      {
+        "paper_id": "aos-2024-v52-i06-p2641",
+        "local_id": "D1",
+        "comparison": "The loading maps need full column rank as the paper assumes, not orthonormality; the abstract tensor map supplies the multilinear signal transformation but neither its latent time-series law nor the stated noise conditions.",
+        "statement_sha256": "510483629052ef4c1d65f3b8918dda4753d7f8fe0ff470dafd1a4ab831a4bc85"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1646",
+        "local_id": "D1",
+        "comparison": "For two positive factor counts, matrix multiplication represents R F C-transpose; the three printed zero-factor branches require separate definitions, since multiplying empty factor matrices would not yield the one-way models.",
+        "statement_sha256": "7070d65b5fc7912206796d332c44e6c06a346a7630838b9f65c2a892239ba850"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PiTensorProduct.map",
+          "type": "{ι : Type u} → {R : Type v} → [CommSemiring R] → {s : ι → Type w} → [∀ i, AddCommMonoid (s i)] → [∀ i, Module R (s i)] → {t : ι → Type z} → [∀ i, AddCommMonoid (t i)] → [∀ i, Module R (t i)] → (∀ i, s i →ₗ[R] t i) → ((⨂[R] i, s i) →ₗ[R] (⨂[R] i, t i))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.PiTensorProduct.Basic",
+          "provides": "The linear map on a tensor product induced by one linear map on each factor; identities on other factors isolate a single mode.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/PiTensorProduct/Basic.lean#L482-L483",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg tucker|tensor.factor|mode.product in Probability, Analysis and LinearAlgebra; inspect PiTensorProduct.map, Matrix.mul_apply and Holor coefficient-array operations",
+          "result": "The tensor-factor hits concern algebraic tensor factors, not a stochastic Tucker factor model; indexed tensor maps and matrix multiplication provide the loading operations, without model assumptions."
+        }
+      ],
+      "gap": "mathlib provides the tensor and matrix loading operations, while the stochastic factor models, intercept and rank requirements, and explicit one-way or zero-factor branches need variant-specific definitions."
+    }
+  },
+  {
+    "interface_id": "local-763e4f6dc9bb4c8ff16b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "8395addd48e44d91e6d40c9056682db6195527a1dfdbea3d7c80f14e3b50cf15",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D2",
+        "comparison": "Construct each fiber as Psi_l e_t plus the positive square root of Sigma_l acting on epsilon_t,l; retain exactly the printed cross-family and cross-fiber independence, zero means, identity covariance, and dimension-uniform matrix bounds, without adding core-noise independence.",
+        "statement_sha256": "8ed75f91ff60d18f97bbf138dfc5c3aa35064bb6f67c894166108d84f7175f04"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect Matrix.mulVec, CFC.rpow, Independence/Basic.iIndepFun and Moments/Covariance.covariance; compare CovarianceBilin.covarianceOperator's explicitly uncentered convention",
+          "result": "Matrix action and positive functional calculus support the two noise terms, independence predicates support indexed innovations, and scalar covariance can describe covariance-matrix entries; covarianceOperator is uncentered and cannot be used as centered covariance without a mean check."
+        }
+      ],
+      "gap": "Matrix action, square roots, covariance and independence primitives are available, but the fiber decomposition with its precise independence pattern and aggregate dimension bounds remains a separate model assumption."
+    }
+  },
+  {
+    "interface_id": "local-6838e4e150bccc86d338",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "311eec3f22fbb2bf079ed338cc42d6e69eefd7f2c40abc4d7b786a13595cb163",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D4",
+        "comparison": "The normalized absolutely summable filter must act on the factor innovations with the printed zero means and unit variances; construct the series in a justified convergence mode and retain identity within-fiber covariance and zero cross-fiber covariance, without upgrading zero covariance to independence.",
+        "statement_sha256": "48547ff33015bd2d0bdbaa87cd38cbc9dce84855e547d714186d8878f5b6bbe3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg linear.process|weakly.stationary in Probability and Analysis; inspect iIndepFun, IdentDistrib, covariance and InfiniteSum/Defs.lean 89-115",
+          "result": "No named statistical linear-process declaration was found; joint independence and equal-law predicates are available, as are covariance and limits of partial sums, while InfiniteSum distinguishes unconditional and sequential summation conventions."
+        }
+      ],
+      "gap": "Independence, equal laws, covariance and convergence are available, while the filtered factor process, its convergence and the stated fiber covariance constraints need a dedicated construction."
+    }
+  },
+  {
+    "interface_id": "local-b283ff210720f3488f0d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "3d7b9f1b2ac1a1d495dec4ed53672391df431ca557c3ad1df1e8ad86834bb761",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D5",
+        "comparison": "Express the diagonal-normalized Gram limit and factor-count growth with separate dimension/sample filters, plus the positive-definite spectral bounds and ordered strength exponents; positive definiteness of an individual matrix does not supply uniform eigenvalue bounds for a growing sequence.",
+        "statement_sha256": "971cd3870dbce8bea5eb4b7fad52a06fe52b07689f560d2bb9125c9401e1ec87"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsLittleO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "Little-o along a specified filter as bounds by every positive constant multiple; it avoids dividing by a possibly zero comparison function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L169-L170",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg factor.strength in Probability, Analysis and LinearAlgebra; inspect Matrix.PosDef, Filter.Tendsto and Asymptotics.IsLittleO",
+          "result": "The inspected library contains positive-definite matrices, filter convergence and little-o growth, but no combined loading-factor-strength condition."
+        }
+      ],
+      "gap": "Positive definiteness, limits and little-o growth are available, but the normalized Gram convergence and uniform spectral and power-growth requirements remain to be assembled with their original quantifiers."
+    }
+  },
+  {
+    "interface_id": "local-1962708c67bbcfce969e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "64c276e49346e2311c0f859f36e8515ecef64145ca7a95989caf827588a01e29",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D3",
+        "comparison": "The two filters for common and idiosyncratic errors must separately satisfy l2 normalization and absolute summability; retain mutual independence between their innovation families and iid mean-zero unit-variance elements, while proving the chosen series construction and weak stationarity instead of assuming them from a totalized infinite sum.",
+        "statement_sha256": "708e15a89f0e4dd52ded9482584eadf2cd163ed28a743cb52613d0cd6e64b3bd"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Filter.Tendsto",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → Filter α → Filter β → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Defs",
+          "provides": "Generic convergence predicate, instantiated with the sequence of maximal-tail event probabilities and the zero neighborhood filter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Defs.lean#L422-L423",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg linear.process|weakly.stationary in Probability and Analysis; inspect the iid predicates and InfiniteSum/Defs.lean's summation-filter conventions",
+          "result": "The search did not identify a named weakly stationary error linear-process model; iid properties and partial-sum convergence can be expressed with the inspected general predicates."
+        }
+      ],
+      "gap": "The iid and convergence primitives are available, while the two filtered error processes and their summability, covariance and stationarity properties require construction and proofs."
+    }
+  },
+  {
+    "interface_id": "local-9dd5ed7a35c87c12d718",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "cb29fa1703b020d63d8fb2b5165b022ecc99733ac2f8b8a44b91b70de57f4dac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D15",
+        "comparison": "Apply a single finite upper bound to the fourth moments across every stated factor and error innovation index; separate MemLp 4 membership for each variable is weaker and neither Gaussian tails nor independence should be added to this member.",
+        "statement_sha256": "7d5db859ea61e7c66ab4e4d1fbd7077286181c8b7d98d0a3d79c2cbcf55b5e6a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.MemLp",
+          "type": "{α : Type u} → {ε : Type v} → {mα : MeasurableSpace α} → [ENorm ε] → [TopologicalSpace ε] → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Almost-everywhere strong measurability together with finiteness of the extended Lp seminorm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L115-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect eLpNorm and MemLp in Function/LpSeminorm/Defs.lean for exponent 4 and the distinction between membership and a common bound",
+          "result": "eLpNorm at exponent 4 measures the fourth absolute moment to the one-quarter power, while MemLp only asserts measurability and finiteness, not uniformity over a family."
+        }
+      ],
+      "gap": "mathlib supplies fourth-moment seminorms and integrability, while the single bound quantified uniformly over all three innovation families must be stated explicitly."
+    }
+  },
+  {
+    "interface_id": "local-75ef456b62738f80c882",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "16a038f53898c1fad21dd840022aaabf38d42ea2e81d28259c448649a6b58a20",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D11",
+        "comparison": "Represent S_m either directly as a fiber-index subset or as the Cartesian product of coordinate subsets; keep sample-local sums and normalizations and do not infer uniform sampling, independence, or the full-population loading condition from this description.",
+        "statement_sha256": "6e3a834520b03231d47b8360af404ecdb34ffb8e48c73407d35f11425050709e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → Set ι → (∀ i, Set (α i)) → Set (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set of coordinate functions taking values in the prescribed coordinate sets at each index in the supplied index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L280-L280",
+          "link_checked": true
+        },
+        {
+          "name": "Set.powerset",
+          "type": "{α : Type u} → Set α → Set (Set α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Defs",
+          "provides": "Subsets of the unit family, used as possible signal configurations and prior-allowed configurations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Defs.lean#L259-L259",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect Set.pi and Set.powerset for optional Cartesian fiber subsets; compare PMF.uniformOfFintype with the source’s unspecified random-sampling law",
+          "result": "Cartesian products and powersets of the finite index domain are available; a uniform finite law is constructible but the source passage does not specify uniformity or sample independence."
+        }
+      ],
+      "gap": "Subset and Cartesian-product infrastructure is available, but the paper's random subset scheme and sample-local estimators need definitions without inventing an unstated sampling law."
+    }
+  },
+  {
+    "interface_id": "local-37f7befca660e1f23c23",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "f1f9d9a04aebdf3c29dc6aa90723bfa4661bf2cc0994271812b6094679f50a68",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D12",
+        "comparison": "Form the centered sample covariance using the printed 1/T normalization and divide its largest eigenvalue by its j-th eigenvalue; translate one-based j to Fin indexing and retain unresolved zero-denominator cases rather than asserting the later asymptotic comparison from the definition.",
+        "statement_sha256": "0abecf1057207261899036aa2ec90baf35fb71aff2cb323eca57c0c1291cc5fc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvalues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → Fin n → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Real eigenvalues of a symmetric finite-dimensional operator, sorted in decreasing order and indexed with multiplicity; extrema are meaningful for a nonempty dimension.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L279-L281",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg eigenvalue.ratio in Mathlib; inspect Spectrum.lean 277-281 and Matrix.mul_apply for the centered sample Gram matrix",
+          "result": "The library's self-adjoint eigenvalues are already sorted in decreasing order; the search did not find the paper's sample-covariance ratio statistic."
+        }
+      ],
+      "gap": "Ordered eigenvalues and matrix products are available, but the centered sample-covariance ratio needs its own definition and a source-consistent treatment of zero denominators."
+    }
+  },
+  {
+    "interface_id": "local-8eee376530e37cfcf3d8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "3ba5e76991a57b2ae47ce24afec316c025a894a1199ca6c1bd4fa30724180e9e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i01-p0364",
+        "local_id": "D14",
+        "comparison": "Select M samples by the stated eigenvalue ratios, average their centered covariances, and take z_k leading orthonormal eigenvectors; selection/eigenspace ties and zero signal normalization require explicit handling, and neither R2 nor L2-prime follows from this estimator definition.",
+        "statement_sha256": "d90c1ffdfd889c167ada89747547c51b4351757cb367d5c039b07cd93e368150"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "LinearMap.IsSymmetric.eigenvectorBasis",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → OrthonormalBasis (Fin n) 𝕜 E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "A chosen orthonormal eigenbasis of a symmetric operator in decreasing eigenvalue order; applying it to the left Gram operator supplies candidate left singular vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L300-L304",
+          "link_checked": true
+        },
+        {
+          "name": "LinearMap.IsSymmetric.eigenvalues",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → [FiniteDimensional 𝕜 E] → {T : E →ₗ[𝕜] E} → {n : ℕ} → T.IsSymmetric → Module.finrank 𝕜 E = n → Fin n → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "provides": "Real eigenvalues of a symmetric finite-dimensional operator, sorted in decreasing order and indexed with multiplicity; extrema are meaningful for a nonempty dimension.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Spectrum.lean#L279-L281",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg pre.averag|eigenvalue.ratio in Mathlib; inspect ordered eigenvalues and eigenvectorBasis in Spectrum.lean and finite-sum scaling",
+          "result": "The spectral API gives an orthonormal eigenbasis aligned with decreasing eigenvalues, and finite sums express averaged covariances; no selected-sample pre-averaging estimator was found."
+        }
+      ],
+      "gap": "Ordered spectral bases and averaging algebra are available, while sample selection, the aggregate covariance estimator and signal rescaling require a dedicated construction with tie and denominator conventions."
+    }
+  },
+  {
+    "interface_id": "local-4c8a5140b001689684e0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "320718aec9a609197e5e1b59e630995036085efdd06d119a2f466f306e58f6dc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2431",
+        "local_id": "D1",
+        "comparison": "For fixed sigma and B_t, use a Bernoulli law with mass B_t(sigma_i,sigma_j) at 1 on each upper-triangular edge/layer index, then reflect to a symmetric zero-diagonal matrix; independence holds conditional on fixed latent parameters and does not persist automatically after mixing.",
+        "statement_sha256": "106f4a1f54a0bc9864d37878bd37d4f1430f4e8a819b1d804a404cd651ca415a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.infinitePi",
+          "type": "{ι : Type u} → {X : ι → Type v} → {mX : ∀ i, MeasurableSpace (X i)} → ((i : ι) → MeasureTheory.Measure (X i)) → MeasureTheory.Measure (Π i, X i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProductMeasure",
+          "provides": "Product of probability measures on an arbitrary index family, supplying independent coordinate arrays; defined as zero when the inputs are not all probability measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProductMeasure.lean#L355-L359",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg stochastic.block|block.model across Mathlib and binomial in Combinatorics/SimpleGraph; inspect bernoulliMeasure and Measure.infinitePi",
+          "result": "No stochastic-block-model declaration appeared; Bernoulli measures and indexed product measures construct independent binary edge variables for fixed parameters."
+        }
+      ],
+      "gap": "Bernoulli product laws are available, but the shared-community multilayer model and symmetric loop-free adjacency encoding remain to be defined with conditional independence preserved."
+    }
+  },
+  {
+    "interface_id": "local-8ae66bb019c704321052",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "079204111eb029b19743828979ea158b5c4087400f42859a8dd7310570caf345",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2431",
+        "local_id": "D3",
+        "comparison": "Define the two 2-by-2 matrices with exactly the displayed diagonal/off-diagonal swap; rho in (0,2/3) proves all entries lie strictly between zero and one, and is not the same as permitting arbitrary symmetric layer matrices.",
+        "statement_sha256": "9a7922dd7f5cf23a8cdd5a0b093175707aca42a900f26e4108762e122e7fffa2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.smul_apply",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → {β : Type z} → [SMul β α] → (r : β) → (A : Matrix m n α) → (i : m) → (j : n) → (r • A) i j = r • (A i j)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Scalar multiplication of a matrix is entrywise, preserving both row and column indexing.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L302-L303",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect Matrix.smul_apply and bernoulliMeasure's probability parameter; search stochastic-block-model terminology across Mathlib",
+          "result": "Entrywise matrix scaling expresses the two coefficient matrices and Bernoulli parameters require membership in [0,1]; the specific assortative/disassortative alternatives were not found as a named model."
+        }
+      ],
+      "gap": "Matrix scaling and Bernoulli laws suffice as primitives, while the two explicit alternatives and their probability-range checks still need to be defined."
+    }
+  },
+  {
+    "interface_id": "local-810136ab7ba1682fe489",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "8534213dba778823812613ff88b6ff3f5cc0e26b553ec13c1cfa9a0f5327bd28",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2431",
+        "local_id": "D4",
+        "comparison": "Uniform laws can range over the balanced-label subtypes after checking nonemptiness, and a mixture constructs conditional edge observations; retain both the full joint law of (A,sigma,tau) and its observation marginal, and do not silently treat the separate prior draws as an explicitly printed independence hypothesis.",
+        "statement_sha256": "354ae101e5612c2ac25e7673780ae4efb760cdea926fec1eaf4879c8372a0fbc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "PMF.uniformOfFintype",
+          "type": "(α : Type u) → [Fintype α] → [Nonempty α] → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Uniform",
+          "provides": "Uniform probability mass function on a nonempty finite type.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Uniform.lean#L275-L276",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.bind",
+          "type": "{α : Type u} → {β : Type v} → PMF α → (α → PMF β) → PMF β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProbabilityMassFunction.Monad",
+          "provides": "Sequential discrete sampling: mix a conditional output law over the first-stage law; shared first-stage randomness need not preserve unconditional independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProbabilityMassFunction/Monad.lean#L105-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "Inspect uniformOfFintype, PMF.bind and bernoulliMeasure; search stochastic.block|block.model across Mathlib",
+          "result": "Uniform distributions on nonempty finite types and probability mixtures are available, together with binary conditional edge laws; no balanced latent two-community multilayer model was identified."
+        }
+      ],
+      "gap": "Finite uniform laws and mixtures are available, but the balanced latent model needs a specified prior coupling, conditional edge construction, and a clear distinction between joint and observation laws."
+    }
+  },
+  {
+    "interface_id": "local-b509d8949f6c28a4e27a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "5a3feedd111b843781766b3f64dc781b9e26cc76575191b828bbff40853098a2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D5",
+        "comparison": "Compose affine coordinate maps with positive-part activations as supported by the archived naming context, then count hidden layers, maximum width and nonzero weights; the passage leaves bias counting, exact versus bounded architecture sizes, and rounding conventions unspecified.",
+        "statement_sha256": "8a9cbc96ea0f20123a4b122d1ace8fb0aa6fcef6d9cd781ff244b9e87383fa1c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg neural.network|relu|rectified.linear across Mathlib, then exact word-boundary neural-network/ReLU searches; inspect Holor, Matrix.mulVec and the additive positive-part definition",
+          "result": "The neural-network text hit describes tensor coefficient arrays in Holor, not an architecture class; matrix action and real positive part provide affine-layer and ReLU components but no depth/width/active-weight network class was identified."
+        }
+      ],
+      "gap": "Linear-layer and ReLU primitives are available, while the network architecture class and its depth, width, sparsity and bias-counting conventions require an explicit source-faithful specification."
+    }
+  },
+  {
+    "interface_id": "local-c12fd546185be52e80df",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "e65326d9c6a0850960f49397c99d704124a35cb210d3551d4d3cf9d59d60b5c9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D6",
+        "comparison": "Construct h1_i as a version of the conditional expectation given X1, uncentered as printed, then take its variance; ordinary conditional expectation is defined almost everywhere, and zeta1_i>0 is a coordinate-specific criterion rather than positivity of every coordinate.",
+        "statement_sha256": "151dbd49165917deba068989ec39dedb51fbb5965797f9e1aa6edec1648bb9ab"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg non.degenerat|hoeffding|u.statistic in Probability; inspect condExp, condDistrib and variance for a first conditional kernel projection",
+          "result": "The probability hits concern Hoeffding concentration rather than U-statistic projection degeneracy; conditional expectations, regular conditional laws and real variance provide relevant components, subject to their measurability/integrability conventions."
+        }
+      ],
+      "gap": "Conditional expectation and variance are available, but the paper's first kernel projection and its coordinatewise non-degeneracy predicate need a version-aware definition."
+    }
+  },
+  {
+    "interface_id": "local-b84d15e8840dfd18483d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T15:38:19.238805+00:00",
+    "source_interface_sha256": "b85a5f7033f4c872658ec9bc5f11134bb72bdc3cf33ee4eb1dfc8600680bcc08",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0628",
+        "local_id": "D11",
+        "comparison": "Retain all three bounds with a single D, the n-dependent nonnegative B_n and the dimension maximum; L4 control of the centered first projection and its variance are expressible, while neither ordinary Lp norms nor a beta=2 MGF predicate can replace the full psi_beta condition or remove the B_n=0 case.",
+        "statement_sha256": "cddde627cd77bd577c2cbc1170978ca486e0acaa9803e0830536836cb5bcb37c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "rg over archive-pinned local mathlib source and manual declaration/body comparison; saved opened-link evidence retained",
+          "query": "rg orlicz|hoeffding|u.statistic in Probability and Analysis; inspect SubGaussian.lean 25-39, eLpNorm, integral and variance",
+          "result": "SubGaussian.lean explicitly leaves the Orlicz-norm definitions as TODO; ordinary eLpNorm and variance cover polynomial moments but do not implement the general psi_beta exponential norm for beta in (0,2]."
+        }
+      ],
+      "gap": "Variance and fourth-moment primitives are available, while the general psi_beta norm and the combined dimension-uniform three-part bound need definitions preserving beta and B_n's stated ranges."
+    }
+  }
+]

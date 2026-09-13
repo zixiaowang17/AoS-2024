@@ -1,0 +1,23 @@
+{
+  "scope": "Manual three-paper local-linear regression comparison with distinct pseudo-outcome, trend and variance-smoothing variants.",
+  "rows": [
+    {
+      "interface_id": "local-linear-kernel-regression",
+      "related": [
+        "IsMinOn",
+        "Matrix.mulVec",
+        "Matrix.mul_nonsing_inv",
+        "Finset.sum_apply"
+      ],
+      "status": "partial_match",
+      "query": "Pinned rg searches for least-squares and weighted/local-linear regression in Analysis, LinearAlgebra and Probability returned no specialized estimator interface; inspected IsMinOn, mulVec, nonsingular inverse and finite sums; checked registered p1592 page11, p2293 page15 and p2668 page12 with their recorded source conventions.",
+      "result": "Finite weighted quadratic objectives, matrix normal equations and the minimum predicate provide common algebraic ingredients, but do not supply estimator existence, uniqueness or source-specific denominator conventions.",
+      "gap": "Each local fit must preserve its own response, scaling and intercept extraction, with invertibility or a selection convention and the recorded source ambiguities addressed.",
+      "comparisons": {
+        "aos-2024-v52-i04-p1592/D9": "Minimize the empirical average of K_ha(A)*(xi_hat(Z;pi_hat,mu_hat)-g_ha(A)^T beta)^2 over beta in R2, using g_ha(t)=(1,(t-a)/h) and K_ha(t)=K((t-a)/h)/h with positive h. The response is the data-dependent doubly robust pseudo-outcome computed with the supplied nuisance estimators; do not substitute the observed outcome or an appendix-only cross-fitted variant. The reported theta_hat is the intercept because g_(h,0)(0)=(1,0), not evaluation of the fitted slope at treatment zero relative to the current a. IsMinOn over all R2 expresses the optimizer predicate, while a weighted Gram inverse expression needs its nonsingularity and the kernel hypotheses giving the intended least-squares problem. No arbitrary singular inverse or unique measurable selector is supplied by the generic declarations.",
+        "aos-2024-v52-i05-p2293/D19": "Use deterministic weighted sums S_j(t)=sum_(i=1)^n (t-t_i)^j*K((t-t_i)/h_n) and response X_i. The explicit weights are K((t-t_i)/h_n)*(S2-(t-t_i)*S1)/(S2*S0-S1^2); no 1/h_n normalization appears in these sums. These are intercept weights obtained from a two-column local linear Gram system when its determinant is nonzero. Preserve the sign convention t-t_i consistently in both first moments and numerator. The source does not give a zero-denominator convention or separately state kernel mass one; real totalized division cannot silently make undefined fits zero. Negative local-linear weights are possible even with a nonnegative kernel. The separate quantile-grid endpoint issue is retained. This response and scaling differ from the pseudo-outcome fit and from multivariate variance smoothing.",
+        "aos-2024-v52-i06-p2668/D20": "At evaluation (x,z), minimize the sum of squared errors of epsilon_hat_t^2 against an intercept alpha and slope eta in R^(p+d1+d2), with regressor concatenating the UNSCALED differences X_t-x and Z_t-z and weight K1((X_t-x)/b1)*K2((Z_t-z)/b2). Take alpha_hat as the variance estimate; no clipping to positive values is specified, and a positive true variance does not guarantee a positive fitted intercept. The preceding residual formula prints unindexed X and an unindexed beta_hat inside a regime sum, unlike the earlier stacked/region coefficient conventions; retain that source dimension/index issue rather than silently repairing the response. A matrix normal-equation representation needs a correctly specified ambient dimension and invertible local Gram matrix or a chosen minimizer. Shared covariates can create redundant coordinates, and the main-text source supplies no singular or nonpositive-fit convention before subsequent residual standardization."
+      }
+    }
+  ]
+}

@@ -1,0 +1,1151 @@
+[
+  {
+    "interface_id": "local-bda03d8303540fb12420",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "43748093ddb4878a71ebb8dffe3daade04b030a9366b50233a3a9851ccaf48ff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D1",
+        "comparison": "The source writes P:X times X to real on a potentially general state space, without a reference measure for a transition density; Kernel X X instead assigns a measurable measure to each state, with IsMarkovKernel ensuring probability. Preserve that representational gap. Gamma is strictly in (0,1), rewards are known real functions with no [0,1] bound in this definition, and this is policy evaluation with no action space introduced; arbitrary unbounded rewards need convergence/integrability for a discounted value.",
+        "statement_sha256": "3e23aab7de1bd67656f1fb0dfe5e3a346dc9f76ff92f507591d57ac192372725"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.trajMeasure",
+          "type": "{X : ℕ → Type u} → [∀ n, MeasurableSpace (X n)] → MeasureTheory.Measure (X 0) → (κ : (n : ℕ) → ProbabilityTheory.Kernel (Π i : Finset.Iic n, X i) (X (n + 1))) → [∀ n, ProbabilityTheory.IsMarkovKernel (κ n)] → MeasureTheory.Measure (Π n, X n)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.IonescuTulcea.Traj",
+          "provides": "Law of the infinite trajectory with a given initial measure and successive history-dependent Markov kernels; discounting and rewards are separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/IonescuTulcea/Traj.lean#L762-L765",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Repository-wide Markov reward process, Bellman and LSTD search; inspect measurable kernels, probability normalization and infinite trajectory construction.",
+          "result": "Homogeneous probability transitions and trajectories have representations, but no dedicated discounted reward-process interface was located."
+        }
+      ],
+      "gap": "The discounted reward process still needs its reward functional and a measure-valued interpretation of the source's unspecified real kernel signature."
+    }
+  },
+  {
+    "interface_id": "local-9a7cc3ed949cfc20e1e3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "961cbaa3300b04f92fbcefb6e5ea01530b30c17aabf13fd0cc3781a619c10671",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D3",
+        "comparison": "mu compProd P is the law of (X,X') with X~mu and X' conditional on X through P, retaining dependence between the coordinates. Invariance plus probability makes both marginals mu; it does not make them independent, reversible, or imply unique stationary measure. iIndepFun and identical law apply across n pairs, not consecutive pairs from one trajectory; the source expressly excludes that dependent sampling extension.",
+        "statement_sha256": "187531f68299694df593ced201adacbd20a63dacda9235dd56ad11ca76fe2c40"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.Invariant",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → ProbabilityTheory.Kernel α α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Invariance",
+          "provides": "The input measure is unchanged by one kernel step, expressed as equality of its kernel pushforward with itself; probability, uniqueness and mixing are separate properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Invariance.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search stationary pair sampling and invariant kernels; inspect Invariant, measure composition-product, iIndepFun and IdentDistrib.",
+          "result": "Invariant probability law and its conditional pair law can be specified, with independent identical repetitions at the pair level."
+        }
+      ],
+      "gap": "The iid stationary-pair experiment must still be assembled from a probability invariant measure and its transition kernel."
+    }
+  },
+  {
+    "interface_id": "local-155010b15b4cf2889871",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "8ec948e9f9fa0831a79ae2962c6ab86c353c65dd09d47633fa9eb1eb69feb523",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D14",
+        "comparison": "Gamma in (0,1) supplies both hypotheses of tsum_geometric_of_lt_one; its right side is exactly H, so no domain extension, limiting gamma=1 convention, or stochastic model is required for this scalar definition.",
+        "statement_sha256": "dbe232197b09822ff4ea517875e02520c5f1b46251a09673d95715495cc4baf2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "tsum_geometric_of_lt_one",
+          "type": "{r : ℝ} → 0 ≤ r → r < 1 → (∑' n : ℕ, r ^ n) = (1 - r)⁻¹",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.SpecificLimits.Basic",
+          "provides": "Exact sum of the geometric discount weights, including ratio zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecificLimits/Basic.lean#L331-L332",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect real geometric-series identity under 0<=gamma<1 and compare the source H=(1-gamma)^-1.",
+          "result": "The exact reciprocal effective horizon is ordinary real arithmetic, and the inspected theorem identifies it with the discount-weight sum."
+        }
+      ],
+      "gap": "The reciprocal definition is directly expressible, and the geometric-series identity gives its interpretation as total discount weight for the stated gamma range."
+    }
+  },
+  {
+    "interface_id": "local-99ebe51a86758f1fac12",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "26d26dc6d9e79b14ce1aa1a45d6f90ceaff876aaef52361220f6aa17c20e4974",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D11",
+        "comparison": "The source assumes unspecified conditions for K(x,z)=sum_j mu_j phi_j(x)phi_j(z), with nonnegative eigenvalues and L2(mu)-orthonormal eigenfunctions. HasEigenvector does not supply orthonormality, completeness, sorting or pointwise versions of L2 classes; the operator-valued RKHS.kernel must be specialized to real scalar outputs. Do not insert compactness/full support hypotheses or replace the pointwise series with a finite-dimensional matrix spectrum or merely an L2 expansion.",
+        "statement_sha256": "76342bcf48e3dba97f6f78d9d4f7f4d2f5134fbaeb905f89e0171c12ca12e1ef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.kernel",
+          "type": "{𝕜 : Type u} → [RCLike 𝕜] → {X : Type v} → {V : Type w} → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → (H : Type z) → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → Matrix X X (V →L[𝕜] V)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Reproducing kernel with operator-valued entries; taking real scalar values specializes it to the paper’s scalar RKHS after identifying scalar linear operators with their value at one.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L113-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Module.End.HasEigenvector",
+          "type": "{R : Type u} → {M : Type v} → [CommRing R] → [AddCommGroup M] → [Module R M] → Module.End R M → R → M → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Eigenspace.Basic",
+          "provides": "A specified vector is nonzero and belongs to the eigenspace of the specified scalar; no existence, normalization or ordering of eigenvectors is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Eigenspace/Basic.lean#L436-L437",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Mercer expansion, compact spectral decomposition and RKHS kernel semantics; inspect scalar specialization of RKHS.kernel and eigenvector predicate.",
+          "result": "The reproducing kernel and individual eigenpairs can be represented; no Mercer theorem matching the pointwise infinite expansion was located."
+        }
+      ],
+      "gap": "The Mercer expansion still requires its measure-dependent eigenfunction system, convergence and topological hypotheses beyond the kernel and eigenvector primitives."
+    }
+  },
+  {
+    "interface_id": "local-12dafb93f778ea25c3e5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "20d251f252eb17d914133450f7ff05c26d5546e4bf4fcb030ac0f52a7409badc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D13",
+        "comparison": "The norm is sup over every x of |phi_j(x)|, not an L-infinity essential norm; L2(mu) equivalence classes alone cannot supply values on null sets. Preserve one finite kappa for every j>=1; the printed max over infinitely many j does not establish that an index attains it. This extra hypothesis is used for the fast rate and does not follow just from orthonormality or the kernel's diagonal bound.",
+        "statement_sha256": "4dd431ffa37dfa1c0fe29c322be7a64a8e95c8382f22688f3b46860c6b06b8bb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search uniform eigenfunction bounds and inspect supremum-bound equivalence against the source's pointwise supremum norm.",
+          "result": "Supremum inequalities can encode the common bound after establishing boundedness/nonemptiness, without assuming continuity or replacing supremum by essential supremum."
+        }
+      ],
+      "gap": "The uniform eigenfunction bound still requires specified pointwise eigenfunction representatives and a single bound valid across all indices and states."
+    }
+  },
+  {
+    "interface_id": "local-16bcb5271b8dacc32632",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "00e45cf1f9546370c1c50be96b12bfb9e40118b01808b5b2b1b6a74be55c1241",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D4",
+        "comparison": "Take F to be real L2(mu), so closedness gives completeness in the L2 metric; require G nonempty, which convexity and closedness alone do not imply. The existence theorem minimizes ||f-g||, equal to the printed ||g-f|| by norm symmetry. It is a general convex-set projection, not necessarily linear or a submodule projection. No RKHS-norm completeness may replace L2 closedness when this definition is later specialized.",
+        "statement_sha256": "247dcc4f9c5b40b57725a8bef936f691112f6a6981b0ea2315fa4c8529bad754"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "exists_norm_eq_iInf_of_complete_convex",
+          "type": "∀ {F : Type u} [NormedAddCommGroup F] [InnerProductSpace ℝ F] {K : Set F}, K.Nonempty → IsComplete K → Convex ℝ K → ∀ u : F, ∃ v ∈ K, ‖u - v‖ = ⨅ w : K, ‖u - w‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Minimal",
+          "provides": "Existence of a closest point in a nonempty complete convex subset of a real inner product space; the statement does not itself package a selected projection map or uniqueness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Minimal.lean#L36-L37",
+          "link_checked": true
+        },
+        {
+          "name": "norm_eq_iInf_iff_real_inner_le_zero",
+          "type": "∀ {F : Type u} [NormedAddCommGroup F] [InnerProductSpace ℝ F] {K : Set F}, Convex ℝ K → ∀ {u v : F}, v ∈ K → ((‖u - v‖ = ⨅ w : K, ‖u - w‖) ↔ ∀ w ∈ K, inner ℝ (u - v) (w - v) ≤ 0)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Minimal",
+          "provides": "Variational inequality characterizing a closest point in a convex set; it supplies the comparison inequalities used to prove uniqueness and nonexpansiveness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Minimal.lean#L141-L142",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect complete-convex-set projection existence and variational characterization; search projection uniqueness and nonexpansiveness in Projection/Minimal.",
+          "result": "The Hilbert projection existence theorem applies to a nonempty complete convex subset, and the variational inequality supports uniqueness and nonexpansiveness."
+        }
+      ],
+      "gap": "The projection map still needs a nonempty L2-closed class and the selection, uniqueness and nonexpansiveness consequences of the inspected projection theorems."
+    }
+  },
+  {
+    "interface_id": "local-e101122f3cb0f5d4942d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "d6d502e773615b241b70ec95c080270e65dafc5139d68f4a04eba61a31fe89da",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D5",
+        "comparison": "T(f)=r+gamma P f requires an L2 reward and a well-defined transition operator on L2 classes; invariance supplies the measure relation used to derive its norm contraction, not a ready Bellman theorem. Combine gamma in (0,1) with a 1-Lipschitz projection, on a nonempty closed class or complete ambient L2. The inspected fixed-point theorem handles the final existence/uniqueness step only after these obligations, and does not identify theta-star with the unprojected true value.",
+        "statement_sha256": "8a1d08e8abd25a0dd299729d1dbf2d064a46d54850181d93bc70ada167d1a8ef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContractingWith.fixedPoint_isFixedPt",
+          "type": "{α : Type u} → [MetricSpace α] → {K : ℝ≥0} → {f : α → α} → (hf : ContractingWith K f) → [Nonempty α] → [CompleteSpace α] → Function.IsFixedPt f (ContractingWith.fixedPoint f hf)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.Contracting",
+          "provides": "A contraction on a nonempty complete metric space has a chosen point satisfying its fixed-point equation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Contracting.lean#L280-L281",
+          "link_checked": true
+        },
+        {
+          "name": "ContractingWith.fixedPoint_unique",
+          "type": "{α : Type u} → [MetricSpace α] → {K : ℝ≥0} → {f : α → α} → (hf : ContractingWith K f) → [Nonempty α] → [CompleteSpace α] → {x : α} → Function.IsFixedPt f x → x = ContractingWith.fixedPoint f hf",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.Contracting",
+          "provides": "Every fixed point of the contraction equals the chosen fixed point; the contraction and complete-space hypotheses must first be established.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Contracting.lean#L283-L284",
+          "link_checked": true
+        },
+        {
+          "name": "norm_eq_iInf_iff_real_inner_le_zero",
+          "type": "∀ {F : Type u} [NormedAddCommGroup F] [InnerProductSpace ℝ F] {K : Set F}, Convex ℝ K → ∀ {u v : F}, v ∈ K → ((‖u - v‖ = ⨅ w : K, ‖u - w‖) ↔ ∀ w ∈ K, inner ℝ (u - v) (w - v) ≤ 0)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Minimal",
+          "provides": "Variational inequality characterizing a closest point in a convex set; it supplies the comparison inequalities used to prove uniqueness and nonexpansiveness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Minimal.lean#L141-L142",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.Invariant",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → ProbabilityTheory.Kernel α α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Invariance",
+          "provides": "The input measure is unchanged by one kernel step, expressed as equality of its kernel pushforward with itself; probability, uniqueness and mixing are separate properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Invariance.lean#L39-L40",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Bellman/projected contraction semantics; inspect complete metric contraction fixed-point existence/uniqueness, projection characterization and stationarity.",
+          "result": "Banach fixed-point existence and uniqueness are available once the projected Bellman map is a contraction of a nonempty complete space."
+        }
+      ],
+      "gap": "The projected Bellman map still needs to be well-defined on L2 and shown contractive using stationarity and the convex projection's nonexpansiveness."
+    }
+  },
+  {
+    "interface_id": "local-6895f4d43d3dff99fab7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "f2b8bc9537fcec7c3703f973b3dce1acf6cc31363cf07fae7b07b7f80e37f721",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D8",
+        "comparison": "Setting G=H in (6) inherits L2 closedness from D4, which is not automatic from completeness in the RKHS norm. The auxiliary (9) is Sigma_cov theta=Sigma_cov r+gamma Sigma_cr theta; footnote 3 assumes r in H or proposes Pi(r), without rewriting the printed definition. Establish the embedding/equivalence before applying Banach; a projected theta-star can differ from true V-star, and the upper estimation bound does not erase approximation error.",
+        "statement_sha256": "bdd564bb06bb6d6256da8592044bc426b10e2a53fc4efe16f64e7113579ba659"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "exists_norm_eq_iInf_of_complete_convex",
+          "type": "∀ {F : Type u} [NormedAddCommGroup F] [InnerProductSpace ℝ F] {K : Set F}, K.Nonempty → IsComplete K → Convex ℝ K → ∀ u : F, ∃ v ∈ K, ‖u - v‖ = ⨅ w : K, ‖u - w‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Projection.Minimal",
+          "provides": "Existence of a closest point in a nonempty complete convex subset of a real inner product space; the statement does not itself package a selected projection map or uniqueness.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Projection/Minimal.lean#L36-L37",
+          "link_checked": true
+        },
+        {
+          "name": "ContractingWith.fixedPoint_isFixedPt",
+          "type": "{α : Type u} → [MetricSpace α] → {K : ℝ≥0} → {f : α → α} → (hf : ContractingWith K f) → [Nonempty α] → [CompleteSpace α] → Function.IsFixedPt f (ContractingWith.fixedPoint f hf)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.Contracting",
+          "provides": "A contraction on a nonempty complete metric space has a chosen point satisfying its fixed-point equation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Contracting.lean#L280-L281",
+          "link_checked": true
+        },
+        {
+          "name": "ContractingWith.fixedPoint_unique",
+          "type": "{α : Type u} → [MetricSpace α] → {K : ℝ≥0} → {f : α → α} → (hf : ContractingWith K f) → [Nonempty α] → [CompleteSpace α] → {x : α} → Function.IsFixedPt f x → x = ContractingWith.fixedPoint f hf",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.MetricSpace.Contracting",
+          "provides": "Every fixed point of the contraction equals the chosen fixed point; the contraction and complete-space hypotheses must first be established.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Contracting.lean#L283-L284",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search population kernel LSTD and projected Bellman equation; inspect RKHS reproducing identity, complete-convex projection and contraction fixed-point theorems.",
+          "result": "Projection, contraction and reproducing-kernel ingredients support the proposed characterization but leave the RKHS-to-L2 embedding assumptions unresolved."
+        }
+      ],
+      "gap": "The population kernel LSTD fixed point still requires L2-closedness of the RKHS image and a justified bridge to its covariance-operator equation."
+    }
+  },
+  {
+    "interface_id": "local-c1dca7b5aed48593fb87",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "bc0cf8eb43e690d55a696919613b7f5c7f8da7dbabeec153ef48fa736b3a4af7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D16",
+        "comparison": "Integrate (theta(X)-r(X)-gamma theta(X'))^2 under mu compProd P. Projection can leave a residual with nonzero mean unless further structure supplies zero mean, so subtracting its mean changes (16). Appropriate L2 membership and stationary marginals give finite second moment; Bochner's nonintegrable-zero fallback is not a noise convention, and the source does not require strictly positive noise in this definition.",
+        "statement_sha256": "9fa143999b86b5c4830dbe4be78d711fb237f2cc445c29f9a55e4fa456af6973"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect joint transition measure and Bochner integral; compare source residual second moment with the centered variance definition.",
+          "result": "The printed quantity is an integral of the squared residual under the stationary pair law, not automatically the library's centered variance."
+        }
+      ],
+      "gap": "The residual second moment still needs its stationary pair law and integrability, with a separate zero-mean proof if it is to be identified with variance."
+    }
+  },
+  {
+    "interface_id": "local-c44d11412ca2483b4e1e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "18bd0bba465035cc79b279c9e71b075336d6d2c85e1d789b239f4ed886c3018e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D12",
+        "comparison": "For real scalar positive kernels, identify the operator-valued kernel norm on the diagonal with nonnegative K(x,x), obtaining |f(x)|<=||f||_H sqrt(K(x,x)). Then the source bound yields uniform evaluation control by b; neither boundedness nor a strictly positive b follows just from the RKHS class. Preserve the supremum over all x and do not weaken it to an essential bound under mu.",
+        "statement_sha256": "a156dc24aabf0c0a291a193df78c0553e5951156e79d66132a65d58c0264bbae"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect RKHS point-evaluation bound and scalar kernel specialization; search uniform diagonal kernel bounds.",
+          "result": "The reproducing estimate uses the diagonal kernel norm; the common bound b is a separate hypothesis."
+        }
+      ],
+      "gap": "The uniform diagonal constraint still needs the scalar-kernel identification and a bound valid at every state."
+    }
+  },
+  {
+    "interface_id": "local-2b4cb45605acfadf71e6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "e1544f7500ce1c73877039929960d4256bd1ddf6f05496fa4f3c17cb2125c4b5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D15",
+        "comparison": "R is any user-specified upper bound on both ||theta-star-r||_H and 2||theta-star||_infinity/b, not a necessarily minimal radius or ||theta-star||_H. The source norm is a pointwise supremum; r membership/projection remains the footnote convention. A zero kernel or b=0 needs an explicit resolution before using the ratio; total real division must not hide that degeneracy.",
+        "statement_sha256": "613270492fc3f87c22ee32d315c8c8702daf70d1f18b6c861890652158510627"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search projected fixed-point radius and RKHS/uniform norm control; inspect evaluation bound and supremum equivalence.",
+          "result": "The two norms can be represented, but their simultaneous radius constraint is model-specific."
+        }
+      ],
+      "gap": "The radius condition still needs RKHS membership, a pointwise uniform bound and valid division by the kernel bound b."
+    }
+  },
+  {
+    "interface_id": "kernel-lstd-critical-radius",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "c04dacc7bb0ca23a285d0758e39fd10b316d0fadbcb34865d1873dcaaa2849a9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D17",
+        "comparison": "Use IsLeast of {delta>0: C(delta)<=sqrt(n) R delta/(H(gamma) zeta)}. Mere monotonicity does not prove attainment or a positive least solution; an all-zero spectrum makes every positive delta feasible with no least member. Real tsum of a nonsummable series and sqrt defaults cannot define the intended complexity. zeta>0 is stated, but the fast-rate substitution kappa*sigma can be zero without a supplied limit convention.",
+        "statement_sha256": "4ea35a47fa10a4585648b65d577b3f1d4b6fb3a8cf680dbad632da03cd62753d"
+      },
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D22",
+        "comparison": "The lower-bound slope is sqrt(n) barR(1-gamma)/(2 barSigma), corresponding algebraically to the upper form only with the right parameter substitution. Its mu_j are the pre-specified family envelope, not necessarily the actual instance eigenvalues mu_j(P); do not replace the envelope by an instance spectrum in Regime B. Positive barSigma and nondegenerate spectrum/scale are needed for the asserted least positive radius; preserve the factor 2.",
+        "statement_sha256": "60c27a7ffaec5693deffb9efa56ddd1a75f44c4afba1dc0eff03fd84d6f1a553"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsLeast",
+          "type": "{α : Type u} → [LE α] → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Bounds.Defs",
+          "provides": "Membership in a set together with being a lower bound of that set; expresses an attained least element.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Bounds/Defs.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search critical radius, localized kernel complexity and smallest positive solution; inspect IsLeast and square root domains and compare both source variants.",
+          "result": "IsLeast expresses positive feasible membership and minimality, but supplies neither convergence of the spectral series nor existence of a least positive feasible radius."
+        }
+      ],
+      "gap": "The critical radii still need convergent spectral complexity and nondegenerate parameters that ensure an attained positive least solution, with the two variants' spectra and slopes kept distinct."
+    }
+  },
+  {
+    "interface_id": "local-f62a84bd707180a06cfc",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "9c81a6c6fa9d063885751b33d368806e9e83d89342c690070a048b0455e94a62",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D26",
+        "comparison": "Require barR >= [1/(6(1-gamma))] max{gamma/sqrt(mu_1),2/b}; the noise constraint applies to barSigma squared in the closed interval [(1+gamma)/(5(1-gamma)),(1+gamma)/(1-gamma)]. Preserve 6,5 and both endpoints. Gamma in (0,1) fixes the horizon denominator, but mu_1=0 and b=0 are not resolved by generic sqrt/division conventions. Do not infer a theorem for every family just from satisfying these scalar bounds.",
+        "statement_sha256": "8afee19f9e2535a7bca93c77da8586a75b0edae0c74270440570e08da12deb83"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search horizon-dependent kernel LSTD parameter regimes; inspect closed interval and real square-root domains against (32a).",
+          "result": "The explicit scalar inequalities are representable, but no specialized parameter-regime theorem was located."
+        }
+      ],
+      "gap": "Regime A still needs its exact spectral and horizon-dependent inequalities with nondegenerate denominator parameters."
+    }
+  },
+  {
+    "interface_id": "local-c33854777df8aed02cdf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "3af7938a1fe434fdbff4a9513564c432207ac4f231dadac608d2b0c70324d58e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D27",
+        "comparison": "barR >= max{1/(2 sqrt(mu_1)),2/(gamma b)} and barSigma squared lies in (1/8,1], strictly excluding the lower endpoint. Gamma remains in (0,1), so this differs from Regime A's horizon-growing noise interval. Preserve the source's roles of barR and barSigma despite the reversed pair printed in Theorem 2(b); no zero-eigenvalue or zero-b convention is supplied.",
+        "statement_sha256": "6f9555e0635a21f9db1004948ede15b55c9e3487cebd4b957fc3753118977336"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Ioc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval open at its left endpoint and closed at its right endpoint.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L63-L63",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search horizon-independent LSTD regime and inspect half-open interval and square-root definitions against (32b).",
+          "result": "The exact scalar domain can be written using a half-open interval and real inequalities; it is separate from the existence of hard MRP families."
+        }
+      ],
+      "gap": "Regime B still needs the stated radius and half-open noise constraints with positive spectral and kernel-bound denominators."
+    }
+  },
+  {
+    "interface_id": "local-0f85241270a11d8de53b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "43efa71db0e79f014c8d47343e9df7fe32f15c6be144840d97556f4ea93c95f3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D23",
+        "comparison": "d_n is max{j>=1:mu_j>=delta_n^2}, with equality included, not sum of threshold indicators or trace of a resolvent. Summable nonnegative eigenvalues and positive delta give finitely many qualifying indices, but do not guarantee any qualify. Without a stated decreasing order, their largest index can differ from their number; Finset.max' requires the missing nonemptiness proof instead of assigning zero by default.",
+        "statement_sha256": "e0ebdae58b2c775a9ef89dcbe20f258c4f463732019832b4e97c8138f0b4be0e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search statistical/effective dimension and largest qualifying spectral index; inspect finite maximum and frozen eigensequence-order notes.",
+          "result": "A finite maximum can select the largest qualifying index once that set is proved finite and nonempty; it is not automatically a count."
+        }
+      ],
+      "gap": "The statistical dimension still needs finiteness and nonemptiness of the qualifying index set without silently imposing eigenvalue ordering."
+    }
+  },
+  {
+    "interface_id": "local-79702b662d68ff252035",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "6413feb4b5ebcbe5e19b12083bc7183278c8c9d96d808db0cc48c9604690922a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D24",
+        "comparison": "Preserve [2 barSigma/(barR(1-gamma))]^2 d_n >= c n delta_n^2, using the lower-bound critical radius and largest-index statistical dimension. The prose does not fully specify whether one c covers all n and parameter choices; do not silently strengthen or weaken that quantifier or infer the condition from trace class alone. It is required for Theorem 2 by adjacent main-text commentary.",
+        "statement_sha256": "78bce1f45f0532994975e0dac7183fb18d7f7c18d1332cadb59c6d10448a92fd"
+      }
+    ],
+    "library_audit": {
+      "status": "no_verified_match",
+      "related_declarations": [],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search Analysis and Probability for kernel regularity, statistical dimension, critical radius and local complexity; inspect spectral-index and critical-radius primitives for a matching statistical inequality.",
+          "result": "No declaration in the searched revision packages this sample-dependent regularity condition; generic order and arithmetic do not add a substantive result about it."
+        }
+      ],
+      "gap": "The sample-dependent kernel regularity inequality remains a separate hypothesis with its universal-constant scope left as stated by the source.",
+      "no_related_reason": "The condition links the paper's own d_n and delta_n to its noise/radius/horizon parameters; searched kernel and spectral infrastructure did not provide a relevant regularity theorem."
+    }
+  },
+  {
+    "interface_id": "local-082a03e5e9dbbad7299a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "1223151eb7524ba3975ef02cb5ff4f4472d1633c9aaa762a43f2c2423fa884a7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D19",
+        "comparison": "Require the actual pointwise eigenfunction bound kappa=2 for every j and sum_j mu_j<=b^2/4, not b^2 or a centered covariance trace. The two explicit constraints are retained together; an ordinary real tsum defaults to zero for nonsummable input and cannot certify trace class. Pointwise versions and convergence must be established, without inventing a maximum-attaining eigenfunction index.",
+        "statement_sha256": "3759d56c4e3412981d313fef6d4d9326a1f3a2bc1c03fd602d15b489fd44d925"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search trace-class kernels and uniformly bounded eigenfunctions; inspect pointwise supremum and RKHS evaluation estimates and compare the two exact constraints in (29a).",
+          "result": "Uniform bounds have order/evaluation infrastructure, but neither the eigenfunction constant nor the spectral trace bound is automatic from an RKHS."
+        }
+      ],
+      "gap": "The lower-family spectral conditions still require the common eigenfunction bound and a genuinely convergent nonnegative eigenvalue sum bounded by b squared over four."
+    }
+  },
+  {
+    "interface_id": "local-ff5a3a03a3f4b1584aee",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "917013f13163a90732ae2afe5cf590906efd838f7794296cb7ce1716383129dd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D7",
+        "comparison": "Phi_X=kerFun H X 1 in the real scalar specialization. rankOne Phi_X Phi_X' maps f to f(X') Phi_X, giving inner(g,Sigma_cr f)=E[g(X)f(X')], not its adjoint. Sigma_cov uses X twice and covarianceOperator_apply matches without centering the feature law. The notation mu times P is conditional compProd, not independent product mu times mu; no reversibility or symmetry of Sigma_cr follows from stationarity.",
+        "statement_sha256": "dbb60251c96428d9710b73f0cc4cf387c3d93e71c7b72696b8f33c905b1e3a79"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        },
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect uncentered covariance-operator integral, rank-one orientation, RKHS reproducing identity and conditional pair measure for population LSTD operators.",
+          "result": "The covariance application matches an uncentered feature second moment; rank-one integration also represents the ordered cross moment."
+        }
+      ],
+      "gap": "The population operators still need measurable square-integrable feature maps and the ordered cross-moment construction under the stationary pair law."
+    }
+  },
+  {
+    "interface_id": "local-510a1c2327db3e32d7e3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "d12e2e49c4c94e3c455c2d398ba90934fdea1d28d0757be5b86692f30126c026",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D28",
+        "comparison": "Fix the regime's RKHS and reward r in it, then vary P; choose stationary probability mu(P) for sampling, loss and covariance. The bare mu now denotes Lebesgue measure, but the LB norm explicitly means L2(mu(P)), not Lebesgue L2. eLpNorm at 2 can retain infinite error until integrability is established; covariance uses the uncentered feature law and actual eigenpairs mu_j(P),phi_j(P). These differ from the prescribed envelope determining lower delta_n, especially in Regime B, and stationarity alone does not give uniqueness.",
+        "statement_sha256": "10b1ad2557c2839822cd3187a9081a5d2f4e948627cfa074c07eae74ff575d80"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.Invariant",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → ProbabilityTheory.Kernel α α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Invariance",
+          "provides": "The input measure is unchanged by one kernel step, expressed as equality of its kernel pushforward with itself; probability, uniqueness and mixing are separate properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Invariance.lean#L39-L40",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.covarianceOperator_apply",
+          "type": "∀ {E : Type u} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E] {μ : MeasureTheory.Measure E}, MeasureTheory.MemLp id 2 μ → ∀ x : E, ProbabilityTheory.covarianceOperator μ x = ∫ y, inner ℝ x y • y ∂μ",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.CovarianceBilin",
+          "provides": "Under a square-integrable identity map, identifies the uncentered covariance operator with the integral of the rank-one action; no mean subtraction is present.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/CovarianceBilin.lean#L211-L212",
+          "link_checked": true
+        },
+        {
+          "name": "Module.End.HasEigenvector",
+          "type": "{R : Type u} → {M : Type v} → [CommRing R] → [AddCommGroup M] → [Module R M] → Module.End R M → R → M → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Eigenspace.Basic",
+          "provides": "A specified vector is nonzero and belongs to the eigenspace of the specified scalar; no existence, normalization or ordering of eigenvectors is included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Eigenspace/Basic.lean#L436-L437",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect stationary measures, joint pair law, L2 norm and covariance/eigenpair interfaces against the lower-family measure convention.",
+          "result": "The library ingredients permit an instance-indexed stationary experiment and covariance operator while keeping the reference measure separate."
+        }
+      ],
+      "gap": "The lower-bound instance still needs its chosen stationary measure, sampling law, error norm and spectral data consistently indexed by the transition kernel."
+    }
+  },
+  {
+    "interface_id": "local-e1ff708c083c6c1c3740",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "577da4ad836cbcd25dc8c8bccd47f3d884b089e326eff7a64a9cd58728626d38",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D9",
+        "comparison": "Sum over n observed pairs, preserving repeated observations, then multiply by 1/n with n positive. Covariance uses Phi_xi in both slots and maps f to n^-1 sum f(x_i)Phi_xi; cross-covariance uses successor in the second slot and maps f to n^-1 sum f(x_i')Phi_xi. Neither is centered, the denominator is n rather than n-1, and cross-covariance need not be self-adjoint or positive. This construction does not prove existence of the later nonsymmetric empirical fixed point.",
+        "statement_sha256": "5d829d42b72bdb0ae0ce4152bc03d55feb6c3b1ec0f9b7cfda6cf671ebff5536"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "InnerProductSpace.rankOne_apply",
+          "type": "∀ {𝕜 : Type u} {E : Type v} {F : Type w} [RCLike 𝕜] [SeminormedAddCommGroup E] [NormedSpace 𝕜 E] [SeminormedAddCommGroup F] [InnerProductSpace 𝕜 F] (x : E) (y z : F), InnerProductSpace.rankOne 𝕜 x y z = inner 𝕜 y z • x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The rank-one bounded operator acts by the inner product linear in its second argument; the paper’s first-linear inner-product notation requires reversing the two inner-product arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L322-L322",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.kerFun_inner",
+          "type": "{𝕜 X V H : Type*} → [RCLike 𝕜] → [NormedAddCommGroup V] → [InnerProductSpace 𝕜 V] → [NormedAddCommGroup H] → [InnerProductSpace 𝕜 H] → [RKHS 𝕜 H X V] → [CompleteSpace H] → [CompleteSpace V] → (x : X) → (v : V) → (f : H) → inner 𝕜 (RKHS.kerFun H x v) f = inner 𝕜 v (f x)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "The reproducing identity; for real scalar-valued functions and v=1 it gives inner(kernel section,f)=f(x).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L131-L132",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search empirical covariance/cross-covariance and LSTD; inspect rank-one application and reproducing identity.",
+          "result": "Finite averages of the inspected rank-one maps give the empirical operators with the source's feature order."
+        }
+      ],
+      "gap": "The empirical operators still need the indexed feature-map sums and exact normalization, with cross-covariance order preserved."
+    }
+  },
+  {
+    "interface_id": "local-1e9cde8f324c55ddfab1",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "cc6cefa19d82d1333e16aa51510e52c01186661b4de19b9632f21282776d9daf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D20",
+        "comparison": "Require max{||theta-star-r||_H,2||theta-star||_infinity/b}<=barR and sigma(theta-star)<=barSigma. Noise is the square root of D16's uncentered second moment, not a centered standard deviation by definition. The construction assumes r and theta-star belong to H; preserve b's denominator issue and true-value realizability specific to the lower families instead of importing it into the general projected upper target.",
+        "statement_sha256": "1924afbf26695433f5f43b5a1b38bf434752b4cca5cc700b9e532225cb167c71"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect RKHS uniform evaluation, pointwise supremum bounds and residual-square integral for lower-family validity constraints.",
+          "result": "Norm and noise primitives can express the two constraints; their joint validity is an instance-specific assumption."
+        }
+      ],
+      "gap": "The family bounds still need RKHS membership, pointwise norm control and the uncentered residual noise with nondegenerate scaling."
+    }
+  },
+  {
+    "interface_id": "local-08530d3944dbf385c2df",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "522c0d63a66f0260efba9a144f68ec55059f140a9a22e7a7b963cc311d1928ce",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D21",
+        "comparison": "For every member require both (29a) and (29b), sharing barR,barSigma and the stated eigenfunction bound kappa=2 and trace bound. This is a definition of valid families; it neither proves such a family exists nor implies a minimax lower bound for every valid family. Maintain instance-dependent stationary measures and distinguish the prescribed spectral envelope in later families from actual instance eigenvalues.",
+        "statement_sha256": "3da8a163e30fa0b513c7c1ed73529bf505532090ed8be1231ad455516e78c699"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "RKHS.norm_apply_le",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {X : Type v} {V : Type w} [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] {H : Type z} [NormedAddCommGroup H] [InnerProductSpace 𝕜 H] [RKHS 𝕜 H X V] [CompleteSpace H] [CompleteSpace V] (f : H) (x : X), ‖f x‖ ≤ ‖f‖ * Real.sqrt ‖RKHS.kernel H x x‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Reproducing",
+          "provides": "Point evaluation is bounded by the RKHS norm times the square root of the diagonal kernel norm; a uniform diagonal bound is an additional hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Reproducing.lean#L161-L162",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search valid MRP family and uniform spectral/noise conditions; inspect underlying norm and moment primitives against the all-members quantifier.",
+          "result": "The constituent bounds can be expressed with existing norms and moments, but the family predicate is specific to this paper."
+        }
+      ],
+      "gap": "Validity still needs a family-wide conjunction of the exact spectral, eigenfunction, radius and residual-noise conditions."
+    }
+  },
+  {
+    "interface_id": "local-12e70ce395e90b33f93c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:02:04.073332+00:00",
+    "source_interface_sha256": "008abe6cbd6f29ef3792c404e5f2f0872dcbfb3619a27ab61a0eb2b8c114b03e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p1927",
+        "local_id": "D25",
+        "comparison": "Form the n-fold product of each instance's mu(P) compProd P law, evaluate the event squared L2(mu(P)) error >= c1 barR^2 delta_n^2, then take supremum over the family and infimum over all measurable estimators into real-valued functions, not only H-valued or LSTD estimators. Event measurability and admissible nonempty domains are obligations; probability bounds give bounded extrema once set up, with universal c1,c2 retained. Delta_n is family-prescribed, and Theorem 2 asserts existence of hard families rather than hardness of every valid family.",
+        "statement_sha256": "3c733bc4db341be172910b978d291dbdb1348a8a982007631406df4347a91c3a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search minimax probability lower bound and iid stationary experiment; inspect finite product law, probability evaluation and infimum/supremum inequalities.",
+          "result": "The experiment law and bounded probability extrema are available ingredients; no matching kernel-LSTD minimax lower-bound theorem was located."
+        }
+      ],
+      "gap": "The minimax tail-risk statement still needs a measurable data-to-function estimator class and a hard-family argument under each instance's stationary-pair experiment."
+    }
+  }
+]

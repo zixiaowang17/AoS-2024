@@ -1,0 +1,87 @@
+{
+  "scope": "Manual comparisons for merged-model variational priors, Neumann spectral density estimation and transport, and non-Gaussian component analysis.",
+  "rows": [
+    {
+      "interface_id": "local-e9676eecb166a93aaf93",
+      "related": ["InformationTheory.klDiv", "MeasureTheory.lintegral"],
+      "query": "Searched variational Bayes, variational posterior and prior-model interfaces; inspected klDiv's ordered extended-real definition, its mass correction and infinity branch, and the lower Lebesgue integral definition.",
+      "result": "For probability measures, klDiv's mass correction cancels, giving the intended direction of each KL term. The outer expectation of the nonnegative data-law KL can be represented by lintegral, preserving infinity. These operations express the objective but do not construct a member of the specified variational family with the oracle budget or prove the bound uniformly in the stated parameters.",
+      "gap": "The variational witness in each merged model and its oracle KL-budget bound remain to be constructed using the generic KL and integration operations.",
+      "comparisons": {
+        "D23": "Keep KL(Q-star_nm,Pi_nm) in parameter space and KL(P_lambda-star^(n),P_T(theta)^(n)) in observation space, integrating the latter with respect to Q-star_nm. Neither KL direction is interchangeable. The budget is c2*n*inf_S(eta_nmS+zeta_nmS)^2, not a separately imposed budget for every individual cell. The witness may depend on the universally fixed truth/model despite the abbreviated notation; do not require one global Q for all truths. Preserve the common positive constants and sufficiently-large-n quantifier, and do not add the testing condition D1. Extended values must remain infinite unless finiteness is justified, rather than being converted to real zero."
+      }
+    },
+    {
+      "interface_id": "local-9124c54a567259d1f677",
+      "related": ["ProbabilityTheory.cond", "MeasureTheory.Measure.sum"],
+      "query": "Searched conditional probability measures and hierarchical mixture infrastructure; inspected cond as inverse-mass scaling of a restriction and Measure.sum's indexed-measure construction.",
+      "result": "The cell mass supplies alpha_S|m, cond supplies the normalized restriction on a positive finite-mass cell, and Measure.sum can sum the weighted conditionals. Recovering the original prior from that sum requires the applicable measurable partition and coverage/summability conditions; a union of possibly overlapping cells alone is insufficient. cond on a zero-mass cell is zero, not a probability law.",
+      "gap": "The conditional-prior mixture needs its measurable cell decomposition and zero-mass conditional-law convention specified before reconstruction is justified.",
+      "comparisons": {
+        "D21": "Keep alpha_n,S|m as the original Pi_nm mass of Theta_nmS, and the conditional component as the restriction of that same prior. On positive-mass measurable cells the scaled restriction is the intended probability measure. The source gives no conditional probability convention on zero-mass cells; choosing a zero measure is a mathlib totalization rather than a supplied probability component. Countable/disjoint covering cells would justify the usual mixture identity, but do not infer disjointness or countability merely from the preceding merged-space union. The m index remains fixed throughout the conditional mixture."
+      }
+    },
+    {
+      "interface_id": "local-175ebe53d363710613cc",
+      "related": ["Set.encard", "MeasureTheory.lintegral", "PMF.ofFintype"],
+      "query": "Searched model-prior complexity and exponential-tail interfaces; inspected Set.encard's extended-cardinality definition, finite probability-mass construction and nonnegative integration for weighted counts.",
+      "result": "Extended cardinality preserves infinity when counting a low-complexity cell set, avoiding Nat.card's zero fallback on infinite types. Nonnegative sums/integrals express the joint prior tail; PMF.ofFintype supplies normalized weights in the finite-index special case, not an assumption that the full model space is finite. No inspected declaration establishes the three paper-specific complexity, tail and oracle-mass bounds.",
+      "gap": "The low-complexity count, high-complexity prior tail and near-oracle prior-mass requirements must be established for the specified hierarchical model family.",
+      "comparisons": {
+        "D25": "Keep three distinct statements: count zeta<=H*epsilon_n, tail mass zeta>=H*epsilon_n, and existence of one cell within (1+c5)*epsilon_n with joint prior weight at least exp(-c6*n*epsilon_n^2). Equality lies in both the count and tail predicates. The first two bounds hold for every H>H0; the oracle mass has no H factor. Joint weights are alpha_nm*alpha_n,S|m. Counts of an infinite low-complexity set cannot become zero through natural-cardinality totalization, and infinite real sums cannot default to zero when nonsummable; use extended quantities or explicit finiteness/summability. Preserve epsilon_n as the infimum over m and S from D24 and the shared constants/quantifiers."
+      }
+    },
+    {
+      "interface_id": "local-d42a0953679f3f8b71c7",
+      "related": ["InnerProductSpace.laplacianWithin", "TemperedDistribution.MemSobolev", "HilbertBasis.hasSum_repr_symm"],
+      "query": "Searched Neumann boundary Laplacians, weak normal derivatives and Sobolev spaces; inspected laplacianWithin's second-Frechet-derivative contraction, the Bessel-potential MemSobolev definition and HilbertBasis reconstruction; distinguished unrelated von Neumann search results.",
+      "result": "The Laplacian declaration is a classical derivative operator within a set. MemSobolev is a whole-space tempered-distribution/Bessel-potential definition, not the paper's bounded-domain H2 space with weak Neumann trace. HilbertBasis supplies reconstruction after a basis exists. No searched declaration gives this mean-zero Neumann realization, its self-adjoint bijection or its positive discrete eigenbasis.",
+      "gap": "The bounded-domain weak Neumann operator, its domain and the positive discrete spectral basis remain to be constructed beyond the classical Laplacian and generic Sobolev/Hilbert-space infrastructure.",
+      "comparisons": {
+        "D32": "The operator is negative Delta on H_N^2(Omega) into L0^2(Omega), with weak outward-normal derivative zero and the mean-zero constraint. It is an unbounded realization viewed on L2, not an arbitrary bounded continuous linear endomorphism. C1 supplies a compact convex unit-volume domain with smooth boundary; these facts do not automatically instantiate the required PDE development. Keep eigenvalues positive in nondecreasing order and eigenfunctions complete in the mean-zero space, excluding the constant mode; the constant 1 is restored separately in the density series. The H2 norm construction referred to only in the appendix is not reconstructed."
+      }
+    },
+    {
+      "interface_id": "local-bc9b8b3279c6fead10bd",
+      "related": ["MeasureTheory.integral", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Searched spectral density estimates and finite function sums; inspected the Bochner integral, generated Finset.sum_apply theorem and the earlier Neumann/Hilbert-basis candidates for their limits.",
+      "result": "For supplied eigenfunctions/eigenvalues, cutoff and empirical laws, the coefficient integrals and finite function sums directly express both series. Point evaluations under empirical measures require chosen measurable function representatives; an abstract L2 equivalence class alone is insufficient. Constructing the Neumann eigenbasis and proving rates are separate from these finite expressions.",
+      "gap": "With the eigenfunctions, eigenvalues, cutoff and empirical measures supplied, the two finite spectral estimators are directly expressible by integrals and finite sums.",
+      "comparisons": {
+        "D34": "Both series start with the constant 1 and sum positive modes beginning at ell=1. Compute alpha-hat under P_n and beta-hat under Q_m, with distinct truncations L_n and L_m. Preserve the single printed omega_ell=tau(lambda_ell/lambda_(L_n)) even in the target series; do not replace its denominator by lambda_(L_m). This is a smoothed finite series that may be negative before the next normalization step, not already a positive density. Unit domain volume and zero-mean eigenfunctions are what can give mass one once representatives/integrals are justified."
+      }
+    },
+    {
+      "interface_id": "local-87a8b8c0e8d501560e02",
+      "related": ["Set.indicator", "MeasureTheory.lintegral", "MeasureTheory.Measure.withDensity", "MeasureTheory.Measure.map", "IsMinOn"],
+      "query": "Searched Brenier, Monge-Kantorovich and optimal transport maps in mathlib; inspected indicator, nonnegative integration, withDensity, measure-map's measurable branch and IsMinOn's constrained objective predicate.",
+      "result": "The positive-part function and its total mass can define a normalized nonnegative density and induced measure once the normalizer is positive and finite. Pushforward and a transport-cost objective supply the feasibility and minimization predicates for a proposed map. No searched declaration constructs the required quadratic optimal transport maps or proves their existence/uniqueness for these estimated laws.",
+      "gap": "Normalization must be justified and the one- and two-sample optimal transport maps constructed with their pushforward and optimality properties.",
+      "comparisons": {
+        "D36": "Use the exact non-strict indicator p-tilde>=0 (and q-tilde>=0), then normalize over Omega; the zero level contributes zero either way but the original predicate is retained. The source's unit-volume domain and mean-zero modes can support a positive finite normalizer after integrability is proved. withDensity does not normalize automatically. T-hat_nm transports the estimated source to the estimated target, whereas T-bar_m transports the population P to the estimated target. IsMinOn alone includes neither transport feasibility nor an attained optimizer, and measure.map's fallback on nonmeasurable functions is not a genuine pushforward map."
+      }
+    },
+    {
+      "interface_id": "local-1e609c7ff513555d7151",
+      "related": ["ProbabilityTheory.stdGaussian", "Matrix.vecMulVec", "Matrix.mulVec", "ProbabilityTheory.IndepFun", "MeasureTheory.Measure.infinitePi", "MeasureTheory.Measure.map"],
+      "query": "Searched non-Gaussian component analysis and Gaussian projections; inspected stdGaussian's orthonormal-basis construction, vecMulVec, mulVec, independence and product-measure definitions, and the measurable pushforward branch.",
+      "result": "The outer product V V-transpose and matrix-vector multiplication express the noise projection, while stdGaussian supplies the standard Gaussian vector. Given positive dimension and the stated norm of V, the complement matrix is the orthogonal projector off V. A product law supplies independent scalar/vector inputs and independent repetitions, and a measurable pushforward defines the observation law. No searched declaration packages the full NGCA estimation problem.",
+      "gap": "The generic Gaussian, product-law and matrix operations must be assembled into the specified NGCA observation law and parameter-indexed estimation problem.",
+      "comparisons": {
+        "D4": "Use Euclidean 2-norm and norm(V)=sqrt(d), so V/sqrt(d) is the unit signal direction and I-(1/d)VV-transpose is its orthogonal complement projector for d>0. Eta has the non-Gaussian scalar law nu and is independent of z~N(0,I_d); the N observations are iid copies of the whole pair construction. Do not assume eta is centered or variance one in this base definition, since moment matching is imposed separately. The law mu_V is the pushforward of those inputs, not an assertion that the observation is Gaussian or an automatic identifiability/performance guarantee."
+      }
+    },
+    {
+      "interface_id": "local-0041c20b1884f8c0079a",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.gaussianReal"],
+      "status": "composable",
+      "query": "Searched moment-matching and non-Gaussian-degree interfaces; inspected the real Gaussian law and Bochner integration, and compared the neighboring Hermite moment-matching interface's domain qualifications.",
+      "result": "The standard Gaussian law and integrals of integer powers express each lower-moment equality and the absolute kth-moment discrepancy directly, once those moments are finite. The strict positive discrepancy makes the kth order the first differing moment in the specified range; it is not a Hermite-normalized coefficient unless separately related.",
+      "gap": "With finite moments through order k, the lower-moment equalities and positive absolute kth-moment gap are directly expressible by real integrals against nu and the standard Gaussian law.",
+      "comparisons": {
+        "D5": "Retain integer k>=2, equality for exactly i=1,...,k-1 and the absolute kth difference lambda>0. At k=2 only the first moment is matched; a unit-variance constraint must not be added. The Gaussian reference is gaussianReal 0 1. Integrability is needed for genuine moments because Bochner integrals totalize to zero outside that domain. This is the original k-NGCA problem definition supplying k and lambda to Theorem 3; do not add uninvoked later assumptions or substitute the Hermite coefficient, whose normalization changes its magnitude."
+      }
+    }
+  ]
+}

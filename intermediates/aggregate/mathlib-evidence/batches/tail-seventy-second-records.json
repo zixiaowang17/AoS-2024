@@ -1,0 +1,983 @@
+[
+  {
+    "interface_id": "local-5c8977b1e8cb5fc3fe40",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "44f73229b258c75a3829c475430348ca81e37250d7c39f6bb956cc53aaa2f6a8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D16",
+        "comparison": "Require iid X^(1),...,X^(n) with one density p_0 on [0,1]^d and ||p_0||_infinity<=B for B>=1; eLpNorm at infinity gives the essential bound, while literal pointwise boundedness requires a representative condition, and neither interpretation introduces a positive lower density bound.",
+        "statement_sha256": "c4ba1ab6d321f5dfd3d7e6ca2890410bec9b1a4497e0499cca83c4edd5ca5fa3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.HasPDF",
+          "type": "{Ω E : Type*} → [MeasurableSpace E] → {m : MeasurableSpace Ω} → (Ω → E) → MeasureTheory.Measure Ω → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Density",
+          "provides": "An almost-everywhere measurable random element has a density relative to a specified reference measure, through absolute continuity and a Lebesgue decomposition of its pushforward law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Density.lean#L65-L69",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "IID cube design with common bounded probability density; inspected HasPDF, withDensity, essential-supremum branch of eLpNorm and independent identically distributed random elements.",
+          "result": "The common design law can be specified as cube-restricted Lebesgue measure weighted by p_0, with mass one and an upper bound; HasPDF alone gives no bound and does not identify the chosen representative p_0. The family predicates express iid sampling."
+        }
+      ],
+      "gap": "These declarations can state the design assumption once the normalized cube density and its upper-bound convention are supplied."
+    }
+  },
+  {
+    "interface_id": "local-f29e7f9862ac4a476e70",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "82773034f110c96def036d98837913233ba6ab797d61137d27f545d8ed98a8ea",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D18",
+        "comparison": "Integrate (f-hat_n(x)-f-star(x))^2 p_0(x) against cube Lebesgue measure, not against the empirical design distribution; for a fitted estimator this is a random loss, distinct from its expected value in the minimax definition and from the fixed-design risk.",
+        "statement_sha256": "529f557f9ea88e936c739f6bbbb28551090129f342482ac075dc8c1a626aacd4"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Squared population L2 prediction loss under design density; inspected weighted measures, nonnegative integration and the p=2 seminorm.",
+          "result": "The squared error is a nonnegative integral under the density-weighted design measure, equivalent to the squared extended L2 seminorm with its measurability hypotheses. The estimator's training sample remains an argument rather than being integrated out here."
+        }
+      ],
+      "gap": "The existing integration and L2 operations suffice to define this sample-dependent population loss under the specified design law."
+    }
+  },
+  {
+    "interface_id": "local-4ea2f1649fcfad311057",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "40b2c3f7afb2115fa7ec872385998cc71c3b3d9f5c2897ae95d2fff6b9166aac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D17",
+        "comparison": "Keep y_i=f-star(X^(i))+xi_i, iid mean-zero xi_i independent of all covariates, and the unweighted integral from zero to infinity of the strict tail probability raised to 1/5; finite ordinary fifth moment or a sub-Gaussian bound is not an equivalent replacement for this L^{5,1} condition.",
+        "statement_sha256": "fe048be4a7e50c5e5d22a280156ca4cb90fffed8fd8ff148d4d063e1c19d03cf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IdentDistrib",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [MeasurableSpace α] → [MeasurableSpace β] → [MeasurableSpace γ] → (α → γ) → (β → γ) → MeasureTheory.Measure α → MeasureTheory.Measure β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.IdentDistrib",
+          "provides": "Equality of pushforward laws for random elements on possibly different probability spaces, with almost-everywhere measurability of both.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/IdentDistrib.lean#L71-L76",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Random-design regression with iid independent noise and Lorentz L5,1 tail-integral condition; searched Lorentz and inspected independence predicates, tail-event integration and real fractional powers.",
+          "result": "The regression identity and independence constraints are expressible, and the nonnegative integral of t -> P(|xi|>t)^(1/5) defines the displayed noise quantity. No Lorentz-norm implementation matching this tail integral was located in the pinned source search."
+        }
+      ],
+      "gap": "The model still needs its explicit Lorentz tail-integral finiteness predicate assembled with iid noise, mean zero and independence from the entire design block."
+    }
+  },
+  {
+    "interface_id": "local-853bacadc63804f8820e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "59998ae4d6b471bc82bd31766661846cf4cac7d52b08c8d1f35d25a36305e1d7",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D8",
+        "comparison": "The N_k are positive integers selected before fitting and the displayed grid includes 0 and 1; the half-open signed-measure domain and later coefficient indices omit terminal knots because their hinges vanish on the unit cube, so these grids must not be replaced by observed-data knot sets.",
+        "statement_sha256": "d1f80fcaea573cca1cbf2885adaec5157356e7fa605beccdaa9ceba7228e8ab7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.image",
+          "type": "{α β : Type*} → [DecidableEq β] → (α → β) → Finset α → Finset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Image",
+          "provides": "The finite set of outputs of a function on a finite input set; equal outputs are deduplicated, so an indexed sample should be retained separately when multiplicities matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Image.lean#L279-L280",
+          "link_checked": true
+        },
+        {
+          "name": "Set.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → Set ι → (∀ i, Set (α i)) → Set (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set of coordinate functions taking values in the prescribed coordinate sets at each index in the supplied index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L280-L280",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Preset equispaced knot grid and signed measures supported on a product lattice; inspected finite image sets, dependent Cartesian products and variation measure.",
+          "result": "Mapping j in {0,...,N_k} to j/N_k gives each finite coordinate grid, and Cartesian products give the interaction lattices. Concentration of a signed measure can be imposed through zero variation mass outside the lattice."
+        }
+      ],
+      "gap": "The grid restriction is composable after choosing positive resolutions and imposing signed-measure concentration on the appropriate knot products."
+    }
+  },
+  {
+    "interface_id": "local-aa7661a416a9db9fedd6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "5ce7f75de7c4b7e8eb9ade9e6a6fe4eecbde1705421330598be0ef1e9d278a4d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D15",
+        "comparison": "For m in [d], integrate the product over all m coordinates against a signed measure on [0,1]^m with variation at most one on the entire cube, including the zero atom; there is no free intercept or excluded-zero penalty, so this entropy class is not the original MARS feasible class with its unpenalized multilinear part.",
+        "statement_sha256": "7a87a773b212daa414e54ffe985f58305d54032196c6ed32d86c20b9ecd1a066"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.VectorMeasure.integral",
+          "type": "{X : Type u} → {E : Type v} → {F : Type w} → {G : Type z} → {mX : MeasurableSpace X} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → [NormedAddCommGroup F] → [NormedSpace ℝ F] → [NormedAddCommGroup G] → [NormedSpace ℝ G] → MeasureTheory.VectorMeasure X F → (X → E) → (E →L[ℝ] F →L[ℝ] G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Integral",
+          "provides": "Integration against a vector measure with a continuous bilinear pairing, specializing to signed-measure integration via scalar multiplication; returns zero outside output completeness or integrability against variation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Integral.lean#L250-L252",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.SignedMeasure.totalVariation",
+          "type": "{α : Type u} → [MeasurableSpace α] → MeasureTheory.SignedMeasure α → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.VectorMeasure.Decomposition.Jordan",
+          "provides": "Hahn–Jordan total variation measure, equal to the sum of positive and negative parts; its total mass is the unhalved variation norm.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Jordan.lean#L460-L461",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Signed hinge-product integral class with total variation at most one; searched MARS and inspected positive parts, signed/vector integration and total variation.",
+          "result": "The product of positive-part hinges is a bounded measurable function on the closed unit knot cube, so finite variation supports its signed integral. The class is the image of the full variation unit ball under this integral transform."
+        }
+      ],
+      "gap": "These declarations suffice to define the hinge-integral class after supplying its finite product and closed-cube signed-measure domain."
+    }
+  },
+  {
+    "interface_id": "local-6defb217dffb47228180",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "8589f0ac1a64b9255cf99a0e3fc9de90c5f3511d368e143b3e0a8c6fa8719038",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D6",
+        "comparison": "Use any feasible minimizer of sum_i(y_i-f(x^(i)))^2 with V_mars(f)<=V and V>0, on the original infinite-dimensional class; preserve the constraint form rather than a penalized objective, and do not infer uniqueness of the function away from the design points or import fixed/random sampling assumptions into the definition.",
+        "statement_sha256": "04285473abf26701fda862538e3c9b8f6d5de5f9499d06a7cc559eeb88591df3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Constrained least-squares MARS function estimator as argmin membership; searched MARS and inspected IsMinOn and finite squared-residual sums.",
+          "result": "Membership in the supplied MARS complexity ball together with IsMinOn of the residual-sum objective expresses the estimator definition. These ingredients assert neither existence nor uniqueness or measurable selection."
+        }
+      ],
+      "gap": "The argmin relation is composable once the MARS class and complexity functional are supplied; choosing an estimator with the required probabilistic measurability remains separate."
+    }
+  },
+  {
+    "interface_id": "local-37c5a94c103f14b40dda",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "8556410b4dac200f14d630a94167fa2c6eddf9d1f88da1278bde7b78da3c54c9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D12",
+        "comparison": "For each k retain n_k>=2, exactly n_k coordinate values beginning at zero, last value <=1 and every adjacent spacing >=rho/n_k with common rho>0; the grid need not be equispaced or reach 1, and the source's equality of sets does not by itself rule out repeated observations in the indexed sample or establish n as the product of the n_k.",
+        "statement_sha256": "8163a8332bb278b7840d8c761f97a1db31067f75f92ba425f2fa1532ffbb0fd5"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → Set ι → (∀ i, Set (α i)) → Set (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set of coordinate functions taking values in the prescribed coordinate sets at each index in the supplied index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L280-L280",
+          "link_checked": true
+        },
+        {
+          "name": "StrictMono",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Strict order preservation; on real functions it imposes neither continuity nor differentiability.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L86-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.image",
+          "type": "{α β : Type*} → [DecidableEq β] → (α → β) → Finset α → Finset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Image",
+          "provides": "The finite set of outputs of a function on a finite input set; equal outputs are deduplicated, so an indexed sample should be retained separately when multiplicities matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Image.lean#L279-L280",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Finite Cartesian lattice design with strictly increasing coordinate knots and lower spacing; inspected Set.pi, StrictMono and finite images.",
+          "result": "Finite coordinate sequences, their image sets and a Cartesian product express the design lattice; strict monotonicity and adjacent-difference inequalities impose the geometry."
+        }
+      ],
+      "gap": "These operations suffice to state the lattice geometry and its uniform lower-spacing condition."
+    }
+  },
+  {
+    "interface_id": "local-9c94e3458656a71aaa8a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "79d2858a786200210e8faba3bab0477e2aea4612231dc147522adf999dedd871",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D13",
+        "comparison": "Retain deterministic x^(i), y_i=f-star(x^(i))+xi_i, mean-zero independent errors and E exp(lambda xi_i)<=exp(sigma^2 lambda^2/2) for every real lambda and every i; the Lean parameter is sigma squared, the error laws need not be identical, and the lattice assumption remains separate.",
+        "statement_sha256": "6cf685994f177eb42ab878286a9bd163fb566fcd3ad859eac327923afc07910b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.HasSubgaussianMGF",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → ℝ≥0 → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Moments.SubGaussian",
+          "provides": "Sub-Gaussian MGF predicate requiring integrability and the exp(c*t²/2) bound for every real t; it implies centering on a probability space.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/SubGaussian.lean#L606-L608",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Fixed-design regression with independent centered sub-Gaussian errors and common variance proxy; inspected HasSubgaussianMGF fields and indexed mutual independence.",
+          "result": "HasSubgaussianMGF with parameter c=sigma^2 expresses the all-real MGF bound and includes exponential integrability; the indexed independence predicate supplies independence without identical distributions."
+        }
+      ],
+      "gap": "The existing predicates suffice for the error assumption after translating the paper's sigma to the squared MGF parameter and adding the regression identity."
+    }
+  },
+  {
+    "interface_id": "local-f232d63f46d5953f2962",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "f68b7a0821f5ccb225c3bd5351acb8e05ddd939a806dc281db271fc8474b5910",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D14",
+        "comparison": "Average squared errors at the n fixed design points with factor 1/n and then integrate over y_1,...,y_n; retain n>0 for the empirical normalization, and do not integrate over new covariates or replace this expected empirical loss by the random population loss used in the other section.",
+        "statement_sha256": "04f7d4086358d52aebb29efbb4dda943825f2997ba0b1dd2a68e6fd716bab1ac"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Expected fixed-design squared empirical prediction loss; inspected finite averaging and real/extended nonnegative integration.",
+          "result": "A finite normalized sum expresses empirical squared error, and expectation over the response law gives risk. Nonnegative integration retains possible infinity; a real integral has the intended value when the loss is integrable."
+        }
+      ],
+      "gap": "These operations suffice to define the fixed-design risk once the response law and estimator are specified with the appropriate integrability convention."
+    }
+  },
+  {
+    "interface_id": "local-23d617e6ab6d30531239",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "64e81b4acd30faac1d2834cb33539589a114215574c6523b985f9f61e9844d72",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D7",
+        "comparison": "Optimize over a_0 and gamma with objective ||y-a_0 1-M gamma||_2^2, but sum the l1 constraint only over indices whose knot multi-index l is not the all-zero vector; the intercept and every all-zero interaction coefficient are unpenalized, and this generic formula is reused with different J and M for exact and approximate grids.",
+        "statement_sha256": "59262e4080e4b644741369474816fa860da83fc1ffba2038872895d361b88fc2"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "EuclideanSpace.norm_eq",
+          "type": "∀ {𝕜 : Type u} [RCLike 𝕜] {n : Type v} [Fintype n] (x : EuclideanSpace 𝕜 n), ‖x‖ = Real.sqrt (∑ i, ‖x i‖ ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "provides": "Square-root sum-of-squares norm for any finite coordinate type, covering vectors and flattened finite tensors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L148-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Constrained finite-dimensional lasso with unpenalized intercept and zero-knot coefficients; inspected minimum predicate, matrix-vector products, Euclidean norm and filtered index sums.",
+          "result": "The residual vector and its squared Euclidean norm are standard operations. A filtered absolute-value sum specifies the exact feasible coefficient set, and feasible membership plus IsMinOn specifies a solution."
+        }
+      ],
+      "gap": "These declarations suffice to state the coefficient optimization once its index set and design matrix are supplied, without asserting a unique or measurable solution."
+    }
+  },
+  {
+    "interface_id": "local-80fcdd47dcde0931c046",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "7f607d342b22599c7877e39c687b1885dc351cab270094818fab666dcfb654eb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D9",
+        "comparison": "Use nonzero binary alpha with |alpha|<=s and l_k in {0,...,N_k-1} only for active coordinates, then M_i,(alpha,l)=product_k(x_k^(i)-l_k/N_k)_+; keep the terminal knot excluded, N_k distinct from either use of n_k, and the l!=0 selective penalty from (13).",
+        "statement_sha256": "0987c400d478c7a701a5327ed43f1294692278a1cf0c1729e7fcb2b135e1f552"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Set.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → Set ι → (∀ i, Set (α i)) → Set (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Set.Operations",
+          "provides": "Set of coordinate functions taking values in the prescribed coordinate sets at each index in the supplied index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Operations.lean#L280-L280",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Approximate MARS finite design matrix with binary interaction support and preset grid knots; searched MARS and inspected finite filtering, Cartesian indices, positive parts and constrained matrix fitting.",
+          "result": "Finite binary interactions, dependent knot indices and products of positive parts define the columns. Substituting that matrix and index set into the coefficient optimization defines the approximate problem."
+        }
+      ],
+      "gap": "These operations can assemble the approximate problem with its preset resolutions, interaction cutoff and inherited selective l1 constraint."
+    }
+  },
+  {
+    "interface_id": "local-8663252d50af43bd315f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "29de9b5404187402fb51d1b22a28719c2a0077b4283549b4737ba88bbce2e54f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D10",
+        "comparison": "Retain a-hat_0 plus the sum over J of gamma-hat_(alpha,l) times product_{k in S(alpha)}(x_k-u_lk^(k))_+; use observed knots for Proposition 2.2 and l_k/N_k for the approximate problem, without treating the observed-grid construction as an additional approximate-estimator condition.",
+        "statement_sha256": "55faf31c607aebafa2af2de94fc9d214979db452b941095d59940da9beeefd8f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Finite hinge-basis reconstruction from fitted coefficients and knot values; inspected positive-part identity and evaluation of finite function sums.",
+          "result": "A finite sum of coefficient-weighted hinge products plus an intercept directly defines the reconstructed function. Knot values are arguments, so the same expression accommodates the two source instantiations."
+        }
+      ],
+      "gap": "The existing finite function operations suffice for reconstruction from the chosen coefficients, interaction indices and knots."
+    }
+  },
+  {
+    "interface_id": "local-6b761f7782e7bb25fec6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "266ca9dc4bf71d4dad452727d31013a458fc717aef51a7461b40d3a59d455ec2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D11",
+        "comparison": "Construct f-tilde only from a solution to the approximate problem and formula (14) with approximate knots; the comparison name f-hat does not make it an optimizer over the unrestricted signed-measure class, and the fixed- and random-design theorems impose different grid-growth conditions later.",
+        "statement_sha256": "40cea4ecde5a0f80c88f43dabb12c0eab9d7a9bfa27101f842f483a66d42f074"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Approximate MARS estimator from fixed-grid constrained coefficients and function reconstruction; inspected constrained minimization, fitted matrix values and positive-part finite sums.",
+          "result": "The approximate estimator is the composition of the preset-grid coefficient solution relation with the reconstruction formula. Its relation to the unrestricted optimum requires separate approximation arguments."
+        }
+      ],
+      "gap": "The estimator relation is composable from the fixed-grid optimization and reconstruction, with existence and measurable choice of a solution remaining separate."
+    }
+  },
+  {
+    "interface_id": "local-d6e371464334438831fd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "561264b12062e97baf212a8d9ca391c3f95d01d043c050ee89ed93d9d9240e17",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D21",
+        "comparison": "The quantity is the epsilon-bracketing number of D_m under Lebesgue L2 on the unit cube, not an ordinary covering number; retain the source's lack of separate endpoint measurability, pointwise-versus-almost-everywhere and open-versus-closed width conventions instead of silently selecting one as a verified exact match.",
+        "statement_sha256": "bc584e6979494b79a987b0067f8c068efb131821537c0e5951f7c9a23539b324"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.Icc",
+          "type": "{α : Type u} → [Preorder α] → α → α → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.Defs",
+          "provides": "An interval closed at both endpoints.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/Defs.lean#L76-L76",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "L2 bracketing number, order brackets and minimum cardinality bracket covers; searched bracketing across pinned mathlib and inspected order intervals and L2 seminorm.",
+          "result": "Order intervals in a function space represent pointwise lower/upper brackets, and eLpNorm measures their L2 width; an almost-everywhere formulation requires the corresponding order convention. No bracketing-number declaration was located, and metric balls do not enforce order brackets."
+        }
+      ],
+      "gap": "The bracketing-number construction still needs a minimum-cardinality bracket cover with explicitly chosen endpoint, order and width conventions absent from the source definition."
+    }
+  },
+  {
+    "interface_id": "local-620f1f7a2a24ffaeb327",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "02c0332b515e2c7dc88796931f6e137a7635021aaa701222c44ede7cdb97dbad",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D20",
+        "comparison": "Use independent mean-zero Gaussian errors with variance sigma^2 within the random-design model and retain its existing covariate independence; preserve both the prose p_0 bounded below by b>0 and the printed ||p_0||_infinity>=b, without claiming the latter guarantees p_0(x)>=b or importing this lower-bound submodel into the upper-rate theorems.",
+        "statement_sha256": "46c0a6af9989cf810d2d2a57b42e293dae7f2daa78860dea115c20c65db16f89"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.HasPDF",
+          "type": "{Ω E : Type*} → [MeasurableSpace E] → {m : MeasurableSpace Ω} → (Ω → E) → MeasureTheory.Measure Ω → MeasureTheory.Measure E → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Density",
+          "provides": "An almost-everywhere measurable random element has a density relative to a specified reference measure, through absolute continuity and a Lebesgue decomposition of its pushforward law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Density.lean#L65-L69",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Gaussian random-design lower-bound submodel and positive density lower bound versus supremum-norm inequality; inspected Gaussian variance parameter, independence, PDF and essential-supremum norm.",
+          "result": "The Gaussian law and independent family are available, and either an upper essential-supremum statement or a pointwise/almost-everywhere lower bound can be written explicitly. The printed norm inequality is not equivalent to the prose assertion of a density bounded below."
+        }
+      ],
+      "gap": "The Gaussian restriction is expressible, but the source's positive-density prose and sup-norm inequality remain inconsistent and cannot be certified as one equivalent assumption."
+    }
+  },
+  {
+    "interface_id": "local-06a44ec5a8e33c8a3e45",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "599ea0979756078be450e1f1b1f5d4ce5a340178c35dedd6032a793f9a4bfca6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D22",
+        "comparison": "Retain log N(epsilon,D_m,L2) with Lebesgue L2 distance, without assuming the text chose internal rather than external centers or a closed rather than open radius; this analytic quantity is independent of the regression and noise premises, and its mention as a proof ingredient does not add a statement dependency to Theorem 3.1.",
+        "statement_sha256": "b3f7a34d6aa777ce1cdfee8abe756c2a4f06974d5023970a64b30a89ab6544f8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Metric.coveringNumber",
+          "type": "{X : Type*} → [PseudoEMetricSpace X] → ℝ≥0 → Set X → ℕ∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.CoveringNumbers",
+          "provides": "Minimum extended cardinality of a closed-radius cover whose centers lie inside the set being covered, retaining infinity when no finite cover exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/CoveringNumbers.lean#L77-L78",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.externalCoveringNumber",
+          "type": "{X : Type u} → [PseudoEMetricSpace X] → ℝ≥0 → Set X → ℕ∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.CoveringNumbers",
+          "provides": "Minimal cardinality of a closed-radius cover with centers anywhere in the ambient space; infinity is retained when no finite cover exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/CoveringNumbers.lean#L71-L72",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Metric entropy of a signed hinge-integral class in L2, internal/external covering numbers and logarithms; inspected both covering definitions and their closed-radius IsCover convention.",
+          "result": "The L2 image of the class can be given a metric through equivalence classes, and mathlib supplies internal and external closed-radius covering numbers with extended cardinalities. A finite positive covering number can be converted to a real logarithm; infinity must not be erased by conversion."
+        }
+      ],
+      "gap": "Metric entropy is composable after fixing the source-unspecified covering-center and radius conventions and handling any infinite covering number explicitly."
+    }
+  },
+  {
+    "interface_id": "local-63e1bedfb1d3b76ed040",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:34:04.458256+00:00",
+    "source_interface_sha256": "1133f105da1a27d6c2ebd9522e6c982cf9ae2d511cf436d4c438b0036dedc930",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1102",
+        "local_id": "D19",
+        "comparison": "Take infimum over all estimators based on the complete random-design sample, then supremum over every f-star in the original MARS class with V_mars<=V of its expected density-weighted L2 loss; neither the exact MARS estimator, the approximate grid fit nor the realized unaveraged loss restricts this all-estimator minimax problem.",
+        "statement_sha256": "4f9d7be344585beb1c17ad1f073fd4618b3a08d6de6cd6bb0d69f94d8f8be6ba"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "le_csInf_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → s.Nonempty → (a ≤ sInf s ↔ ∀ b ∈ s, a ≤ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A lower bound on an infimum is equivalent to the same bound on every member of a nonempty bounded-below set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L228-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Minimax expected population L2 risk over all sample-based estimators and a MARS complexity ball; inspected nonnegative expectation, L2 seminorm and infimum/supremum characterization hypotheses.",
+          "result": "Expected nonnegative loss and nested order infima/suprema express the criterion after defining the full estimator domain and truth-indexed sample laws. The real conditional-completeness lemmas need nonempty bounded sets; extended nonnegative risks avoid silently totalizing unbounded suprema."
+        }
+      ],
+      "gap": "The minimax criterion still needs the all-estimator measurable domain and truth-indexed sampling laws assembled, with unbounded risks preserved in an appropriate value space."
+    }
+  }
+]

@@ -1,0 +1,125 @@
+{
+  "scope": "Manual review of all fifteen remaining p0392 interfaces, preserving the ordinary process integral, mixed stopping indices, extended boundary conventions and complete conditional endpoint algorithms.",
+  "rows": [
+    {
+      "interface_id": "local-761abdc15c3d01592a97",
+      "related": ["csSup_le_iff", "Set.Icc"],
+      "query": "Inspected real supremum and closed intervals; compared frozen horizontal-radius formula with the previously reviewed water-filling radius and unique minimizer.",
+      "result": "The sublevel-set horizontal radius is a bounded real supremum once its vertical level is well-defined; it is distinct from optimization over alternative functions.",
+      "gap": "Define the radius of the specified sublevel set about Z(f), verifying its nonempty domain and the vertical-radius level used in the constraint.",
+      "comparisons": {"D10": "Take sup of |t-Z(f)| for t in [0,1] with f(t)<=rho_m(epsilon;f)+M(f). At a valid nonnegative rho_m the minimizer is feasible and distances are at most one, providing the nonempty/bounded conditions exposed by csSup_le_iff. The radius is measured from Z(f), not the diameter of the sublevel set, and uses the closed level inequality; it is not the separate modulus over g in F or a claim that the supremum is attained without further regularity."}
+    },
+    {
+      "interface_id": "local-f6c7d64ba2b0cfc1e641",
+      "related": ["ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "ProbabilityTheory.cdf", "Finset.max'"],
+      "query": "Inspected finite maxima, Gaussian law, iid predicates and CDF; compared the frozen Gaussian-maximum quantile definition.",
+      "result": "A finite maximum of iid standard normals and its law can be constructed; the inverse CDF and its calibration require a quantile argument.",
+      "gap": "Construct the maximum-normal distribution and its one-minus-beta quantile for a positive integer count and ordinary tail probability.",
+      "comparisons": {"D18": "For n>=1 take max(v_1,...,v_n) with independent N(0,1) variables, not max absolute values, and S_n,beta is its lower inverse CDF at 1-beta. Independence gives the candidate CDF Phi(x)^n after a finite-intersection proof, so a quantile can be related to Phi inverse((1-beta)^(1/n)) for 0<beta<1; the inspected primitives alone do not prove that identity. Finset.max' needs a nonempty set, and neither n=0 nor endpoint tail probabilities are totalized by the source."}
+    },
+    {
+      "interface_id": "local-a5c4435c4b6922dcb6a4",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.restrict"],
+      "query": "Inspected Bochner integral and measure restriction; compared frozen bar-X with the archived ordinary-integral source note and neighboring increment integrals.",
+      "result": "Integration of a realized process path over a time interval matches the literal formula, while replacing it by a process increment would be a different estimator.",
+      "gap": "Define the ordinary time integral of Y_e on valid dyadic blocks and establish pathwise integrability without replacing dt by dY_e.",
+      "comparisons": {"D16": "For a valid block integrate t mapped to Y_e(t) against Lebesgue measure restricted to [t_(j,i-1),t_(j,i)]. The source explicitly prints Y_e(t) dt, whereas localization/stopping integrate dY_l and dY_s; the result therefore is not simply Y_e(right)-Y_e(left), and disjoint-block increment independence cannot be imported. The process is only defined on [0,1] and no bar-X extension outside the grid is supplied; the integral's nonintegrable-zero fallback is not an extension rule."}
+    },
+    {
+      "interface_id": "local-5400b033b19d510d3913",
+      "related": ["Set.Icc"],
+      "query": "Inspected closed interval construction and compared both clipped indices and the calibration in frozen (3.6).",
+      "result": "The interval is an explicit dyadic endpoint construction once the localization and stopping outputs exist; its coverage is not provided by an interval primitive.",
+      "gap": "Assemble the clipped dyadic minimizer interval with the exact alpha calibration and prove its coverage under the source's localization/stopping construction.",
+      "comparisons": {"D15": "At hat-j use K_alpha=ceil(log alpha/log Phi(-2)), L=max(0,i_hat-12*2^K_alpha+1), U=min(2^hat-j,i_hat+12*2^K_alpha-2), and the closed interval [t_hat-j,L,t_hat-j,U]. Preserve the unequal plus-one/minus-two offsets and clipping to dyadic-grid endpoint indices. The white-noise stopping rule has no empty-trigger fallback, so the interval depends on a valid finite selected level; no regression-level cap or boundary extrapolation is imported."}
+    },
+    {
+      "interface_id": "local-39a28a3d78077e7e3e01",
+      "related": ["Finset.min'", "Set.Icc", "ProbabilityTheory.cdf", "Real.sqrt"],
+      "query": "Inspected finite minima, closed intervals, quantiles and square roots; compared the complete white-noise minimum interval with its coarse-level and out-of-domain source notes.",
+      "result": "The estimator and asymmetric normal corrections are finite constructions, but the source's block-count identity and expanded-window domain require clarification.",
+      "gap": "Define the refined-window minimum and asymmetric confidence endpoints while resolving out-of-domain bar-X values and the coarse-level-dependent count discrepancy.",
+      "comparisons": {"D19": "Set the coarse level to (hat-j-K_(alpha/4)-1)_+, take endpoints from its selected index minus five and plus four, and reindex them at the fine level hat-j+Ktilde_(alpha/4). The minimum uses i_L<i<=i_R and bar-X divided by the fine block length. Preserve the claimed i_R-i_L=9*2^(1+Ktilde+K), which fails to account for positive-part truncation when it binds; do not replace either formula silently. The lower endpoint subtracts (z_(alpha/4)+1)*sqrt(3)*epsilon/sqrt(m_fine), while the upper adds S_(i_R-i_L),alpha/4 times that scale. No extra square root of a sample count is inserted. Expanded endpoints may leave [0,1] without a defined Y_e/bar-X extension, and the ordinary-integral definition remains unchanged; interval arithmetic does not establish the claimed coverage."}
+    },
+    {
+      "interface_id": "local-6137005c51486ea34667",
+      "related": ["Set.Icc"],
+      "query": "Inspected the closed dyadic interval and compared the frozen midpoint estimator with the localization/stopping definitions.",
+      "result": "The estimator is the arithmetic midpoint of the selected dyadic block, with no further optimization at that stage.",
+      "gap": "Define the midpoint estimator on valid localized blocks and connect its totality and risk to the source's finite stopping event.",
+      "comparisons": {"D14": "Use (t_(hat-j,i_hat)+t_(hat-j,i_hat-1))/2, equivalently (i_hat-1/2)*2^(-hat-j) for a valid dyadic block. This estimates the continuous minimizer Z(f); it is not the block index, a sample minimum, or the regression branchwise estimator. The source's recursive argmin tie convention and lack of a fallback for an empty white-noise trigger set remain dependencies; the arithmetic midpoint alone does not resolve them."}
+    },
+    {
+      "interface_id": "local-ef27da375e6fce79ff8c",
+      "related": ["IsMinOn", "Finset.min'"],
+      "query": "Inspected finite minimizers and compared both regression estimator branches in frozen (4.5).",
+      "result": "The triggered branch is a block midpoint; the no-trigger branch chooses a nearby individual observation and maps its one-based candidate index to the design point.",
+      "gap": "Construct the distinct triggered and no-trigger regression estimators with source-compatible finite-index and tie conventions.",
+      "comparisons": {"D30": "When check-j is finite, output -1/(2n)+(2^(J-hat-j)*i_hat-2^(J-hat-j-1))/n, the midpoint of the selected block's observed grid endpoints. When no trigger fires, hat-j=J and choose an i in [i_hat-2,i_hat+2] minimizing y_e,i-1, then output (i-1)/n. Preserve the final minus 1/n and the source's infinity values outside observation indices; IsMinOn requires membership and a selection rule, while finite minimum values alone do not select an index. Positive n and the regression block-domain discrepancy remain relevant, and the no-trigger branch must not be replaced by the midpoint."}
+    },
+    {
+      "interface_id": "local-52004cfe350df122b385",
+      "related": ["Set.indicator", "MeasureTheory.integral"],
+      "query": "Inspected indicators and ordinary integration; compared every contrast index in the frozen shifted white-noise minimum estimator.",
+      "result": "A shift by twice the difference of two indicators and a normalized bar-X value is representable, but the printed contrast formula contains unbound/un-hatted level indices.",
+      "gap": "Resolve the mixed j/hat-j contrast indices and out-of-domain shifted bar-X values before defining a total white-noise minimum estimator.",
+      "comparisons": {"D17": "The selected index is i_hat plus two times the right-trigger indicator minus the left-trigger indicator, so the shift is -2,0 or 2. Both first contrast terms use hat-j, while both subtracted tilde-X terms print an un-hatted j; preserve that inconsistency. The output is bar-X_(hat-j,shifted index)/m_hat-j, with bar-X the literal ordinary integral Y_e(t) dt, not a drift increment integral. Localization/stopping infinity extensions do not automatically define bar-X outside the valid block range."}
+    },
+    {
+      "interface_id": "local-e86104482505144cda0f",
+      "related": ["Set.indicator", "IsMinOn", "Finset.sum_apply"],
+      "query": "Inspected finite indicators, minimizers and sums; compared all thresholds, branches and block normalizations in frozen (4.8)-(4.9).",
+      "result": "The triggered shifted-block average and no-trigger nearest-observation minimizer are separate finite constructions requiring the source's boundary conventions.",
+      "gap": "Build the branchwise selected block and its estimation-copy average with exact stopping thresholds, finite-index behavior and a measurable argmin choice.",
+      "comparisons": {"D33": "Delta subtracts the left contrast-trigger indicator from the right, each threshold being 2*sqrt(6)*sigma*sqrt(2^(J-hat-j)); use the stopping copy s at the same selected regression level. For finite check-j shift the selected block by 2 Delta; otherwise choose i minimizing y_e,i-1 over the five neighboring indices. Then divide Y_(hat-j,chosen block,e) by the full block size 2^(J-hat-j). In the no-trigger case hat-j=J, so the block has one observation; retain this indexing relation and the stated infinity extension, without clipping the chosen block or inventing a tie rule."}
+    },
+    {
+      "interface_id": "local-07fbd2704b6d718acbe6",
+      "related": ["MeasureTheory.eLpNorm", "MeasureTheory.lpNorm", "csSup_le_iff"],
+      "query": "Inspected real/extended Lp seminorms and supremum conditions; compared both frozen local moduli over the convex unique-minimizer class.",
+      "result": "L2 distances and target-displacement suprema provide the definitions, but the relevant model membership, measurability and finite-real supremum bounds need proof.",
+      "gap": "Define both local moduli over the same L2 neighborhood in F, preserving the separate minimizer and minimum targets and valid norm/supremum domains.",
+      "comparisons": {"D8": "For fixed f take sup over g in F with Lebesgue L2 distance on [0,1] at most epsilon; use |Z(f)-Z(g)| for omega_z and |M(f)-M(g)| for omega_m. Both candidates retain convexity and a unique minimizer, without an added second derivative or smoothness exponent. g=f makes the set nonempty at epsilon>=0 and minimizer displacements are at most one, while bounding the minimum-value modulus needs a separate argument. eLpNorm retains infinity, whereas lpNorm can become zero for non-L2 functions; genuine L2 membership is needed before using the real norm. These suprema differ from the water-filling radii rho_z/rho_m."}
+    },
+    {
+      "interface_id": "local-dbfb373d2eef158bdee4",
+      "related": ["Finset.min'", "Finset.max'", "ProbabilityTheory.gaussianReal", "Set.Icc"],
+      "query": "Inspected finite extrema, Gaussian law and interval clipping; compared the complete frozen regression minimizer endpoint Algorithm 1 and small-sample notes.",
+      "result": "The full algorithm can be represented as finite scans and guarded affine-ratio branches, but the source's input domain and sequential boundary assignments require a faithful implementation and proof.",
+      "gap": "Implement the complete no-trigger endpoint algorithm with its sentinel extrema, ordered guards, slope corrections and clipping, and establish its valid small-sample/index domain.",
+      "comparisons": {"D31": "Preserve L=max(1,i_hat-12*2^K_(alpha/2))-1, U=min(n+1,i_hat+12*2^K_(alpha/2))-1, alpha1=alpha/8 and alpha2=alpha/24. The i_l minimum includes sentinel U and the i_r maximum includes sentinel L-1; scans use the plus-extra-noise copy y_e+sqrt(3)*sigma*z3 with <= and >= thresholds of opposite signs. Endpoint extrapolation and interior slope ratios instead use y_e-sqrt(3)*sigma*z3, with the stated 2*sqrt(6)*sigma*z_alpha2 corrections. Retain both separate endpoint if-statements and their exact fallbacks, the interior guard (i_l-U)*(i_r-L+1)!=0, the width-or-boundary test, the steep-slope midpoint branch and all final one-grid-cell clips in the displayed order. Positive denominator guards can justify the corresponding ratio branches once n and indices are valid, but accesses to 2 and n-2 require a source-compatible small-n domain; a generic minimum primitive does not certify these cases or make the new Gaussian sample jointly independent of prior randomness by itself."}
+    },
+    {
+      "interface_id": "local-c1522148e8d202c31dbc",
+      "related": ["Set.Icc"],
+      "query": "Inspected closed intervals and compared the triggered endpoint formulas and conditional Algorithm 1 invocation in frozen (4.7).",
+      "result": "The interval combines an explicit block-window branch and a separate no-trigger endpoint algorithm, with an asymmetric final lower-endpoint adjustment.",
+      "gap": "Assemble the two regression interval branches and their literal final endpoint adjustment while preserving all inherited block and endpoint-algorithm domains.",
+      "comparisons": {"D32": "Use L=max(0,i_hat-12*2^K_(alpha/2)+1) and U=min(ceil((n+1)*2^(hat-j-J)),i_hat+12*2^K_(alpha/2)-2). If check-j is finite, t_lo=2^(J-hat-j)*L/n-1/(2n) and similarly t_hi using U; if check-j is infinite invoke the full Algorithm 1. Return [min(t_lo,t_hi),t_hi], not a sorted interval with max(t_lo,t_hi) at the upper end, and do not automatically clip to [0,1]. The ceiling and half-grid offset are source formulas, and coverage is not proved by the final Icc constructor."}
+    },
+    {
+      "interface_id": "local-3e739b9c0d83c784cd2f",
+      "related": ["Finset.min'", "Finset.sum_apply", "ProbabilityTheory.cdf", "Real.sqrt"],
+      "query": "Inspected finite minima/averages and quantile scaling; compared both clipped levels, inclusive window bounds and the full frozen upper-endpoint construction.",
+      "result": "A refined block-average minimum and maximum-normal correction are finite ingredients, but the source's ceiling can admit a partly out-of-range block with infinite observations.",
+      "gap": "Construct the clipped coarse/fine window and upper minimum endpoint, retaining the full-size block averages and the recorded partial-block domain issue.",
+      "comparisons": {"D34": "Set j_s=max(0,hat-j-K_(alpha/4)-1), j_l=min(J,hat-j+Ktilde_(alpha/4)); use I_lo=max(1,2^(j_l-j_s)*(i_hat_js-5)) and I_hi=min(2^(j_l-j_s)*(i_hat_js+4)+1,ceil((n+1)/2^(J-j_l))). The intermediate estimate minimizes full block averages over the inclusive I_lo..I_hi range, and f_hi adds S_(I_hi-I_lo+1),alpha/4*sqrt(3)*sigma/sqrt(2^(J-j_l)). Preserve the plus-one window count and ceiling, which may include a final incomplete block; the source's out-of-range observations are infinity and the divisor remains the full block size, so no shortened average or dropped block is substituted."}
+    },
+    {
+      "interface_id": "local-4481515c0844139903c8",
+      "related": ["IsMinOn", "Finset.min'", "Set.Icc"],
+      "query": "Inspected minima and closed intervals; compared every boundary setup, affine line, loop range and final clamp of frozen Algorithm 2.",
+      "result": "Minimizing the maximum of two affine functions on a closed grid interval is a basic convex piecewise-linear problem, but the complete boundary algorithm and finite index domain require separate construction.",
+      "gap": "Implement the conditional lower-endpoint envelope algorithm with its exact boundary adjustments and initialized h-values, establishing finite valid intervals and small-n requirements.",
+      "comparisons": {"D35": "Use H=S_(I_hi-I_lo+3),alpha/8*sqrt(3)*sigma, k_l=I_lo-1 and k_r=I_hi-2. At I_lo=1 initialize h(0) from the right affine line on [0,1/n] and move k_l; at I_hi-1=n initialize h(n-1) from the left affine line on [(n-1)/n,1] and decrement k_r as printed. For each remaining i form the left slope with -2H and right slope with +2H, both anchored at the specified neighboring y_e-H values, and minimize their pointwise maximum on [x_i,x_(i+1)]. Preserve the source's missing explicit (t) on the right line's defining left side, the loop's inclusive bounds and f_lo=min h over I_lo-1..I_hi-2 clamped above by f_hi. Continuity yields attainment on a valid nonempty interval after proof, but boundary accesses to 2/n-2 and possible uninitialized/invalid h indices are not resolved by a generic argmin predicate."}
+    },
+    {
+      "interface_id": "local-f92717ad3a323fae38b0",
+      "related": ["Set.Icc", "ProbabilityTheory.cdf", "Real.sqrt"],
+      "query": "Inspected closed intervals and Gaussian quantile/scale ingredients; compared the exact refinement threshold and conditional lower-endpoint branches in frozen (4.11).",
+      "result": "The final interval uses a normal lower correction when refinement fits the design, otherwise the separate envelope algorithm; it is not a single formula valid at all levels.",
+      "gap": "Combine the source's upper endpoint with the correctly conditioned lower endpoint and verify coverage after all finite-block and endpoint-algorithm obligations are resolved.",
+      "comparisons": {"D36": "If hat-j+Ktilde_(alpha/4)<=J, set f_lo=f1-(z_(alpha/4)+1)*sqrt(3)*sigma/sqrt(2^(J-j_l)); equality belongs to this branch. If refinement exceeds J, obtain f_lo only from Algorithm 2, retaining its clamp by f_hi and input conventions. Return the closed [f_lo,f_hi] with the separately constructed upper endpoint from D34, without always invoking the boundary algorithm or changing block normalization. Gaussian critical values and square-root arithmetic alone do not prove the source's minimum coverage or resolve an infinite intermediate estimate."}
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+[
+  {
+    "interface_id": "local-634c68b724b0a1cf684d",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.multivariateGaussian"
+    ],
+    "comparison": "Specify the unique pair in R_V satisfying the two first-order equations, then use multivariateGaussian with its positive-definite covariance to define hat-pi. The existence/uniqueness premise is supplied by the source result under its stated conditions, not by the Gaussian constructor or by the name canonical. Keep those sufficient proof conditions separate from the definition and do not define a default pair when the unique solution has not been established. The source expressly does not prove that this Gaussian globally minimizes KL; neither global nor local KL optimality is added to the canonical-solution predicate. The Gaussian measure constructor is directly reusable after the solution and covariance domain are justified.",
+    "gap": "The Gaussian measure is available once the unique solution in the source region is established; global KL optimality is not part of this definition.",
+    "searches": [
+      [
+        "Inspect multivariateGaussian and compare the canonical-solution paragraph with its first-order equations and region",
+        "The library constructs the measure from a mean/covariance, but does not choose or certify the unique pair and gives no KL-minimization conclusion."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-f10ef859def8b9ca8057",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.integral",
+      "Real.exp",
+      "CFC.rpow",
+      "EuclideanSpace.norm_eq"
+    ],
+    "comparison": "Center g by its expectation under the canonical Gaussian hat-pi and impose the exponential bound ONLY at points whose inverse-covariance norm is at least R_g*sqrt(d), for some R_g>0. Positive-definite hat-S identifies this norm with the Euclidean norm after multiplication by hat-S^(-1/2); preserve the exponent c0*sqrt(d)*norm/4. The same c0 comes from the relevant source assumption, with the separately specified value 1/8 in Theorem 3.1, not one universal value for every use. The bound gives no boundedness or integrability control inside the excluded ball, and the centering expectation must itself be meaningful rather than supplied by the real integral's nonintegrable fallback zero. Do not replace the bound by a globally bounded test function or an uncentered tail condition.",
+    "gap": "Gaussian integration, inverse-covariance norms and exponentials express the tail condition, with the centering domain and theorem-specific c0 retained.",
+    "searches": [
+      [
+        "Inspect integral, exponential and positive matrix-power/vector-norm primitives against (2.7)",
+        "These express the centered exterior bound but do not supply integrability inside the ball or justify replacing the source c0 across theorem contexts."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-f3b7ce86671877fd2bef",
+    "status": "composable",
+    "names": [
+      "Flow",
+      "fderiv"
+    ],
+    "comparison": "For each fixed beta in the unbarred Theta_beta, model h↦f_h as a Flow with time monoid R_nonnegative, retaining f_0(x)=x and f_(t+s)(x)=f_t(f_s(x)). Flow additionally requires joint continuity in time and state; that and the ODE derivative equation with vector field N must be proved from the applicable source assumptions, rather than being inferred merely from the two algebraic identities. The structure represents a global forward action, not a local partial solution or a two-sided real-time group action. No backward flow, invertibility for each h, uniform small-step inverse threshold or extension to every boundary point of the closed parameter search domain is inserted; those belong to the distinct A6/source-domain issues. The library flow object does not itself prove existence or uniqueness of this ODE solution.",
+    "gap": "Flow represents the continuous forward semigroup once ODE existence, uniqueness and continuity are justified; inverse-flow requirements remain separate.",
+    "searches": [
+      [
+        "Inspect Flow:85-90 and the derivative representation against the forward ODE and saved A6/domain qualifications",
+        "The flow structure includes continuity and the semigroup laws but supplies neither the ODE solution theorem nor backward invertibility."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-b0f0e00b931c50da6d5d",
+    "status": "composable",
+    "names": [
+      "QuotientAddGroup.norm_eq_infDist",
+      "EuclideanSpace"
+    ],
+    "comparison": "Use EuclideanSpace R (Fin d) modulo its integer-coordinate additive subgroup. The quotient norm is an infimum over coset representatives, and the distance of classes is the norm of their difference; this gives inf_k ||x-y+k|| with the source Euclidean norm. The integer lattice is closed and discrete, so prove metric nondegeneracy and that the infimum is attained to recover the printed minimum; the generic quotient norm theorem does not assert attainment for arbitrary subgroups. Use [0,1)^d only as a representative convention, not the ordinary distance between those fixed representatives. A plain product of circle metric spaces generally has the product supremum metric, so it is not automatically the paper's Euclidean quotient metric without an L2 metric construction.",
+    "gap": "The additive quotient norm gives the torus distance after proving the integer lattice is closed and the representative-distance infimum is attained.",
+    "searches": [
+      [
+        "Search torus constructions and inspect the additive quotient norm generated from QuotientGroup.norm_eq_infDist:142-143 with its norm construction",
+        "The quotient construction preserves the chosen ambient Euclidean norm; generic circle products or fixed representative differences do not establish the requested metric."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-c36433349a04fb956736",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.Measure.restrict",
+      "MeasureTheory.Measure.map",
+      "MeasureTheory.Measure.AbsolutelyContinuous"
+    ],
+    "comparison": "Represent the quotient probability by a Borel measure on R^d that is invariant under every integer translation and has mass one on the half-open fundamental cell [0,1)^d. Such a periodic measure generally has infinite total mass for d>0; do not identify it with a probability measure on the whole Euclidean space or push the entire lift forward as though it had mass one. Restrict to one fundamental cell before mapping to the quotient; conversely use a measurable representative and periodic extension, checking boundary ownership so integer translates neither omit nor duplicate mass. The absolutely-continuous subclass means the periodic lift is absolutely continuous with respect to Euclidean Lebesgue measure. Equality with a formulation using quotient Haar measure requires the appropriate correspondence and normalization, not a silent replacement of reference measure.",
+    "gap": "Restriction, pushforward and absolute continuity support the representation after the measurable fundamental-domain and periodic-extension correspondence is established.",
+    "searches": [
+      [
+        "Inspect the existing restriction, map and absolute-continuity definitions against the unit-cell periodic measure statement",
+        "The primitives preserve reference-measure and normalization choices, but a unit-mass cell does not make its periodic extension a finite probability law on R^d."
+      ]
+    ]
+  }
+]

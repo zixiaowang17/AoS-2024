@@ -1,0 +1,440 @@
+[
+  {
+    "interface_id": "local-ed705a5b63b54a19a26c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "8596da6c9c5ceca0d2015d9120ab05c63a578f34fd06091d691e7c232392fd24",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D4",
+        "comparison": "Represent N as a natural number, including zero, and set sample size n=2^N. Require a positive mesh delta and an integer m whose real cast equals n*delta; equivalently the real value equals the cast of its Int.floor. Here N indexes the fine sampling frequency n, whereas m counts fine increments in a volatility block. Do not replace N by a logarithm of delta^-1, assume m=1, or infer that delta^-1 is itself an integer from n*delta being an integer. The later source's use of coefficient ranges involving 2^(N-j) and coarse indices below delta^-1 has a recorded compatibility issue for general m, which this elementary arithmetic encoding does not repair.",
+        "statement_sha256": "f5dc06b843c03caa9860ec0e3ebc6f9c281f847ddd1481e6c1ee71fa470d9551"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched dyadic and power-of-two conventions in the pinned natural-number and measure libraries and inspected Int.floor as an integrality primitive; compared the exact source n,N,m,delta convention.",
+          "result": "Natural powers define n=2^N directly and integer-valuedness of n*delta is expressible with an integer witness or a floor equality; this does not resolve later block-index inconsistencies."
+        }
+      ],
+      "gap": "State N>=0, n=2^N and existence of the integer block length m=n*delta without redefining the source scale index."
+    }
+  },
+  {
+    "interface_id": "local-7ed78a0e36a7851ae59d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "ddb9d6884fbe1c2131e698a775314bec85de62c54c30fe77c9e59fef2f99abd3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D2",
+        "comparison": "The volatility exponent is X_t=eta*W^H_(floor(t/delta)*delta) with delta>0, so volatility is constant between deterministic grid points. Int.floor gives exactly those grid times for nonnegative t. IsBrownianReal supplies the Brownian law and almost-sure path continuity, while IsGaussianProcess would still need the fractional covariance and continuous version to describe W^H; their independence is a process-level requirement. The price uses a stochastic integral of sigma against B, not the ordinary time integral supplied by Bochner or intervalIntegral. No verified specialized Ito or fractional Brownian interface was found in the inspected directories. Retain H in (0,1), eta>0 and the source normalization sigma0 squared=1. This is model (4), whose discretized volatility yields different rate behavior; it cannot be replaced by the continuous model (1).",
+        "statement_sha256": "30fecc9888984e713bf36c02092f4e91e0a0e9768f65ed9631ed2113b3f2f7ee"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        },
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Probability and MeasureTheory for fractional Brownian motion, Hurst and Ito/stochastic integral interfaces; inspected Brownian, Gaussian-process, independent-function and integer-floor definitions.",
+          "result": "Ordinary Brownian motion, Gaussian processes and grid flooring are available ingredients; no fractional Brownian volatility model or stochastic-integral construction was verified."
+        }
+      ],
+      "gap": "Construct independent Brownian and fractional Brownian drivers and their stochastic price integral with volatility sampled at left grid times."
+    }
+  },
+  {
+    "interface_id": "local-7d3a36a7a3df32473a3e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "d52577f43630a36893220aafb709e6f2adf4062b02ed934733baab92fbcded0f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D5",
+        "comparison": "Let the observation map send an outcome to (S_(i/n)) for i=0,...,n. MeasurableSpace.comap of the Borel product structure gives A^n, with a proof it lies below the full sigma-algebra A; Measure.trim then turns each P_(H,eta) into a measure on that smaller measurable space. The superscript n denotes available data, not a new independent latent-path sample or a directly observed volatility process. Preserve D compact with nonempty interior in (0,1) times (0,infinity). This subsection's experiment carries its specified price law; later reuse of the observation structure for the continuous model does not preserve the coarse law or introduce extra observations, ergodic information or microstructure noise.",
+        "statement_sha256": "a729634c131cba9cc4bd3409fead34a33fb685d3c812f48da7f029d7ef16bf99"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.trim",
+          "type": "{α : Type u} → {m m0 : MeasurableSpace α} → (μ : @MeasureTheory.Measure α m0) → (hm : m ≤ m0) → @MeasureTheory.Measure α m",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Trim",
+          "provides": "Restriction of a measure to a sub-sigma-algebra; this is not restriction to an event.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Trim.lean#L36-L37",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected pullback sigma-algebras and measure trimming and compared the data-generated experiment with its compact two-parameter domain.",
+          "result": "The grid observation map generates the data sigma-algebra, and trimming each full law to it constructs the sequence of restricted experiments."
+        }
+      ],
+      "gap": "Define the n+1 price-grid observation map and restrict each parameter law to its generated sigma-algebra on the stated compact domain."
+    }
+  },
+  {
+    "interface_id": "local-0f232552295261d832da",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "ebdad0c341c0cb0278f2418df1d2e41724f93d74c33ac7ec3adcc462ed4aa81f",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D1",
+        "comparison": "The source calls S a log-price and defines it additively as S0 plus integral sigma_s dB_s, without a drift term or an extra factor S_s in the integrand. Its squared volatility is sigma0 squared*exp(eta*W_t^H); choosing a positive sigma gives sigma0*exp(eta*W_t^H/2), not exp(eta*W_t^H) as the volatility itself. IsBrownianReal covers B, while a generic Gaussian process still needs the fractional Brownian covariance and path regularity for H in (0,1). IndepFun can state independence of the two complete driver processes once those maps are measurable. The source's positive sigma0 and eta are nuisance scales. Do not import a leverage correlation, a coarse time grid in the volatility, or the later H<3/4 restriction into this prototype definition. An ordinary time integral is not the stochastic integral in this model.",
+        "statement_sha256": "343888ab148fd7a5591d7a052e0322cde2e14e0a8b1b90e7678e5a8a844b668e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IndepFun",
+          "type": "{Ω : Type u} → {β : Type v} → {γ : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace β] → [MeasurableSpace γ] → (Ω → β) → (Ω → γ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Independence of the sigma-algebras generated by two random elements, including full sequence-valued observations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L144-L146",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched the pinned probability and measure-theory libraries for fractional Brownian and stochastic-integral constructions; inspected the available Brownian/Gaussian-process and independence primitives.",
+          "result": "The driver law ingredients are present in generic form, but the fractional covariance construction and stochastic integration needed by the full model were not verified."
+        }
+      ],
+      "gap": "Build independent Brownian/fractional Brownian drivers and define the driftless stochastic integral with the specified exponential volatility."
+    }
+  },
+  {
+    "interface_id": "local-971e1abeaf21953da26e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "eeb8ef3b891e4582a19726a58f449469dac2019f7f280694c3f3b0dbcd7139cf",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D7",
+        "comparison": "This passage specializes the continuous model (1), with sigma_t squared=exp(eta W_t^H) and W^H independent of B, taking sigma0=1. It reuses observations of the price grid and their generated sigma-algebra, not the piecewise-constant volatility law from Section 2. Restrict D to a compact subset of (0,3/4) times (0,infinity) exactly as assumed for these theorems. The text says a second-order-increment method can extend H<3/4 to H<1, but that extension is not part of this definition or its current theorem hypotheses. No delta dependence is added through the experiment reference. Expectations E_(H,eta) use these continuous-model laws; generic Gaussian-process and sigma-algebra primitives alone do not construct their stochastic integral.",
+        "statement_sha256": "12991848f14dac6b43c74deb632df736e14a73ee8e0e0e559f770f880c949c94"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.IsBrownianReal",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (ℝ≥0 → Ω → ℝ) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.BrownianMotion.Basic",
+          "provides": "A real Brownian process has Brownian finite-dimensional laws and almost-surely continuous paths; this does not define stochastic integration or reflected stochastic differential equations.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/BrownianMotion/Basic.lean#L302-L304",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsGaussianProcess",
+          "type": "{Ω : Type u} → {E : Type v} → {T : Type w} → {mΩ : MeasurableSpace Ω} → [MeasurableSpace E] → [TopologicalSpace E] → [AddCommMonoid E] → [Module ℝ E] → (T → Ω → E) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def",
+          "provides": "Every finite-dimensional marginal of the supplied stochastic process has a Gaussian law; centering, a covariance function and path regularity are not included.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Def.lean#L30-L33",
+          "link_checked": true
+        },
+        {
+          "name": "MeasurableSpace.comap",
+          "type": "{α : Type u} → {β : Type v} → (α → β) → MeasurableSpace β → MeasurableSpace α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Basic",
+          "provides": "Sigma-algebra generated by an observation map, without extra topological or independence assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Basic.lean#L84-L90",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Compared the continuous-model passage with the separately frozen experiment and prototype model after searching for specialized fractional Brownian and stochastic-integration APIs.",
+          "result": "The generic process and observation-sigma-algebra machinery provides ingredients, but no verified complete continuous rough-volatility experiment or estimator theorem was found."
+        }
+      ],
+      "gap": "Construct the continuous volatility law on the common price observation structure with sigma0=1 and the compact H<3/4 parameter domain."
+    }
+  },
+  {
+    "interface_id": "minimax-probability-lower-rate",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "8877d7fed060ed7b34168e5ac4e4bbf5d32243c1bc465c6b2ebebcae32c85d2c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D6",
+        "comparison": "For the Section 2 experiment and its compact D subset (0,1) times (0,infinity), choose one c>0 and take liminf as n tends to infinity of inf over A^n-measurable real estimators H-hat_n of sup over (H,eta) in D of P_(H,eta)(v_n(H)^-1*abs(H-hat_n-H)>=c). The theorem's H dependence of the rate stays inside the parameter supremum; it does not permit the estimator to depend on the unknown parameter. Keep the weak event threshold >=c and the strictly positive limiting lower bound. Event probabilities are in [0,1], the estimator class contains constant functions, and the nonempty parameter domain makes the nested real extrema well behaved after measurability is supplied. The criterion is neither pointwise in parameters nor an expected-error bound or a CLT; an eta-target version must replace the target and estimator explicitly. Intended rates are positive so their inverse is meaningful.",
+        "statement_sha256": "b79a5c67e4adb8cf575be2a3aee66694bf0e3db072217da7232f99926786d91b"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D8",
+        "comparison": "Use the same positive liminf of infimum over data-measurable estimators followed by supremum over parameters and the same scaled-error probability, now under the continuous general-model laws and D subset (0,3/4) times (0,infinity). The explicit similarly for eta clause gives a separate target-coordinate criterion rather than simultaneous vector loss. Sharing the abstract criterion with D6 does not identify the models or their resulting rates and introduces no coarse delta branch. Preserve c independent of n and the parameter, the order of extrema, any H dependence of v_n, and the probability event with >=. Filter.liminf and Measure.real supply the mathematical containers, not a lower-bound proof.",
+        "statement_sha256": "50c349306bc32ffcf76f31c4fce076ef24392afa337c3a5b878e35d8e05aa19f"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Filter.liminf",
+          "type": "{α : Type u} → {β : Type v} → [ConditionallyCompleteLattice α] → (β → α) → Filter β → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.LiminfLimsup",
+          "provides": "Limit inferior of a function along a filter; finite probability sequences lie in a bounded interval so their usual real limit inferior is meaningful.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/LiminfLimsup.lean#L64-L67",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.real",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → Set α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+          "provides": "Real-valued event probability for finite measures; infinite event masses would be sent to zero, so probability-law hypotheses matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/MeasureSpaceDef.lean#L101-L102",
+          "link_checked": true
+        },
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected liminf as the eventual-lower-bound construction, finite event probabilities and measurability, and compared the complete D6 and D8 criteria with their separate experiment domains.",
+          "result": "The bounded probability extrema and their positive lower limit can be represented; proving any concrete lower rate requires additional minimax information arguments for each experiment."
+        }
+      ],
+      "gap": "Define the ordered liminf-infimum-supremum probability criterion over data-measurable estimators for each model, keeping the parameter-dependent rate and target coordinate explicit."
+    }
+  },
+  {
+    "interface_id": "local-1bc898509e7c42ed6d0d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "a6eaaaca7f7eee7f3715b14445aa40cef0c8691cb3178063e872e72e02a6b27d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D13",
+        "comparison": "Apply the compact minimum/maximum theorems to the continuous H and eta coordinate functions on nonempty D. Their extremal values give H_-,H_+,eta_-,eta_+. Because the compact set lies inside the open general-model parameter domain, the attained H endpoints stay strictly between zero and 3/4 and the eta endpoints stay positive and finite. The rectangle [H_-,H_+] times [eta_-,eta_+] contains D but need not equal it; later clamping to that rectangle need not return a point of D. These four extrema do not select one common parameter point attaining all four endpoints.",
+        "statement_sha256": "c360924a375fdbe56164aaecde07c9ce5799a2c06ca72aabd4041ce9850a6e07"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "IsCompact.exists_isMinOn",
+          "type": "{α β : Type*} → [LinearOrder α] → [TopologicalSpace α] → [TopologicalSpace β] → [ClosedIicTopology α] → {s : Set β} → IsCompact s → s.Nonempty → {f : β → α} → ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Order.Compact",
+          "provides": "A continuous function attains a minimum on a nonempty compact set; it supplies existence and membership but no unique or measurable choice.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Order/Compact.lean#L228-L229",
+          "link_checked": true
+        },
+        {
+          "name": "IsCompact.exists_isMaxOn",
+          "type": "∀ {α : Type u} {β : Type v} [LinearOrder α] [TopologicalSpace α] [TopologicalSpace β] [ClosedIciTopology α] {s : Set β}, IsCompact s → s.Nonempty → ∀ {f : β → α}, ContinuousOn f s → ∃ x ∈ s, IsMaxOn f s x",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Topology.Order.Compact",
+          "provides": "Attainment of a continuous objective maximum on a nonempty compact set; uniqueness and a measurable maximizing selector remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/Order/Compact.lean#L246-L248",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected compact extrema attainment and compared the four continuous coordinate extrema over the source's general parameter set.",
+          "result": "Compactness and nonemptiness yield the attained minima and maxima of both coordinate projections, independently of whether D is a rectangle."
+        }
+      ],
+      "gap": "Define the four attained coordinate extrema on D and retain the distinction between D and its bounding rectangle."
+    }
+  },
+  {
+    "interface_id": "local-f4e849b30cbe1e23b39d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "247386a80213dc74811f8dde48b8cf1d6def48dce0f56d79d2e6b4bee73fd5ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D14",
+        "comparison": "Since H_->0, both real bounds are finite. One plus the floor of their maximum is strictly above both and therefore provides an admissible integer witness, without claiming the source specifies that particular or smallest choice. Keep the first inequality weak and the second strict: equality at the first bound is allowed if the second still holds. The order S is fixed from the compact parameter range, not recomputed from the unknown H or sample size. It differs from the price process S_t, the coarse block length m and the later correction iteration index. This arithmetic construction does not import the proof or additional hypotheses of Proposition 5 as a new inventoried theorem.",
+        "statement_sha256": "022aac64fa580d757936fa39e166d1086bc1593be1419ee655616bd47f043ca8"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected integer floor and compared the two separate truncation-order inequalities and source lower H endpoint.",
+          "result": "An integer above the finite maximum of the two bounds supplies a valid truncation order, while the weak versus strict source requirements remain distinct."
+        }
+      ],
+      "gap": "Choose a fixed integer S satisfying both S>=1/(4H_-)+1/2 and S>H_+/(2H_-)-1/2."
+    }
+  },
+  {
+    "interface_id": "local-498a58f8c1197da8ad97",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T06:47:09.909196+00:00",
+    "source_interface_sha256": "29d19ab0942723d5060a8762d114b841117d5935f953fe8bbc7daeed95c8b4e5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D15",
+        "comparison": "For b>=1, s>=1 and r_i in {1,...,2S} with sum r_i=b, the b=1 branch necessarily has one degree-one entry and integrates uncentered W_u^H over the dyadic cell, multiplying by 2^(j+p). An affine change of variable gives the printed integral on [0,1], still of uncentered W. For b>=2, each factor integrates a power of W_u^H minus the value at the common left cell endpoint and multiplies by 2^(j+p)/r_i factorial. Their product equals the s-variable unit-cube integral of the product divided by product_i r_i factorial, using the product measure identity after interval rescaling. All factors depend on the same random path; the product integration formula is not an assertion that these random factors are independent. Almost-sure continuous paths give finite time integrals of these powers on compact cells. Preserve the range through 2S here even though a later overlined summation restricts entries through S. The shorthand mathfrak W_(p,l) fixes j=0 and k=0, and this time-integral object is distinct from W^H itself and the stochastic price integral.",
+        "statement_sha256": "04a7bc8ba569810bc01ad8aab6c65e2cb9700c93fac183077053795ad584540e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "intervalIntegral",
+          "type": "{E : Type u} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℝ → E) → ℝ → ℝ → MeasureTheory.Measure ℝ → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic",
+          "provides": "Oriented Bochner interval integration, suitable for frequency or time integration once integrability and a complete target are supplied.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L659-L660",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral_fintype_prod_eq_prod",
+          "type": "∀ {𝕜 ι : Type*} [Fintype ι] [RCLike 𝕜] {E : ι → Type*} (f : (i : ι) → E i → 𝕜) {mE : ∀ i, MeasurableSpace (E i)} {μ : (i : ι) → MeasureTheory.Measure (E i)} [∀ i, MeasureTheory.SigmaFinite (μ i)], (∫ x : (i : ι) → E i, ∏ i, f i (x i) ∂(MeasureTheory.Measure.pi μ)) = ∏ i, ∫ x, f i x ∂(μ i)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Pi",
+          "provides": "Integral of a finite product of separate coordinate functions equals the product of their integrals for sigma-finite coordinate measures; this identity uses totalized Bochner integrals and has no explicit integrability hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Pi.lean#L106-L108",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected oriented interval integration and the full finite-product Fubini proof/signature; compared the two total-degree branches, affine rescaling, factorials and shorthand indices in the source.",
+          "result": "These are ordinary pathwise time integrals, whose interval rescaling and product-domain identity fit integration primitives; they do not require the missing Ito integral API used for the price model."
+        }
+      ],
+      "gap": "Define both path-integral branches with the exact indices and factorial factors and prove the affine interval and product-integration identities for continuous fractional paths."
+    }
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "release_complete": false,
+  "reviewed_at": "2026-09-11T15:40:21.262930+00:00",
+  "scope": "Independent comparison of five overlapping mathlib review records discovered already present at append time; this record does not certify the other four concurrently added interfaces.",
+  "source_census_sha256": "235e518065b9beeabb38558b6bd0de27f71211b6da2e1852fce5570973dc130f",
+  "progress_sha256_at_review": "90a4321368fb177f4640f6a589e2bdbe2d294def958744eaeee554366be7f08d",
+  "records": [
+    {
+      "interface_id": "local-75ef456b62738f80c882",
+      "existing_review_sha256": "23eb9be7a7c52f88adcccfe6804a163ca853fec9dfa55f347f7109a4e747d235",
+      "source_interface_sha256": "16a038f53898c1fad21dd840022aaabf38d42ea2e81d28259c448649a6b58a20",
+      "status": "reviewed",
+      "assessment": "The retained review agrees on the defining construction and its central source limitations; the additional comparison below records more detailed boundary and interpretation checks without creating a duplicate completion.",
+      "additional_variant_comparison": "The procedure draws M0 subsets of the mode-k fiber index set. It may draw a subset directly or first choose coordinate subsets in all other modes and take their Cartesian product; the latter requires the paper's fiber-index identification and is not the same family of subsets as arbitrary direct sampling. Neither uniform sampling, fixed subset cardinality, independence between draws nor sampling without overlap is specified in these passages. Powerset and coordinate-product sets represent the admissible subsets, but do not choose their law. Each selected dataset sums its fibers and receives its own d_-k,m, s_-k,m and eigenspace notation; it is not normalized using the full population's scales. Do not impose the full-population L2 inequality merely to define a sample. Empty or zero-signal samples may leave later normalization undefined; the source does not supply a general fallback here.",
+      "additional_gap_wording": "Subset and Cartesian-product constructions supply the sampling objects, while their probability law, fiber indexing and exceptional normalization conventions remain unspecified.",
+      "additional_searches": [
+        [
+          "Set.powerset, Set.pi and Finset.filter bodies; saved sample-local fiber and scaling passages",
+          "Inspected arbitrary versus Cartesian-product subsets without imposing an unquoted uniform or independent sampling design."
+        ]
+      ]
+    },
+    {
+      "interface_id": "local-37f7befca660e1f23c23",
+      "existing_review_sha256": "be08469ecee18558687414132aedc575fb092c2e8e9e32503e772f6bc2d93d9b",
+      "source_interface_sha256": "f1f9d9a04aebdf3c29dc6aa90723bfa4661bf2cc0994271812b6094679f50a68",
+      "status": "reviewed",
+      "assessment": "The retained review agrees on the defining construction and its central source limitations; the additional comparison below records more detailed boundary and interpretation checks without creating a duplicate completion.",
+      "additional_variant_comparison": "Form the sample-specific centered Gram covariance X_tilde^T*(I_T-1_T*1_T^T/T)*X_tilde/T. Its denominator is T, not T-1, and the centering is over time rows. ER_m,j divides its largest eigenvalue by its jth largest, not consecutive eigenvalues or a signal/noise threshold. Under positive T this covariance is positive semidefinite, but the jth eigenvalue can be zero; no finite-sample zero-denominator convention is printed. For a nonzero denominator, the common T scale cancels; cancellation does not resolve singular cases. The sorted eigenvalue list includes zeros and must be indexed only within the matrix dimension. The omitted asymptotic comparison in (3.14) is a result requiring additional assumptions, not part of the defining quotient.",
+      "additional_gap_wording": "Centered matrix products and ordered eigenvalues express the ratio, but the source leaves singular denominators and any out-of-range index case undefined.",
+      "additional_searches": [
+        [
+          "Matrix.mul_apply and LinearMap.IsSymmetric.eigenvalues; saved eigenvalue-ratio and zero-denominator notes",
+          "Inspected decreasing eigenvalue order and the centered covariance formula, keeping the defining quotient separate from its asymptotic interpretation."
+        ]
+      ]
+    },
+    {
+      "interface_id": "local-8eee376530e37cfcf3d8",
+      "existing_review_sha256": "ac8e70572cc40302f7d4336af98140d941fe3f22952d3274e636e08b0918f291",
+      "source_interface_sha256": "3ba5e76991a57b2ae47ce24afec316c025a894a1199ca6c1bd4fa30724180e9e",
+      "status": "reviewed",
+      "assessment": "The retained review agrees on the defining construction and its central source limitations; the additional comparison below records more detailed boundary and interpretation checks without creating a duplicate completion.",
+      "additional_variant_comparison": "Choose M of the M0 sampled datasets by their largest ER_m,j values, average their individually time-centered covariance matrices, and take z_k orthonormal eigenvectors corresponding to the largest eigenvalues of that average. This is not an average of the sample eigenvectors or a covariance computed after concatenating all raw rows. The source leaves tied sample ratios, eigenvalue multiplicities and eigenvector signs without a complete deterministic or measurable selection rule. Finset.sort needs an antisymmetric total order, so ordering only by tied scores is insufficient; a library index tie rule would be an additional choice. The chosen eigenbasis supplies orthonormal eigenvectors but does not certify a source-prescribed algorithm or measurable selection. Require intended positive M,T and an admissible z_k. s_-k,pre is the mean of the selected signal scales, and V-double-dot divides the leading diagonal eigenvalue matrix by it; a zero average has no printed fallback. R2, L2-prime and selected/full-scale comparability are separate theorem assumptions, not consequences of this construction.",
+      "additional_gap_wording": "Finite ordering, matrix averaging and an orthonormal eigenbasis provide the construction, but sample/eigenvector selection and zero signal-scale conventions remain source obligations.",
+      "additional_searches": [
+        [
+          "pre.averag across Probability/Analysis; Finset.sort, sum_div and symmetric eigenvectorBasis bodies",
+          "No matching pre-averaging estimator package found; inspected the score-order tie requirement and noncanonical chosen eigenbasis, preserving covariance-first averaging."
+        ]
+      ]
+    },
+    {
+      "interface_id": "local-4c8a5140b001689684e0",
+      "existing_review_sha256": "4ea29687566b0d9953c309028006989adda1105ef9347a5fa6d73c836f703ec4",
+      "source_interface_sha256": "320718aec9a609197e5e1b59e630995036085efdd06d119a2f466f306e58f6dc",
+      "status": "reviewed",
+      "assessment": "The retained review agrees on the defining construction and its central source limitations; the additional comparison below records more detailed boundary and interpretation checks without creating a duplicate completion.",
+      "additional_variant_comparison": "For fixed community labels sigma and symmetric layer matrices B_t, the edge variables indexed by t and unordered distinct vertex pairs i<j are jointly independent, with success probability B_t(sigma_i,sigma_j). bernoulliMeasure must put its first atom at 1 and its second at 0 to assign the source probability to an edge. Symmetric adjacency entries below the diagonal copy the same edges and are not additional independent draws. The model supplies no random self-edge family. Layer probabilities can differ, so identical edge distributions are not required. Randomizing latent labels and layer types in the later mixture gives this law conditionally; the marginal edges need not remain independent. Do not import the later balanced K=2 prior or its two special probability matrices into the general fixed-parameter model.",
+      "additional_gap_wording": "Bernoulli laws and joint-independence predicates supply the fixed-parameter edge model; symmetric adjacency assembly and latent-mixture conditioning must be specified separately.",
+      "additional_searches": [
+        [
+          "stochastic.block and block.model across Probability/Combinatorics/Analysis; bernoulliMeasure and iIndepFun bodies",
+          "No named multi-layer SBM match found; inspected success-atom ordering and family-level independence without duplicating mirrored edges or retaining independence after mixing."
+        ]
+      ]
+    },
+    {
+      "interface_id": "local-8ae66bb019c704321052",
+      "existing_review_sha256": "22a94c80692fa20b7c452eb9bede18c3dadc7afbffd4e41f1217e4c81a8e465e",
+      "source_interface_sha256": "079204111eb029b19743828979ea158b5c4087400f42859a8dd7310570caf345",
+      "status": "reviewed",
+      "assessment": "The retained review agrees on the defining construction and its central source limitations; the additional comparison below records more detailed boundary and interpretation checks without creating a duplicate completion.",
+      "additional_variant_comparison": "The two explicit symmetric 2 by 2 matrices swap the diagonal/off-diagonal values 3*rho/2 and rho/2. The strict range 0<rho<2/3 puts every entry strictly between zero and one, so they are valid nondegenerate Bernoulli parameters. B0 is assortative and B1 disassortative; neither is a row-stochastic transition matrix, since its row sum is 2*rho rather than necessarily one. The source calls rho a density parameter, not an exact realized edge density or a universal finite-n expected edge fraction under every membership vector. The matrices are fixed alternatives for the later model, not arbitrary B_t and not themselves a randomized layer-type law. Entrywise real scalar arithmetic constructs them without a statistical theorem.",
+      "additional_gap_wording": "Entrywise matrix scaling constructs both matrices directly, and their stated rho range gives valid Bernoulli edge probabilities.",
+      "additional_searches": [
+        [
+          "network.density and block.model across Mathlib probability/graph sources; Matrix.smul_apply and bernoulliMeasure",
+          "Inspected entrywise scaling and the probability interval, avoiding a transition-matrix interpretation or an unquoted equality to empirical density."
+        ]
+      ]
+    }
+  ],
+  "completion_count_changed": false
+}

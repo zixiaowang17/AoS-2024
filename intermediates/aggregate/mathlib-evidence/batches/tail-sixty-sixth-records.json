@@ -1,0 +1,758 @@
+[
+  {
+    "interface_id": "local-8add7d06bd0b50c10022",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "fbb6c9f6484862382adf5d1575be3da5539edfc80c733da53512129fa7296f3c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D17",
+        "comparison": "Bound each f_j and f_jk separately by B in the pointwise supremum norm and clip each component network to [-B,B]. The earlier bound on the whole mean f0 neither implies these individual bounds nor authorizes replacing component clipping by final-output clipping.",
+        "statement_sha256": "28739bbb3b4d5680448d0d8fa6ba492a6eb24db75826611827dffe7b581efb8c"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        },
+        {
+          "name": "Set.projIcc",
+          "type": "{α : Type*} → [LinearOrder α] → (a b : α) → a ≤ b → α → Set.Icc a b",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.ProjIcc",
+          "provides": "Clip a value into a nonempty closed interval using max a (min b x), returning the clipped value with its bounds.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/ProjIcc.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected bounded-function supremum norm and interval clipping, including endpoint evaluation rules, against individual-component bounds and truncation.",
+          "result": "Pointwise uniform bounds are represented by the supremum norm of bounded functions, and projection onto [-B,B] clips each component for B>=0. This differs from an essential bound under a design law or clipping only the final sum."
+        }
+      ],
+      "gap": "The componentwise bound and clipping are directly expressible once the univariate and bivariate domains and nonnegative level B are supplied."
+    }
+  },
+  {
+    "interface_id": "local-a8c37a5139db24b6e37b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "16595f66fe9f78586f7ea103d83cd8bb1b02a28ec7909f2a101c3bf87170cf53",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D13",
+        "comparison": "Use input dimensions 1 and 2, scalar output, widths c1*N1*log N1 and c4*N2*log N2, depths c2 and c5, and sparsity counts c3*N1^2*(log N1)^2 and c6*N2^2*(log N2)^2. These are component classes, not the full d-input structured sums; exact versus at-most counts, biases and integer rounding remain unspecified, and ReLU context is not a replacement for the incomplete generic class definition.",
+        "statement_sha256": "2113f1cd082b69a5abb5e5146cd30e515f742e48b1a5cca1fbaff007fa3f7c01"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched neural-network and ReLU architecture classes; inspected affine-layer matrix evaluation and positive-part activation against the two component class parameter tuples.",
+          "result": "Affine layers and positive-part activations are available ingredients, but the searched revision has no matching network class with this width, depth and sparsity accounting. The source leaves architecture rounding and counting conventions unspecified."
+        }
+      ],
+      "gap": "The component network classes need an explicit architecture, activation and parameter-count convention matching the separate one- and two-dimensional tuples."
+    }
+  },
+  {
+    "interface_id": "local-ac23240a2d8a8be3fa44",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "c8eedb83b7050fef26ceb6a7e3fd4889878f618b5e6034b668ceb35875e390ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D20",
+        "comparison": "Keep the entire sums inside each radical: V_n1*log(n)/n+2*log(d)/n and V_n2*log(n)/n+3*log(d)/n, multiplied outside by C3 and C4 respectively. Use V_ni=Ni^2*(log Ni)^3, not the architecture sparsity's squared logarithm. Cast sizes to reals before division and do not let log(0) or sqrt of a negative value silently legitimize invalid inputs; the source's use of n after splitting remains unresolved.",
+        "statement_sha256": "5820435a11c8d74a552a2ff963e565aa6f986f241fc2c80c8c47175038b4e543"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected real logarithm and square root, including their totalized boundary conventions, against both penalty formulas and component complexity expressions.",
+          "result": "The formulas use ordinary real arithmetic once sample sizes, dimensions and widths are valid positive inputs and their constants are supplied. The library operations do not establish that a chosen constant is sufficiently large for the theorem."
+        }
+      ],
+      "gap": "The displayed penalties are directly expressible with valid tuning inputs, while sufficient constants, architecture rounding and the post-split sample-size convention remain to be specified."
+    }
+  },
+  {
+    "interface_id": "local-cce01d3b13bfa6097243",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "53813ea1d1938e649fdaea42b9ad9b38978bdae4c29335d4795750fde1d2795a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D19",
+        "comparison": "Retain rho_n1<=C1*N1^(-2 beta1) for univariate components and rho_n2<=C2*N2^(-beta2) for bivariate components. These are unsquared component approximation errors; do not substitute the aggregate squared rho_n quantity or alter the source's integer-smoothness and unspecified uniform-constant conventions.",
+        "statement_sha256": "589b7942466947a3c32e67a7639e3fb7b9654c13412a7baf809a108837441f16"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched neural component approximation bounds and inspected bounded-function sup norms and real powers against the two source rates.",
+          "result": "Supremum approximation errors and their real-power bounds can be expressed. No searched declaration proves the corresponding network approximation theorem for the source's particular smoothness and architecture conventions."
+        }
+      ],
+      "gap": "The component network approximation results must be proved for the source's function classes and architecture conventions with the two distinct rates."
+    }
+  },
+  {
+    "interface_id": "local-41dabe97c1d82bf2c74c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "8b9f0a609c22f3c9f31a3989bf0ed53f8a02e6dfc807e13052c5fb3d0f16a133",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D18",
+        "comparison": "Sum every univariate component and each pair k<l in the residual, then add lambda_n1 times the sum of unsquared empirical component L2 norms and lambda_n2 times the interaction norm sum. Neither square the penalties nor identify them with an L1 penalty on final-layer weights. Preserve Section 3's individual clipping, valid n>0 and unspecified optimizer selection; theorem penalty choices remain separate inputs.",
+        "statement_sha256": "3fcdd8898dfe607b0f6e99e0d0e65f97d07ebe5c45efb4a938e9aa7c442da98c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched group-penalized neural estimators and empirical-risk minimization; inspected IsMinOn's membership requirement, empirical L2 seminorm representation and finite sums.",
+          "result": "The criterion combines empirical squared residuals with sums of component empirical L2 norms, and a feasible global minimizer is expressible by membership plus IsMinOn. These do not supply minimizer existence or a training algorithm."
+        }
+      ],
+      "gap": "The clipped component classes and empirical measure must be supplied with a feasible measurable global minimizer of the stated function-norm-penalized criterion."
+    }
+  },
+  {
+    "interface_id": "local-88c9f6b8dca5fad96ba7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "e621cf5893febb4a016aa02846923ecb9828d3040dd033946bd4a83fdf40d702",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D14",
+        "comparison": "Keep the respective N1^(-2 beta1) and N2^(-beta2) bounds and sum only over S1 and the active k<l interactions in (3.4). Preserve its citation to Theorem 2.9 and mixed jk/kl indexing. Do not impose exact argmin optimality or uniqueness, and do not silently set inactive starred components to zero for the later RSC formula.",
+        "statement_sha256": "97caf543be1934a7c85b3c8acc8dfea2df2b31e47dd242f3159735d2c0a9e621"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "lp.norm_eq_ciSup",
+          "type": "∀ {α : Type u} {E : α → Type v} [∀ i, NormedAddCommGroup (E i)] (f : lp E ∞), ‖f‖ = ⨆ i, ‖f i‖",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Analysis.Normed.Lp.lpSpace",
+          "provides": "Pointwise supremum norm on arbitrary bounded indexed functions; no continuity or measure is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L452-L452",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched sparse neural approximation witnesses; inspected supremum norm and finite-sum evaluation against the active-component approximants and their bounds.",
+          "result": "One can express existence of class members satisfying the individual sup-norm error bounds and sum them over active indices. The passage supplies approximation witnesses rather than uniquely best or exactly minimizing networks."
+        }
+      ],
+      "gap": "The active-component approximation witnesses and their class membership need proof, while the source's mixed pair indices and absent inactive-component extension remain explicit."
+    }
+  },
+  {
+    "interface_id": "local-b55ce1271006fa961dd6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "942d13591434f1855ca2c78b92d3ac28edba29973ea10c9023e8de3244817dab",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D21",
+        "comparison": "Retain inactive weighted norm sums bounded by 4(s1*rho_n1^2+s2*rho_n2^2), plus 3 times both active weighted norm sums, plus s1*lambda_n1^2+s2*lambda_n2^2. The conclusion uses kappa1^2 and kappa2^2 times active squared norm sums bounded by the squared norm of the total difference. Do not remove the additive slacks, restrict the any-function quantifier to networks without justification or invent zero inactive phi-star components absent from (3.4). This condition is not derived merely from the design density bound.",
+        "statement_sha256": "75de82209bd55fda4d7235151edef6729c1ede90083c05cbe66965f08f36feb5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched restricted strong convexity and group-lasso cone conditions; inspected empirical L2 seminorms and finite decomposed-function sums against the full implication (3.9)-(3.10).",
+          "result": "The hypothesis and conclusion are expressible as inequalities of empirical norms, but no matching nonlinear component RSC theorem was found. The source's inactive reference components and quantification over any decomposed function need to remain as written."
+        }
+      ],
+      "gap": "The reference components, function domain and full approximate-cone implication must be specified and proved rather than replaced by a linear restricted-eigenvalue condition."
+    }
+  },
+  {
+    "interface_id": "local-070829d347edea91e53e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "631f212c175a7699a39f9f3ee5408e04e7809277856efffc2ec994e095747192",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D7",
+        "comparison": "Keep full input dimension d, scalar output, depth c2, and the respective d and choose(d,2) multipliers on widths and sparsities. Preserve separate N1 and N2 and the squared N_i log N_i factor. These revised classes retain sums of univariate or bivariate subnetworks; they are not arbitrary fully connected d-input networks and are not obtained by literally setting L=1 in the earlier L log L expression.",
+        "statement_sha256": "8273eedbb34f9401e78e359f45210a097d9d63bd804be65260a799c789cd6bef"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched fixed-depth neural architecture classes; inspected affine-layer evaluation, positive-part activation and sums of coordinate-restricted components against revised classes (2.7)/(2.8).",
+          "result": "The primitive layer and structured-sum operations are available. The revised architecture remains a paper-specific class with fixed depth and particular dimension/width/sparsity counts rather than a library neural-network type."
+        }
+      ],
+      "gap": "The revised constant-depth structured network classes need an explicit architecture and counting convention preserving their dimension and pair-count factors."
+    }
+  },
+  {
+    "interface_id": "local-42112b589613838cf17e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "2c21acdf6787d05233c31f7c0543c3c22584837006cff4c789d6d96fbd594f53",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D8",
+        "comparison": "Minimize over a pair from F_NN^1 and F_NN^2, form f_big as their sum and clip that final output, not each component. Use the original or revised classes according to the theorem context without treating them as identical. Preserve normalization 1/n and no optimizer uniqueness or equivalence to a gradient-descent result; the bound here concerns total f0, unlike (3.6).",
+        "statement_sha256": "9ae296546ed03881c9af3fb2a4f85861864a78283902c1eb89cd23038fc52df3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Set.projIcc",
+          "type": "{α : Type*} → [LinearOrder α] → (a b : α) → a ≤ b → α → Set.Icc a b",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Interval.Set.ProjIcc",
+          "provides": "Clip a value into a nonempty closed interval using max a (min b x), returning the clipped value with its bounds.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Interval/Set/ProjIcc.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sign",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Basic.Real.Sign",
+          "provides": "Real sign with values -1, 0 and 1; its zero value does not automatically implement a strictly binary decision rule.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Basic/Real/Sign.lean#L34-L35",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched neural least-squares ERM and clipping; inspected global-minimum predicates and the signed clipping expression versus interval projection.",
+          "result": "A feasible pair globally minimizing the empirical squared-error criterion can be specified; projection onto [-B,B] realizes the final signed-min clipping formula for B>=0. Existence and measurable selection of the pair are not guaranteed by these operations."
+        }
+      ],
+      "gap": "The chosen network classes need a feasible measurable global ERM pair before its summed output is clipped to the source's interval."
+    }
+  },
+  {
+    "interface_id": "local-6f92095e587ad845a97f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "aff9541c8201201946b182a483a3e4e930f632d10d35e010b761d9d67e2165c1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D23",
+        "comparison": "Preserve ceil(n/2) observations in D1 and floor(n/2) in D2 for odd n; fit the penalized criterion on D1, select norms >=c1*lambda_n1 or >=c2*lambda_n2, and use the preceding prose's D2 refit without penalty. The printed norm subscript n and sum_i/n in (3.17) leave the split index/denominator convention unspecified. Keep only selected components in the returned sum, add no new final clipping, and do not read appendix-derived thresholds or assume an optimizer can always be found.",
+        "statement_sha256": "dac2fa1348d1fccc5e68149e412373fbcff2eebd6501d3c91a0f79084acd0222"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched sample-split neural selection/refitting algorithms; inspected filtered active sets, empirical L2 seminorms, exact global minima and finite component sums against every Algorithm 1 step.",
+          "result": "The split, threshold sets and selected-component refit are expressible using finite data and optimization predicates. The source leaves the empirical norm and objective normalization after splitting incompletely indexed and does not supply computable exact solvers or threshold constants."
+        }
+      ],
+      "gap": "The split-specific index and normalization conventions, threshold constants and minimizer selections must be resolved before claiming an executable implementation of the full procedure."
+    }
+  },
+  {
+    "interface_id": "local-0e772e42bf1f70492168",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "d46586197d449901ce6756ee2f592e7b1a61ab626a70db0fb510ab2eda296042",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D22",
+        "comparison": "Require each active component's unsquared L2 norm to be at least r_n, which asymptotically dominates the square root of s1(n^(-2 beta1/(1+2 beta1))*log(n)^4+log(d)/n)+s2(n^(-beta2/(1+beta2))*log(n)^4+log(d)/n). Do not remove the radical because nearby prose calls it a squared-error rate, square the left-hand norms, choose a design measure silently or assume nonempty active sets when their minima are undefined in the source.",
+        "statement_sha256": "73e5f5899122fdee291eca5e4141e3a0c86d82d84c118319f1c87da4bdb5c3e6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite-exponent L2 norms, real square root and asymptotic comparison predicates against the unsquared minimum signal and full radical rate.",
+          "result": "The lower signal bounds and comparison with the square root of the two-component rate can be expressed after fixing the population measure and active sets. Generic asymptotic notation does not choose constants or empty-set minimum conventions."
+        }
+      ],
+      "gap": "The L2 reference measure, active-set minimum conventions and comparison constants must be fixed while retaining the unsquared signal bound and full square-root rate."
+    }
+  },
+  {
+    "interface_id": "local-67beee73a94ecf94771c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "d02aeb91fa3bb58feaa70e0a473525ce1a57b026d923b7406e95a1ea15209b9c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D11",
+        "comparison": "Keep infimum over estimators outside supremum over additive/interacting functions with the source's Sigma(beta,L) component convention, followed by E_f of squared prediction error. The X~P_X subscript does not determine a design-law family or independent fresh-test sampling. Do not equate this expected risk with the later expectation-free display, and establish boundedness for real extrema rather than relying on totalized infinities.",
+        "statement_sha256": "e3f82bb56072ea147cc8237281c4be7669a5dab83206a80f711e7007d68a1bd8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "csInf_le",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddBelow s → a ∈ s → sInf s ≤ a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "The infimum of a bounded-below set is at most each member; membership supplies nonemptiness without requiring attainment of the infimum.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L196-L198",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched expected minimax regression risk and inspected real integration and conditional infimum/supremum requirements against the estimator infimum and joint function/design supremum.",
+          "result": "Nested risk extrema can be represented once an estimator class and joint sampling/test laws are supplied. The source does not specify the design-law family under its supremum or precisely which randomness the expectation integrates."
+        }
+      ],
+      "gap": "The estimator class, design-law family and training/test expectation convention must be specified before defining a finite real-valued minimax risk with the stated extrema."
+    }
+  },
+  {
+    "interface_id": "local-75da68d7da16b42a7af2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "817849cf76d23dd95427d320af87be2b2e26fae30f46375214296ab9763ec9be",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D24",
+        "comparison": "Use ||f_hat-f0||_(L2(P_X)) squared for population loss and ||f_hat-f0||_n squared for empirical loss. The former integrates over the design argument and does not automatically average over training data. Preserve Assumption 2.1 for the random design and do not infer independence across observations, an independent test point, or an RSC event for every possible design.",
+        "statement_sha256": "6768a3d7777a98065477ca509ee6268815dfa723b824dd6aed34c0410d10e3d9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lpNorm",
+          "type": "{α : Type u} → {E : Type v} → {mα : MeasurableSpace α} → [NormedAddCommGroup E] → (α → E) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Real-valued Lp seminorm; agrees with the finite moment root and returns zero outside its measurable finite domain.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L142-L143",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected L2 seminorm definitions under a supplied measure and compared population prediction loss with empirical design loss in the random-design section.",
+          "result": "The two losses are obtained by using P_X and the empirical design measure respectively. Finite integrability supplies their real norm interpretation; the population norm may still be random through the fitted estimator."
+        }
+      ],
+      "gap": "The two losses are directly expressible with their distinct measures, while measurability and finite L2 membership of the random fitted function must be supplied."
+    }
+  },
+  {
+    "interface_id": "local-9dbbd0fe6d8b25f12157",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "11a47602b907271446f6b7ec96e38544b92762f49f6b58840f05a490a1013fc5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D6",
+        "comparison": "Retain d and d^2 multipliers in the original univariate and bivariate widths/sparsities, depths c2*L_i*log L_i and sparsities c3 times the dimension factor times (N_i log N_i)^2*L_i log L_i. Do not replace d^2 by choose(d,2) merely because the revised class uses it. Each component uses only its one or two input coordinates; a generic fully connected d-input network is broader. These are the classes used in Theorem 2.7, with tuning counts and rounding left as in the source.",
+        "statement_sha256": "6f242bf17a97e18bd314ef6be0d286844cfe32909326c2248c84af0315cedbcf"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "posPart_def",
+          "type": "∀ {α : Type u} [Lattice α] [SubNegMonoid α] (a : α), a⁺ = a ⊔ 0",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.Order.Group.PosPart",
+          "provides": "The positive part is the supremum with zero; on real numbers this is exactly max(x,0), including its value at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Group/PosPart.lean#L68-L68",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched structured neural approximation classes; inspected affine layer and activation operations plus finite coordinate-component sums against the original depth-dependent architecture pair.",
+          "result": "Layer evaluation and structured sums are available primitives, but no matching sparsity/width/depth constrained neural class was found. The prose restricts the formal d-input classes to sums of low-dimensional subnetworks."
+        }
+      ],
+      "gap": "The original depth-dependent structured classes need an architecture encoding and parameter-count convention that preserve their component-sum restriction."
+    }
+  },
+  {
+    "interface_id": "local-791a63ba43e3c7ff9432",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T02:01:21.323647+00:00",
+    "source_interface_sha256": "8d162bcd7ded1358b50c2c8fb91b0c2f15e965012ec6e5933607c250f14e6608",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2738",
+        "local_id": "D10",
+        "comparison": "Keep n indexed observation pairs available for training, even if some values coincide and the displayed set deduplicates them. This defining clause names the data only; it does not assert iid observations or independence of a later prediction point from the training sample.",
+        "statement_sha256": "314ba16bec29ea2ce9cb5e1570f9ad19d0d3970e4f9acd45c78b459539ce0897"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.image",
+          "type": "{α β : Type*} → [DecidableEq β] → (α → β) → Finset α → Finset β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Image",
+          "provides": "The finite set of outputs of a function on a finite input set; equal outputs are deduplicated, so an indexed sample should be retained separately when multiplicities matter.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Image.lean#L279-L280",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected Finset.image's mapped and deduplicated finite-set construction against the indexed training-sample notation, distinguishing a finite collection from sampling-law assumptions.",
+          "result": "The displayed finite set is the image of the n observation indices under i -> (X_i,Y_i); retaining the indexed family separately preserves multiplicities and order for empirical sums and splitting."
+        }
+      ],
+      "gap": "The sample notation is directly expressible as an indexed family and its finite image, without implying independence or a fresh-test sampling law."
+    }
+  }
+]

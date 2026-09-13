@@ -1,0 +1,149 @@
+{
+  "scope": "Manual p0335 sparse-factor and neural-network model comparisons with inspected pinned library source.",
+  "rows": [
+    {
+      "interface_id": "local-45d4ba7742f03ad2d6fc",
+      "related": [
+        "ProbabilityTheory.multivariateGaussian",
+        "MeasureTheory.Measure.pi",
+        "Matrix.PosDef"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "The Gaussian constructor and finite product express the centered independent observation law; PosDef supplies the covariance predicate. No sparse-factor-model constructor was found in the bounded searches.",
+      "gap": "Construct the loading-to-covariance map, prove its positive definiteness and identify the resulting finite Gaussian product experiment.",
+      "comparisons": {
+        "D32": "Use L with d_n rows and m columns and covariance L L-transpose + I_d, centered multivariateGaussian, and Measure.pi over n observations. The matrix needs a proof of the intended PSD/positive-definite covariance to avoid the constructor’s non-PSD Dirac fallback. Keep the factor dimension m as the loading column count, without inferring full column rank or row sparsity from this sampling-law definition. The product lives on finite coordinate tuples, not an algebraic tensor product."
+      }
+    },
+    {
+      "interface_id": "local-87c508bcf629c45fc2d2",
+      "related": [
+        "Function.support"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "Function.support is generated additively from mulSupport and is exactly the set of inputs at which a function is not zero; choosing the codomain to be a row vector gives row support.",
+      "gap": "Identify the source’s positive row nonzero-count condition with nonzero rows and transport its one-based indices.",
+      "comparisons": {
+        "D33": "Treat the matrix as the function j ↦ L_j,: with values in m-dimensional vectors. Function.support then selects j with a nonzero entire row, equivalent to positive l0 count for a finite row. This is row support rather than the support of the flattened entry function or topological support of a measure. A short equivalence proof and the [d_n]-to-Fin d_n index map remain."
+      }
+    },
+    {
+      "interface_id": "local-4e05c353127601430411",
+      "related": [
+        "Function.support",
+        "Set.powerset"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "Function.support supplies the row-index set and Set.powerset supplies all support subsets. These are sufficient predicates for exact-support cells, but do not package variable matrix shapes or their disjoint union.",
+      "gap": "Define tagged loading spaces with exact row support and prove their disjointness and finite model-count formula.",
+      "comparisons": {
+        "D34": "The cell is {L : Matrix (Fin d_n) (Fin m) Real | Function.support L = S}, with S a subset of row indices, preserving equality rather than containment. For each fixed m distinct supports are disjoint; across different m use dependent tagged matrix spaces to represent the claimed disjointness. Set.powerset on the finite row universe represents all supports; m_max times 2^d_n needs a cardinality proof. This does not restrict every model to at most s_n rows."
+      }
+    },
+    {
+      "interface_id": "local-76ebe85414232ab6c1b4",
+      "related": [
+        "MeasureTheory.Measure.dirac",
+        "ProbabilityTheory.multivariateGaussian",
+        "MeasureTheory.Measure.pi",
+        "MeasureTheory.Measure.sum"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "Dirac and multivariateGaussian supply the spike and slab, finite products supply independent rows, and weighted Measure.sum supplies the model mixture after embedding components into a common tagged space.",
+      "gap": "Assemble the row spike-and-slab prior and its dimension-dependent weights, proving probability normalization on the tagged model space.",
+      "comparisons": {
+        "D35": "Equation (5.10) uses a point spike at the whole zero row, Gaussian slab with covariance tau_0 I_m (tau_0 is covariance scale, not a squared standard deviation), and weight omega=d_n^(-(1+a_0)m). Prove 0≤omega≤1 from the dimension and positive constant conditions, form each nonnegative weighted two-measure sum and then the product over d_n rows. The model weights 1/|M_n| require a nonempty finite model set. Embed varying m into the hierarchical parameter space; the APIs do not establish the sparsity regularization or posterior contraction claims."
+      }
+    },
+    {
+      "interface_id": "local-1df95c59a38ec6e5ee83",
+      "related": [
+        "MeasureTheory.Measure.dirac",
+        "ProbabilityTheory.multivariateGaussian",
+        "MeasureTheory.Measure.pi",
+        "Matrix.PosDef"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "The inspected constructors build Gaussian row slabs and zero-row spikes with finite independent products; PosDef retains the allowed full within-row covariance matrices.",
+      "gap": "Construct the parameterized row spike-and-slab family with admissible probabilities and full positive-definite slab covariances.",
+      "comparisons": {
+        "D36": "For each row choose psi_j in R^m, Phi_j positive definite and nu_j in [0,1], form (1-nu_j) delta_0 + nu_j N(psi_j,Phi_j) and product across rows. Positive definiteness must be proved for each covariance; do not specialize Phi_j to diagonal matrices or infer independence within a row. Values nu_j=0 or 1 are allowed. This builds a family of distributions, not a variational optimizer, and does not enforce one fixed exact support S because support cells have been merged."
+      }
+    },
+    {
+      "interface_id": "local-259dfa9a411c9fd53715",
+      "related": [
+        "ProbabilityTheory.gaussianReal",
+        "ProbabilityTheory.gaussianPDFReal",
+        "MeasureTheory.Measure.pi"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "gaussianReal at mean f(x_i) and variance one supplies each response law, gaussianPDFReal at mean zero and variance one supplies the residual density, and Measure.pi supplies independence.",
+      "gap": "Package the fixed-design regression experiment and prove its joint density equals the printed product of standard Gaussian residual densities.",
+      "comparisons": {
+        "D30": "Equation (4.5) is the finite product of g_N(0,1)(Y_i-f(x_i)); equivalently each response has Gaussian mean f(x_i), variance one. Inputs are fixed in [0,1]^d, so no input sampling law belongs in this product. The scalar density and law use a variance argument, here exactly 1. The finite product construction needs a joint density identification; the prose about possible unknown-variance extension does not change the theorem’s unit-variance model."
+      }
+    },
+    {
+      "interface_id": "local-34e13e7de37eac477194",
+      "related": [
+        "EuclideanSpace.norm_eq"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "The inspected theorem identifies finite Euclidean norm with the square root of the sum of squared coordinate norms. Evaluation at the fixed design points and a factor 1/sqrt(n) give the source expression for positive n.",
+      "gap": "Define the scaled finite-design evaluation seminorm and prove the empirical-distance formula with the source sample-size domain.",
+      "comparisons": {
+        "D31": "Use the Euclidean vector i ↦ f_0(x_i)-f_1(x_i) and divide its norm by sqrt(n); nonnegative square-root algebra gives the displayed root mean square when n>0. EuclideanSpace.norm_eq supplies the sum-of-squares identity, while the ordinary function-space Pi norm would be a sup norm. Distinct functions can agree at all observed points, so the result is a pseudometric on functions rather than a separating metric or population L2 distance. Preserve repeated design indices."
+      }
+    },
+    {
+      "interface_id": "local-1b28f09b43a2aae29606",
+      "related": [
+        "Set.pi"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "Set.pi with coordinate intervals [-B,B] expresses a finite parameter box after flattening; it does not supply the architecture-dependent flattening equivalence or network-layer convention.",
+      "gap": "Define the indexed network parameter space and its coordinate flattening while preserving the printed depth convention and dimension formula.",
+      "comparisons": {
+        "D27": "For J=(d+1)M+(K-2)(M^2+M)+(M+1), the bounded vector set is Set.pi univ (fun _ ↦ Icc (-B) B), equivalent to the stated coordinate sup-norm bound after identifying Theta_(K,M) with R^J. Retain K≥2 and the printed description of hidden layers: the referenced network composition uses K affine maps and K-1 activations, so do not silently alter J to fit the prose. This definition’s diverging B_n discussion does not strengthen Theorem 4.1’s explicit 1≤B_n≤polynomial condition."
+      }
+    },
+    {
+      "interface_id": "local-5277d5e0bd70908dc900",
+      "related": [
+        "ProbabilityTheory.cond",
+        "MeasureTheory.Measure.pi",
+        "MeasureTheory.Measure.sum"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "Conditioning Lebesgue measure on a positive-length bounded interval produces the scalar uniform law; finite products and weighted measure sums provide the within-network and across-architecture constructions.",
+      "gap": "Construct the product-uniform architecture prior and prove the exponential model weights normalize on the stated model set.",
+      "comparisons": {
+        "D28": "For B_n>0, cond volume (Ioo (-B_n) B_n) has finite positive interval mass, and its J_(K,M)-fold finite product represents Pi_n,(K,M); endpoint inclusion is Lebesgue-null. Mix the embedded model laws with exp(-a_0(KM)^2 log n) divided by the entire architecture sum. Retain a_0>0, dependence on n and architecture and independence from the truth. A nonempty finite set suffices for normalization; where a countable set is intended one must prove finite positive total weight rather than use nonsummable real tsum=0."
+      }
+    },
+    {
+      "interface_id": "local-17b67ae317682b25dfc6",
+      "related": [
+        "ProbabilityTheory.cond",
+        "MeasureTheory.Measure.pi"
+      ],
+      "status": "partial_match",
+      "query": "Reviewed registered p0335 PDF pages 6–7, 16–17 and 21–22. Searched spike-and-slab, sparse-factor, neural-network and empirical distance/norm in pinned Probability, MeasureTheory and Analysis. Inspected finite product measure Constructions/Pi:66–70,124–128,162–224, probability instance locations; Gaussian/Multivariate:148–186, Gaussian/Real:39–56,210–233, Support:19–39, PiL2:137–152, Set/Operations:271–282, Matrix/PosDef:148–168, ConditionalProbability:67–83, Measure/Sum:18–39 and Dirac/Def:21–33 as relevant. Verified new Measure.pi GitHub page against all pinned source lines; reused opened links for other declarations.",
+      "result": "The interval conditional measure and finite product construct the uniform-coordinate family on valid intervals; the printed endpoint constraint does not ensure those intervals have positive length.",
+      "gap": "Retain the source’s endpoint inconsistency and specify the valid-interval domain before identifying the product as a probability family.",
+      "comparisons": {
+        "D29": "Equation (4.4) prints Unif(-psi_1,j,psi_2,j) with -B_n≤psi_1,j<psi_2,j≤B_n. Both printed endpoints lie in the parameter box, but the constraints do not imply the required ordering -psi_1,j<psi_2,j. Do not remove the minus sign or assert the missing inequality. cond volume on Ioo (-psi_1,j) psi_2,j agrees with the intended uniform law only for positive interval length; its zero measure on an empty or null interval is not a supplied source convention. Measure.pi then gives the J-fold product only after valid component laws have been justified."
+      }
+    }
+  ]
+}

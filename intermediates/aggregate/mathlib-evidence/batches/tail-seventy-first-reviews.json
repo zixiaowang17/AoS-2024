@@ -1,0 +1,90 @@
+{
+  "scope": "Manual review of all 10 remaining paper-local interfaces of aos-2024-v52-i05-p2241, including the frozen source notes on SHINE splits, reciprocal likelihood ratios and nested total-variation closures; existing completed interfaces preserved.",
+  "rows": [
+    {
+      "interface_id": "local-830c0b2a0f2ce28a2cd5",
+      "related": ["ProbabilityTheory.IdentDistrib", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Pivotal statistic with common distribution across a null family; searched pivotal and inspected IdentDistrib fields and pushforward laws.",
+      "result": "IdentDistrib X X P P' asserts equality of the statistic's laws under two measures, with almost-everywhere measurability. Quantification over all pairs of null laws gives the source's family property.",
+      "gap": "The existing identical-distribution predicate suffices after quantifying it over the null family for the same measurable statistic.",
+      "comparisons": {"D1": "Require equality of the full pushforward law for every P,P' in the null family, not merely equal expectations; exact e-variables only have null expectation one and do not acquire pivotality from exactness alone."}
+    },
+    {
+      "interface_id": "local-55c16db7f5aaf5a4d310",
+      "related": ["MeasureTheory.Measure.dirac", "MeasureTheory.Measure.sum", "MeasureTheory.integral"],
+      "query": "SHINE recursive split-at-barycenter construction, subprobability children and weighted atomic measures; searched SHINE and inspected point masses, measure sums and vector integrals.",
+      "result": "Vector integration divided by mass expresses a nonzero finite measure's barycenter, and weighted point masses express each finite output law. These primitives do not choose the separating split, prove its uniqueness or provide conventions for zero-mass children.",
+      "gap": "SHINE still requires the recursive separating splits, their admissible choices and mass-preservation proofs, with the source's zero-mass and scalar/vector ambiguities retained.",
+      "comparisons": {"D20": "Start with delta at the all-ones vector and root measure gamma, split every node into two diagonal-barycenter children and place each child's total mass at its barycenter; preserve the binary indices and 2^s nodes, and do not use totalized division to invent a barycenter for an empty child or infer uniqueness without the source's N condition."}
+    },
+    {
+      "interface_id": "local-3377ec370c74b67cf963",
+      "related": ["ProbabilityTheory.Kernel.trajMeasure", "MeasureTheory.Martingale", "MeasureTheory.Submartingale.exists_ae_tendsto_of_bdd", "MeasureTheory.Measure.map"],
+      "query": "SHINE scalar first-coordinate coupling, binary-tree transition kernels, nonnegative martingale and almost-sure convergence; searched SHINE and inspected trajectory measure, Martingale and the L1-bounded submartingale convergence theorem.",
+      "result": "History-dependent Markov kernels can realize the split-tree law, and the martingale definition expresses its conditional barycenter equality. Once integrability, nonnegativity and constant expectation are proved, the L1 bound yields almost-everywhere convergence; pushing the limit through x -> (x,...,x) gives the diagonal limit law.",
+      "gap": "The SHINE coupling still needs normalized transitions and a martingale proof, including treatment of zero-mass states and any coinciding scalar node values, before the existing convergence theorem applies.",
+      "comparisons": {"D21": "Retain X_0=1 and child-mass/parent-mass transition probabilities along the binary split tree, with the scalar first-coordinate barycenter identity; conditioning on scalar X_s values must be reconciled with node labels if values coincide, null-parent transitions are unspecified, and this coordinate corresponds to dF/dG rather than the reciprocal e-variable, so its e-power uses minus log and the limit law is that of X_infinity times the all-ones vector."}
+    },
+    {
+      "interface_id": "local-c8f9ad00fafd4dd12889",
+      "related": ["MeasureTheory.ProbabilityMeasure", "MeasureTheory.Measure.AbsolutelyContinuous"],
+      "status": "composable",
+      "query": "One common dominating probability measure for null and alternative families; inspected ProbabilityMeasure and the null-set definition of AbsolutelyContinuous.",
+      "result": "Existential quantification over a probability measure R and absolute continuity of every law in both families directly expresses common domination.",
+      "gap": "These declarations suffice to state common probability domination with one shared reference measure.",
+      "comparisons": {"D22": "Use one R with P<<R for every null P and Q<<R for every alternative Q, retaining that R is a probability measure; this is distinct from the earlier simple-alternative AC requirement P_i<<Q and implies neither mutual absolute continuity nor pivotality."}
+    },
+    {
+      "interface_id": "local-05e7604cea9f76edfccb",
+      "related": ["Real.log", "MeasureTheory.integral", "MeasureTheory.lintegral", "ProbabilityTheory.IdentDistrib", "IsMaxOn"],
+      "query": "E-power as expected log and maximization over pivotal exact e-variables; searched pivotal and inspected log, Bochner/nonnegative integration, common laws and IsMaxOn.",
+      "result": "On an integrable positive-log domain the objective is a Bochner integral, and IsMaxOn expresses a candidate's objective comparison once feasibility is separately required. Extended log expectations need explicit positive/negative-part conventions; Real.log 0 and nonintegrable Bochner integrals have totalized values that do not settle the source's domains.",
+      "gap": "The e-power optimization still needs its pivotal exact feasible set and logarithm/infinite-expectation conventions specified, with attainment proved separately.",
+      "comparisons": {"D14": "For fixed finite null family and simple alternative Q, maximize E_Q[log X] over pivotal exact e-variables, retaining both equality of null means and equality of full null laws; do not replace log power by E_Q[X], remove pivotality, or treat IsMaxOn alone as feasibility or existence of an optimizer."}
+    },
+    {
+      "interface_id": "local-e72365b04868b1813145",
+      "related": ["MeasureTheory.Measure.rnDeriv", "MeasureTheory.Measure.map", "ConvexOn", "MeasureTheory.integral", "Real.log", "IsMaxOn"],
+      "query": "Likelihood-ratio-law e-power optimization, diagonal density pushforward and convex-order constraint; searched convex order and inspected rnDeriv, pushforward, ConvexOn, integration, log and maximum predicates.",
+      "result": "The density and pushforward operations form the two vector laws, while convex test functions and integrals provide ingredients for their convex-order comparison. No complete convex-order-constrained e-power optimizer was located; extended density and log domains need explicit treatment.",
+      "gap": "The transformed optimization still needs the convex-order feasible law construction and objective conventions, together with the claimed equivalence to pivotal exact e-power maximization.",
+      "comparisons": {"D18": "Retain F,G probability laws on R, objective E_G[-log(dF/dG)], the G-law of the repeated L-coordinate dF/dG vector below the Q-law of (dP_1/dQ,...,dP_L/dQ) in convex order, and the minus-log ratio direction; the derivative describes the absolutely continuous part unless the required domination is supplied, and AC of the nulls with respect to Q does not silently establish equivalence of F and G or all zero-density conventions."}
+    },
+    {
+      "interface_id": "local-050198ca3c730d4deac8",
+      "related": ["MeasureTheory.Measure.pi", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "status": "composable",
+      "query": "IID repeated experiment with a family of pure product laws; inspected finite product measure, mutual independence and identical distributions.",
+      "result": "For each fixed population law P, a finite product with every coordinate measure equal to P gives its n-observation experiment. Taking the image of the original family under this construction preserves the pure-product restriction.",
+      "gap": "The product experiments are composable from these declarations, while existence and power of the desired e-variable remain separate statistical claims.",
+      "comparisons": {"D19": "Build exactly {P_1^n,...,P_L^n} and {Q^n}, using one population distribution for all n iid coordinates and an e-variable on their joint data; neither mixed-coordinate products nor products of convex mixtures belong automatically, and the product-span theorem does not inherit JA or e-variable premises from this motivation."}
+    },
+    {
+      "interface_id": "local-3e4e66ef781c0a18da5b",
+      "related": ["ProbabilityTheory.Kernel", "ProbabilityTheory.IsMarkovKernel", "MeasureTheory.Measure.bind", "ProbabilityTheory.Kernel.deterministic", "MeasureTheory.Measure.map"],
+      "status": "composable",
+      "query": "Simultaneous transport of a finite tuple of measures by one stochastic kernel or map; searched simultaneous transport and inspected Kernel, Markov normalization, measure bind and deterministic pushforwards.",
+      "result": "A single Markov kernel and coordinatewise bind equalities express the transport plans; a single measurable map with coordinatewise pushforward equalities expresses the maps. Equal input/output masses are the source's stated compatibility condition, not a construction of such a kernel.",
+      "gap": "These declarations suffice to define the simultaneous feasible sets by imposing all coordinate transport equations on one shared kernel or measurable map.",
+      "comparisons": {"D10": "For the d finite positive coordinate measures on the two Polish spaces, impose bind(mu_i,kappa)=nu_i for every i with the same stochastic kappa, or map T mu_i=nu_i for every i with the same measurable T; separate coordinate-specific kernels or maps would weaken the defining simultaneous requirement."}
+    },
+    {
+      "interface_id": "local-2fb0d994eba6c8368317",
+      "related": ["MeasureTheory.SignedMeasure.totalVariation", "Submodule.span", "convexHull", "MeasureTheory.IsTightMeasureSet", "MeasureTheory.integral", "Real.log"],
+      "query": "Total-variation closed span and convex hull, outer closure of their sum, tight alternatives and uniform positive log e-power; inspected signed total variation, span, convexHull, tight families and log integration.",
+      "result": "Signed-measure total variation supplies the strong distance after applying it to a difference, and algebraic span/hull plus topological closure express the separation sets in that topology. Tightness is a uniform family property. These ingredients do not prove the source's equivalence to existence of a bounded exact e-variable with a positive infimum of log power.",
+      "gap": "The remaining content is the uniform e-power separation equivalence in the total-variation topology and its additional tight-family equivalence, with every printed closure preserved.",
+      "comparisons": {"D23": "Keep 0 outside the outer closure of the sum of the individually closed span(P) and convex hull(Q); only the tight-Q clause switches to disjointness of those two closed sets, and the criterion requires inf_Q E_Q[log X]>0 for a bounded exact e-variable without pivotality; a half-versus-full variation normalization leaves closure topology unchanged, but weak probability-measure topology or pointwise positive power cannot replace the printed uniform condition."}
+    },
+    {
+      "interface_id": "local-502d68f4dc66e60066ab",
+      "related": ["MeasureTheory.Measure.le_iff"],
+      "status": "exact_reuse",
+      "query": "Usual setwise measure order on Borel sets; inspected the Measure partial-order instance and le_iff measurable-set characterization.",
+      "result": "With the Borel measurable-space structure, le_iff is exactly the equivalence between the standard measure order and comparison on every Borel set.",
+      "gap": "The existing measure order and its measurable-set characterization directly supply this definition on the Borel space.",
+      "comparisons": {"D6": "Use ordinary positive-measure order mu<=nu iff mu(A)<=nu(A) for every Borel A, including the subprobability split measures; this compares set masses and is distinct from the convex-test-function order used elsewhere in the paper."}
+    }
+  ]
+}

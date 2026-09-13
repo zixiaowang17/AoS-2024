@@ -1,0 +1,132 @@
+{
+  "scope": "Manual comparison of the twelve remaining frozen interfaces from aos-2024-v52-i04-p1592 with archive-pinned mathlib declarations; preserves source logical connectives and distinguishes bootstrap definitions from validity theorems.",
+  "rows": [
+    {
+      "interface_id": "local-23722f61b43ce830629e",
+      "related": ["ProbabilityTheory.condVar", "ProbabilityTheory.condDistrib", "ContinuousOn"],
+      "status": "composable",
+      "query": "Conditional variance given covariates and continuous treatment, uniform upper bound and almost-sure union of continuity sets; inspected condVar, conditional-kernel interpretation and ContinuousOn/ContinuousWithinAt bodies.",
+      "result": "Conditional variance can be represented by a chosen function of (L,A), with kernel or conditional-expectation interpretation almost everywhere. ContinuousOn supplies continuity in treatment on its support, and real inequalities and a probability-one union encode the remaining assumptions.",
+      "gap": "These declarations support the assumption after choosing conditional versions and the conditioning law, while its pointwise bounds and probability-one union remain explicit hypotheses.",
+      "comparisons": {
+        "D17": "Define tau(l,a) as a version of conditional variance under the observed law, requiring the conditional-expectation and squared-residual integrability hypotheses. Preserve 0<tau(l,a)<=tau_max for every support pair: strict pointwise positivity is not a uniform positive lower bound. Define each continuity set using a -> tau(l,a), pi_0(a|l) or mu_0(l,a) on A. The printed condition is P(S_tau union S_pi union S_mu)=1, with omitted zero subscripts; retain that source ambiguity and do not replace the union by simultaneous continuity or an intersection."
+      }
+    },
+    {
+      "interface_id": "local-dcf39e64e76dca3aca51",
+      "related": ["MeasureTheory.eLpNorm", "csSup_le_iff", "Filter.Tendsto", "Asymptotics.IsLittleO"],
+      "query": "Uniform-in-treatment population L2 nuisance estimation rates Op and deterministic product little-o; inspected eLpNorm exponent two, conditional-complete supremum requirements, filter convergence and deterministic asymptotic definitions.",
+      "result": "The L2 seminorm over the covariate marginal and a supremum over treatment describe the error size for each fitted function. Tail-probability bounds under the sampling law are needed for Op, while IsLittleO directly expresses the deterministic rate-product condition along n tending to infinity.",
+      "gap": "The remaining interface is a measurable random supremum and its bounded-in-probability rate, linked to the deterministic product little-o condition with the stated bandwidth.",
+      "comparisons": {
+        "D23": "For each training sample, first take L2(P_L) of the fitted-minus-true function with treatment a fixed, then take sup over a in A; this is neither a joint uniform norm nor integration over the training sample. Ensure finite L2 values and a meaningful measurable supremum, or record any need for outer-probability conventions. Encode Op(r_n^infty) and Op(s_n^infty) by eventual tail-probability bounds, not pointwise deterministic IsBigO. The targets are pi_0 and mu_0, not the possibly misspecified barred limits. Separately express s_n^infty*r_n^infty=o((n*sqrt(h_n))^(-1/2)) using IsLittleO and the positive bandwidth domain."
+      }
+    },
+    {
+      "interface_id": "local-e815923f306b67ea24c3",
+      "related": ["csSup_le_iff", "Filter.Tendsto", "Real.sqrt"],
+      "query": "Stochastic uniform convergence to possibly misspecified nuisance limits at little-op square-root bandwidth rate; inspected real supremum and filter convergence ingredients and contrasted deterministic asymptotics with probability-tail convergence.",
+      "result": "A pointwise supremum over the joint support gives each uniform error, and convergence of the sampling-law tail probabilities at every positive multiple of sqrt(h_n) encodes the stochastic rate. The disjunction that at least one limit equals truth remains a separate logical hypothesis.",
+      "gap": "A stochastic uniform-norm rate interface is still needed for both fitted functions, retaining the either-correct-limit condition and its sampling-law quantifiers.",
+      "comparisons": {
+        "D21": "Both fitted functions must approach their respective barred limits at op(sqrt(h_n)) in the joint-domain uniform norm. This is not the treatment supremum of covariate L2 norms used in D23, and an essential L-infinity norm would require an additional equivalence argument. Preserve bar_pi=pi_0 OR bar_mu=mu_0, allowing both to be correct and allowing the other limit to be misspecified. Explicit probability-tail convergence avoids treating deterministic IsLittleO as stochastic little-op; positivity of bandwidth and measurability of the random supremum must be supplied."
+      }
+    },
+    {
+      "interface_id": "local-980e48453d3832145007",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.condVar"],
+      "status": "composable",
+      "query": "Treatment-indexed asymptotic variance expression with conditional variance, nuisance misspecification and covariate marginal integrals; inspected Bochner integral and conditional variance definitions.",
+      "result": "Real integrals and arithmetic can define the two marginal nuisance functions and the displayed sigma-squared expression for each treatment. Identifying this expression as a nonnegative asymptotic variance or as part of a Gaussian approximation is an additional theorem.",
+      "gap": "The expression is definable from these ingredients with integrability and denominator conditions, while its variance interpretation and limit-distribution role require separate proofs.",
+      "comparisons": {
+        "D27": "Integrate bar_pi(a|l) and bar_mu(l,a) against the covariate marginal to obtain bar_varpi(a) and bar_m(a). Preserve the nested denominator (bar_pi/bar_varpi)^2/(pi_0/varpi_0), the squared outcome-regression discrepancy inside the expectation, and the subtraction of (theta_0-bar_m)^2 outside it. Keep the source's extra closing parenthesis in the original transcription. Barred limits need not both equal truth; denominator and integrability conditions cannot be replaced by Lean's totalized division or zero-valued nonintegrable integral. This defines sigma^2(a), not itself a Gaussian law or a proof of the later centering and variance constants, and does not resolve the separate undefined bootstrap centering symbol."
+      }
+    },
+    {
+      "interface_id": "local-72de43fed35c3786dd19",
+      "related": ["csSup_le_iff"],
+      "status": "composable",
+      "query": "Uniform boundedness of the true conditional treatment density and outcome regression; inspected supremum-bound equivalence and its nonempty/bounded-above hypotheses.",
+      "result": "Uniform boundedness is expressible directly by existence of finite real bounds on absolute values over the support; the supremum equivalence connects this quantified condition with a bounded uniform norm when its hypotheses hold.",
+      "gap": "Real inequalities suffice for the two uniform bounds, with supremum notation available once the relevant sets are nonempty and bounded above.",
+      "comparisons": {
+        "D16": "Bound pi_0(a|l) and the absolute value of mu_0(l,a) over the full stated support using constants independent of l and a. Since pi_0 is a density its nonnegativity makes an upper bound equivalent to an absolute-value upper bound. The assumption concerns the true functions only; it does not bound Y, the fitted nuisance functions or their reciprocals, and does not impose the separate positive lower bound on pi_0."
+      }
+    },
+    {
+      "interface_id": "local-41166dc0ad1627b5e3e0",
+      "related": ["MeasureTheory.integral"],
+      "status": "composable",
+      "query": "Continuous-treatment doubly robust pseudo-outcome mapping; bounded rg search for doubly robust/propensity interfaces found none in Probability and MeasureTheory; inspected Bochner integration as the direct defining ingredient.",
+      "result": "The mapping is a real expression formed from two covariate-marginal integrals and a residual divided by the supplied conditional treatment density. Its definition needs no specialized estimator declaration, while robustness and causal identification are separate mathematical claims.",
+      "gap": "The mapping is definable by real arithmetic and covariate-marginal integration on an appropriate integrability and nonzero-denominator domain.",
+      "comparisons": {
+        "D7": "For an observed triple (L,A,Y) and generic nuisance inputs pi and mu, integrate pi(A|l) and mu(l,A) against the actual marginal law P_L, holding the observed treatment A fixed inside each integral. Multiply the first marginal integral by (Y-mu(L,A))/pi(A|L), then add the second. Do not substitute an empirical law or require either input to equal truth merely to define the mapping; positivity/nonzero denominators and finite integrals are needed for its intended statistical interpretation, and the doubly robust conditional-mean identity is not supplied by the integral definition."
+      }
+    },
+    {
+      "interface_id": "local-05f09dea9b79289be0b1",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.dirac", "Finset.sum_apply"],
+      "status": "composable",
+      "query": "Empirical plug-in pseudo-outcome with estimated nuisance functions and empirical covariate marginal in both integrals; inspected real integration, Dirac empirical-measure construction and pointwise finite sums.",
+      "result": "For a nonempty sample, its empirical covariate law is the normalized finite sum of Dirac measures, so both nuisance marginal integrals become sample averages. The resulting real expression can be evaluated for the same data used to fit the nuisance functions.",
+      "gap": "These ingredients define the plug-in mapping once the fitted functions, empirical covariate measure and denominator domain are specified.",
+      "comparisons": {
+        "D8": "Replace both population covariate integrals in D7 by integration against P_n of the covariates, and replace pi,mu by pi-hat,mu-hat everywhere. The observed A stays fixed while the covariate index runs over the sample, so evaluation at observation i involves sample averages of pi-hat(A_i|L_j) and mu-hat(L_j,A_i). Preserve dependence from fitting and averaging on the supplied data; no independent training sample, sample splitting, cross-fitting or bootstrap refitting is part of this definition. Require n>0 and the relevant fitted propensity to be nonzero for the displayed ratio's intended meaning."
+      }
+    },
+    {
+      "interface_id": "local-a1722c5fc1c147d99751",
+      "related": ["Metric.coveringNumber", "MeasureTheory.eLpNorm", "MeasureTheory.lintegral", "ContinuousOn"],
+      "query": "Uniformly bounded nuisance classes, reciprocal fitted propensity bound, uniform L2 entropy integral and union of continuity sets; inspected covering-number conventions, L2 seminorm, nonnegative integration and relative continuity; bounded entropy-integral search found no specialized interface.",
+      "result": "The ingredients express membership, bounds and continuity, and support an entropy construction after specifying the L2 pseudometric or quotient, envelope, covering convention and supremum over probability measures. No inspected declaration packages this source's E(B)_m condition.",
+      "gap": "The remaining interface is the source-specific uniform entropy integral and its nuisance-class assumptions, preserving the printed disjunction and probability-one union.",
+      "comparisons": {
+        "D24": "Place the fitted nuisances and barred limits in the respective fixed, uniformly bounded classes F_pi and F_mu, and retain the separate uniform bound on 1/pi-hat. Reuse the source J_m definition, including envelope-normalized L2 covering radii, supremum over all probability measures Q, logarithm power m/2 and integration from 0 to 1; match internal/external and radius-boundary covering conventions before using Metric.coveringNumber and retain infinity for nonfinite covers. The statement says F=F_pi OR F=F_mu and P(S_bar_pi union S_bar_mu)=1; do not silently strengthen either connective. Keep theorem-specific requirements separate: E(B)_3 occurs in the main null limit and inherited null-centered bootstrap assumptions, whereas the smooth-centered bootstrap theorem explicitly adds J_4 finiteness for both classes."
+      }
+    },
+    {
+      "interface_id": "local-037fa17054c97cb9fbb4",
+      "related": ["ProbabilityTheory.condDistrib"],
+      "status": "composable",
+      "query": "Bootstrap conditional law given the entire observed sample; inspected condDistrib's conditioning map, standard-Borel outcome requirement, finite measure parameter and almost-everywhere conditional-kernel interpretation.",
+      "result": "Taking the sample tuple as the conditioning variable gives a kernel-valued regular conditional distribution of the bootstrap random variable under a joint law for data and bootstrap randomness.",
+      "gap": "The conditional law is supported once the joint probability model and measurable sample and outcome maps are fixed, up to null sets under the sample law.",
+      "comparisons": {
+        "D28": "Instantiate condDistrib with the variable named X in the source as its outcome argument and (Z_1,...,Z_n) as its conditioning argument. For a real bootstrap statistic the outcome is standard Borel; require measurable variables and a suitable joint law. L-star(X) is a random conditional law evaluated at the observed sample, not the unconditional pushforward distribution; later convergence in probability of a distance between such laws uses the outer, original-data sampling law."
+      }
+    },
+    {
+      "interface_id": "local-c35f30b75b7c044824fc",
+      "related": ["MeasureTheory.integral", "MeasureTheory.Measure.restrict", "Real.sqrt"],
+      "status": "composable",
+      "query": "Weighted integrated squared discrepancy of the local-linear treatment curve from empirical pseudo-outcome mean; inspected real Bochner integration over restricted Lebesgue measure and square-root scaling.",
+      "result": "Given the local-linear fitted curve and pseudo-outcomes, the statistic is a real integral over treatment support followed by multiplication by n*sqrt(h). The user-specified weight can be retained without adding normalization or nonnegativity assumptions.",
+      "gap": "The statistic is definable from these ingredients once the local-linear fit, empirical mean and integrable weighted discrepancy are supplied.",
+      "comparisons": {
+        "D10": "Set the centering constant to P_n xi-hat and integrate (theta-hat_h(a)-P_n xi-hat)^2*w(a) against Lebesgue measure restricted to A, with the exact n*sqrt(h) prefactor. Supply the source's local-linear fit to the observed pairs (xi-hat_i,A_i), not a population curve. The definition does not say w is nonnegative or normalized, so an always-nonnegative loss interpretation or direct nonnegative integral would strengthen it; smoothness of w belongs to the later theorem. Preserve the source's (2.5) and subsequent (J.1) reference without substituting an appendix-based variant."
+      }
+    },
+    {
+      "interface_id": "local-1a156bfc8c78f6365290",
+      "related": ["ProbabilityTheory.bernoulliMeasure", "MeasureTheory.Measure.map", "ProbabilityTheory.condDistrib"],
+      "query": "Smooth-centered wild bootstrap residuals and inherited Rademacher pseudo-response procedure; bounded wild-bootstrap/Rademacher search found no specialized implementation; inspected two-point law, pushforward and conditional law definitions.",
+      "result": "For fixed observed data, a fair two-point measure represents each signed smooth-centered residual and shifting it gives a bootstrap response. A joint bootstrap sampling rule and the local-linear statistic construction must be supplied to obtain its full conditional distribution.",
+      "gap": "The remaining procedure combines smooth-centered residuals, a specified joint Rademacher resampling law and the refitted curve statistic, with bootstrap validity requiring the additional entropy assumptions.",
+      "comparisons": {
+        "D30": "Replace the null-centered residual by xi-hat_i-theta-hat_h(A_i). Retain the inherited fair plus/minus residual sampling and bootstrap response xi_i-star=P_n xi-hat+epsilon_i-star with A_i fixed: changing residual centering does not change the response mean to theta-hat_h(A_i). The original nuisance estimates remain inputs and the local-linear curve is recomputed from bootstrap responses; nuisance refitting is not prescribed. The source does not separately state a joint conditional-independence rule for its per-observation draws, so record that requirement when constructing a product law. Keep the extra J_4 condition for both nuisance classes as a theorem hypothesis, not a property of the two-point distribution."
+      }
+    },
+    {
+      "interface_id": "local-3e2dc609eabdcde767e3",
+      "related": ["ProbabilityTheory.bernoulliMeasure", "MeasureTheory.Measure.map", "ProbabilityTheory.condDistrib"],
+      "query": "Null-centered wild bootstrap with fair signed empirical residuals and fixed treatment values; bounded wild-bootstrap/Rademacher search found no specialized implementation; inspected two-point, pushforward and conditional-kernel constructions.",
+      "result": "Conditioning on the data makes each empirical residual fixed, allowing its fair signed law and shifted response law to be constructed directly. Those marginals do not by themselves determine a joint resampling law or the distribution of the fitted bootstrap statistic.",
+      "gap": "The remaining procedure specifies a joint resampling law, computes the bootstrap local-linear statistic and establishes its conditional validity under the source assumptions.",
+      "comparisons": {
+        "D29": "For n>0 form epsilon-hat_i=xi-hat_i-(1/n)*sum_j xi-hat_j, and use bernoulliMeasure at epsilon-hat_i and -epsilon-hat_i with weight one half, allowing a degenerate law when the residual is zero. Shift by the original empirical pseudo-outcome mean to obtain xi_i-star, keep A_i fixed, and evaluate the statistic using the bootstrap observations as stated by the source's (J.1) reference. The per-observation description does not separately assert conditional independence, so a product measure is an additional explicit joint sampling convention. Do not replace the signs by Mammen weights, smooth-center these residuals, refit nuisances or add the later smooth-bootstrap J_4 requirement to this null-centered definition."
+      }
+    }
+  ]
+}

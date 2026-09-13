@@ -1,0 +1,695 @@
+{
+  "schema_version": "statistical-paper-audit-v1",
+  "paper_id": "aos-2024-v52-i04-p1741",
+  "status": "complete",
+  "audit_kind": "source_review",
+  "completed_at": "2026-09-10T01:27:39.759421+00:00",
+  "source": {
+    "pdf_path": "./local-pdfs/aos/2024/aos-2024-v52-i04-p1741.pdf",
+    "source_url": "https://projecteuclid.org/journals/annals-of-statistics/volume-52/issue-4/Efficient-functional-Lasso-kernel-smoothing-for-high-dimensional-additive-regression/10.1214/24-AOS2415.pdf",
+    "version": "Published version, The Annals of Statistics 52(4), 2024, pp. 1741-1773",
+    "pdf_sha256": "4610424fb82ecdd4bb95f29d0e675272d01dc3a33fae493aa47959a85c9a7a2c",
+    "pdf_pages": 33,
+    "main_text_last_pdf_page": 25,
+    "provenance_path": "evidence/source-provenance.json"
+  },
+  "enumeration": {
+    "theorem_ids": [
+      "aos-2024-v52-i04-p1741/T1",
+      "aos-2024-v52-i04-p1741/T2",
+      "aos-2024-v52-i04-p1741/T3",
+      "aos-2024-v52-i04-p1741/T4",
+      "aos-2024-v52-i04-p1741/T5",
+      "aos-2024-v52-i04-p1741/T6",
+      "aos-2024-v52-i04-p1741/T7"
+    ],
+    "printed_label_check": [
+      [
+        8,
+        1
+      ],
+      [
+        11,
+        2
+      ],
+      [
+        16,
+        3
+      ],
+      [
+        16,
+        4
+      ],
+      [
+        17,
+        5
+      ],
+      [
+        18,
+        6
+      ],
+      [
+        18,
+        7
+      ]
+    ],
+    "method": "Independent source heading enumeration and visual comparison of all complete theorem statements.",
+    "excluded_result_types": [
+      "Lemma",
+      "Proposition",
+      "Corollary",
+      "Remark"
+    ],
+    "appendix_material_used": false
+  },
+  "counts": {
+    "theorems": 7,
+    "interfaces": 35,
+    "source_members": 35,
+    "direct_theorem_uses": 70,
+    "related_theorem_connections": 146,
+    "unranked_auxiliary_passages": 15
+  },
+  "validation": {
+    "status": "passed",
+    "validator": "skills/statistical-paper-census/scripts/validate_census.py",
+    "checks": [
+      "Seven complete main-text Theorems were independently enumerated and visually compared. Source order, all conditions and conclusions, the two Theorem 6 branches, and distinct pointwise/uniform expansions are preserved. Proposition 1 and the unnumbered CLT, interval and test are excluded.",
+      "Thirty-five original entries preserve the additive model, function spaces, normalized kernels, empirical estimators, penalty and sequential algorithm, A1–A7, expected-density compatibility, distinct uncentered/centered empirical operators, inverse estimation, debiasing, noise decomposition, population inverse, and kernel norms and sparsity summaries. Fifteen auxiliary passages retain constants and conventions without inventing new API names.",
+      "Independent reconstruction verifies 70 direct uses and 146 related connections. Theorems 4 and 5 inherit only the hypotheses of Theorem 3. Theorem 6 has A1, A2, A4, A5 and A7, with the extra optimizer constraint only in its second branch. Theorem 7 reaches only population inverse kernels, their norms and coordinate spaces, without importing empirical estimators or A assumptions.",
+      "All interfaces have original natural-language keywords, source-type headings and source-backed selectors. The sparsity-parameter term is explicitly identified as the author's analogy. Each related theorem has an explanation traced along a same-paper dependency path. Symbols remain in statements, not in display-name lists.",
+      "Visual review distinguishes empirical from population and expected-density centering, tuple from sum norms, uncentered from centered Pi-hat, the u_j derivative in A7 from the x_k derivative in Theorem 6, and positive q in Theorem 7 from the zero-count convention. Enlarged crops confirm C1 and the full square-root extent in c_q.",
+      "Thirty-four source issues preserve undefined zero-denominator cases, selection and kernel-domain conventions, the spectral assertion, growth and empty-set conditions, and source typographical ambiguities without silently repairing them. The conclusion ends on page 25 above the clipped appendix boundary; no appendix or supplementary body was used.",
+      "All six content artifacts reproduce byte for byte from the seven retained per-paper scripts. PDF identity, independent heading enumeration, original-statement handoff, source-specific formula checks, independent local graph reconstruction, names, highlights and both structural validators passed."
+    ]
+  },
+  "artifacts": {
+    "theorem-inventory.json": {
+      "path": "theorem-inventory.json",
+      "sha256": "b9936be921578f5e6b5597a6fea0065ebac237a120fc17b6a30a237d415d2460"
+    },
+    "source-passages.json": {
+      "path": "source-passages.json",
+      "sha256": "f1594035906475fc159d275ffbc8f55938129fdc98d5c99f10dfccec1d7462c3"
+    },
+    "interface-extraction.json": {
+      "path": "interface-extraction.json",
+      "sha256": "2efe4a7a4993dc3c7190383da3764ac569cb58074002f1dbc4539403e822379f"
+    },
+    "ambient-prerequisites.json": {
+      "path": "ambient-prerequisites.json",
+      "sha256": "3d49d0fd9e39ffb050a817a2308aeed8c9f2a122cb87413a204c60096107323b"
+    },
+    "unfinalized-census.json": {
+      "path": "unfinalized-census.json",
+      "sha256": "0ad4d1fb688421c7b09e7dc007dad43dd2d30e8ea163eba0ec34413bd0a90f83"
+    },
+    "ranked-interfaces.json": {
+      "path": "ranked-interfaces.json",
+      "sha256": "78dcbc6a7c9681128a51096b183b61a516a62f198a619240aaf8876395c21292"
+    },
+    "inventory-review.json": {
+      "path": "inventory-review.json",
+      "sha256": "b9c4e6a694925f382408ef34d5051c90305898f74574e508af3b7a8b68a0d28b"
+    }
+  },
+  "source_notes": [
+    {
+      "issue_id": "level-set-radius",
+      "description": "Theorem 1 assumes only R<infinity, while its display divides by R squared. R=0 is not excluded explicitly. The definition also writes a maximum without establishing attainment.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "minimizer-selection",
+      "description": "The source defines a minimizer and an optimization solution without giving a tie-breaking or measurable-selection convention, or separately proving existence in the main-text definitions.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 6,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 14,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "subgradient-selection",
+      "description": "At a zero component, the printed unit-ball description permits multiple subgradients. The stationarity equation requires a compatible selection; not every unit-ball choice satisfies it.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "frechet-at-zero",
+      "description": "The source calls the derivative of the nonsmooth penalized loss a Frechet derivative when a subgradient is needed at zero. The census does not turn this proof claim into a premise.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "empirical-zero-density",
+      "description": "Marginal regression and empirical conditional-density kernels divide by p-hat_j without specifying behavior on zero-density events. Later high-probability bounds do not define those exceptional events.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 6,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 13,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "zero-threshold",
+      "description": "Algorithm 1 and the estimator threshold formula divide by a residual norm. The usual zero-output convention at zero residual is implicit, not printed in these equations.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 8,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "algorithm-initialization",
+      "description": "The centered initial tuple is a standing condition in the preceding algorithm discussion, not repeated in Theorem 1. The unchanged-coordinate line in Algorithm 1 omits hats.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "function-representatives",
+      "description": "L2 functions are treated as pointwise functions without explicitly specifying the almost-everywhere quotient or versions needed for point evaluations, derivatives and sup norms.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "kernel-normalization",
+      "description": "The normalizer integrates in x. The claimed 1<=c_h<=2 and interior equality require the later kernel conditions and sufficiently small bandwidths; they do not follow from support alone.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "tuple-versus-sum",
+      "description": "A tuple squared norm is a sum of component squared norms. It is distinct from the scalar squared norm of the sum in the compatibility cone and Theorem 1.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 8,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "operator-kernel-domain",
+      "description": "Generic integral kernels are assigned function-space operators without a separate integrability or boundedness condition. The Dirac identity representation is distributional, not an ordinary bounded kernel.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "centered-redefinition",
+      "description": "Section 3 reuses Pi-hat after subtracting the empirical marginal density from off-diagonal kernels. Its printed tilde-pi domain is [0,1] times [0,1]^d while its arguments are written as two bold vectors. Both source notation and the separate definitions are retained.",
+      "evidence": [
+        {
+          "page": 13,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "active-set",
+      "description": "S uses population norms and S_n uses empirical norms. Their equality is conditional on density-ratio bounds. Empty S makes several gamma, bandwidth and compatibility expressions undefined unless extra conventions are supplied.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 14,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "inactive-derivatives",
+      "description": "A3 bounds derivatives of active functions, but C_f,ell takes a maximum over all components. Inactive components vanish only in the population L2 sense; representative and differentiability conventions are implicit.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "a2-domain-clause",
+      "description": "A2 prints an ambiguous coordinate-domain clause in its Lipschitz supremum. It is preserved rather than silently rewritten as a different quantified condition.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "conditional-mgf",
+      "description": "A6 is a conditional subexponential MGF bound over a finite transform-parameter interval. The source does not identify sigma squared as the error variance; the response second moment may diverge with dimension.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "compatibility-domain",
+      "description": "The compatibility infimum restricts to p^h-centered tuples with a nonzero active denominator. It uses expected smoothed density, not p or p-hat. Existence of an admissible tuple and empty-cone conventions are implicit.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "ratio-constants",
+      "description": "The c_r constants are introduced by a main-text high-probability statement citing a supplementary proof. Only that explicit statement is retained; the lemma is outside scope.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "stochastic-rate",
+      "description": "The paper defines stochastic lesssim using one fixed absolute bound with probability tending to one; replacing it by generic O_P would weaken the recorded conclusion.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "asymptotic-array",
+      "description": "d, S, bandwidths and other model quantities may depend on n. Absolute constants are defined as independent of n; no extra fixed-dimensional interpretation is imposed.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 10,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "spectral-assertion",
+      "description": "The source claims that I+Pi has eigenvalues in [0,1]. This is preserved as a source assertion, not established by the census or used to infer invertibility. The source separately assumes invertibility.",
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "inverse-kernels",
+      "description": "Writing the inverse as I+Theta with ordinary coordinate kernels and finite row sup norms entails well-definedness conditions not separately spelled out by the main-text inverse definition.",
+      "evidence": [
+        {
+          "page": 15,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "gamma-domain",
+      "description": "Gamma involves the unknown true active-set size and an unspecified diverging sequence a_n. Feasibility and implementability of that theoretical tuning choice are not certified.",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "optimizer-branch",
+      "description": "Theorem 6 changes the feasible set for its second branch by adding a candidate-kernel derivative constraint; it also assumes a separate derivative bound on the true kernel. These two roles are preserved separately.",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "derivative-coordinate",
+      "description": "A7 differentiates the discrepancy magnitude in u_j. Theorem 6 uses the second kernel coordinate x_k. These are different regularity restrictions.",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "optimizer-grid",
+      "description": "The numerical approximation maximizes over i not equal to i-prime, although the continuous objective takes the supremum over the full square. The discretization is not substituted for the theorem estimator.",
+      "evidence": [
+        {
+          "page": 14,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 15,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "q-zero",
+      "description": "The q=0 formula is explicitly interpreted as a count of nonzero kernels, which entails a convention for a zero norm raised to power zero. Theorem 7 instead requires strictly positive q.",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "adjoint-index",
+      "description": "The source calls Theta_jk star the adjoint of Theta_jk but writes its kernel as Theta_kj with swapped arguments. This is the block-transpose convention as printed; the individual-block index interpretation is not silently repaired.",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "sparsity-analogy",
+      "description": "The source compares inverse-kernel row/column summaries with a precision-matrix sparsity parameter. The keyword is retained as an analogy; no equality of these mathematical objects is asserted.",
+      "evidence": [
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "theorem-condition-inheritance",
+      "description": "Theorems 4 and 5 assume the conditions of Theorem 3, not its conclusion. Theorem 6 cites only A1, A2, A4, A5 and A7; Theorem 7 cites none of the A assumptions.",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 17,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "pointwise-versus-uniform",
+      "description": "Theorem 4 fixes an interior point for each j, whereas Theorem 5 takes a maximum over j and a supremum over the closed unit interval. Their bandwidth restrictions are different.",
+      "evidence": [
+        {
+          "page": 16,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 17,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "unnumbered-clt",
+      "description": "The normal limit, confidence interval and test after Theorem 5 are not labeled Theorem. Their additional error independence and homoskedasticity assumptions do not become assumptions of Theorems 4 or 5.",
+      "evidence": [
+        {
+          "page": 17,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "selection-prose",
+      "description": "Page 12 says the estimator vanishes for all j in S under suitable conditions, although S denotes significant components. This possible source typo is not used to alter the definition or invent a theorem.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 12,
+          "location": "Original source notation or scope"
+        }
+      ]
+    },
+    {
+      "issue_id": "excluded-proofs",
+      "description": "Appendix and supplementary bodies are excluded. Main-text references to them are preserved without following the references or certifying the proofs.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 11,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 16,
+          "location": "Original source notation or scope"
+        },
+        {
+          "page": 18,
+          "location": "Original source notation or scope"
+        }
+      ]
+    }
+  ],
+  "unresolved_source_references": [
+    {
+      "reference": "Appendix A and Supplementary Material",
+      "status": "excluded_by_scope",
+      "resolution": "Main-text citations preserved; referenced bodies not consulted."
+    }
+  ],
+  "ambient_resolution": {
+    "shared": {
+      "local_objects": "D1 resolves the additive model and population centering; D2 the coordinate function spaces; D3–D16 the empirical estimators, scalar norms and Algorithm 1; D17–D24 assumptions A1–A6 and compatibility; D25–D35 the centered operators, debiasing, A7 and Section 4 norms and constraints.",
+      "ambient_or_bound": "A1–A3 preserve compact support, iid sampling and tuple norms. Population densities are ambient in A14, not dependent on their estimators. A8/A15 preserve the special rate convention and absolute constants. Ordinary finite indices, real functions, expectation, probability, integration, identity operators, algebra and sequence limits remain ambient.",
+      "source_scope": "Main text only. An appendix or supplement citation is retained as an unresolved/excluded reference, not followed."
+    },
+    "1": {
+      "local_objects": "D4 gives p-hat; D9 gives weighted norms; D10 gives the penalized loss and minimizer; D15 gives iterates and initialization. A5 resolves R through the same loss, minimizer and initial tuple.",
+      "ambient_or_bound": "q0, r and the centered test tuple eta are quantified in the theorem. A4 records the standing initialization condition; A3 distinguishes tuple and sum norms.",
+      "branch_scope": "Nonasymptotic statement; no A1–A7 or asymptotic bandwidth assumptions are imported."
+    },
+    "2": {
+      "local_objects": "D17–D22 resolve A1–A6, D24 phi, D16 the active-set size, D10 the estimator, D1 the true components and D9 the norm.",
+      "ambient_or_bound": "The bandwidth inequality (2.20) is bound in the theorem. C1 is A9 and uses the listed assumption constants. Lambda has only the stated lower bound; A8 resolves lesssim and ll.",
+      "branch_scope": "Phi is positive for each d but may approach zero; the conclusion is a sum of errors."
+    },
+    "3": {
+      "local_objects": "A1–A6 are D17–D22 and A7 is D31. D24 gives phi; D28 gives the debiased estimator, D1 the true components, D9 the norm and D30 s1. The referenced bandwidth restriction (2.20) uses D16 and D24.",
+      "ambient_or_bound": "(2.20) is the displayed local inequality in Theorem 2, not its conclusion. (2.21) is A10 with C1 in A9. Gamma is part of D27.",
+      "branch_scope": "Phi must now be bounded away from zero. The conclusion is a maximum of component errors."
+    },
+    "4": {
+      "local_objects": "The conditions of Theorem 3 resolve to D17–D22, D31, D24 and D16. D28 is the debiased estimator; D1 the true components; D27 the estimated inverse; D30 s1; D32 the noise smoother.",
+      "ambient_or_bound": "A11 resolves I_j; A12 gives the explicit noise formula. h_j is in A5/D21. The three bounds in (3.11) and a fixed interior x_j are local hypotheses. C1 and (2.21) are A9/A10.",
+      "branch_scope": "Inherits the hypotheses of Theorem 3, not its error conclusion. The leading stochastic term is not itself asserted normal here."
+    },
+    "5": {
+      "local_objects": "Same inherited conditions and estimator/noise objects as Theorem 4: D17–D22, D31, D24, D16, D28, D1, D27, D30 and D32.",
+      "ambient_or_bound": "I_j and m-hat-A are A11/A12. The condition (1+s1^2)nh^3->0 is locally bound. (2.20) and (2.21) are inherited restrictions; no (3.11) is imported.",
+      "branch_scope": "Uniform over all coordinates and all x_j in [0,1]. The later unnumbered normal limit is excluded."
+    },
+    "6": {
+      "local_objects": "Only D17, D18, D20, D21 and D31 are directly assumed A conditions. D27 gives the estimated inverse and gamma, D29 its population target, D26 the mixed norm, D30 s1, D33 the sup norm and second-coordinate derivative, D34 s_q and D35 the extra candidate constraint.",
+      "ambient_or_bound": "The true-kernel derivative bound is an inline hypothesis in the second branch. q ranges over [0,1]; D34 records the zero-count convention. A8 resolves stochastic bounds.",
+      "branch_scope": "The second branch changes the optimization problem and adds true-kernel smoothness. No A3, A6, penalty-rate (2.21), or debiased estimator is imported."
+    },
+    "7": {
+      "local_objects": "D34 gives s_q and s_q star through population inverse D29 and the kernel sup norm D33. The displayed density-ratio norm also uses D33.",
+      "ambient_or_bound": "A14 resolves population densities and A13 c_q. q, alpha, beta, the coordinate permutation and the exponential decay inequality are bound in the theorem. The source later permits alpha/beta to vary with d.",
+      "branch_scope": "Entirely population-level: no empirical estimator, gamma, A1–A7, or preceding theorem conclusion is imported."
+    }
+  },
+  "evidence": [
+    {
+      "page": 1,
+      "path": "evidence/page-01.png",
+      "sha256": "b8c9a617d24df44aa36cc3f750fad313d9974411e035d0ab0483dbd21d426536"
+    },
+    {
+      "page": 4,
+      "path": "evidence/page-04.png",
+      "sha256": "35777d339924bae93500f0fc1b54515011e49062ea96f604512b259e7316f79d"
+    },
+    {
+      "page": 5,
+      "path": "evidence/page-05.png",
+      "sha256": "82bbe3bb678b0203bcb423aaf28fb4f166ba6c54799c7faf4b745b7ee208a579"
+    },
+    {
+      "page": 6,
+      "path": "evidence/page-06.png",
+      "sha256": "0aa8e326a50d8b063904c7adaebe71ec106c7af9707275d87d8afe719c2c24d6"
+    },
+    {
+      "page": 7,
+      "path": "evidence/page-07.png",
+      "sha256": "4881018c8dacbd5cd460597ebc91683f17c92c33c12be338a6a3c488a330d4cb"
+    },
+    {
+      "page": 8,
+      "path": "evidence/page-08.png",
+      "sha256": "5037a1946d43e78f2e4e08a529d06c599fd715391f802209ce543aa4d4dc5e8e"
+    },
+    {
+      "page": 9,
+      "path": "evidence/page-09.png",
+      "sha256": "b9f67f8fab1d9ca08db54bd3fe7c639128f69b5f30d7c4ce5dc88ad32ddcd2f6"
+    },
+    {
+      "page": 10,
+      "path": "evidence/page-10.png",
+      "sha256": "fe6ba9c900644ffaab8d845bcbcf3297bbc30e31a84309d5b7c49b6ca95aa91d"
+    },
+    {
+      "page": 11,
+      "path": "evidence/page-11.png",
+      "sha256": "8c1520242d843dbecd56969fd1adb826df74a67f8c0ecbd65e359bed05e91ddb"
+    },
+    {
+      "page": 12,
+      "path": "evidence/page-12.png",
+      "sha256": "41c701479dbac36c5b87a00e50f994824b9f70d7357c7816f34d3790f4d32237"
+    },
+    {
+      "page": 13,
+      "path": "evidence/page-13.png",
+      "sha256": "211f1f330b531e7b7d0e242db1c4b783fa2ebdbc5674882d017e51a2c369be04"
+    },
+    {
+      "page": 14,
+      "path": "evidence/page-14.png",
+      "sha256": "5ee2ed5835860f1640f6373b114d6b6366f9f326f60a2cf8eadf69a21294305d"
+    },
+    {
+      "page": 15,
+      "path": "evidence/page-15.png",
+      "sha256": "39fca1e09a6574c38e6141ce627b09dd54db6c6567fc838210db252f37b85379"
+    },
+    {
+      "page": 16,
+      "path": "evidence/page-16.png",
+      "sha256": "b7f6e6243253f6161109d5d69a27e590918bbcf55864d5133027962e6a20cfd5"
+    },
+    {
+      "page": 17,
+      "path": "evidence/page-17.png",
+      "sha256": "9054718b44e5c28bd719f56c2e6c1853b85a9643e188e88626ce330f60475c43"
+    },
+    {
+      "page": 18,
+      "path": "evidence/page-18.png",
+      "sha256": "82a521839cd795c94e2dc812d5074195e4d6e12736d0374c97cb5285b3ffe68e"
+    },
+    {
+      "page": 25,
+      "path": "evidence/page-25.png",
+      "sha256": "679a97964d7c654fca4793e15fb3192472e0a7aadacfabd1341b15d4696cb5a4",
+      "before_main_text_end": true
+    }
+  ],
+  "review_limits": [
+    "Main-text source census; proofs are not certified.",
+    "Ambiguous source wording and domains are preserved with separate issue records."
+  ]
+}

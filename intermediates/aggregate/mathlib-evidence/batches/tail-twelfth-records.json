@@ -1,0 +1,299 @@
+[
+  {
+    "interface_id": "local-bb7aeb3ea878734303c4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "34e9934859c6176e5a74529f6d74937fd9a2f5b2e38ecf923da9feaa9587c6a4",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D18",
+        "comparison": "Reset the Xi_1 or Xi_2 block index to t minus the preceding stage endpoint on each left-open/right-closed stage interval. Sigma searches additional times s>=0 with Gamma>=b, whereas tau searches s>=1 with the stage-restarted product of likelihood ratios <=1/d; retain these non-strict tests despite the prose saying exceeds. An acceleration stage ends after sigma(b1); a detection stage ends after min(sigma(b2),tau), and a tie counts as successful detection. The final N is the first successful cycle, and T-tilde=S_(2N), not the first arbitrary stage endpoint. hittingAfter can express each relative-time crossing after constructing its process at the random stage start, but proving stopping/predictability requires the observed filtration and appropriate adaptedness, not access to the latent state. Nat.find can select N only after existence of a finite successful cycle is proved. The source does not fully define infinite stage endpoints or all zero-duration recursion cases; no arbitrary zero/default treatment or infinite-time arithmetic is inserted.",
+        "statement_sha256": "c6fbde02dc10b6292922990b2158f497955fcf6bf0a8d5c1739be165d68a82f3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.hittingAfter",
+          "type": "{Ω : Type u} → {β : Type v} → {ι : Type w} → [Preorder ι] → [InfSet ι] → (ι → Ω → β) → Set β → ι → Ω → WithTop ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.HittingTime",
+          "provides": "First entry into a target set at or after the initial index, with infinity assigned when no entry occurs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/HittingTime.lean#L65-L67",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.IsStoppingTime",
+          "type": "{Ω : Type u} → {ι : Type v} → {m : MeasurableSpace Ω} → [Preorder ι] → MeasureTheory.Filtration ι m → (Ω → WithTop ι) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Process.Stopping",
+          "provides": "Stopping-time predicate using measurable events {tau≤i}, with an explicit possible infinite stopping value.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Process/Stopping.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "Nat.find",
+          "type": "{p : ℕ → Prop} → [DecidablePred p] → (∃ n, p n) → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Nat.Find",
+          "provides": "Least natural number satisfying a decidable predicate, requiring a proof that some satisfying index exists.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Nat/Find.lean#L67-L68",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search cyclic assignment, acceleration stage and change detection in Probability/Analysis; inspect Process/HittingTime.lean 62-67, Process/Stopping.lean 73-77 and Nat/Find.lean 64-71 against the archived sigma/tau and block definitions.",
+          "result": "Discrete hitting times and stopping-time predicates supply crossing primitives; no complete alternating acceleration/detection policy with these resets and ties was located."
+        }
+      ],
+      "gap": "Hitting-time primitives are available, but the cyclic stage recursion, predictable assignment and final detection rule require the source’s reset, tie and infinite-time conventions."
+    }
+  },
+  {
+    "interface_id": "local-d8f588f615729dc08784",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "481b44c4b9afe2c94bb7b56359e429ec2d72f05bf4443fd7090b491081d5661c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1050",
+        "local_id": "D19",
+        "comparison": "Only in the first acceleration stage, use the fixed list z_0(t) for 1<=t<=min(t0,S1); if t0<t<=S1, use Xi_1(t-t0), so the block restarts at index one immediately after the prefix. Later acceleration cycles use the original D18 rule and do not repeat z_0. If S1<t0, the unused prefix is discarded; t0=0 makes the prefix empty and leaves the original first-stage block. The first-stage endpoint remains governed by the posterior-odds crossing under this modified assignment history, not a precomputed S1 from a different policy. Set.piecewise evaluates a selected branch but does not establish the policy’s predictability or fill the recorded infinite-stage and zero-duration conventions. The prescribed prefix is deterministic; no randomized assignment class is added.",
+        "statement_sha256": "d50fafffeeba45595dca1cc3a73363035fccab0ea71e0326d66ba9a354cd2ba2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.piecewise_eq_of_mem",
+          "type": "∀ {α : Type u} {δ : α → Sort v} (s : Set α) (f g : ∀ i, δ i) [∀ j, Decidable (j ∈ s)] {i : α}, i ∈ s → s.piecewise f g i = f i",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Set.Piecewise",
+          "provides": "Evaluates the selected branch of a set-based piecewise function, preserving the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Set/Piecewise.lean#L52-L53",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search cyclic/adaptive treatment assignment in the pinned Probability source; inspect Set/Piecewise.lean 51-57 against equation (11), the initial-stage restriction and positive-length cyclic block convention.",
+          "result": "A piecewise function expresses the finite deterministic prefix and restarted block. No adaptive initial-stage modification with the paper’s stopping dependence was located."
+        }
+      ],
+      "gap": "Piecewise functions are available, but the prefix modification must be integrated with the first-stage endpoint and the unchanged later cyclic policy."
+    }
+  },
+  {
+    "interface_id": "local-1ac3515fec0359ad24f3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "3f6d83888cb2df31081f778f856e3492e8bd0c4f7de02387a989721f62698c93",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2931",
+        "local_id": "D37",
+        "comparison": "Build Z_k from gradient minus its client-specific trailing-r3 gradient mean, outer-multiplied by the local iterate minus the common grand temporal/client mean at T-1. Its main sum ends at T-r3, whereas V_k sums the centered self outer products through T. Aggregate Z with K times the client weights w_k and B(T-r3,r1,alpha); aggregate V without those weights or K and with B(T,r1,alpha). Preserve the right multiplication Z V^-1, which is generally different from V^-1 Z and need not be symmetric. The scalar B is the reciprocal of a difference of reciprocals of C, not an inverse matrix. Its time/alpha domain and the recorded r1+r2+r3 and integer-rounding inconsistency must be resolved for an executable estimator. Matrix.mul_nonsing_inv requires nonsingular V; mathlib’s zero singular inverse is not a statistical convention. The later eigenvalue clipping option has its own interval/limit-spectrum qualification and is not silently substituted into this original formula.",
+        "statement_sha256": "c4c5be99938f34704dae3985a86465f74f0626b7705092836db732bbfe6285fe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.vecMulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [Mul α] → (m → α) → (n → α) → Matrix m n α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "The outer-product matrix with entry w i * v j; integrating the self outer product gives an uncentered second-moment matrix when its entries are integrable.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L616-L617",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_apply",
+          "type": "∀ {l : Type u} {m : Type v} {n : Type w} {α : Type z} [Fintype m] [Mul α] [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n}, (M * N) i k = ∑ j, M i j * N j k",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Entrywise finite-sum formula for matrix multiplication, including a rectangular factor product with a transposed second factor.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L298-L300",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search regression Hessian and Hessian estimator terminology in Analysis/Probability/LinearAlgebra; inspect Matrix/Mul.lean 298-300,616-617 and NonsingularInverse.lean 209-213 against the complete Z,V,C and segmentation formulas.",
+          "result": "Outer products, matrix multiplication and a determinant-qualified inverse express the estimator components; no federated regression Hessian estimator with these normalizations was located."
+        }
+      ],
+      "gap": "Matrix primitives are available, but the weighted regression Hessian construction needs its distinct time windows, scalar normalizations and valid matrix-inverse conditions."
+    }
+  },
+  {
+    "interface_id": "local-8728351b0e147b35f621",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "7a2c5009758f5eefeb9c89c4d938fbd9258a4a613f1204c350c940241524e1ee",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1334",
+        "local_id": "D16",
+        "comparison": "Retain zeta=1/(M^2 q), x_i=(i-1)zeta and d=ceil(M(pq)^(1/4)/zeta), with one-based i=1,...,d. The last grid point is (d-1)zeta; do not append an endpoint or add one to d to make a different closed-interval grid. The source calls the upper endpoint b(pq)^(1/4), with b undefined, whereas d uses M. Preserve that mismatch rather than set b=M. Define the K-by-d matrix entry as x_j^(2i), with i=1,...,K, so its first row is the second moment and there is no implicit zeroth-moment row. Use nonnegative parameter and positive-spacing hypotheses before converting the integer ceiling to a natural finite dimension. The subsequent normalized-moment vector and second rescaling of quantiles conflict with this physical-grid presentation; mathlib’s arithmetic cannot select the intended normalization.",
+        "statement_sha256": "e7a2e5d3461af1336eb37eec77e2677f2d8cd65b814131196517bc58e6c52be4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.ceil",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "Smallest integer greater than or equal to the supplied value; equality stays at that integer rather than increasing it.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L252-L253",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search moment-matching grid and singular-value estimation terminology in Probability/Analysis/LinearAlgebra; inspect Floor/Defs.lean 251-253 and Pow/Real.lean 31-36 against the printed grid and matrix indices.",
+          "result": "Ceiling and real powers express the scale/cardinality, while matrix entries are finite even powers. No estimator grid resolving the source’s endpoint and scaling discrepancies was located."
+        }
+      ],
+      "gap": "Ceilings and powers are available, but the grid’s undefined endpoint constant and physical-versus-normalized scale must remain explicit source issues."
+    }
+  },
+  {
+    "interface_id": "local-1a834845c96ff01e40ce",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "03fb939d956d65d2f6cba655afa47786c619e4b4555aa5c0b3bb56a238fb76ea",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1334",
+        "local_id": "D17",
+        "comparison": "The objective is the entrywise l1 norm of Vp-Uhat, not an l2 fit; it can be represented by finite absolute-value sums or an equivalent epigraph linear program. Enforce sum p=1 and componentwise strict p>0, not the closed simplex p>=0. IsMinOn alone omits feasibility of the optimizing point, and compact-simplex existence arguments do not apply automatically to this open domain. Convert an actually selected positive real weight vector to nonnegative extended masses for PMF.ofFintype, proving the sum-one identity; this does not supply optimizer existence, uniqueness, tie handling or measurability. The preceding text defines mhat but the displayed program uses undefined Uhat, and the source proof later uses mhat. Retain that unresolved alias and grid normalization conflict rather than equate the targets or permit zero weights merely to match the proof.",
+        "statement_sha256": "b995853768e98d3012b6e898c2499524d80c7d40b21f52f69547b64c3dc049a7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMinOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A point has value at most every value on the set; membership of that point in the set and uniqueness must be required separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L110-L111",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.ofFintype",
+          "type": "{α : Type u} → [Fintype α] → (f : α → ℝ≥0∞) → (∑ a, f a = 1) → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProbabilityMassFunction.Constructions",
+          "provides": "A probability mass function on a finite type from nonnegative masses summing to one; does not require uniform masses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProbabilityMassFunction/Constructions.lean#L204-L205",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search moment matching, finite-distribution optimization and singular-value estimators in Mathlib; inspect IsMinOn 109-111, PMF/ofFintype 203-205 and finite dot products against the strict-simplex program.",
+          "result": "Constrained optimality and a finite probability mass function can express a chosen feasible solution. No existence/selection theorem for the displayed open-simplex fit or resolution of its undefined target vector was located."
+        }
+      ],
+      "gap": "Optimization and finite distributions are available, but the strict-simplex fit needs a defined target vector and an attained, selected optimizer before its weights can be used."
+    }
+  },
+  {
+    "interface_id": "local-a22b09f8a792b9983c1f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T18:18:56.531895+00:00",
+    "source_interface_sha256": "d572c0c1234cbad410099a0c8829d78689e202022d7fa34694fc9b0b90524659",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1334",
+        "local_id": "D18",
+        "comparison": "For i=1,...,q, find the smallest grid value x_j whose cumulative mass through j is at least i/(q+1), retaining the weak threshold and multiplying once by the printed M(qp)^(1/4). For valid nonnegative masses summing to one, q>=1 and a nonempty grid, the final cumulative mass guarantees a qualifying point since i/(q+1)<1. This is a discrete left quantile, with no interpolation or arbitrary selection among equal cumulative levels; min' applies once candidate nonemptiness is proved. The estimates increase with i, while the source orders the true singular values decreasingly; do not reverse a sequence inside the original estimator to fix the coordinatewise bound. The grid is already written at the physical scale although the moments are normalized, so this extra rescaling remains a source inconsistency. A PMF describes weights only after the unresolved strict-simplex optimizer and target-vector issues are resolved.",
+        "statement_sha256": "3f932b3d3d096112297718a6c4b97f220201ea3d639ec734221206dfbec3cad1"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.min'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Minimum of a nonempty finite set in its original ordered type; a proof of nonemptiness is required.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L131-L136",
+          "link_checked": true
+        },
+        {
+          "name": "PMF.ofFintype",
+          "type": "{α : Type u} → [Fintype α] → (f : α → ℝ≥0∞) → (∑ a, f a = 1) → PMF α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ProbabilityMassFunction.Constructions",
+          "provides": "A probability mass function on a finite type from nonnegative masses summing to one; does not require uniform masses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ProbabilityMassFunction/Constructions.lean#L204-L205",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search discrete quantile and singular-value estimator patterns in Probability/MeasureTheory; inspect generated Finset.min' 131-136, PMF/ofFintype 203-205 and real powers against the exact cumulative threshold formula.",
+          "result": "Finite masses and a nonempty finite minimum implement the discrete quantile after a valid optimizer and grid are supplied; no matching complete spectral estimator was located."
+        }
+      ],
+      "gap": "Finite quantile ingredients are available, but the rescaled singular-value estimates retain the source’s grid-normalization and opposite-ordering issues."
+    }
+  }
+]

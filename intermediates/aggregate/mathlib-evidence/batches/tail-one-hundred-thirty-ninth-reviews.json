@@ -1,0 +1,181 @@
+{
+  "scope": "Manual review of all twenty-one remaining p1227 interfaces, including the two paired selection families, with arbitrary target universes and source-noted measurability, quantile and selection conventions preserved.",
+  "rows": [
+    {
+      "interface_id": "local-62b37145eed32833518f",
+      "related": [], "status": "no_verified_match",
+      "no_related_reason": "The inspected probability modules contain no specialized statistical-model/indexed-estimand interface; ordinary Lean families and function types can state the data, but no substantive matching declaration was verified.",
+      "query": "Searched Probability for statistical-model, selective-inference and confidence-region declarations and inspected HasLaw and set-family primitives for scope.",
+      "result": "Law-equality primitives do not bundle this arbitrary model and target family, and imposing a parametric kernel would add structure absent from the source.",
+      "gap": "Define the possibly nonparametric model class and its indexed estimand maps with the general target universe and codomains required by the subsequent regions.",
+      "comparisons": {"D1": "The data are a class P of probability distributions and, for every gamma in Gamma, a map P to theta_gamma(P). Gamma is not required finite or countable, and the model is not restricted to a finite-dimensional parameterization, location family or regression experiment. A family of arbitrary functions suffices to state this setup, but selecting a common measurable parameter space or law kernel would require additional justified structure."}
+    },
+    {
+      "interface_id": "local-fcc8903536e4e93071f2",
+      "related": [], "status": "no_verified_match",
+      "no_related_reason": "No specialized data-dependent target-selection interface was found in the inspected statistical/probability modules; generic set-valued functions do not supply the source's measurable selection and inference semantics.",
+      "query": "Searched Probability for selective-inference and plausible-target interfaces; compared the frozen selector and single-target convention with general set-family primitives.",
+      "result": "A data-to-subset function represents the selector syntactically, while random-set measurability and the selected inference problem require a separate formal interface.",
+      "gap": "Define the data-dependent target selector and singleton specialization without restricting the target universe or assuming unproved random-set measurability.",
+      "comparisons": {"D2": "Gamma_hat(y) is a subset of Gamma depending on the same observed y used for inference, and a single selected target is represented by the singleton {gamma_hat(y)}. The selected objects are estimands theta_gamma, not necessarily coordinates of y; no independence between selection and inference or conditioning on the selection event is assumed. The source leaves measurable structure for general selected sets unresolved, so do not replace this by a finite-valued selector merely to avoid that obligation."}
+    },
+    {
+      "interface_id": "local-f59b047f6c141c2df3eb",
+      "related": ["MeasureTheory.Measure.real"],
+      "query": "Inspected real event probability and compared the frozen acceptance inequality and its recorded prose-level discrepancy.",
+      "result": "The acceptance probability bound is a standard probability predicate; construction and measurability of the family of valid acceptance regions are separate requirements.",
+      "gap": "Supply measurable acceptance sets for every model law and nu in (0,1) with the exact probability-at-least-one-minus-nu bound.",
+      "comparisons": {"D5": "For each fixed P require P.real(A_nu(P))>=1-nu for a prespecified nu in (0,1); probability measures make real event probabilities finite. The displayed inequality gives rejection probability at most nu, while the prose calls the test level 1-nu; preserve that mismatch rather than reverse the bound. A valid acceptance family is assumed, not constructed by a generic measure definition, and its dependence on P is not a data-dependent selection of the true law."}
+    },
+    {
+      "interface_id": "local-d60a222f51f04c88fef6",
+      "related": ["MeasureTheory.Measure.real"],
+      "query": "Inspected event probability and compared the frozen inversion with the acceptance-set definition.",
+      "result": "For each fixed P, membership in the inverted region is the same event as acceptance; no specialized inversion interface was found.",
+      "gap": "Define the random distribution-valued confidence set and prove its fixed-law coverage using the acceptance event, with the model membership explicit.",
+      "comparisons": {"D7": "B_nu(y)={P in model:y in A_nu(P)} is a set of probability laws, not a posterior distribution or a target-coordinate confidence interval. For a true P in the model, P in B_nu(y) iff y in A_nu(P), so the original event bound yields coverage after measurability is established. Joint random-set measurability over an arbitrary model is not supplied by this pointwise equivalence, and the region may contain many laws or be empty on other outcomes."}
+    },
+    {
+      "interface_id": "local-4ccf105df410deecd92b",
+      "related": ["Set.mem_iUnion₂"],
+      "query": "Inspected doubly indexed union membership and compared the frozen fixed-P plausible-target construction.",
+      "result": "Bounded union membership expresses selection under some accepted hypothetical dataset; the resulting set is fixed when P and nu are fixed.",
+      "gap": "Assemble the union of selected targets over all datasets accepted under the fixed law, preserving its potentially infinite scope.",
+      "comparisons": {"D6": "Gamma_nu(P) contains gamma exactly when some y' in A_nu(P) has gamma in Gamma_hat(y'); Set.mem_iUnion₂ handles the dataset and membership-proof indices of that bounded union. This is not the realized Gamma_hat(y), a random draw of plausible targets, or an intersection over accepted datasets. It remains fixed under repeated observations at fixed P, and arbitrary unions do not automatically carry a usable measurable random-set structure for later inversions."}
+    },
+    {
+      "interface_id": "local-7a11d7b6783693d4c1e9",
+      "related": ["Set.pi", "MeasureTheory.Measure.real"],
+      "query": "Inspected restricted dependent-product membership and real event probabilities; compared every fixed-subset quantifier in the frozen simultaneous coverage family.",
+      "result": "The all-targets event can be stated using membership in a restricted product of regions, but coverage for each deterministic subset is not automatically valid at a selected random subset.",
+      "gap": "Define measurable simultaneous-coverage events for every fixed target subset and impose their one-minus-alpha bounds without assuming post-selection validity.",
+      "comparisons": {"D3": "For fixed Gamma' and data y, theta(P) lies in Set.pi Gamma' (fun gamma => C_gamma.Gamma'(y)) precisely when all gamma in Gamma' are covered. Require this event's probability >=1-alpha for each fixed subset, with the region family allowed to depend on alpha and P as scoped by the source. The source permits uncountable Gamma', so measurability of the simultaneous event is not automatic; no finite restriction, union-bound construction or validity conditional on a chosen random subset is inserted."}
+    },
+    {
+      "interface_id": "local-79f5fb7b6c204eba63ed",
+      "related": ["MonotoneOn"],
+      "query": "Inspected MonotoneOn under set-inclusion orders and compared the exact source monotonicity quantifiers.",
+      "result": "For a fixed target and data realization, monotonicity on the subsets containing that target expresses the required inclusion property.",
+      "gap": "Impose pathwise inclusion monotonicity of the region family on target-containing subsets, keeping it distinct from probability or error-level monotonicity.",
+      "comparisons": {"D4": "For each gamma and outcome y, use MonotoneOn (fun S => C_gamma.S(y)) on {S:gamma in S and S subset Gamma}, with source and target orders both set inclusion. Thus Gamma1 subset Gamma2 and gamma in Gamma1 imply C_gamma.Gamma1 subset C_gamma.Gamma2. The condition concerns sets of parameter values at the same data, not just increasing coverage probabilities or a stochastic-order comparison; it is also separate from q being nonincreasing in alpha."}
+    },
+    {
+      "interface_id": "local-3c29581d953f232dcae7",
+      "related": ["Set.pi", "MeasureTheory.Measure.real"],
+      "query": "Inspected simultaneous set-product membership and coverage probabilities; compared the frozen centered interval form and endpoint/scale notes.",
+      "result": "The region form and its joint coverage can be represented, but the critical factor, standard-error domain and interval endpoints require source-compatible conventions.",
+      "gap": "Define the centered interval family and calibrate each fixed subset's simultaneous factor while retaining unspecified endpoint and zero-standard-error conventions.",
+      "comparisons": {"D9": "The estimator theta_hat_gamma and scale sigma_hat_gamma are target-specific, while q_Gamma'^alpha is shared across targets in the chosen subset; the displayed regions are center plus/minus q times scale. Their simultaneous coverage is an assumption on this family, not a result of the centered form, and no Gaussian distribution is required. Preserve the printed lowercase gamma-prime family-index typo and avoid silently taking absolute widths, forcing positive standard errors or choosing open endpoints that could change discrete boundary coverage."}
+    },
+    {
+      "interface_id": "local-b3cf05f7748480f02d45",
+      "related": ["IsMinOn", "Finset.sum_apply", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"],
+      "query": "Inspected minimizer predicates, finite sums and iid laws; compared the entire frozen empirical-risk selection definition and source loss conventions.",
+      "result": "The empirical objective is a finite average, but a selected empirical minimizer needs attainment and measurability beyond IsMinOn.",
+      "gap": "Construct the iid empirical-risk experiment and a measurable minimizer in the hypothesis class, with the source's actual loss domain and argument order.",
+      "comparisons": {"D31": "Use n positive iid observations z_i from P and R_n(f,D)=n^-1 sum_i ell(f,z_i), retaining observations by index rather than deduplicating identical sample values. State f_hat in F and IsMinOn R_n F f_hat, since the predicate alone omits membership and does not establish existence, uniqueness or a measurable selection. The classification example reverses the displayed argument order of ell; keep the intended loss convention explicit. The later theorem allows absolute loss at most one, including signed losses, so nonnegative average-decision-risk machinery cannot be substituted without a shift argument."}
+    },
+    {
+      "interface_id": "local-268a07c3548c72836d8f",
+      "related": ["ProbabilityTheory.HasLaw", "MeasureTheory.Measure.map", "MeasureTheory.integral"],
+      "query": "Inspected law equality, pushforward and expectation; compared the frozen fixed-design location model with the distinct coordinate-selection location model.",
+      "result": "Translation of a mean-zero error law represents this location family; the fixed design and unrestricted error dependence are separate data.",
+      "gap": "Define the fixed-design translated outcome law with mean-zero errors without importing Gaussianity or symmetric-identical marginals from another section.",
+      "comparisons": {"D20": "X is a fixed n by d design matrix, and y under P_mu has the same law as mu+Z for a mean-zero n-vector Z under P0. HasLaw or the pushforward of P0 by translation supplies the distributional relation after measurability. The model does not require mu=X beta, independent coordinates or the common symmetric marginal assumption of Section 3; those stronger conditions are not inherited by the contrast-quantile/LASSO application."}
+    },
+    {
+      "interface_id": "local-ac60b9d3466cc6760f4f",
+      "related": ["csSup_le_iff", "csInf_le", "MeasureTheory.Measure.real"],
+      "query": "Inspected supremum/infimum domain conditions and event probability; compared the frozen supremum-of-contrasts quantile.",
+      "result": "The tail threshold is definable through an infimum, but an infinite contrast family needs a measurable, finite or extended-valued supremum and a valid quantile domain.",
+      "gap": "Construct the supremum-of-absolute-contrasts law and its upper coverage threshold with explicit empty-set, boundedness and measurability conventions.",
+      "comparisons": {"D21": "For Z under the fixed-design error law P0 use sup_(v in V)|v^T Z| and inf over q with probability of the closed sublevel event >=1-alpha. Contrasts need not be coordinate basis vectors or unit normalized by this definition. A real supremum requires nonempty bounded-above values; unbounded or empty V and measurability of an uncountable supremum are not settled by csSup_le_iff. Establish the threshold set and its boundary attainment before treating the infimum as a valid calibrated quantile, and do not replace it by the coordinate maximum quantile from Section 3."}
+    },
+    {
+      "interface_id": "local-ef837f1f03f157d9fd35",
+      "related": ["MeasureTheory.integral", "csSup_le_iff"],
+      "query": "Searched empirical-risk/generalization-gap interfaces; inspected integration and real-supremum conditions and compared D33 with optional Rademacher passage A7.",
+      "result": "The expected uniform deviation can be represented after measurability and boundedness; Gap_n is any valid bound, not necessarily a specific complexity functional.",
+      "gap": "Define a bound functional on hypothesis classes that dominates the expected uniform deviation and specify its meaning and measurability when evaluated on the source's random class.",
+      "comparisons": {"D33": "Gap_n(F) is a number at least E sup_(f in F)|R(f,P)-R_n(f,D)|, with R the population expected loss. It need not equal that expectation or twice Rademacher complexity, which is only an example. Under the theorem's absolute loss bound, each deviation is bounded, but an arbitrary class supremum still has a measurability obligation and an empty class needs a convention. Substituting a random plausible subclass does not automatically give a measurable or monotone bound functional, nor does this definition make a data-dependent empirical complexity bound valid without further proof."}
+    },
+    {
+      "interface_id": "local-fad1711b5134215f3cd6",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "MeasureTheory.integral", "Set.pi"],
+      "query": "Inspected iid-family and mean definitions and coordinate-product sets; compared the frozen bounded-vector observation model.",
+      "result": "Iid vector observations supported in a cube and their coordinate means are expressible without imposing independence among coordinates.",
+      "gap": "Construct the iid bounded-vector sample law and its mean vector, preserving arbitrary within-vector dependence.",
+      "comparisons": {"D15": "The independent sampling index is j=1..n for full m-vectors y^(j), each with the same law P supported on [0,1]^m; Set.pi expresses the cube coordinate constraints. theta_gamma=E y_gamma^(1) is finite from bounded support and probability mass after measurability. Do not model all n*m scalar entries as iid, use independent candidate laws, or import the earlier additive location-error distribution."}
+    },
+    {
+      "interface_id": "threshold-selected-mean-targets",
+      "related": ["Set.indicator", "Finset.sum_apply"],
+      "query": "Inspected threshold indicators and finite average coordinates; compared both frozen threshold-selection members and the equality/empty-selection note.",
+      "result": "Both variants select a finite index subset by a closed threshold, but one thresholds a single observed coordinate and the other its sample mean.",
+      "gap": "Define each threshold selector on its own observation summary, including equality and possible empty selections without adding missing downstream empty-set conventions.",
+      "comparisons": {
+        "D13": "Select gamma in [m] with y_gamma>=T from the single location-model vector; the prose says exceeds but the formula includes equality. The selected parameters are the corresponding population means, not observed values, and the selector may be empty.",
+        "D17": "Select gamma in [m] with n^-1 sum_(j=1..n)y_gamma^(j)>=T from the iid bounded-vector sample. Preserve sample-index multiplicities and within-vector dependence, and require positive n for the average. This is the same threshold pattern on a different summary, not the single-observation experiment; vacuous coverage when empty does not define the later quantile maximum or plausible-set-cardinality division."
+      }
+    },
+    {
+      "interface_id": "largest-observed-coordinate-target",
+      "related": ["IsMaxOn", "Finset.sum_apply"],
+      "query": "Inspected IsMaxOn and finite coordinate sums; compared both winner-selection definitions and the single-argmax source convention.",
+      "result": "Maximization of a finite vector or its empirical mean is representable, while a chosen winning index and its measurability require a tie convention.",
+      "gap": "Construct a selected maximizing index for each observation model with an explicit measurable tie rule while preserving inference on its population mean.",
+      "comparisons": {
+        "D12": "Choose gamma_hat in [m] satisfying IsMaxOn (fun gamma => y_gamma) [m] gamma_hat for the single observed location vector. Membership and nonempty m are needed in addition to the predicate; finite attainment does not choose among ties. The inferential target is theta_gamma_hat=E y_gamma_hat with the index selected after observing y, not the largest population mean or E[max y].",
+        "D16": "Choose a maximizing coordinate of n^-1 sum_j y^(j) with positive n and nonempty m, preserving the bounded-vector sampling model. Finset.sum_apply supports the coordinate average and IsMaxOn the maximality comparison, but the source's single argmax leaves ties unresolved. This is not maximization over individual sample observations, nor a guarantee that the winning empirical coordinate has the largest population mean."
+      }
+    },
+    {
+      "interface_id": "local-1bb3d8575daed6993ffb",
+      "related": ["MeasureTheory.Measure.real"],
+      "query": "Inspected real probability of events and compared the frozen marginal-region requirement with the bounded-vector theorem context.",
+      "result": "Each target's marginal coverage is a standard event bound; it does not assert joint coverage or a particular interval construction.",
+      "gap": "Supply measurable marginal confidence regions at the stated level and keep later nesting and multiple-comparison conditions separate.",
+      "comparisons": {"D19": "For every fixed gamma require probability that theta_gamma belongs to C_gamma^alpha at least 1-alpha. The source permits any valid construction, not only a sample mean plus a Hoeffding width, and does not obtain simultaneous coverage of all gamma by this definition. Theorem 4's nesting in the error level is an additional stated condition; marginal validity cannot be evaluated at a data-dependent error level without the theorem's separate argument."}
+    },
+    {
+      "interface_id": "local-e3406887fb8bb72367e0",
+      "related": ["MonotoneOn", "MeasureTheory.Measure.real"],
+      "query": "Inspected monotonicity on ordered domains and real event probability; compared the frozen correction-indexed interval map and alpha direction.",
+      "result": "The centered interval map and antitone-in-alpha calibration can be represented, but valid simultaneous correction and width conventions require separate specification.",
+      "gap": "Define the correction-indexed interval map and valid subset calibration with nonincreasing alpha dependence and source-compatible endpoint/scale conventions.",
+      "comparisons": {"D10": "C_gamma(q) uses the same center theta_hat_gamma and scale sigma_hat_gamma at every q; C_gamma.Gamma' is obtained by q_Gamma'^alpha and must satisfy fixed-subset simultaneous coverage. Nonincreasing in alpha means alpha1<=alpha2 implies q^alpha2<=q^alpha1, expressible via MonotoneOn into an order dual. This error-level condition is distinct from region inclusion as the target subset grows, and nonnegative widths, zero scale behavior and open/closed endpoints are not resolved by the notation alone."}
+    },
+    {
+      "interface_id": "local-4d007c7f13c22288b8bd",
+      "related": ["ProbabilityTheory.HasLaw", "ProbabilityTheory.IdentDistrib", "MeasureTheory.Measure.map", "MeasureTheory.integral"],
+      "query": "Inspected translated laws, equality in distribution and mean integrals; compared the complete coordinate-selection location model.",
+      "result": "Translation and common marginal laws are standard probability ingredients; the source explicitly retains dependence among the coordinate errors.",
+      "gap": "Construct the location family with common symmetric mean-zero marginal errors while preserving its arbitrary joint dependence.",
+      "comparisons": {"D11": "Under P_mu, y has the law of mu+Z for Z under P0; coordinate marginals share a symmetric zero-mean law P0^(1), with Gaussian errors only an example. Symmetry can be stated as equality in law of Z_i and -Z_i, and common marginals through IdentDistrib, with integrability for the mean. These facts do not imply coordinate independence or a product P0, and they must not be transferred to the later fixed-design mean-zero-only model."}
+    },
+    {
+      "interface_id": "local-59f5c414b046fe475cb7",
+      "related": ["ProbabilityTheory.cdf", "csInf_le", "MeasureTheory.Measure.real"],
+      "query": "Inspected CDF, real infimum conditions and event probabilities; compared the frozen maximum-absolute-coordinate quantile and empty-index convention.",
+      "result": "For a nonempty finite index set, the maximum error is a real random variable whose lower inverse CDF gives the stated threshold after the usual quantile argument.",
+      "gap": "Construct the coordinate-maximum quantile with valid threshold attainment and an explicit empty-index convention, retaining the joint error law.",
+      "comparisons": {"D14": "Use max_(i in I)|Z_i| under P0 and inf over real q for which its closed-sublevel probability is at least 1-alpha. Finite nonempty I makes the maximum well-defined, but empty I is not assigned a value by the source. The CDF is right-continuous and can support the quantile coverage argument for ordinary alpha once the threshold set is nonempty and bounded below; a real sInf without these conditions is not a valid quantile. Dependence among Z_i matters to the distribution, so no independent-coordinate factorization is assumed."}
+    },
+    {
+      "interface_id": "local-0a917c54844a4c2dead5",
+      "related": ["Set.mem_iUnion₂"],
+      "query": "Inspected iterated union membership and compared both frozen forms of the augmented target set with D5-D7.",
+      "result": "Nested bounded unions give the exact existence-based augmented target set; they do not by themselves establish measurability or the final selective coverage theorem.",
+      "gap": "Construct the observed-data augmented target set by the two nested unions and verify its set identities and measurable use in the general inference procedure.",
+      "comparisons": {"D8": "Gamma_hat_plus_nu(y) contains a target if some P' in B_nu(y) and some y' in A_nu(P') select it; equivalently both y and y' are accepted under that P'. Use Set.mem_iUnion₂ repeatedly to expand the constrained unions. This differs from the fixed Gamma_nu(P), the realized Gamma_hat(y), an intersection over plausible laws, or a posterior-weighted target set. Arbitrary model and target universes remain allowed, so joint measurability is not supplied by the membership equivalence."}
+    },
+    {
+      "interface_id": "local-dfef236eeef335756921",
+      "related": ["ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib", "MeasureTheory.Measure.real", "Finset.sum_apply"],
+      "query": "Inspected iid laws, finite averaging and event probability; compared the frozen generic bounded-mean deviation guarantee.",
+      "result": "The stated interval coverage is expressible for bounded iid scalar observations, but the definition assumes any valid width rather than a fixed concentration formula.",
+      "gap": "Specify a valid bounded-mean deviation width with its probability and endpoint conventions, without forcing a particular concentration inequality.",
+      "comparisons": {"D18": "For positive n and iid X_i in [0,1], require E X_1 to belong to the sample average plus/minus w_n^alpha with probability at least 1-alpha. Boundedness supplies finite means after measurability, but iIndepFun/IdentDistrib alone do not establish a numerical width. Preserve the generic valid-bound role and unspecified interval endpoints; no Hoeffding constant, Gaussian standard error or coordinate-independence assumption from the vector application is introduced."}
+    }
+  ]
+}

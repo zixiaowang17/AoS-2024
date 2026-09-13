@@ -1,0 +1,470 @@
+[
+  {
+    "interface_id": "local-ee88b5c894d5c1747323",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "7c41efd63be17579a323493442f591d2ff4d352f2d1b7bd2bc255e71c18812f9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D8",
+        "comparison": "Use Set.indicator of {t | t>tau_i} applied to the constant jump function, preserving the strict breakpoint inequality. Average X_it and epsilon_it over all N subjects with N>0, without introducing subject independence. Page 6 defines nu_it first but prints sum_i nu_i for nu-tilde_t; D8 now preserves nu_i exactly after the source amendment. The identity X-tilde_t=nu-tilde_t+epsilon-tilde_t follows from finite linearity only after the intended mean summand is clarified, not from silently replacing its source subscript.",
+        "statement_sha256": "a1ebec37e710f77b235621cfd4eeceefe2929cec92e8a85cf852c711a6f5b033"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The indicator gives the post-break jump and finite sums give the subject averages; evaluating their function-valued sums commutes with finite summation. The corrected original passage uses nu_i inside the average defining nu-tilde_t, so the generic linearity identities do not resolve that notation."
+        }
+      ],
+      "gap": "Define the finite subject averages and retain the printed nu_i versus nu_it ambiguity in the asserted mean decomposition."
+    }
+  },
+  {
+    "interface_id": "local-43f0f02004b8321dcff4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "50d9bca66427aed1283d6935e85c4af345a597b48b7af23465eae29d90b08e77",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D10",
+        "comparison": "For x in [0,1], sum X_i,s over s=1,...,floor(T*x), using shifted indices in Finset.range after proving 0≤floor(T*x)≤T. Subtract floor(T*x)/T times the full subject sum and scale by 1/sqrt(T). Retain T>0 for division; do not replace floor(T*x)/T with x. The observations are functions on the bounded integration domain C, not complex scalar values, and the source Hilbert quotient convention remains separate.",
+        "statement_sha256": "20cf55e2175e6f081151a771e670fdae88b7338d2a4df55d9e99b9b510b53cc7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The integer floor, finite partial-sum recursion and square root implement the subject-level centered sum. These definitions have no built-in temporal or functional CUSUM object."
+        }
+      ],
+      "gap": "Assemble the subject CUSUM with the source floor-centering and prove it stays in the specified L2 space for positive T."
+    }
+  },
+  {
+    "interface_id": "local-6a5325ffdc1cc943e31d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "28745339697b6d0fc5c0d3445e28019040a2b83c77ba3cd5fb61a10ee9370a45",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D9",
+        "comparison": "Use averaged observations X-tilde_s, normalization sqrt(N/T), and floor(T*x)/T centering. The same floored index controls both terms, making the process constant between grid changes; a proof can reduce its [0,1] supremum to grid times t/T, t=1,...,T, including the zero endpoint through the nonnegative objective and positive T. Use the squared L2 quantity or measurable lintegral with finiteness before conversion to real. Do not change the normalization to the subject-level one or use the x-centered deterministic mean process from (3.9).",
+        "statement_sha256": "c1eed16deff7a862a821203982d9bb7417ddd18c24e80796fd6ea36fb100f9bc"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Int.floor",
+          "type": "{α : Type u} → [Ring α] → [LinearOrder α] → [FloorRing α] → α → ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Order.Floor.Defs",
+          "provides": "The greatest integer less than or equal to the supplied value, including negative values without natural-number truncation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Order/Floor/Defs.lean#L248-L249",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The floor and finite sums build the process; lintegral can express its nonnegative squared integral without suppressing divergence, and max-prime gives the finite grid maximum once the values are finite and T is positive."
+        }
+      ],
+      "gap": "Construct the aggregated CUSUM and prove its integrated-square supremum equals the printed finite-grid maximum."
+    }
+  },
+  {
+    "interface_id": "local-6d5d5a18eb04ef20a148",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "baa3cac95380ca195fa363dd5c9715422499cdad7ed5e09a906bde26f07c5609",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D12",
+        "comparison": "Equation (3.6) counts every subject for which sup_x integral Z_iT(x,u)^2 du is strictly greater than xi_NT, then multiplies by sqrt(max(N,T)). Use the constant-one Set.indicator of that exact event; it counts subjects, not the excess magnitude. Preserve strict >, which differs from the detected set’s ≥ boundary. Establish the CUSUM integral and finite-grid identification and retain the sufficiently-large-index domain of the log-log threshold. The definitions establish a nonnegative component but not the claimed asymptotic size or power properties.",
+        "statement_sha256": "6884c4f03df73377ea9977d637e36eb9a8cb2c8a7223f910a5a3fe6eae9c3641"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The scalar indicator retains the strict exceedance event, the nonnegative integral and finite maximum provide each subject criterion, and square root supplies the nonnegative scaling factor."
+        }
+      ],
+      "gap": "Build the strictly thresholded subject count from the CUSUM criteria with its prescribed sqrt(max(N,T)) scale."
+    }
+  },
+  {
+    "interface_id": "local-210228648bd30b09dd5f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "36939a294db9fb7a0c8a23dbc958a82a2cd82829fcaf14ce6ee1a5ef13bd86bd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D13",
+        "comparison": "Equation (3.7) adds Z_NT from (3.4) and Z-diamond_NT from (3.6), with no new scaling, maximum or threshold. Preserve the aggregate-CUSUM and strict-exceedance-count component definitions. This algebraic definition alone does not assert a rejection rule, quantile, null limit, or size-distortion theorem.",
+        "statement_sha256": "3f52b02abe39b68be2a40c08c768b8580d649d0b9442cbfbf7cd83b090893113"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The inspected APIs supply ingredients of the two component statistics; after those are defined, the displayed combined statistic is their ordinary scalar sum."
+        }
+      ],
+      "gap": "Once both paper-specific component statistics are defined, their sum requires only ordinary real addition."
+    }
+  },
+  {
+    "interface_id": "local-9a0db05acd91b56595b5",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "d658abd47ae7ca555783a36e87b88eed45656453b18414b7c250f3bab57078ae",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D7",
+        "comparison": "H0 requires delta_i=0 for every i=1,...,N, while HA requires at least one nonzero jump; for a family indexed by the finite subject type these are support empty and support nonempty. This is a population hypothesis, not the thresholded estimated set. If the Hilbert space is realized as L2 equivalence classes, zero means almost-everywhere zero; the source itself omits that quotient convention, so do not conflate it with pointwise equality of arbitrary representatives.",
+        "statement_sha256": "7a9ad530bc9da95dbf9b15b677ac67e2245c7df73db1a2c249afbbd4bf32fe0d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "Function.support on the subject-indexed jump family is the set where the jump is nonzero; empty versus nonempty support expresses the null/alternative."
+        }
+      ],
+      "gap": "Express the null and alternative through jump support after fixing the source function-space equality convention."
+    }
+  },
+  {
+    "interface_id": "local-837f312e6cc9b7a790ad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "a54884d67ccd3fc30ea588e0da691ae71430dbcee9ec5cbabf32083f4eb9f389",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D15",
+        "comparison": "Identify C-bullet with support of i↦delta_i and C-circle with its complement in the subject universe. Nonzero here concerns the entire jump function, not one evaluation point or a positive empirical statistic. These two sets form the true partition even before a detection procedure is specified. Retain the unresolved pointwise-versus-L2-equivalence interpretation from the source Hilbert-space setup rather than silently adding a stronger signal threshold.",
+        "statement_sha256": "5bfeb0414498c61ab6cd71c8696b401869f07d4f41b63e5e4be628e8d33946de"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.support",
+          "type": "{ι : Type u} → {M : Type v} → [Zero M] → (ι → M) → Set ι",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Support",
+          "provides": "The set of indices where a function is nonzero, including the exact coordinate support of a finite real vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Support.lean#L30-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "Function.support gives the true broken-subject set and its complement gives the zero-jump subjects, independently of all observed CUSUM values."
+        }
+      ],
+      "gap": "Define the true support partition of the finite jump family with the intended function-space zero convention."
+    }
+  },
+  {
+    "interface_id": "local-0151f0cce89e2a14d008",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "6fb68a1a017b4aa984aab45fdcdf15b2e9bb704f6719c28d52c217176a1b1435",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D16",
+        "comparison": "Use ≥xi_NT for C-hat-bullet and <xi_NT for C-hat-circle. The sets are complementary within all observed subject indices once each criterion is a real value. This convention differs at equality from the strictly-thresholded PE count. Neither the definition nor max-prime uses the true set C-bullet, and no finite-sample equality to it follows without the separate consistency theorem. Preserve the source threshold’s large-index domain and squared-L2/integrability requirements.",
+        "statement_sha256": "bf398a9a68ed90d412381c3cebdb55fa5b54c13a5ed8f4761d021bb334cf1e0a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "The finite maximum and squared integral provide the subject statistic after the grid reduction. Set comprehension with the ordinary real order then gives the two complementary threshold sets."
+        }
+      ],
+      "gap": "Construct the data-defined threshold partition, proving the CUSUM criterion is well-defined while retaining its non-strict detection boundary."
+    }
+  },
+  {
+    "interface_id": "local-20d4047d919ab695e14e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:28:47.674833+00:00",
+    "source_interface_sha256": "7f925221d1e7e0e10a8d32ea843b717603c64d8316190765226d5609766dceb3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1716",
+        "local_id": "D17",
+        "comparison": "Equation (4.1) maximizes the subject’s integrated squared CUSUM at t/T over integer times 1≤t≤T. Require candidate membership separately from IsMaxOn and T>0. It returns a time index, not the maximum objective value or normalized time t/T. The source defines tau-hat_i only for i in C-hat-bullet; do not extend it to missed true subjects or choose an earliest/latest maximizer without a stated convention. The separate theorem’s maximum over true broken subjects does not itself supply such an extension.",
+        "statement_sha256": "8cc300746e21ef83720637aadab26714beb85c69485af71d65e447668cc69063"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "IsMaxOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder β] → (α → β) → Set α → α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Filter.Extr",
+          "provides": "A candidate's objective value is at least every value on the set; membership, selection and uniqueness are separate requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Filter/Extr.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.lintegral",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Lebesgue.Basic",
+          "provides": "Extended nonnegative integral retaining infinite moments or squared-ratio integrals.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean#L48-L49",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved registered p1716 PDF, inspected pages 6–9 and all retained source notes; visually inspected page 6 and applied the separately validated D8 transcription correction. Searched CUSUM, change-point and power enhancement in pinned Probability (no matching named construction). Inspected Finset partial-sum recursion:535–538, Finset.sum_apply:44–47, Int.floor:245–249, Set.indicator:45–54, Finset.max-prime:127–142, IsMaxOn:98–115, Function.support:27–36 and lintegral:43–49; reused opened declaration links and the inspected square-root definition.",
+          "result": "IsMaxOn expresses objective maximality without membership; max-prime gives the largest finite value, not a selected time. A finite nonempty candidate set gives attainment only after objective well-definedness, with ties still possible."
+        }
+      ],
+      "gap": "Define a measurable selected maximizer over the source time grid for detected subjects, retaining unspecified ties and missed-subject cases."
+    }
+  }
+]

@@ -1,0 +1,416 @@
+[
+  {
+    "interface_id": "local-7c50d13f8e8f2c961b55",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "e6bb950a9e06a78e3f8f36c8df9e6925474e38d046b81db5fb7c7eb985b528eb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D13",
+        "comparison": "For nonzero empirical norm, nu_j=f-hat_j/||f-hat_j||_p-hat; for zero norm, nu_j lies in the empirical weighted unit ball of H_j. innerSL can represent a vector's supporting functional after placing the functions in the appropriate real weighted Hilbert space, and closedBall 0 1 represents its unit ball. Raw representatives with an empirical density can have zero seminorm without being pointwise zero; a quotient or nondegeneracy domain and coordinate-space membership must be justified. The penalty is sum_j of component norms, not the tuple L2 norm. Of the possible zero-component choices, only a stationarity-compatible nu satisfies (I+Pi-hat)f-hat=m-hat-Y-bar*1-lambda nu. Generic unit-ball membership alone is insufficient. A nonsmooth norm at zero is handled by a subgradient inequality, not an ordinary Frechet derivative of the penalized loss.",
+        "statement_sha256": "dac08b596a66e66c02ff180ed1c3d9191b577616a1d4b07961676c49676d43ba"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Metric.closedBall",
+          "type": "{α : Type u} → [PseudoMetricSpace α] → α → ℝ → Set α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs",
+          "provides": "All points at distance at most the given real radius from a center, including the boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L421-L422",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched subgradient, subderivative and group-Lasso interfaces; inspected continuous inner-product functionals, closed unit balls and weighted L2 norm ingredients against (2.13).",
+          "result": "Hilbert norm-supporting functionals and unit-ball choices have geometric ingredients, but the full penalty subgradient and compatible stationarity choice require proof."
+        }
+      ],
+      "gap": "Construct a penalty subgradient in the empirical weighted geometry and select it to satisfy the printed stationarity equation, especially at zero components."
+    }
+  },
+  {
+    "interface_id": "local-493f662944294d6bb14d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "3a265006573c408daf155d4ff1dc076bcde824ac9840d12524c3b6029fdc45cb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D28",
+        "comparison": "Retain f-hat^de=f-hat+lambda(I+Theta-hat)nu(f-hat), including the positive sign and identity term. nu is the actual choice satisfying stationarity, not any independently selected unit-ball vector at a zero component. Theta-hat comes from (3.7), whose residual is I-(I+Xi)(I+Pi-hat), with the CENTERED Section 3 Pi-hat obtained by subtracting marginal densities off diagonal. A kernel integral can express each row of Theta-hat applied to nu only with integrability and the correct function-space domain; a formal kernel array is not automatically a bounded operator. The estimated inverse is approximate, not an asserted exact inverse, and the source's population spectral assertion does not prove its existence. The displayed algebraic definition does not itself establish bias removal, a normal limit, or bounded pointwise error.",
+        "statement_sha256": "9846ebf243750ab53aba105fe2949c89065b829fb43f6173d7d1d089e4667ce6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched functional-Lasso debiasing and inspected integral-operator action with the norm-supporting functional ingredients; compared (3.3) with the Section 3 operator redefinition.",
+          "result": "The integral correction and subgradient functional have ingredients, but a valid approximate inverse operator and a compatible chosen subgradient are needed to construct this estimator."
+        }
+      ],
+      "gap": "Construct f-hat plus lambda(I+Theta-hat)nu using the stationarity-compatible subgradient and the approximate inverse for the redefined centered operator."
+    }
+  },
+  {
+    "interface_id": "local-57ee71d787544aaf8f3f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "876db375e52c4228f24373b8be351ad60b3aefb3e48c9e3e60158407868acfdb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D32",
+        "comparison": "m-hat_j^A(x_j)=p-hat_j(x_j)^-1 n^-1 sum_i K_hj(x_j,X_ij) epsilon_i and m-hat_j^B uses E(Y)+sum_k f_k(X_ik) in place of epsilon_i. The additive model makes their sum equal the original marginal regression smoother; the kernel, bandwidth and denominator are unchanged across terms. m-hat^B remains random through covariates and estimated density, and m-hat^A need not be independent of it or normal. Positive sample size and an actual nonzero empirical density are needed for the intended quotient; high-probability density estimates do not define exceptional zero-density events. Population E(Y) needs genuine integrability rather than totalized expectation. Gamma appears only in the motivation for this decomposition and is not a mathematical input; subsequent unnumbered normal limits add assumptions not imported into the definition.",
+        "statement_sha256": "f621910ea3d37eb4f4a3a450e0255effda5b6c529dba66681eabc21f25ab7e85"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite normalized sums and integral/moment ingredients; compared the frozen explicit noise and conditional-mean smoother formulas with their decomposition passage.",
+          "result": "Linearity of the same finite smoother gives the two terms on its valid density domain, but stochastic bounds and distributional limits are additional results."
+        }
+      ],
+      "gap": "Construct the noise and conditional-mean parts using the same empirical density denominator, retaining their distinct random roles and unresolved zero-density behavior."
+    }
+  },
+  {
+    "interface_id": "local-540ed3a40a144aba4d73",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "88f161e8666fe9c2d8ee4719408342b9c9dd8c8e7a2736450396015434fcf4e1",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D33",
+        "comparison": "||Xi_jk||_infinity is sup over every u_j,u_k in [0,1] of |Xi_jk(u_j,u_k)|. The square is nonempty, and real supremum order facts need boundedness; an essential supremum or operator norm is a different quantity. Xi_jk''(u_j,x_k) differentiates twice in x_k while u_j is held fixed. iteratedDeriv 2 of that section is an ingredient, but actual derivatives and an extension or one-sided boundary convention are needed for the source function defined on a closed interval. This is not differentiation in u_j or a mixed derivative, and it differs from A7's derivative of a discrepancy magnitude. Neither the estimated operator nor its population target is an input to these generic norm/derivative definitions. Pointwise representatives cannot be inferred from L2 equivalence classes alone.",
+        "statement_sha256": "7e00948d0aa03acaf111bce940818595df85bce55fee6dc70071f07d58a75122"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "HasDerivAt",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → [ContinuousSMul 𝕜 F] → (𝕜 → F) → F → 𝕜 → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.Deriv.Basic",
+          "provides": "A specified scalar derivative at a point, usable to require a CDF derivative equal to a positive continuous density on an open interval.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/Deriv/Basic.lean#L130-L131",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected bounded real suprema and ordinary iterated derivatives; compared the full-square kernel norm and second-coordinate derivative with operator and essential norms.",
+          "result": "The pointwise supremum and derivative of each one-variable kernel section can be represented, with boundedness and boundary derivative conventions supplied explicitly."
+        }
+      ],
+      "gap": "Construct the full-square pointwise kernel supremum and its second-coordinate second derivative, preserving representative and boundary qualifications."
+    }
+  },
+  {
+    "interface_id": "local-44f3df498974d0186b9b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "8882bb600c568ed49ac64a1c7990599878519445f0abe19936689a28e61a6510",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D34",
+        "comparison": "s_q=max_j sum_k ||Theta_jk||_infinity^q and s_q-star=max_k sum_j of those powers. Use positive dimension and finite pointwise kernel norms for the real maxima. The source explicitly interprets q=0 as the count of NONZERO kernels, so ordinary real 0^0=1 would be wrong and needs an indicator-based branch. A norm is zero exactly for the zero pointwise kernel only with the full-square bounded supremum interpretation; L2-a.e. equality is not interchangeable. The stated star kernel Theta_jk-star(u,x)=Theta_kj(x,u) transposes block indices as well as arguments, although the prose calls it the adjoint of the individual jk block. ContinuousLinearMap.adjoint requires bounded maps between complete Hilbert spaces and does not establish that exact printed kernel identity or its weight conventions without proof. The precision-matrix sparsity comparison is an analogy; Theta is an inverse integral-operator kernel array, not a covariance precision matrix. Theorem 7 further restricts q>0, separately from this zero-count discussion.",
+        "statement_sha256": "9bfe3c6e28c2b2c18d5d3457463aeb1bc0105575b2ce0a72e1d035d63c79c06b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.filter",
+          "type": "{α : Type u} → (p : α → Prop) → [DecidablePred p] → Finset α → Finset α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Filter",
+          "provides": "Filters a finite set by a supplied predicate, preserving the specified strict or non-strict boundary.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Filter.lean#L52-L53",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.card",
+          "type": "{α : Type u} → Finset α → ℕ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Card",
+          "provides": "Cardinality of a finite set, usable for counts of indexed votes or edge pairs.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Card.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "ContinuousLinearMap.adjoint",
+          "type": "{𝕜 : Type u} → {E : Type v} → {F : Type w} → [RCLike 𝕜] → [NormedAddCommGroup E] → [NormedAddCommGroup F] → [InnerProductSpace 𝕜 E] → [InnerProductSpace 𝕜 F] → [CompleteSpace E] → [CompleteSpace F] → ((E →L[𝕜] F) ≃ₗᵢ⋆[𝕜] (F →L[𝕜] E))",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.Adjoint",
+          "provides": "Adjoint of a bounded map between complete inner-product spaces; identifying a particular integral formula requires a separate adjoint calculation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/Adjoint.lean#L114-L116",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected finite maxima/support counts and Hilbert adjoints; compared inverse-kernel row/column power sums and the explicit q=0 convention.",
+          "result": "The row/column summaries and zero-power support counts can be assembled, but their pointwise kernel norms and block-adjoint interpretation require the recorded domain conventions."
+        }
+      ],
+      "gap": "Construct the inverse-kernel row and column power sums with explicit nonzero counting at q=0 and the source's block-transpose adjoint convention."
+    }
+  },
+  {
+    "interface_id": "local-a01cf1e4291be7408f3a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "8b5bd007aa93f71942c322f1545db20c848d2564b9181a360384ea4c04564094",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D35",
+        "comparison": "For candidate Xi require max_j,k sup_u_j integral_0^1 [Xi_jk''(u_j,x_k)]^2 dx_k bounded by an absolute constant in the source lesssim sense. The derivative is in x_k, the maximum ranges over both component indices and the supremum over the other coordinate; it is not a joint two-dimensional L2 norm or a pointwise derivative bound. Derivatives and finite sectionwise squared integrals must be genuine, since totalized iteratedDeriv or a nonintegrable real integral can otherwise return misleading zeros. The paper's deterministic lesssim uses one constant independent of n bounding all n; its stochastic convention is stronger than arbitrary O_P, and the feasible-set interpretation must retain the appropriate uniform constant. This additional constraint changes the optimization (3.7) only in the second branch, while that branch separately assumes a derivative bound for the true Theta. Neither is supplied by the other or imported into the first branch.",
+        "statement_sha256": "38690416940ba269b40f0970af13e1b3a355854a3ecb8f1c4d58fb6535b2b635"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedDeriv",
+          "type": "{𝕜 : Type u} → [NontriviallyNormedField 𝕜] → {F : Type v} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ → (𝕜 → F) → 𝕜 → F",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.IteratedDeriv.Defs",
+          "provides": "The scalar-domain iterated derivative obtained by evaluating the iterated Frechet derivative on all-one directions; differentiability hypotheses are separate from the totalized operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean#L55-L56",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected second derivatives, squared integrals and supremum bounds; compared the added candidate constraint with the separate true-kernel assumption in Theorem 6.",
+          "result": "The uniform sectionwise L2 bound on second derivatives can be represented, but it defines a modified feasible set and requires actual derivative/integrability witnesses."
+        }
+      ],
+      "gap": "Add the stated uniform second-coordinate derivative constraint to the candidate optimization for Theorem 6's second branch, keeping true-kernel regularity separate."
+    }
+  },
+  {
+    "interface_id": "local-e6abe0bdc2b49a43d309",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "d739c99c7e7ad591e2376759ccf5b76c422840d7dbc30258167d3eba0d7a43b8",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D14",
+        "comparison": "Pi-hat_j(g) sums over k the one-dimensional integrals Pi-hat_jk(u_j,x_k)g_k(x_k) dx_k, and Pi-hat_j^ominus(g)=m-hat_j-Y-bar-Pi-hat_j(g). The zero jj block is why the row map excludes g_j; it is not a conclusion from generic finite summation. Integrability, output membership in H_j and empirical density-denominator validity must be established to obtain an actual operator rather than a totalized integral formula. The residual is affine because of its fixed smoother/intercept term. These maps are defined for arbitrary input tuples using the original Section 2 empirical operator; the unknown minimizing f-hat appears only in the motivating stationarity equation. Section 3's centered redefinition is a separate source occurrence and is not silently substituted into Algorithm 1's original maps.",
+        "statement_sha256": "5019ea305ef50a8edb13de2e92d5108a15e37767f60a40111a74067a83a4603c"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected integral and coordinatewise finite-sum evaluation; compared the empirical row operator and affine partial-residual map with stationarity and the later centered redefinition.",
+          "result": "The rowwise kernel integral sum and affine residual can be constructed on a valid function-space domain, with self-coordinate exclusion supplied by zero diagonal blocks."
+        }
+      ],
+      "gap": "Construct the empirical row operator and partial residual on coordinate-function tuples, proving their integrability and self-coordinate independence."
+    }
+  },
+  {
+    "interface_id": "local-6c4f0139e79c881aa099",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T05:55:59.667985+00:00",
+    "source_interface_sha256": "70698f8158fb80f08ad16309b063d087b854bd8293e3c216108a2cb6703a417c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1741",
+        "local_id": "D15",
+        "comparison": "At sweep r initialize the working tuple from f-hat^(r), then for j=1,...,d evaluate v=Pi-hat_j^ominus(f-hat^(r,j-1)) and replace coordinate j by (1-lambda/||v||_p-hat)_+ v, preserving all others. Function.update expresses a single replacement, and iteration through indices uses freshly updated earlier coordinates, not a simultaneous Jacobi step. The norm is the empirical weighted component L2 norm, not the norm of the scalar sum of components or a pointwise threshold. At zero residual norm the printed quotient is undefined in ordinary arithmetic; the usual zero output is implicit and must be stated if adopted, with special care when raw representatives have zero seminorm but are not pointwise zero. Source centering (2.4) is a standing initialization condition, and the unchanged-coordinate line's missing hats is retained. After the sweep set f-hat^(r+1) to the final working tuple; neither a stopping rule nor a convergence guarantee follows from Function.update alone.",
+        "statement_sha256": "e2d8d0bebb9b8297fcd96583b12515765f5a6dfbc7bb7fd0150090a5cf8f2db5"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Function.update",
+          "type": "{α : Sort u} → {β : α → Sort v} → [DecidableEq α] → (∀ a, β a) → (a' : α) → β a' → (a : α) → β a",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Logic.Function.Basic",
+          "provides": "Replace exactly one coordinate of a possibly dependent function, leaving every other coordinate unchanged.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Function/Basic.lean#L645-L646",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched soft-thresholding, group Lasso and backfitting algorithms; inspected coordinate-function update and empirical L2 norm ingredients against the sequential sweep.",
+          "result": "Sequential coordinate replacement and radial shrinkage are expressible, but a defined zero-residual case, centered initialization and convergence proof must accompany the source recurrence."
+        }
+      ],
+      "gap": "Construct the sequential empirical-norm threshold sweeps using the latest tuple, with centered initialization and an explicit zero-residual interpretation."
+    }
+  }
+]

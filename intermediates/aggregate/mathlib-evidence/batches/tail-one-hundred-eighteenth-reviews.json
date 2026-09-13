@@ -1,0 +1,128 @@
+{
+  "scope": "Manual comparison of twelve remaining interfaces of aos-2024-v52-i04-p1796, using its main-text source/target and fold conventions; includes a newly inspected and officially verified scalar iid CLT declaration.",
+  "rows": [
+    {
+      "interface_id": "local-49e2a7fe223b94576b91",
+      "related": ["MeasureTheory.MemLp", "MeasureTheory.integral", "MeasureTheory.TendstoInMeasure", "ProbabilityTheory.tendstoInDistribution_inv_sqrt_mul_sum_sub"],
+      "query": "Searched influence functions, semiparametric regularity and scalar central-limit results; inspected the full iid CLT, its zero-variance branch and the source asymptotic-linearity definition.",
+      "result": "The iid CLT handles the normalized influence-function sum under finite second moment, but negligible-remainder transfer and efficient regularity require additional arguments and model definitions.",
+      "gap": "Construct the mean-zero square-integrable influence expansion and transfer its iid CLT through the remainder, while specifying the omitted regularity/model conditions for efficiency.",
+      "comparisons": {
+        "D26": "Asymptotic linearity is theta-hat=theta-star+n^-1 sum_i IF(O_i)+o_p(n^-1/2), with IF in L0^2(P-star), meaning a genuine finite second moment and zero mean. Under iid observations the verified CLT gives convergence of n^-1/2 sum IF to N(0,E IF^2); its theorem explicitly permits zero variance as a degenerate Gaussian. Algebraic rescaling and a Slutsky/negligible-remainder argument are still needed for theta-hat itself. On a fixed law the normalized remainder can be expressed by convergence in measure; varying spaces require appropriate law indexing. The CLT does not define statistical regularity or prove semiparametric efficiency, existence of a finite efficient influence function, or the nonparametric uniqueness assertion. The source does not provide full regularity/tangent-model conditions, and the supplement is not used to fill them. Any uniqueness is in the appropriate almost-everywhere L2 sense, not of arbitrary pointwise representatives."
+      }
+    },
+    {
+      "interface_id": "local-7312f4ce28c74d1afa8e",
+      "related": ["MeasureTheory.Measure.map", "MeasureTheory.Measure.support", "ProbabilityTheory.cond"],
+      "query": "Inspected measurable pushforwards, conditional-event measures and topological measure support; compared empty-prefix and unobserved-target notation.",
+      "result": "Prefix laws and their supports can be constructed once their target law and topology are specified, but the source switches between A=0 notation and a possibly unobserved Q.",
+      "gap": "Construct the sequential prefix spaces and target-history supports, resolving the A=0 versus unobserved-Q convention without identifying an empty prefix with an empty probability space.",
+      "comparisons": {
+        "D3": "Z=(Z1,...,ZK) has K>=1 components, and bar-Z_k is the first k coordinates. bar-Z_0 is the empty TUPLE, whose space is a singleton and whose law is a point mass, not a zero measure on an empty set. Measurable prefix maps yield marginal laws; Measure.support then uses an explicit topology and positive measure in every neighborhood. The setup calls Z_(k-1) the support of bar-Z_(k-1) conditional on A=0, though the general section allows no observed target. DS.0 subsequently uses its law under Q. That target-law distinction must be resolved rather than constructing a conditional probability on an absent event by totalization. Support is not merely the observed finite sample or a pointwise density-positive set without further assumptions."
+      }
+    },
+    {
+      "interface_id": "local-1fb74a988319e90cc47e",
+      "related": ["ProbabilityTheory.IndepFun"],
+      "query": "Inspected independent random variables and compared the feature-shift condition with response conditional invariance in the binary-population setup.",
+      "result": "IndepFun directly represents independence of the entire feature vector and the population label under the mixture law.",
+      "gap": "Instantiate feature-vector/population-label independence under the binary mixture law; no conditional-response invariance is part of this condition.",
+      "status": "composable",
+      "comparisons": {
+        "D6": "DS.1 states X independent of A with A in {0,1} in the one-source setting. It equates feature marginals between the positive-probability populations, not distributions of Y given X. It also does not say the coordinates of X are independent or that the whole observation Z is independent of A. The later formula 1-a uses the binary numerical coding essentially; extending this condition to multiple sources does not extend that formula unchanged. Measurability and the mixture probability law supply the domain for IndepFun."
+      }
+    },
+    {
+      "interface_id": "local-0189c8f7721db0d35e2e",
+      "related": ["ProbabilityTheory.cond", "ProbabilityTheory.condDistrib", "MeasureTheory.integral", "MeasureTheory.condExp"],
+      "query": "Inspected conditional-event laws, regular conditional kernels and conditional expectation; compared the backward recursion, target-support restriction and arbitrary extensions.",
+      "result": "Each backward regression is an integral under a selected conditional law, but version choice and target-law identification are not fixed by generic conditional expectation.",
+      "gap": "Construct the backward conditional means on target supports with explicit versions and extensions, asserting their Q-regression identity only under the stated DS.0 conditions.",
+      "comparisons": {
+        "D10": "Start with ell-star^K=ell and for k=K-1 down to 1 condition ell-star^(k+1)(bar-Z_(k+1)) on bar-Z_k and A in S-prime_(k+1). No extra ell-star^0 recursion is printed here. The source defines values on Z_k and allows arbitrary values outside it, which can affect later regressions when source support is larger. Conditional kernels require appropriate standard-Borel/measurable spaces, positive conditioning mass and integrability; their identities hold almost everywhere, not at every support point automatically. Under DS.0 the source identifies these with E_Q[ell|bar-Z_k]; that equality needs the sequential matching/domination assumptions and cannot be extended to failure of DS.0. The paper explicitly allows nonunique versions even relevant to target supports in that failure case. A library-selected condExp representative is not a canonical replacement for all those allowed choices."
+      }
+    },
+    {
+      "interface_id": "local-aa176c557cccce756754",
+      "related": ["ProbabilityTheory.condDistrib", "MeasureTheory.Measure.real"],
+      "query": "Inspected regular conditional label laws and event probabilities; compared conditional Pi, its k=0 specialization and observed-target proportion rho.",
+      "result": "Population probabilities arise by evaluating conditional label kernels, with the empty-history specialization giving marginal probabilities.",
+      "gap": "Construct the history-indexed population probabilities and their marginal specialization, preserving conditional versions and the observed-target scope of pi-zero=rho.",
+      "comparisons": {
+        "D8": "Pi-star^(k,a)(bar-z_k)=P-star(A=a|bar-Z_k=bar-z_k) for k=0,...,K-1 and every population a. Use the regular conditional law of A given the prefix and evaluate the measurable singleton event. At k=0 the prefix is constant, so a suitable version gives pi-star^a=P-star(A=a). The definition is population-level, not a fitted classifier or an empirical frequency; conditional values on null histories need a version convention. pi-star^0=rho-star refers to the observed-target setup with 0 in A and rho-star in (0,1); marginal probabilities remain meaningful in general mixtures without silently adding an observed target. Zero masses and relevant-source-event positivity are separate qualifications."
+      }
+    },
+    {
+      "interface_id": "local-2840b9d161172408b2fc",
+      "related": ["ProbabilityTheory.cond", "ProbabilityTheory.condDistrib", "MeasureTheory.integral"],
+      "query": "Inspected target-conditioned laws and conditional risk integrals; compared the true E-star with the possibly inconsistent common nuisance limit in Theorem 2.",
+      "result": "The target conditional loss regression is expressible, with its representative and integrability supplied under the target law.",
+      "gap": "Construct the target conditional risk E-star(x)=E[ell(X,Y)|X=x,A=0], keeping it distinct from fitted regressions and their arbitrary common L2 limit.",
+      "comparisons": {
+        "D23": "First condition on A=0 with rho-star=P-star(A=0) in (0,1), then condition the loss on X. The standing finite target conditional variance supports the intended finite moments after their proper definition. This is E-star under the target, not the mixture E[ell|X] or a source-population regression; DS.1 permits conditional response differences. Conditional kernels and integrals require measurable loss and a selected almost-everywhere version. Theorem 2 allows out-of-fold regressions to converge to E-infinity different from E-star, and only its final efficiency branch identifies them. The definition alone neither imposes nuisance consistency nor substitutes the oracle limit for the truth."
+      }
+    },
+    {
+      "interface_id": "local-6055a1c39b501dcdcc94",
+      "related": ["Finset.filter", "Finset.card", "Finset.sum_div"],
+      "query": "Searched cross-fit risk estimators and inspected fold counts and normalized sums; compared the complete Section 4 recipe with the theorem's rho superscript and the source 0/0 convention.",
+      "result": "The supplied-regression fold estimator can be assembled from finite sample operations, but fitting/random-split specifications and asymptotic claims remain additional requirements.",
+      "gap": "Construct the Section 4 cross-fit estimator using out-of-fold regression, IN-FOLD target proportion and size-weighted fold aggregation, retaining the source quotient and theorem-index conventions.",
+      "comparisons": {
+        "D25": "Randomly split data from both populations into fixed V folds, fit E-hat^-v on the complement, and calculate rho-hat^v as the target indicator average WITHIN fold v. Fold risk is the mean of I(A_i=0)/rho-hat^v times (ell_i-E-hat^-v(X_i)) plus E-hat^-v(X_i), and final risk is sum_v |I_v| r-hat^v/n, not an unweighted average when fold sizes differ. The source explicitly defines 0/0=0, which applies to target weights in a nonempty target-free fold; do not invent clipping or demand every finite fold contain a target as part of the original algorithm. Empty-fold/training-data and random partition/fitting-method conventions still need specification. Theorem 2 later uses rho-hat^-v inside one remainder expression despite this in-fold recipe; an out-of-fold replacement can change its influence function for inconsistent nuisance regression, so preserve that issue rather than silently changing the algorithm. This is distinct from supplement Algorithm 1 and main-text Algorithm 1-dagger."
+      }
+    },
+    {
+      "interface_id": "local-c135f2254e23e22b0b4c",
+      "related": [],
+      "status": "no_verified_match",
+      "query": "Searched cross-fit general sequential risk estimation and compared the opaque main-text reference with the admitted algorithm inventory and Theorem 1 input/output mentions.",
+      "result": "No corresponding specialized library algorithm was verified, and the admitted main text does not provide this algorithm's construction.",
+      "no_related_reason": "Generic sums or conditional expectations would not supply the omitted algorithm and could misleadingly substitute one of the distinct available recipes.",
+      "gap": "The general cross-fit risk algorithm remains an opaque supplement reference within the admitted source scope; its missing steps cannot be reconstructed from the dagger or feature-shift algorithms.",
+      "comparisons": {
+        "D16": "The main text only says the estimator for general DS.0 is similar and described in Algorithm 1 of the Supplemental Material. Theorem 1 names nuisance inputs and a Line 9 output, but that is not a complete computational definition or verified dependency closure. Preserve this as a searched source-limited interface rather than an implemented estimator. The supplement body is excluded, and neither the fully visible Algorithm 1-dagger nor Section 4 Algorithm 1 is asserted equivalent to the missing general algorithm. The unresolved source reference is separate from library-search completion and remains visible as a gap."
+      }
+    },
+    {
+      "interface_id": "local-1ad8b18808c4e8439af3",
+      "related": ["MeasureTheory.integral", "ProbabilityTheory.IndepFun", "MeasureTheory.MemLp"],
+      "query": "Searched efficient influence functions and inspected mean, feature independence and square-integrability ingredients; compared the arbitrary nuisance argument with the true efficient instance.",
+      "result": "The displayed scalar function and its moment conditions can be constructed, but calling every supplied nuisance instance efficient would exceed the formula's scope.",
+      "gap": "Construct D_Xcon for its stated binary label and arbitrary nuisance arguments, then establish mean-zero, L2 and efficiency properties for the appropriate true-parameter instance.",
+      "comparisons": {
+        "D24": "For rho in (0,1), real r and function E, the formula is (1-a)/rho times (ell(x,y)-E(x))+E(x)-r. Since a is numerically 0 or 1, 1-a equals the target indicator; this is not valid as a multi-source indicator formula without modification. E is arbitrary in the definition, not required equal to E-star. At true rho and r, DS.1 allows the target and mixture E(X) means to cancel when integrable, but mean zero alone does not establish efficiency. Finite target loss variance and suitable L2 nuisance control are needed for an influence-function interpretation, while the efficient branch uses the true conditional risk and statistical regularity. Theorem 2's inconsistent-nuisance case contains an additional leading term, so this display is not silently substituted for its full RAL expansion."
+      }
+    },
+    {
+      "interface_id": "local-9be0807814e34d760c6c",
+      "related": ["MeasureTheory.Measure.AbsolutelyContinuous", "ProbabilityTheory.cond", "ProbabilityTheory.condDistrib", "MeasureTheory.Measure.map"],
+      "query": "Inspected target/source absolute continuity, conditional-event laws and conditional kernels; compared DS.0's direction, quantifiers and branch scope.",
+      "result": "The two sequential compatibility conditions are expressible with absolute continuity and equality of conditional probability laws, but their domains and version conditions must be explicit.",
+      "gap": "Construct DS.0 with known nonempty relevant-population sets, target-history domination by pooled sources and Q-almost-everywhere component-law matching.",
+      "comparisons": {
+        "D4": "For every k choose a KNOWN nonempty S-prime_k. The prefix law under Q is absolutely continuous WITH RESPECT TO the prefix law under P-star conditioned on A in S-prime_k; the domination is not reversed and is weaker than bounded two-sided density ratios. For each a in that set, the conditional law of Z_k given the history and A=a equals its conditional law under Q for Q-almost every target history in Z_(k-1). Nonempty sets alone do not ensure positive conditioning mass for the pooled event or every individual a, so the source's conditional-law existence qualifications remain. Appropriate measurable/standard-Borel structure and compatible kernel versions are needed. This does not require whole-joint-law equality or observed target data. Theorem 1 adds DS.0 only in its final drift-zero branch; the earlier drift-corrected expansion must not acquire it globally."
+      }
+    },
+    {
+      "interface_id": "local-479d5de7b4382f340a49",
+      "related": ["ProbabilityTheory.cond", "ProbabilityTheory.condDistrib", "MeasureTheory.integral"],
+      "query": "Inspected conditional kernels and integrals; compared the oracle regression with footnote 5's frozen-nuisance/fresh-observation convention.",
+      "result": "The oracle conditional mean can be constructed for each fixed fitted function, remaining random through its training-dependent input.",
+      "gap": "Construct h_v^(k-1) by integrating the frozen fitted ell-hat_v^k against the true relevant-source conditional law of a fresh observation.",
+      "comparisons": {
+        "D18": "For each realization of the trained ell-hat_v^k, condition its value at bar-Z_k on bar-Z_(k-1)=bar-z and A in S-prime_k under the TRUE P-star. Footnote 5 integrates a fresh data point while treating the nuisance estimate as fixed; it does not average over training randomness or make h deterministic. The result therefore remains a random function of the training data, and joint measurability/integrability and version choices require care. It is an oracle depending on P-star, not an implementable regression fit supplied by the algorithm. If the nuisance is inconsistent or source conditions fail, h need not equal ell-star^(k-1). Arbitrary extensions off support can affect this integral and are not replaced by a unique canonical version."
+      }
+    },
+    {
+      "interface_id": "local-0d05ee9bad04fdaddedc",
+      "related": ["MeasureTheory.Measure.rnDeriv", "MeasureTheory.Measure.AbsolutelyContinuous", "MeasureTheory.integral_toReal_rnDeriv_mul", "ProbabilityTheory.cond"],
+      "query": "Inspected the Radon-Nikodym derivative body, absolute continuity and change-of-measure identity; compared the target-over-pooled-source ratio with its use outside full DS.0.",
+      "result": "The RN derivative supplies the target-history density relative to the pooled source-history law when domination holds, with the usual almost-everywhere and real-conversion qualifications.",
+      "gap": "Construct the target-over-pooled-source history ratio under actual domination, preserving its version/domain conditions without imposing all of DS.0 on every theorem branch.",
+      "comparisons": {
+        "D7": "lambda-star^(k-1) is dQ_history/dP_history_given_A_in_S-prime_k. It is not the reverse ratio, an individual-source ratio or merely target-versus-source membership odds. Positive mass of the pooled conditioning event gives a genuine source probability measure; absolute continuity of the target prefix law is then needed for reconstruction and the change-of-measure identity. rnDeriv is ENNReal-valued, chosen up to source-a.e. equality, and can represent only an absolutely continuous part when domination fails; its total availability does not supply the missing target singular mass. Conversion to a real weight needs finite-a.e. behavior and the intended integral domains. DS.0 provides domination together with conditional matching, but a theorem branch allowing matching to fail still needs whatever domination is required for this ratio; adding full DS.0 would incorrectly erase its drift term."
+      }
+    }
+  ]
+}

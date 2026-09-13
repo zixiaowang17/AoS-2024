@@ -1,0 +1,82 @@
+[
+  {
+    "interface_id": "local-ecec7fce785d26651991",
+    "status": "composable",
+    "names": [
+      "one_div_le_one_div_of_le"
+    ],
+    "comparison": "Encode one common real constant pi_min>0 and the lower bound pi_min<=pi_0(a|l) for every l in the specified covariate support and every a in the treatment support. This is a pointwise uniform density condition, stronger than separate positive values or almost-everywhere positivity with a covariate-dependent bound. The inspected reciprocal lemma yields 1/pi_0(a|l)<=1/pi_min on this domain. The quantity is a continuous-treatment density and is not bounded above by one merely because it is called a propensity score. A chosen conditional-density version must satisfy the stated all-support bound; the almost-everywhere nature of a generic conditional distribution does not establish it. Do not infer a positive lower conditional variance or outcome boundedness.",
+    "gap": "The condition and reciprocal bound use ordinary order operations; a conditional-density version satisfying the all-support bound must be supplied.",
+    "searches": [
+      [
+        "Inspect one_div_le_one_div_of_le and its positive-order hypotheses against the uniform density positivity statement",
+        "The lemma gives the inverse bound from a common positive lower bound, without asserting that the density meets that condition."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-1045470326cb245bed42",
+    "status": "exact_reuse",
+    "names": [
+      "IsCompact"
+    ],
+    "comparison": "Apply IsCompact directly to the specified real treatment-support set A with the ordinary real topology. Compactness does not assert that A is an interval, connected, has differentiable boundary or even has positive Lebesgue measure. In a probability model any nonempty/support/density compatibility comes from the other model data rather than being built into IsCompact. No compactness of the full covariate-treatment-outcome space is asserted. This predicate matches the source condition without changing its set.",
+    "gap": "IsCompact directly expresses this assumption on the real treatment-support set.",
+    "searches": [
+      [
+        "Inspect IsCompact in Topology/Defs/Filter:281-285",
+        "The compact-set predicate applies directly to subsets of R and adds no interval or connectedness requirement."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-909163c8caf10406e90d",
+    "status": "partial_match",
+    "names": [
+      "MeasureTheory.integral",
+      "MeasureTheory.Measure.dirac",
+      "MeasureTheory.eLpNorm",
+      "csSup_le_iff"
+    ],
+    "comparison": "Construct the empirical probability measure for positive sample size as n^{-1} times the sum of Dirac measures at the observed full triples, and use its integral for the empirical functional. Point evaluations give the finite average; n=0 does not produce a probability law by this formula. The population expectation needs a function on the actual joint sample support even though the prose says a function on R. Keep that recorded domain issue. The printed Lp formula uses f(z)^p without absolute values, whereas eLpNorm uses the norm of f; these are not generally equal for signed f or arbitrary real p. Agreement requires a justified domain such as nonnegative f (or appropriate even integer p), not a silent insertion of absolute values. The uniform norm is an ordinary supremum of absolute values over X, not an essential supremum; real supremum lemmas need nonempty bounded value sets. Bochner expectation likewise needs integrability to avoid its fallback zero. The source formula remains preserved with these qualifications.",
+    "gap": "Empirical integration is supported, but the printed Lp expression and function domain need clarification before identifying them with mathlib's norm.",
+    "searches": [
+      [
+        "Inspect the Bochner integral, Dirac constructor, eLpNorm and conditional supremum bound against all three displayed functionals",
+        "eLpNorm integrates powers of a nonnegative pointwise norm and differs from the signed-power source formula; real integration and suprema have separate finiteness/domain obligations."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-9467d3c46bff8788be51",
+    "status": "partial_match",
+    "names": [
+      "NormedSpace.exp",
+      "MeasureTheory.integral",
+      "ProbabilityTheory.multivariateGaussian"
+    ],
+    "comparison": "Use the finite real matrix exponential of h*A for the linear part and its affine mean correction (I-exp(h*A))*b. Integrate exp(A*(h-u))*Sigma*Sigma^T*exp(A^T*(h-u)) over [0,h] to form Omega_h; for nonnegative h the integrand gives a positive-semidefinite covariance after proving the relevant matrix identities and integrability. multivariateGaussian provides the centered innovation law with this covariance, but positivity must be proved rather than relying on its fallback Dirac law for non-PSD inputs. An iid family of such innovations specifies discrete transition sampling, not by itself a solution driven by the original Wiener process. Strong-error comparisons require the innovations as the matching stochastic integrals on each Wiener increment; equality in distribution or unrelated independent noise is insufficient. No dedicated OU solution or stochastic-integral formula was located in the searched Probability sources. Keep the printed remainder R(h,x_0) after the h and h^2 terms in (6), not a substituted cubic remainder.",
+    "gap": "Matrix exponentials and Gaussian transition laws are available; the OU solution identity and its coupling to the driving Wiener process remain to establish.",
+    "searches": [
+      [
+        "Search Ornstein, Uhlenbeck and stochastic-integral names throughout Mathlib/Probability; inspect NormedSpace.exp and multivariateGaussian bodies and the Bochner integral",
+        "No matching OU solution declaration was located; the available deterministic algebra and Gaussian measure constructor do not certify a pathwise stochastic-flow identity."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-a39004e44b6fefc620de",
+    "status": "composable",
+    "names": [
+      "EuclideanSpace"
+    ],
+    "comparison": "Represent script M as a parameter-domain function into EuclideanSpace R (Fin p), with the ith coordinate m_i(theta), preserving the source one-based coordinate ordering when translating to Fin p. This is a general parameter-dependent real vector, not automatically theta, a zero vector, an estimating-equation residual, or an empirical spectral average. Its identification with a spectral integral at the true parameter is a separate source moment condition, not an equality at every candidate theta. No continuity, differentiability, identifiability, normalization or zero-mean process assumption is contained in this displayed vector definition. The PiLp L2 geometry is compatible with the ordinary finite real-vector representation; no transpose-of-data operation or additional matrix structure is needed solely to store the column vector.",
+    "gap": "A function into finite Euclidean space represents this vector; its moment-identification and regularity conditions remain separate assumptions.",
+    "searches": [
+      [
+        "Inspect the EuclideanSpace abbreviation against the coordinate vector definition and saved source moment qualifications",
+        "The abbreviation supplies the finite real-vector codomain; the parameter function and separate true-parameter spectral moment equation are paper-specific data."
+      ]
+    ]
+  }
+]

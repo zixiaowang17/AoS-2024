@@ -1,0 +1,76 @@
+"""Preserve original ambient conventions and unresolved source meanings."""
+import json
+from pathlib import Path
+from save_inventory import PID
+ROOT=Path(__file__).resolve().parents[1]
+aux=[]
+
+def add(lid,text,pages,location):
+    aux.append(dict(local_id=lid,statement_original=text.strip(),evidence=[dict(page=p,location=location) for p in pages]))
+
+add('A1',r'''
+Throughout the paper, we work on a filtered probability space $(\Omega,\mathcal F,(\mathcal F_t)_{0\le t\le T},\mathbb P)$. We write $a\lesssim b$ if $a\le Cb$ for a universal constant $C$ not depending on $\delta$, but possibly depending on other quantities such as $T$ and $\Lambda$. Unless stated otherwise, all limits are understood as $\delta\to0$ with non-decreasing $M=M(\delta)$ possibly depending on $\delta$.
+''',[3],'Basic notation — probability and asymptotic convention')
+add('A2',r'''
+The Euclidean inner product and distance of two vectors $a,b\in\mathbb R^p$ is denoted by $a\cdot b$ and $|b-a|$, $I_{p\times p}$ is the identity matrix in $\mathbb R^{p\times p}$. We write $\|\cdot\|_{\mathrm{op}}$ for the operator norm of a matrix. For an open set $U\subset\mathbb R^d$ and $p\ge1$, $L^p(U)$ is the usual $L^p$-space with norm $\|\cdot\|_{L^p(U)}$ and the inner product on $L^2(U)$ is denoted $\langle\cdot,\cdot\rangle_{L^2(U)}$. We write $\langle\cdot,\cdot\rangle=\langle\cdot,\cdot\rangle_{L^2(\Lambda)}$, $\|\cdot\|=\|\cdot\|_{L^2(\Lambda)}$. Let $H^k(U)$ denote the usual Sobolev spaces and let $H_0^1(U)$ be the completion of the space of smooth compactly supported functions $C_c^\infty(U)$ relative to the $H^1(U)$-norm.
+''',[3],'Basic notation — norms, inner products and Sobolev spaces')
+add('A3',r'''
+We write $D_i,D_{ij}$ for partial derivatives. The gradient and Laplace operators are $\nabla$, $\Delta=\sum_{i=1}^d D_{ii}$. The divergence of a $d$-dimensional vector field $v$ is $\nabla\cdot v=\sum_{i=1}^d D_i v_i$. The Laplace operator $\Delta$ will be considered with domain $H_0^1(\Lambda)\cap H^2(\Lambda)$, while with domain $H^2(\mathbb R^d)$ it will be denoted by $\Delta_0$.
+''',[3],'Basic notation — differential operators and their domains')
+add('A4',r'''
+For a Hilbert space $\mathcal H$, the space $L^2([0,T];\mathcal H)$ consists of all measurable functions $h:[0,T]\to\mathcal H$ with $\int_0^T\|h(t)\|_{\mathcal H}^2dt<\infty$. We write $\|T\|_{\mathrm{HS}(\mathcal H_1,\mathcal H_2)}$ for the Hilbert-Schmidt norm of a linear operator $T:\mathcal H_1\to\mathcal H_2$ between two Hilbert spaces $\mathcal H_1,\mathcal H_2$.
+''',[3],'Basic notation — Hilbert-valued L2 and Hilbert-Schmidt norm')
+add('A5',r'''
+According to (2.3), every local measurement is an Itô process
+\[
+dX_{\delta,k}(t)=\left(\sum_{i=1}^p\vartheta_iX_{\delta,k}^{A_i}(t)+X_{\delta,k}^{A_0}(t)\right)dt+\|K\|_{L^2(\mathbb R^d)}dW_k(t)\tag{2.5}
+\]
+with initial values $X_{\delta,k}(0)=\langle X_0,K_{\delta,x_k}\rangle$ and scalar Brownian motions $W_k(t)=\langle W(t),K_{\delta,x_k}\rangle/\|K\|_{L^2(\mathbb R^d)}$.
+''',[5],'Section 2.2 — semimartingale interpretation of observations')
+add('A6',r'''
+Assumption H(ii) implies Assumption H(iv) for any $X_0\in L^q(\Lambda)$, $q>2$, and if $c_\vartheta\le0$ also for the stationary initial condition $X_0=\int_{-\infty}^0 S_\vartheta(-t')dW(t')$.
+''',[6],'Lemma 2.2 — original stationary-initial-condition expression')
+add('A7',r'''
+In what follows, we use the convention that a RKHS is denoted by the letter $H$. Moreover, we add a subscript to indicate the process which is under consideration. For instance, $H_X$ denotes the RKHS of $X$ considered as a Gaussian random variable taking values in the Hilbert space $L^2([0,T];\mathcal H_1)$. Since the RKHS of $X$ depends only on its distribution, the RKHS, as well as its norm, in the next theorem are independent of the embedding space $\mathcal H_1$ (see, e.g., Exercise 2.6.5 in [22]).
+''',[7],'Section 3 — RKHS notation and ambient realization')
+add('A8',r'''
+Local measurements of $X$ at the locations $x_1,\ldots,x_M$ at resolution $\delta$ correspond to the continuously observed processes $X_\delta,X_\delta^{A_0}\in L^2([0,T];\mathbb R^M)$, $X_\delta^A\in L^2([0,T];\mathbb R^{p\times M})$, where for $i=1,\ldots,p$, $k=1,\ldots,M$
+''',[4],'Section 2.2 — channel dimensions and index ranges')
+
+resolution={
+'shared':'A1 fixes the filtered probability space and delta-to-zero regime with non-decreasing M(delta). A2-A4 give all norm, inner-product, differential-operator and function-space conventions. Matrix inverses, positive square roots, Gaussian laws, convergence in probability/distribution, absolute continuity and weak derivatives are ambient. D1-D5 describe the spatial SPDE and generalized pairing; its potentially nonsymmetric generator is distinct from the general self-adjoint A in D18. A8 fixes observation dimensions. D7 is a single unscaled compactly supported kernel, and D6 shifts/scales it. Source statements are transcriptions, not mathematical proof certification.',
+'2.3':'H(i)-(iv) resolve individually to D13-D16. D2 supplies the homogeneous operator orders, formal adjoints and diffusion matrix, and D3 its positivity and semigroup. D17 supplies the whole-space inverse half-power in each Sigma entry. Sigma_theta is fully bound by the theorem; there is no separate invented interface for it. D10 is the observed information, D11 the estimator including known A0 correction, and D12 the scaling matrix. D7 resolves K and the squared kernel norm in both Gaussian covariances. A5 provides the Ito-integral interpretation. The theorem is a CLT, not a separate assertion that every unnormalized coordinate is consistent; M^(1/2) delta^(1-n_i) must diverge for consistency.',
+'3.1':'D18 specifies the negative self-adjoint generator with spectral gap and its domain; D19 is the stationary stochastic convolution from minus infinity, with generalized Hilbert-space realization. D20 and A7 specify the RKHS meaning. The theorem binds the exact set H_X and the two norm expressions. The unbounded expression Ah means h(t) lies in D(A) almost everywhere with Ah square-integrable. Endpoint fractional powers require the trace interpretation discussed immediately after the theorem; no zero initial or terminal trace is imposed.',
+'3.2':'D18-D21 supply the same general generator, stationary process, Gaussian RKHS convention and generalized pairings. K_1,...,K_M, X_K, Gram matrices G and G_A, scalar Sobolev space H and coordinate vector h are all bound inside the theorem. Their kernels need only lie in D(A), with nonsingular G; no spatial locality, support disjointness, kernel norm normalization or Assumption H/L is imported. H here is scalar H1-in-time and is distinct from script H, the state Hilbert space.',
+'4.1':'D22-D25 resolve the stationary law and every L clause; D24 includes all one-sided parameter classes and their orders. D8 is the continuous local observation vector available to estimators. The theorem binds i, c1,c2,c3 and both local parameter neighborhoods. It retains T>=1, M>=1, delta<=c1 and the regime split at delta^(n_i-1)/sqrt(TM)=1, with c3 an absolute constant. No lower bound over arbitrary full-domain drift families or discrete-time data is asserted. Stationarity is distinct from H(iv), and no H fixed-interior-compact assumption is imported.',
+'4.3':'The opening reference inherits the entire two-regime assertion of Theorem 4.1: T,M,i, constants, neighborhoods, thresholds and probability conclusion. The allowed observation vector is enlarged by D9 instantiated with Delta and divergence in b. The statement explicitly requires linear independence of all three unscaled kernels and applies every L clause to K, Delta K and (nabla dot b)K. It does not discard the original local parameter restriction or replace the observation operator adjoint convention. All three L instantiations are explained using the original parameterized clauses, without fabricating rewritten original definitions.'}
+issues=[
+'The pinned source is arXiv:2211.02496v2 dated 25 July 2024, 42 pages. The precise versioned URL is retained; the register uses a filename alias and an unversioned export URL for the same verified bytes.',
+'Five actual main-text Theorems occur. Main text ends after the proof of Theorem 4.1 on page 24, before Appendix A. Appendix theorem statements, proofs and definitions are excluded.',
+'The spatial generator may have a transport term and need not be self-adjoint. The Section 3 generator is explicitly negative self-adjoint with a positive spectral gap and eigenbasis. Their assumptions are kept in separate dependency paths.',
+'For i>=1 each known operator has exactly one nonzero coefficient type, of order 0,1 or 2. The nuisance A0 can mix orders. Formal adjoints reverse the constant transport sign.',
+'The main setup allows an F0-measurable X0, but later describes all generalized observations as Gaussian. Gaussianity does not follow from arbitrary F0-measurability alone. The original descriptions are retained; the lower-bound model separately imposes stationarity.',
+'The source describes cylindrical solutions as taking values in L2 subset H1 or H subset H1 while motivating a larger space because of roughness. Actual membership in the smaller space is not silently assumed in the census; the generalized pairing is retained.',
+'Observation kernels are L2-scaled by delta^(-d/2). Observations are entire time paths. Disjoint supports imply independent driving Brownian motions, not independent observed processes; the source explicitly warns about this distinction.',
+'The augmented MLE comes from a modified likelihood after ignoring certain dependencies and initial information. The explicit estimator, including its A0 correction, is retained rather than identifying it with an exact independent-diffusion MLE.',
+'The Fisher information convention has no kernel-variance divisor. The Gaussian covariance in both CLT forms includes norm(K)^2. Neither K normalization nor an extra noise-scale factor is inserted.',
+'H(ii) is strict: n_i>1-d/2. The boundary-case extensions in Section 5 and Proposition 5.3 do not modify the inventoried Theorem 2.3.',
+'H(iii) requires a compact interior location set independent of both delta and M and eventual disjointness. L(iii) instead requires strict delta separation and disjoint supports for the fixed configuration, without the same interior compact-set condition.',
+'H(iv) is a uniform little-o bound on the propagated initial signal. The stationary-law requirement in L is different and is not replaced by H(iv) or by the sufficient examples of Lemma 2.2.',
+'The whole-space positive principal operator is assigned the multiplier (-xi^T a_theta xi)^s in the source. This conflicts with its positivity and the usual sign convention; the exact original is retained separately from this note.',
+'The RKHS norm for the stationary convolution includes fractional endpoint penalties at both 0 and T. These are not zero-boundary constraints in time.',
+'Theorem 3.2 binds arbitrary kernels in D(A), not just spatially localized kernels. It requires nonsingular Gram G and its bound has squared inverse-Gram norm times norm(G_A), plus a distinct inverse-Gram term and derivative contribution.',
+'The covariance-based RKHS definition (6.8) sums over strictly positive eigenvalues of an orthonormal system. If the covariance has a nontrivial kernel, the printed finite-norm set needs a support/orthogonality convention to agree with the alternative range C_Z^(1/2)Z. No repair is inserted into the source passage.',
+'Equation (6.7) in the main proof section integrates exp(-2 lambda_j t-prime) from minus infinity with an unshifted semigroup argument, making the displayed finiteness condition problematic. This proof construction is not imported as a definition or hypothesis of the retained RKHS statements.',
+'The lower bounds use one-sided one-dimensional submodels through (1,0,0), with local neighborhoods that differ between the small-error and constant-error regimes. They are not unrestricted parameter-space lower bounds.',
+'Theorem 4.3 inherits all of Theorem 4.1 and adds both derivative observation channels, three-kernel linear independence and all three instantiations of Assumption L. No appendix Corollary A.4 is required to state this extension.',
+'Theorems 4.1 and 4.3 quantify constants depending only on K and an absolute c3, while requiring T>=1 and M>=1. The Gaussian theorem and CLT are different claims and no asymptotic normality or expected-risk conclusion is added to the lower bounds.',
+'Nonzero kernel norms, meaningful inverse information, stochastic-integral measurability and unbounded-operator domains are consumed where the source supplies them through assumptions or contextual definitions; unspecified conventions are not silently converted into new original assumptions.'
+]
+excluded=[dict(reference='Appendix A',location='Below y=493.750 on PDF page 24',status='excluded_not_opened',reason='Appendix bodies are outside the main-text-only scope.'),dict(reference='Sections A.1 and A.7, Corollary A.4',location='Main-text pages 6-8 references',status='excluded_not_opened',reason='Proofs of information invertibility, initial-condition examples and RKHS transformations do not add new original theorem statements.'),dict(reference='Sections A.4-A.5 and Lemma A.5',location='Main-text pages 9 and 24 references',status='excluded_not_opened',reason='Lower-bound proof estimates and spectral comparisons are not statement dependencies.'),dict(reference='External semigroup, Gaussian measure and RKHS references',location='Main-text pages 3-8 and 18',status='external_not_expanded',reason='The local definitions are retained; external proof or formalization requirements are not invented as original conditions.')]
+
+def main():
+    (ROOT/'ambient-prerequisites.json').write_text(json.dumps(dict(paper_id=PID,scope='main_text_only',auxiliary_source_passages=aux,statement_resolution=resolution,source_issues=issues,excluded_references=excluded),indent=2,ensure_ascii=False)+'\n')
+    print(f'Saved {len(aux)} auxiliary passages and {len(issues)} source notes.')
+
+if __name__=='__main__':main()

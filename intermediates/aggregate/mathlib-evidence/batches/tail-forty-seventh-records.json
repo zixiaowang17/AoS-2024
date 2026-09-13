@@ -1,0 +1,539 @@
+[
+  {
+    "interface_id": "local-3659cd2883c149b6b1aa",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "bf07ec4be7a4443a19632072c2524b7138d6e29b76a972a2549c266e20130d63",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D5",
+        "comparison": "Use third and fourth derivatives of v, not V=n*v, with H_v=Hessian v at its unique minimizer. For k=3,4 the same q>0 controls a_k*max(1,sqrt(n/d)*norm_(H_v)(x-mstar))^q at EVERY x. Separately require a3*d/sqrt(n)<=C(q)<1 and a3*d/sqrt(n)+a4*d^2/n<=1, with C depending only on q; n,d must be positive for these formulas. The source weighted tensor quantity is sup of its diagonal contraction WITHOUT absolute value. In particular for even order it is not generally the norm of the iteratedFDeriv multilinear map, so substituting that stronger bound would alter the assumption. Preserve this issue, and the source’s later q=0 logistic specialization despite the original strict q>0. General a3,a4,q and v may depend on n,d subject to the printed restrictions.",
+        "statement_sha256": "c55bcfbaaddaddc2014a714b2782d6a6d5a3ca520759409a72b24d928e9ed9d8"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Iterated derivatives and weighted quadratic forms express the growth-bound ingredients, but the source tensor quantity differs from a standard operator norm."
+        }
+      ],
+      "gap": "The printed weighted tensor supremum and both dimension/sample-size inequalities must be supplied, preserving the missing-absolute-value and q-boundary issues."
+    }
+  },
+  {
+    "interface_id": "local-d10fdb9f108938b7b886",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "cbc9fbfb6f2a6656c076fac9704bfffb21d3260fe2399e2373f853a8b472e86c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D12",
+        "comparison": "Integrate (f-integral f d_hatpi)^2 against hatpi=N(mhat,Shat). Center by the hatpi expectation, not the target posterior pi expectation or the standard Gaussian gamma expectation unless a separate change of variables has been made. For measurable square-integrable f, the real variance declaration agrees with this integral and is finite. The source introduces the notation for f without asserting every possible f has finite variance; library toReal maps an infinite extended variance to zero, so this totalization cannot stand in for a finite-variance analytic justification. The surrounding observable growth condition controls only an exterior region and does not by itself settle every local integrability issue.",
+        "statement_sha256": "43db013d5c2f29053e17e238feec132e2cb9199b2a969cbd505147e5dcd3304b"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Real variance is the centered second-moment integral under the supplied Gaussian law when its moments are finite."
+        }
+      ],
+      "gap": "The variance formula is directly expressible after establishing measurability and finite second moment under the canonical Gaussian approximation."
+    }
+  },
+  {
+    "interface_id": "local-17d5a611e15728dfe91a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "872efe47f1b740ddf0b136bf12324e4325936876ec9deb74fefe2602c52d19de",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D19",
+        "comparison": "With the canonical SPD covariance Shat, take its positive symmetric square root and inverse square root, not entrywise powers or an arbitrary nonsymmetric factor. Set T(x)=Shat^(-1/2)*(x-mhat) and T_inverse(z)=mhat+Shat^(1/2)*z. The Gaussian law then pushes forward to N(0,I); strict positive definiteness is essential for invertibility and a full-dimensional standard Gaussian. CFC.rpow supplies matrix functional calculus but its behavior on zero eigenvalues does not authorize a singular whitening convention. For rho=map T pi, the transformed potential is V0(z)=V(T_inverse(z)); the constant Jacobian determinant and original normalizer are absorbed by proportionality, so the displayed V0 need not include a z-dependent log-Jacobian term. This does not claim the target pi itself becomes Gaussian or that the canonical pair globally minimizes KL.",
+        "statement_sha256": "0b7a7c563be01bc1f94cca7ed1a677736fb90bac1c5f4d4170efea4fd968bf55"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Spectral matrix powers, affine maps and Gaussian pushforward provide the whitening transformation and transformed target law."
+        }
+      ],
+      "gap": "The positive-definite covariance, affine inverse and density change-of-variables identity must be assembled with the determinant absorbed into normalization."
+    }
+  },
+  {
+    "interface_id": "local-0e1761a2e0d7bbb05706",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "96ae1ab15949032388649e533d9093f4cae7d27099955da1cb6de1f63de7d32a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D18",
+        "comparison": "The full class consists of all Borel subsets A of real Euclidean R^d. The symmetric subclass additionally requires x in A iff 2*mhat-x in A. Equivalently, its indicator after translation by mhat is an even function. The symmetry center is the canonical Gaussian mean mhat, not zero or the posterior mean, and the sets need not be convex, connected or bounded. This pointwise set condition is stronger than symmetry modulo a chosen null set. The source later denotes the same kind of symmetric class with a different symbol; retain original notation in each statement.",
+        "statement_sha256": "6816625684dde8d97e07cff69d7096211423ed96cb46b843fa16457d222642d3"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Function.Even",
+          "type": "{α : Type u} → {β : Type v} → [Neg α] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Group.EvenFunction",
+          "provides": "Evenness of a function as equality of values at opposite arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Group/EvenFunction.lean#L32-L32",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Evenness of a translated indicator expresses symmetry of a set about the Gaussian mean."
+        }
+      ],
+      "gap": "Borel measurability together with reflection invariance directly specifies the two set classes."
+    }
+  },
+  {
+    "interface_id": "local-5e77f19febfd3656a62a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "9d77a4916e511fd6128ee646148226a50a9ff750917cc41c40daf40c2202a1bc",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D21",
+        "comparison": "For an ordered tuple alpha in[d]^k, count each coordinate’s multiplicity and form the product of the corresponding univariate probabilists Hermite polynomials evaluated at that coordinate. This yields repeated tensor entries under permutation of alpha; do not replace the d^k indexed tensor by a list of distinct multi-indices without tracking multiplicity in contractions. The convention gives H0=1,H1=x,H2=x*x^T-I and the signed derivative of exp(-norm(x)^2/2), matching the unnormalized probabilists rather than physicists or orthonormal Hermite convention. The inspected univariate Rodrigues theorem is a building block for the multivariate derivative formula, not the tensor identity by itself. Distinct polynomials are Gaussian-orthogonal, but repeated equal entries are not distinct orthogonal elements. Detailed AppendixE construction is excluded; use the main-text indexing and Rodrigues representation without importing an appendix basis normalization.",
+        "statement_sha256": "c4718c9b4fd474085ebdb9c829edf84dfd366bf68ebf0fc16be77e0b06a29721"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Polynomial.hermite",
+          "type": "ℕ → Polynomial ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.Polynomial.Hermite.Basic",
+          "provides": "The integer-coefficient probabilists’ Hermite polynomials, defined from 1 by the recursion He_(n+1)=X He_n-derivative He_n; these are not orthonormalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/Polynomial/Hermite/Basic.lean#L48-L50",
+          "link_checked": true
+        },
+        {
+          "name": "Polynomial.deriv_gaussian_eq_hermite_mul_gaussian",
+          "type": "(n : ℕ) → (x : ℝ) → deriv^[n] (fun y => Real.exp (-(y ^ 2 / 2))) x = (-1 : ℝ) ^ n * Polynomial.aeval x (Polynomial.hermite n) * Real.exp (-(x ^ 2 / 2))",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.RingTheory.Polynomial.Hermite.Gaussian",
+          "provides": "The probabilists’ Hermite polynomial evaluated over the reals is the signed polynomial factor in every iterated derivative of exp(-x^2/2).",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/Polynomial/Hermite/Gaussian.lean#L42-L44",
+          "link_checked": true
+        },
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Univariate probabilists Hermite polynomials and their Gaussian derivative identity provide the coordinate factors for the multivariate Hermite tensor."
+        }
+      ],
+      "gap": "The ordered-index tensor assembly and multivariate derivative/orthogonality identities remain to be established with the source multiplicities and normalization."
+    }
+  },
+  {
+    "interface_id": "local-191749b9a960085712cf",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "7c536770ac822a7e070432f3881805e6582e6b9851c2aaf2cf64e2c45f3fdfb9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D22",
+        "comparison": "A3 is the tensor expectation of the THIRD derivative of the whitened V0 at a standard Gaussian Z, not the derivative evaluated at E Z or the unwhitened V. Define p3=(1/6)*entrywise_inner(A3,H3). Since A3 is symmetric under the relevant smoothness, the three linear correction terms in H3 contract equally, yielding inner(A3,(1/6)*x_tensor3-(1/2)*x_tensor_I). This contracted identity does not assert that the unsymmetrized tensor x_tensor_I by itself equals one-third of the entire Hermite correction tensor. Keep the positive cubic and negative linear signs, opposite to Q in the original coordinates. The coefficient is a fixed expected tensor once the potential is specified. Its Gaussian integrability must be established before Bochner integration; the informal later heuristic omitting 1/6 does not replace the defining formula.",
+        "statement_sha256": "a62d823870f4fb39f3f0f1ea76f6a88a5978f5ac3daa987507bd0c31f8da78b6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Polynomial.hermite",
+          "type": "ℕ → Polynomial ℤ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.RingTheory.Polynomial.Hermite.Basic",
+          "provides": "The integer-coefficient probabilists’ Hermite polynomials, defined from 1 by the recursion He_(n+1)=X He_n-derivative He_n; these are not orthonormalized.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/RingTheory/Polynomial/Hermite/Basic.lean#L48-L50",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Third derivatives, Gaussian expectation and coordinatewise tensor contractions express the cubic correction polynomial."
+        }
+      ],
+      "gap": "The third-order tensor construction, symmetric contraction and derivative integrability must be supplied with the defining factor one-sixth."
+    }
+  },
+  {
+    "interface_id": "local-dde0a612f7693c300a86",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "cf8b09241a072e26e26102f29322352fb9ff2e53d90cd1ce4aa503b04e2d49e0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D14",
+        "comparison": "For label values0,1 use bernoulliMeasure 1 0 with success probability sigmoid(inner X_i theta); the constructor assigns its probability argument to its FIRST atom, so this order matters. Sigmoid(t)=1/(1+exp(-t)) lies in(0,1), and the mass function equals exp(y*t-log(1+exp(t))) for y in{0,1}. The well-specified law uses theta0. The final source display omits conditioning, but preceding text and formula(3.1) specify Yi given Xi; do not interpret a random predictor-dependent parameter as an unconditional scalar probability independent of Xi. The conditional binary model itself does not specify the feature distribution, which appears separately.",
+        "statement_sha256": "770fe1ef2a6459705e4711891651ab24e955ac63f896444fb49b9e9a1eadb6c6"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.sigmoid",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+          "provides": "Exactly the standard scalar logistic function (1 + exp(-x))⁻¹.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Sigmoid.lean#L63-L63",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "The standard sigmoid and two-point Bernoulli measure give exactly the conditional binary response law."
+        }
+      ],
+      "gap": "The existing scalar functions express the conditional logistic model after supplying the linear predictor and true parameter."
+    }
+  },
+  {
+    "interface_id": "local-58b7e6892c5d985b46a8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "ddae6e34b96f644bc13843f42508ca761f11c4236f6aed4e6ffadd2ce89e094c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D15",
+        "comparison": "Generate iid feature vectors from N(0,I_d), with conditional logistic labels, and use a proper centered Gaussian prior with covariance Sigma where its inverse-density expression is valid. The posterior precision contribution is theta^T*Sigma_inverse*theta/2 in n*v; equivalently it is divided by2*n in v, while ell is the negative likelihood average over n. Features are observed/conditioned on for posterior inference; their theta-independent density cancels from posterior normalization but still determines frequentist random-design probability statements. A singular covariance needs a different support/reference interpretation and cannot be inserted into the ordinary full-dimensional inverse-density formula by a singular matrix default. The source’s formal Sigma_inverse=0 flat prior is not an actual Gaussian law with finite covariance; use a flat Lebesgue-reference likelihood and prove a finite positive normalizer when applicable. Do not confuse this prior Sigma with the later posterior covariance denoted by the same letter.",
+        "statement_sha256": "b0a099a868cc8bfa47edc10ddde35f7c7fe7edf597fd351442b34d35437706a4"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.pi",
+          "type": "{ι : Type u} → {α : ι → Type v} → [Fintype ι] → [∀ i, MeasurableSpace (α i)] → (∀ i, MeasureTheory.Measure (α i)) → MeasureTheory.Measure (∀ i, α i)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Constructions.Pi",
+          "provides": "Finite dependent product measure; probability component measures give a joint probability law with independent coordinates.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Constructions/Pi.lean#L210-L211",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.withDensity",
+          "type": "{α : Type u} → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → ℝ≥0∞) → MeasureTheory.Measure α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.WithDensity",
+          "provides": "Constructs a measure by integrating a nonnegative density against a reference measure on measurable sets.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/WithDensity.lean#L39-L41",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Independent standard Gaussian design and a likelihood-weighted Gaussian prior express the posterior model."
+        }
+      ],
+      "gap": "Posterior normalization and the precision quadratic form must be supplied, treating the flat-prior case as a separate improper-prior convention."
+    }
+  },
+  {
+    "interface_id": "gaussian-approximation-leading-correction",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "ee2dd2f76011f3cf59ed8d85457e7a41aba1875c68c7db9ccc707eddb89d7708",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D13",
+        "comparison": "Under the canonical hatpi=N(mhat,Shat), let A=E_hatpi[third derivative V(X)] and contract it entrywise with (1/2)*(x-mhat) tensor Shat-(1/6)*(x-mhat)_tensor3. The positive one-half covariance term and negative one-sixth cubic term are essential. This is a scalar signed correction to expectations, not automatically a nonnegative density factor1+Q or a normalized probability distribution. The expected third derivative is taken at Gaussian-distributed X, not at mhat, and V=n*v supplies the n scaling. Tensor-integrability and the finite coordinate contraction must be justified; generic iteratedFDeriv does not provide the approximation remainder theorem.",
+        "statement_sha256": "73953ecba0e6b396adbb94217cb17159e91f044feeb17a5131171abbbb09ccd2"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D17",
+        "comparison": "In the logistic model V=n*ell plus a quadratic prior term, so its third derivative is the SUM of psi_triple_prime(theta^T X_i)*X_i_tensor3 with no residual1/n, and the Gaussian prior contributes zero to this third derivative. The coefficient b_i(theta)=E_(theta~hatpi)[psi_triple_prime(theta^T X_i)] uses theta both as an apparent free argument and as the integration variable: for fixed data and hatpi the resulting coefficient is constant in the theta where Q is evaluated. Preserve the printed notation collision instead of giving it a new data-dependent/free-variable interpretation. The contraction yields sum_i b_i times [(1/2)*X_i^T(theta-mhat)*X_i^T Shat X_i-(1/6)*(X_i^T(theta-mhat))^3]. The Xi are observed design vectors held fixed in these Gaussian expectations; averaging over their design law would change the correction.",
+        "statement_sha256": "a33a9a374d9aeebc94bfc0fe23dfd4f966fb244a1b9d42c297497f4f9df3b274"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "iteratedFDeriv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → (n : ℕ) → (E → F) → E → (E [×n]→L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries",
+          "provides": "Iterated Fréchet derivatives represented as continuous multilinear maps; smoothness and any Taylor remainder estimate must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/FTaylorSeries.lean#L804-L806",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "innerSL",
+          "type": "(𝕜 : Type u) → {E : Type v} → [RCLike 𝕜] → [SeminormedAddCommGroup E] → [InnerProductSpace 𝕜 E] → (E →L⋆[𝕜] E →L[𝕜] 𝕜)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.InnerProductSpace.LinearMap",
+          "provides": "The inner product as a continuous sesquilinear map; fixing the first vector gives the single-index functional for a real ridge function.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/InnerProductSpace/LinearMap.lean#L164-L166",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "Tensor expectations and finite contractions express the general correction and its logistic rank-one expansion."
+        }
+      ],
+      "gap": "Derivative and contraction identities must be assembled with the source signs and the logistic coefficient’s bound-variable notation issue retained."
+    }
+  },
+  {
+    "interface_id": "local-5cd7aac5bd1293360267",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T00:32:14.518964+00:00",
+    "source_interface_sha256": "42df11073c79a68a66b61bda76a7e1cfa548b694222177af22738ac74c27274d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1384",
+        "local_id": "D16",
+        "comparison": "Retain well-specified logistic labels with true theta0, iid standard Gaussian design, a bound on Euclidean norm(theta0), and a bound on the OPERATOR norm of the prior precision Sigma_inverse, with the flat-prior convention handled separately. These are the assumptions attached by the preceding paragraph to Theorem3.1 and must not be dropped because its short opening does not repeat them. Corollary3.1 asserts the regularity consequences on a high-probability event in an appropriate small d/sqrt(n),1/n regime; generic Gaussian/Bernoulli measures do not prove them deterministically for every data set. The source specialization uses q=0 and a3=a4=C although general Assumption2 says q>0; record that boundary mismatch rather than replacing the earlier assumption. The approximation parameters remain the canonical local first-order solution, not an unproved global KL optimum.",
+        "statement_sha256": "64629d195e3deb56230befcd458bac6c5f5be55903cacd5f0de649b11ebd23f6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sigmoid",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Sigmoid",
+          "provides": "Exactly the standard scalar logistic function (1 + exp(-x))⁻¹.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Sigmoid.lean#L63-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for tensor Hermite polynomials and Gaussian variational/Laplace approximation; inspected iteratedFDeriv, probabilists Hermite recurrence and Gaussian Rodrigues theorem, scalar sigmoid/Bernoulli law, multivariateGaussian, CFC real powers, matrix products, variance and integrals; checked registered p1384 main-text pages6-8,11-13,15,17 and source convention notes.",
+          "result": "The design and response law constructors express the logistic specialization, with separate bounds on the true coefficient and prior precision."
+        }
+      ],
+      "gap": "The model is expressible, but the high-probability regularity conclusions and q=0 boundary inconsistency remain separate from these probabilistic primitives."
+    }
+  }
+]

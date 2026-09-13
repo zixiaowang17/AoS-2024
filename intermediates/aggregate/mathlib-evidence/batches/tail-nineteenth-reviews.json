@@ -1,0 +1,88 @@
+{
+  "scope": "Manual comparisons for Gaussian-dominated non-Gaussian laws, pointwise likelihood bounds, Hermite coefficients and moment assumptions, regression normalization, and local likelihood-expansion notation.",
+  "rows": [
+    {
+      "interface_id": "local-dce1c524debb5f54752f",
+      "related": ["ProbabilityTheory.gaussianReal", "MeasureTheory.Measure.AbsolutelyContinuous", "MeasureTheory.Measure.rnDeriv", "MeasureTheory.Measure.withDensity"],
+      "status": "composable",
+      "query": "Searched non-Gaussian component and dominated-law infrastructure; inspected gaussianReal, AbsolutelyContinuous, rnDeriv's Lebesgue-decomposition choice and withDensity's integral construction, including withDensity_rnDeriv_eq under absolute continuity.",
+      "result": "gaussianReal 0 1 is the scalar standard Gaussian reference. Absolute continuity expresses the density restriction, and probability measures meet the finite-measure conditions for Radon-Nikodym reconstruction. Non-Gaussianity is an additional restriction against the Gaussian family, not a consequence of absolute continuity or inequality with the standard Gaussian alone.",
+      "gap": "The Gaussian reference and density restriction are directly expressible, with non-Gaussianity and the subsequent numbered assumptions retained as separate requirements.",
+      "comparisons": {
+        "D6": "The domain is scalar real probability measures dominated by N(0,1), not multivariate tensor observations or arbitrary singular alternatives. Absolute continuity alone allows other Gaussian laws, so it does not encode the non-Gaussian qualifier. rnDeriv is an extended-nonnegative density representative whose reconstruction requires the absolute-continuity condition; do not discard singular mass by merely calling rnDeriv. This section-wide domain does not automatically impose L2 integrability, the moment-matching order, signal bound or pointwise local ratio bound."
+      }
+    },
+    {
+      "interface_id": "local-c5dd353cb443c2e708f4",
+      "related": ["MeasureTheory.Measure.rnDeriv", "MeasureTheory.Measure.withDensity", "Real.rpow"],
+      "query": "Searched locally bounded likelihood ratios and inspected rnDeriv's chosen density, withDensity's integral definition and real powers with nonnegative bases.",
+      "result": "The right-hand side is a real-valued polynomial-growth envelope with positive base 1+abs(z) and real exponent kappa. A density representative can be constrained by the guarded pointwise inequality, but rnDeriv is characterized only up to null sets for reconstruction; choosing mathlib's representative does not prove a bound at every real point. No packaged assumption with this exact guard was found.",
+      "gap": "A suitable density version and its pointwise guarded likelihood-ratio bound remain to be specified beyond the generic Radon-Nikodym and real-power operations.",
+      "comparisons": {
+        "D11": "Keep lambda,K,kappa nonnegative and require the inequality only where K*lambda*(1+abs(z))^kappa <= 1, including equality. This is not a global envelope assumption, and replacing 'for all z' by an almost-everywhere statement changes it. The real density must agree with the measure density and be finite at the points where the real expression is used; ENNReal.toReal at infinity cannot supply a valid likelihood value. The zero K or lambda cases make the guard hold everywhere and force the selected density version to equal one everywhere."
+      }
+    },
+    {
+      "interface_id": "local-abd46c893ba8d9a3a2e8",
+      "related": ["Polynomial.hermite", "MeasureTheory.integral", "MeasureTheory.integral_toReal_rnDeriv_mul", "HilbertBasis.tsum_inner_mul_inner"],
+      "query": "Searched Hermite orthogonality, Gaussian Hilbert bases and Parseval identities throughout mathlib; inspected Polynomial.hermite, the Hermite Gaussian-derivative file's scope, integral_toReal_rnDeriv_mul and its full assumptions/proof, and HilbertBasis.tsum_inner_mul_inner.",
+      "result": "The polynomial library supplies unnormalized probabilists' Hermite polynomials. The Radon-Nikodym integral theorem supplies the density-weighted expectation equality under absolute continuity/decomposition and sigma-finiteness. Parseval applies to an already established Hilbert basis and an L2 vector. The searched Hermite files do not construct the paper's normalized complete Gaussian Hilbert basis or establish the displayed coefficient identity for arbitrary dominated probability laws.",
+      "gap": "Gaussian orthonormal normalization and completeness, coefficient integrability and the L2 domain of the displayed Parseval identity remain to be established.",
+      "comparisons": {
+        "D8": "Retain H0=1, nu-hat_0=1, the expectation under nu and its density-weighted standard-Gaussian form, and the sum starting at i=1. Polynomial.hermite has integer coefficients and is not the stated orthonormal family; normalization and a sign convention require identification without reading the excluded Appendix I.2. Merely having a density does not ensure every polynomial expectation or an L2 density residual. Bochner integrals return zero when nonintegrable, so their totalized equality is not a finite-expectation justification. For an established Gaussian Hilbert basis and L2 residual f-1, Parseval identifies the squared norm after showing the zeroth coefficient vanishes; outside that domain an extended-value formulation needs separate treatment."
+      }
+    },
+    {
+      "interface_id": "local-34f60efe57dd3a54d91e",
+      "related": ["Polynomial.hermite", "ENNReal.summable_toReal", "HilbertBasis.tsum_inner_mul_inner", "MeasureTheory.eLpNorm"],
+      "query": "Searched bounded signal strength and Hermite series; inspected the probabilists' polynomial definition, ENNReal.summable_toReal with its finite extended-sum hypothesis, Parseval for a supplied Hilbert basis and eLpNorm at exponent two.",
+      "result": "The nonnegative coefficient squares can be summed in ENNReal to preserve divergence as infinity; an upper bound by the finite K^2*lambda^2 gives the finiteness needed for real summability. A Gaussian Hilbert basis and L2 density residual would connect this to squared L2 distance, but those identifications are not supplied by the Hermite polynomial definition alone.",
+      "gap": "The normalized Gaussian coefficient sequence and its L2/Parseval identification remain to be supplied, with series finiteness explicit in the bounded-strength condition.",
+      "comparisons": {
+        "D10": "The sum contains exactly the positive-order coefficients, with K>=0 and lambda>=0 and upper bound K^2*lambda^2. A bare real tsum is unsafe here because nonsummable series totalize to zero; use an extended nonnegative sum or attach a summability hypothesis. The source's trailing Z~N(0,1) clause is retained although no Z occurs in the series. The bound is on coefficients of the already specified orthonormal Gaussian family, not directly on the unnormalized Polynomial.hermite sequence or arbitrary moments, and does not itself supply pointwise density control."
+      }
+    },
+    {
+      "interface_id": "local-112d17f5a6ed86463b86",
+      "related": ["Polynomial.hermite", "Polynomial.hermite_monic", "Polynomial.natDegree_hermite", "MeasureTheory.integral"],
+      "query": "Searched moment matching and Hermite polynomial bases; inspected hermite's recursion, hermite_monic, natDegree_hermite and their coefficient/degree proofs, and the Bochner integral definition.",
+      "result": "Monicity and degree n give the triangular polynomial relationship needed to move between raw powers and Hermite polynomials up to a finite degree. Proving the expectation equivalence also requires nonzero normalization, Gaussian expectations and integrability under both laws. No searched theorem packages this exact finite-order moment-matching equivalence for the paper's orthonormal family.",
+      "gap": "The Gaussian normalization/expectation facts and integrable triangular change-of-basis argument are still needed to prove the two printed moment-matching formulations equivalent.",
+      "comparisons": {
+        "D9": "Require k>=2 and vanishings only for i=1,...,k-1; the kth coefficient is not set to zero. Matching the zeroth moment follows from both laws being probability measures. Vanishing of all lower coefficients is insensitive to nonzero sign/normalization factors, but connecting the named source family to the monic polynomial family still needs proof. Finite polynomial degree alone does not imply integrability under arbitrary nu, and a totalized integral must not turn undefined moments into a false matching claim. Keep both the coefficient and raw-moment formulations rather than deleting the equivalence statement."
+      }
+    },
+    {
+      "interface_id": "local-b428971a356cf0cdd59e",
+      "related": ["Real.rpow", "Real.log", "Set.piecewise_eq_of_mem"],
+      "status": "composable",
+      "query": "Inspected Real.rpow and its positive-base expression, Real.log and its zero extension, and set-piecewise branch evaluation for the two normalization regimes.",
+      "result": "On the stated alpha domain, a branch at alpha=1 chooses reciprocal log(T), otherwise the alpha in (1/2,1) branch chooses T^(alpha-1). These scalar operations directly express (29) on its intended positive-time domain; no interpolation at alpha=1 or default outside the stated alpha range is implied.",
+      "gap": "The two normalization regimes are directly expressible by real powers, logarithms and an explicit branch on alpha=1.",
+      "comparisons": {
+        "D34": "Keep the polynomial branch only for 1/2<alpha<1 and the separate logarithmic branch at alpha=1. For the large-time interpretation T>1 makes the logarithm positive and its reciprocal defined in the ordinary sense; Lean's totalized inverse/log do not establish a source convention at T=1 or nonpositive T. Do not add a value for alpha<=1/2 or alpha>1, or replace the alpha=1 branch with the limiting value of the polynomial expression."
+      }
+    },
+    {
+      "interface_id": "local-1aa4758568fe3a39cc7b",
+      "related": ["Real.log", "Real.sqrt", "Metric.closedBall"],
+      "status": "composable",
+      "query": "Inspected Real.log, Real.sqrt's nonnegative-input interpretation and Metric.closedBall's non-strict distance predicate; compared the recorded local-coordinate source note.",
+      "result": "The supplied positive norming sequence and c0>0 give the logarithmic radius using log and sqrt. The printed K_n is a closed ball centered at theta-star with radius M_n*delta_n in the parameter norm, intersected with the parameter domain if that ambient domain is restricted. Its later use as an h-domain is a separate source mismatch.",
+      "gap": "The printed logarithmic radius and parameter-space closed neighborhood are directly expressible with log, sqrt and closedBall.",
+      "comparisons": {
+        "D14": "Use the source's delta_n rather than inserting n^-1/2 or replacing log(delta_n^-1) by log n. For positive delta_n tending to zero, log(delta_n^-1) is eventually positive; sqrt's zero value on negative inputs is not a new source convention. Keep the <= boundary and the theta-space center theta-star. Do not silently turn K_n into an h-space ball of radius M_n when other assumptions quantify h in K_n; preserve that issue in their comparisons. This shared notation does not import the likelihood expansion into the prior assumption."
+      }
+    },
+    {
+      "interface_id": "local-b3cd4437c4db783b1911",
+      "related": ["Matrix.mulVec", "LinearMap.IsSymmetric.eigenvalues", "Filter.Tendsto", "csSup_le_iff"],
+      "query": "Searched local asymptotic normality, stochastic boundedness/big-O in probability and local likelihood expansion; inspected finite matrix multiplication, symmetric-operator eigenvalues and their finite-dimensional assumptions, Filter.Tendsto and conditional supremum bounds.",
+      "result": "Finite contractions express the linear/quadratic terms, with a finite triple sum for the cubic term. The eigenvalue API supplies ordered real eigenvalues only for a symmetric operator. Probability-of-event sequences can be handled by Tendsto, and supremum bounds need their ordinary domain conditions. No searched packaged stochastic third-order likelihood expansion or O_P interface was found; deterministic IsBigO would not be a substitute for the stated probability bounds.",
+      "gap": "The stochastic coefficient/remainder bounds, source-coordinate reconciliation and symmetry needed for the real eigenvalue event remain beyond the inspected generic components.",
+      "comparisons": {
+        "D12": "Retain abstract Delta, V and third-order arrays with entrywise O_(P0^n)(1), the exact signs and factors 1/2 and delta_n/6, and the uniform absolute residual bound O_(P0^n)(delta_n^2 M_n^c1). The limit permits varying sampling laws P0^n and does not assert iid observations. The eigenvalue event has strict lower/upper thresholds with two positive constants and probability 1-o(1); the printed assumption does not state symmetry of V, so the symmetric eigenvalue API cannot be used without that issue being resolved. Preserve K_n's theta-space definition versus its use as an h-domain. Do not replace the abstract coefficients by derivatives or import stronger differentiability assumptions."
+      }
+    }
+  ]
+}

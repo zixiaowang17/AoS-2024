@@ -1,0 +1,129 @@
+{
+  "scope": "Manual comparison of all 15 remaining p2738 interfaces; source architecture ambiguities, sample-split conventions and statistical quantifiers preserved.",
+  "rows": [
+    {
+      "interface_id": "local-8add7d06bd0b50c10022",
+      "related": ["lp.norm_eq_ciSup", "Set.projIcc"],
+      "status": "composable",
+      "query": "Inspected bounded-function supremum norm and interval clipping, including endpoint evaluation rules, against individual-component bounds and truncation.",
+      "result": "Pointwise uniform bounds are represented by the supremum norm of bounded functions, and projection onto [-B,B] clips each component for B>=0. This differs from an essential bound under a design law or clipping only the final sum.",
+      "gap": "The componentwise bound and clipping are directly expressible once the univariate and bivariate domains and nonnegative level B are supplied.",
+      "comparisons": {"D17": "Bound each f_j and f_jk separately by B in the pointwise supremum norm and clip each component network to [-B,B]. The earlier bound on the whole mean f0 neither implies these individual bounds nor authorizes replacing component clipping by final-output clipping."}
+    },
+    {
+      "interface_id": "local-a8c37a5139db24b6e37b",
+      "related": ["Matrix.mulVec", "posPart_def"],
+      "query": "Searched neural-network and ReLU architecture classes; inspected affine-layer matrix evaluation and positive-part activation against the two component class parameter tuples.",
+      "result": "Affine layers and positive-part activations are available ingredients, but the searched revision has no matching network class with this width, depth and sparsity accounting. The source leaves architecture rounding and counting conventions unspecified.",
+      "gap": "The component network classes need an explicit architecture, activation and parameter-count convention matching the separate one- and two-dimensional tuples.",
+      "comparisons": {"D13": "Use input dimensions 1 and 2, scalar output, widths c1*N1*log N1 and c4*N2*log N2, depths c2 and c5, and sparsity counts c3*N1^2*(log N1)^2 and c6*N2^2*(log N2)^2. These are component classes, not the full d-input structured sums; exact versus at-most counts, biases and integer rounding remain unspecified, and ReLU context is not a replacement for the incomplete generic class definition."}
+    },
+    {
+      "interface_id": "local-ac23240a2d8a8be3fa44",
+      "related": ["Real.sqrt", "Real.log"],
+      "status": "composable",
+      "query": "Inspected real logarithm and square root, including their totalized boundary conventions, against both penalty formulas and component complexity expressions.",
+      "result": "The formulas use ordinary real arithmetic once sample sizes, dimensions and widths are valid positive inputs and their constants are supplied. The library operations do not establish that a chosen constant is sufficiently large for the theorem.",
+      "gap": "The displayed penalties are directly expressible with valid tuning inputs, while sufficient constants, architecture rounding and the post-split sample-size convention remain to be specified.",
+      "comparisons": {"D20": "Keep the entire sums inside each radical: V_n1*log(n)/n+2*log(d)/n and V_n2*log(n)/n+3*log(d)/n, multiplied outside by C3 and C4 respectively. Use V_ni=Ni^2*(log Ni)^3, not the architecture sparsity's squared logarithm. Cast sizes to reals before division and do not let log(0) or sqrt of a negative value silently legitimize invalid inputs; the source's use of n after splitting remains unresolved."}
+    },
+    {
+      "interface_id": "local-cce01d3b13bfa6097243",
+      "related": ["lp.norm_eq_ciSup", "Real.rpow"],
+      "query": "Searched neural component approximation bounds and inspected bounded-function sup norms and real powers against the two source rates.",
+      "result": "Supremum approximation errors and their real-power bounds can be expressed. No searched declaration proves the corresponding network approximation theorem for the source's particular smoothness and architecture conventions.",
+      "gap": "The component network approximation results must be proved for the source's function classes and architecture conventions with the two distinct rates.",
+      "comparisons": {"D19": "Retain rho_n1<=C1*N1^(-2 beta1) for univariate components and rho_n2<=C2*N2^(-beta2) for bivariate components. These are unsquared component approximation errors; do not substitute the aggregate squared rho_n quantity or alter the source's integer-smoothness and unspecified uniform-constant conventions."}
+    },
+    {
+      "interface_id": "local-41dabe97c1d82bf2c74c",
+      "related": ["IsMinOn", "MeasureTheory.eLpNorm", "Finset.sum_apply"],
+      "query": "Searched group-penalized neural estimators and empirical-risk minimization; inspected IsMinOn's membership requirement, empirical L2 seminorm representation and finite sums.",
+      "result": "The criterion combines empirical squared residuals with sums of component empirical L2 norms, and a feasible global minimizer is expressible by membership plus IsMinOn. These do not supply minimizer existence or a training algorithm.",
+      "gap": "The clipped component classes and empirical measure must be supplied with a feasible measurable global minimizer of the stated function-norm-penalized criterion.",
+      "comparisons": {"D18": "Sum every univariate component and each pair k<l in the residual, then add lambda_n1 times the sum of unsquared empirical component L2 norms and lambda_n2 times the interaction norm sum. Neither square the penalties nor identify them with an L1 penalty on final-layer weights. Preserve Section 3's individual clipping, valid n>0 and unspecified optimizer selection; theorem penalty choices remain separate inputs."}
+    },
+    {
+      "interface_id": "local-88c9f6b8dca5fad96ba7",
+      "related": ["lp.norm_eq_ciSup", "Finset.sum_apply", "Real.rpow"],
+      "query": "Searched sparse neural approximation witnesses; inspected supremum norm and finite-sum evaluation against the active-component approximants and their bounds.",
+      "result": "One can express existence of class members satisfying the individual sup-norm error bounds and sum them over active indices. The passage supplies approximation witnesses rather than uniquely best or exactly minimizing networks.",
+      "gap": "The active-component approximation witnesses and their class membership need proof, while the source's mixed pair indices and absent inactive-component extension remain explicit.",
+      "comparisons": {"D14": "Keep the respective N1^(-2 beta1) and N2^(-beta2) bounds and sum only over S1 and the active k<l interactions in (3.4). Preserve its citation to Theorem 2.9 and mixed jk/kl indexing. Do not impose exact argmin optimality or uniqueness, and do not silently set inactive starred components to zero for the later RSC formula."}
+    },
+    {
+      "interface_id": "local-b55ce1271006fa961dd6",
+      "related": ["MeasureTheory.eLpNorm", "Finset.sum_apply"],
+      "query": "Searched restricted strong convexity and group-lasso cone conditions; inspected empirical L2 seminorms and finite decomposed-function sums against the full implication (3.9)-(3.10).",
+      "result": "The hypothesis and conclusion are expressible as inequalities of empirical norms, but no matching nonlinear component RSC theorem was found. The source's inactive reference components and quantification over any decomposed function need to remain as written.",
+      "gap": "The reference components, function domain and full approximate-cone implication must be specified and proved rather than replaced by a linear restricted-eigenvalue condition.",
+      "comparisons": {"D21": "Retain inactive weighted norm sums bounded by 4(s1*rho_n1^2+s2*rho_n2^2), plus 3 times both active weighted norm sums, plus s1*lambda_n1^2+s2*lambda_n2^2. The conclusion uses kappa1^2 and kappa2^2 times active squared norm sums bounded by the squared norm of the total difference. Do not remove the additive slacks, restrict the any-function quantifier to networks without justification or invent zero inactive phi-star components absent from (3.4). This condition is not derived merely from the design density bound."}
+    },
+    {
+      "interface_id": "local-070829d347edea91e53e",
+      "related": ["Matrix.mulVec", "posPart_def", "Finset.sum_apply"],
+      "query": "Searched fixed-depth neural architecture classes; inspected affine-layer evaluation, positive-part activation and sums of coordinate-restricted components against revised classes (2.7)/(2.8).",
+      "result": "The primitive layer and structured-sum operations are available. The revised architecture remains a paper-specific class with fixed depth and particular dimension/width/sparsity counts rather than a library neural-network type.",
+      "gap": "The revised constant-depth structured network classes need an explicit architecture and counting convention preserving their dimension and pair-count factors.",
+      "comparisons": {"D7": "Keep full input dimension d, scalar output, depth c2, and the respective d and choose(d,2) multipliers on widths and sparsities. Preserve separate N1 and N2 and the squared N_i log N_i factor. These revised classes retain sums of univariate or bivariate subnetworks; they are not arbitrary fully connected d-input networks and are not obtained by literally setting L=1 in the earlier L log L expression."}
+    },
+    {
+      "interface_id": "local-42112b589613838cf17e",
+      "related": ["IsMinOn", "Finset.sum_apply", "Set.projIcc", "Real.sign"],
+      "query": "Searched neural least-squares ERM and clipping; inspected global-minimum predicates and the signed clipping expression versus interval projection.",
+      "result": "A feasible pair globally minimizing the empirical squared-error criterion can be specified; projection onto [-B,B] realizes the final signed-min clipping formula for B>=0. Existence and measurable selection of the pair are not guaranteed by these operations.",
+      "gap": "The chosen network classes need a feasible measurable global ERM pair before its summed output is clipped to the source's interval.",
+      "comparisons": {"D8": "Minimize over a pair from F_NN^1 and F_NN^2, form f_big as their sum and clip that final output, not each component. Use the original or revised classes according to the theorem context without treating them as identical. Preserve normalization 1/n and no optimizer uniqueness or equivalence to a gradient-descent result; the bound here concerns total f0, unlike (3.6)."}
+    },
+    {
+      "interface_id": "local-6f92095e587ad845a97f",
+      "related": ["Finset.filter", "IsMinOn", "MeasureTheory.eLpNorm", "Finset.sum_apply"],
+      "query": "Searched sample-split neural selection/refitting algorithms; inspected filtered active sets, empirical L2 seminorms, exact global minima and finite component sums against every Algorithm 1 step.",
+      "result": "The split, threshold sets and selected-component refit are expressible using finite data and optimization predicates. The source leaves the empirical norm and objective normalization after splitting incompletely indexed and does not supply computable exact solvers or threshold constants.",
+      "gap": "The split-specific index and normalization conventions, threshold constants and minimizer selections must be resolved before claiming an executable implementation of the full procedure.",
+      "comparisons": {"D23": "Preserve ceil(n/2) observations in D1 and floor(n/2) in D2 for odd n; fit the penalized criterion on D1, select norms >=c1*lambda_n1 or >=c2*lambda_n2, and use the preceding prose's D2 refit without penalty. The printed norm subscript n and sum_i/n in (3.17) leave the split index/denominator convention unspecified. Keep only selected components in the returned sum, add no new final clipping, and do not read appendix-derived thresholds or assume an optimizer can always be found."}
+    },
+    {
+      "interface_id": "local-0e772e42bf1f70492168",
+      "related": ["MeasureTheory.eLpNorm", "Real.sqrt", "Asymptotics.IsBigO"],
+      "query": "Inspected finite-exponent L2 norms, real square root and asymptotic comparison predicates against the unsquared minimum signal and full radical rate.",
+      "result": "The lower signal bounds and comparison with the square root of the two-component rate can be expressed after fixing the population measure and active sets. Generic asymptotic notation does not choose constants or empty-set minimum conventions.",
+      "gap": "The L2 reference measure, active-set minimum conventions and comparison constants must be fixed while retaining the unsquared signal bound and full square-root rate.",
+      "comparisons": {"D22": "Require each active component's unsquared L2 norm to be at least r_n, which asymptotically dominates the square root of s1(n^(-2 beta1/(1+2 beta1))*log(n)^4+log(d)/n)+s2(n^(-beta2/(1+beta2))*log(n)^4+log(d)/n). Do not remove the radical because nearby prose calls it a squared-error rate, square the left-hand norms, choose a design measure silently or assume nonempty active sets when their minima are undefined in the source."}
+    },
+    {
+      "interface_id": "local-67beee73a94ecf94771c",
+      "related": ["MeasureTheory.integral", "csInf_le", "csSup_le_iff"],
+      "query": "Searched expected minimax regression risk and inspected real integration and conditional infimum/supremum requirements against the estimator infimum and joint function/design supremum.",
+      "result": "Nested risk extrema can be represented once an estimator class and joint sampling/test laws are supplied. The source does not specify the design-law family under its supremum or precisely which randomness the expectation integrates.",
+      "gap": "The estimator class, design-law family and training/test expectation convention must be specified before defining a finite real-valued minimax risk with the stated extrema.",
+      "comparisons": {"D11": "Keep infimum over estimators outside supremum over additive/interacting functions with the source's Sigma(beta,L) component convention, followed by E_f of squared prediction error. The X~P_X subscript does not determine a design-law family or independent fresh-test sampling. Do not equate this expected risk with the later expectation-free display, and establish boundedness for real extrema rather than relying on totalized infinities."}
+    },
+    {
+      "interface_id": "local-75da68d7da16b42a7af2",
+      "related": ["MeasureTheory.eLpNorm", "MeasureTheory.lpNorm"],
+      "status": "composable",
+      "query": "Inspected L2 seminorm definitions under a supplied measure and compared population prediction loss with empirical design loss in the random-design section.",
+      "result": "The two losses are obtained by using P_X and the empirical design measure respectively. Finite integrability supplies their real norm interpretation; the population norm may still be random through the fitted estimator.",
+      "gap": "The two losses are directly expressible with their distinct measures, while measurability and finite L2 membership of the random fitted function must be supplied.",
+      "comparisons": {"D24": "Use ||f_hat-f0||_(L2(P_X)) squared for population loss and ||f_hat-f0||_n squared for empirical loss. The former integrates over the design argument and does not automatically average over training data. Preserve Assumption 2.1 for the random design and do not infer independence across observations, an independent test point, or an RSC event for every possible design."}
+    },
+    {
+      "interface_id": "local-9dbbd0fe6d8b25f12157",
+      "related": ["Matrix.mulVec", "posPart_def", "Finset.sum_apply"],
+      "query": "Searched structured neural approximation classes; inspected affine layer and activation operations plus finite coordinate-component sums against the original depth-dependent architecture pair.",
+      "result": "Layer evaluation and structured sums are available primitives, but no matching sparsity/width/depth constrained neural class was found. The prose restricts the formal d-input classes to sums of low-dimensional subnetworks.",
+      "gap": "The original depth-dependent structured classes need an architecture encoding and parameter-count convention that preserve their component-sum restriction.",
+      "comparisons": {"D6": "Retain d and d^2 multipliers in the original univariate and bivariate widths/sparsities, depths c2*L_i*log L_i and sparsities c3 times the dimension factor times (N_i log N_i)^2*L_i log L_i. Do not replace d^2 by choose(d,2) merely because the revised class uses it. Each component uses only its one or two input coordinates; a generic fully connected d-input network is broader. These are the classes used in Theorem 2.7, with tuning counts and rounding left as in the source."}
+    },
+    {
+      "interface_id": "local-791a63ba43e3c7ff9432",
+      "related": ["Finset.image"],
+      "status": "composable",
+      "query": "Inspected Finset.image's mapped and deduplicated finite-set construction against the indexed training-sample notation, distinguishing a finite collection from sampling-law assumptions.",
+      "result": "The displayed finite set is the image of the n observation indices under i -> (X_i,Y_i); retaining the indexed family separately preserves multiplicities and order for empirical sums and splitting.",
+      "gap": "The sample notation is directly expressible as an indexed family and its finite image, without implying independence or a fresh-test sampling law.",
+      "comparisons": {"D10": "Keep n indexed observation pairs available for training, even if some values coincide and the displayed set deduplicates them. This defining clause names the data only; it does not assert iid observations or independence of a later prediction point from the training sample."}
+    }
+  ]
+}

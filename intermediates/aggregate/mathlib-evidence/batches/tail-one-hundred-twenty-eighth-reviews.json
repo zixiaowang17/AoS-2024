@@ -1,0 +1,100 @@
+{
+  "scope": "Manual comparison of nine remaining p1277 interfaces, keeping the coarse and continuous volatility laws, H-dependent minimax rates and time-integral definitions distinct.",
+  "rows": [
+    {
+      "interface_id": "local-ed705a5b63b54a19a26c",
+      "related": ["Int.floor"],
+      "status": "composable",
+      "query": "Searched dyadic and power-of-two conventions in the pinned natural-number and measure libraries and inspected Int.floor as an integrality primitive; compared the exact source n,N,m,delta convention.",
+      "result": "Natural powers define n=2^N directly and integer-valuedness of n*delta is expressible with an integer witness or a floor equality; this does not resolve later block-index inconsistencies.",
+      "gap": "State N>=0, n=2^N and existence of the integer block length m=n*delta without redefining the source scale index.",
+      "comparisons": {
+        "D4": "Represent N as a natural number, including zero, and set sample size n=2^N. Require a positive mesh delta and an integer m whose real cast equals n*delta; equivalently the real value equals the cast of its Int.floor. Here N indexes the fine sampling frequency n, whereas m counts fine increments in a volatility block. Do not replace N by a logarithm of delta^-1, assume m=1, or infer that delta^-1 is itself an integer from n*delta being an integer. The later source's use of coefficient ranges involving 2^(N-j) and coarse indices below delta^-1 has a recorded compatibility issue for general m, which this elementary arithmetic encoding does not repair."
+      }
+    },
+    {
+      "interface_id": "local-7ed78a0e36a7851ae59d",
+      "related": ["ProbabilityTheory.IsBrownianReal", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.IndepFun", "Int.floor"],
+      "query": "Searched Probability and MeasureTheory for fractional Brownian motion, Hurst and Ito/stochastic integral interfaces; inspected Brownian, Gaussian-process, independent-function and integer-floor definitions.",
+      "result": "Ordinary Brownian motion, Gaussian processes and grid flooring are available ingredients; no fractional Brownian volatility model or stochastic-integral construction was verified.",
+      "gap": "Construct independent Brownian and fractional Brownian drivers and their stochastic price integral with volatility sampled at left grid times.",
+      "comparisons": {
+        "D2": "The volatility exponent is X_t=eta*W^H_(floor(t/delta)*delta) with delta>0, so volatility is constant between deterministic grid points. Int.floor gives exactly those grid times for nonnegative t. IsBrownianReal supplies the Brownian law and almost-sure path continuity, while IsGaussianProcess would still need the fractional covariance and continuous version to describe W^H; their independence is a process-level requirement. The price uses a stochastic integral of sigma against B, not the ordinary time integral supplied by Bochner or intervalIntegral. No verified specialized Ito or fractional Brownian interface was found in the inspected directories. Retain H in (0,1), eta>0 and the source normalization sigma0 squared=1. This is model (4), whose discretized volatility yields different rate behavior; it cannot be replaced by the continuous model (1)."
+      }
+    },
+    {
+      "interface_id": "local-7d3a36a7a3df32473a3e",
+      "related": ["MeasurableSpace.comap", "MeasureTheory.Measure.trim"],
+      "status": "composable",
+      "query": "Inspected pullback sigma-algebras and measure trimming and compared the data-generated experiment with its compact two-parameter domain.",
+      "result": "The grid observation map generates the data sigma-algebra, and trimming each full law to it constructs the sequence of restricted experiments.",
+      "gap": "Define the n+1 price-grid observation map and restrict each parameter law to its generated sigma-algebra on the stated compact domain.",
+      "comparisons": {
+        "D5": "Let the observation map send an outcome to (S_(i/n)) for i=0,...,n. MeasurableSpace.comap of the Borel product structure gives A^n, with a proof it lies below the full sigma-algebra A; Measure.trim then turns each P_(H,eta) into a measure on that smaller measurable space. The superscript n denotes available data, not a new independent latent-path sample or a directly observed volatility process. Preserve D compact with nonempty interior in (0,1) times (0,infinity). This subsection's experiment carries its specified price law; later reuse of the observation structure for the continuous model does not preserve the coarse law or introduce extra observations, ergodic information or microstructure noise."
+      }
+    },
+    {
+      "interface_id": "local-0f232552295261d832da",
+      "related": ["ProbabilityTheory.IsBrownianReal", "ProbabilityTheory.IsGaussianProcess", "ProbabilityTheory.IndepFun"],
+      "query": "Searched the pinned probability and measure-theory libraries for fractional Brownian and stochastic-integral constructions; inspected the available Brownian/Gaussian-process and independence primitives.",
+      "result": "The driver law ingredients are present in generic form, but the fractional covariance construction and stochastic integration needed by the full model were not verified.",
+      "gap": "Build independent Brownian/fractional Brownian drivers and define the driftless stochastic integral with the specified exponential volatility.",
+      "comparisons": {
+        "D1": "The source calls S a log-price and defines it additively as S0 plus integral sigma_s dB_s, without a drift term or an extra factor S_s in the integrand. Its squared volatility is sigma0 squared*exp(eta*W_t^H); choosing a positive sigma gives sigma0*exp(eta*W_t^H/2), not exp(eta*W_t^H) as the volatility itself. IsBrownianReal covers B, while a generic Gaussian process still needs the fractional Brownian covariance and path regularity for H in (0,1). IndepFun can state independence of the two complete driver processes once those maps are measurable. The source's positive sigma0 and eta are nuisance scales. Do not import a leverage correlation, a coarse time grid in the volatility, or the later H<3/4 restriction into this prototype definition. An ordinary time integral is not the stochastic integral in this model."
+      }
+    },
+    {
+      "interface_id": "local-971e1abeaf21953da26e",
+      "related": ["ProbabilityTheory.IsBrownianReal", "ProbabilityTheory.IsGaussianProcess", "MeasurableSpace.comap"],
+      "query": "Compared the continuous-model passage with the separately frozen experiment and prototype model after searching for specialized fractional Brownian and stochastic-integration APIs.",
+      "result": "The generic process and observation-sigma-algebra machinery provides ingredients, but no verified complete continuous rough-volatility experiment or estimator theorem was found.",
+      "gap": "Construct the continuous volatility law on the common price observation structure with sigma0=1 and the compact H<3/4 parameter domain.",
+      "comparisons": {
+        "D7": "This passage specializes the continuous model (1), with sigma_t squared=exp(eta W_t^H) and W^H independent of B, taking sigma0=1. It reuses observations of the price grid and their generated sigma-algebra, not the piecewise-constant volatility law from Section 2. Restrict D to a compact subset of (0,3/4) times (0,infinity) exactly as assumed for these theorems. The text says a second-order-increment method can extend H<3/4 to H<1, but that extension is not part of this definition or its current theorem hypotheses. No delta dependence is added through the experiment reference. Expectations E_(H,eta) use these continuous-model laws; generic Gaussian-process and sigma-algebra primitives alone do not construct their stochastic integral."
+      }
+    },
+    {
+      "interface_id": "minimax-probability-lower-rate",
+      "related": ["Filter.liminf", "MeasureTheory.Measure.real", "Measurable"],
+      "query": "Inspected liminf as the eventual-lower-bound construction, finite event probabilities and measurability, and compared the complete D6 and D8 criteria with their separate experiment domains.",
+      "result": "The bounded probability extrema and their positive lower limit can be represented; proving any concrete lower rate requires additional minimax information arguments for each experiment.",
+      "gap": "Define the ordered liminf-infimum-supremum probability criterion over data-measurable estimators for each model, keeping the parameter-dependent rate and target coordinate explicit.",
+      "comparisons": {
+        "D6": "For the Section 2 experiment and its compact D subset (0,1) times (0,infinity), choose one c>0 and take liminf as n tends to infinity of inf over A^n-measurable real estimators H-hat_n of sup over (H,eta) in D of P_(H,eta)(v_n(H)^-1*abs(H-hat_n-H)>=c). The theorem's H dependence of the rate stays inside the parameter supremum; it does not permit the estimator to depend on the unknown parameter. Keep the weak event threshold >=c and the strictly positive limiting lower bound. Event probabilities are in [0,1], the estimator class contains constant functions, and the nonempty parameter domain makes the nested real extrema well behaved after measurability is supplied. The criterion is neither pointwise in parameters nor an expected-error bound or a CLT; an eta-target version must replace the target and estimator explicitly. Intended rates are positive so their inverse is meaningful.",
+        "D8": "Use the same positive liminf of infimum over data-measurable estimators followed by supremum over parameters and the same scaled-error probability, now under the continuous general-model laws and D subset (0,3/4) times (0,infinity). The explicit similarly for eta clause gives a separate target-coordinate criterion rather than simultaneous vector loss. Sharing the abstract criterion with D6 does not identify the models or their resulting rates and introduces no coarse delta branch. Preserve c independent of n and the parameter, the order of extrema, any H dependence of v_n, and the probability event with >=. Filter.liminf and Measure.real supply the mathematical containers, not a lower-bound proof."
+      }
+    },
+    {
+      "interface_id": "local-1bc898509e7c42ed6d0d",
+      "related": ["IsCompact.exists_isMinOn", "IsCompact.exists_isMaxOn"],
+      "status": "composable",
+      "query": "Inspected compact extrema attainment and compared the four continuous coordinate extrema over the source's general parameter set.",
+      "result": "Compactness and nonemptiness yield the attained minima and maxima of both coordinate projections, independently of whether D is a rectangle.",
+      "gap": "Define the four attained coordinate extrema on D and retain the distinction between D and its bounding rectangle.",
+      "comparisons": {
+        "D13": "Apply the compact minimum/maximum theorems to the continuous H and eta coordinate functions on nonempty D. Their extremal values give H_-,H_+,eta_-,eta_+. Because the compact set lies inside the open general-model parameter domain, the attained H endpoints stay strictly between zero and 3/4 and the eta endpoints stay positive and finite. The rectangle [H_-,H_+] times [eta_-,eta_+] contains D but need not equal it; later clamping to that rectangle need not return a point of D. These four extrema do not select one common parameter point attaining all four endpoints."
+      }
+    },
+    {
+      "interface_id": "local-f4e849b30cbe1e23b39d",
+      "related": ["Int.floor"],
+      "status": "composable",
+      "query": "Inspected integer floor and compared the two separate truncation-order inequalities and source lower H endpoint.",
+      "result": "An integer above the finite maximum of the two bounds supplies a valid truncation order, while the weak versus strict source requirements remain distinct.",
+      "gap": "Choose a fixed integer S satisfying both S>=1/(4H_-)+1/2 and S>H_+/(2H_-)-1/2.",
+      "comparisons": {
+        "D14": "Since H_->0, both real bounds are finite. One plus the floor of their maximum is strictly above both and therefore provides an admissible integer witness, without claiming the source specifies that particular or smallest choice. Keep the first inequality weak and the second strict: equality at the first bound is allowed if the second still holds. The order S is fixed from the compact parameter range, not recomputed from the unknown H or sample size. It differs from the price process S_t, the coarse block length m and the later correction iteration index. This arithmetic construction does not import the proof or additional hypotheses of Proposition 5 as a new inventoried theorem."
+      }
+    },
+    {
+      "interface_id": "local-498a58f8c1197da8ad97",
+      "related": ["intervalIntegral", "MeasureTheory.integral_fintype_prod_eq_prod"],
+      "query": "Inspected oriented interval integration and the full finite-product Fubini proof/signature; compared the two total-degree branches, affine rescaling, factorials and shorthand indices in the source.",
+      "result": "These are ordinary pathwise time integrals, whose interval rescaling and product-domain identity fit integration primitives; they do not require the missing Ito integral API used for the price model.",
+      "gap": "Define both path-integral branches with the exact indices and factorial factors and prove the affine interval and product-integration identities for continuous fractional paths.",
+      "comparisons": {
+        "D15": "For b>=1, s>=1 and r_i in {1,...,2S} with sum r_i=b, the b=1 branch necessarily has one degree-one entry and integrates uncentered W_u^H over the dyadic cell, multiplying by 2^(j+p). An affine change of variable gives the printed integral on [0,1], still of uncentered W. For b>=2, each factor integrates a power of W_u^H minus the value at the common left cell endpoint and multiplies by 2^(j+p)/r_i factorial. Their product equals the s-variable unit-cube integral of the product divided by product_i r_i factorial, using the product measure identity after interval rescaling. All factors depend on the same random path; the product integration formula is not an assertion that these random factors are independent. Almost-sure continuous paths give finite time integrals of these powers on compact cells. Preserve the range through 2S here even though a later overlined summation restricts entries through S. The shorthand mathfrak W_(p,l) fixes j=0 and k=0, and this time-integral object is distinct from W^H itself and the stochastic price integral."
+      }
+    }
+  ]
+}

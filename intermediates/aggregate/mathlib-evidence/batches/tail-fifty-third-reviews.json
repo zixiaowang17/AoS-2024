@@ -1,0 +1,96 @@
+{
+  "scope": "Manual comparison of ten remaining p1152 spectral-empirical-likelihood interfaces against pinned mathlib; only the active published source is used and its normalization and theorem-scope issues remain explicit.",
+  "rows": [
+    {
+      "interface_id": "local-b7537fa1c97990f918c9",
+      "related": ["HasDerivAt", "BoxIntegral.Integrable", "BoxIntegral.IntegrationParams.Riemann", "Matrix.mul_nonsing_inv"],
+      "status": "partial_match",
+      "query": "Inspected coordinate-derivative predicates, box-integrability and Riemann integration parameters, and nonsingular matrix inversion; compared all four regularity clauses in Theorem 2, published source page 10.",
+      "result": "Coordinate derivatives, genuine Riemann integrability and invertible Jacobian matrices have library representations; the uniform neighborhood envelopes and exact spectral moment Jacobian require a custom combined assumption.",
+      "gap": "Assemble the coordinate derivative and Riemann-envelope conditions with the nonsingular moment-equation Jacobian, preserving the source's unspecified derivative-tensor norm.",
+      "comparisons": {"D17": "Use HasDerivAt on one-coordinate sections and then their partial derivatives to express the stated first and second parameter partials of G and script M; do not silently replace mere partial-derivative existence by a stronger C2 hypothesis. BoxIntegral.Integrable with Riemann parameters, a one-dimensional box and ordinary length-based volume represents the Riemann condition for each derivative component at theta0 and the common envelope H on [-pi,pi]. Lebesgue integrability alone would weaken that requirement. Retain bounded script-M derivatives and a single integrable frequency envelope for both orders of G derivatives throughout the neighborhood. Construct D_theta0 as the frequency integral of the G Jacobian times f minus the script-M Jacobian, and separately require its determinant to be invertible. These clauses supplement Assumptions 1–3 and do not certify them."}
+    },
+    {
+      "interface_id": "local-1eff22b5d3520647cc42",
+      "related": ["Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected pointwise finite-sum evaluation evidence against the full-data spectral average (5), source page 6, and its explicit signed-frequency convention.",
+      "result": "Finite vector-valued sums express the statistic as a function of theta once its exact signed integer frequency set and periodogram are supplied.",
+      "gap": "Define the signed nonzero Fourier-frequency index set and finite spectral average with the source's endpoint multiplicities and normalization.",
+      "comparisons": {"D6": "For n>0 sum G_theta(2*pi*j/n)*I_n(2*pi*j/n) over integer j with 1<=abs(j)<=floor(n/2), then multiply by 2*pi/n. Include both positive and negative frequencies and omit j=0. For even n both -pi and pi appear as distinct indices as printed, even if their periodogram values coincide; no endpoint half-weight or deduplication is justified. This uses the full-data periodogram, not the NOL block statistics that carry the SEL weights. The finite-sum construction does not establish Riemann-sum convergence or spectral unbiasedness."}
+    },
+    {
+      "interface_id": "local-0ca41c2f5a41c0530b3b",
+      "related": [],
+      "status": "no_verified_match",
+      "query": "Searched spectral estimator, spectral likelihood, empirical likelihood and root-definition terminology across Probability and Analysis; compared equation (11) and the exact existence conclusion in Theorem 2, source page 10.",
+      "result": "No specialized spectral M-estimator or theorem selecting a consistent root of this empirical spectral equation was found in the inspected library.",
+      "no_related_reason": "Defining a feasible theta satisfying T_n(theta)=script M_theta only needs equality and set membership; unrelated polynomial-root or minimizer APIs would misrepresent the source estimating equation.",
+      "gap": "Define a measurable solution selection for the full-data spectral moment equation and prove the required existence and asymptotic properties for that selection.",
+      "comparisons": {"D16": "The estimator solves T_n(theta)=script M_theta within Theta. Script M need not be zero or equal theta, and the population moment identity is assumed at theta0 rather than every candidate theta. Theorem 2 asserts existence of a consistent asymptotically normal sequence of solutions; it neither guarantees a unique root nor gives those properties to every root. Do not substitute maximization of SEL, minimization of a Whittle objective in general, or a root based on the block averages."}
+    },
+    {
+      "interface_id": "local-70831ab14122ce4d8cfb",
+      "related": ["Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected finite-sum evaluation evidence against the NOL spectral averages on source page 7 and the nonoverlapping block definition on page 6.",
+      "result": "The block statistic is a finite vector-valued spectral sum with block length and block periodogram substituted into the full-data formula.",
+      "gap": "Build each nonoverlapping block spectral sum with the exact block-frequency set, normalizer and leftover-observation convention.",
+      "comparisons": {"D8": "For i=1,...,floor(n/b), use the length-b block starting at 1+(i-1)b and sum over 1<=abs(j)<=floor(b/2), multiplying G_theta(lambda_j,b)*I_i,NOL(lambda_j,b) by 2*pi/b. Keep both endpoint indices for even b and omit zero. Leftover observations do not form an additional block. This is defined directly from the block data and G_theta; computing the numerical full-data T_n is not a prerequisite despite the source calling it an analog."}
+    },
+    {
+      "interface_id": "local-96496bf73fe38cdb6334",
+      "related": ["PMF.ofFintype", "IsCompact.exists_isMaxOn"],
+      "status": "composable",
+      "query": "Searched empirical-likelihood terminology and inspected finite probability-mass construction and compact objective attainment; compared SEL (6) and its explicit empty-feasible-set convention on source page 7.",
+      "result": "Finite nonnegative probability weights and a compact constrained optimization can represent the product profile; the spectral mean constraint and explicit zero fallback must be constructed.",
+      "gap": "Define the mean-constrained probability simplex and its product supremum, returning the source's explicit zero value when it is infeasible.",
+      "comparisons": {"D9": "For N=floor(n/b)>0 impose p_i>=0, sum p_i=1, and the vector equality sum p_i*T_i,NOL(theta)=script M_theta, then take the supremum of product p_i. A finite PMF represents normalized nonnegative weights after translating real and extended-nonnegative masses; the objective remains the unscaled product. When feasible, the closed affine slice of the compact finite simplex and continuity of the product support attainment, after those facts are proved. When infeasible the source explicitly sets L_n=0, so no generic supremum convention should choose another value. Weights attach to indexed subsample statistics, retaining repeated values, not individual observations or full-periodogram ordinates."}
+    },
+    {
+      "interface_id": "local-5832610ddfb498639dcf",
+      "related": ["ENNReal.log"],
+      "status": "composable",
+      "query": "Inspected ENNReal.log 46–49 and log_zero/log_top against SEL log-ratio (7), source page 7, and the likelihood's explicit zero case.",
+      "result": "The extended logarithm agrees with the real formula for positive likelihood and sends a zero likelihood ratio to negative infinity before multiplication by -2.",
+      "gap": "Embed the nonnegative normalized likelihood ratio in the extended reals and retain the infinite statistic when the likelihood is zero.",
+      "comparisons": {"D10": "Apply the extended logarithm to N^N*L_n(theta), then multiply by -2, with N>0. On positive finite ratios this is the printed real formula; at L_n=0, log(0) is negative infinity and the statistic is positive infinity under the ordinary extended-real interpretation. Real.log 0=0 would yield the wrong statistic. The simplex product bound gives a ratio at most one once established; finite-valued chi-square asymptotics do not mean every sample has a positive feasible likelihood."}
+    },
+    {
+      "interface_id": "local-aa4436cc15eedb062964",
+      "related": ["Complex.exp", "Finset.sum_range_succ"],
+      "status": "composable",
+      "query": "Inspected complex exponential and finite-sum indexing against the published overlapping-block periodogram, source page 12; compared the archived NOL normalization on page 6.",
+      "result": "A finite complex Fourier sum, squared modulus and scalar prefactor directly express the printed overlapping-block statistic, including its retained normalization mismatch.",
+      "gap": "Implement the indexed overlapping Fourier sum with the printed 2*pi/b factor while keeping its discrepancy from the NOL normalization explicit.",
+      "comparisons": {"D18": "Use observations X_(s-1+i) for s=1,...,b and the complex exponential exp(-I*lambda*s), then multiply the squared complex modulus of their sum by 2*pi/b. Index all n-b+1 windows with 1<=b<=n. The published prefactor differs by 4*pi^2 from the NOL 1/(2*pi*b) factor; do not silently normalize them alike or import the old dissertation formula. No centering, endpoint deduplication or independence of overlapping blocks is part of this definition."}
+    },
+    {
+      "interface_id": "local-48102f473c25117a42c3",
+      "related": ["Finset.sum_apply"],
+      "status": "composable",
+      "query": "Inspected function-valued finite-sum evaluation against the OL average on source page 12 and its theta-indexed reuse in Section 7 on page 19.",
+      "result": "A finite sum defines each OL block statistic as a function of theta; the displayed fitted-parameter value is evaluation of that same function.",
+      "gap": "Construct the theta-indexed OL spectral average and distinguish its fitted evaluation from the entire function used in profiling bootstrap resampling.",
+      "comparisons": {"D19": "Use 2*pi/b times the signed nonzero block-frequency sum of G_theta(lambda_j,b)*I_i,OL(lambda_j,b), preserving both signs and even-b endpoints. Evaluating at the spectral M-estimator produces the page-12 display, but Section 7 uses the whole theta-indexed function; its definition does not require fitting theta first. Keep the OL periodogram's printed normalization mismatch. If these functions are later resampled for profiling, one block index selects the entire function, not independent draws at each theta."}
+    },
+    {
+      "interface_id": "local-8d760198946566b77289",
+      "related": ["ContDiffOn"],
+      "status": "composable",
+      "query": "Inspected the differentiability-class predicate against the fitted target definition on page 19 and the source note that Theorem 4 assumes C1 near theta0.",
+      "result": "The local C1 property of h can be represented by ContDiffOn at order one; the fitted target itself is direct function evaluation at the selected spectral estimator.",
+      "gap": "Define the fitted target by applying the given locally C1 map to the selected spectral M-estimator and retain its source dimensions.",
+      "comparisons": {"D24": "Set vartheta-hat_n=h(theta-hat_n), with h from R^p to R^s and s<=p. Use ContDiffOn ℝ 1 for the theorem's local C1 assumption if representing its regularity; do not strengthen the word smooth to C-infinity or require the random estimator map to be continuous. This target is not itself defined by a profile optimization. It plays the fitted truth in bootstrap calibration, and its asymptotics depend on the chosen consistent root and the separately stated h assumptions."}
+    },
+    {
+      "interface_id": "local-f67a1499f041a3acc470",
+      "related": ["IsGreatest", "ENNReal.log"],
+      "status": "partial_match",
+      "query": "Inspected the generated IsGreatest membership-and-upper-bound predicate and extended logarithm; compared the original smooth-function profile maximum on source page 19 and its recorded attainment limitations.",
+      "result": "A greatest-value predicate retains the source's attained maximum, and the extended log handles zero values, but existence on each h-fiber is not guaranteed by these declarations.",
+      "gap": "Establish feasibility and attainment of the likelihood maximum on the h-fiber before constructing its profiled extended log-ratio.",
+      "comparisons": {"D23": "The profile value must be a greatest element of {L_n(theta):theta in Theta and h(theta)=vartheta}, so its membership witnesses attainment as well as the upper bound. Replacing max by sup would change the printed definition; an empty fiber or unattained maximum lacks a source convention. The profiled log-ratio uses the same N^N normalization and extended treatment at zero. h maps R^p to R^s, and the theorem's degrees of freedom come from its Jacobian rank at theta0, not automatically s or a constant-rank assumption in a neighborhood. Preserve the separately recorded contradiction between Theorem 4's block-rate limit and the assumptions it imports rather than treating the generic profile construction as a proof of that theorem."}
+    }
+  ]
+}

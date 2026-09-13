@@ -1,0 +1,542 @@
+[
+  {
+    "interface_id": "local-66bb318d7ec5c0433031",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "c6e7ec267a2c15fef733a66012f3e6f28610989269d88756816dcaa3f6cfa350",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D11",
+        "comparison": "Preserve inverse availability as h tends to zero for all x in R^d and beta in the open Theta_beta. Do not strengthen it to one threshold uniform in x and beta, every finite h, all boundary search parameters, or polynomial inverse growth. A local inverse near f_h(a) is not automatically an inverse at every requested x, and the library's globally typed localInverse only has inverse identities on neighborhoods.",
+        "statement_sha256": "cc18d2bc475cbab506a8d5e1c452ca6723eb234e87a7ae76b5d5c1b1d8d8c8e0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "HasStrictFDerivAt.localInverse",
+          "type": "{𝕜 : Type*} → [NontriviallyNormedField 𝕜] → {E : Type*} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type*} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → [CompleteSpace E] → (f : E → F) → (f' : E ≃L[𝕜] F) → (a : E) → HasStrictFDerivAt f (f' : E →L[𝕜] F) a → F → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.InverseFunctionTheorem.FDeriv",
+          "provides": "A local inverse near the image of a point with an invertible strict derivative; inverse identities hold on appropriate neighborhoods, not globally.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/InverseFunctionTheorem/FDeriv.lean#L149-L150",
+          "link_checked": true
+        },
+        {
+          "name": "Flow",
+          "type": "(τ : Type u) → (α : Type v) → [TopologicalSpace τ] → [TopologicalSpace α] → [AddZero τ] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Dynamics.Flow",
+          "provides": "A jointly continuous time/state action satisfying zero-time identity and the additive semigroup composition law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Dynamics/Flow.lean#L85-L90",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched inverse-flow and small-step invertibility constructions; inspected the local inverse function theorem's strict derivative assumptions, neighborhood inverse identities and the forward Flow structure.",
+          "result": "An invertible strict derivative gives an inverse on suitable neighborhoods, while a nonnegative-time flow does not itself supply backward maps. Neither declaration establishes the source's asymptotic inverse availability at every state and parameter or chooses its unstated quantifier order."
+        }
+      ],
+      "gap": "The small-step inverse's domain and quantifiers need specification and a proof beyond the forward flow or a pointwise local inverse theorem."
+    }
+  },
+  {
+    "interface_id": "local-f58efc5ffbf0879ff7ea",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "06b84cb7e3f3bc05be3d13e6d5d0e14e2c3c5b83b05a0d779db206a128e3806e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D16",
+        "comparison": "For LT use r_k=X_k-mu_h(f_h(X_(k-1))); for S use Z_k=f_(h/2) inverse(X_k)-mu_h(f_(h/2)(X_(k-1))). Both objectives retain N log det Q+Nh Tr A+(1/h)sum r^T Q^-1 r-sum r^T Q^-1 A r with Q=Sigma Sigma^T, and S additionally has h sum Tr DN(X_k). Keep the product order Q^-1 A, every coefficient, h>0 and positive determinant. The Jacobian's derivative-first convention does not change its trace. Equations (22)/(23) are the theorem objectives, not the full (12)/(14) objectives; R(Nh^2,x0) is order notation and does not imply Nh^2 tends to zero under consistency's limits alone.",
+        "statement_sha256": "dc65f3d1be9bc2a0f8c3d1f2bcca94015f661ae032c58b49c0703bc874c1dfb9"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Lie-Trotter/Strang likelihood and approximate-objective APIs; inspected matrix quadratic operations, nonsingular inverse conditions, trace, real logarithm and finite sums against equations (22)/(23) and the retained Z residual.",
+          "result": "The two real-valued matrix expressions can be assembled from supplied flows and derivatives. The generic operations do not justify the truncation, inverse-flow availability or equality of minimizers with the full objectives."
+        }
+      ],
+      "gap": "The two distinct approximate objectives require their specified residuals, valid inverse flows and covariance inverses, with truncation and minimizer claims proved separately."
+    }
+  },
+  {
+    "interface_id": "local-548eb175717b3e22a72d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "47f6ff1205d866ea3e685853df06bc8d11cd35fd4f8869d6749f147bbd7dc292",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D7",
+        "comparison": "Require equality of F(x,beta1) and F(x,beta2) for every x before concluding beta1=beta2, with parameters restricted to their supplied domain. Equality only nu0-almost everywhere is a different condition. This identifies the drift parameter, not the diffusion square-root matrix Sigma.",
+        "statement_sha256": "e8d5b72975ae7c4cce65bf5290a7d5b648679f4806beb50d4040367e9f299ebf"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Function.not_injective_iff",
+          "type": "{α : Sort u} → {β : Sort v} → {f : α → β} → (¬ Function.Injective f ↔ ∃ a b, f a = f b ∧ a ≠ b)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Logic.Function.Basic",
+          "provides": "Failure of injectivity is exactly the existence of distinct inputs with the same output, applicable to parameters mapped to entire drift functions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Logic/Function/Basic.lean#L192-L194",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched function-family injectivity criteria and inspected not_injective_iff's distinct-input collision characterization against global drift identifiability.",
+          "result": "Map each allowed drift parameter to the whole function x -> F(x,beta); injectivity of that map is the stated condition by function extensionality. The inspected theorem describes exactly how this fails through distinct parameters with the same drift function."
+        }
+      ],
+      "gap": "The assumption is directly expressible as injectivity of the parameter-to-drift-function map on the stated parameter domain."
+    }
+  },
+  {
+    "interface_id": "local-021cb99b5246c8eaab5d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "39e8f38a928e9261bbbf6af1812bbcd0413010c17675918575194b4d2c043a85",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D5",
+        "comparison": "Preserve existence of an invariant probability for the SDE and its use at the true law. Do not infer uniqueness, ergodicity, stationary initialization from nu0, or finite moments of every order. Invariance of one numerical-step kernel alone would not express invariance for the continuous-time solution.",
+        "statement_sha256": "844b7baa3e133e595908447cb157f36f017f620631ac11923c00df4ec446c4ec"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.Invariant",
+          "type": "{α : Type u} → {mα : MeasurableSpace α} → ProbabilityTheory.Kernel α α → MeasureTheory.Measure α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Invariance",
+          "provides": "The input measure is unchanged by one kernel step, expressed as equality of its kernel pushforward with itself; probability, uniqueness and mixing are separate properties.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Invariance.lean#L39-L40",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched invariant probabilities of diffusions and inspected Kernel.Invariant's equality of the kernel pushforward measure with its input measure.",
+          "result": "After a transition kernel is constructed for each elapsed time, invariance is expressible for nu0 at every time. The generic invariant predicate does not construct the SDE transition semigroup or assert probability mass one."
+        }
+      ],
+      "gap": "The diffusion transition kernels must be constructed and nu0 required to be a probability measure invariant under every elapsed-time transition."
+    }
+  },
+  {
+    "interface_id": "local-f4c6396f94c96bbe7ae9",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "dd375276952d611a28001a5eba16f60b2cd113ecd2eab90245375055c0a4d1a5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D6",
+        "comparison": "Quantify over the entire closure of Theta_Sigma, not only the true parameter or the open domain. The general model's positive-definite covariance is compatible with this condition, but the assumption is not a hypoelliptic extension and no uniform numerical bound on inverse norms is inserted into its wording.",
+        "statement_sha256": "73a256ae1129b81d07d5ab051d654850d4777f53089b70d0d2c993cd6234bae6"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspected the determinant-unit condition for the matrix nonsingular inverse and both inverse identities against covariance invertibility throughout the closed parameter domain.",
+          "result": "For each real square covariance matrix, nonzero determinant supplies the required inverse identity. Totalized matrix inverse notation alone is not an invertibility hypothesis."
+        }
+      ],
+      "gap": "The condition is directly expressible as invertibility of every covariance matrix on the closed noise-parameter domain, with the determinant hypothesis used for inverse identities."
+    }
+  },
+  {
+    "interface_id": "local-182c959e35435d92fb9d",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "203605629c9d43c583233738fb6f62f146121b91179bf64416245fc449ac4b5d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D15",
+        "comparison": "For every p>=1 choose C>0 bounding E||X_tilde_(t_k)||^(2p) by C(1+||x0||^(2p)) for k=1,...,N. Keep the 2p moment, not a p moment or its root, and do not infer uniformity over h or a growing observation horizon from this finite-grid statement. The exact and numerical processes remain distinct.",
+        "statement_sha256": "11525a6f1f4fb5344b1808ee0abccde72e87e6424a6fa85676f568238f6f0f36"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched numerical-scheme moment bounds and inspected Bochner integral, finite-exponent eLpNorm and real powers against the bound for every grid point.",
+          "result": "Finite moment bounds can be represented by nonnegative integrals or finite-exponent Lp seminorm bounds. A real Bochner integral alone would return zero in nonintegrable cases, so finiteness must be established rather than hidden by totalization."
+        }
+      ],
+      "gap": "The numerical process needs measurable finite 2p moments and one bound across the stated grid, retaining the source's allowed dependence of the constant on p and the fixed horizon."
+    }
+  },
+  {
+    "interface_id": "local-de9a7d8bc1ebc07d866b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "280f0b6080a9ac1f099d0918866448cbe3f929994c4568ca6daddb3a9da5092b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D17",
+        "comparison": "Retain Q11,Q12,Q22,...,Q1d,...,Qdd and s=d(d+1)/2 for general symmetric Q; a lower-triangle convention needs an explicit reindexing, not silent substitution. For a diagonal covariance use diag Q with d coordinates, coordinating all subsequent derivatives and the diffusion-information block with that reduced dimension.",
+        "statement_sha256": "6915fd0d304d2e9a14309ae643c82414334ef442a2468d4fda7a5bb7c5edf0d6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.diag",
+          "type": "{n α : Type*} → Matrix n n α → n → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Diagonal",
+          "provides": "Extracts the vector of diagonal entries from a square matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Diagonal.lean#L289-L290",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched all Mathlib for vech and half-vectorization; inspected Matrix.diag and finite matrix-entry indexing against the printed covariance coordinate order.",
+          "result": "The diagonal specialization is directly available and upper-triangular entries can be indexed by finite pairs. No searched declaration supplies the paper's exact upper-triangle-by-column half-vectorization and its enumeration correspondence."
+        }
+      ],
+      "gap": "The upper-triangular coordinate enumeration and covariance reconstruction must be specified, while the diagonal specialization can use Matrix.diag directly."
+    }
+  },
+  {
+    "interface_id": "local-993ac07339073b721868",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "499933fb238cb812f80ec407860f660f09b300602ecdc03a892805bb2de21817",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D18",
+        "comparison": "Interpret the retained shorthand Sigma Sigma_0^T as Q0=Sigma0 Sigma0^T, not a candidate/true cross product. Differentiate F and Q as families before evaluating at theta0, rather than differentiating already fixed constants. Preserve zero off-diagonal blocks, the Q0 inverse between drift derivatives and one half times Tr((partial_j1 Q)Q0^-1(partial_j2 Q)Q0^-1). The derivative ordering follows the specified vech or diagonal coordinates, and source regularity of N does not silently add unprinted parameter smoothness of A and b or certify efficiency.",
+        "statement_sha256": "44efbc8ac7fb595e9277635d202e1534fa5e32165d1dcecb9d9fd220a9b1b79b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.fromBlocks",
+          "type": "{n l m o α : Type*} → Matrix n l α → Matrix n m α → Matrix o l α → Matrix o m α → Matrix (n ⊕ o) (l ⊕ m) α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Block",
+          "provides": "Assemble four compatible rectangular blocks into a matrix indexed by the disjoint unions of their row and column types.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Block.lean#L46-L48",
+          "link_checked": true
+        },
+        {
+          "name": "fderiv",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [AddCommGroup E] → [Module 𝕜 E] → [TopologicalSpace E] → {F : Type w} → [AddCommGroup F] → [Module 𝕜 F] → [TopologicalSpace F] → (E → F) → E → (E →L[𝕜] F)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.FDeriv.Defs",
+          "provides": "Chosen Frechet derivative, set to zero when differentiability fails; derivative existence remains a separate hypothesis.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/FDeriv/Defs.lean#L160-L161",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched splitting-estimator information matrices and inspected block assembly, Frechet derivatives, stationary integration, trace and nonsingular inverse against both blocks of equation (27).",
+          "result": "The block diagonal matrix can be assembled from parameter derivatives evaluated on coordinate directions, with the drift block integrated against nu0 and the covariance block formed by a half trace. The library operations do not prove parameter regularity, finiteness or identification as limiting Fisher information."
+        }
+      ],
+      "gap": "The parameter-family derivatives, covariance-coordinate correspondence and stationary integrability must be supplied before identifying the assembled blocks as the limiting information matrix."
+    }
+  },
+  {
+    "interface_id": "local-7754fb4cbcff3cf362e6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "eaafc143b2b8df577240504ce852eae0c43103b9540e29ebc4c38a2fcc9feb59",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D12",
+        "comparison": "Apply f_h first, then mu_h, then add xi_(h,k): mu_h(f_h(X_previous))+xi. The Gaussian innovation has the supplied OU covariance and is not moved inside f_h or replaced by reversed-order splitting. Its iid marginal law alone is insufficient for strong pathwise error against the exact SDE; retain the Wiener coupling recorded in the source context.",
+        "statement_sha256": "3c7b20c5ef291080a2cd53d5f3b102be8f0f4c04700ff2b41851974b1b235c80"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContinuousMap.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [TopologicalSpace α] → [TopologicalSpace β] → [TopologicalSpace γ] → C(β, γ) → C(α, β) → C(α, γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.ContinuousMap.Basic",
+          "provides": "Composition of bundled continuous maps; continuity of the component maps must be supplied and surjectivity is not asserted.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/Basic.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Lie-Trotter and stochastic splitting schemes; inspected continuous-map composition and multivariate Gaussian innovations against the nonlinear-then-OU update.",
+          "result": "For a fixed innovation realization, supplied continuous substeps compose in the displayed order; a PSD OU covariance defines the innovation law. These generic operations do not prove strong convergence or couple innovations to the original Wiener path."
+        }
+      ],
+      "gap": "The nonlinear and OU substeps must be supplied in the displayed order with innovations coupled to the driving Wiener increments for strong-error comparisons."
+    }
+  },
+  {
+    "interface_id": "local-e67d18abdad6c9d28ed3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "32db918fd586d98f082aa761878a9389fdacddb9f591c7f567d69a3f3f14d27a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D14",
+        "comparison": "Evaluate the one-step numerical map at the exact previous state, using coupled exact and numerical innovations. Bound the norm of the conditional mean by order h^q1 and the conditional 2p-moment root by order h^q2, with p>=1, q2>=1/2 and q1>=q2+1/2; the named consistency order is q2-1/2. R denotes bounds with polynomial dependence on x, not equality to one fixed function. Pointwise-in-x big O with arbitrary constants or an almost-everywhere conditional version alone does not establish the intended common polynomial bounds.",
+        "statement_sha256": "f6b226019dbacce83ace2b131d86a3e5188c9d1e3da1cee0dd6699b033e40fce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigO",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "An eventual norm bound by a constant multiple along a specified filter; punctured behavior at zero can be expressed without a quotient at zero.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L85-L86",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched local Lp scheme consistency and inspected regular conditional laws, conditional expectation, finite-exponent Lp seminorms and Landau bounds against the two local errors and polynomial state remainder.",
+          "result": "Conditional moments and h-order bounds can be expressed, but a regular conditional law is identified only almost everywhere in the conditioning state. The source's all-state polynomial error estimates need a chosen transition/coupling version beyond a generic conditional expectation."
+        }
+      ],
+      "gap": "A statewise conditional coupling and polynomial-in-state error bounds must be established for both the conditional mean and conditional 2p-moment root."
+    }
+  },
+  {
+    "interface_id": "local-c51e05e45dbe2b6ccb15",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T01:57:31.615617+00:00",
+    "source_interface_sha256": "e9633edd625c61ab3e9a0175cb606c7b9e2fd50b21b24bd74eecf538993fa8e6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i02-p0842",
+        "local_id": "D13",
+        "comparison": "Use f_(h/2)(mu_h(f_(h/2)(X_previous))+xi_(h,k)), so the outer nonlinear half-step acts on the noise as well. Do not substitute OU-half/nonlinear-full/OU-half or add noise after the last half-step. The forward definition contains no inverse; the separate A6 requirement of Theorem 3.7 remains an explicit theorem premise rather than a fabricated substep requirement.",
+        "statement_sha256": "c5f7d208f06b5d21b566505700b6700ec46837e62b682ab40ab8df199683b15d"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ContinuousMap.comp",
+          "type": "{α : Type u} → {β : Type v} → {γ : Type w} → [TopologicalSpace α] → [TopologicalSpace β] → [TopologicalSpace γ] → C(β, γ) → C(α, β) → C(α, γ)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Topology.ContinuousMap.Basic",
+          "provides": "Composition of bundled continuous maps; continuity of the component maps must be supplied and surjectivity is not asserted.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Topology/ContinuousMap/Basic.lean#L114-L115",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Searched Strang stochastic splitting and inspected composition order and Gaussian innovation representation against the three-substep update in equation (11).",
+          "result": "The given continuous nonlinear half-step can be composed on both sides of the random OU full-step map. The construction is a forward update and does not itself need an inverse or prove the paper's strong-error theorem."
+        }
+      ],
+      "gap": "The nonlinear-half/OU-full/nonlinear-half update must be assembled with the correct innovation placement and Wiener coupling, with its accuracy theorem proved separately."
+    }
+  }
+]

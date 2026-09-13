@@ -1,0 +1,125 @@
+{
+  "scope": "Manual comparisons of rank-based copula statistics, null-law diffusion testing and posterior/likelihood crossings; original definitions, dependencies and saved source qualifications inspected.",
+  "rows": [
+    {
+      "interface_id": "local-dbeeda07e5c4409efe85",
+      "related": [
+        "Set.indicator",
+        "Finset.filter"
+      ],
+      "query": "Search max-rank, empirical rank and copula in Probability/MeasureTheory; inspect indicator generation and finite predicate filtering against the rank and pseudo-observation formulas.",
+      "result": "Indicator sums or the cardinality of a filtered sample-index set give max-ranks. No packaged copula pseudo-observation construction was located.",
+      "gap": "Finite indicators and filtering are available, but the coordinatewise max-rank transformation and its rank-law properties require the paper’s sample and continuity assumptions.",
+      "comparisons": {
+        "D5": "For each observation i and coordinate p, count all j with X_jp<=X_ip, including j=i and every tied observation. Divide this integer max-rank by n+1, not n; for n>=1 the pseudo-observations lie strictly between zero and one. Do not substitute average ranks, strict ranks, tie-broken ranks or the latent probability integral transform F_p(X_ip). The definition handles ties via the weak inequality, while continuous marginal cdfs and iid sampling imply the usual almost-sure absence of sample ties needed for the uniform rank law. Finset.filter must use the supplied <= predicate; it does not choose the rank convention. Cross-coordinate independence is a separate null hypothesis, not a property of rank normalization."
+      }
+    },
+    {
+      "interface_id": "local-8690384f9692a48f3acd",
+      "related": [
+        "Set.indicator",
+        "PMF.uniformOfFintype",
+        "Int.floor"
+      ],
+      "query": "Search empirical copula, rank centering and uniform rank processes in Probability/MeasureTheory; inspect uniformOfFintype 275-276, integer floor 248-249 and indicator generation 51-54.",
+      "result": "A uniform law on n rank indices and finite indicator products provide the centering components. No centered empirical copula process with this finite-grid correction was located.",
+      "gap": "Uniform finite laws and indicators are available, but the rank-grid centering and product empirical process need the paper-specific construction and null interpretation.",
+      "comparisons": {
+        "D6": "Use n^-1/2 times the sum over observations of the product over p in A of indicator(Uhat_ip<=u_p)-U_n(u_p); neither the product nor its centering can be replaced by an ordinary multivariate empirical-cdf difference. Map the uniform law on n indices to {1/(n+1),...,n/(n+1)} to identify U_n on [0,1], assuming n>=1. The displayed minimum with one has no lower clamp and is not a valid cdf formula for arbitrary negative real arguments; preserve the stated coordinate domain rather than edit the source. Centering by u_p instead of U_n(u_p) changes finite-sample behavior. Under the displayed independent-coordinate null the rank distributions justify the product centering, but iid observations do not make the within-coordinate ranks mutually independent."
+      }
+    },
+    {
+      "interface_id": "local-65a1d9b7e079acf37ebf",
+      "related": [
+        "MeasureTheory.integral",
+        "Finset.sum_div",
+        "Set.indicator"
+      ],
+      "query": "Search Cramer-von-Mises, copula and rank-kernel statistics in Probability/MeasureTheory; inspect the Bochner integral and normalized finite sums against the full integral/double-sum expression.",
+      "result": "Integration and finite sums express both representations, but no declaration establishes this centered-rank kernel identity with its exact finite-n coefficients.",
+      "gap": "Integration and finite sums are available, but the copula-process square must be expanded and integrated to prove the displayed rank-kernel formula.",
+      "comparisons": {
+        "D7": "Integrate the squared centered process over the unit cube under the independence product measure Pi_A. Preserve the full double sum i,j=1,...,n with normalization 1/n, including diagonal terms; removing i=j or changing to a U-statistic normalization gives a different statistic. Each coordinate kernel includes (2n+1)/(6n), both R(R-1)/(2n(n+1)) terms, and minus max(R_ip,R_jp)/(n+1). This comes from integrating the two finite-grid-centered indicators and then factoring across coordinate integration variables, not from assuming the observed coordinates are independent for the algebraic identity. The finite rank sums are bounded for fixed n>=1, permitting the required integrability and sum/integral exchanges once measurability is established. The integral's zero fallback outside integrability does not establish the identity by itself."
+      }
+    },
+    {
+      "interface_id": "local-8ffc5cfdb95ed32496c6",
+      "related": [
+        "Finset.powersetCard",
+        "Finset.card_powersetCard"
+      ],
+      "query": "Search copula aggregation and fixed-cardinality subset sums in Mathlib; inspect powersetCard 196-203 and card_powersetCard 210-214.",
+      "result": "powersetCard enumerates exactly the unordered k-element coordinate subsets, and its cardinal theorem supplies the binomial count. It does not establish distributional properties of the aggregated dependent statistics.",
+      "gap": "The subset indexing and count are available; the aggregate statistic and its joint moment or limit properties still require the paper’s rank-statistic construction.",
+      "comparisons": {
+        "D9": "Sum one S^M_{n,A} for each k-element subset A of {1,...,d}, with k in the stated range 2,...,m. powersetCard k on the finite coordinate set yields unordered subsets exactly once, and card_powersetCard gives choose(d,k); ordered tuples would multiply terms by k! and are not equivalent. Do not average by the number of subsets, include all cardinalities up to k or sample a subset family. Overlapping A use the same observations and can produce dependent statistics, so finite enumeration does not imply independence, a variance-sum formula or the theorem's Gaussian limits. The theorem's stronger H5 and H_(4m-3) assumptions and dimension growth remain separate from the definition of T_n(k)."
+      }
+    },
+    {
+      "interface_id": "local-3a376239507ebb3de9bb",
+      "related": [
+        "MeasureTheory.integral",
+        "ProbabilityTheory.variance"
+      ],
+      "query": "Search null moments of copula/Cramer-von-Mises statistics in Probability/MeasureTheory; inspect Bochner integration and variance 58-64 against (2.2) and the recorded H_k/index conventions.",
+      "result": "Expectation and centered variance are available for an explicit probability law. Their finite-n values and invariance across admissible null distributions require the rank-law argument.",
+      "gap": "Expectation and variance are available, but the common null moments need the rank-distribution calculation and the source’s inconsistent subset range must remain explicit.",
+      "comparisons": {
+        "D8": "Interpret E_Hk and Var_Hk through a probability law satisfying the displayed copula equalities for k-coordinate subsets, together with iid sampling and continuous marginal cdfs. H_k is a class/hypothesis, not a single measure object; equality of these moments across its admissible laws must be proved using distribution-free ranks. The source calls this k-wise dependent and prints an inconsistent hypothesis-inclusion direction; use the displayed equalities for correspondence without changing the archived prose. It also writes A subset {2,...,d} while permitting k=d, so do not silently replace the range with {1,...,d}. The variance is centered around the statistic's expectation and is distinct from its raw second moment. Fixed-n bounded rank statistics give a route to finite moments; the library's conversion of infinite extended variance to zero is not the intended interpretation."
+      }
+    },
+    {
+      "interface_id": "local-70958f6d0c3ccf9c5921",
+      "related": [
+        "Finset.card_powersetCard",
+        "ProbabilityTheory.variance",
+        "Real.sqrt"
+      ],
+      "query": "Search rank-statistic scaling and binomial subset counts in Mathlib; inspect card_powersetCard 210-214, real variance and square root against both scales in (3.2).",
+      "result": "Binomial counts, finite variance and square roots provide the algebraic components. No result equates these exact and asymptotic scales or proves the stated null limit.",
+      "gap": "The arithmetic components are available, but the explicit null mean and the relation between finite-sample and asymptotic scaling need the paper’s moment calculations.",
+      "comparisons": {
+        "D10": "Multiply the subset count choose(d,k) by the exact mean [(1/6-1/(6n))^k+(n-1)(-1/(6n))^k], preserving the sign of the second base for odd k. Keep bar-delta=sqrt(sigma_n^2(k) choose(d,k)) distinct from delta=sqrt((2/90^k) choose(d,k)); the latter is not a notational alias for finite-n variance. A count times individual variance is not automatically the aggregate's variance without handling covariance between overlapping subsets. Real.sqrt needs nonnegative input for the ordinary square-root interpretation, and later normalization also requires a nonzero scale; empty subset families or degenerate finite n must not be hidden by totalized zero behavior. Preserve the theorem's literal replacement of delta_n(m) by bar-delta_n(m), rather than silently extend that sentence to every k."
+      }
+    },
+    {
+      "interface_id": "local-9defcadfbd46f7f320d5",
+      "related": [
+        "ProbabilityTheory.cdf",
+        "IsLeast"
+      ],
+      "query": "Search null-law quantile and multiscale test terminology in Probability/MeasureTheory; inspect CDF.lean 52-58 and Order/Bounds/Defs.lean 43-46 against the finite-T stationary null-law minimum.",
+      "result": "CDF and an attained least-element predicate express the quantile. No diffusion-specific quantile construction or theorem identifying the source's null distribution was located.",
+      "gap": "CDFs and least-element predicates are available, but the finite-T multiscale null law, admissible quantile level and attainment must be established for this statistic.",
+      "comparisons": {
+        "D13": "Use the stationary diffusion law P_b0 for the finite-T statistic T_T^b0, with its absolute local scores, multiscale penalty and retained denominator conventions. The threshold is the minimum of {r in R : P_b0(T_T^b0<=r)>=1-alpha}, not a limiting Gaussian quantile. IsLeast includes membership and therefore expresses the printed attained minimum; at an interior probability level the usual real-law CDF properties provide a route to attainment once the statistic is a finite measurable random variable. Do not invoke a generic real infimum without these conditions or add randomization for atoms. The simple-null equality is on [-A,A], and fixed-start laws from the later section are distinct from this stationary setup. Degenerate permitted kernels and source zero-ratio/log conventions remain part of establishing that the statistic is well-defined."
+      }
+    },
+    {
+      "interface_id": "local-b71f1989bb15cea9339f",
+      "related": [
+        "Set.indicator",
+        "ProbabilityTheory.cdf"
+      ],
+      "query": "Search multiscale diffusion tests and null-law rejection thresholds in Probability/MeasureTheory; inspect indicator generation and CDF semantics against (3.6).",
+      "result": "An indicator of the strict rejection event implements the binary test once the statistic and its null quantile are supplied. No corresponding asymptotic power theorem was located.",
+      "gap": "The rejection indicator is available, but the diffusion statistic and calibrated finite-T threshold still need construction and the power result requires the paper’s argument.",
+      "comparisons": {
+        "D14": "Define the binary test using the event T_T^b0(X)>kappa, with equality accepted. The two-sided nature comes from the absolute value of the local score inside the already defined supremum statistic, not from an extra pair of lower/upper rejection thresholds or splitting alpha again. If the chosen null quantile satisfies its defining non-strict CDF bound, this strict event has null probability at most alpha even when there are atoms; equality to alpha or randomization is not asserted. Retain the finite-T stationary null-law quantile rather than the later limiting similarity threshold, and do not treat the indicator definition as a proof of asymptotic power or as a fixed-start extension."
+      }
+    },
+    {
+      "interface_id": "local-56be9a479ef286c4d44a",
+      "related": [
+        "MeasureTheory.hittingAfter",
+        "MeasureTheory.IsStoppingTime"
+      ],
+      "query": "Search change-detection crossing times in Probability; inspect Process/HittingTime.lean 62-67 and Process/Stopping.lean 73-77 against the two offset-time infima and recorded reset conventions.",
+      "result": "Discrete hittingAfter can express both first crossings with an explicit no-hit infinity value. Stopping-time measurability needs an adapted process and the proper shifted filtration.",
+      "gap": "Hitting times are available, but the posterior and restarted likelihood-ratio processes require their distinct starting indices, threshold directions and source domain conventions.",
+      "comparisons": {
+        "D17": "For fixed starting t, apply hittingAfter to the offset process s↦Gamma_(t+s), the target [b,infinity), and initial index zero to express sigma. For tau use the separate cumulative product s↦prod_{j=1}^s Lambda_(t+j), target (-infinity,1/d] and initial index one. The likelihood ratio restarts at t, while the posterior odds retain their prior history. Both thresholds are non-strict and tau cannot trigger at s=0. hittingAfter returns WithTop infinity on no hit, whereas the source does not fully specify all downstream infinite-stage arithmetic; do not erase that issue by using a natural-number infimum's default value. At random stage starts one additionally needs the shifted filtration/measurability argument, and unrestricted response densities can leave posterior or likelihood-ratio denominators unresolved. The eventual policy's tie in favor of detection is supplied separately by its cycle rule."
+      }
+    }
+  ]
+}

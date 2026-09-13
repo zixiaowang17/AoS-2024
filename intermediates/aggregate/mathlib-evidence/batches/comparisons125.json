@@ -1,0 +1,88 @@
+[
+  {
+    "interface_id": "local-476378cae47b79d8d214",
+    "status": "composable",
+    "names": [
+      "MeasureTheory.Measure.map",
+      "MeasureTheory.integral",
+      "IsMinOn",
+      "QuotientAddGroup.norm_eq_infDist"
+    ],
+    "comparison": "Restrict the objective to measurable maps of the TORUS pushing P forward to Q, and integrate the squared quotient Euclidean distance from x to T(x). Using periodic Euclidean representatives requires integration over a single half-open fundamental cell, not over the infinite periodic lift. The compact torus bounds the cost for measurable maps, but feasibility and existence of an optimal map do not follow just from that bound. IsMinOn expresses the objective inequality and must be combined with membership in the admissible transport-map class; it does not itself assert pushforward equality, attainment or uniqueness. Preserve the source absolute-continuity restrictions on both measures and do not substitute Euclidean displacement of arbitrary lifted representatives for the torus cost.",
+    "gap": "Pushforward, integration and minimizer predicates express the torus Monge problem; optimal-map existence and the admissible-map/quotient identifications remain to establish.",
+    "searches": [
+      [
+        "Inspect map, integral, IsMinOn and the additive quotient norm against the torus-cost Monge definition",
+        "The primitives express the constrained objective but do not turn a feasible-map infimum into an attained unique optimal map or justify whole-lift integration."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-31f265581d57622dfbc1",
+    "status": "partial_match",
+    "names": [
+      "ConvexOn",
+      "gradient",
+      "MeasureTheory.Measure.map"
+    ],
+    "comparison": "Represent phi_0 as a finite-valued convex potential on R^d whose gradient induces the optimal map on the quotient, retaining uniqueness only P-almost everywhere. The convex lift is not a periodic scalar function: its quadratic correction has the source periodicity, and the gradient has the corresponding integer-translation equivariance where defined. ConvexOn and gradient express these objects, but a gradient outside differentiability uses a library fallback and must not become an asserted everywhere transport map; measurable representatives and almost-everywhere differentiability need justification. No inspected declaration supplies the torus Brenier theorem, pushforward optimality or almost-everywhere uniqueness. Keep the source conjugate-domain and additive-constant conventions separate, rather than imposing an unprinted normalization or Euclidean-cost theorem with different hypotheses.",
+    "gap": "Convex potentials and gradients are available, while the torus transport theorem and quotient-compatible almost-everywhere representative remain to establish.",
+    "searches": [
+      [
+        "Inspect ConvexOn, gradient and map against the convex-lift statement and saved torus periodicity/conjugate notes",
+        "The available analytic primitives do not prove torus optimal transport or make the convex lift periodic; the quadratic correction and gradient equivariance are essential."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-6a4461fe7a8ab2d2f9ae",
+    "status": "composable",
+    "names": [
+      "ProbabilityTheory.IndepFun",
+      "Matrix.submatrix"
+    ],
+    "comparison": "Store training (X,y), testing (Z,y_z) and reference W with distinct row counts n,n_z,n_w and a common ordered set of p variant columns. The reference panel has no response vector. Matrix indexing/submatrix operations preserve column alignment, while the quoted cohort independence can be represented by IndepFun at the explicitly chosen random-object level. Retain the saved qualification that the later model shares a random effect vector: conditional independence given that vector and unconditional independence of full response/design cohorts are not automatically equivalent. The dataset declaration does not supply every error/design independence or stochastic covariance assumption from later conditions, and the testing panel must not be treated as an independent external reference when reused for evaluation.",
+    "gap": "Matrix-valued datasets and independence predicates represent the declarations, with common column indexing and the later shared-effect independence qualification retained.",
+    "searches": [
+      [
+        "Inspect matrix submatrix/indexing and IndepFun against the three dataset declarations and saved p0948 cohort-dependence notes",
+        "The representation preserves sizes and roles but does not infer unconditional independence after introducing a shared random effect."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-9c3ec79d1d93903f0b6c",
+    "status": "composable",
+    "names": [
+      "Matrix.PosDef",
+      "Matrix.PosSemidef",
+      "CFC.rpow",
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib"
+    ],
+    "comparison": "Right-multiply each standardized innovation design by the same deterministic covariance square root, keeping n,n_z,n_w row sizes and a shared p-column covariance. Preserve iid real innovation entries with zero mean, unit variance and finite fourth moment; no Gaussian law or rotation invariance is implied. The common constants 0<c<=C bound the FULL covariance spectrum uniformly over p, equivalently positive-semidefinite differences from c*I and C*I. CFC.rpow can choose the positive symmetric square root on the positive-definite domain; do not interpret nonnegative square root as merely entrywise nonnegative entries or silently choose a nonsymmetric factor. Sigma_ii=1 fixes population variances, whereas finite-sample column standardization is a data-dependent operation and need not preserve the exact iid-innovation representation. Preserve the source equivalence claim as a flagged qualification, not a proved identity.",
+    "gap": "Matrix powers, spectral inequalities and iid predicates express the population model, while the claimed finite-sample standardization equivalence is not established.",
+    "searches": [
+      [
+        "Inspect PosDef/PosSemidef, CFC.rpow and iid primitives with the full source Condition 1(a) and its saved standardization issue",
+        "The components encode the covariance model and uniform spectral bounds without deriving a sample-standardization operation from diagonal-one population covariance."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-6893ec16aafa35ebc238",
+    "status": "composable",
+    "names": [
+      "Matrix.blockDiagonal'",
+      "Matrix.submatrix"
+    ],
+    "comparison": "Use the dependent-size block-diagonal construction for Sigma_l with dimensions p_l, then reindex its dependent-sum coordinates to the source contiguous columns using sum_l p_l=p. Submatrix with identity row indexing and the same block-column injection selects X_l,W_l,Z_l while preserving their distinct row counts. The first injection needs the empty-prefix convention p-tilde_0=0, which is implicit in the source and should be recorded rather than inserted into the original quotation. Boundaries are known data, not estimated or selected by a clustering method. The block-count K is distinct from the bold matrix K_l appearing later; no growing-K result or new cross-block independence is implied by the block-diagonal representation alone.",
+    "gap": "Dependent block-diagonal matrices and submatrix indexing express the known blocks after the contiguous-column reindexing and empty-prefix convention are supplied.",
+    "searches": [
+      [
+        "Inspect Matrix.blockDiagonal':570-573 and submatrix:476-477 against Condition 1(b)",
+        "The construction handles unequal block sizes but uses dependent-sum indices, so the explicit contiguous-prefix correspondence is required."
+      ]
+    ]
+  }
+]

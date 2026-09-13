@@ -1,0 +1,653 @@
+[
+  {
+    "interface_id": "local-1f02280ceff5b7a34cc0",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "de9c1ac3a174052b81f3dc9f8d831c2773ac999f576fb37745050781d44beee0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D9",
+        "comparison": "condDistrib can express the conditional class probabilities given the history, up to the usual almost-everywhere version and measurable-variable hypotheses. Sum over S_k, which excludes the target class 0, before dividing by its conditional probability. Under DS.0-dagger the target contributes to S'_k and the marginal-weight formula for lambda follows from the appropriate conditional-law/Radon–Nikodym argument, not by replacing history conditioning with a possibly null singleton event. Event Bayes alone does not establish that identity for continuous histories. The source's nonempty population sets do not guarantee positive probability; retain positive conditioning masses, valid density-ratio versions and the source's limited 0/0 convention rather than importing Lean's totalized nonzero/zero division. The general unobserved-target model cannot be silently treated as target-included.",
+        "statement_sha256": "ba4fc628fdf6d4b30ee16229fd420a36701aa0efd7c44518fe3d9dad88c73fb6"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search conditional odds, Bayes and cond_apply in Probability/ConditionalProbability.lean; inspect cond 76-77, Bayes 275-277 and Kernel/CondDistrib.lean 58-74; inspect finite sum normalization.",
+          "result": "Conditional distributions and event conditioning supply probabilities; Bayes is available for events, but the history-density identity requires domination and the target-included model. No sequential data-fusion odds interface was located."
+        }
+      ],
+      "gap": "Conditional probabilities are available, but the sequential odds and their density-ratio identity require the paper’s target-inclusion, domination and denominator conditions."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "sequential-conditional-product-bias",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "c52eda730e9672ce2b1965bbab6b17dbf6d104d2ce2e5cf53e0fef230f51bb7b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D19",
+        "comparison": "Use integral under cond P_* {A in S'_k} for the product of the density-ratio estimation error and h-minus-ell error; preserve the leading true-to-estimated source-mass ratio R_k. Add the separate (R_k-R_1) times Q-expectation correction, which is not absorbed into the first product and is not automatically zero. The general target is Q and may be unobserved, so it cannot always be replaced by P_* conditioned on A=0. Conditional-event positivity and integrability of the product/difference are needed for the statistical reading of the totalized library operations; source conditioning and regression-version issues remain.",
+        "statement_sha256": "122974be5297388e3d049bd9ded1b6b3b7fc52cbb5a706f80ba94354aa2a7abc"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D20",
+        "comparison": "Retain both the estimated and true odds-derived density-ratio fractions inside their difference, the outer R_k factor, and the separate (R_k-R_1) correction under P_* conditioned on A=0. This specializes D19 only with the exact estimated nuisance transformation in (4), the corresponding true identity, and DS.0-dagger identifying the target law. Freely chosen odds and density-ratio estimators need not give equal biases. Neither fold-specific estimated positive masses nor integrability follows merely from the displayed formula; the source's limited zero-division convention must not be broadened.",
+        "statement_sha256": "1ca1ffccb2270819d31b24ec782e8b40627284bb0016014e74515185dc8f19cb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cond",
+          "type": "{Ω : Type u} → {m : MeasurableSpace Ω} → MeasureTheory.Measure Ω → Set Ω → MeasureTheory.Measure Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.ConditionalProbability",
+          "provides": "The measure restricted to an event and divided by its mass; it is a probability law for positive finite event mass and is zero for null or infinite-mass events.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/ConditionalProbability.lean#L76-L77",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search product bias, cross-fit and pseudo-loss in Probability and MeasureTheory; inspect conditional measure 76-77, Bochner integral 158-161 and finite-sum division 26-27.",
+          "result": "Normalized restricted measures and Bochner integration express both expectation terms, with explicit integrability and positive conditioning masses. No packaged foldwise product-bias formula was located."
+        }
+      ],
+      "gap": "The conditional integrals are available, but both bias terms and the qualified density-ratio-to-odds substitution still require the paper-specific construction."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "sequential-conditional-pseudo-loss",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "bdbad8bc71c3ae7f76dd9b31dcd66890a98c1e3c220279d0747aee4c79c63ae2",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D11",
+        "comparison": "Construct the finite sum for k=2,...,K, preserving each population indicator, its own marginal mass, lambda evaluated on the previous history, and the difference ell^k-minus-ell^(k-1). Keep the separate first-stage weighted ell^1 term and terminal ell^K=ell. This is a map for arbitrary supplied nuisance collections, not only their true values, and no telescoping cancellation is licensed across different weights. A nonempty population set does not imply positive population mass; use the recorded source convention/domain rather than infer one from field division.",
+        "statement_sha256": "2acb306138d27f46c07d9bff33cad35a6687698c0b7eb5e8a65f3a6dfbe887e0"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D12",
+        "comparison": "The odds parameterization has denominator pi^0(1+theta^(k-1)) in each increment and pi^0(1+theta^0) initially. It agrees algebraically with D11 only after the exact lambda substitution, nonzero cancellation conditions and theta^0=sum_{S_1}pi/pi^0 with S'_1=S_1 union {0}. The statistical true-nuisance interpretation is under the target-included model. Arbitrary unrelated nuisance inputs are not interchangeable; preserve all history indices and the initial term.",
+        "statement_sha256": "6c2a9492c9737ba9a3fe0f65c8752021cf3b1bee1c0df71d396c5429c07d57cb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search pseudo-loss, sequential conditional and cross-fit in Probability/MeasureTheory; inspect Set.indicator generation 51-54 and finite-sum normalization 26-27.",
+          "result": "Indicators and normalized finite sums implement the algebraic ingredients, but no sequential conditional pseudo-loss with these nuisance arguments was located."
+        }
+      ],
+      "gap": "Indicators and sums are available; the sequential nuisance-weighted increments, initial term and qualified equivalence of the two parameterizations remain to be assembled."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-20cee48db5d762710a10",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "688a0c41b2b516e38c71d2673a68ae71ff14d992dca3bc12e1b56b9a6c360c8e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D21",
+        "comparison": "For every fold v, require sqrt(n) times the signed sum of B_{k,v} to converge to zero in probability; the source controls the sum and permits cancellation, not a separate n^-1/2 rate for each k. In the second condition the L2(P_*) integral is over a fresh observation while the fitted nuisances remain random through the training/fold data. Preserve the estimated first-population mass multiplying the fitted pseudo-loss and the true mass multiplying the true pseudo-loss, with the general or odds branch as displayed. eLpNorm takes values in ENNReal; establish the finite, measurable random-norm interpretation before taking toReal. TendstoInMeasure uses a fixed measure; a common infinite-sample realization can encode growing samples, otherwise formulate probability-tail limits for their varying laws. Do not substitute deterministic IsLittleO, assume every nuisance has a limit, or impose DS.0 on every drift-corrected theorem branch.",
+        "statement_sha256": "77015d3d3ca1d46792412dc5ad1dc9a59d84315b11a4008f0429ad3645d0e34b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search stochastic order, little-o in probability, product bias and cross-fit throughout Mathlib; inspect Asymptotics/Defs.lean 73-86,169-170, ConvergenceInMeasure.lean 57-59 and LpSeminorm/Defs.lean 83-87.",
+          "result": "TendstoInMeasure expresses convergence in probability for a fixed probability space; eLpNorm at exponent two supplies the inner population seminorm. Deterministic Landau predicates do not themselves express the displayed stochastic rates."
+        }
+      ],
+      "gap": "Convergence in probability and L² seminorms are available, but ST.1 needs the foldwise normalized bias and random nuisance-discrepancy construction with the correct sampling law."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-8e6d4a602f19e3a2c4b2",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "b6f701ba06054d0a2af756792e2f3c3e1105e0f3fcb958d0130268ac24c2c529",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D22",
+        "comparison": "Retain the entire ST.1 construction, changing only the first rate to o_p(1) and the second to O_p(1). The signed bias sum is unscaled and tends to zero in probability; the random L2 discrepancy is merely bounded in probability and need not vanish or converge. IsTightMeasureSet applied to its real-valued laws expresses uniform compact-tail control; relating this to asymptotic O_p(1) requires the usual eventual tail quantifiers and accounting for finitely many initial real-valued laws. It cannot be applied after mapping an infinite eLpNorm toReal=0 to disguise lack of finiteness. Fixed V and each-fold quantification are retained, along with the general/odds alternatives, regression versions and source mass conditions. Deterministic IsBigO and arbitrary added nuisance limits would change the assumption.",
+        "statement_sha256": "03ed4b7ede4f000b46f9472cb2e47cf043e44fbcd78bb9ca7f0f09e12b9179ce"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.TendstoInMeasure",
+          "type": "{α : Type u} → {ι : Type v} → {E : Type w} → [EDist E] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (ι → α → E) → Filter ι → (α → E) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConvergenceInMeasure",
+          "provides": "Convergence in measure of functions along a filter, expressed by vanishing probabilities of positive extended-distance deviations when the underlying measure is a probability law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConvergenceInMeasure.lean#L57-L59",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.IsTightMeasureSet",
+          "type": "{𝓧 : Type u} → {m𝓧 : MeasurableSpace 𝓧} → [TopologicalSpace 𝓧] → Set (MeasureTheory.Measure 𝓧) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Tight",
+          "provides": "Uniform tightness of a family of measures, equivalently a common compact set leaving arbitrarily small mass outside for every member of the family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Tight.lean#L55-L56",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search bounded in probability, stochastic orders and tightness throughout Mathlib; inspect Asymptotics/Defs.lean 73-86, ConvergenceInMeasure.lean 57-59 and Measure/Tight.lean 45-65.",
+          "result": "Convergence in measure supplies o_p(1); tightness of real-valued laws supplies a route to O_p(1), subject to measurability/finiteness and the eventual-versus-whole-family quantifiers. No packaged ST.2 predicate was located."
+        }
+      ],
+      "gap": "The probability-limit and tightness primitives are available; ST.2 still needs its precise foldwise bias and random L²-discrepancy conditions."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-5373960663c77b189cb7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "acecf53ed5ac187e2f485d55f4b65234fa7c4d96cd23e1109ccba86dad592de6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D17",
+        "comparison": "Represent approximately equal random folds I_v and population subsets J_k explicitly, with fixed V. Fit conditional odds out of fold on ([n] minus I_v) intersect J_{k+1}, classifying target against relevant sources using the history. In contrast, the displayed algorithm fits pi^a from observations inside I_v; retain this despite the preceding blanket out-of-fold prose and the optional alternative in Remark 2. Set terminal ell^K to the fixed loss and regress backward from K-1 to 1 using the already fitted next-stage response on the same specified out-of-fold populations. Compute each in-fold pseudo-loss mean, then weight fold estimates by |I_v|/n; an unweighted average is not exact when sizes differ. Empty folds, absent training classes and estimated zero denominators need the recorded source qualifications. This main-text Algorithm 1-dagger is distinct from the supplement's general Algorithm 1 and the later feature-shift Algorithm 1; its motivating DS.0-dagger label does not erase the theorem's drift analysis under model failure.",
+        "statement_sha256": "6d7e4289244be19b74494db449d70e70eb16805c65a1ccc91db21bf9ba4ee487"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search cross-fit, classifier, regression estimator and pseudo-loss in Probability and MeasureTheory; inspect indicator and finite-sum normalization declarations and retained Algorithm 1-dagger source notes.",
+          "result": "Finite-index indicator sums provide marginal proportions and weighted aggregation; no data-fusion cross-fitting algorithm with the specified fitting directions and nuisance recursion was located."
+        }
+      ],
+      "gap": "Finite-sample sums are available, but the fold partition, classifier/regression interfaces, backward fitting and odds pseudo-loss must be assembled with the source’s fitting and domain conventions."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "sequential-conditional-influence-function",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "282b7e76f4b138e70e706cdf6b28a2fea5046357f126591fb129bc315df8c488",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D13",
+        "comparison": "Subtract r times the first-population indicator divided by its total mass from the general pseudo-loss, for arbitrary nuisance arguments and scalar r. This centering is not simply subtraction of the constant r at every observation. The map is identified as an efficient influence function only at true nuisances and r_*, under DS.0 and the paragraph's density ratios uniformly bounded away from zero and infinity. Generic nuisance choices do not imply zero mean or efficiency. Integration supplies an expectation operation, not regular asymptotic linearity or tangent-space optimality; the excluded supplementary regularity definitions remain excluded.",
+        "statement_sha256": "2e4489969274595526f35ec27fab3c08f83e273fd29445614494e9c1a2c1d7c7"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D14",
+        "comparison": "Use the odds pseudo-loss and the centering denominator pi^0(1+theta^0), with theta^0 defined from the source-population marginal odds. Equivalence with D13 requires the exact nuisance transformation and first-population identity on their proper domains. The efficient interpretation additionally uses true nuisances, target inclusion under DS.0-dagger and bounded odds from the identifying paragraph. Do not propagate those qualifications into every theorem branch or infer a unique regression version under model failure; arbitrary supplied nuisances still define the displayed algebraic map.",
+        "statement_sha256": "7f1970a353872da79f52b213ddcf2f9c95da9002cedb5dbc902da3a137ba36ca"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Set.indicator",
+          "type": "{α : Type u} → {M : Type v} → [Zero M] → Set α → (α → M) → α → M",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Notation.Indicator",
+          "provides": "Returns the supplied function on a set and zero outside; a constant-one function gives a binary indicator with exactly the chosen boundary predicate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Notation/Indicator.lean#L51-L54",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search efficient influence function, semiparametric and sequential conditional terminology throughout Mathlib; inspect indicators, finite sums and integration alongside both source parameterizations.",
+          "result": "The algebraic maps and their means can be expressed, but no model-specific efficient-influence-function or tangent-space identification was found in the searched revision."
+        }
+      ],
+      "gap": "The algebraic components are available, but the two influence maps and their model-qualified mean-zero and efficiency properties need development."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-a3719a25d9ff7178ca71",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "43a852e3f99cff95c5c748cd1a7b87b6567075802701e77481eeb75f8b87d680",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1796",
+        "local_id": "D15",
+        "comparison": "The displayed quantity is the raw second moment of D_GSC at true nuisances and r_* under P_*, and analogously D_SC in the target-included model. variance_of_integral_eq_zero gives the equality to real variance once almost-everywhere measurability and mean zero are proved. The statistical finite-variance reading additionally requires square integrability; both real variance and the Bochner integral have totalized behavior outside it. The efficiency claim inherits the preceding source identification's ratio/odds bounds and model scope, and needs a regularity/tangent-space argument not supplied by a moment definition. Do not infer positivity of sigma from nonnegativity of a square; Theorem 1's division by sigma retains its recorded zero-variance issue and the limited 0/0 convention.",
+        "statement_sha256": "b1e8116edbfccb06dd7eace9cdb972f4342e3722566680615b778a4996ad1e53"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance_of_integral_eq_zero",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → {X : Ω → ℝ} → {μ : MeasureTheory.Measure Ω} → MeasureTheory.AEMeasurable X μ → (MeasureTheory.integral μ X = 0) → ProbabilityTheory.variance X μ = MeasureTheory.integral μ (fun ω => X ω ^ 2)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Identifies real variance with the raw second-moment integral for an almost-everywhere measurable, mean-zero real function; finiteness remains necessary for a statistical variance interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L172-L174",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search efficient influence, semiparametric and asymptotic variance across Mathlib; inspect Moments/Variance.lean 58-64,155-174 and the Bochner integral body.",
+          "result": "Raw second moments and the mean-zero variance identity are present; neither establishes the semiparametric lower bound over regular asymptotically linear estimators."
+        }
+      ],
+      "gap": "Second-moment and mean-zero variance formulas are available, but the model-specific efficient influence function and optimal asymptotic-variance interpretation still require proof."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-ada052d6a95a9d0bc62c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "907b7efed43b6f9ff0a584c6ce1e6dcf68d0c04e463e19585b1adf0a45e0e9ab",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D9",
+        "comparison": "Take m=n delta_n as a positive integer, with n=2^N in the surrounding setup. Build the noise as the log of the average of m squared jointly independent standard Gaussian variables; gaussianReal 0 1 gives each marginal and iIndepFun is joint independence rather than pairwise independence or identical distribution. Positivity of the sum of squares holds almost surely for m>=1 and justifies the ordinary log and exp inversion; mathlib's log on nonpositive inputs does not supply the source's statistical conventions. To identify the observation, use the blockwise constant volatility identity for the Brownian increments and the source-normalized sigma_0^2=1, together with independence of the price Brownian driver and fractional-Brownian driver. Preserve the block index i<delta_n^-1 and integer degrees of freedom n delta_n. No appendix trigamma formula or replacement observation grid is introduced.",
+        "statement_sha256": "946dc4d8fea855d9d194ffa0ec60f120044e06fd02b51bb29e68644027293b90"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.gaussianReal",
+          "type": "ℝ → ℝ≥0 → MeasureTheory.Measure ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Real",
+          "provides": "Real Gaussian law parameterized by mean and variance; gaussianReal 0 1 is the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Real.lean#L222-L223",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.iIndepFun",
+          "type": "{Ω : Type u} → {ι : Type v} → {mΩ : MeasurableSpace Ω} → {β : ι → Type w} → [m : ∀ i, MeasurableSpace (β i)] → (∀ i, Ω → β i) → MeasureTheory.Measure Ω → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Independence.Basic",
+          "provides": "Joint independence of an indexed family of random variables, not merely pairwise independence.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Independence/Basic.lean#L136-L138",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search chi-square, chi-squared, chisq and fractional Brownian throughout Mathlib; inspect Gaussian/Real.lean 219-231, Independence/Basic.lean 132-146 and Log/Basic.lean 39-50.",
+          "result": "Standard Gaussian laws, joint independence, finite sums and real logarithms supply the noise-law ingredients. No chi-square or fractional-Brownian signal-plus-noise model was found by the named and semantic searches."
+        }
+      ],
+      "gap": "Gaussian and logarithm primitives are available, but the block-observation decomposition, log-chi-square noise law and its independent coupling to the fractional-Brownian signal require development."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-dde03aec5806f22c5158",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "70e2a1590b45a3cf21f6e28d7990a21d3e81f4286cb500abf56ebb2f554fe32a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D10",
+        "comparison": "Preserve normalization 2^(-j/2-p), the l=0,...,2^p-1 sum and the second-difference weights 1,-2,1 at the three printed shifted indices. The condition p+j<=N makes dyadic fractions compatible with integer index arithmetic, but does not by itself prove these indices belong to the available block grid i<delta_n^-1 when n=2^N and m=n delta_n is arbitrary. This unresolved source issue must not be hidden with natural-number truncation, arbitrary out-of-range extension or a redefinition of N. Measurability follows from finite combinations of data-measurable coordinates only after the indexing/availability issue is settled. Real.rpow supports the fractional exponent in the scale, while finite integer powers handle the number of terms.",
+        "statement_sha256": "9c2aaf8b90ee8ac1e5042a702706bbc92daab60e152b5de7943e87b86ef26b7a"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Measurable",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.MeasurableSpace.Defs",
+          "provides": "Measurability of a parameterization or embedding via preimages of measurable sets, without an injectivity requirement.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L493-L494",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search empirical second differences, wavelet coefficients and fractional Brownian terms in Mathlib; inspect normalized finite sums and existing Real.rpow/Measurable source declarations.",
+          "result": "Finite linear combinations, real powers and measurability predicates support the formula after valid observation indices are provided; they do not resolve the retained mismatch between the block-observation grid and the printed dyadic indices."
+        }
+      ],
+      "gap": "Finite sums and measurability are available, but the exact empirical coefficient and its source-grid compatibility must be established without changing the printed indices."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-0b9b69dbd220faae3cc4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "26022824cc12f7b526865728c366601de9f5f76bbb82d181f9b08ad25959068b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D11",
+        "comparison": "For each k, first square the empirical second-difference coefficient and subtract 6 Var(bar epsilon_m)2^(-j-p); then sum k=0,...,2^(j-1)-1. The hatted d-squared is an estimate of a square, not the square of a debiased coefficient. The coefficient 6 and coarse log-average-of-squares noise law differ from the later general-model correction, so neither may be replaced by the other. Real variance gives the intended moment only with finite log-noise second moment, which must be justified from the retained main-text law without importing the excluded appendix formula. The resulting energy can be negative; the sum and variance definitions do not establish positivity for downstream logarithms. Retain the empirical coefficient's unresolved grid compatibility.",
+        "statement_sha256": "db3f926d039946f57ae501b4cb4828c6e3923946b50dc3fd0bcfa4b87ddb6258"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.variance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Variance",
+          "provides": "Real variance obtained from the extended centered second moment; infinite extended variance maps to zero, so moment finiteness must be established separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Variance.lean#L64-L64",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_range_succ",
+          "type": "∀ {M : Type u} [AddCommMonoid M] (f : ℕ → M) (n : ℕ), (∑ x ∈ Finset.range (n + 1), f x) = (∑ x ∈ Finset.range n, f x) + f n",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+          "provides": "The recursion for a finite partial sum; a one-based source sequence is represented by summing f(j+1) over range n.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L535-L538",
+          "link_checked": true
+        },
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search noise-corrected energy, second-difference and chi-square terminology across Mathlib; inspect variance 58-64, finite range-sum recursion and real powers.",
+          "result": "Variance and finite sums supply the estimator components; no coarse-model noise-corrected energy statistic with the displayed coefficient was located."
+        }
+      ],
+      "gap": "Variance and finite sums are available; the coarse energy statistic needs its exact noise correction, valid coefficient indices and log-noise moment justification."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  },
+  {
+    "interface_id": "local-2fe50700aee38bbed9d3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T16:45:29.713638+00:00",
+    "source_interface_sha256": "6d36ddfb1f4d68956f799088d874823a27d2f109de815f564108f82b194f07fe",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i04-p1277",
+        "local_id": "D12",
+        "comparison": "Construct the candidate set of integer scales 2<=j<=N-1 satisfying the non-strict energy threshold Qhat_{j,N-j-1,n}>=nu_0 2^j/n, with nu_0>0. Use max' when nonempty and explicitly return 2 otherwise; a maximum with bottom value is not the stated fallback. Keep the same p=N-J*-1 in both numerator and denominator, even though the numerator's first index is J*+1. Preserve -1/2 times the printed ordinary log, rather than silently substitute log base two from the later general estimator. The source's intended base and consistency remain a recorded ambiguity. Corrected energies may be nonpositive, division may be undefined statistically, and small-N fallback may fall outside the nominal range; Lean's totalized log/division and truncated natural subtraction must not fill those gaps without source authority. No extra clamping is introduced.",
+        "statement_sha256": "a136ec1f0161a519d045b54ba72e6f5305e4639ad5ff78d9002b88a03fc81068"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Finset.max'",
+          "type": "{α : Type u} → [LinearOrder α] → (s : Finset α) → s.Nonempty → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Finset.Max",
+          "provides": "Maximum of a nonempty finite set in the original value type; its nonemptiness proof prevents silently assigning a maximum to an empty hypothesis family.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Finset/Max.lean#L135-L136",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search energy-level scale selection and Hurst estimator terminology in Mathlib; inspect Finset/Max.lean 128-142 and Log/Basic.lean 39-50; compare the recorded coarse and general estimator source conventions.",
+          "result": "A nonempty finite maximum and ordinary real logarithm are available; the selector's explicit range/fallback and the estimator's admissible ratio domain remain paper-specific."
+        }
+      ],
+      "gap": "Finite maxima and logarithms are available, but the exact scale selector and estimator require the source’s explicit fallback, valid energy indices and unresolved logarithm-domain/base conventions."
+    },
+    "retained_source_notes_reviewed": "Inspected saved original members, source notes and ambient qualifications; registered local sources resolved; no source text changed."
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "scope": "Manual comparison of five queued covariance, test, trend and CDF interfaces with pinned declarations, preserving each paper's separate statistical and notation conventions.",
+  "rows": [
+    {
+      "interface_id": "local-974490c2d3c4bf1b7914",
+      "related": ["Matrix.mul_apply"],
+      "query": "Inspected Matrix.mul_apply in Data/Matrix/Mul against the exact full training Gram formula in p0948 D13.",
+      "result": "Matrix multiplication directly gives the finite entrywise sums of the full uncentered Gram matrix, with the source's scalar normalization supplied separately.",
+      "gap": "Define the full uncentered training Gram matrix scaled by 1/n, retaining its cross-block entries and positive sample-size convention.",
+      "comparisons": {"D13": "For X with n observation rows and feature columns, set Sigma-hat=(1/(n:Real)) times X-transpose*X. Matrix.mul_apply yields entry (j,k)=(1/n)*sum_i X_ij*X_ik. No sample mean is subtracted and the divisor is n, not n-1; a source model that has centered variables does not change this matrix formula. Keep every off-block cross product, rather than replacing the matrix by a block-diagonal approximation. The functional needs no ridge estimator, causal-response model or outcome values; n>0 gives the intended arithmetic instead of an unstated zero-row convention."}
+    },
+    {
+      "interface_id": "local-72a38dfdf3c8e4849782",
+      "related": ["Measurable", "Set.Icc", "MeasureTheory.integral"],
+      "query": "Inspected Measurable, closed interval membership and Bochner expectation against the randomized-test definition in p0869 D6.",
+      "result": "A measurable unit-interval function and its expectations express rejection probabilities, without requiring a particular testing procedure, prior or sampler.",
+      "gap": "Package a measurable [0,1]-valued rejection-probability function on the chosen observation space and its null/alternative error integrals.",
+      "comparisons": {"D6": "Use a measurable map from the observation space to the real closed interval [0,1], or a measurable real function with pointwise range bounds. The value u(y) is the conditional rejection probability; it need not be binary and a uniform-coin implementation is not part of the definition. Under a null law, integrate u for type-I error; under an alternative law, integrate 1-u for type-II error. Boundedness gives integrability for probability laws. Keep the observation space abstract enough for the n-observation and J-group instantiations and do not insert iid sampling, a Bayesian prior, a level guarantee or an MCMC mechanism into this generic test convention."}
+    },
+    {
+      "interface_id": "local-f87ba2d72d95ee59b4c3",
+      "related": ["Finset.sum_apply", "Real.sqrt"],
+      "query": "Inspected finite-sum evaluation and sqrt against p0184 D8, with its kernel-order D2 and adjustment-factor D7 dependencies read in full.",
+      "result": "A double finite sum and scalar factors express the aggregate statistic, while each pairwise U-statistic retains its separately audited source definition.",
+      "gap": "Assemble the unstudentized pairwise aggregate with its kernel-specific adjustment, reciprocal kernel-order binomial factor and sample-pair square root.",
+      "comparisons": {"D8": "Multiply sum_{k=1}^p sum_{l=1}^q U-hat_h^(kl) by Delta_h/C(d,2) and sqrt(C(n,2)); d is the U-kernel order, not p+q or the number of coordinate pairs. Keep all p*q cross-vector coordinate pairs, with no extra average over them, variance division or centering. The source gives (d,Delta_h)=(5,40),(6,60),(4,2/3) for its three kernels. C(d,2)>0 for d>=2, and valid pairwise U-statistics require their sample-size conventions. The underlying U-statistic passage's nonstrict printed sample indices and distinct-combination wording remain a separate source discrepancy; this aggregate does not silently repair that definition. Computing the statistic does not assume the independence null or grant its null distribution."}
+    },
+    {
+      "interface_id": "local-5bc09ae56be3fdb056a9",
+      "related": ["Set.indicator", "Finset.sum_apply", "MeasureTheory.integral"],
+      "query": "Searched Probability and Dynamics for stationary-process predicates and inspected indicator, finite sums and expectations against p0602 D1's full trend/noise model.",
+      "result": "The finite jump expansion and zero-mean noise components are expressible, but the stationary process assumption and change-point asymptotics remain separate model structure.",
+      "gap": "Define the vector step trend with ordered change locations and minimum spacing, then combine it with the stated stationary zero-mean noise model.",
+      "comparisons": {"D1": "For u define mu0+sum_k gamma_k*1{u>=u_k}; the nonstrict indicator includes the jump at its location and keeps the source's right-continuous step convention. Observe Y_t=mu(t/n)+epsilon_t at real-scaled time t/n. Order the change points strictly between endpoints u0=0 and u_{K+1}=1, and take the minimum gap over all K+1 intervals, including the boundary intervals. K may grow with n and the positive gap may shrink; no fixed-K or uniform spacing lower bound is inserted. Jump sizes use the Euclidean norm of the full vector, and individual coordinates need not all jump. Retain noise stationarity and zero vector mean as given; the indicators and integral primitives do not provide a stationary process construction or imply temporal/cross-coordinate independence. The separate linear-noise and cross-sectional conditions must not be folded into this model by default."}
+    },
+    {
+      "interface_id": "local-ff82c4b4bdae5a161fb1",
+      "related": ["ProbabilityTheory.cdf", "Asymptotics.IsBigO"],
+      "query": "Searched Probability for skew-normal/skewing constructions and inspected cdf and IsBigO against p2714 D9 and its recorded zero-slope and endpoint issues.",
+      "result": "A probability CDF and an ordinary deterministic quadratic remainder can be specified, but the reflection identity and admissible zero slope require explicit handling in later skewing formulas.",
+      "gap": "Specify a CDF with the exact reflection identity and local linear expansion, retaining the allowed zero-slope case when downstream expressions divide by eta.",
+      "comparisons": {"D9": "Require a real probability CDF F with F(-x)=1-F(x) for every x, so F(0)=1/2, and express F(x)-1/2-eta*x=O(x^2) along x tending to zero using IsBigO on the corresponding neighborhood or punctured-neighborhood filter. This is a deterministic local remainder, not stochastic order or merely little-o(x). The expansion identifies the derivative at zero as eta, and CDF monotonicity implies eta>=0, but the printed eta in Real does not exclude eta=0. Later polynomials dividing by eta therefore need an unresolved extra convention or restriction rather than a silent eta>0 assumption. The exact reflection equation is stronger than carelessly invoking symmetry with unspecified atom conventions. An admissible CDF may reach 0 or 1, so the source's later open-interval skewing-weight statement is not automatic, and no logistic or Gaussian CDF is selected by this generic definition."}
+    }
+  ]
+}

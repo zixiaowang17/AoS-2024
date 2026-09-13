@@ -1,0 +1,98 @@
+{
+  "scope": "Manual comparison of ten remaining p2692 stereographic-sampling interfaces and eleven variants; preserve literal SPS/RSPS distinctions, uniform-time quantifiers, moment orders and source domain conventions.",
+  "rows": [
+    {
+      "interface_id": "local-1f832045f9c70d3c8d20",
+      "related": ["stereographic", "Submodule.starProjection", "ProbabilityTheory.multivariateGaussian", "ProbabilityTheory.bernoulliMeasure", "ProbabilityTheory.Kernel"],
+      "status": "partial_match",
+      "query": "Searched stereographic, Metropolis and Hastings terminology; inspected the sphere chart, tangent-space projection, Gaussian proposal, two-point Bernoulli measure and measurable kernel definition.",
+      "result": "The chart, projected Gaussian increment and accept/reject law supply the sampler's components, but the full measurable transition and proposal-ratio argument require construction.",
+      "gap": "Assemble the tangent-Gaussian proposal and exact acceptance kernel with pole/domain handling, then justify the stated invariant target separately.",
+      "comparisons": {"D3": "Map x to unit-sphere z using the already audited R-scaled stereographic inverse, draw ambient Gaussian noise of covariance h^2 I_(d+1), subtract its component along z and normalize z+dz. Orthogonality gives squared norm 1+norm(dz)^2, so this normalization is nonzero on the intended tangent construction. Project back using the source's R scaling, not the library chart's unadjusted factor two. Given a proposal xhat, bernoulliMeasure xhat x with the displayed capped ratio as parameter expresses acceptance and rejection after proving the parameter lies in [0,1]. Kernel measurability, exceptional north-pole outcomes and target-value division conventions must be handled. The intended nondegenerate sampler uses positive finite h; h=0 is an identity chain. A generic acceptance constructor does not establish the spherical proposal symmetry, Jacobian factor or target invariance."}
+    },
+    {
+      "interface_id": "local-86b5fe9faedd280797e1",
+      "related": ["MeasureTheory.Measure.support", "MeasureTheory.Measure.withDensity"],
+      "status": "composable",
+      "query": "Inspected measure support's positive-neighborhood definition and density measures against the full-support section convention.",
+      "result": "Full support is expressible as equality of the marginal law's support with the whole real line, without pointwise positivity of every density value.",
+      "gap": "State full support of the marginal probability law while retaining the separate pointwise conventions needed for density ratios.",
+      "comparisons": {"D11": "For the law with Lebesgue density f require support equal to all reals, equivalently every nonempty open interval has positive probability. This differs from requiring f(x)>0 at every point: a continuous full-support density can still vanish at isolated points, and a density representative can be modified on null sets. Therefore full support alone does not define f'/f or the acceptance ratio at every state. Preserve that recorded ambiguity and do not import the nearby isotropy claim or a zero-mean condition."}
+    },
+    {
+      "interface_id": "local-0eaaf1a7cdfb980eb9f4",
+      "related": ["LipschitzWith", "deriv", "Filter.Tendsto", "MeasureTheory.MemLp"],
+      "status": "partial_match",
+      "query": "Inspected global Lipschitz bounds, genuine versus totalized scalar derivatives, two-sided infinite limits and Lp moments against all of the displayed score regularity conditions.",
+      "result": "Lipschitz score, tail limits and three separate Lp memberships express the regularity package once derivatives and density-ratio domains are supplied.",
+      "gap": "Specify the score and second-derivative ratio with valid domains, then impose the global Lipschitz, two-tail and distinct eighth/fourth-moment requirements.",
+      "comparisons": {"D10": "Require some finite nonnegative Lipschitz constant for f'/f on its intended real domain, and Tendsto (fun x => x*f'(x)) to zero separately along atTop and atBot. Under the law with density f, require the score in L8, f''/f in L4 and x*f'/f in L4; these even moments equal the displayed powers when finite and measurable. The second term is f''/f, not the second derivative of log f. Different moment orders and the weighted score cannot be collapsed into a single fourth-moment condition. Deriv returns zero when differentiability fails and real division is totalized at zero, so those library defaults must not be used to certify the source's regularity when f or its derivatives are undefined on the intended ratio domain."}
+    },
+    {
+      "interface_id": "local-be5b89ffe9de1b21afa1",
+      "related": ["MeasureTheory.integral", "MeasureTheory.MemLp"],
+      "status": "composable",
+      "query": "Inspected scalar expectation and L6 membership against the normalization's raw second moment and substantive sixth-moment condition.",
+      "result": "The two conditions are an integral identity and a finite sixth absolute moment under the common marginal law.",
+      "gap": "State unit raw second moment and finite sixth moment separately, without replacing the former by variance or treating the latter as a consequence of rescaling.",
+      "comparisons": {"D9": "Under the probability law f, require integral x^2 equal to one and MemLp id 6, which supplies the finite even sixth moment and lower-moment integrability. The source does not impose E X=0, so the second-moment identity is not generally Var(X)=1. A finite nonzero raw second moment permits scaling to one, but a distribution with infinite sixth moment retains that infinite moment under any nonzero finite scaling. The printed without-loss-of-generality wording therefore does not remove the substantive tail restriction. Do not use an integrability fallback to make an infinite sixth moment appear finite."}
+    },
+    {
+      "interface_id": "local-ef6f1f5ffce46bcc1f93",
+      "related": ["MeasureTheory.Measure.pi", "MeasureTheory.Measure.withDensity", "ProbabilityTheory.iIndepFun"],
+      "status": "composable",
+      "query": "Inspected finite products, density measures and coordinate independence against the same-marginal product target across dimensions.",
+      "result": "The d-fold product of the scalar probability law supplies independent target coordinates and its density product after the density identification is proved.",
+      "gap": "Construct the dimension-indexed product probability law from one fixed marginal density and identify its Lebesgue density as the displayed product.",
+      "comparisons": {"D8": "For each d take Measure.pi with all Fin d coordinate laws equal to the scalar law with density f, retaining the same f as d varies. Identify its density relative to d-dimensional Lebesgue measure with product_i f(x_i), assuming the scalar density is measurable, nonnegative and normalized. This asserts iid coordinates under the target, not independent successive states of SPS or RSPS. It does not add zero mean, pointwise positivity or moments until the separate section assumptions supply them."}
+    },
+    {
+      "interface_id": "local-ab9f3191e9cdcf7b0d9e",
+      "related": ["Real.sqrt", "Asymptotics.IsBigO", "Filter.Tendsto"],
+      "status": "composable",
+      "query": "Inspected the nonnegative real square-root convention and asymptotic predicates against the complete step-size formula and its recorded sign branch.",
+      "result": "The scalar reparameterization is expressible directly, but its asserted inverse identity and asymptotic expansion require the admissible branch.",
+      "gap": "Define the exact step size on its admissible dimension and sign branch, and prove the claimed inverse relation and d^(-1) asymptotics there.",
+      "comparisons": {"D12": "Write a_d=1-(ell^2/(2*d))*4*lambda/(1+lambda)^2 and h=(1/sqrt(d-1))*sqrt(a_d^(-2)-1), with d>1 and positive lambda from R=sqrt(lambda*d). To obtain the printed identity 1/sqrt(1+h^2*(d-1))=a_d require 0<a_d<=1; otherwise a square root introduces an absolute value, and singular or negative-radicand fallbacks are not valid reparameterizations. For fixed ell and positive lambda this branch holds eventually, with h nonnegative and of order at most d^(-1). The positive-step interpretation and the displayed h approximately ell/d times the square-root factor use the appropriate ell sign convention; the formula itself depends on ell squared. Preserve the continuing scaling context in Theorem 5.2 without pretending it explicitly repeats equation (15)."}
+    },
+    {
+      "interface_id": "uniform-total-variation-ergodicity",
+      "related": ["ProbabilityTheory.Kernel.comp", "ProbabilityTheory.IsMarkovKernel", "ProbabilityTheory.Kernel.Invariant", "MeasureTheory.SignedMeasure.totalVariation"],
+      "status": "composable",
+      "query": "Searched uniform ergodicity and total-variation-distance terminology; inspected kernel composition, Markov normalization, invariance and signed-measure variation against both time-index variants.",
+      "result": "Kernel powers or a supplied transition semigroup and signed-measure variation express the common-time uniform approximation condition; no sampler-specific mixing result follows from these primitives.",
+      "gap": "Package the invariant probability and the exact common-time total-variation bound over every starting state, with an explicit variation normalization and the correct time domain.",
+      "comparisons": {
+        "D4": "Construct P^N by N-fold kernel composition with identity at zero, assume P is Markov and pi an invariant probability, then state for every epsilon>0 there exists one natural N such that every x satisfies the variation bound. Convert both finite probability laws to signed measures before subtraction; truncated subtraction of positive measures is not their signed difference. TotalVariation returns a measure, so evaluate its total mass and declare whether TV denotes that mass or half of it, the usual sup-over-events distance for equal-mass probabilities. The epsilon-quantified convergence property is unaffected by a fixed factor but numerical bounds are not. Preserve the source's unique invariant-law convention and common N rather than a separate N for each x; do not replace the definition by a claimed geometric rate.",
+        "D6": "Use a real nonnegative-time Markov transition semigroup and require pi invariant for all times. For each positive epsilon choose one time T valid for every initial state, with the same signed-variation normalization as above. This is not merely convergence at integer times or separate times depending on x. The source states a bound at the chosen common time; any later-time extension uses semigroup contraction and should be proved rather than inserted as a different quotation. In the SBPS application retain the recorded ambiguity between augmented position-velocity state and projected position instead of declaring them interchangeable."
+      }
+    },
+    {
+      "interface_id": "local-05b9931a158c45315fa1",
+      "related": ["MeasureTheory.integral", "MeasureTheory.lintegral", "ProbabilityTheory.Kernel"],
+      "status": "composable",
+      "query": "Inspected nested real/nonnegative integration and proposal kernels against the exact stationary squared-jump expectation, keeping the adjacent approximation separate.",
+      "result": "Integrating squared proposal displacement times its acceptance probability under the joint stationary proposal law gives the defined ESJD.",
+      "gap": "Integrate the joint displacement-times-acceptance quantity under the stationary SPS proposal and justify finiteness before representing it by a real Bochner integral.",
+      "comparisons": {"D13": "First draw X from pi, then xhat from the SPS proposal kernel given X, and integrate norm(xhat-X)^2 times the exact capped density/Jacobian ratio. This already accounts for zero displacement upon rejection; using the accepted transition instead is equivalent only after proving the accept/reject decomposition. The squared displacement and acceptance probability are dependent in general, so their joint expectation cannot be replaced by the product of expectations from the explicitly approximate equation (16). For a nonnegative integrand lintegral retains an infinite value; a real integral needs measurability and finiteness instead of its zero fallback. No corollary acceptance optimum is part of this definition."}
+    },
+    {
+      "interface_id": "local-4d84ca5752379b09d29a",
+      "related": ["ProbabilityTheory.multivariateGaussian", "Matrix.PosSemidef", "Matrix.mul_nonsing_inv"],
+      "status": "composable",
+      "query": "Inspected the multivariate Gaussian constructor and its PSD/singular behavior, plus genuine matrix inversion, against the diagonal covariance density class.",
+      "result": "The library Gaussian with the supplied mean and positive diagonal covariance represents the target probability law; the displayed ordinary density requires nonsingularity.",
+      "gap": "Instantiate the Gaussian law with positive diagonal covariance and identify its normalized density while retaining theorem-specific mismatch and dimension bounds separately.",
+      "comparisons": {"D7": "Use mean mu in Euclidean d-space and Sigma=diag(lambda_1,...,lambda_d), with strictly positive eigenvalues for the displayed Lebesgue density and ordinary inverse. The generic multivariateGaussian constructor also handles singular PSD covariance, but such a law does not have this full-dimensional density formula; invalid non-PSD input has a Dirac fallback. The proportional expression omits the usual normalizing constant, which must be included when identifying a probability density. Allow nonzero mean and nonidentity covariance without rotating to a new algorithm. Theorem 4.1's uniform eigenvalue/mean bounds, mismatch scaling and R=sqrt(d) are separate conditions, not part of a generic Gaussian constructor."}
+    },
+    {
+      "interface_id": "local-bff6f90b2350b8607794",
+      "related": ["stereographic", "ProbabilityTheory.multivariateGaussian", "MeasureTheory.Measure.pi", "ProbabilityTheory.bernoulliMeasure", "ProbabilityTheory.Kernel"],
+      "status": "partial_match",
+      "query": "Inspected independent Gaussian products, stereographic proposal ingredients, coordinate splicing and accept/reject measures against the complete literal Algorithm 4 and its recorded discrepancy.",
+      "result": "The ingredients could implement two independent sphere-based proposals and a coordinate splice, but the printed tangent increments contain an unbound unprimed Gaussian and do not fully specify that intended transition.",
+      "gap": "Resolve the printed unprimed increment ambiguity before constructing a faithful RSPS kernel, and verify its spliced-proposal acceptance ratio separately.",
+      "comparisons": {"D14": "The source samples independent primed and double-primed ambient Gaussian increments, yet uses an unprimed d-tilde-z as the leading term of both tangent increments. That variable is not supplied by the displayed sampling step, so do not silently replace it by the corresponding primed draw. The prose intends two conditionally independent SPS proposals given x, then uses coordinate one from the first and coordinates 2 through d from the second; conditional independence given x is distinct from unconditional independence under a random current state. Even after a stated correction, splicing changes the proposal law, and the reused acceptance ratio does not by itself establish detailed balance or stationarity. Preserve the printed algorithm, mark these questions unresolved, and keep Theorem 5.2 specific to RSPS rather than treating the original SPS diffusion conjecture as proved."}
+    }
+  ]
+}

@@ -1,0 +1,632 @@
+[
+  {
+    "interface_id": "local-549bb42684d120715eb4",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "0432a3c1f7bd0b19abd8ebbf4edbbdacd306b55524dd3fc3760e8e5290681302",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D3",
+        "comparison": "Take nu as a Borel probability kernel Xi to R^n, indexed by the latent xi, with the referenced D4/D5 conditions. Noise may depend on xi and have correlated coordinates; neither Gaussianity, independence from the operator nor iid coordinate sampling follows. Regular conditional probability means a measurable law of noise at xi, not a fixed marginal law or merely an a.e. conditional expectation.",
+        "statement_sha256": "3caab7315bd4709011e6a2d0fb7866a5ea1916493d62c403ec76bdab84eb3ffe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search design-dependent conditional noise and inspect Borel probability kernels and joint kernel measure construction.",
+          "result": "A probability kernel from the latent design input to the noise vector represents the conditional law, while its moment constraints are additional properties."
+        }
+      ],
+      "gap": "The conditional-noise model still needs the almost-everywhere zero-mean and directional second-moment constraints on its probability kernel."
+    }
+  },
+  {
+    "interface_id": "local-43c6d2f2590913fc9037",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "65598a5e39facdee5a6ac59cb3c58dd8af586739b58f0a7f046fca803055499e",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D2",
+        "comparison": "n,d are positive finite integers; each matrix coordinate is a linear functional, so finite-dimensional coordinate measurability gives the usual Borel matrix map once the spaces are set. No finite E||T||^2, full column rank, Gaussian design or iid rows is assumed. xi indexes the operator but is not itself necessarily observed; estimators only receive T_xi and y.",
+        "statement_sha256": "1a6da92efc614fdc6071574fb390a1ca4344d214f902a935096d2a905d306763"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix",
+          "type": "(m : Type u) → (n : Type v) → (α : Type w) → Type (max u v w)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "provides": "Matrices indexed by row and column types with entries in the supplied type, without positivity, invertibility or probabilistic restrictions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Defs.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search random linear operators and finite matrix measurability; inspect matrix-as-indexed-array and its finite linear action.",
+          "result": "Finite matrices represent the operator, with measurability of coordinate functionals supporting the measurable matrix-valued observation."
+        }
+      ],
+      "gap": "The random-operator model still needs its measurable Xi-indexed matrix map and probability law, without imposing additional moment or rank restrictions."
+    }
+  },
+  {
+    "interface_id": "local-408e039e94e4755cda5f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "5843fed9134f5d4ccf5cdfffbc8a132bcd78dcee06155ba1f2bbca9dbba0c8ac",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D5",
+        "comparison": "For each fixed u integrate (u-transpose w)^2 against nu(.|xi), bounded above by u-transpose Sigma_w u for P-a.e. xi. With D4 this is covariance control, not covariance equality or only a marginal bound. Coordinate directions give finite second moments; a countable dense set can support a common null-set argument in finite dimensions, but it is not silently part of the printed quantifier. The bound does not assert invertibility of Sigma_w.",
+        "statement_sha256": "ba3c434ec033c8a48b6c014cc2306282624620fbcb4c004a15b13939913a90c2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search conditional covariance bounds and inspect directional second-moment integral and positive-semidefinite quadratic form.",
+          "result": "Directional quadratic integrals can state the bound, and PSD order can encode a matrix version after proving integrability and a common full-measure set."
+        }
+      ],
+      "gap": "The conditional covariance bound still needs finite moments and a justified passage from fixed-direction almost-everywhere bounds to any simultaneous matrix inequality."
+    }
+  },
+  {
+    "interface_id": "local-aded0c17257d9e4199b8",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "4e7fbd1197325c96fc4a88550609908d6a59ed785ff7c7878e0df95792280258",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D4",
+        "comparison": "Require integral w under nu(dw|xi)=0 for P-a.e. xi, not just E w=0 and not conditional on y. Alone the total Bochner integral equals zero for nonintegrable functions, so genuine mean existence must accompany the equation; the finite-dimensional second-moment bound D5 supplies a route to it. Do not infer conditional symmetry, Gaussianity or independence from zero mean.",
+        "statement_sha256": "293f4d00f7d74f0d7e1e681f376cf3a503a2dde1953cf1ec6b7b4c87179f815e"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect vector Bochner integral and conditional zero-mean semantics, including nonintegrability fallback.",
+          "result": "The vector integral at each conditional law expresses the source condition once integrability is established."
+        }
+      ],
+      "gap": "Conditional mean zero still requires an integrable noise vector under almost every conditional law."
+    }
+  },
+  {
+    "interface_id": "local-a333bdf3e280fae7389f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "33a30acc2497153f7d6db6da5ba21cf8602c7da6693446a38769ac95ca5e740c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D6",
+        "comparison": "Membership in P(Sigma_w) concerns the conditional kernel nu indexed by xi, with D4 and D5 holding P-almost everywhere. It is not a class of fixed R^n laws independent of xi, nor a requirement of covariance exactly Sigma_w. Preserve the dependence on the design-input probability law and finite-moment meaning; this class is optimized adversarially in the minimax risk.",
+        "statement_sha256": "d429ae4e08c090f5bf4702bc4121d9b9e465594bbe80565b1aa43bc9f370ef71"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel",
+          "type": "(α : Type u) → (β : Type v) → [MeasurableSpace α] → [MeasurableSpace β] → Type (max u v)",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "A measurable measure-valued kernel; probability normalization and a specific transition law are additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L55-L64",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.IsMarkovKernel",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → ProbabilityTheory.Kernel α β → Prop",
+          "declaration_kind": "inductInfo",
+          "module": "Mathlib.Probability.Kernel.Defs",
+          "provides": "Each measure of a kernel is a probability measure; semigroup, invariant-law and self-adjointness properties remain separate.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Defs.lean#L146-L147",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search moment-constrained conditional noise classes and inspect normalized kernel and moment definitions.",
+          "result": "A class of probability kernels with two a.e. moment constraints can be stated, without reducing it to a parametric Gaussian family."
+        }
+      ],
+      "gap": "The admissible-noise class still needs the conjunction of the precise conditional mean and covariance-bound conditions relative to P."
+    }
+  },
+  {
+    "interface_id": "local-7bcc850b6916eeb018a6",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "e5cbb9e9bd5e1d458ba4e2fd6a03cb5c712ce34c51b927875150927471d95fb3",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D1",
+        "comparison": "theta-star is an unknown fixed parameter; T_xi and y are observed, w is not. Map the joint latent design/noise law through the stated linear equation, using finite matrix action in the main setting. Do not expose extra latent information from xi, assume full-rank T or replace the conditional noise by an independent product distribution. The broader operator wording does not establish infinite-dimensional matrix-inverse formulas.",
+        "statement_sha256": "66a294bd67669475ffaf818f8ccc22053c30e0a41276f47f5cab44e199fd4f72"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search observed random linear model and inspect matrix action, conditional joint law and measurable pushforward.",
+          "result": "The conditional joint law can be pushed forward by (xi,w) to (T_xi,T_xi theta-star+w), representing the actual observations."
+        }
+      ],
+      "gap": "The observation model still needs its measurable pushforward with only the operator and response exposed to the estimator."
+    }
+  },
+  {
+    "interface_id": "local-e8089f5cd656374385af",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "1c5ba3b5f9ed13fde434f1bf58bb131e9f72359b6596695f4a4fe90e480a66eb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D7",
+        "comparison": "P compProd nu retains both coordinates and yields conditional integration first over w at fixed xi, then over xi. Probability P and a probability kernel meet the construction's finiteness requirements. The printed multiplication sign is not an independence assertion or the ordinary product with one fixed noise law; the response is a subsequent measurable function of this pair and theta-star.",
+        "statement_sha256": "67029d94223a78286e75270ebed40a0498259ba8ece9b935a8e078936905697d"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect measure composition-product definition and compare the source's explicit sequential law P times nu.",
+          "result": "Measure.compProd is exactly the joint law obtained by drawing xi under P and noise from nu conditional on xi."
+        }
+      ],
+      "gap": "The specified joint design-noise law is directly represented by the measure composition-product of P and the Markov kernel nu."
+    }
+  },
+  {
+    "interface_id": "local-abbc93cb3a9c1175e696",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "4d9c3a0a9dd093bfc20d1898210f48880a009e34ab1e188ca55a7e8865fcc5f0",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D10",
+        "comparison": "The input is (T_xi,y), output is any R^d vector, with no requirement to lie in the constraint ellipse. A deterministic kernel embeds such a function; allowing all Markov kernels would additionally allow randomization. Do not restrict the class to linear/ridge estimators used for the upper proof or let it observe xi beyond T_xi.",
+        "statement_sha256": "a636d81b002983ea7e72099242b37a4ad56f08640ae59127f2e98b81c1cbd5e0"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search measurable deterministic estimator classes and inspect deterministic Dirac kernels against the observed-data domain.",
+          "result": "Each measurable estimator can be embedded as a deterministic decision kernel, but this does not identify it with the entire randomized estimator class."
+        }
+      ],
+      "gap": "The estimator domain still needs to be restricted to measurable functions of the observed matrix and response."
+    }
+  },
+  {
+    "interface_id": "local-089e2d3a5825f199f3e7",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "f9fbb06151c5d089dd74f647fa538b61c1aab03e373eb67714ad6f22ceab8f2c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D8",
+        "comparison": "Use theta-transpose K_e theta for squared error geometry and theta-transpose K_c^-1 theta for constraint geometry, with both K_e and K_c explicitly symmetric positive definite. PosDef is stated on finitely supported vectors, which match finite-dimensional vectors after conversion. Prove the inverse is the intended nonsingular inverse and positive definite; no commutation or simultaneous diagonalization of the two matrices is assumed.",
+        "statement_sha256": "bbf1c6bf0702543bf03856feb340594588fa41d22b6e8acf1c9f8d4fba4c2d56"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "dotProduct",
+          "type": "{m : Type u} → {α : Type v} → [Fintype m] → [Mul α] → [AddCommMonoid α] → (m → α) → (m → α) → α",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite sum of coordinatewise products, giving the real linear predictors and hyperplane scores used in the regression criterion.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L72-L73",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search weighted quadratic norms and inspect positive-definite matrix form and inverse identity.",
+          "result": "Positive-definite quadratic forms represent the two squared norms, with inverse algebra valid after proving the determinant condition."
+        }
+      ],
+      "gap": "The norm construction still needs the positive-definite quadratic-form bridge and the inverse constraint metric kept distinct from the error metric."
+    }
+  },
+  {
+    "interface_id": "local-b915806aaf5e91d29640",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "fbc101570a3cccd2885221f4ad0288da787540da905e637a0af758de7f582d52",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D12",
+        "comparison": "Omega is deterministic and strictly positive definite, chosen outside expectation over xi. Preserve K_e half powers on both sides of (Omega^-1+T-transpose Sigma_w^-1 T)^-1 and the K_c inverse-half trace budget <=varrho^2; powers are spectral, not entrywise, and matrices need not commute. Sigma_w is not explicitly invertible in N2, so do not insert a pseudoinverse or rely on Lean's total inverse. At varrho=0 no positive Omega is feasible, and an empty real supremum default is not specified. Attainment is not guaranteed; expected inverse cannot be replaced by inverse of expected information, and no second moment of T is assumed. Under valid SPD noise the inverse is bounded by Omega, giving a route to integrability despite heavy-tailed T.",
+        "statement_sha256": "4cfe9261899a2359a9d47ec186dbfc40a41349f87036a16de17882d404a33a32"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.trace",
+          "type": "{n : Type u} → {R : Type v} → [Fintype n] → [AddCommMonoid R] → Matrix n n R → R",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.Trace",
+          "provides": "The unnormalized sum of diagonal entries of a finite square matrix; a specified external sample-size divisor can be applied separately.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/Trace.lean#L45-L46",
+          "link_checked": true
+        },
+        {
+          "name": "CFC.rpow",
+          "type": "{A : Type u} → [PartialOrder A] → [Ring A] → [StarRing A] → [TopologicalSpace A] → [StarOrderedRing A] → [Algebra ℝ A] → [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] → [NonnegSpectrumClass ℝ A] → A → ℝ → A",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+          "provides": "Real powers in the unital continuous functional calculus; positive powers of a positive operator are supported, but unbounded inverse powers on a spectral domain are not supplied by this total operation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/ContinuousFunctionalCalculus/Rpow/Basic.lean#L400-L400",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "csSup_le_iff",
+          "type": "{α : Type u} → [ConditionallyCompleteLattice α] → {s : Set α} → {a : α} → BddAbove s → s.Nonempty → (sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a)",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Order.ConditionallyCompleteLattice.Basic",
+          "provides": "A supremum bound is equivalent to bounds on every member for a nonempty bounded-above set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/ConditionallyCompleteLattice/Basic.lean#L229-L230",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search inverse-information trace risk functional and inspect SPD matrices, functional-calculus powers, inverse hypotheses, trace and supremum/integral domains.",
+          "result": "The matrix operations and expectation/supremum are available primitives, but they do not supply missing covariance invertibility or endpoint conventions."
+        }
+      ],
+      "gap": "The functional still needs invertible noise covariance, a nonempty strict-positive matrix domain and the correctly ordered expected inverse with its trace budget."
+    }
+  },
+  {
+    "interface_id": "local-5d2160a5c214d97b1efd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "162fa38b00d20e35f0a8ea1bad9460ccf784d6edf7fa900a2f1d4cd9f656fef9",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D9",
+        "comparison": "Theta is {theta:||theta||_(K_c^-1)<=varrho}; the prose says radius R, while the formula and minimax arguments use varrho, so retain the discrepancy. For nonnegative varrho, the norm inequality is equivalent to quadratic form <=varrho^2 after norm construction; squaring without the sign premise would change a negative-radius set. At zero radius it is {0}, which differs from the empty strictly positive Omega feasible set in D12. Estimator outputs need not belong to Theta.",
+        "statement_sha256": "74ec3b62650dd58090f2c73623cc93392ecca9c0306007f5b838cd77b73b54fe"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.PosDef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian positive definiteness, requiring a strictly positive quadratic form on nonzero finitely supported vectors.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L162-L163",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        },
+        {
+          "name": "Real.sqrt",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Real.Sqrt",
+          "provides": "Nonnegative square root of a real number, returning zero on negative inputs; intended statistical denominators still require their domain and nonzero conditions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Real/Sqrt.lean#L112-L113",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Search ellipsoid constraints and inspect SPD inverse quadratic norm and square-root domain.",
+          "result": "The ellipsoid is a sublevel set of the inverse-weighted quadratic norm, using the stated radius."
+        }
+      ],
+      "gap": "The constraint set still needs the inverse-metric norm and faithful treatment of the source's radius notation and endpoint."
+    }
+  },
+  {
+    "interface_id": "local-ea62ec3aacfc9f55841a",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-12T18:10:29.032707+00:00",
+    "source_interface_sha256": "d8f5381e6a3421943e4ee58b3cbc248029609cd3f972256c18ca2424d2a23186",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i06-p2816",
+        "local_id": "D11",
+        "comparison": "Take supremum jointly over fixed theta-star in the ellipse and the whole admissible conditional kernel nu, before averaging xi,w under P compProd nu; neither adversary chooses a new parameter after seeing xi. Observation law is the pushforward to (T_xi,y), and loss uses K_e. minimaxRisk ranges over all Markov-kernel decisions, whereas the paper ranges over measurable functions; an embedding gives only one direction without a derandomization argument. Indexing arbitrary noise kernels also needs measurable experiment structure. Retain potentially infinite nonnegative risk and do not use Bochner/toReal defaults to erase nonintegrable losses or replace the robust class by Gaussian proof reductions.",
+        "statement_sha256": "dc453f0a1ff64ff9a1dd8673cd672b28b23cc4f0ae6c76dd8434d0376fe64019"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.minimaxRisk",
+          "type": "{Θ 𝓧 𝓨 : Type*} → [MeasurableSpace Θ] → [MeasurableSpace 𝓧] → [MeasurableSpace 𝓨] → (Θ → 𝓨 → ℝ≥0∞) → ProbabilityTheory.Kernel Θ 𝓧 → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Decision.Risk.Defs",
+          "provides": "Infimum over Markov-kernel estimators of the supremum over parameters of extended nonnegative expected loss.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Decision/Risk/Defs.lean#L60-L61",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.Kernel.deterministic",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → (f : α → β) → Measurable f → ProbabilityTheory.Kernel α β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Basic",
+          "provides": "The Markov kernel assigning the Dirac law at a measurable function value, representing deterministic pushforwards.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Basic.lean#L58-L63",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.compProd",
+          "type": "{α : Type u} → {β : Type v} → {mα : MeasurableSpace α} → {mβ : MeasurableSpace β} → MeasureTheory.Measure α → ProbabilityTheory.Kernel α β → MeasureTheory.Measure (α × β)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.Composition.MeasureCompProd",
+          "provides": "Joint input/output measure obtained from an input measure and a kernel; projecting to the output yields the law of a randomized procedure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/Composition/MeasureCompProd.lean#L43-L44",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Inspect Decision/Risk minimaxRisk and its randomized estimator infimum; compare robust noise-indexed parameter set and observed-data pushforward.",
+          "result": "Library minimaxRisk provides extended nonnegative minimax loss for kernel experiments, but its randomized decisions and experiment indexing need a bridge to this deterministic robust risk."
+        }
+      ],
+      "gap": "The robust minimax risk still needs its observed-data experiment indexed by both parameter and admissible noise kernel and a justified restriction from randomized to deterministic estimators."
+    }
+  }
+]

@@ -1,0 +1,123 @@
+{
+  "scope": "Manual comparison of eleven remaining interfaces and twelve source variants for aos-2024-v52-i05-p2139, including the shared score-information formula from aos-2024-v52-i03-p0869.",
+  "rows": [
+    {
+      "interface_id": "local-a2d1136ea84b46791f85",
+      "related": ["ProbabilityTheory.Kernel", "ProbabilityTheory.IsMarkovKernel", "MeasureTheory.Measure.pi", "ProbabilityTheory.Kernel.compProd"],
+      "status": "composable",
+      "query": "Non-interactive privacy channel as a coordinatewise product of marginal Markov kernels; inspected kernels, probability product measures and sequential kernel composition.",
+      "result": "For a fixed input tuple, product measures give independent outputs from the individual marginal kernels. Kernel measurability assembles this into a channel that does not use previous releases.",
+      "gap": "The product channel is constructible from Markov kernels, while the stated equivalence with marginal privacy constraints requires a separate event-probability argument.",
+      "comparisons": {
+        "D4": "Use Q_i(dz_i|x_i) for each coordinate with no history argument, allowing the output spaces and kernels to vary with i. Conditional on the input tuple the output law is the product of these marginal measures; this does not make outputs independent under arbitrarily dependent private inputs. Preserve the equivalence between the source's full non-interactive privacy condition and Q_i in Q_alpha for every i, rather than inserting an n*alpha parameter or treating the more general sequentially interactive channel as already non-interactive."
+      }
+    },
+    {
+      "interface_id": "local-7d9b550076fd367c9288",
+      "related": ["MeasureTheory.eLpNorm", "Asymptotics.IsLittleO", "Real.sqrt"],
+      "status": "composable",
+      "query": "Model-wide differentiability in quadratic mean with a common dominating measure and score field; bounded quadratic-mean differentiability search and inspection of L2 seminorm and deterministic little-o.",
+      "result": "The DQM remainder can be expressed in L2 for each parameter, with its squared norm little-o of the squared parameter perturbation norm. Requiring it at every theta gives C1 without adding the separate joint measurability or continuity conditions.",
+      "gap": "The model-wide condition is expressible from the DQM remainder once common density and score versions and the parameter-interior domain are specified.",
+      "comparisons": {
+        "D10": "Apply the earlier DQM definition at every theta in Theta with the stated dominating mu and score s_theta: sqrt(p_(theta+h))-sqrt(p_theta)-(1/2)*(h dot s_theta)*sqrt(p_theta) has squared L2 norm o(||h||^2). Keep the one-half factor and the source's requirement that each such theta be interior. Pointwise DQM in theta does not by itself assert joint measurability of (x,theta) or continuity of theta -> s_theta*sqrt(p_theta); those are separate C2 and C3 records."
+      }
+    },
+    {
+      "interface_id": "local-1455ec60a85919eb7fc2",
+      "related": ["Measurable"],
+      "status": "composable",
+      "query": "Joint measurability of density and score in observation and parameter; inspected the measurable-map predicate for product domains and finite-vector targets.",
+      "result": "Two instances of Measurable on the product measurable space express exactly the required joint regularity.",
+      "gap": "Joint measurability is directly expressible once the observation and parameter measurable structures and chosen versions are fixed.",
+      "comparisons": {
+        "D11": "Require joint measurability of (x,theta) -> p_theta(x) into the nonnegative reals and (x,theta) -> s_theta(x) into R^p with their Borel structures. Separate measurability for every fixed theta or an equivalence class of density versions is not enough without a jointly measurable representative. Do not replace this condition by continuity in theta or infer it solely from DQM at each point."
+      }
+    },
+    {
+      "interface_id": "local-5a10dcad1d4fa794bf76",
+      "related": ["ContinuousOn", "MeasureTheory.MemLp.toLp", "MeasureTheory.eLpNorm"],
+      "status": "composable",
+      "query": "L2 continuity of the score weighted by square-root density; inspected L2 representatives and continuity on the parameter domain.",
+      "result": "The weighted score is an L2(mu;R^p) element and continuity can be imposed on its parameter map in that fixed Hilbert-space norm.",
+      "gap": "The regularity condition is supported after placing each weighted score in the same L2 space and specifying its parameter map.",
+      "comparisons": {
+        "D12": "Use s_theta(x)*sqrt(p_theta(x)) with the Euclidean norm on the p-dimensional score, integrate against the fixed dominating mu and impose continuity as an L2-valued map on Theta. This is not pointwise score continuity, continuity in L2(P_theta) with a changing reference measure, or continuity of Fisher information alone. MemLp witnesses are needed to construct the L2 equivalence classes; the source's C3 remains distinct from DQM and joint measurability."
+      }
+    },
+    {
+      "interface_id": "local-e242c8d23e9043dd6a99",
+      "related": ["Finset.sum_apply", "Real.exp", "Matrix.rowStochastic"],
+      "status": "composable",
+      "query": "Rectangular column-stochastic privacy matrices with same-row multiplicative inequalities; inspected finite sums and the library's square row-stochastic matrix definition.",
+      "result": "Entrywise nonnegativity, column-sum equations and rowwise privacy inequalities directly define the set. The existing rowStochastic declaration applies only to a square transpose specialization, not the full rectangular domain.",
+      "gap": "The rectangular channel set is expressible by finite sums and inequalities; square row-stochastic matrices supply only a transposed special case.",
+      "comparisons": {
+        "D14": "For Q of shape ell by k require Q_ij>=0 and sum_i Q_ij=1 for each input column j. For a fixed output row i and any columns j,j' require exp(-alpha)*Q_ij'<=Q_ij<=exp(alpha)*Q_ij'. These inequalities allow a row to be identically zero and avoid undefined likelihood ratios. Do not normalize rows, require strictly positive entries or restrict ell=k merely because the library's rowStochastic object is square. The later estimator chooses the square case for its finite alphabet; the general matrix class remains rectangular."
+      }
+    },
+    {
+      "interface_id": "local-fb87e93c06e72de7a90f",
+      "related": ["Measurable", "MeasureTheory.integral", "MeasureTheory.eLpNorm", "Set.indicator", "Filter.Tendsto"],
+      "query": "Consistent parameter-dependent finite quantizer with cell averages and error along every convergent parameter sequence; bounded quantizer search and inspection of measurable partitions, integrals and L1/L2 norm ingredients.",
+      "result": "The cells and piecewise constant density/derivative averages can be built from measurable maps and integration, while the required error convergence is stronger than a pointwise-in-parameter approximation assertion.",
+      "gap": "The remaining quantizer interface packages the jointly measurable finite partition, finite-measure cell averages and moving-parameter error convergence with all three error terms.",
+      "comparisons": {
+        "D13": "Require jointly measurable T_m(x,theta) and measurable k_m(theta), with every output in the one-based set [k_m(theta)]. Include in J only cells with 0<mu(B_j)<infinity, and let K be their union. Average p_theta and dot-p_theta=s_theta*p_theta over each such cell using mu(B_j), not P_theta(B_j), and set the displayed piecewise sums to zero outside K. Delta_m contains the L1 density error on K, the integral of the Euclidean magnitude of the derivative error on K, and sqrt(P_theta(K complement)). Require Delta_m(theta_m)->0 for every theta_m converging to a limit in Theta; pointwise convergence at each fixed theta does not meet this condition. Retain the moving cells and alphabet size rather than imposing a fixed partition or discarding excluded-cell probability."
+      }
+    },
+    {
+      "interface_id": "fisher-information-score",
+      "related": ["MeasureTheory.integral", "Matrix.vecMulVec", "fderiv"],
+      "status": "composable",
+      "query": "Fisher information as score outer-product expectation in DQM and hierarchical marginal models; bounded Fisher-information search and inspection of vector derivatives, outer products and matrix integration.",
+      "result": "The two matrices have the same score-second-moment construction but use different scores, dimensions and probability models. Finite information and centering require the corresponding regularity hypotheses.",
+      "gap": "The information matrices are constructible from integrable score outer products, while score identities and model-specific regularity remain separate proofs.",
+      "comparisons": {
+        "aos-2024-v52-i03-p0869/D16": "For the one-group marginal density g(Y|psi), integrate the outer product of its log-density gradient, with entries indexed d,d'=1,...,D. The source omits the expectation subscript; the conventional law is g(.;psi), which must be specified rather than silently using the true-parameter law for every psi. Keep this marginal information distinct from the f-model information in the same paper's Bernstein-von Mises theorem. Derivatives, log-density domains and finite score moments are needed; positive definiteness is not a consequence of the formula alone.",
+        "aos-2024-v52-i05-p2139/D6": "Use the DQM score s_theta and expectation under P_theta to define I_theta(P)=E_theta[s_theta*s_theta^T]. DQM supplies the cited zero-score-mean and finite-information conclusions, which remain theorem-level implications rather than the body of Matrix.vecMulVec or integral. Do not require a pointwise log-density derivative where the DQM definition supplies only an L2 score, and do not impose positive definite information in cases where the source allows a singular matrix."
+      }
+    },
+    {
+      "interface_id": "local-60fbce2fc0776e9abbe6",
+      "related": ["MeasureTheory.llr", "Filter.Tendsto", "Matrix.PosSemidef", "ProbabilityTheory.multivariateGaussian", "ProbabilityTheory.IndepFun"],
+      "query": "Local asymptotic mixed normality with matrix localization, random information and joint Gaussian-mixture limit; bounded LAMN search and inspection of log-likelihood ratios, convergence and Gaussian/independence ingredients.",
+      "result": "The likelihood expansion and joint limiting law can be expressed using generic probability tools, but a complete LAMN interface must retain changing experiment spaces, source likelihood conventions and the independence that generates the Gaussian mixture.",
+      "gap": "The remaining experiment interface combines local likelihood remainders and joint weak convergence with a valid random-information square root and the source's likelihood-ratio boundary conventions.",
+      "comparisons": {
+        "D7": "Use positive-definite localization matrices delta_n with operator norm tending to zero, an interior theta and a separate probability-zero remainder for every fixed h in Lambda_n(theta+delta_n*h,theta)-h^T*Delta_n+(1/2)*h^T*Sigma_n*h. The source defines the likelihood ratio from the absolutely continuous part and sets it to zero for parameters outside Theta; do not impose full mutual absolute continuity or conceal zero-density logarithm behavior with a totalized real llr. Require joint weak convergence of (Delta_n,Sigma_n) to (Sigma_theta^(1/2)*Delta,Sigma_theta), with Delta standard Gaussian independent of the possibly random, possibly singular nonnegative information. Marginal convergence of the two components or replacing the mixture by a fixed-information normal law is insufficient."
+      }
+    },
+    {
+      "interface_id": "local-c9b303ffa9ca133504ea",
+      "related": ["MeasureTheory.integral", "Real.log", "IsMaxOn", "Measurable"],
+      "query": "Fixed-channel non-interactive private maximum likelihood estimator with integrated output densities; inspected integrals, log likelihood and measurable maximizing predicates.",
+      "result": "For supplied channel density versions, the privatized model density is an integral and the log likelihood is a finite sum. A measurable maximizer is an additional selection requirement rather than a consequence of the expression.",
+      "gap": "The remaining MLE construction supplies the referenced channel density versions and a measurable maximizing selection, without assuming universal attainment or consistency.",
+      "comparisons": {
+        "D8": "Fix one Q in Q_alpha, reference nu=Q(.|x_star), and q_theta(z)=integral q(z|x)*p_theta(x) dmu with the stated exp(-alpha) and exp(alpha) bounds. Form the unnormalized sum of log q_theta(z_i) for the non-interactive releases and choose a measurable maximizer over Theta. Do not replace the likelihood by the private-input density or add the second-stage procedure's explicit arbitrary fallback to this definition. The channel density construction is referenced to excluded Lemma D.2; its main-text formula and bounds are retained without importing the lemma's proof. Compact-event consistency results are not automatically global consistency."
+      }
+    },
+    {
+      "interface_id": "local-a3c748f7a0a65ec32d0c",
+      "related": ["Set.indicator", "PiLp.norm_eq_of_L1"],
+      "status": "composable",
+      "query": "Hard truncation to zero outside a closed L1 ball; inspected real-vector set indicators and finite L1 norm.",
+      "result": "The indicator of the closed L1 ball multiplied by the input vector gives the stated hard truncation directly.",
+      "gap": "The truncation map is expressible by the finite L1 norm and an indicator, while any privacy or estimator guarantee needs the surrounding mechanism.",
+      "comparisons": {
+        "D9": "Return y unchanged if sum_j |y_j|<=tau and return the zero vector otherwise. Preserve inclusion of the boundary and the L1 rather than Euclidean norm. This is not radial clipping onto the ball, coordinatewise clipping or a projection to its boundary. No additive noise or privacy guarantee is supplied by the truncation operation alone."
+      }
+    },
+    {
+      "interface_id": "local-9d4ce5f78c997c09173c",
+      "related": ["ProbabilityTheory.Kernel.comp", "ProbabilityTheory.Kernel.deterministic", "IsMaxOn", "Measurable", "MeasureTheory.integral"],
+      "query": "Six-step adaptive locally private estimator using a preliminary fit, information-optimal finite channel and conditional second-stage MLE; inspected kernel composition, deterministic quantization, measurable optimization and likelihood integration.",
+      "result": "Generic kernels can compose the fitted quantizer with a selected finite channel, and the second-stage likelihood is explicit conditional on the preliminary releases. The measurable choices and consistency needed by the efficiency result remain substantial separate requirements.",
+      "gap": "The remaining procedure implements the measurable quantizer/channel selections and conditional MLE with its fallback, and verifies privacy and consistency under the source conditions.",
+      "comparisons": {
+        "D15": "Retain the scalar parameter model Theta subset R and all six steps: choose identifiable Q0; obtain a consistent private preliminary estimator from n1 releases; evaluate T_n1 and k_n1 at that estimate; choose a measurable Fisher-information maximizing square channel of the fitted alphabet size; release the remaining individuals through Q-hat*T-hat; and maximize their conditional average log likelihood. The selected channel is shared across second-stage individuals and depends on preliminary releases, so second-stage iid sampling is conditional on those releases and the full protocol is sequentially interactive, not globally iid or non-interactive. Keep q-hat_theta(z)=sum_j Q-hat[z,j]*P_theta(T-hat inverse {j}), its 1/n2 log-likelihood normalization and the explicitly arbitrary value when no maximizer exists. Do not infer consistency from measurable maximization or import a guessed n1 schedule; the theorem separately assumes second-stage consistency and its own asymptotic regime."
+      }
+    }
+  ]
+}

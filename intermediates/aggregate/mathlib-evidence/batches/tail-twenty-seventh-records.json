@@ -1,0 +1,62 @@
+[
+  {
+    "interface_id": "binary-regression-probability",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T19:20:18.896259+00:00",
+    "source_interface_sha256": "df2938ee56827caa845b5199449c97030b9462bb954a9c9921f55b6dcc08a03d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i03-p1178",
+        "local_id": "D4",
+        "comparison": "For p1178 use the unconditional complete test-pair law P_Q for (X,Y), set mu=Measure.map X P_Q and eta(x) to the conditional-label kernel mass at {1}. The feature domain is R^d and the label space is binary; do not condition eta on the missingness pattern or replace X by its zero-filled observed projection. The kernel is a probability distribution and yields the correct regression identity almost everywhere. Later missingness and smoothness conditions are imposed at all support points, so the library’s arbitrary values on null fibers do not by themselves satisfy those pointwise conditions or resolve the source version convention.",
+        "statement_sha256": "94e0d7addc489797f36ad68997f0c582a47e9a77d1412fa8ea132af9299672c1"
+      },
+      {
+        "paper_id": "aos-2024-v52-i04-p1433",
+        "local_id": "D23",
+        "comparison": "For p1433 retain X in [0,1]^d, d≥1, and independent observations from the common pair law. h0(x) is the success mass of condDistrib Y X under that law; the ordinary definition does not require a logistic prior, though a later map constructs one. Use the appropriate cube subtype and measurable coordinates. The binary conditional law can be represented as bernoulliMeasure 1 0 h0(x) after bounding the kernel mass, but independence of sampled pairs remains separate from the one-pair conditional law. No multivariate wavelet basis or dimension-dependent contraction rate is supplied by these APIs.",
+        "statement_sha256": "34f7421d5eb5c3fb17c2b3d4290672c0e560b81f59cc0a8b44b4c9089b6881f3"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.bernoulliMeasure",
+          "type": "{X : Type u} → [MeasurableSpace X] → X → X → Set.Icc (0 : ℝ) 1 → MeasureTheory.Measure X",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Bernoulli",
+          "provides": "A two-point law with masses p and 1-p, allowing a fair binary selector without requiring a vector-space structure on its sample values.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Bernoulli.lean#L47-L48",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Resolved p1178 and p1433 registered PDFs; inspected p1178 page 4 and p1433 page 14 with the recorded source notes. Inspected pinned CondDistrib:51–88, Measure/Map:89–106 and Bernoulli:39–55, including Markov instance, positive-mass conditional formula and component weight order; reused opened source links.",
+          "result": "condDistrib constructs a regular conditional distribution for a finite underlying law and a nonempty standard Borel label space. Evaluating the kernel on the measurable singleton label one gives a [0,1]-valued regression probability, with its conditional-law identity for measurable coordinates determined almost everywhere under the feature marginal. Measure.map supplies that marginal. bernoulliMeasure 1 0 with this success probability reconstructs a conditional binary law; no pointwise version at every feature value is selected by the paper’s notation alone."
+        }
+      ],
+      "gap": "Construct the measurable class-one conditional probability and feature marginal, retaining each feature domain and the version requirements of pointwise assumptions."
+    }
+  }
+]

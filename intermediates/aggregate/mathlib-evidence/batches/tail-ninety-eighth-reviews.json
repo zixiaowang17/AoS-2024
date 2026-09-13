@@ -1,0 +1,107 @@
+{
+  "scope": "Manual comparison of the twelve remaining interfaces of the change-point regression paper, including all three source variants of the shared Lasso objective, against the pinned mathlib source and previously verified declarations.",
+  "rows": [
+    {
+      "interface_id": "local-70953c8adc020040f259",
+      "related": ["ProbabilityTheory.variance", "Filter.Tendsto", "dotProduct"],
+      "query": "rg -n -i 'long.?run variance|functional dependence|change.?point' Mathlib/Probability Mathlib/Analysis; inspect Probability/Moments/Variance variance, Filter.Tendsto and dotProduct",
+      "result": "The normalized finite sum has an available variance definition and its scalar limit is expressible with Tendsto; no verified long-run variance existence theorem for the dependent triangular process was found.",
+      "gap": "Construct the normalized dependent product sums and prove existence and finiteness of their variance limit while retaining the factor four.",
+      "comparisons": {"D28": "For each fixed jump k in the vanishing regime, form n^(-1/2) times the sum from t=1 to n of epsilon_t dotProduct v_k X_t, take its variance under the sample-size-specific law, and multiply its limiting variance by four. The direction and ambient dimension may vary with n. The definition is a limit of variances, not the variance of a limit or a sum of independent variances. The saved ambient Lemma 2 supplies an existence/finiteness assertion under Assumptions 1-3, but does not assert strict positivity; library variance's infinite-toReal fallback must not replace finite second moments."}
+    },
+    {
+      "interface_id": "local-e800a6e196fc6f6ffc03",
+      "related": ["MeasureTheory.eLpNorm", "MeasureTheory.MemLp", "EuclideanSpace.norm_eq", "dotProduct"],
+      "query": "Search Probability/Analysis for functional dependence; inspect MeasureTheory/Function/LpSeminorm/Defs eLpNorm and MemLp with their exponent branches, EuclideanSpace.norm_eq and dotProduct; compare the archived ambient replacement recipe (5)",
+      "result": "The positive finite-q extended moment and measurable finite-moment predicate represent the directional coupling distance, including q below one; the innovation replacement, shift identity, direction supremum and lag accumulation are not provided by these declarations.",
+      "gap": "Build the single-innovation coupling, prove the stationary shift identity and assemble the directional supremum and cumulative lag series with explicit finiteness conventions.",
+      "comparisons": {"D7": "Use exponent ENNReal.ofReal q with real q > 0, not q=infinity; eLpNorm supports q below one without a Banach-norm triangle claim. The source's finite random-variable Lq quantity requires finiteness before conversion to real values. Replace only the innovation at 1-s in X_1, equivalently the innovation at zero in X_s under the iid lag coupling; replacement after the observation time leaves the history unchanged, as archived in (5). Take the supremum over every Euclidean unit v before summing the resulting nonnegative coefficients over integer lags s >= m, with m allowed negative. A real totalized divergent tsum is not the intended cumulative dependence value; finiteness of the cumulative series is separate from finite individual projection moments. No exponential decay assumption is folded into the definition."}
+    },
+    {
+      "interface_id": "least-squares-lasso",
+      "related": ["IsMinOn", "PiLp.norm_eq_of_L1", "EuclideanSpace.norm_eq", "dotProduct"],
+      "query": "rg -n -i 'lasso' Mathlib/Probability Mathlib/Analysis; inspect Order/Filter/Extr IsMinOn, Analysis/Normed/Lp/PiLp norm_eq_of_L1, EuclideanSpace.norm_eq and dotProduct, then compare each source normalization",
+      "result": "The minimizer relation and finite L1 and L2 norms express all three penalized objectives; no verified packaged Lasso estimator, measurable selector or unique solution theorem was found.",
+      "gap": "Define the three scaled Lasso objectives, preserve their tuning and support conventions, and establish existence and an appropriate selected minimizer where needed.",
+      "comparisons": {
+        "aos-2024-v52-i03-p0999/D22": "On the chosen integer interval I, minimize the unnormalized residual-square sum plus lambda sqrt(card I) times the sum of absolute coefficients, with lambda > 0. The L1 norm uses PiLp 1 or an explicit absolute-value sum, not the default function-space supremum norm. Multiplying the complete objective by one half matches the half-squared-error convention with effective penalty lambda sqrt(card I)/2; dividing by positive card I matches Algorithm 1. Such transformations retain the interval and require positive scaling. IsMinOn on all real coefficient vectors specifies optimality but does not choose a unique or measurable estimator. No stochastic regression assumptions are needed to state this data-based criterion.",
+        "aos-2024-v52-i03-p1227/D22": "The objective is one half the Euclidean residual norm squared plus lambda times the L1 coefficient norm, without a 1/n factor. Record the selected support as exactly the nonzero coordinates of the chosen beta-hat. The displayed source does not explicitly restrict lambda or settle ties among Lasso solutions, so neither a positive tuning assumption nor a canonical support is silently inserted. The checked primitives express the criterion and optimality relation; existence, uniqueness and measurable selection do not follow from IsMinOn alone.",
+        "aos-2024-v52-i04-p1671/D13": "For group j sum residual squares only over H_j and divide by 2 n_j, then add lambda times the L1 norm. With positive n_j, multiplying by n_j gives the half-squared-error convention with penalty n_j lambda, preserving the group's normalization. This is a local estimator, not a pooled fit over all groups. The formula alone does not guarantee uniqueness or provide a measurable choice, and division by a zero group size has no statistical meaning supplied by totalized field division."
+      }
+    },
+    {
+      "interface_id": "local-ae885fadf4df854c8693",
+      "related": ["dotProduct", "Finset.card"],
+      "query": "Inspect dotProduct and Finset.card and expand the source's fitted quadratic form on each interval; search change-point/DP interfaces in Probability, Analysis and Combinatorics",
+      "result": "The linear and squared-projection terms and the interval length are directly expressible; the piecewise fitted criterion and its connection to the interval Lasso are source-specific.",
+      "gap": "Define the exact fitted quadratic interval loss with zero on short intervals and the shared zeta cutoff.",
+      "comparisons": {"D23": "For card I >= zeta, sum -2 y_t dotProduct X_t beta-hat_I plus (dotProduct X_t beta-hat_I)^2; the latter is the scalar expansion of beta-hat_I transpose X_t X_t transpose beta-hat_I. For card I < zeta, the entire loss is zero. Retain the inclusive threshold and the same zeta used as the partition penalty. The source omits sum y_t squared; adding it only on long intervals would not be one partition-independent constant when short intervals have zero loss, so equivalence to a conventional residual-squares segmentation objective is not inferred."}
+    },
+    {
+      "interface_id": "local-2bda81601eee9bd2e6d4",
+      "related": ["IsMinOn", "Finset.exists_min_image", "Finset.card"],
+      "query": "Search change-point/dynamic programming interfaces in Probability, Analysis and Combinatorics; inspect IsMinOn and the finite minimum existence theorem in Data/Finset/Max",
+      "result": "A nonempty finite set of admissible partitions admits a minimizing partition for a real-valued criterion; the checked theorem does not build the integer-interval partition domain or prove correctness of DPDU.",
+      "gap": "Construct all consecutive integer-interval partitions and minimize the exact fitted loss plus the per-segment penalty, with membership and selection explicit.",
+      "comparisons": {"D24": "Minimize sum over intervals I in P of G(I) plus zeta card P over all integer partitions of {1,...,n}, with zeta > 0. The intended segments are consecutive disjoint intervals covering the observations, not arbitrary set partitions. For positive n the one-segment partition witnesses nonemptiness, and the finite-domain minimum theorem can supply attainment after the domain is constructed. IsMinOn needs the selected partition's membership supplied separately. The penalty counts segments, not interior change points, and ties remain possible; this optimality relation does not resolve the printed DPDU indexing conventions."}
+    },
+    {
+      "interface_id": "local-cf2d1ef13fa0802477d3",
+      "related": ["dotProduct", "IsMinOn", "PiLp.norm_eq_of_L1"],
+      "query": "rg -n -i 'dynamic programming|change.?point|lasso' Mathlib/Probability Mathlib/Analysis Mathlib/Combinatorics; inspect dotProduct, IsMinOn and PiLp.norm_eq_of_L1 against every step of the archived Algorithm 1",
+      "result": "The Lasso subproblem and scalar quadratic criterion have checked representations; no verified implementation or correctness theorem for this dynamic-update segmentation algorithm was located.",
+      "gap": "Formalize the dynamic moment updates, recurrence and backtracking after explicitly resolving the source's pointer bounds, vector orientation and returned-fit storage conventions.",
+      "comparisons": {"D25": "Preserve the descending l loop inside r=2,...,n+1, accumulating M by X_l X_l transpose and V by y_l X_l transpose for I=[l,r). On long intervals the objective is the fitted quadratic divided by card I plus lambda/sqrt(card I) times the L1 norm, consistent with dividing (14) by the positive interval length after dropping its coefficient-independent response squares. Short intervals receive zero G. B_1 starts at -zeta and the recurrence adds zeta; update only when b < B_r, retaining the earlier encountered candidate on a tie. The printed pointer vector has length n but can be assigned at r=n+1; backtracking starts at k=n and adds every predecessor h, potentially the boundary 1. V is initialized as a vector but used with a row orientation, and the output segment fits lack an explicit retention step. These frozen source issues prevent treating the literal pseudocode as an already well-defined verified implementation; no silent indexing repair is made."}
+    },
+    {
+      "interface_id": "local-15257da7b10923e36736",
+      "related": [],
+      "status": "no_verified_match",
+      "no_related_reason": "The two source-specific affine endpoint formulas have no verified change-point-window API; generic scalar arithmetic does not resolve their unprinted integer and exterior-endpoint conventions.",
+      "query": "rg -n -i 'change.?point|dynamic programming' Mathlib/Probability Mathlib/Analysis Mathlib/Combinatorics; compare the exact affine weights and the archived endpoint caveats",
+      "result": "No verified declaration was located for the nine-tenths/one-tenth estimated localization window; its real-valued formulas can be defined directly once the estimated endpoints are supplied.",
+      "gap": "Define the exact weighted localization endpoints and explicitly settle the exterior estimated boundaries and integer-index interpretation required downstream.",
+      "comparisons": {"D26": "For k=1,...,K-hat, s_k is 9 eta-hat_{k-1}/10 plus eta-hat_k/10, whereas e_k is eta-hat_k/10 plus 9 eta-hat_{k+1}/10. Treat divisions as real arithmetic, not integer truncation, and do not reverse the weights. The displayed formula neither defines eta-hat_0 and eta-hat_{K-hat+1} nor rounds the potentially noninteger endpoints used later as observation indices. Generic affine-combination facts would not settle those source conventions."}
+    },
+    {
+      "interface_id": "local-8d140b2d92c7dc585c9a",
+      "related": ["EuclideanSpace.norm_eq"],
+      "query": "Inspect Analysis/InnerProductSpace/PiL2 EuclideanSpace.norm_eq and compare (30) with the source's separate squared-jump wording in Theorem 10",
+      "result": "The norm formula directly supplies the unsquared Euclidean magnitude of a supplied adjacent-fit difference; the estimator's inputs and later zero-denominator behavior remain separate.",
+      "gap": "Instantiate the adjacent fitted coefficient difference with the correct Euclidean coordinates and retain explicit handling of a zero estimated jump wherever it is later inverted.",
+      "comparisons": {"D29": "Take norm(beta-hat_k - beta-hat_{k-1}) for k=1,...,K-hat, including the beta-hat_0 supplied by the archived segment notation. This is the square root of a coordinate-square sum, not the squared norm. Theorem 10's squared estimator wording does not change (30). Distinct estimated neighboring segments need not have distinct fitted coefficient vectors from this formula alone, so no strictly positive jump estimate or inverse-denominator convention is inferred."}
+    },
+    {
+      "interface_id": "local-2c9ba56b8a00600123d9",
+      "related": ["dotProduct", "Int.floor", "Real.sqrt"],
+      "query": "Search Probability/Analysis for long-run variance and inspect dotProduct, Algebra/Order/Floor/Defs Int.floor and Analysis/Real/Sqrt Real.sqrt against Algorithm 2's residual products and paired-block normalization",
+      "result": "The residual-product terms, integer floor and square-root normalization are available ingredients; no verified paired-block long-run variance estimator or consistency result for this construction was found.",
+      "gap": "Implement the exact paired-block residual estimator after resolving missing coefficient and integer-endpoint inputs and stating its positive-denominator domain.",
+      "comparisons": {"D30": "The algorithm uses beta-hat_k and beta-hat_{k+1} in both residual products, sums the two products into Z_t, sets S=floor((e_k-s_k)/(2R)), and constructs 2R consecutive blocks of width S, discarding any remainder. Each D_r is the difference of adjacent block sums divided by sqrt(2S), and the output is sum D_r squared divided by R times kappa-hat_k squared. R counts block pairs and is not their width. The input list ends at K-hat, leaving the last k+1 coefficient unsupplied; surrounding (17) and (30) instead use k-1 and k, and the source does not justify replacing the indices. Noninteger endpoints, R=0, S=0 and kappa-hat_k=0 also require explicit conventions or hypotheses. The subsequent prose's reciprocal floor identity is not substituted for the algorithm's S formula, and real totalized division does not supply a statistical fallback."}
+    },
+    {
+      "interface_id": "local-aa40580c6caf8f7d275b",
+      "related": ["IsMinOn", "Finset.exists_min_image", "dotProduct"],
+      "query": "Inspect IsMinOn, Finset.exists_min_image and dotProduct; compare the two sums, held-fixed coefficients and open split domain in (17)",
+      "result": "The split loss and its minimum relation are expressible, with finite minimum attainment available only after a nonempty admissible integer set is specified; the source's endpoint and tie conventions are not resolved by these declarations.",
+      "gap": "Define the admissible integer split set and select a minimizer of the fixed-fit two-segment loss while preserving the open domain and source endpoint conventions.",
+      "comparisons": {"D27": "For s_k < eta < e_k, the first sum through eta-1 uses beta-hat_{k-1} and the second from eta through e_k-1 uses beta-hat_k. Both fits stay fixed as eta changes; this is not a Lasso refit at every candidate split. Membership in the open domain must accompany IsMinOn. The finite minimum theorem applies after the integer interpretation of s_k and e_k and a nonempty set of candidate splits are supplied. Neither that theorem nor the displayed formula picks a tie-breaking rule or authorizes closing the interval or guessing a rounding scheme."}
+    },
+    {
+      "interface_id": "local-7252667ec1f244944c24",
+      "related": ["dotProduct", "EuclideanSpace.norm_eq"],
+      "query": "Inspect dotProduct and EuclideanSpace.norm_eq; expand the rank-one quadratic form in the source drift estimator (31)",
+      "result": "The numerator equals the sum of squared projections onto the estimated jump, and the norm formula supplies its squared magnitude; the checked declarations do not provide consistency or a zero-jump convention.",
+      "gap": "Assemble the full-sample quadratic drift estimator and prove its connection to the limiting population drift on a nonzero estimated jump.",
+      "comparisons": {"D31": "For Psi-hat_k=beta-hat_k-beta-hat_{k-1}, sum (dotProduct X_t Psi-hat_k)^2 over every t=1,...,n and divide by n kappa-hat_k squared. This is the uncentered full-sample second-moment quadratic form along the normalized estimated jump, not a local-window covariance with empirical mean subtraction. The denominator needs positive n and nonzero kappa-hat_k for this directional interpretation. The target varpi_k is a limiting population quantity from Assumption 2c; the source's later finite-sample equality wording does not prove that the estimator equals it, and Proposition 9 remains outside the Theorem inventory."}
+    },
+    {
+      "interface_id": "local-f96fe1977c8e7d9d58ca",
+      "related": ["ProbabilityTheory.gaussianReal", "ProbabilityTheory.iIndepFun", "Int.floor", "Int.ceil", "IsMinOn"],
+      "query": "Inspect Probability/Distributions/Gaussian/Real gaussianReal, iIndepFun, Int.floor, Int.ceil and IsMinOn; compare both signed partial-sum branches and the open minimization domain in simulation Step 1",
+      "result": "Independent standard Gaussian variables, signed integer summation limits and the minimum relation are available; the simulated process, selected minimizer, infinite-window extension and distributional approximation are not packaged by these declarations.",
+      "gap": "Construct the two-sided Gaussian step process and a measurable selected minimizer, explicitly addressing open-domain attainment, simulation coupling and the finite-to-infinite-window extension.",
+      "comparisons": {"D32": "Use gaussianReal 0 1 for each z_i^(b) and joint independence for the stated within-repetition Gaussian family. At r<0 sum from ceil(n r) through -1, at r>0 from 1 through floor(n r), divide both by sqrt(n), and set the value at zero to zero. No interpolation or sign reversal on the negative branch is added. Minimize varpi-hat_k abs r plus sigma-hat_infinity(k), the standard-deviation scale rather than the variance itself, times that step process over the open interval (-M,M). IsMinOn does not supply membership, attainment, uniqueness or measurable choice. Step 1 assumes finite M and a finite Gaussian index range, while Theorem 10 sets M to infinity and needs a countable extension; independence from data and a complete joint law across b are not separately specified. The presence of jumps and an open domain prevents automatically applying continuous compact minimum attainment."}
+    }
+  ]
+}

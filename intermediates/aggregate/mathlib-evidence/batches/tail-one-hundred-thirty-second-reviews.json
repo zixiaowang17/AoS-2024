@@ -1,0 +1,109 @@
+{
+  "scope": "Manual review of the thirteen remaining p0948 interfaces, using frozen original statements and ambient conventions and pinned matrix, probability and spectral-analysis declarations.",
+  "rows": [
+    {
+      "interface_id": "local-8b28be797d02ea1d56d9",
+      "related": ["Matrix.mulVec", "Matrix.submatrix", "ProbabilityTheory.IndepFun"],
+      "query": "Searched polygenic and ridge model interfaces; inspected Matrix.mulVec, submatrix and IndepFun and compared the frozen model and independence notes.",
+      "result": "Matrix-vector products and coordinate restrictions represent both response equations; the common sparse random effect and exact independence structure remain model data.",
+      "gap": "Define the shared support-restricted effect vector and both response equations while specifying only the independence relationships actually supplied by the source.",
+      "comparisons": {"D2": "Use the same p-vector beta in y=X beta+epsilon and y_z=Z beta+epsilon_z, with an injective selection of m causal coordinates and zero extension of beta_(1); submatrix restricts the corresponding design columns and mulVec provides the finite linear predictors. Preserve m<=p and the designated nonzero effects. IndepFun can state independence of the error vectors, but shared random beta means the prose's independent cohorts cannot automatically be interpreted as unconditionally independent response/design pairs, and error-versus-design/effect independence is not silently added."}
+    },
+    {
+      "interface_id": "local-84a3b2d08c84ea16f245",
+      "related": ["Matrix.mulVec"],
+      "query": "Inspected matrix-vector multiplication and compared the frozen realized heritability formula and its positivity convention.",
+      "result": "The formula is a ratio of realized squared Euclidean signal and noise norms; it is not an expected covariance ratio or an R-squared residual decomposition.",
+      "gap": "Define the realized training-energy ratio and establish positive signal and noise energies to justify the stated open-unit-interval range.",
+      "comparisons": {"D9": "Matrix.mulVec constructs X beta and the numerator beta^T X^T X beta is its squared Euclidean norm; denominator adds norm(epsilon)^2, without a signal-noise cross term or expectation. Positive numerator and positive noise energy yield 0<h_beta^2<1; generic moment assumptions alone do not guarantee both for every realization. Keep this training quantity separate from the testing noise variance, and do not use Lean's zero-division convention to supply an absent degenerate-case definition."}
+    },
+    {
+      "interface_id": "local-0284b859a28600accbbf",
+      "related": ["ProbabilityTheory.HasLaw", "ProbabilityTheory.IndepFun", "ProbabilityTheory.covariance", "MeasureTheory.MemLp"],
+      "query": "Inspected HasLaw, IndepFun, covariance and MemLp; compared frozen Condition 3 with its archived A6 iid interpretation and missing-independence notes.",
+      "result": "Generic laws, centered covariances, fourth moments and stated independences are expressible; isotropic covariance does not itself determine a Gaussian law or independent effect coordinates.",
+      "gap": "Bundle the moment-specified laws and explicit independence premises, distinguishing the archived iid-effect prose from consequences of the covariance matrix alone.",
+      "comparisons": {"D8": "F(0,V) is a generic distribution family with zero mean, covariance V and finite fourth moments, not a named Gaussian distribution. beta_(1) has covariance p^-1 sigma_beta^2 I_m, independent of the genetic data X,Z,W; p, not m, determines scaling. The concatenated errors have block covariance sigma_epsilon^2 I_n and sigma_epsilon_z^2 I_nz and are explicitly independent of each other, without an imposed equality of variances. HasLaw supplies measurable law equality, covariance is centered coordinatewise and MemLp order four captures genuine finite moments. Preserve the separate prose calling effect coordinates iid while recording that isotropic covariance alone cannot imply it; do not infer unprinted error-versus-design or error-versus-beta independence."}
+    },
+    {
+      "interface_id": "local-afcc3c9009eddd9c1ea0",
+      "related": ["Filter.Tendsto"],
+      "query": "Inspected Filter.Tendsto and compared frozen causal proportion Condition 2 with m<=p and its recorded interval discrepancy.",
+      "result": "An ordinary real ratio limit is available; the compatible range is further constrained by the standing support-size inequality.",
+      "gap": "Specify the dimension-indexed causal count and ratio limit, retaining the printed gamma range while recording its compatibility with m at most p.",
+      "comparisons": {"D7": "Use Tendsto (fun p => (m p:real)/p) atTop (nhds gamma) with positive dimensions and the source's gamma in (0,infinity). Since m<=p, a compatible limit satisfies gamma<=1; this consequence is recorded rather than rewriting the original range. This is a deterministic sparsity proportion limit, not convergence in probability of a random support unless such randomness is separately specified."}
+    },
+    {
+      "interface_id": "local-70a46c1b04a7efde7907",
+      "related": ["Matrix.mulVec", "norm_inner_le_norm"],
+      "query": "Inspected Matrix.mulVec and the full Cauchy-Schwarz theorem with Euclidean specialization; compared frozen prediction accuracy and zero-norm note.",
+      "result": "The prediction and squared-cosine formula use standard linear algebra, and Cauchy-Schwarz bounds the ratio when the normalization is valid.",
+      "gap": "Define the uncentered prediction squared cosine and its nonzero-denominator domain, without replacing it by centered correlation or residual-based R-squared.",
+      "comparisons": {"D17": "Construct S_hat_Z=Z beta_hat and A^2=inner(y_z,S_hat_Z)^2/(norm(y_z)*norm(S_hat_Z))^2 in the real Euclidean space of testing rows. norm_inner_le_norm supplies the upper bound by one for nonzero response and prediction norms; the formula contains no centering or fitted intercept. The source gives no zero-norm fallback, and beta_hat may itself depend on the testing design in the BZ variant, so neither out-of-sample notation nor this algebra implies evaluation independence."}
+    },
+    {
+      "interface_id": "local-7a39cbc05be6da48a9a4",
+      "related": ["MeasureTheory.resolventTransform", "MeasureTheory.integral"],
+      "query": "Searched Marchenko/Pastur and Stieltjes transform names; inspected resolventTransform and the algebraic resolvent definition and compared the frozen companion relation.",
+      "result": "The library resolvent transform integrates (t-z) inverse and agrees with the source sign; the Marchenko-Pastur fixed point and companion-transform characterization remain unverified special results.",
+      "gap": "Construct the sample spectral limit and prove its selected Marchenko-Pastur solution and companion-transform relation under the source's reference-panel regime.",
+      "comparisons": {"D20": "For z=-lambda with lambda>0 and nonnegative spectral support, resolventTransform M_w_l z is the real integral of (t+lambda)^-1, with the same sign as m_w_l. Preserve v_w_l(-lambda)=omega_w_l*(m_w_l(-lambda)-lambda^-1)+lambda^-1 and the implicit integral against population H_l with denominator t*(1-omega_w_l-omega_w_l*z*m_w_l(z))-z. Integrability, existence, uniqueness/branch selection and the sample-LSD identification are not consequences of a totalized integral or an arbitrary root of this equation; the source's full complex-domain conventions remain unspecified."}
+    },
+    {
+      "interface_id": "local-b1ee65d0ee98b853fdf9",
+      "related": ["Matrix.IsHermitian.eigenvalues₀", "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto", "MeasureTheory.resolventTransform"],
+      "query": "Searched Marchenko-Pastur interfaces; inspected Hermitian eigenvalues, probability-measure weak convergence and resolventTransform and compared D19 with D3-D6.",
+      "result": "Eigenvalues and weak convergence support an empirical spectral measure and its limiting-transform language, but the almost-sure random-matrix limit theorem is not supplied by those primitives.",
+      "gap": "Construct each block's empirical spectral probability measure and establish its almost-sure Marchenko-Pastur limit and transform under the stated design and aspect-ratio assumptions.",
+      "comparisons": {"D19": "The ESD places equal mass 1/p_l at every eigenvalue of n^-1 X_l^T X_l, retaining multiplicities, so its CDF is the printed indicator sum for positive p_l. eigenvalues₀ requires a Hermitian proof, available from the real Gram structure after algebra. Weak convergence is convergence against bounded continuous test functions, not pointwise CDF convergence at every real x. The claim is almost-sure convergence of random spectral measures to M_l as p_l grows, with m_l satisfying the later implicit equation; neither the weak-convergence characterization nor a deterministic population LSD H_l proves that claim, and an unstated triangular-array coupling or growing-block regime is not invented."}
+    },
+    {
+      "interface_id": "local-3ac1098bb73daee8ad05",
+      "related": ["Matrix.submatrix"],
+      "query": "Inspected Matrix.submatrix's arbitrary row/column maps and compared the frozen causal submatrix definition.",
+      "result": "Using the same injective causal-coordinate map for rows and columns yields the required principal submatrix; arbitrary reindexing maps would allow repetitions or unrelated row and column sets.",
+      "gap": "Specify an injective enumeration of the m causal coordinates and restrict both matrix axes by that same enumeration.",
+      "comparisons": {"D21": "For A a p by p matrix and causal selection c:Fin m to Fin p, set A_m=A.submatrix c c with c injective and its image equal to the causal coordinates used by beta_(1). The source does not require A symmetric or diagonal, nor does it identify an arbitrary m by m corner with the causal principal submatrix. The same notation is shared by Conditions 4 and 5 without merging their different lists of matrices."}
+    },
+    {
+      "interface_id": "local-16e7698e2ab5808571db",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "Matrix.PosSemidef"],
+      "query": "Searched ridge interfaces and inspected matrix-vector multiplication, nonsingular inverse and PSD condition; compared frozen reference block formula and normalization note.",
+      "result": "Positive-ridge inversion and block assembly use standard matrix algebra, but the exact reference-panel/training-cross-product combination is a paper-specific estimator.",
+      "gap": "Assemble the reference-panel block ridge estimator with its literal n_w normalization and prove that each positive-ridge Gram matrix is invertible.",
+      "comparisons": {"D15": "For each block use n_w^-1 times (n_w^-1 W_l^T W_l+lambda I_p_l)^-1 X_l^T y, then concatenate in the known variant-block order. The training score remains X_l^T y and lambda>0; retain n_w^-1 outside the inverse rather than changing it to the n^-1 summary-statistic scaling in later prose. PSD Gram plus positive lambda can establish a unit determinant needed by mul_nonsing_inv, but it requires proof; even though a common positive rescaling cancels from squared-cosine accuracy, it changes the estimator itself."}
+    },
+    {
+      "interface_id": "local-57579fa504be84542db1",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "Matrix.PosSemidef"],
+      "query": "Inspected matrix-vector multiplication, inverse and PSD definition; compared frozen testing-panel block formula and dependence convention.",
+      "result": "The algebra resembles reference-panel ridge, but its covariance uses the testing design and its printed normalization uses n_z.",
+      "gap": "Build the testing-design block ridge estimator with n_z scaling, prove regularized invertibility and preserve its dependence on the design used for evaluation.",
+      "comparisons": {"D16": "For block l use n_z^-1 (n_z^-1 Z_l^T Z_l+lambda I_p_l)^-1 X_l^T y and concatenate the blocks; neither response y_z nor W appears in this estimator. Keep the external factor n_z^-1 instead of n^-1 and the positive tuning domain. Since Z also generates the predictor used for testing accuracy, the estimator must not be given the independent-reference interpretation; finite Gram positivity and ridge invertibility are algebraic obligations, not proofs of the prediction asymptotics."}
+    },
+    {
+      "interface_id": "local-831b475958ab3edd9825",
+      "related": ["Matrix.mulVec", "Matrix.mul_nonsing_inv", "Matrix.PosSemidef"],
+      "query": "Searched ridge interfaces; inspected matrix products, unit-determinant inverse cancellation and PSD definition and compared frozen training block formula.",
+      "result": "The training block estimator is a concatenation of regularized Gram solves, with the same training sample size in both normalizations.",
+      "gap": "Define each training block ridge solve and ordered concatenation, proving regularized Gram invertibility for positive lambda and sample size.",
+      "comparisons": {"D14": "Each block is n^-1 (n^-1 X_l^T X_l+lambda I_p_l)^-1 X_l^T y for lambda>0, and the result is the full p-vector formed in known block order. Both covariance and cross-product use training data, with no cross-block terms retained in the block covariance. This is not automatically the full ridge estimator using n^-1 X^T X; a population block-diagonal covariance does not make finite sample cross-block Gram entries zero. Preserve the source's textual black-wise typo while interpreting its explicit block formula."}
+    },
+    {
+      "interface_id": "local-24aca5032bb36d24e581",
+      "related": ["Matrix.trace", "Matrix.submatrix", "Matrix.mul_nonsing_inv", "MeasureTheory.TendstoInMeasure"],
+      "query": "Inspected trace, causal submatrix, inverse and convergence-in-measure definitions; compared all four ordered products in frozen Condition 5.",
+      "result": "The four trace ratios and convergence in probability can be stated, but causal homogeneity for these random products is an additional assumption rather than a generic matrix identity.",
+      "gap": "Impose the four specific trace-ratio probability limits with valid denominators and the exact matrix order, sampling regime and causal restriction from Condition 5.",
+      "comparisons": {"D23": "Using R_Z=(Sigma_hat_BZ+lambda I)^-1 and R_W=(Sigma_hat_BW+lambda I)^-1 only as reading abbreviations, the four A are Sigma_hat R_Z Sigma_hat_Z R_Z Sigma_hat, Sigma_hat R_Z Sigma, Sigma_hat R_W Sigma R_W Sigma_hat, and Sigma R_W Sigma. Preserve the final population Sigma in the fourth product and define Sigma_hat_Z=n_z^-1 Z^T Z. trace(A.submatrix c c)/trace(A) tends in probability to gamma as min(n,n_w,n_z,p) grows for these four products only. TendstoInMeasure gives that formulation on a specified common probability space; without a supplied coupling one must state a varying-law tail formulation rather than invent an array. Positive ridge parameters ensure the inverse candidates after proof but not every trace denominator automatically; no universal-all-A condition or Condition 4 premise is added."}
+    },
+    {
+      "interface_id": "local-bf6fec42702ab35f256f",
+      "related": ["Matrix.trace", "Matrix.submatrix", "Matrix.mul_nonsing_inv", "MeasureTheory.TendstoInMeasure"],
+      "query": "Inspected trace/submatrix and convergence-in-measure definitions and compared both noncommutative products of frozen Condition 4.",
+      "result": "Trace restriction and probability convergence are available as language, while the source imposes a special causal-coordinate homogeneity assumption on two training-data products.",
+      "gap": "State the two training-matrix trace-ratio limits with the exact causal selection, valid denominators and dimension-indexed probability interpretation.",
+      "comparisons": {"D22": "With R_B=(Sigma_hat_B+lambda I)^-1, preserve A=Sigma R_B Sigma_hat and A=Sigma_hat R_B Sigma R_B Sigma_hat, in this order, and require trace(A_m)/trace(A)=gamma+o_p(1) as min(n,p) grows. trace is the sum of diagonal entries and A_m uses the same causal index injection on both axes. TendstoInMeasure under a probability law expresses ratio convergence to gamma when a common probability space is specified; deterministic little-o is not a replacement and a nonzero denominator must be justified. The restriction is to these two products, not every p by p matrix, and it is distinct from the four reference/testing products in Condition 5."}
+    }
+  ]
+}

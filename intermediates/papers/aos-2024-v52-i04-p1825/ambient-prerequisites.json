@@ -1,0 +1,453 @@
+{
+  "paper_id": "aos-2024-v52-i04-p1825",
+  "unranked_auxiliary_passages": [
+    {
+      "local_id": "A1",
+      "statement_original": "$(u\\cdot\\nabla)v$ is vector calculus notation for the vector field with entries\n\\[\n[(u\\cdot\\nabla)v]_j=\\sum_{i=1}^2u_i\\frac{\\partial v_j}{\\partial x_i},\\quad j=1,2.\n\\]\n(2)",
+      "evidence": [
+        {
+          "page": 2,
+          "location": "Auxiliary source passage A1"
+        }
+      ],
+      "scope_note": "Componentwise convection used by B and the physical PDE; ambient vector calculus is retained rather than reconstructed from a library."
+    },
+    {
+      "local_id": "A2",
+      "statement_original": "We assume the viscosity $\\nu>0$ and forcing $f\\in V$ to be known, possibly determined beforehand by independent experiments (theory for these distinct inverse problems could be developed as well, for $\\nu$ for instance following ideas in [17, 31]). In contrast, and following common practice in data assimilation, we assume that the initial condition $\\theta=u(0)$ of the system is unknown.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Auxiliary source passage A2"
+        }
+      ],
+      "scope_note": "Statistical parameter scope: viscosity and forcing are known. Theorems 2 and 4 specialize to nu=1/2,f=0; the initial condition is the inferential target."
+    },
+    {
+      "local_id": "A3",
+      "statement_original": "Let us emphasise that the ‘white’ noise $\\varepsilon_i$ in (19) is purely of measurement error type (arising from the discretisation of $u_\\theta$) and that we do not model explicit stochasticity in the Navier-Stokes dynamics itself, in particular we do not consider a SPDE model.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Auxiliary source passage A3"
+        }
+      ],
+      "scope_note": "The observation model has random measurement noise and design, while its forward PDE is deterministic."
+    },
+    {
+      "local_id": "A4",
+      "statement_original": "By convention we regard the first $N$ measurements as the training sample and the additional pair $(X_{N+1},t)$ as the prediction sample, where $X_{N+1}$ is drawn at random from $\\lambda_\\Omega$ and $t\\in(0,T_p],T_p\\geq T$, is a (deterministic) time we wish to fore- or hind-cast.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Auxiliary source passage A4"
+        }
+      ],
+      "scope_note": "Prediction horizon convention. Theorem 3 separately prints capital P in T_P in prose and lowercase p in display bounds."
+    },
+    {
+      "local_id": "A5",
+      "statement_original": "If we denote by $\\theta_0$ the ground truth initial condition that generated the data (19) and by $\\theta\\sim\\Pi(\\cdot\\mid Z^{(N)})$ a draw from the posterior distribution, then this leads us to consider the posterior quadratic ‘prediction risk’\n\\[\nE_{X_{N+1}}\\left(|u_\\theta(t,X_{N+1})-u_{\\theta_0}(t,X_{N+1})|^2\\right)=\\|u_\\theta(t,\\cdot)-u_{\\theta_0}(t,\\cdot)\\|_{L^2(\\Omega)^2}^2,\\quad t>0,\n\\]\n(22)\nwhich measures how well we predict on average the state of the system at time $t$ and at a ‘generic’ position $X_{N+1}\\sim\\lambda_\\Omega$.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Auxiliary source passage A5"
+        }
+      ],
+      "scope_note": "Interpretation of trajectory error. The uniform spatial law and the page-4 Lebesgue L2 convention raise a volume-normalization issue. This explanatory identity is not substituted for the unsquared theorem error norms."
+    },
+    {
+      "local_id": "A6",
+      "statement_original": "Moreover, for $u(0)\\ne v(0)\\in V$, the ratio in (15) is always finite, so a constant $c_P$ always exists in this case. For the statistical results below we require however uniform control of $c_P$ in the parameter space of admissible initial conditions $u(0),v(0)$.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Auxiliary source passage A6"
+        }
+      ],
+      "scope_note": "Remark 1 distinguishes a pair-dependent inverse-Poincare constant from a uniform restriction. Theorem 1B has the former explicit ratio; Theorem 5 uses a projected prior, not an independently asserted global bound."
+    },
+    {
+      "local_id": "A7",
+      "statement_original": "For instance suppose both $u(0),v(0)\\in V$ have a finite expansion in the $H$-orthonormal eigen-basis $(e_j:j\\geq0)$ of the Stokes operator $A$ (see (20) below), up to ‘frequency’ $J$. Then\n\\[\n\\frac{\\|u(0)-v(0)\\|_V^2}{\\|u(0)-v(0)\\|_{L^2}^2}=\\frac{\\sum_{j\\leq J}\\lambda_j\\langle e_j,u(0)-v(0)\\rangle_{L^2}^2}{\\sum_{j\\leq J}\\langle e_j,u(0)-v(0)\\rangle_{L^2}^2}\\leq\\lambda_J\\equiv c_P.\n\\]\nObserve that one has the asymptotic distribution $\\lambda_j\\simeq j$ as $j\\to\\infty$, of the eigenvalues of the Stokes operator $A$ in $d=2$, see Proposition 4.14 in [8].",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Auxiliary source passage A7"
+        }
+      ],
+      "scope_note": "The source bounds a squared norm ratio by lambda_J and calls it c_P, whereas (15) defines an unsquared ratio. Preserve both displays and do not change the theorem exponential."
+    },
+    {
+      "local_id": "A8",
+      "statement_original": "Examples of ‘base priors’ $\\Pi'$ with $\\mathcal H=(V\\cap H^\\alpha(\\Omega)^2,\\|\\cdot\\|_{H^\\alpha(\\Omega)^2})$ for any $\\alpha\\geq2$ can be easily constructed:",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Auxiliary source passage A8"
+        }
+      ],
+      "scope_note": "Illustration after Condition 1, not an equality required of every admissible prior RKHS. General Condition 1 only imposes continuous embedding."
+    },
+    {
+      "local_id": "A9",
+      "statement_original": "Then the conclusions of Theorem 3 remain true with convergence rate\n\\[\n\\eta_N=(\\log N)^\\beta\\times N^{-\\alpha/(2\\alpha+2)},\\quad\\text{some }\\beta>0.\n\\]",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Auxiliary source passage A9"
+        }
+      ],
+      "scope_note": "Theorem 5 explicitly inherits Theorem 3 conclusions: both posterior concentration events and the posterior-mean/trajectory error. This is a statement reference, unlike the proof-only use of Theorem 1 or 2 by other results. Prior projection and rate replace their counterparts; no unprinted lower growth bound on J_N is inserted."
+    }
+  ],
+  "source_issues": [
+    {
+      "issue_id": "registered-version",
+      "description": "The source is the registered 19-page arXiv v3 stamped 9 Jul 2024. It is not assumed identical to the published AoS text.",
+      "evidence": [
+        {
+          "page": 1,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "vector-space-shorthand",
+      "description": "The source permits X instead of X^2 for vector fields. L2(Omega)^2 in Theorem 3 is a vector-space subscript, whereas the squared norms in (22) and Remark 1 have an external square.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 7,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 9,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "two-H-spaces",
+      "description": "The PDE space H of divergence-free zero-mean fields differs from the Gaussian RKHS calligraphic H. V uses the gradient norm, not the full inhomogeneous H1 norm.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "fractional-sobolev",
+      "description": "The main-text Sobolev definition covers integer m, while Condition 1 permits real alpha>=2. Fractional periodic Sobolev and RKHS constructions are standard external notions not expanded here.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "strong-solution-regularity",
+      "description": "The main text defines strong by equality of (10) in H rather than just V-prime, but refers to external books for complete solution-theory details. Theorem 1 expressly specifies C([0,T],V); no other theorem gains an extra regularity premise by importing a proof.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 6,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "bochner-conventions",
+      "description": "The Lp display does not separately state strong measurability, and the L-infinity prose says time-bounded without specifying essential versus pointwise boundedness. Ordinary Bochner and function-space conventions remain external.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "zero-difference",
+      "description": "Theorem 1 includes coincident initial conditions but writes logarithms and ratios involving solution discrepancies. It does not explicitly define the zero-denominator limiting conventions for (14) or (15).",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "inverse-poincare-square",
+      "description": "Equation (15) bounds an unsquared norm ratio and (16) contains exp(c2*cP). Remark 1 instead bounds the squared ratio by lambda_J and labels that bound c_P. The displays are preserved rather than reconciled by changing exponents.",
+      "evidence": [
+        {
+          "page": 6,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 7,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "theorem2-constant",
+      "description": "Theorem 2 writes c-prime=c-prime(c,t) without introducing c in the statement. Comparability constants and their time/index uniformity are not further expanded there.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "theorem2-logarithm",
+      "description": "The lower bound in (18) uses log(1/discrepancy) for all positive times and natural-number indices without separately stating positivity or nonzero-denominator conventions.",
+      "evidence": [
+        {
+          "page": 7,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "posterior-argument-order",
+      "description": "The likelihood (21) writes u_theta(X_i,t_i), whereas (19) and the forward model use u_theta(t_i,X_i). The reversal is retained in the original passage.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 9,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "prior-rescaling",
+      "description": "Condition 1 uses theta=theta-prime/N^(1/(2alpha+2)); this is not the posterior contraction rate and the RKHS is that of the base prior. Sample-size dependence is retained.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "single-time-design",
+      "description": "The source declares the normally empty interval (T0,T] to mean {T} when T0=T>0 and uses a Dirac temporal law. This explicit exception must not be dropped.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "observation-window-scope",
+      "description": "Theorem 3 allows T0=0, while Theorem 4 requires T0>0. Theorem 5 inherits the observation setting of the conclusions it references; no minimax lower bound is asserted at T0=0.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "horizon-case",
+      "description": "Theorem 3 writes T_P in its prose but T_p in both displayed suprema. The preceding prediction convention also uses T_p. Preserve source case without silently rewriting the theorem.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "prediction-normalization",
+      "description": "Equation (22) identifies expectation under the uniform probability law on [0,2pi]^2 with a Lebesgue L2 norm squared without showing a volume factor. Page 4 explicitly names Lebesgue measure dx; the original equality is preserved.",
+      "evidence": [
+        {
+          "page": 4,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 9,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "posterior-mean-versus-trajectory",
+      "description": "Theorem 3 evaluates the PDE at the posterior mean initial condition. Nonlinearity does not permit replacing this with the posterior mean of the solution field.",
+      "evidence": [
+        {
+          "page": 9,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "minimax-radius",
+      "description": "Theorem 4 uses a ball radius U and positive c(U,T) without locally quantifying U>0. The preceding Proposition 1 has its own U>0; it is not silently imported as a new theorem hypothesis.",
+      "evidence": [
+        {
+          "page": 5,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "projection-span",
+      "description": "Theorem 5 says span E_J but writes E_J={e_j:j<=J}. The intended linear-span wording and the literal set notation are both retained, rather than silently replacing the original display.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "projection-growth",
+      "description": "Theorem 5 only states J_N=O(log log N); this upper bound alone does not ensure growth to infinity or eventual inclusion of a fixed J0. No lower growth condition is added to the source.",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "eigenbasis-real-complex",
+      "description": "Equation (20) gives complex Fourier fields only up to proportionality; adjacent prose refers to real parts. Normalization, sine/cosine selection, lattice redundancy and eigenvalue-multiplicity ordering are not fully specified there.",
+      "evidence": [
+        {
+          "page": 8,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    },
+    {
+      "issue_id": "theorem-inheritance",
+      "description": "Theorem 5 expressly reuses the conclusions of Theorem 3 with a projected prior and different rate. This must resolve all three conclusions, including the mean and forecast, without importing proof-only theorem references as extra dependencies.",
+      "evidence": [
+        {
+          "page": 10,
+          "location": "Source scope or notation"
+        },
+        {
+          "page": 11,
+          "location": "Source scope or notation"
+        }
+      ]
+    }
+  ],
+  "statement_resolution": {
+    "shared": {
+      "local_objects": "D1 periodic torus; D2 smooth functions; D3 L2/Sobolev conventions; D4 H,V and norms; D5 projector; D6 Stokes operator; D7 convection/dual pairing; D8 physical PDE/parameters; D9 reduced PDE and strong solutions; D10 time function spaces; D11 data law; D12 Gaussian prior; D13 eigenfunctions; D14 posterior; D15 Bochner mean/plug-in trajectory; D16 inverse-Poincare condition; D17 projected prior.",
+      "ambient_or_bound": "A1–A9 preserve component convection, known physical parameters, noise scope, prediction conventions, inverse-Poincare comparison, a prior example and explicit theorem inheritance. Weak derivatives, Schwartz distributions, orthogonal projections, Bochner integrals, RKHS, Gaussian laws, stochastic orders, asymptotic comparability and ordinary probability convergence remain ambient where not expanded in the main text."
+    },
+    "1": {
+      "local_objects": "V, L2, continuous V-valued trajectories, reduced strong PDE and the named inverse-Poincare condition resolve the statement.",
+      "ambient_or_bound": "T,U,u,v,c1,c2,cP and t are locally bound or common PDE parameters. Keep separate A/B branches and unresolved zero-discrepancy conventions."
+    },
+    "2": {
+      "local_objects": "C-infinity(Omega)^2, V, H2/L2 norms and reduced strong PDE resolve the statement.",
+      "ambient_or_bound": "The sequence u_j, index j, t, zero comparison solution, viscosity 1/2 and forcing 0 are bound in the statement. c-prime(c,t) and comparability uniformity remain source issues."
+    },
+    "3": {
+      "local_objects": "Condition 1, PDE (10), observation law (19), posterior (21), V/L2 norms and the Bochner mean/plug-in solution resolve all conclusions.",
+      "ambient_or_bound": "Truth theta0, horizon, uniform RKHS ball, eta_N and probability under P_theta0^N are source-defined or bound. Posterior concentration is in probability under the data law, not an almost-sure or deterministic assertion."
+    },
+    "4": {
+      "local_objects": "The reduced PDE, observation law, V-valued estimator domain and H2/L2 norms resolve the minimax statement.",
+      "ambient_or_bound": "All measurable estimators are quantified locally; T0 is strictly positive; the liminf-inf-sup order and probability threshold are preserved. Theorem 2 is used in the proof, not to define this statement."
+    },
+    "5": {
+      "local_objects": "The Stokes eigenbasis, Condition 1 and projected prior resolve the new hypotheses; the expressly inherited conclusions resolve the same posterior/data/PDE/mean and norm definitions as Theorem 3.",
+      "ambient_or_bound": "J_N, J0 and beta are bound locally. The spectral truth condition is not a generic global inverse-Poincare premise. Preserve the source projection notation and upper-bound-only J_N statement."
+    }
+  },
+  "source_claim_references": [
+    {
+      "from_claim_id": "aos-2024-v52-i04-p1825/T5",
+      "to_claim_id": "aos-2024-v52-i04-p1825/T3",
+      "reference_kind": "conclusion_inheritance",
+      "evidence": [
+        {
+          "page": 11,
+          "location": "Theorem 5 final sentence"
+        },
+        {
+          "page": 10,
+          "location": "Theorem 3 conclusions (23)–(25)"
+        }
+      ],
+      "resolution": "Resolve posterior events and posterior-mean/trajectory conclusions under the projected prior and replacement rate; preserve both original claim records."
+    }
+  ],
+  "unresolved_source_references": [
+    {
+      "reference": "External solution theory, fractional Sobolev and Gaussian RKHS conventions",
+      "status": "external_definition_not_expanded",
+      "resolution": "Main-text definitions retained; no external paper or supplementary body imported."
+    }
+  ]
+}

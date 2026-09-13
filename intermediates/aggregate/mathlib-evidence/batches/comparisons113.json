@@ -1,0 +1,88 @@
+[
+  {
+    "interface_id": "local-7efd7b790f860af3e419",
+    "status": "partial_match",
+    "names": [
+      "ProbabilityTheory.HasSubgaussianMGF",
+      "ProbabilityTheory.iIndepFun",
+      "ProbabilityTheory.IdentDistrib",
+      "MeasureTheory.lintegral"
+    ],
+    "comparison": "Apply the assumption to the latent array entries x_jk, combining the printed independent and identically sub-Gaussian wording with the preceding iid population paragraph. Retain zero mean, finite unit variance, the source norm defined by inf{c>0:E exp(X^2/c^2)<=2}, and nu_4=E|x_11|^4. HasSubgaussianMGF bounds exp(tX) for all real t with a variance-proxy parameter, not this Orlicz norm or unit variance itself; a conversion theorem with its constants is needed. The source norm and fourth moment can be recorded with nonnegative integrals without identifying the optimal MGF proxy with the square of the norm. Do not impose the latent-coordinate assumptions directly on correlated complete observations or masked observations, and do not set nu_4=3 unless Gaussianity is separately given. Independence covers the array, not just each column.",
+    "gap": "Independence and moment primitives are available, but the exact Orlicz-norm condition needs a constant-aware bridge to mathlib's sub-Gaussian MGF predicate.",
+    "searches": [
+      [
+        "Inspect HasSubgaussianMGF:600-608 and its Orlicz TODO, the source D9 norm and D10 array assumption",
+        "The available MGF predicate has a different parameter convention; the source Orlicz norm and fourth moment remain distinct data."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-3fc18ae3bdc43b1f0dd3",
+    "status": "composable",
+    "names": [
+      "Matrix.diagonal",
+      "ProbabilityTheory.bernoulliMeasure",
+      "MeasureTheory.integral"
+    ],
+    "comparison": "For each diagonal Bernoulli coordinate, compute E(d-p)^k with d=1 of probability p and d=0 of probability 1-p. This gives p-p^2, p-3p^2+2p^3, and p-4p^2+6p^3-3p^4 for orders 2,3,4, respectively. Assemble these bounded finite moments as diagonal matrices; ordinary powers of diagonal matrices act coordinatewise. The superscript (5) denotes P^(4)-3(P^(2))^2, a fourth-cumulant expression, not a fifth raw or centered moment and not necessarily nonnegative. Keep p_j as observation probabilities and retain their dimension dependence in the later P_n notation. These expectation identities only require the coordinate Bernoulli laws, while independence is additional model information; no division by p_j or uniform positive lower bound is part of this entry.",
+    "gap": "Bernoulli integration and diagonal matrix arithmetic give the displayed moment and fourth-cumulant identities directly.",
+    "searches": [
+      [
+        "Inspect bernoulliMeasure and diagonal definitions and evaluate the two-point centered moment polynomials",
+        "The probabilities at 1 and 0 yield the displayed polynomials; the label (5) is explicitly a fourth-cumulant combination."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-8ad2613942f608a9e468",
+    "status": "partial_match",
+    "names": [
+      "CFC.rpow",
+      "Matrix.hadamard",
+      "MeasureTheory.ProbabilityMeasure.tendsto_iff_forall_integral_tendsto",
+      "Matrix.l2_opNorm_def"
+    ],
+    "comparison": "Construct T_n with ordinary products P*Sigma_n*P plus the entrywise product P^(2) hadamard Sigma_n, then preserve the congruence Theta_n^(1/2)*T_n*Theta_n^(1/2). The saved source qualification is material: Assumption B only makes Theta_n nonrandom, so a positive-semidefinite/self-adjoint square-root interpretation and real eigenvalue distribution require additional ambient justification. Do not use total CFC fallback values to certify an undefined intended square root or silently replace the matrix by a symmetric part. Once the real empirical eigenvalue probability measures H_n are legitimately constructed, the inspected weak-convergence theorem expresses convergence through bounded continuous test functions to H as dimension p tends to infinity. The separate uniform spectral norm bound is on Sigma_n*Theta_n with the Euclidean L2 operator norm, not on the factors individually and not on an entrywise/max norm. No spectral convergence proof, limit identification or factor bound follows from these primitives.",
+    "gap": "Weak-convergence and matrix primitives are available, while the auxiliary square-root/spectral-domain assumptions and the asserted convergence remain to justify.",
+    "searches": [
+      [
+        "Inspect CFC.rpow, Hadamard product, L2 operator norm and ProbabilityMeasure weak-convergence theorem against Assumption D",
+        "The weak topology matches H_n convergence after constructing valid real spectral measures; it does not resolve the saved Theta_n square-root condition or change the product norm bound."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-d5dfd406bc2c60286937",
+    "status": "composable",
+    "names": [
+      "Matrix.vecMulVec",
+      "MeasureTheory.integral",
+      "ProbabilityTheory.covarianceOperator",
+      "ProbabilityTheory.covarianceOperator_apply"
+    ],
+    "comparison": "For each environment, integrate x*x^T under the population law and take the empirical average of those same outer products for the sample matrix. The printed formulas are raw second moments; the separate standing centering convention makes the population expression a centered covariance, but does not authorize subtracting an empirical sample mean in the displayed estimator. covarianceOperator is itself uncentered and, on finite Euclidean space with MemLp id 2, its action agrees with the outer-product matrix after the basis identification. Its zero fallback when the second-moment hypothesis fails is not a finite-covariance guarantee. Preserve environment-specific laws, dimensions and empirical weights, rather than replacing them by a pooled or whitened covariance. Centering is a saved source convention, not silently inserted into the original quotation.",
+    "gap": "Outer products and finite-second-moment integration express both matrices; the operator-to-matrix identification must retain the source's centering convention.",
+    "searches": [
+      [
+        "Inspect vecMulVec and covarianceOperator:184-214 with the saved p2268 centering qualification",
+        "The operator is an uncentered second-moment operator and matches the matrix only under the finite-moment/basis identification; its exceptional zero value does not assert integrability."
+      ]
+    ]
+  },
+  {
+    "interface_id": "local-bd937463668a25a3c531",
+    "status": "composable",
+    "names": [
+      "Matrix.PosSemidef"
+    ],
+    "comparison": "Express the uniform Loewner bounds by PosSemidef(Sigma^(e)-kappa_L*I) and PosSemidef(kappa_U*I-Sigma^(e)) for every environment, with the SAME constants 0<kappa_L<=1 and 1<=kappa_U<infinity. This is positivity of matrix differences, not coordinatewise order on entries. The inspected finite quadratic-form characterization gives bounds in every real direction and therefore controls the full population spectrum. It is stronger than a restricted eigenvalue condition on sparse vectors and says nothing directly about empirical covariance spectra. It also does not assert that cross-environment covariance matrices coincide or that pooled whitening is replaced by separate whitening. Keep the upper constant finite and the lower constant strictly positive; no weakening to nonnegative eigenvalues is equivalent.",
+    "gap": "Positive-semidefinite matrix differences directly express the uniform population bounds; no additional library-specific interface is needed.",
+    "searches": [
+      [
+        "Inspect PosSemidef and posSemidef_iff_dotProduct_mulVec:298-307 against the uniform matrix inequalities",
+        "The predicate gives the required all-directions Loewner order, avoiding entrywise or restricted-spectrum reinterpretations."
+      ]
+    ]
+  }
+]

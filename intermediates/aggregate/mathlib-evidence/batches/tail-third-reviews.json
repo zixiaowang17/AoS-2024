@@ -1,0 +1,125 @@
+{
+  "scope": "Manual source-aware comparisons for twelve remaining interfaces against the pinned mathlib revision; inspected definitions, neighboring APIs and source-convention notes are recorded without asserting Lean equivalence proofs.",
+  "rows": [
+    {
+      "interface_id": "local-f5cb34df00510ddb302a",
+      "related": ["Finset.sum_div", "Finset.sum_range_succ"],
+      "query": "Searched probability and analysis sources for change-point and preliminary-mean estimators; inspected finite-sum normalization and the one-step partial-sum identity against the source prefix formula.",
+      "result": "Finite sums and division express the prefix average, but no located declaration supplies this data-selected prefix or its preliminary change-location dependence.",
+      "gap": "The data-selected prefix length k*eta-hat and its finite-sample domain still need to be supplied around the finite-sum average.",
+      "comparisons": {
+        "D16": "For a one-based observation sequence, use range(k*eta_hat) with observation i+1 and divide by the real cast of k*eta_hat. This is the improved mean based on eta_hat, not the earlier minimum-block index L_hat or the variance estimator's muhat0. The sum/division identities do not establish positivity of the selected prefix or provide tie selection for eta_hat, and total real division does not furnish a statistical zero-prefix convention."
+      }
+    },
+    {
+      "interface_id": "local-0aef07ba9b3d6889a17a",
+      "related": ["Finset.min'", "Finset.sum_div"],
+      "query": "Searched for sliding-block/change-point estimates; inspected the generated finite minimum and finite-sum normalization against the exact sliding-window index range.",
+      "result": "The minimum of the finite set of block-average values can be represented after proving its index set nonempty. Finset.min' supplies no fallback for the source's possible empty range.",
+      "gap": "The sliding-window minimum needs its exact data-dependent range and a nonemptiness convention before the finite-minimum API applies.",
+      "comparisons": {
+        "D17": "Form all starts from k*(eta_hat+1)+1 through n-k+1 inclusive and average X_j-muhat1 over exactly k consecutive observations at each start, then take the minimum value. These are overlapping sliding windows, not only the original disjoint blocks. Finset.min' requires a nonempty image; eta_hat=m-1 can leave no admissible start, and high-probability asymptotics do not define that bad finite-sample output. The estimator targets the block-averaged gap d_star, which must remain distinct from the pointwise lower bound d."
+      }
+    },
+    {
+      "interface_id": "local-7391db1068a6a0a31b62",
+      "related": ["IsMinOn", "Finset.min'", "Finset.sum_range_succ"],
+      "query": "Searched for change-point locating estimators; inspected IsMinOn, finite minimum and prefix-sum recursion against the source's j=2,...,n criterion.",
+      "result": "The minimizer predicate and finite objective values are available, but a minimum value is not a selected location and IsMinOn alone does not require membership in the search set.",
+      "gap": "The prefix objective, admissible minimizer selection and source's unspecified tie convention still need to be formalized.",
+      "comparisons": {
+        "D18": "For each j in the inclusive integer interval [2,n], sum the centered and drift-corrected observations through j-1. A selected j must belong to this interval and satisfy IsMinOn; Finset.min' gives the attained value only, so selecting its index is a separate step. The location denotes the first changed observation, not the final pre-change observation. Keep arbitrary rho in (0,1), the source-defined muhat1 and d_hat, and the unresolved finite-sample/tie conventions; neither rho=1/2 nor an oracle true-gap replacement is justified by these primitives."
+      }
+    },
+    {
+      "interface_id": "local-f28ef7055f0b64201c93",
+      "related": ["Matrix.IsHermitian.cfc", "cfc"],
+      "query": "Inspected Matrix.IsHermitian.cfc, its underlying spectral diagonalization and generic cfc, with matrix functional-calculus instances; compared the two-sided clipping function in equation (30).",
+      "result": "The matrix-specific functional calculus applies the scalar min(max(lambda,delta),1/delta) to each eigenvalue and reconstructs in the same eigenspaces; it does not establish the statistical clipping threshold's relation to the limiting spectrum.",
+      "gap": "The clipping formula is expressible by Hermitian functional calculus, while its threshold domain and relation to the limiting eigenvalues remain separate obligations.",
+      "comparisons": {
+        "D35": "For the real symmetric PSD matrix, apply Matrix.IsHermitian.cfc with f(x)=min(max(x,delta),1/delta); the matrix API uses real eigenvalues and retains eigenspaces, so arbitrary orthogonal eigenbasis choices need not alter a scalar spectral function. The usual description as clipping to [delta,1/delta] presumes 0<delta<=1, whereas the source only says small positive delta. Keep the stated rule even outside that conventional interval and do not claim clipping becomes asymptotically inactive without a relation between delta and the limiting eigenvalues. The same construction is subsequently used on V."
+      }
+    },
+    {
+      "interface_id": "local-c46f18ad07071e18a93c",
+      "related": ["Matrix.IsHermitian.cfc", "Matrix.mul_nonsing_inv"],
+      "query": "Inspected Hermitian matrix spectral functional calculus and the determinant-unit hypothesis of Matrix.mul_nonsing_inv against the thresholded regression estimator Z*Vtilde-inverse.",
+      "result": "The clipped covariance can be constructed spectrally and a genuine inverse used after invertibility is established. The library inverse theorem does not make the product with Z symmetric or prove Hessian consistency.",
+      "gap": "The clipped-matrix invertibility proof and the source-specific construction and consistency of Z*Vtilde-inverse remain to be supplied.",
+      "comparisons": {
+        "D38": "Construct Vtilde with the same two-sided eigenvalue rule as equation (30), then multiply Z on the left by its matrix inverse on the right, preserving order. Positive clipped eigenvalues support an invertibility proof, but that proof is needed to use Matrix.mul_nonsing_inv rather than the singular zero-inverse convention. The product need not be symmetric at finite sample size, cannot be replaced by the smooth plug-in Hessian from (24), and does not justify inserting a transpose or symmetrization into later printed formulas."
+      }
+    },
+    {
+      "interface_id": "local-15aa0e65c31f30404d7d",
+      "related": ["Real.sqrt", "ContinuousMap.comp"],
+      "query": "Searched probability/analysis sources for localized drift and bootstrap rescaling; inspected Real.sqrt and bundled continuous-map composition against sqrt(n*a_n)*Mtilde(v/a_n).",
+      "result": "Real arithmetic and function composition express the rescaling. Bundled continuous composition is available only when its input paths have the required continuity, which the missing localized extension conventions do not automatically establish.",
+      "gap": "The rescaling needs the source's localized function domains and extension conventions before a suitable process-space implementation can be fixed.",
+      "comparisons": {
+        "D13": "At fixed n, compose the estimated drift with v mapped to v/a_n and multiply its value by sqrt(n*a_n). Keep sqrt of the product rather than sqrt(n)*a_n, and distinguish this transformed estimated drift from the deterministic target monomial and the uncorrected bootstrap drift. The transformation rule is deterministic while its input may be data-dependent. Real.sqrt supplies the scalar operation; ContinuousMap.comp is a possible representation only after continuity and compatible domains are established, and does not license an invented extension outside the localized source domain."
+      }
+    },
+    {
+      "interface_id": "local-69f032159463f8fd4997",
+      "related": ["MeasureTheory.TendstoInMeasure", "Filter.liminf"],
+      "query": "Inspected convergence-in-measure and convergence-in-distribution definitions, the weak topology on probability measures and Filter.liminf; compared Assumption C's conditional weak convergence and fixed-K probability bounds.",
+      "result": "The library separates convergence of random variables in measure from weak convergence of their laws. These are ingredients for conditional-law convergence, not a ready identification of the source's conditional process-space statement.",
+      "gap": "The conditional process laws and their weak topology, localized-domain conventions and common-c coercivity events still need to be specified.",
+      "comparisons": {
+        "D14": "The first clause is conditional weak convergence in probability of the scaled estimated drift to the target process, not unconditional TendstoInDistribution of the observed scalar values. A compatible metric on conditional probability laws could permit a TendstoInMeasure formulation, but the process space, conditional laws and equivalence require construction. The second clause uses the unscaled drift, liminf of the event probabilities equal to one, one c>0 common to all fixed K>0, and the infimum outside |v|>1/K. Do not interchange the quantifiers, make a single uniform-in-K event, replace the bound by a local condition or fill appendix-deferred extension conventions."
+      }
+    },
+    {
+      "interface_id": "local-0c1e306e197b2eb5f4f5",
+      "related": ["stereographic", "MeasureTheory.Measure.withDensity"],
+      "query": "Inspected sphere stereographic projection, its pole-excluded source and forward scale, plus withDensity; compared the paper's R-scaled projection and transformed-density formula.",
+      "result": "Mathlib supplies a stereographic partial homeomorphism and construction of a measure from a nonnegative density. Its stereographic scale is 2, so matching the paper's R requires an R/2 rescaling after identifying the pole-orthogonal hyperplane with R^d.",
+      "gap": "The R-scaled chart, surface-measure Jacobian and normalization of the transformed target still need to be connected to the existing projection and density APIs.",
+      "comparisons": {
+        "D2": "Take the pole to be the last coordinate unit vector and identify its orthogonal hyperplane with the first d coordinates; the library's factor 2/(1-z_last) becomes the source's R/(1-z_last) after multiplication by R/2. Retain the excluded north pole. The proportional density pi(SP(z))*(R^2+norm(SP(z))^2)^d is relative to the appropriate sphere reference measure, with a normalization constant still to establish; withDensity alone neither proves the Jacobian nor normalizes the measure. This is the explicit transformed target used by SBPS, not a replacement for SPS's directly printed acceptance ratio."
+      }
+    },
+    {
+      "interface_id": "local-55d46567a671fa73a270",
+      "related": ["gradient", "Submodule.reflection", "ProbabilityTheory.expMeasure", "stereographic"],
+      "query": "Searched all Mathlib for bouncy-particle, Poisson-process and stereographic sampler names; inspected gradient, subspace reflection, exponential measure and stereographic chart bodies against every SBPS algorithm branch.",
+      "result": "The gradient, isometric reflection, positive-rate exponential law and chart are available components. No located declaration implements this coupled great-circle flow, inhomogeneous bounce hazard, tangent-sphere refreshment and event-time stopping algorithm.",
+      "gap": "The spherical piecewise-deterministic process and its event laws, tangent refreshment, domain conventions and stopping behavior still require construction.",
+      "comparisons": {
+        "D5": "The state is a unit position with a perpendicular unit velocity. Preserve the great-circle sin/cos flow and its transported velocity, the positive-part directional log-density bounce intensity, and the separate constant-rate exponential refreshment clock. Reflection in the hyperplane orthogonal to the projected tangent gradient matches the printed velocity formula when that gradient is nonzero; reflection in its span has the opposite geometric convention. The ambient gradient needs a differentiable representation of log pi_S, and expMeasure is a probability law at positive refreshment rate. None of these primitives supplies a uniform unit tangent-sphere draw, conditional event-time law, absence of explosion, or stationarity. Keep the source's unresolved zero tangent gradient, north pole, conflicting full-sphere velocity prose, and first-event-at-or-beyond-T exit; do not insert interpolation back to T or a tie rule."
+      }
+    },
+    {
+      "interface_id": "local-7b277548afba442622dc",
+      "related": ["Matrix.IsHermitian.cfc", "cfc"],
+      "query": "Inspected Hermitian matrix functional calculus and generic cfc against the covariance estimator's upper eigenvalue clipping at a fixed large L.",
+      "result": "Applying min(lambda,L) through the matrix spectral calculus retains the eigenvectors and implements upper clipping. The source provides no numerical choice of L and no lower clipping threshold.",
+      "gap": "The upper-clipping matrix is directly expressible by spectral functional calculus, with the source's unspecified large-L choice remaining external to that construction.",
+      "comparisons": {
+        "D21": "Apply the real scalar function x mapped to min(x,L) to the Hermitian adjusted sample covariance. The resulting matrix has the same eigenspaces and retains zero modes; tau is only the source's superscript label. Do not add a positive lower clip or replace L by a data-dependent cutoff. For a PSD input and positive fixed L this yields bounded nonnegative spectral support, but neither the library definition nor this algebraic observation chooses how large L must be for the paper's later asymptotics."
+      }
+    },
+    {
+      "interface_id": "local-15147a4a739460d97192",
+      "related": ["LinearMap.IsSymmetric.eigenvectorBasis", "LinearMap.IsSymmetric.eigenvalues"],
+      "query": "Searched all Mathlib for Ledoit, nonlinear shrinkage and oracle covariance; inspected symmetric eigenbasis/eigenvalue APIs and Hermitian functional calculus against the exact piecewise oracle coefficient.",
+      "result": "Spectral decomposition supplies the reconstruction basis, but no located declaration implements these population Stieltjes boundary-value coefficients. The real scalar matrix calculus does not resolve the source's potentially complex ordinary-square denominator.",
+      "gap": "The population boundary values, their existence and nonvanishing, and the printed ordinary-square coefficient require separate specification before this oracle can be identified with a real covariance estimator.",
+      "comparisons": {
+        "D23": "Retain the eigenvectors of the truncated adjusted covariance and the special zero-eigenvalue branch only when y>1, using the underlined companion law's boundary value at zero. The otherwise branch uses the displayed ordinary square, not squared complex modulus; possible complex boundary values make replacing it substantive. Keep the companion transform relation, unindexed boundary-value shorthand and the otherwise branch's unhandled y=1/zero case. Finite symmetric spectral APIs provide eigenvectors and real eigenvalues, not the source's limiting law F, Stieltjes limits, their nonzero denominators or oracle optimality. Do not replace the coefficient by a corrected standard oracle formula."
+      }
+    },
+    {
+      "interface_id": "local-49c48bb92db89e4d16d4",
+      "related": ["Matrix.IsHermitian.cfc"],
+      "query": "Searched all Mathlib for Ledoit, Wolf and nonlinear shrinkage; inspected Hermitian spectral calculus and the retained source's external-algorithm limitation.",
+      "result": "The source-defined upper truncation can be represented spectrally, but the full Ledoit-Wolf algorithm is only referenced in the admitted main text, and no corresponding named library implementation was located.",
+      "gap": "The externally referenced nonlinear-shrinkage algorithm is still needed after the source-defined spectral truncation; the displayed population oracle cannot substitute for it.",
+      "comparisons": {
+        "D22": "The definition first clips eigenvalues above L while retaining eigenvectors, then calls the Ledoit-Wolf (2015) nonlinear-shrinkage algorithm and names its output TV-adj NLS. Matrix.IsHermitian.cfc supplies the clipping component only. The admitted passage lacks the numerical construction of the external shrinkage map, so neither a guessed scalar multiplier nor the population-law-dependent oracle in equation (2.13) establishes an implementation. The associated theorem compares this output with the oracle in dimension-normalized Frobenius error, not directly with the unconditional population covariance."
+      }
+    }
+  ]
+}

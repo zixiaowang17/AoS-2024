@@ -1,0 +1,758 @@
+[
+  {
+    "interface_id": "local-8d06582ff6a066c1671c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "ff173a0cc1d779d4d4fc652cd2bab37d82e731ed3737897fe8e81fecb13b3ffd",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D6",
+        "comparison": "For each sample-size row T use an integer-indexed real process with finite second moments, means zero and E[X_i*X_(i-j)]=E[X_0*X_(-j)] for every relevant i,j. Then covariance of X_i and X_(i-j) equals this raw product expectation. The lag may be represented by integer subtraction, so i-j must not be clamped to zero by natural subtraction. The process and sigma_j may depend on T; suppressing that index in the source does not make them a common fixed law across sample sizes. Weak stationarity is a second-order property and does not assert shift invariance of all finite-dimensional laws or iid/strictly stationary innovations. Bochner integration alone does not guarantee the required second moments.",
+        "statement_sha256": "4f57c5304e066bab255dc4e6418c8d35da89199d818924ab3f780c893ba7c079"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.covariance",
+          "type": "{Ω : Type u} → {mΩ : MeasurableSpace Ω} → (Ω → ℝ) → (Ω → ℝ) → MeasureTheory.Measure Ω → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Moments.Covariance",
+          "provides": "Centered scalar covariance as the integral of the product of the two mean-subtracted variables; coordinatewise use gives a population covariance matrix.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Moments/Covariance.lean#L44-L45",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Centered covariance agrees with the displayed raw second moment when both process coordinates have mean zero and the needed moments exist."
+        }
+      ],
+      "gap": "The zero-mean and time-invariant second-moment predicates express the weakly stationary autocovariance setting."
+    }
+  },
+  {
+    "interface_id": "local-f39200d6d69ce0992f37",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "a3caa1011b20c42fa1fefe98a05d55fb915aa9db1f13a154961ff7b3f5c9c469",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D7",
+        "comparison": "For positive T and the intended nonnegative lag j, sum X_i*X_(i-j) over integer indices j+1,...,T and divide by T, not T-j. At j=0 this is the average of X_i squared. No sample-mean subtraction appears because the population model is mean zero. There is no circular wrapping, zero padding or use of pre-sample observations in this estimator. This is distinct from the ideal centered sums over i=1,...,T used in the Gaussian approximants. If a lag leaves the observed range, the finite sum is empty; retain the applicable lag/sample-size domain rather than changing its bounds. Positive T is needed to avoid assigning the totalized reciprocal-zero value to a statistical sample.",
+        "statement_sha256": "e9c540aca0f577f6ad094624095df927e0230a77a15e484a29cff372334f7cf0"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_div",
+          "type": "∀ {ι : Type u} {K : Type v} [DivisionSemiring K] (s : Finset ι) (f : ι → K) (a : K), (∑ i ∈ s, f i) / a = ∑ i ∈ s, f i / a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Field",
+          "provides": "Normalization of a finite sum by a common denominator; totalized field division does not provide a statistical zero-denominator convention.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Field.lean#L26-L27",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "A finite lag-product sum divided by the sample size expresses the estimator exactly."
+        }
+      ],
+      "gap": "The finite sum directly represents the estimator with its original lag endpoints and denominator."
+    }
+  },
+  {
+    "interface_id": "local-ff65396e092a59640d2f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "c4040d35fbbdd1c9fb469db6850f2b464c1011a07a0c2fb8a646a68ec5dfc04d",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D14",
+        "comparison": "Use p-by-p real matrices indexed by positions 1,...,p, with Sigma[j,k]=sigma_(abs(j-k)), and gamma[j]=sigma_j. Absolute lag is the symmetric integer difference (or natural distance), not abs of already truncated natural subtraction. e_i is the coordinate vector here, distinct from the innovation with the same name earlier. T_i[j,k] is one exactly when abs(j-k)=i for i=0,...,p-1; T_0=I and positive i select BOTH off-diagonal bands. Preserve the stated nonsingularity for every positive order p; a real nonzero determinant provides the IsUnit determinant premise for actual matrix inversion. The later theorem’s uniform smallest-eigenvalue bound is a stronger separate assumption, not supplied by this notation.",
+        "statement_sha256": "87422c676979d2d5bb809dcf1ffa466ea47f60bf4d6d208b2b60ff56d4535af1"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Finite matrices and vectors express the Toeplitz covariance matrix, coordinate vectors and diagonal-band selector matrices."
+        }
+      ],
+      "gap": "The explicit entry formulas and nonsingularity assumption suffice to construct these objects, with invertibility justified separately for each order."
+    }
+  },
+  {
+    "interface_id": "local-b35a4abbd7dfbb35ba0c",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "4c0c6932274c3031ccb5cd1a52bf7e4482c03b04c339cfba8763338cbd8d6af5",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D12",
+        "comparison": "For a positive integer p form Sigma[k,j]=sigma_(abs(k-j)) and gamma[k]=sigma_k, and require mulVec Sigma a=gamma. The displayed definition supposes a solution exists; it does not itself state uniqueness or an invertible covariance matrix. When nonsingularity is separately available, a=Sigma inverse times gamma is the unique solution. These are prediction coefficients for a general weakly stationary process, including nonlinear processes; do not add an AR(p) data-generating equation with independent noise. The source’s positive spectral-density condition is offered as sufficient in prose, not part of every coefficient definition.",
+        "statement_sha256": "7d1ef37236d37d046009bce78f94f0edf946f24b548bccf8f8459d1a1fa69a59"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "The matrix equation Sigma times a equals gamma expresses the Yule-Walker system, and a nonsingular covariance matrix permits the inverse formula."
+        }
+      ],
+      "gap": "The linear system expresses the coefficient definition, while uniqueness or an inverse formula requires a nonsingularity premise beyond mere existence."
+    }
+  },
+  {
+    "interface_id": "local-e3e1e722e093b6bebbad",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "8bc3ab334a4e459b38f43e6e7fd9115c648f73b9a5e3a8b34cc5b8d5b69e39d6",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D13",
+        "comparison": "Construct sample Sigma[k,j]=sigma_hat_(abs(k-j)) and sample gamma[k]=sigma_hat_k using the T-denominator estimator (16), and solve sample Sigma times a_hat=sample gamma. An inverse expression is valid only after the sample matrix is shown nonsingular. The original sample definition provides neither a Moore-Penrose convention nor a value when the system has no unique solution; the explicit pseudoinverse appears later for the BOOTSTRAP estimator and must not be imported into this definition. The nonsingular-inverse operation’s singular fallback is likewise not an authorized estimator convention. Retain this domain issue and do not conflate moment fitting with sample least squares under a different endpoint convention.",
+        "statement_sha256": "95db22a017ffe6709ab4da1d89664c6002b18778eea7867f519f628386926cb2"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Replacing population entries by the displayed sample autocovariances gives a finite linear system for the moment estimator."
+        }
+      ],
+      "gap": "The sample system requires an existence/selection convention when singular; the source does not specify a pseudoinverse here."
+    }
+  },
+  {
+    "interface_id": "local-8318e08a560d728eb473",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "d34224b4ac4244943aba657242a63d9584f31e11eaccae374c6b635c7207898a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D11",
+        "comparison": "Define Z_i,j=-(sigma_j/sigma_0^2)*(X_i^2-sigma_0)+(1/sigma_0)*(X_i*X_(i-j)-sigma_j). The denominator sigma_0 is the lag-zero SECOND MOMENT, so sigma_0^2 is its square, not a replacement notation for the variance. The autocorrelation theorem assumes sigma_0>c>0; retain that domain instead of extending with real division by zero. This is a POPULATION linearization with population centering and coefficients, not an estimated residual and not the different Z used for AR coefficients or general linear combinations. Weak stationarity and mean zero justify the centered products; no claim that this equals the nonlinear estimator for finite samples is part of the definition.",
+        "statement_sha256": "95a5a66ae5908a7de7f207f71e482139859da46ae3f1a0b3d7ea70ae239e63e7"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "The displayed influence variable is an explicit linear combination of the centered lag-zero and lag-j products."
+        }
+      ],
+      "gap": "The algebraic expression gives the autocorrelation linearization once the positive population lag-zero variance and moments are supplied."
+    }
+  },
+  {
+    "interface_id": "local-339ed0355d4808f9231e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "f07521b1080007d02bed2879b7a9dc2ecb8e933048323d97aa37aa3f18abe1bb",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D15",
+        "comparison": "Build a p-by-(p+1) matrix whose columns are indexed 0,...,p: b0=-(Sigma inverse)*(Sigma inverse)*gamma; for 1<=i<=p-1, bi=Sigma inverse*e_i-Sigma inverse*T_i*Sigma inverse*gamma; and bp=Sigma inverse*e_p. Matrix multiplication is ordered; do not commute T_i past Sigma inverse or square inverse entries elementwise when interpreting Sigma^(-2). For p=1 the interior column range is empty but the two endpoint columns remain. The real covariance matrix is assumed nonsingular, justifying inverse identities. B here is a derivative matrix, not the growth exponent or bootstrap replicate count denoted by the same symbol elsewhere.",
+        "statement_sha256": "add1625b5f36b8866134fff1441f442455b9e03103fa9bcb6afb02ad8255514e"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.mul_nonsing_inv",
+          "type": "{n : Type u} → {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → (A : Matrix n n α) → IsUnit A.det → A * A⁻¹ = 1",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+          "provides": "The matrix inverse is a genuine right inverse when its determinant is a unit; singular matrices instead have a totalized zero inverse.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211-L213",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Matrix inversion and ordered matrix-vector products express all p+1 columns of the derivative matrix."
+        }
+      ],
+      "gap": "The column formulas are directly expressible under the nonsingularity of Sigma, preserving the distinct endpoint columns."
+    }
+  },
+  {
+    "interface_id": "local-fa4ce120ab22fc40b355",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "b388457fc8f9bb4d62d4189e62bbb5d26c42ea925f463059cfc3e0fe2d50c77c",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D16",
+        "comparison": "For j=1,...,p sum b_jk*(X_i*X_(i-k)-sigma_k^(i)) over k=0,...,p, including the squared-observation term k=0. The coefficients are the population B from the preceding definition, not estimated or bootstrap coefficients. The source prints sigma_k^(i), whose definition was not found in the main text. Under weak stationarity the natural inferred center is E[X_i*X_(i-k)]=sigma_k, but this is an interpretation, not a verified source definition; do not silently delete the superscript or claim mean zero before resolving it. Given a specified centering vector, mulVec B supplies precisely the finite linear combination.",
+        "statement_sha256": "b7dcb25daf03fc9e9d2fdd33f8f60a9b21911d31b8397a67979be7c9015bfb92"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "Finset.sum_apply",
+          "type": "{ι : Type u} → {α : Type v} → {M : α → Type w} → [∀ a, AddCommMonoid (M a)] → (a : α) → (s : Finset ι) → (g : ι → ∀ a, M a) → (∑ c ∈ s, g c) a = ∑ c ∈ s, g c a",
+          "declaration_kind": "thmInfo",
+          "module": "Mathlib.Algebra.BigOperators.Pi",
+          "provides": "Evaluating a finite sum of functions equals summing their values, retaining the supplied finite index set.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/BigOperators/Pi.lean#L44-L47",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Matrix-vector multiplication expresses the finite AR linearization once its centered-product vector is specified."
+        }
+      ],
+      "gap": "The finite sum is available, but the printed time-indexed centering sigma_k^(i) has no main-text definition and must remain an explicit source issue."
+    }
+  },
+  {
+    "interface_id": "local-d03761680fd5c09a5f5b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "3c8cc327a15e60e1bcc6a6b5bcec28080927c2700db26e6887e823980f07c293",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D18",
+        "comparison": "For each positive sample size take k_T>0 with k_T tending to positive infinity, and define v_T=k_T^(2-alpha) for 2<alpha<3, log(k_T)/k_T for alpha=3, and 1/k_T for alpha>3. The equality case has its own logarithmic factor; do not absorb it into either neighboring branch or extend the definition to alpha<=2. Positive bandwidths avoid nonpositive-base and zero-division defaults. In Theorem4 use alpha=alpha_X as directed, importing this numeric sequence alone rather than every assumption or conclusion of Lemma3. These bandwidths grow because they are dependence-lag windows, not shrinking density-estimation bandwidths.",
+        "statement_sha256": "88780301fa87b83d222c2bef55ee3313c47afb8802726ce802c5c867d6eb0957"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Real.rpow",
+          "type": "ℝ → ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+          "provides": "Real powers, agreeing with exp(y log x) for positive bases; the paper’s positive scale indices avoid special nonpositive-base conventions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L35-L36",
+          "link_checked": true
+        },
+        {
+          "name": "Real.log",
+          "type": "ℝ → ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+          "provides": "Real logarithm, with special extensions at nonpositive values; a density inequality must retain its explicit positivity assumptions.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44-L45",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Real powers, logarithms and a three-way case split express the bandwidth-dependent rate."
+        }
+      ],
+      "gap": "The displayed sequence is directly expressible on positive bandwidths with alpha greater than two and the separate divergence condition."
+    }
+  },
+  {
+    "interface_id": "local-81bdcdf40f3701771c7f",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "db9d5afc3f6d88e8ee4f79440937c0cb432ecd22ab47a43609e4058463780513",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D25",
+        "comparison": "For each branch take the Gaussian vector defined in its referenced theorem, map it to max of absolute coordinates over H for autocovariances, I for autocorrelations, or 1,...,p for AR coefficients, then evaluate the resulting real probability CDF on (-infinity,x]. The sets are nonempty; H can include lag zero while I excludes it. Coordinates generally are correlated, so the law is not a product of univariate Gaussian CDFs. All target covariances and hence H_tau may depend on T even though notation suppresses this. Theorem2(i) prints an unbound j in both covariance factors; retain that issue rather than silently using j1 and j2, even though the intended two-lag formula appears correctly later. These H_tau are population Gaussian reference laws, not the conditional bootstrap CDF or a fixed limiting distribution independent of T.",
+        "statement_sha256": "eb2545b3f43175068525cc286bb5d34cd3e68733420389a7636099d9ac7569d7"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.cdf",
+          "type": "MeasureTheory.Measure ℝ → StieltjesFunction ℝ",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.CDF",
+          "provides": "CDF of a real probability measure, agreeing with its mass on (-∞,x]; this defines Phi for the standard normal law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/CDF.lean#L57-L58",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.Measure.map",
+          "type": "{α : Type u} → {β : Type v} → [MeasurableSpace α] → [MeasurableSpace β] → (α → β) → MeasureTheory.Measure α → MeasureTheory.Measure β",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Measure.Map",
+          "provides": "Pushforward of a measure under an almost-everywhere measurable map; the nonmeasurable fallback does not have the intended pushforward interpretation.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Measure/Map.lean#L99-L106",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Pushing a finite-dimensional Gaussian law through the maximum absolute-coordinate function yields the real CDF used for each reference distribution."
+        }
+      ],
+      "gap": "The three Gaussian covariance targets must be kept distinct, with the autocovariance target’s printed lag-index ambiguity retained."
+    }
+  },
+  {
+    "interface_id": "local-075ee174caa710f916dd",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "5c13f79299226bc0b9d53b568887e0619bc22afea462efabe1a005b814237c78",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D17",
+        "comparison": "Use K:R→R with K>=0, Function.Even K, continuously differentiable K, K(0)=1, integrable K and AntitoneOn K on [0,infinity). The phrase decreasing is interpreted in its nonincreasing kernel sense. The negative-sign Fourier transform uses character exp(2*pi*i*t) in fourierIntegral with pairing t*x and Lebesgue measure; for real even K the imaginary part vanishes, and the Fourier nonnegativity assertion concerns that real-valued transform. Require its integrability too. K(0)=1 is NOT integral K=1, and compact support is not required. Positive-semidefiniteness of the matrix K((i-j)/k_T) is a consequence needing the Fourier argument, not provided merely by nonnegative entries or evenness. Preserve the printed spelling in the source statement without changing these mathematical predicates.",
+        "statement_sha256": "2de5dee607f5022e8fa5b1d0a5b192b6e598c6609e25d519d963945e65a0aa1f"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "VectorFourier.fourierIntegral",
+          "type": "{𝕜 : Type u} → [CommRing 𝕜] → {V : Type v} → [AddCommGroup V] → [Module 𝕜 V] → [MeasurableSpace V] → {W : Type w} → [AddCommGroup W] → [Module 𝕜 W] → {E : Type z} → [NormedAddCommGroup E] → [NormedSpace ℂ E] → AddChar 𝕜 Circle → MeasureTheory.Measure V → (V →ₗ[𝕜] W →ₗ[𝕜] 𝕜) → (V → E) → W → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Fourier.FourierTransform",
+          "provides": "Fourier integration with an explicit additive character and bilinear pairing, allowing the paper's positive-exponent convention to be encoded by the pairing.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Fourier/FourierTransform.lean#L82-L84",
+          "link_checked": true
+        },
+        {
+          "name": "Function.Even",
+          "type": "{α : Type u} → {β : Type v} → [Neg α] → (α → β) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Algebra.Group.EvenFunction",
+          "provides": "Evenness of a function as equality of values at opposite arguments.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Algebra/Group/EvenFunction.lean#L32-L32",
+          "link_checked": true
+        },
+        {
+          "name": "AntitoneOn",
+          "type": "{α : Type u} → {β : Type v} → [Preorder α] → [Preorder β] → (α → β) → Set α → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Order.Monotone.Defs",
+          "provides": "Nonincreasing behavior restricted to a given set, suitable for the density’s nonnegative half-line condition.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Order/Monotone/Defs.lean#L80-L81",
+          "link_checked": true
+        },
+        {
+          "name": "ContDiffOn",
+          "type": "(𝕜 : Type u) → [NontriviallyNormedField 𝕜] → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace 𝕜 E] → {F : Type w} → [NormedAddCommGroup F] → [NormedSpace 𝕜 F] → ℕ∞ω → (E → F) → Set E → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Calculus.ContDiff.Defs",
+          "provides": "Continuous differentiability of a specified order within a set; boundary and derivative-norm conventions remain additional requirements.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Calculus/ContDiff/Defs.lean#L472-L473",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Fourier integration and symmetry, differentiability and monotonicity predicates express the kernel assumptions with additional integrability and sign constraints."
+        }
+      ],
+      "gap": "The combined predicates express the kernel class once the real-valued nonnegative Fourier transform and both integrability conditions are specified."
+    }
+  },
+  {
+    "interface_id": "local-8094db65529956881202",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "b5e94b6bdc2182e02130f8cea29be875676a34ac776c6df16def4107e6094c84",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D10",
+        "comparison": "For each T form a p1-by-(d+1) deterministic real coefficient array, with uniformly bounded row squared-Euclidean norms and p1=O(T^alpha_p1), alpha_p1>=0. Define Z_i,k by multiplying row k into the vector X_i*X_(i-j)-E[X_i*X_(i-j)] for j=0,...,d. The expectation may depend on i because this section need not be weakly stationary; do not replace it by sigma_j from a later section. Coefficients and d,p1 may vary with T, and p1 need not equal d. The source notation defines deterministic O by a constant valid for all positive sample sizes; encode that using an existential positive constant and IsBigOWith on the principal filter of positive sizes, or explicitly justify any equivalent eventual form. Moment existence and uniformity over both indices remain needed.",
+        "statement_sha256": "30007acd5d51e6a95579d40258c6c6583844d638ebd9e625ff360387025224c9"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "Matrix.mulVec",
+          "type": "{m : Type u} → {n : Type v} → {α : Type w} → [NonUnitalNonAssocSemiring α] → [Fintype n] → Matrix m n α → (n → α) → (m → α)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "provides": "Finite matrix-vector multiplication, with each output coordinate equal to the dot product of a matrix row and the input vector.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Data/Matrix/Mul.lean#L698-L699",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Finite matrix-vector multiplication gives the centered linear combinations, while explicit uniform order bounds express the coefficient and dimension controls."
+        }
+      ],
+      "gap": "The definition is expressible with the stated uniform growth bounds and time-specific expectations, allowing all arrays to depend on sample size."
+    }
+  },
+  {
+    "interface_id": "local-219b445e12d1ab760178",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "0fc3bfd1c06e6365620db8f6ddeec0274d39f86beac2db8c76624781f7b1696b",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D4",
+        "comparison": "Retain the causal construction (2), mean zero for every integer time and coordinate, m>=4, alpha>1 and beta>=0. Uniformly bound the m-norms over all i in Z and j=1,...,d, then bound sup over k>=0 of (1+k)^alpha times the tail sum over l>=k of delta_m(l) by a constant times T^beta. delta_m itself takes the supremum over time and coordinates of the single-innovation-replacement Lm effect, and may depend on T. Prove finiteness before converting eLpNorm, infinite sums or suprema to real values, since totalization must not turn an infinite dependence tail into zero. Respect the source all-positive-T order convention with uniform constants; beta=0 is the short-range specialization, while beta>0 allows dependence to increase with sample size. The construction permits independent nonidentically distributed innovations and time-dependent generating functions; neither strict nor weak stationarity is part of this definition.",
+        "statement_sha256": "56b0e297df0506ce6549f397dce19aa99207ec93ba7352e52c8af075c1f7325b"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "MeasureTheory.integral",
+          "type": "{α : Type u} → {G : Type v} → [NormedAddCommGroup G] → [NormedSpace ℝ G] → {m : MeasurableSpace α} → MeasureTheory.Measure α → (α → G) → G",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+          "provides": "Bochner integration of a function; returns zero outside completeness/integrability, so intended operator integration needs those hypotheses.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean#L158-L161",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Lp seminorms, mean integrals and uniform norm bounds provide the numerical pieces of the medium-range dependence condition."
+        }
+      ],
+      "gap": "The causal replacement coupling and its finite uniform tail bounds must be supplied without replacing them by independence or stationarity."
+    }
+  },
+  {
+    "interface_id": "local-968bb0cb262e1c05cfe3",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "9a614069b8334c966fcc91e2b265d1c22c7e9fb6c59cc0ec650329bdf5f5ab42",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D5",
+        "comparison": "The prose explicitly specializes Definition1 to beta=0, retaining m>=4, alpha>1, zero means, uniformly bounded moments and a uniform weighted tail sum. However the printed remark sums delta_m(k) as l ranges from k to infinity, instead of summing delta_m(l) as in Definition1. For nonnegative coefficients this literal constant-summand series diverges whenever delta_m(k)>0 and is inconsistent with the intended condition. Record both versions and identify the beta-zero reading as an interpretation, not a transcription repair. In particular Lean real tsum on a nonsummable constant sequence can default to zero, so it must not be used to make the erroneous literal condition appear satisfied. No polynomial-mixing or iid condition is an interchangeable substitute for the defined replacement dependence.",
+        "statement_sha256": "183522019fd8dc02fc76187a0c08fe5e62046bedf09cc07a7f73f4a8a44a7592"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.eLpNorm",
+          "type": "{α : Type u} → {ε : Type v} → [ENorm ε] → {mα : MeasurableSpace α} → (α → ε) → ℝ≥0∞ → MeasureTheory.Measure α → ℝ≥0∞",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.LpSeminorm.Defs",
+          "provides": "Extended Lp seminorm for a supplied measure, including exponent two and empirical or density-weighted measures.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/LpSeminorm/Defs.lean#L85-L87",
+          "link_checked": true
+        },
+        {
+          "name": "Asymptotics.IsBigOWith",
+          "type": "{α : Type u} → {E : Type v} → {F : Type w} → [Norm E] → [Norm F] → ℝ → Filter α → (α → E) → (α → F) → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Analysis.Asymptotics.Defs",
+          "provides": "A norm comparison with an explicitly supplied constant; using the principal filter of the full domain gives an all-input bound rather than merely an eventual asymptotic bound.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Analysis/Asymptotics/Defs.lean#L73-L74",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "The explicit beta-zero specialization can use the same uniform dependence-tail predicate, but the following printed sum uses a different summand."
+        }
+      ],
+      "gap": "The intended beta-zero specialization is expressible, while the literal constant-summand display must remain unresolved rather than silently corrected."
+    }
+  },
+  {
+    "interface_id": "local-f73a1f20ef3aa271ba8b",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "ab676ed0f0fcce9cf5f2334ef3cf0b257773aeedb2d9b9cbbb8febdda61455ff",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D19",
+        "comparison": "Condition on the entire observed vector (X1,...,XT), using its generated sub-sigma-algebra. E-star of an integrable bootstrap quantity is condExp with respect to that sigma-algebra; Prob-star of an event is the conditional expectation of its indicator, or the event mass under a regular conditional bootstrap kernel. It is not conditioning on an equality event with positive probability assumed, and not merely conditioning on a fitted statistic. The conditional value is a random function of the observed data; the bootstrap randomness is integrated out. On the finite probability space setting the trimmed measure is finite, but measurability and integrability still need to be satisfied rather than using condExp’s zero fallback. Conditional kernels identify versions only almost everywhere under the data law, not at every imaginable sample vector.",
+        "statement_sha256": "1da21d40104aefaefb1159d88a27b5a7bdf3f292caf0c3cab9d8de3e1627ebca"
+      }
+    ],
+    "library_audit": {
+      "status": "composable",
+      "related_declarations": [
+        {
+          "name": "MeasureTheory.condExp",
+          "type": "{α : Type u} → {E : Type v} → [NormedAddCommGroup E] → [NormedSpace ℝ E] → (m : MeasurableSpace α) → {m₀ : MeasurableSpace α} → MeasureTheory.Measure α → (α → E) → α → E",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.MeasureTheory.Function.ConditionalExpectation.Basic",
+          "provides": "Conditional expectation relative to a sub-sigma-algebra, with zero fallback if the sigma-algebra, sigma-finiteness or integrability requirements fail.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/MeasureTheory/Function/ConditionalExpectation/Basic.lean#L102-L108",
+          "link_checked": true
+        },
+        {
+          "name": "ProbabilityTheory.condDistrib",
+          "type": "{α : Type u} → {β : Type v} → {Ω : Type w} → [MeasurableSpace Ω] → [StandardBorelSpace Ω] → [Nonempty Ω] → {mα : MeasurableSpace α} → [MeasurableSpace β] → (Y : α → Ω) → (X : α → β) → (μ : MeasureTheory.Measure α) → [MeasureTheory.IsFiniteMeasure μ] → ProbabilityTheory.Kernel β Ω",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Kernel.CondDistrib",
+          "provides": "A regular conditional distribution of Y given X as a Markov kernel; for measurable variables its conditional-probability interpretation is determined almost everywhere under the conditioning law.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Kernel/CondDistrib.lean#L64-L66",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "Conditional expectation relative to the sigma-algebra generated by the observed sample gives E-star, and conditional indicators or a regular conditional distribution give Prob-star."
+        }
+      ],
+      "gap": "These conditional constructions express the bootstrap law with measurable variables, integrability and the usual almost-everywhere version interpretation."
+    }
+  },
+  {
+    "interface_id": "local-111c564f191c166d652e",
+    "status": "reviewed",
+    "reviewed_at": "2026-09-11T22:00:30.360127+00:00",
+    "source_interface_sha256": "5f23bf74c37daf7d7ee2436dde4bc1bd0f7365d26dcd5c86ea1d56f6e2b8b54a",
+    "variant_reviews": [
+      {
+        "paper_id": "aos-2024-v52-i05-p2375",
+        "local_id": "D21",
+        "comparison": "For the given positive bandwidth k_T form C[j1,j2]=K((j1-j2)/k_T) on indices 1,...,T and use the centered Gaussian law with covariance C. K(0)=1 makes each marginal variance one; the vector is generally correlated, not T independent standard Gaussians. Nonnegative entries and symmetry alone do not imply PSD: the source’s nonnegative integrable Fourier transform provides the missing quadratic-form argument. Singular PSD covariance is allowed; positive definiteness is not required. multivariateGaussian maps a non-PSD input to a degenerate fallback, so checking PSD is essential to assert the prescribed covariance. To realize the bootstrap, generate fresh multiplier randomness with this law conditional on the observed data, independent of observations for fixed tuning parameters, rather than treating the source data as the Gaussian multipliers themselves.",
+        "statement_sha256": "092c09d15c1dbad2ad1c2033035aa95e56f3406b41b24498d22ad3fd324e6cdb"
+      }
+    ],
+    "library_audit": {
+      "status": "partial_match",
+      "related_declarations": [
+        {
+          "name": "ProbabilityTheory.multivariateGaussian",
+          "type": "{ι : Type u} → [Fintype ι] → [DecidableEq ι] → EuclideanSpace ℝ ι → Matrix ι ι ℝ → MeasureTheory.Measure (EuclideanSpace ℝ ι)",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.Probability.Distributions.Gaussian.Multivariate",
+          "provides": "Multivariate Gaussian measure formed as an affine image of the standard Gaussian; the intended covariance requires a PSD matrix, and a non-PSD matrix yields a Dirac measure.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean#L166-L168",
+          "link_checked": true
+        },
+        {
+          "name": "Matrix.PosSemidef",
+          "type": "{n : Type u} → {R : Type v} → [Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop",
+          "declaration_kind": "defnInfo",
+          "module": "Mathlib.LinearAlgebra.Matrix.PosDef",
+          "provides": "Hermitian matrices with nonnegative quadratic form on finitely supported vectors; for finite real matrices this gives the positive-semidefinite order.",
+          "url": "https://github.com/leanprover-community/mathlib4/blob/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09/Mathlib/LinearAlgebra/Matrix/PosDef.lean#L60-L61",
+          "link_checked": true
+        }
+      ],
+      "searches": [
+        {
+          "mechanism": "Archive-pinned local rg search and direct declaration/body inspection",
+          "query": "Pinned rg searches for Yule-Walker, Toeplitz, stationarity and autocovariance in Probability, Matrix and Analysis found no matching specialized interface; inspected covariance, integral, finite sums, mulVec, nonsingular inverse, PSD matrices, Gaussian laws, Fourier integral, conditional expectation/distribution, CDF, eLpNorm and asymptotic bounds; checked registered p2375 PDF pages 7-8,11-18,21-23 and its recorded source issues.",
+          "result": "The multivariate Gaussian constructor realizes a centered multiplier vector with the specified kernel covariance once that matrix is PSD."
+        }
+      ],
+      "gap": "The Fourier-based PSD argument and bootstrap-randomness construction must be supplied to obtain the intended conditional multiplier law."
+    }
+  }
+]
