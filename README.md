@@ -7,10 +7,7 @@ The full experiment covers **113 Annals of Statistics papers from 2024**, with *
 main-text Theorems** and **2,486 grouped interfaces**. The report and audit data are included;
 PDFs are not.
 
-**[Live dashboard](https://zixiaowang17.github.io/AoS-2024/experiments/aos-2024/report.html?view=apis)** ·
-**[Open the bundled report](experiments/aos-2024/report.html)** ·
-**[Browse the audit material](experiments/aos-2024/README.md)** ·
-**[What was reviewed](docs/review-summary.md)**
+**[Live dashboard](https://zixiaowang17.github.io/AoS-2024/experiments/aos-2024/report.html?view=apis)**
 
 Download or clone the repository and open the report locally. A repository file browser may
 show HTML as source; the root `index.html` also works when the repository is served as a
