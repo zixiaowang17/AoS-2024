@@ -45,9 +45,9 @@ def main():
             errors.append({'file':name,'issue':'PDF document'})
         if p.name.startswith('.env') or p.suffix.lower() in {'.pem','.key'}:
             errors.append({'file':name,'issue':'sensitive file type'})
-        if name == 'docs/dashboard.png':
+        if name in {'docs/dashboard.png', 'docs/paper-view.png'}:
             if not raw.startswith(b'\x89PNG\r\n\x1a\n'):
-                errors.append({'file':name,'issue':'invalid dashboard PNG'})
+                errors.append({'file':name,'issue':'invalid screenshot PNG'})
             entries[name]={'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
             continue
         if p.suffix not in ALLOWED_SUFFIXES and p.name not in ALLOWED_NAMES:

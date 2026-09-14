@@ -1,6 +1,6 @@
 # How far are we to formalize Annals of statistics?
 
-[![Statistical paper census dashboard showing ranked APIs, theorem and paper counts, and mathlib work estimates.](dashboard.png)](../experiments/aos-2024/report.html?view=apis)
+[![Top APIs view with the holomorphic functional calculus audit and highlighted source statement.](dashboard.png)](../experiments/aos-2024/report.html?view=apis)
 
 <div class="dashboard-actions">
 <a class="dashboard-cta" href="../experiments/aos-2024/report.html?view=apis">Explore the interactive dashboard</a>
@@ -16,12 +16,12 @@ To make the output stable, I built three reusable agent skills to help with this
 [Gromov–Wasserstein distances: Entropic regularization, duality and sample complexity](https://arxiv.org/pdf/2212.12848v3)
 and [Wasserstein convergence in Bayesian and frequentist deconvolution models](https://arxiv.org/pdf/2309.15300v1). The review involved checking statements, definitions, and check related mathlib declarations, and the HTML reader. Then I used the skill to scan all 113 papers, which covers **113 papers, 637 main-text Theorems and 2,486 grouped interfaces**. Lemmas in the main body are not being examined and appendix are negalected.
 
-[Explore the report](../experiments/aos-2024/report.html?view=apis)
-
 
 ## What the ranking shows
 
 The report has two filter: papers and APIs. I also highlighted the usage of the API back to the paper.
+
+[![By paper view showing the StarTrek paper, theorem statements and required APIs.](paper-view.png)](../experiments/aos-2024/report.html?view=paper)
 
 APIs are ranked by direct paper uses, then direct theorem uses. The
 displayed **Theorems / Papers** counts also include indirect dependencies.
