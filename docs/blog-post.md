@@ -7,62 +7,33 @@
 <span>Search 113 papers and 2,486 APIs.</span>
 </div>
 
+**[GitHub: AoS-2024](https://github.com/zixiaowang17/AoS-2024)**
 
 
 
-I have been working on StatLib and thinking about where a statistical library in Lean
-should start. One way to approach this is to look at the mathematics that papers actually
-use: which definitions recur, which theorems depend on them, and how much of that material
-mathlib already supports.
+I was trying to formalize some my own work recently and found definitions missing a lot. This motivated me to do a scan of Annals of Statistics (2024, 113 papers)to see how far are we even able to state the theorems in annals. 
 
-I built three reusable agent skills to help with this, and tried them on the 2024 volume
-of the *Annals of Statistics*. The saved experiment covers **113 papers, 637 main-text
-Theorems and 2,486 grouped interfaces**. An interface here is a definition, construction
-or mathematical condition that we might want to express in Lean.
+
+To make the output stable, I built three reusable agent skills to help with this, and calibrated the skill over two  two papers:
+[Gromov–Wasserstein distances: Entropic regularization, duality and sample complexity](https://arxiv.org/pdf/2212.12848v3)
+and [Wasserstein convergence in Bayesian and frequentist deconvolution models](https://arxiv.org/pdf/2309.15300v1). The review involved checking statements, definitions, and check related mathlib declarations, and the HTML reader. Then I used the skill to scan all 113 papers, which covers **113 papers, 637 main-text Theorems and 2,486 grouped interfaces**. Lemmas in the main body are not being examined and appendix are negalected.
 
 [Explore the report](../experiments/aos-2024/report.html?view=apis)
-or [browse the audit material](../experiments/aos-2024/README.md).
 
-## Starting with two papers
-
-I first worked through the workflow and reader in detail on two papers:
-[Gromov–Wasserstein distances: Entropic regularization, duality and sample complexity](https://arxiv.org/pdf/2212.12848v3)
-and [Wasserstein convergence in Bayesian and frequentist deconvolution models](https://arxiv.org/pdf/2309.15300v1).
-That trial contained 11 Theorems and 35 grouped interfaces.
-
-The review involved checking statements against the source PDFs, tracing how definitions
-enter the theorems, inspecting related mathlib declarations, and revising the HTML reader.
-I then used the workflow for the larger, agent-assisted run. The scope is results labeled
-**Theorem** in the main text; appendices, Lemmas, Propositions and Corollaries are outside
-this inventory.
 
 ## What the ranking shows
 
-The report has two views: papers and APIs. Selecting an API opens its original source
-passages, related theorem statements and recorded mathlib comparisons. You can follow
-the evidence behind an entry instead of relying on its title or color.
+The report has two filter: papers and APIs. I also highlighted the usage of the API back to the paper.
 
-Within each group, APIs are ranked by direct paper uses, then direct theorem uses. The
-displayed **Theorems / Papers** counts also include indirect dependencies, with each
-theorem and paper counted once. This is a way to see recurring demand; frequency alone
-does not decide what is most valuable to formalize.
+APIs are ranked by direct paper uses, then direct theorem uses. The
+displayed **Theorems / Papers** counts also include indirect dependencies.
 
-There are three work estimates:
+There are three labels:
+- **Green — Use mathlib:** the interface can be expressed directly using mathlib
+- **Yellow — Small adaptation:** math foundation exist, but a representation change or compatibility proof remains.
+- **Red — New infrastructure:**  core result still needs to be developed.
 
-- **Green — Use mathlib:** the interface can be expressed with existing operations;
-  no new mathematical proof is needed for that interface.
-- **Yellow — Small adaptation:** the mathematical ingredients exist, but a representation
-  change or compatibility proof remains.
-- **Red — New infrastructure:** a required construction or core result still needs to
-  be developed.
-
-The distinction is about the missing mathematics. A short definition does not necessarily
-mean there is a gap, and a missing core theorem remains a gap even if it can be proved
-from mathlib's foundations. Counting lines of Lean, or checking whether something can be
-written as an `abbrev`, would not give us this distinction.
-
-These labels concern the interface being audited. They do not say that every theorem
-using it has been proved in Lean.
+Of the 2,486 audited entries, 21.8% are green (542), 72.0% are yellow (1,790), and 6.2% are red (154).
 
 ## What you can reuse
 
@@ -72,24 +43,13 @@ The [three skills](../README.md#reusable-skills) cover separate stages:
 - `ranked-mathlib-audit` searches a pinned mathlib revision and records matches and gaps.
 - `statistical-census-html` turns those records into the searchable report.
 
-The release includes the full experiment, public review summaries and the underlying audit
-records. I have left
-out the PDFs, private logs and local machine paths. Paper links and source hashes remain
-so readers can identify the versions used.
-
 ## What still needs checking
 
-The detailed two-paper review does not establish the accuracy of all 113 papers. The
-larger run is agent-assisted, and its source interpretations, groupings and library
-matches need scrutiny. The audit records 542 green, 1,790 yellow and 154 red entries.
-Some labels were reassessed from stored evidence, and the boundary above was clarified
-afterward; not every older label has been checked again under that clarification.
-
-The library search uses a [fixed mathlib revision](https://github.com/leanprover-community/mathlib4/tree/4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09).
-This is a snapshot, and no paper theorem is
-claimed to have been formally proved by this project. The [review summary](../docs/review-summary.md)
-explains the scope and links to unresolved source questions.
+I didn not finish checking every paper manually, this result is just serve as an initial scan for people who are also curious about the question - how far are we even to state the results in statistics.
 
 I hope this helps people choose useful pieces of statistical infrastructure to work on.
-Corrections are welcome, especially when you can point to a source statement, a missed
-mathlib declaration, or a concrete reason to change an entry's work estimate.
+Corrections and comments are welcome! 
+
+## Next step
+
+The year I chose is just the year of 2024, multiple years could be checked (need a lot token i suspect), I also plan to scan Biometrika /JASA /JRSS-B.
