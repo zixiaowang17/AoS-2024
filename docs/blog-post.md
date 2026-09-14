@@ -7,8 +7,6 @@
 <span>Search 113 papers and 2,486 APIs.</span>
 </div>
 
-**[GitHub: AoS-2024](https://github.com/zixiaowang17/AoS-2024)**
-
 
 
 I was trying to formalize some my own work recently and found definitions missing a lot. This motivated me to do a scan of Annals of Statistics (2024, 113 papers)to see how far are we even able to state the theorems in annals. 
@@ -37,7 +35,7 @@ Of the 2,486 audited entries, 21.8% are green (542), 72.0% are yellow (1,790), a
 
 ## What you can reuse
 
-The [three skills](../README.md#reusable-skills) cover separate stages:
+The [AoS-2024 repository](https://github.com/zixiaowang17/AoS-2024) includes the dashboard, audit records and three reusable skills:
 
 - `statistical-paper-census` collects source statements and maps their dependencies.
 - `ranked-mathlib-audit` searches a pinned mathlib revision and records matches and gaps.
