@@ -17,6 +17,9 @@ def main():
         ["pandoc", "--from=gfm", "--to=html5"], input=source,
         capture_output=True, text=True, check=True,
     ).stdout
+    icon = (ROOT / "assets/github-icon.html").read_text()
+    repo_link = '<a href="https://github.com/zixiaowang17/AoS-2024">'
+    body = body.replace(repo_link, repo_link + icon)
     template = (ROOT / "assets/blog-template.html").read_text()
     page = template.replace("{{title}}", html.escape(title.group(1))).replace("{{body}}", body)
     (ROOT / "docs/blog-post.html").write_text(page)
